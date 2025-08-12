@@ -8,11 +8,11 @@ import { Node, AnswerFeedback } from '../types';
 
 // Import data
 import { getAllHierarchicalNodes, getCategoryLabels } from '../data/hierarchicalKnowledgeGraph';
-import { quizQuestions } from '../data/quizQuestions';
 import { domainIcons } from '../data/domainIcons';
 
 // Import hooks
 import { useUserStats } from '../hooks/useUserStats';
+import { useQuizQuestions } from '../hooks/useQuizQuestions';
 
 // Import utilities
 import { 
@@ -77,6 +77,11 @@ const App = () => {
   const [answerFeedback, setAnswerFeedback] = useState<AnswerFeedback | null>(null);
   const [showAuthModal, setShowAuthModal] = useState(false);
   const [showProfileModal, setShowProfileModal] = useState(false);
+  
+  // Fetch quiz questions from database
+  const { questions: currentQuizQuestions, loading: questionsLoading } = useQuizQuestions(
+    selectedNode?.id || null
+  );
 
   // Filter nodes based on view and search
   const filteredNodes = useMemo(() => 
@@ -91,11 +96,10 @@ const App = () => {
 
   // Handle quiz answer
   const handleAnswer = (answerIndex: number) => {
-    if (!selectedNode) return;
+    if (!selectedNode || !currentQuizQuestions.length) return;
     
     setSelectedAnswer(answerIndex);
-    const questions = quizQuestions[selectedNode.id] || quizQuestions['symbols-meaning'];
-    const question = questions[currentQuestion] || questions[0];
+    const question = currentQuizQuestions[currentQuestion] || currentQuizQuestions[0];
     const isCorrect = answerIndex === question.correct;
     
     setAnswerFeedback({
@@ -381,7 +385,8 @@ const App = () => {
                   } else if (state !== 'locked') {
                     // Handle regular node selection
                     setSelectedNode(node);
-                    if (state === 'available' && (quizQuestions[node.id] || quizQuestions['symbols-meaning'])) {
+                    if (state === 'available') {
+                      // Questions will be fetched via hook
                       setShowQuiz(true);
                     }
                   }
@@ -673,7 +678,7 @@ const App = () => {
 
             <div style={{ marginBottom: '20px' }}>
               <div style={{ fontSize: '14px', color: '#4a4a4a', fontWeight: '500', marginBottom: '5px' }}>
-                Question {currentQuestion + 1} of 1
+                Question {currentQuestion + 1} of {currentQuizQuestions.length || 1}
               </div>
               <div style={{ height: '4px', background: '#e0e0e0', borderRadius: '2px' }}>
                 <div style={{
@@ -686,36 +691,47 @@ const App = () => {
             </div>
 
             <div>
-              <h3 style={{ marginBottom: '20px', color: '#2a2a2a', fontWeight: '600' }}>
-                {(quizQuestions[selectedNode.id] || quizQuestions['symbols-meaning'])[0].question}
-              </h3>
-              
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
-                {(quizQuestions[selectedNode.id] || quizQuestions['symbols-meaning'])[0].options.map((option: string, idx: number) => (
-                  <button
-                    key={idx}
-                    onClick={() => !answerFeedback && handleAnswer(idx)}
-                    disabled={answerFeedback !== null}
-                    style={{
-                      padding: '15px',
-                      border: '2px solid',
-                      borderColor: answerFeedback && selectedAnswer === idx
-                        ? answerFeedback.isCorrect ? '#00c851' : '#ff4444'
-                        : '#e0e0e0',
-                      borderRadius: '10px',
-                      background: answerFeedback && selectedAnswer === idx
-                        ? answerFeedback.isCorrect ? '#e8f5e9' : '#ffebee'
-                        : 'white',
-                      cursor: answerFeedback ? 'default' : 'pointer',
-                      textAlign: 'left',
-                      transition: 'all 0.3s'
-                    }}
-                  >
-                    {option}
-                  </button>
-                ))}
-              </div>
-
+              {questionsLoading ? (
+                <div style={{ textAlign: 'center', padding: '40px', color: '#667eea' }}>
+                  Loading questions...
+                </div>
+              ) : currentQuizQuestions.length > 0 ? (
+                <>
+                  <h3 style={{ marginBottom: '20px', color: '#2a2a2a', fontWeight: '600' }}>
+                    {currentQuizQuestions[currentQuestion]?.question}
+                  </h3>
+                  
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+                    {currentQuizQuestions[currentQuestion]?.options.map((option: string, idx: number) => (
+                      <button
+                        key={idx}
+                        onClick={() => !answerFeedback && handleAnswer(idx)}
+                        disabled={answerFeedback !== null}
+                        style={{
+                          padding: '15px',
+                          border: '2px solid',
+                          borderColor: answerFeedback && selectedAnswer === idx
+                            ? answerFeedback.isCorrect ? '#00c851' : '#ff4444'
+                            : '#e0e0e0',
+                          borderRadius: '10px',
+                          background: answerFeedback && selectedAnswer === idx
+                            ? answerFeedback.isCorrect ? '#e8f5e9' : '#ffebee'
+                            : 'white',
+                          cursor: answerFeedback ? 'default' : 'pointer',
+                          textAlign: 'left',
+                          transition: 'all 0.3s'
+                        }}
+                      >
+                        {option}
+                      </button>
+                    ))}
+                  </div>
+                </>
+              ) : (
+                <div style={{ textAlign: 'center', padding: '40px', color: '#999' }}>
+                  No questions available for this topic yet.
+                </div>
+              )}
               {answerFeedback && (
                 <div style={{
                   marginTop: '20px',

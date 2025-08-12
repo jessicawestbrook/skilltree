@@ -16,6 +16,11 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "NeuroQuest - Master All Human Knowledge",
   description: "An interactive learning platform to master knowledge across all domains",
+  icons: {
+    icon: '/favicon.svg',
+    apple: '/apple-icon.png',
+  },
+  manifest: '/manifest.json',
 };
 
 export default function RootLayout({
