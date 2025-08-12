@@ -29,7 +29,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
           setUser(userData);
         }
       } catch {
-        console.error('Error checking auth:', err);
+        console.error('Error checking auth');
         localStorage.removeItem('neuroquest_user');
       } finally {
         setIsLoading(false);
@@ -112,7 +112,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       localStorage.removeItem('neuroquest_user');
       setError(null);
     } catch {
-      console.error('Logout error:', err);
+      console.error('Logout error');
     } finally {
       setIsLoading(false);
     }
