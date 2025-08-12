@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState, useEffect, useMemo, CSSProperties } from 'react';
-import { Brain, Trophy, Star, Lock, CheckCircle, X, ChevronRight, Grid, Map, User, ChevronDown, ChevronRight as ChevronRightIcon, Plus, Minus } from 'lucide-react';
+import { Brain, Trophy, Star, Lock, CheckCircle, X, ChevronRight, Grid, Map, User, Plus, Minus } from 'lucide-react';
 
 // Import types
 import { Node, AnswerFeedback } from '../types';
@@ -63,7 +63,7 @@ const App = () => {
   const connections = useMemo(() => createHierarchicalConnections(visibleNodes), [visibleNodes]);
 
   // User stats hook
-  const { userStats, completeNode, calculateProgress } = useUserStats();
+  const { userStats, completeNode } = useUserStats();
 
   // State management
   const [selectedNode, setSelectedNode] = useState<Node | null>(null);

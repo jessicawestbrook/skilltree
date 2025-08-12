@@ -396,9 +396,9 @@ export const getAllHierarchicalNodes = (expandedNodes: Set<string> = new Set()):
     
     if (typeof domains === 'object' && !Array.isArray(domains)) {
       // Process each domain in the category
-      Object.entries(domains).forEach(([domainName, domainNodes], domainIndex) => {
-        let domainX = 50 + (domainIndex % 3) * 400; // 3 columns max, better spacing
-        let domainY = globalY + Math.floor(domainIndex / 3) * 400; // Row spacing for domains
+      Object.entries(domains).forEach(([, domainNodes], domainIndex) => {
+        const domainX = 50 + (domainIndex % 3) * 400; // 3 columns max, better spacing
+        const domainY = globalY + Math.floor(domainIndex / 3) * 400; // Row spacing for domains
         let currentY = domainY;
         
         // Process nodes in this domain
@@ -421,7 +421,7 @@ export const getAllHierarchicalNodes = (expandedNodes: Set<string> = new Set()):
           // If this is an expanded parent node, add its subnodes
           if (node.isParent && node.subnodes && expandedNodes.has(node.id)) {
             const subnodesPerRow = 3;
-            let subnodeY = nodeY + 110; // Space below parent
+            const subnodeY = nodeY + 110; // Space below parent
             
             node.subnodes.forEach((subnode, subIndex) => {
               const row = Math.floor(subIndex / subnodesPerRow);
@@ -450,7 +450,7 @@ export const getAllHierarchicalNodes = (expandedNodes: Set<string> = new Set()):
       });
     } else if (Array.isArray(domains)) {
       // Process mastery nodes (single array)
-      let currentX = 50;
+      const currentX = 50;
       (domains as Node[]).forEach((node, nodeIndex) => {
         const processedNode = {
           ...node,
@@ -468,12 +468,14 @@ export const getAllHierarchicalNodes = (expandedNodes: Set<string> = new Set()):
   });
   
   // Add category labels to the export
-  (nodes as any).categoryLabels = categoryLabels;
+  const nodesWithLabels = nodes as Node[] & { categoryLabels: typeof categoryLabels };
+  nodesWithLabels.categoryLabels = categoryLabels;
   
-  return nodes;
+  return nodesWithLabels;
 };
 
 // Helper to get category labels
 export const getCategoryLabels = (nodes: Node[]): { [key: string]: { y: number, name: string } } => {
-  return (nodes as any).categoryLabels || {};
+  const nodesWithLabels = nodes as Node[] & { categoryLabels?: { [key: string]: { y: number, name: string } } };
+  return nodesWithLabels.categoryLabels || {};
 };

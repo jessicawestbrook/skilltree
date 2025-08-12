@@ -28,7 +28,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
           }
           setUser(userData);
         }
-      } catch (err) {
+      } catch {
         console.error('Error checking auth:', err);
         localStorage.removeItem('neuroquest_user');
       } finally {
@@ -62,7 +62,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       localStorage.setItem('neuroquest_user', JSON.stringify(mockUser));
       
       return { success: true };
-    } catch (err) {
+    } catch {
       const errorMessage = 'Login failed. Please try again.';
       setError(errorMessage);
       return { success: false, error: errorMessage };
@@ -93,7 +93,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       localStorage.setItem('neuroquest_user', JSON.stringify(mockUser));
       
       return { success: true };
-    } catch (err) {
+    } catch {
       const errorMessage = 'Registration failed. Please try again.';
       setError(errorMessage);
       return { success: false, error: errorMessage };
@@ -111,7 +111,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       setUser(null);
       localStorage.removeItem('neuroquest_user');
       setError(null);
-    } catch (err) {
+    } catch {
       console.error('Logout error:', err);
     } finally {
       setIsLoading(false);
@@ -133,7 +133,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       localStorage.setItem('neuroquest_user', JSON.stringify(updatedUser));
       
       return { success: true };
-    } catch (err) {
+    } catch {
       const errorMessage = 'Profile update failed. Please try again.';
       setError(errorMessage);
       return { success: false, error: errorMessage };
