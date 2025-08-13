@@ -23,7 +23,7 @@ export interface CourseSection {
   content: string;
   media_url?: string;
   media_type?: 'image' | 'video' | 'diagram' | 'code';
-  interactive_elements?: any[];
+  interactive_elements?: unknown[];
 }
 
 export interface CourseResource {
@@ -113,7 +113,7 @@ export class CourseContentService {
    */
   static async upsertContent(nodeId: string, content: Partial<CourseContent>): Promise<boolean> {
     try {
-      const { data, error } = await supabase
+      const { error } = await supabase
         .from('course_content')
         .upsert({
           node_id: nodeId,
@@ -254,7 +254,13 @@ export class CourseContentService {
   /**
    * Get all content summaries (for admin)
    */
-  static async getAllContentSummaries(): Promise<any[]> {
+  static async getAllContentSummaries(): Promise<Array<{
+    id: string;
+    node_id: string;
+    title: string;
+    estimated_time: number;
+    updated_at: string;
+  }>> {
     try {
       const { data, error } = await supabase
         .from('course_content')
@@ -281,7 +287,7 @@ export class CourseContentService {
         .single();
 
       return !!data && !error;
-    } catch (error) {
+    } catch {
       return false;
     }
   }

@@ -2,10 +2,11 @@
 
 An interactive knowledge learning platform that gamifies education across all domains of human knowledge. Master subjects from fundamental concepts to advanced topics through an engaging visual knowledge graph.
 
-![NeuroQuest](https://img.shields.io/badge/version-0.1.0-blue)
+![NeuroQuest](https://img.shields.io/badge/version-0.2.0-blue)
 ![Next.js](https://img.shields.io/badge/Next.js-15.4.6-black)
 ![React](https://img.shields.io/badge/React-19.1.0-61dafb)
 ![TypeScript](https://img.shields.io/badge/TypeScript-5.0-blue)
+![Tailwind CSS](https://img.shields.io/badge/Tailwind-3.4.0-38B2AC)
 ![Supabase](https://img.shields.io/badge/Supabase-2.55.0-green)
 
 ## ✨ Features
@@ -34,6 +35,15 @@ An interactive knowledge learning platform that gamifies education across all do
 - **User Profiles**: Track achievements, neural level, and learning streaks
 - **Leaderboard**: Compete with other learners
 - **Learning Paths**: 7 curated paths for different learning goals
+- **Course Content System**: Rich learning materials with sections, resources, and tips
+- **Learning Modal**: Integrated content delivery with quiz challenges
+- **Dark Mode Support**: Full theme support across the application
+
+### 🏠 Landing Page
+- **Modern Homepage**: Beautiful landing page for non-authenticated users
+- **Feature Highlights**: Showcase platform capabilities
+- **Call-to-Action**: Easy signup/signin flow
+- **Responsive Design**: Mobile-first approach with Tailwind CSS
 
 ### 🛠️ Admin Interface
 - **Dashboard**: Real-time statistics and quick actions
@@ -197,6 +207,8 @@ neuroquest/
 ```bash
 npm run dev                # Start development server
 npm run build             # Build for production
+npm run lint              # Run ESLint
+npm run type-check        # Run TypeScript compiler
 npm run start             # Start production server
 npm run lint              # Run ESLint
 npm run migrate:all       # Run all data migrations
@@ -273,6 +285,28 @@ Edit `scripts/migrate-learning-paths.js`:
 - [ ] Content creator tools
 - [ ] AI-powered learning recommendations
 - [ ] Multiplayer challenges
+
+## 📊 Recent Updates (v0.2.0)
+
+### New Features
+- 🏠 **Landing Page**: Beautiful homepage for non-authenticated users
+- 🎨 **Modern UI Components**: Redesigned header, sidebar, and layout
+- 📚 **Course Content System**: Rich learning materials integrated with quiz system
+- 🌙 **Dark Mode**: Full theme support with ThemeContext
+- 🔧 **Code Quality**: Fixed all ESLint errors, improved TypeScript types
+- 📱 **Responsive Design**: Mobile-first approach with Tailwind CSS v3
+
+### Improvements
+- ✅ Cleaned up unused imports and variables
+- ✅ Fixed React Hook dependencies
+- ✅ Improved TypeScript type safety
+- ✅ Enhanced component modularity
+- ✅ Better error handling throughout
+
+### Tech Stack Updates
+- Migrated to Tailwind CSS v3.4.0
+- Updated PostCSS configuration
+- Improved build performance
 
 ## 🤝 Contributing
 

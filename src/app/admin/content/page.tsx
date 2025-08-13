@@ -2,8 +2,7 @@
 
 import React, { useEffect, useState } from 'react';
 import { CourseContentService } from '@/services/courseContentService';
-import { supabase } from '@/lib/supabase';
-import { BookOpen, Clock, Plus, Edit, Trash2 } from 'lucide-react';
+import { BookOpen, Clock, Plus, Edit } from 'lucide-react';
 
 interface ContentSummary {
   id: string;

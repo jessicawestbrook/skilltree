@@ -9,6 +9,7 @@ interface HeaderProps {
   calculateProgress: () => number;
   onAuthClick: () => void;
   onProfileClick: () => void;
+  onLogout?: () => void;
 }
 
 export const Header: React.FC<HeaderProps> = ({ userStats, isMobile, calculateProgress, onAuthClick, onProfileClick }) => {

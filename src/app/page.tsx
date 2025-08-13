@@ -25,13 +25,18 @@ import {
 } from '../utils/hierarchicalNodeUtils';
 
 // Import components
-import { Header } from '../components/Header';
-import { Sidebar } from '../components/Sidebar';
+import ModernHeader from '../components/ModernHeader';
+import ModernSidebar from '../components/ModernSidebar';
+import Layout from '../components/Layout';
 import { AuthModal } from '../components/AuthModal';
 import { UserProfile } from '../components/UserProfile';
 import LearningModal from '../components/LearningModal';
+import { Homepage } from '../components/Homepage';
 
 const App = () => {
+  // Authentication state
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  
   // Responsive detection
   const [isMobile, setIsMobile] = useState(false);
   const [activeTab, setActiveTab] = useState('graph');
@@ -226,52 +231,56 @@ const App = () => {
 
   // Mobile navigation
   const MobileNav = () => (
-    <div style={{
-      position: 'fixed',
-      bottom: 0,
-      left: 0,
-      right: 0,
-      background: 'white',
-      borderTop: '1px solid #ddd',
-      display: 'flex',
-      justifyContent: 'space-around',
-      padding: '10px 0',
-      zIndex: 1000
-    }}>
-      <button onClick={() => setActiveTab('graph')} style={{ 
-        background: 'none', 
-        border: 'none', 
-        padding: '5px',
-        color: activeTab === 'graph' ? '#667eea' : '#4a4a4a'
-      }}>
+    <div className="fixed bottom-0 left-0 right-0 bg-white dark:bg-gray-800 border-t border-gray-200 dark:border-gray-700 flex justify-around py-2 z-[1000]">
+      <button 
+        onClick={() => setActiveTab('graph')} 
+        className={`flex flex-col items-center justify-center p-2 ${activeTab === 'graph' ? 'text-purple-600' : 'text-gray-500 dark:text-gray-400'}`}
+      >
         <Grid size={24} />
-        <div style={{ fontSize: '10px' }}>Map</div>
+        <div className="text-[10px] mt-1">Map</div>
       </button>
-      <button onClick={() => setActiveTab('paths')} style={{ 
-        background: 'none', 
-        border: 'none', 
-        padding: '5px',
-        color: activeTab === 'paths' ? '#667eea' : '#4a4a4a'
-      }}>
+      <button 
+        onClick={() => setActiveTab('paths')} 
+        className={`flex flex-col items-center justify-center p-2 ${activeTab === 'paths' ? 'text-purple-600' : 'text-gray-500 dark:text-gray-400'}`}
+      >
         <Map size={24} />
-        <div style={{ fontSize: '10px' }}>Paths</div>
+        <div className="text-[10px] mt-1">Paths</div>
       </button>
-      <button onClick={() => setActiveTab('profile')} style={{ 
-        background: 'none', 
-        border: 'none', 
-        padding: '5px',
-        color: activeTab === 'profile' ? '#667eea' : '#4a4a4a'
-      }}>
+      <button 
+        onClick={() => setActiveTab('profile')} 
+        className={`flex flex-col items-center justify-center p-2 ${activeTab === 'profile' ? 'text-purple-600' : 'text-gray-500 dark:text-gray-400'}`}
+      >
         <User size={24} />
-        <div style={{ fontSize: '10px' }}>Profile</div>
+        <div className="text-[10px] mt-1">Profile</div>
       </button>
     </div>
   );
 
+  // Show homepage if not authenticated
+  if (!isAuthenticated) {
+    return (
+      <>
+        <Homepage 
+          onGetStarted={() => {
+            setShowAuthModal(true);
+          }}
+        />
+        <AuthModal 
+          isOpen={showAuthModal} 
+          onClose={() => setShowAuthModal(false)}
+          onSuccess={() => {
+            setIsAuthenticated(true);
+            setShowAuthModal(false);
+          }}
+        />
+      </>
+    );
+  }
+
   return (
-    <div style={styles.container}>
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-slate-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900">
       {/* Header */}
-      <Header 
+      <ModernHeader 
         userStats={userStats} 
         isMobile={isMobile} 
         calculateProgress={() => calculateHierarchicalProgress(allNodes, userStats.conqueredNodes, expandedNodes)}
@@ -279,10 +288,10 @@ const App = () => {
         onProfileClick={() => setShowProfileModal(true)}
       />
 
-      <div style={styles.mainGrid}>
-        {/* Left Sidebar - Filters */}
-        {!isMobile && (
-          <Sidebar
+      <Layout
+        isMobile={isMobile}
+        sidebar={
+          <ModernSidebar
             searchTerm={searchTerm}
             setSearchTerm={setSearchTerm}
             currentView={currentView}
@@ -290,8 +299,85 @@ const App = () => {
             activeFilters={activeFilters}
             toggleFilter={toggleFilter}
           />
-        )}
+        }
+        rightPanel={
+          <div className="space-y-4">
+            {/* User Stats */}
+            <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-4">
+              <h3 className="text-base font-bold text-gray-900 dark:text-gray-100 mb-4">Your Progress</h3>
+              <div className="text-center mb-5">
+                <div className="w-20 h-20 mx-auto mb-3 bg-gradient-to-br from-purple-600 to-blue-600 rounded-full flex items-center justify-center">
+                  <User size={40} className="text-white" />
+                </div>
+                <div className="font-bold text-lg text-gray-900 dark:text-gray-100">{userStats.title}</div>
+                <div className="text-xs text-gray-600 dark:text-gray-400 font-medium">Level {userStats.neuralLevel}</div>
+              </div>
+              
+              <div className="grid grid-cols-2 gap-2">
+                <div className="bg-gray-50 dark:bg-gray-900 p-3 rounded-lg text-center">
+                  <div className="text-lg font-bold text-purple-600 dark:text-purple-400">
+                    {userStats.conqueredNodes.length}
+                  </div>
+                  <div className="text-[10px] text-gray-600 dark:text-gray-400 font-semibold uppercase">Conquered</div>
+                </div>
+                <div className="bg-gray-50 dark:bg-gray-900 p-3 rounded-lg text-center">
+                  <div className="text-lg font-bold text-blue-600 dark:text-blue-400">
+                    {userStats.memoryCrystals}
+                  </div>
+                  <div className="text-[10px] text-gray-600 dark:text-gray-400 font-semibold uppercase">Crystals</div>
+                </div>
+              </div>
+            </div>
 
+            {/* Recent Achievements */}
+            <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-4">
+              <h3 className="text-base font-bold text-gray-900 dark:text-gray-100 mb-4">Recent Achievements</h3>
+              <div className="space-y-2">
+                <div className="flex items-center gap-3 p-3 bg-gray-50 dark:bg-gray-900 rounded-lg">
+                  <Trophy size={20} className="text-yellow-500" />
+                  <div>
+                    <div className="text-sm font-bold text-gray-900 dark:text-gray-100">First Steps</div>
+                    <div className="text-xs text-gray-600 dark:text-gray-400">Complete 5 nodes</div>
+                  </div>
+                </div>
+                <div className="flex items-center gap-3 p-3 bg-gray-50 dark:bg-gray-900 rounded-lg">
+                  <Star size={20} className="text-purple-600" />
+                  <div>
+                    <div className="text-sm font-bold text-gray-900 dark:text-gray-100">Quick Learner</div>
+                    <div className="text-xs text-gray-600 dark:text-gray-400">Complete 3 nodes in one day</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Suggested Next */}
+            <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-4">
+              <h3 className="text-base font-bold text-gray-900 dark:text-gray-100 mb-4">Suggested Next</h3>
+              <div className="space-y-2">
+                {filteredNodes
+                  .filter(n => getNodeState(n.id, userStats.conqueredNodes, allNodes) === 'available')
+                  .slice(0, 3)
+                  .map(node => {
+                    const Icon = domainIcons[node.domain] || Brain;
+                    return (
+                      <div 
+                        key={node.id}
+                        className="p-3 bg-gray-50 dark:bg-gray-900 rounded-lg cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors flex items-center gap-3"
+                        onClick={() => setSelectedNode(node)}
+                      >
+                        <Icon size={20} color="#9333ea" />
+                        <div>
+                          <div className="text-sm font-bold text-gray-900 dark:text-gray-100">{node.name}</div>
+                          <div className="text-xs text-gray-600 dark:text-gray-400 font-medium">+{node.points} points</div>
+                        </div>
+                      </div>
+                    );
+                  })}
+              </div>
+            </div>
+          </div>
+        }
+      >
         {/* Knowledge Graph */}
         <div style={{
           ...styles.graphContainer,
@@ -542,103 +628,7 @@ const App = () => {
             </div>
           )}
         </div>
-
-        {/* Right Sidebar - Stats */}
-        {!isMobile && (
-          <div>
-            {/* User Stats */}
-            <div style={styles.panel}>
-              <h3 style={{ fontSize: '16px', marginBottom: '15px', color: '#2a2a2a', fontWeight: 'bold' }}>Your Progress</h3>
-              <div style={{ textAlign: 'center', marginBottom: '20px' }}>
-                <div style={{ 
-                  width: '80px', 
-                  height: '80px', 
-                  margin: '0 auto',
-                  background: 'linear-gradient(135deg, #667eea, #764ba2)',
-                  borderRadius: '50%',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  marginBottom: '10px'
-                }}>
-                  <User size={40} color="white" />
-                </div>
-                <div style={{ fontWeight: 'bold', fontSize: '18px', color: '#2a2a2a' }}>{userStats.title}</div>
-                <div style={{ fontSize: '12px', color: '#5a5a5a', fontWeight: '500' }}>Level {userStats.neuralLevel}</div>
-              </div>
-              
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '10px' }}>
-                <div style={{ background: '#f8f8f8', padding: '10px', borderRadius: '8px', textAlign: 'center' }}>
-                  <div style={{ fontSize: '18px', fontWeight: 'bold', color: '#667eea' }}>
-                    {userStats.conqueredNodes.length}
-                  </div>
-                  <div style={{ fontSize: '10px', color: '#5a5a5a', fontWeight: '600' }}>CONQUERED</div>
-                </div>
-                <div style={{ background: '#f8f8f8', padding: '10px', borderRadius: '8px', textAlign: 'center' }}>
-                  <div style={{ fontSize: '18px', fontWeight: 'bold', color: '#764ba2' }}>
-                    {userStats.memoryCrystals}
-                  </div>
-                  <div style={{ fontSize: '10px', color: '#5a5a5a', fontWeight: '600' }}>CRYSTALS</div>
-                </div>
-              </div>
-            </div>
-
-            {/* Recent Achievements */}
-            <div style={{ ...styles.panel, marginTop: '15px' }}>
-              <h3 style={{ fontSize: '16px', marginBottom: '15px', color: '#2a2a2a', fontWeight: 'bold' }}>Recent Achievements</h3>
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '10px', padding: '10px', background: '#f8f8f8', borderRadius: '8px' }}>
-                  <Trophy size={20} color="#ffd700" />
-                  <div>
-                    <div style={{ fontSize: '13px', fontWeight: 'bold', color: '#2a2a2a' }}>First Steps</div>
-                    <div style={{ fontSize: '11px', color: '#4a4a4a' }}>Complete 5 nodes</div>
-                  </div>
-                </div>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '10px', padding: '10px', background: '#f8f8f8', borderRadius: '8px' }}>
-                  <Star size={20} color="#667eea" />
-                  <div>
-                    <div style={{ fontSize: '13px', fontWeight: 'bold', color: '#2a2a2a' }}>Quick Learner</div>
-                    <div style={{ fontSize: '11px', color: '#4a4a4a' }}>Complete 3 nodes in one day</div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            {/* Suggested Next */}
-            <div style={{ ...styles.panel, marginTop: '15px' }}>
-              <h3 style={{ fontSize: '16px', marginBottom: '15px', color: '#2a2a2a', fontWeight: 'bold' }}>Suggested Next</h3>
-              {filteredNodes
-                .filter(n => getNodeState(n.id, userStats.conqueredNodes, allNodes) === 'available')
-                .slice(0, 3)
-                .map(node => {
-                  const Icon = domainIcons[node.domain] || Brain;
-                  return (
-                    <div 
-                      key={node.id}
-                      style={{ 
-                        padding: '10px', 
-                        background: '#f8f8f8', 
-                        borderRadius: '8px', 
-                        marginBottom: '8px',
-                        cursor: 'pointer',
-                        display: 'flex',
-                        alignItems: 'center',
-                        gap: '10px'
-                      }}
-                      onClick={() => setSelectedNode(node)}
-                    >
-                      <Icon size={20} color="#667eea" />
-                      <div>
-                        <div style={{ fontSize: '13px', fontWeight: 'bold', color: '#2a2a2a' }}>{node.name}</div>
-                        <div style={{ fontSize: '11px', color: '#4a4a4a', fontWeight: '500' }}>+{node.points} points</div>
-                      </div>
-                    </div>
-                  );
-                })}
-            </div>
-          </div>
-        )}
-      </div>
+      </Layout>
 
       {/* Learning Modal */}
       {selectedNode && (
@@ -653,7 +643,7 @@ const App = () => {
           nodeId={selectedNode.id}
           nodeTitle={selectedNode.name}
           questions={currentQuizQuestions}
-          onComplete={(passed, score) => {
+          onComplete={(passed) => {
             if (passed && selectedNode) {
               const wasNewlyCompleted = completeNode(selectedNode.id, selectedNode.points);
               if (wasNewlyCompleted) {
@@ -785,25 +775,15 @@ const App = () => {
 
       {/* Achievement Popup */}
       {showAchievement && (
-        <div style={{
-          position: 'fixed',
-          top: '20px',
-          right: '20px',
-          background: 'white',
-          borderRadius: '15px',
-          padding: '20px',
-          boxShadow: '0 10px 30px rgba(0,0,0,0.2)',
-          zIndex: 1001,
-          animation: 'slideIn 0.5s ease-out'
-        }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '15px' }}>
-            <Trophy size={40} color="#ffd700" />
+        <div className="fixed top-5 right-5 bg-white dark:bg-gray-800 rounded-2xl p-5 shadow-2xl z-[1001] animate-slideIn">
+          <div className="flex items-center gap-4">
+            <Trophy size={40} className="text-yellow-500" />
             <div>
-              <div style={{ fontWeight: 'bold', fontSize: '16px', color: '#2a2a2a' }}>Node Conquered!</div>
-              <div style={{ fontSize: '14px', color: '#4a4a4a', fontWeight: '500' }}>
+              <div className="font-bold text-base text-gray-900 dark:text-gray-100">Node Conquered!</div>
+              <div className="text-sm text-gray-600 dark:text-gray-400 font-medium">
                 {selectedNode?.name} completed
               </div>
-              <div style={{ fontSize: '12px', color: '#667eea', marginTop: '5px' }}>
+              <div className="text-xs text-purple-600 dark:text-purple-400 mt-1">
                 +{selectedNode?.points} points earned!
               </div>
             </div>
@@ -817,7 +797,11 @@ const App = () => {
       {/* Auth Modal */}
       <AuthModal 
         isOpen={showAuthModal} 
-        onClose={() => setShowAuthModal(false)} 
+        onClose={() => setShowAuthModal(false)}
+        onSuccess={() => {
+          setIsAuthenticated(true);
+          setShowAuthModal(false);
+        }}
       />
 
       {/* Profile Modal */}

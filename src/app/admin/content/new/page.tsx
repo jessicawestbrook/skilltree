@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { CourseContentService, CourseSection } from '@/services/courseContentService';
+import { CourseSection } from '@/services/courseContentService';
 import { Plus, Trash2, GripVertical, Save, ArrowLeft } from 'lucide-react';
 import { supabase } from '@/lib/supabase';
 
@@ -47,7 +47,7 @@ export default function NewContentPage() {
     }]);
   };
 
-  const handleSectionChange = (index: number, field: string, value: any) => {
+  const handleSectionChange = (index: number, field: string, value: string | number) => {
     const newSections = [...sections];
     newSections[index] = { ...newSections[index], [field]: value };
     setSections(newSections);

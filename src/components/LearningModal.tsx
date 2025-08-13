@@ -24,7 +24,7 @@ interface QuizComponentProps {
   onComplete: (passed: boolean, score: number) => void;
 }
 
-const QuizComponent: React.FC<QuizComponentProps> = ({ questions, nodeTitle, onComplete }) => {
+const QuizComponent: React.FC<QuizComponentProps> = ({ questions, onComplete }) => {
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [selectedAnswer, setSelectedAnswer] = useState<number | null>(null);
   const [correctAnswers, setCorrectAnswers] = useState(0);
@@ -69,7 +69,7 @@ const QuizComponent: React.FC<QuizComponentProps> = ({ questions, nodeTitle, onC
       </div>
 
       <div className="bg-white rounded-lg p-6">
-        <h3 className="text-xl font-bold mb-6">{question.question}</h3>
+        <h3 className="text-xl font-bold mb-6 text-gray-900">{question.question}</h3>
         
         <div className="space-y-3">
           {question.options.map((option, index) => (
@@ -109,7 +109,7 @@ const QuizComponent: React.FC<QuizComponentProps> = ({ questions, nodeTitle, onC
                     </span>
                   )}
                 </div>
-                <span className="flex-1">{option}</span>
+                <span className="flex-1 text-gray-800 font-medium">{option}</span>
               </div>
             </button>
           ))}
@@ -119,8 +119,8 @@ const QuizComponent: React.FC<QuizComponentProps> = ({ questions, nodeTitle, onC
           <div className={`mt-6 p-4 rounded-lg ${
             isCorrect ? 'bg-green-50 border-green-200' : 'bg-blue-50 border-blue-200'
           } border`}>
-            <p className="text-sm">
-              <strong>{isCorrect ? 'Correct!' : 'Not quite.'}</strong> {question.explanation}
+            <p className="text-sm text-gray-800 font-medium">
+              <strong className="text-gray-900">{isCorrect ? 'Correct!' : 'Not quite.'}</strong> {question.explanation}
             </p>
           </div>
         )}
@@ -178,30 +178,30 @@ export default function LearningModal({
       <div className="w-20 h-20 bg-gradient-to-br from-purple-500 to-blue-500 rounded-full flex items-center justify-center mb-6">
         <BookOpen className="w-10 h-10 text-white" />
       </div>
-      <h2 className="text-3xl font-bold mb-4">Ready to Learn?</h2>
-      <p className="text-lg text-gray-600 mb-8 max-w-md">
-        You'll start with the course content to understand the concepts, then test your knowledge with a quiz.
+      <h2 className="text-3xl font-bold mb-4 text-gray-900">Ready to Learn?</h2>
+      <p className="text-lg text-gray-700 font-medium mb-8 max-w-md">
+        You&apos;ll start with the course content to understand the concepts, then test your knowledge with a quiz.
       </p>
       <div className="flex items-center gap-4 mb-8">
         <div className="flex items-center gap-2">
           <div className="w-10 h-10 bg-purple-100 rounded-full flex items-center justify-center">
             <BookOpen className="w-5 h-5 text-purple-600" />
           </div>
-          <span className="font-medium">Learn</span>
+          <span className="font-semibold text-gray-800">Learn</span>
         </div>
         <ChevronRight className="w-5 h-5 text-gray-400" />
         <div className="flex items-center gap-2">
           <div className="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center">
             <Brain className="w-5 h-5 text-blue-600" />
           </div>
-          <span className="font-medium">Practice</span>
+          <span className="font-semibold text-gray-800">Practice</span>
         </div>
         <ChevronRight className="w-5 h-5 text-gray-400" />
         <div className="flex items-center gap-2">
           <div className="w-10 h-10 bg-green-100 rounded-full flex items-center justify-center">
             <Trophy className="w-5 h-5 text-green-600" />
           </div>
-          <span className="font-medium">Master</span>
+          <span className="font-semibold text-gray-800">Master</span>
         </div>
       </div>
       <button
@@ -220,13 +220,13 @@ export default function LearningModal({
       }`}>
         <Trophy className="w-10 h-10 text-white" />
       </div>
-      <h2 className="text-3xl font-bold mb-4">
+      <h2 className="text-3xl font-bold mb-4 text-gray-900">
         {quizScore >= 80 ? 'Excellent Work!' : 'Good Effort!'}
       </h2>
-      <p className="text-lg text-gray-600 mb-4">
-        You scored <span className="font-bold text-2xl">{quizScore}%</span>
+      <p className="text-lg text-gray-700 font-medium mb-4">
+        You scored <span className="font-bold text-2xl text-gray-900">{quizScore}%</span>
       </p>
-      <p className="text-gray-500 mb-8 max-w-md">
+      <p className="text-gray-700 font-medium mb-8 max-w-md">
         {quizScore >= 80 
           ? "You've mastered this topic! Keep up the great work."
           : "You're making progress! Consider reviewing the material and trying again."}

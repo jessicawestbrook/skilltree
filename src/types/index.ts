@@ -32,6 +32,7 @@ export interface UserStats {
   conqueredNodes: string[];
   neuralPower: number;
   title: string;
+  totalPoints?: number;
 }
 
 export interface QuizQuestion {
@@ -62,6 +63,7 @@ export interface User {
   username: string;
   displayName?: string;
   avatar?: string;
+  photoURL?: string;
   createdAt: Date;
   lastLoginAt?: Date;
 }

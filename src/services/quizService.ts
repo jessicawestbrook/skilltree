@@ -274,7 +274,7 @@ export class QuizService {
   /**
    * Load questions from JSON format
    */
-  static async loadQuestionsFromJSON(jsonData: any): Promise<{ success: boolean; loaded: number; errors: string[] }> {
+  static async loadQuestionsFromJSON(jsonData: Record<string, unknown>): Promise<{ success: boolean; loaded: number; errors: string[] }> {
     const errors: string[] = [];
     const questionsToAdd: Array<{ nodeId: string; question: QuizQuestion }> = [];
 

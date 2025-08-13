@@ -65,7 +65,7 @@ export default function QuestionBatchUpload() {
       let jsonData;
       try {
         jsonData = JSON.parse(jsonInput);
-      } catch (e) {
+      } catch {
         throw new Error('Invalid JSON format');
       }
 

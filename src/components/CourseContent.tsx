@@ -1,8 +1,8 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { CourseContent as CourseContentType, CourseSection, CourseResource, KeyConcept, LearningTip, CourseContentService } from '@/services/courseContentService';
-import { ChevronRight, Clock, BookOpen, Lightbulb, AlertCircle, CheckCircle, PlayCircle, FileText, Code, Image as ImageIcon } from 'lucide-react';
+import { CourseContent as CourseContentType, CourseSection, LearningTip, CourseContentService } from '@/services/courseContentService';
+import { ChevronRight, Clock, BookOpen, Lightbulb, AlertCircle, CheckCircle, PlayCircle, FileText, Code } from 'lucide-react';
 
 interface CourseContentProps {
   nodeId: string;
@@ -21,6 +21,7 @@ export default function CourseContent({ nodeId, nodeTitle, onComplete, onStartQu
 
   useEffect(() => {
     loadContent();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [nodeId]);
 
   const loadContent = async () => {
@@ -75,12 +76,12 @@ export default function CourseContent({ nodeId, nodeTitle, onComplete, onStartQu
 
   if (!content) {
     return (
-      <div className="bg-white rounded-lg shadow-md p-8 text-center">
-        <h2 className="text-2xl font-bold mb-4">{nodeTitle}</h2>
-        <p className="text-gray-600 mb-6">Course content is being prepared for this topic.</p>
+      <div className="bg-white dark:bg-gray-800 rounded-lg shadow-md p-8 text-center">
+        <h2 className="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-4">{nodeTitle}</h2>
+        <p className="text-gray-700 dark:text-gray-300 font-medium mb-6">Course content is being prepared for this topic.</p>
         <button
           onClick={onStartQuiz}
-          className="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
+          className="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 dark:bg-blue-500 dark:hover:bg-blue-600"
         >
           Skip to Quiz
         </button>
@@ -94,31 +95,35 @@ export default function CourseContent({ nodeId, nodeTitle, onComplete, onStartQu
   return (
     <div className="max-w-4xl mx-auto">
       {/* Header */}
-      <div className="bg-gradient-to-r from-purple-600 to-blue-600 text-white rounded-t-lg p-6">
-        <h1 className="text-3xl font-bold mb-2">{content.title}</h1>
-        <p className="text-purple-100 mb-4">{content.overview}</p>
-        <div className="flex items-center gap-6 text-sm">
-          <div className="flex items-center gap-2">
-            <Clock className="w-4 h-4" />
-            <span>{content.estimated_time} min</span>
-          </div>
-          <div className="flex items-center gap-2">
-            <BookOpen className="w-4 h-4" />
-            <span>{content.sections?.length || 0} sections</span>
-          </div>
-          <div className="px-2 py-1 bg-white/20 rounded">
-            {content.difficulty_level}
+      <div className="relative overflow-hidden rounded-t-lg">
+        <div className="absolute inset-0 bg-gradient-to-br from-purple-600 via-blue-600 to-indigo-700 dark:from-purple-800 dark:via-blue-800 dark:to-indigo-900"></div>
+        <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div>
+        <div className="relative z-10 p-8">
+          <h1 className="text-3xl md:text-4xl font-bold mb-3 text-white drop-shadow-lg">{content.title}</h1>
+          <p className="text-purple-50 mb-6 text-lg leading-relaxed max-w-3xl">{content.overview}</p>
+          <div className="flex flex-wrap items-center gap-4 text-sm">
+            <div className="flex items-center gap-2 bg-white/20 backdrop-blur-sm px-3 py-1.5 rounded-full">
+              <Clock className="w-4 h-4 text-purple-100" />
+              <span className="text-white font-medium">{content.estimated_time} min</span>
+            </div>
+            <div className="flex items-center gap-2 bg-white/20 backdrop-blur-sm px-3 py-1.5 rounded-full">
+              <BookOpen className="w-4 h-4 text-purple-100" />
+              <span className="text-white font-medium">{content.sections?.length || 0} sections</span>
+            </div>
+            <div className="px-3 py-1.5 bg-white/20 backdrop-blur-sm rounded-full">
+              <span className="text-white font-medium capitalize">{content.difficulty_level}</span>
+            </div>
           </div>
         </div>
       </div>
 
       {/* Learning Objectives */}
       {content.learning_objectives && content.learning_objectives.length > 0 && (
-        <div className="bg-blue-50 border-l-4 border-blue-500 p-4 mb-6">
-          <h3 className="font-semibold text-blue-900 mb-2">Learning Objectives</h3>
+        <div className="bg-blue-50 dark:bg-blue-900/20 border-l-4 border-blue-500 p-4 mb-6">
+          <h3 className="font-bold text-blue-900 dark:text-blue-200 text-lg mb-2">Learning Objectives</h3>
           <ul className="space-y-1">
             {content.learning_objectives.map((objective, index) => (
-              <li key={index} className="flex items-start gap-2 text-blue-800">
+              <li key={index} className="flex items-start gap-2 text-blue-800 dark:text-blue-300">
                 <CheckCircle className="w-4 h-4 mt-0.5 flex-shrink-0" />
                 <span className="text-sm">{objective}</span>
               </li>
@@ -128,12 +133,12 @@ export default function CourseContent({ nodeId, nodeTitle, onComplete, onStartQu
       )}
 
       {/* Progress Bar */}
-      <div className="bg-white rounded-lg shadow-sm p-4 mb-6">
-        <div className="flex justify-between text-sm text-gray-600 mb-2">
+      <div className="bg-white dark:bg-gray-800 rounded-lg shadow-sm p-4 mb-6">
+        <div className="flex justify-between text-sm text-gray-600 dark:text-gray-400 mb-2">
           <span>Progress</span>
           <span>{Math.round(progress)}% Complete</span>
         </div>
-        <div className="w-full bg-gray-200 rounded-full h-2">
+        <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2">
           <div 
             className="bg-gradient-to-r from-purple-500 to-blue-500 h-2 rounded-full transition-all"
             style={{ width: `${progress}%` }}
@@ -143,7 +148,7 @@ export default function CourseContent({ nodeId, nodeTitle, onComplete, onStartQu
 
       {/* Section Navigation */}
       {content.sections && content.sections.length > 0 && (
-        <div className="bg-white rounded-lg shadow-sm p-4 mb-6">
+        <div className="bg-white dark:bg-gray-800 rounded-lg shadow-sm p-4 mb-6">
           <div className="flex gap-2 overflow-x-auto">
             {content.sections.map((section, index) => (
               <button
@@ -158,7 +163,7 @@ export default function CourseContent({ nodeId, nodeTitle, onComplete, onStartQu
                 }`}
               >
                 {getSectionIcon(section.section_type)}
-                <span className="text-sm font-medium">{section.title}</span>
+                <span className="text-sm font-semibold">{section.title}</span>
                 {completedSections.has(index) && <CheckCircle className="w-4 h-4" />}
               </button>
             ))}
@@ -168,10 +173,10 @@ export default function CourseContent({ nodeId, nodeTitle, onComplete, onStartQu
 
       {/* Current Section Content */}
       {currentSectionData && (
-        <div className="bg-white rounded-lg shadow-md p-6 mb-6">
+        <div className="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6 mb-6">
           <div className="flex items-center gap-3 mb-4">
             {getSectionIcon(currentSectionData.section_type)}
-            <h2 className="text-2xl font-bold">{currentSectionData.title}</h2>
+            <h2 className="text-2xl font-bold text-gray-900 dark:text-gray-100">{currentSectionData.title}</h2>
           </div>
 
           {/* Media Content */}
@@ -202,7 +207,7 @@ export default function CourseContent({ nodeId, nodeTitle, onComplete, onStartQu
           {/* Text Content */}
           <div className="prose prose-lg max-w-none mb-6">
             {currentSectionData.content.split('\n').map((paragraph, index) => (
-              <p key={index} className="mb-4 text-gray-700 leading-relaxed">
+              <p key={index} className="mb-4 text-gray-800 dark:text-gray-200 leading-relaxed font-medium">
                 {paragraph}
               </p>
             ))}
@@ -250,21 +255,21 @@ export default function CourseContent({ nodeId, nodeTitle, onComplete, onStartQu
             onClick={() => setShowKeyConcepts(!showKeyConcepts)}
             className="w-full flex items-center justify-between text-left"
           >
-            <h3 className="text-xl font-bold flex items-center gap-2">
+            <h3 className="text-xl font-bold flex items-center gap-2 text-gray-900">
               <Lightbulb className="w-5 h-5 text-yellow-500" />
               Key Concepts
             </h3>
-            <ChevronRight className={`w-5 h-5 transform transition-transform ${showKeyConcepts ? 'rotate-90' : ''}`} />
+            <ChevronRight className={`w-5 h-5 transform transition-transform text-gray-700 ${showKeyConcepts ? 'rotate-90' : ''}`} />
           </button>
           
           {showKeyConcepts && (
             <div className="mt-4 space-y-4">
               {content.key_concepts.map((concept) => (
                 <div key={concept.id} className="border-l-4 border-purple-500 pl-4">
-                  <h4 className="font-semibold text-purple-900">{concept.term}</h4>
-                  <p className="text-gray-700 mt-1">{concept.definition}</p>
+                  <h4 className="font-bold text-gray-900 text-lg">{concept.term}</h4>
+                  <p className="text-gray-800 mt-1 font-medium">{concept.definition}</p>
                   {concept.example && (
-                    <p className="text-sm text-gray-600 mt-2 italic">
+                    <p className="text-sm text-gray-700 mt-2 italic font-medium">
                       Example: {concept.example}
                     </p>
                   )}
@@ -286,7 +291,7 @@ export default function CourseContent({ nodeId, nodeTitle, onComplete, onStartQu
               'bg-blue-50'
             }`}>
               {getTipIcon(tip.tip_type)}
-              <p className="text-sm">{tip.content}</p>
+              <p className="text-sm text-gray-800 font-medium">{tip.content}</p>
             </div>
           ))}
         </div>
