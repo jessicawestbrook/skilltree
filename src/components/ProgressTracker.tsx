@@ -38,9 +38,24 @@ export default function ProgressTracker() {
             averageScore: summary.averageScore || 0,
             neuralLevel: Math.floor((summary.totalPoints || 0) / 200) + 1
           });
+        } else {
+          // Set default values if no summary is available
+          setStats({
+            totalNodes: 0,
+            totalPoints: 0,
+            averageScore: 0,
+            neuralLevel: 1
+          });
         }
       } catch (error) {
-        console.error('Error fetching progress:', error);
+        console.error('Error fetching progress summary:', error instanceof Error ? error.message : error);
+        // Set default values on error
+        setStats({
+          totalNodes: 0,
+          totalPoints: 0,
+          averageScore: 0,
+          neuralLevel: 1
+        });
       } finally {
         setLoading(false);
       }

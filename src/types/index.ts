@@ -77,6 +77,7 @@ export interface AuthState {
 export interface LoginCredentials {
   email: string;
   password: string;
+  rememberMe?: boolean;
 }
 
 export interface RegisterCredentials {
@@ -94,6 +95,7 @@ export interface AuthContextType extends AuthState {
   updatePassword: (newPassword: string) => Promise<{ success: boolean; error?: string }>;
   refreshSession: () => Promise<{ success: boolean; error?: string }>;
   sessionReady: boolean;
+  getRememberedEmail: () => string | null;
 }
 
 // Onboarding types

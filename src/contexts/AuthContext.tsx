@@ -6,6 +6,15 @@ import { supabase } from '../lib/supabase';
 import type { User as SupabaseUser } from '@supabase/supabase-js';
 import { saveSession, getStoredSession, clearStoredSession } from '../utils/sessionStorage';
 import { ErrorLogger } from '../utils/errorLogger';
+import { 
+  storeRememberedCredentials, 
+  getRememberedCredentials, 
+  clearRememberedCredentials,
+  refreshRememberedCredentials,
+  recordFailedAttempt,
+  clearFailedAttempts,
+  isAccountLocked
+} from '../utils/credentialStorage';
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
@@ -191,6 +200,16 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     setIsLoading(true);
     setError(null);
 
+    // Check if account is locked due to failed attempts
+    const lockStatus = isAccountLocked(credentials.email);
+    if (lockStatus.locked) {
+      const remainingMinutes = lockStatus.remainingTime ? Math.ceil(lockStatus.remainingTime / (60 * 1000)) : 15;
+      const errorMessage = `Account temporarily locked due to multiple failed login attempts. Please try again in ${remainingMinutes} minute${remainingMinutes !== 1 ? 's' : ''}.`;
+      setError(errorMessage);
+      setIsLoading(false);
+      return { success: false, error: errorMessage };
+    }
+
     try {
       const { data, error } = await supabase.auth.signInWithPassword({
         email: credentials.email,
@@ -198,8 +217,42 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       });
 
       if (error) {
-        const errorMessage = error.message || 'Login failed. Please try again.';
+        // Enhanced error handling for different credential failure scenarios
+        let errorMessage = 'Login failed. Please try again.';
+        
+        switch (error.message) {
+          case 'Invalid login credentials':
+            errorMessage = 'Invalid email or password. Please check your credentials and try again.';
+            // Record failed attempt and clear remembered credentials on invalid login
+            recordFailedAttempt(credentials.email);
+            if (credentials.rememberMe) {
+              clearRememberedCredentials();
+            }
+            break;
+          case 'Email not confirmed':
+            errorMessage = 'Please check your email and click the verification link to confirm your account before signing in.';
+            // Don't record as failed attempt since this is a verification issue, not bad credentials
+            break;
+          case 'Email rate limit exceeded':
+            errorMessage = 'Too many login attempts. Please wait a few minutes before trying again.';
+            break;
+          case 'User not found':
+            errorMessage = 'No account found with this email address. Please check your email or sign up.';
+            break;
+          case 'Password is too weak':
+            errorMessage = 'Password does not meet security requirements.';
+            break;
+          case 'Signup disabled':
+            errorMessage = 'Account registration is currently disabled.';
+            break;
+          default:
+            // Log unexpected errors for debugging
+            ErrorLogger.logAuthError(error, 'login_unexpected_error', credentials.email);
+            errorMessage = error.message || 'Login failed. Please try again.';
+        }
+        
         setError(errorMessage);
+        ErrorLogger.logAuthError(error, 'login_failed', credentials.email);
         return { success: false, error: errorMessage };
       }
 
@@ -207,12 +260,22 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
         const mappedUser = mapSupabaseUser(data.user);
         setUser(mappedUser);
         
+        // Clear any failed login attempts on successful login
+        clearFailedAttempts(credentials.email);
+        
         // Set user context for error tracking
         ErrorLogger.setUserContext({
           id: mappedUser.id,
           email: mappedUser.email,
           username: mappedUser.username,
         });
+        
+        // Handle remember me functionality
+        if (credentials.rememberMe) {
+          storeRememberedCredentials(credentials.email);
+        } else {
+          clearRememberedCredentials();
+        }
         
         // Store session and setup token refresh
         if (data.session?.expires_at) {
@@ -257,13 +320,43 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       });
 
       if (error) {
-        const errorMessage = error.message || 'Registration failed. Please try again.';
+        // Enhanced error handling for registration failures
+        let errorMessage = 'Registration failed. Please try again.';
+        
+        switch (error.message) {
+          case 'User already registered':
+          case 'Email address already in use':
+            errorMessage = 'An account with this email already exists. Please sign in instead.';
+            break;
+          case 'Password should be at least 6 characters':
+            errorMessage = 'Password must be at least 6 characters long.';
+            break;
+          case 'Invalid email':
+          case 'Unable to validate email address: invalid format':
+            errorMessage = 'Please enter a valid email address.';
+            break;
+          case 'Password is too weak':
+            errorMessage = 'Password is too weak. Please use a stronger password with at least 8 characters, including uppercase, lowercase, and numbers.';
+            break;
+          case 'Signup disabled':
+            errorMessage = 'New registrations are currently disabled. Please contact support.';
+            break;
+          case 'Email rate limit exceeded':
+            errorMessage = 'Too many registration attempts. Please wait a few minutes before trying again.';
+            break;
+          default:
+            // Log unexpected registration errors
+            ErrorLogger.logAuthError(error, 'register_unexpected_error', credentials.email);
+            errorMessage = error.message || 'Registration failed. Please try again.';
+        }
+        
         setError(errorMessage);
+        ErrorLogger.logAuthError(error, 'registration_failed', credentials.email);
         return { success: false, error: errorMessage };
       }
 
       if (data.user) {
-        // Send verification email
+        // Try to send verification email but don't fail registration if it doesn't work
         try {
           const response = await fetch('/api/auth/send-verification', {
             method: 'POST',
@@ -276,13 +369,15 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
           });
 
           if (!response.ok) {
-            console.error('Failed to send verification email');
+            console.warn('Verification email could not be sent, but registration succeeded');
+            // Don't fail the registration, just log the warning
           }
         } catch (emailError) {
-          console.error('Error sending verification email:', emailError);
+          console.warn('Email service unavailable, but registration succeeded:', emailError);
+          // Continue with registration even if email fails
         }
 
-        // Note: User needs to confirm email before being fully authenticated
+        // Note: User account is created successfully even if email fails
         if (data.session) {
           const mappedUser = mapSupabaseUser(data.user);
           setUser(mappedUser);
@@ -333,6 +428,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       setUser(null);
       setError(null);
       clearStoredSession();
+      clearRememberedCredentials();
       
       // Clear user context for error tracking
       ErrorLogger.clearUserContext();
@@ -462,6 +558,11 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     }
   };
 
+  const getRememberedEmail = (): string | null => {
+    const credentials = getRememberedCredentials();
+    return credentials ? credentials.email : null;
+  };
+
   const value: AuthContextType = {
     user,
     isAuthenticated: !!user,
@@ -474,7 +575,8 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     resetPassword,
     updatePassword,
     refreshSession,
-    sessionReady: sessionChecked
+    sessionReady: sessionChecked,
+    getRememberedEmail
   };
 
   return (

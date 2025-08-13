@@ -28,6 +28,12 @@ export const OnboardingModal: React.FC<OnboardingModalProps> = ({ isOpen, onClos
   if (!isOpen || !currentStep) return null;
 
   const handleNext = () => {
+    console.log('handleNext called', { 
+      currentStep: progress.currentStep, 
+      totalSteps: progress.totalSteps,
+      currentStepData: currentStep 
+    });
+    
     if (progress.currentStep >= progress.totalSteps - 1) {
       completeOnboarding();
       onClose();
@@ -137,9 +143,11 @@ export const OnboardingModal: React.FC<OnboardingModalProps> = ({ isOpen, onClos
     content: {
       padding: '40px',
       minHeight: '300px',
+      maxHeight: 'calc(90vh - 280px)', // Account for header and footer
+      overflowY: 'auto',
       display: 'flex',
       flexDirection: 'column',
-      justifyContent: 'center',
+      justifyContent: 'flex-start', // Changed from 'center' to allow scrolling from top
     } as CSSProperties,
     footer: {
       padding: '20px 40px 30px',
@@ -163,6 +171,8 @@ export const OnboardingModal: React.FC<OnboardingModalProps> = ({ isOpen, onClos
       display: 'flex',
       alignItems: 'center',
       gap: '8px',
+      position: 'relative',
+      zIndex: 10,
     } as CSSProperties,
     primaryButton: {
       background: 'linear-gradient(135deg, #667eea, #764ba2)',
@@ -256,8 +266,10 @@ export const OnboardingModal: React.FC<OnboardingModalProps> = ({ isOpen, onClos
             )}
 
             <button
+              type="button"
               onClick={handleNext}
               style={{ ...styles.button, ...styles.primaryButton }}
+              onMouseDown={(e) => console.log('Button mousedown event')}
             >
               {progress.currentStep >= progress.totalSteps - 1 ? (
                 <>

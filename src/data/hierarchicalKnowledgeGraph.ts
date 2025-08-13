@@ -1,4 +1,5 @@
 import { Node } from '../types';
+import { layoutNodesWithCollisionDetection } from '../utils/nodeLayoutEngine';
 
 // Hierarchical Knowledge Graph with nested subnodes
 export const hierarchicalKnowledgeGraph = {
@@ -381,93 +382,71 @@ export const hierarchicalKnowledgeGraph = {
 
 // Helper function to get all nodes including subnodes
 export const getAllHierarchicalNodes = (expandedNodes: Set<string> = new Set()): Node[] => {
+  try {
+    // Use the new collision-detection layout engine
+    const { nodes, categoryLabels } = layoutNodesWithCollisionDetection(hierarchicalKnowledgeGraph, expandedNodes);
+    
+    // If no nodes were generated, fall back to simple layout
+    if (nodes.length === 0) {
+      console.warn('Layout engine returned no nodes, using fallback');
+      return createFallbackLayout(expandedNodes);
+    }
+    
+    // Add category labels to the export for backward compatibility
+    const nodesWithLabels = nodes as Node[] & { categoryLabels: typeof categoryLabels };
+    nodesWithLabels.categoryLabels = categoryLabels;
+    
+    return nodesWithLabels;
+  } catch (error) {
+    console.error('Error in getAllHierarchicalNodes, using fallback:', error);
+    return createFallbackLayout(expandedNodes);
+  }
+};
+
+// Simple fallback layout function
+const createFallbackLayout = (expandedNodes: Set<string> = new Set()): Node[] => {
   const nodes: Node[] = [];
   let index = 0;
-  let globalY = 80; // Start with some padding from top
+  let x = 50;
+  let y = 80;
   
-  // Add category labels as special nodes
-  const categoryLabels: { [key: string]: { y: number, name: string } } = {};
-  
-  // Process each category
+  // Simple grid layout as fallback
   Object.entries(hierarchicalKnowledgeGraph).forEach(([categoryName, domains]) => {
-    // Store category position for label
-    categoryLabels[categoryName] = { y: globalY - 40, name: categoryName.toUpperCase() };
-    let categoryMaxY = globalY;
-    
-    if (typeof domains === 'object' && !Array.isArray(domains)) {
-      // Process each domain in the category
-      Object.entries(domains).forEach(([, domainNodes], domainIndex) => {
-        const domainX = 50 + (domainIndex % 3) * 400; // 3 columns max, better spacing
-        const domainY = globalY + Math.floor(domainIndex / 3) * 400; // Row spacing for domains
-        let currentY = domainY;
-        
-        // Process nodes in this domain
-        (domainNodes as Node[]).forEach((node, nodeIndex) => {
-          // Position main nodes
-          const nodeX = domainX + (nodeIndex % 2) * 150; // 2 nodes per row in domain
-          const nodeY = currentY + Math.floor(nodeIndex / 2) * 130;
-          
+    if (typeof domains === 'object' && !Array.isArray(domains) && domains !== null) {
+      Object.entries(domains).forEach(([, domainNodes]) => {
+        (domainNodes as Node[]).forEach((node) => {
           const processedNode = {
             ...node,
             index: index++,
-            x: nodeX,
-            y: nodeY
+            x: x,
+            y: y
           };
           nodes.push(processedNode);
           
-          // Track max Y for this node
-          let nodeMaxY = nodeY;
-          
-          // If this is an expanded parent node, add its subnodes
+          // Add subnodes if expanded
           if (node.isParent && node.subnodes && expandedNodes.has(node.id)) {
-            const subnodesPerRow = 3;
-            const subnodeY = nodeY + 110; // Space below parent
-            
             node.subnodes.forEach((subnode, subIndex) => {
-              const row = Math.floor(subIndex / subnodesPerRow);
-              const col = subIndex % subnodesPerRow;
-              
               const processedSubnode = {
                 ...subnode,
                 index: index++,
-                x: nodeX + col * 95, // Tighter spacing for subnodes
-                y: subnodeY + row * 95
+                x: x + 150 + (subIndex % 3) * 100,
+                y: y + Math.floor(subIndex / 3) * 100
               };
               nodes.push(processedSubnode);
-              
-              // Update max Y based on subnode position
-              nodeMaxY = Math.max(nodeMaxY, processedSubnode.y);
             });
-            
-            // Update currentY to account for expanded subnodes
-            const totalRows = Math.ceil(node.subnodes.length / subnodesPerRow);
-            currentY = subnodeY + totalRows * 95 + 30; // Add padding after subnodes
           }
           
-          // Update category max Y
-          categoryMaxY = Math.max(categoryMaxY, nodeMaxY + 100);
+          x += 200;
+          if (x > 1000) {
+            x = 50;
+            y += 150;
+          }
         });
       });
-    } else if (Array.isArray(domains)) {
-      // Process mastery nodes (single array)
-      const currentX = 50;
-      (domains as Node[]).forEach((node, nodeIndex) => {
-        const processedNode = {
-          ...node,
-          index: index++,
-          x: currentX + nodeIndex * 180,
-          y: globalY
-        };
-        nodes.push(processedNode);
-        categoryMaxY = Math.max(categoryMaxY, globalY + 120);
-      });
     }
-    
-    // Move to next category with proper spacing
-    globalY = categoryMaxY + 80; // Add spacing between categories
   });
   
-  // Add category labels to the export
+  const categoryLabels = {};
   const nodesWithLabels = nodes as Node[] & { categoryLabels: typeof categoryLabels };
   nodesWithLabels.categoryLabels = categoryLabels;
   

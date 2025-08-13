@@ -110,8 +110,22 @@ export function useServiceWorker() {
   const [newWorker, setNewWorker] = useState<ServiceWorker | null>(null);
 
   useEffect(() => {
+    // Skip service worker registration in development
+    if (process.env.NODE_ENV === 'development') {
+      console.log('[usePWA] Service Worker registration skipped in development mode');
+      return;
+    }
+
     if ('serviceWorker' in navigator) {
-      navigator.serviceWorker.register('/sw.js')
+      // Check if service worker file exists first
+      fetch('/sw.js', { method: 'HEAD' })
+        .then(response => {
+          if (response.ok) {
+            return navigator.serviceWorker.register('/sw.js');
+          } else {
+            throw new Error(`Service worker not found: ${response.status}`);
+          }
+        })
         .then((reg) => {
           setRegistration(reg);
 

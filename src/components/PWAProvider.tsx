@@ -3,6 +3,7 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
 import { usePWA, useServiceWorker, useOfflineStorage } from '@/hooks/usePWA';
 import PWAInstallPrompt from './PWAInstallPrompt';
+import { developmentCleanup } from '@/utils/clearServiceWorkers';
 
 interface PWAContextType {
   isInstalled: boolean;
@@ -40,9 +41,26 @@ export function PWAProvider({ children }: { children: React.ReactNode }) {
   }, [pwa.isInstallable, pwa.isInstalled, installPromptDismissed]);
 
   useEffect(() => {
+    // Handle development mode
+    if (process.env.NODE_ENV === 'development') {
+      console.log('[PWA] Development mode detected');
+      developmentCleanup().then(() => {
+        console.log('[PWA] Service Worker registration skipped in development mode');
+      });
+      return;
+    }
+
     // Register service worker and handle updates
     if ('serviceWorker' in navigator) {
-      navigator.serviceWorker.register('/sw.js')
+      // Check if service worker file exists first
+      fetch('/sw.js', { method: 'HEAD' })
+        .then(response => {
+          if (response.ok) {
+            return navigator.serviceWorker.register('/sw.js');
+          } else {
+            throw new Error(`Service worker not found: ${response.status}`);
+          }
+        })
         .then((registration) => {
           console.log('[PWA] Service Worker registered successfully');
           

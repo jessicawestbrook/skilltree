@@ -115,10 +115,18 @@ export const OnboardingProvider: React.FC<OnboardingProviderProps> = ({ children
   };
 
   const nextStep = () => {
-    setProgress(prev => ({
-      ...prev,
-      currentStep: Math.min(prev.currentStep + 1, ONBOARDING_STEPS.length),
-    }));
+    console.log('nextStep called, current progress:', progress);
+    setProgress(prev => {
+      const newStep = Math.min(prev.currentStep + 1, ONBOARDING_STEPS.length - 1);
+      console.log('Updating step from', prev.currentStep, 'to', newStep);
+      return {
+        ...prev,
+        currentStep: newStep,
+        completedSteps: prev.currentStep < ONBOARDING_STEPS.length ? 
+          [...prev.completedSteps, ONBOARDING_STEPS[prev.currentStep].id] : 
+          prev.completedSteps,
+      };
+    });
   };
 
   const previousStep = () => {

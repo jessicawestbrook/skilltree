@@ -2,7 +2,7 @@
 
 An interactive knowledge learning platform that gamifies education across all domains of human knowledge. Master subjects from fundamental concepts to advanced topics through an engaging visual knowledge graph.
 
-![NeuroQuest](https://img.shields.io/badge/version-0.3.0-blue)
+![NeuroQuest](https://img.shields.io/badge/version-0.3.1-blue)
 ![Next.js](https://img.shields.io/badge/Next.js-15.4.6-black)
 ![React](https://img.shields.io/badge/React-19.1.0-61dafb)
 ![TypeScript](https://img.shields.io/badge/TypeScript-5.0-blue)
@@ -331,9 +331,15 @@ npm run start    # Serves production build
 npm run lint     # Validates code quality
 ```
 
-## 📊 Recent Updates (v0.3.0)
+## 📊 Recent Updates (v0.3.1)
 
-### 🔧 Build & Infrastructure
+### 🐛 Bug Fixes & Improvements
+- ✅ **Onboarding Modal**: Fixed scrolling issues for welcome modal content visibility
+- ✅ **Navigation Fix**: Resolved Next button functionality in onboarding flow
+- ✅ **UI Polish**: Added proper z-index and positioning for interactive elements
+- ✅ **Debug Logging**: Enhanced debugging capabilities for onboarding process
+
+### 🔧 Build & Infrastructure (v0.3.0)
 - ✅ **Production Build**: Fixed all TypeScript compilation errors
 - ✅ **Environment Management**: Implemented lazy initialization for API clients
 - ✅ **Code Quality**: Resolved 50+ ESLint warnings and errors
@@ -346,6 +352,7 @@ npm run lint     # Validates code quality
 - 📱 **PWA Support**: Progressive Web App capabilities with offline functionality
 - 📊 **Analytics Integration**: User behavior tracking and performance monitoring
 - 🎨 **Modern UI**: Improved components with better accessibility
+- 🎯 **Onboarding System**: Interactive multi-step onboarding for new users
 
 ### 🏠 Homepage & Landing
 - 🏠 **Landing Page**: Beautiful homepage for non-authenticated users

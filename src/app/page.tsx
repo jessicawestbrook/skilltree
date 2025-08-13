@@ -287,7 +287,8 @@ const App = () => {
           isOpen={showAuthModal} 
           onClose={() => setShowAuthModal(false)}
           onSuccess={() => {
-            setShowAuthModal(false);
+            // Modal will be closed by onClose, just handle post-auth logic here if needed
+            console.log('Authentication successful');
           }}
         />
       </>
@@ -808,7 +809,8 @@ const App = () => {
         isOpen={showAuthModal} 
         onClose={() => setShowAuthModal(false)}
         onSuccess={() => {
-          setShowAuthModal(false);
+          // Modal will be closed by onClose, just handle post-auth logic here if needed
+          console.log('Authentication successful');
         }}
       />
 

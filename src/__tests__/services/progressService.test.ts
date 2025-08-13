@@ -213,5 +213,139 @@ describe('ProgressService', () => {
 
       (global.Date as any).mockRestore();
     });
+
+    it('should handle invalid start time', () => {
+      const invalidDate = new Date('invalid');
+      
+      expect(() => {
+        ProgressService.calculateTimeSpent(invalidDate);
+      }).not.toThrow();
+      
+      const result = ProgressService.calculateTimeSpent(invalidDate);
+      expect(typeof result).toBe('number');
+    });
+  });
+
+  describe('Error handling and edge cases', () => {
+    it('should handle network timeout errors', async () => {
+      mockFetch.mockImplementation(() => 
+        new Promise((_, reject) => 
+          setTimeout(() => reject(new Error('Request timeout')), 100)
+        )
+      );
+
+      const result = await ProgressService.submitProgress({
+        nodeId: 'node1',
+        quiz_score: 85,
+        time_spent_seconds: 120
+      });
+
+      expect(result.success).toBe(false);
+      expect(result.error).toBe('Request timeout');
+    });
+
+    it('should handle malformed JSON responses', async () => {
+      mockFetch.mockResolvedValue({
+        ok: true,
+        json: () => Promise.reject(new Error('Invalid JSON'))
+      } as Response);
+
+      const result = await ProgressService.submitProgress({
+        nodeId: 'node1',
+        quiz_score: 85,
+        time_spent_seconds: 120
+      });
+
+      expect(result.success).toBe(false);
+      expect(result.error).toBe('Invalid JSON');
+    });
+
+    it('should handle server errors with status codes', async () => {
+      mockFetch.mockResolvedValue({
+        ok: false,
+        status: 500,
+        json: () => Promise.resolve({ error: 'Internal server error' })
+      } as Response);
+
+      const result = await ProgressService.submitProgress({
+        nodeId: 'node1',
+        quiz_score: 85,
+        time_spent_seconds: 120
+      });
+
+      expect(result.success).toBe(false);
+      expect(result.error).toBe('Internal server error');
+    });
+
+    it('should handle empty or null responses gracefully', async () => {
+      mockFetch.mockResolvedValue({
+        ok: true,
+        json: () => Promise.resolve(null)
+      } as Response);
+
+      const result = await ProgressService.getAllProgress();
+      expect(result).toEqual([]);
+    });
+
+    it('should handle extremely large progress data', async () => {
+      const largeProgressData = {
+        nodeId: 'node1',
+        quiz_score: 100,
+        time_spent_seconds: Number.MAX_SAFE_INTEGER
+      };
+
+      mockFetch.mockResolvedValue({
+        ok: true,
+        json: () => Promise.resolve({ success: true, data: largeProgressData })
+      } as Response);
+
+      const result = await ProgressService.submitProgress(largeProgressData);
+      expect(result.success).toBe(true);
+    });
+
+    it('should validate progress submission data', async () => {
+      const invalidProgressData = {
+        nodeId: '',
+        quiz_score: -10,
+        time_spent_seconds: -5
+      };
+
+      mockFetch.mockResolvedValue({
+        ok: false,
+        json: () => Promise.resolve({ error: 'Invalid progress data' })
+      } as Response);
+
+      const result = await ProgressService.submitProgress(invalidProgressData);
+      expect(result.success).toBe(false);
+      expect(result.error).toBe('Invalid progress data');
+    });
+
+    it('should handle concurrent progress submissions', async () => {
+      const mockProgressData = {
+        nodeId: 'node1',
+        quiz_score: 85,
+        time_spent_seconds: 120
+      };
+
+      mockFetch.mockResolvedValue({
+        ok: true,
+        json: () => Promise.resolve({ success: true, data: mockProgressData })
+      } as Response);
+
+      // Submit multiple requests concurrently
+      const promises = Array.from({ length: 5 }, () => 
+        ProgressService.submitProgress(mockProgressData)
+      );
+
+      const results = await Promise.all(promises);
+      
+      // All should succeed
+      results.forEach(result => {
+        expect(result.success).toBe(true);
+      });
+
+      // Verify all calls were made
+      expect(mockFetch).toHaveBeenCalledTimes(5);
+    });
   });
 });

@@ -9,6 +9,8 @@ describe('nodeUtils', () => {
       domain: 'math',
       category: 'beginner',
       prereqs: [],
+      difficulty: 1,
+      points: 50,
       x: 0,
       y: 0
     },
@@ -18,6 +20,8 @@ describe('nodeUtils', () => {
       domain: 'math',
       category: 'intermediate',
       prereqs: ['node1'],
+      difficulty: 2,
+      points: 100,
       x: 100,
       y: 100
     },
@@ -27,6 +31,8 @@ describe('nodeUtils', () => {
       domain: 'science',
       category: 'advanced',
       prereqs: ['node1', 'node2'],
+      difficulty: 3,
+      points: 150,
       x: 200,
       y: 200
     }
@@ -88,6 +94,8 @@ describe('nodeUtils', () => {
           domain: 'test',
           category: 'beginner',
           prereqs: [],
+          difficulty: 1,
+          points: 50,
           x: 0,
           y: 0
         }
@@ -105,6 +113,8 @@ describe('nodeUtils', () => {
           domain: 'test',
           category: 'beginner',
           prereqs: ['nonexistent'],
+          difficulty: 1,
+          points: 50,
           x: 0,
           y: 0
         }
@@ -160,6 +170,134 @@ describe('nodeUtils', () => {
     it('should return empty array when no nodes match filters', () => {
       const filtered = filterNodes(mockNodes, ['nonexistent'], '', 'all');
       expect(filtered).toHaveLength(0);
+    });
+
+    it('should handle empty nodes array', () => {
+      const filtered = filterNodes([], ['math'], 'test', 'all');
+      expect(filtered).toHaveLength(0);
+    });
+
+    it('should handle null/undefined search terms gracefully', () => {
+      const filtered1 = filterNodes(mockNodes, [], null as any, 'all');
+      const filtered2 = filterNodes(mockNodes, [], undefined as any, 'all');
+      expect(filtered1).toHaveLength(3);
+      expect(filtered2).toHaveLength(3);
+    });
+
+    it('should handle special characters in search terms', () => {
+      const nodesWithSpecialChars: Node[] = [
+        {
+          id: 'special',
+          name: 'Node with (parentheses)',
+          domain: 'test',
+          category: 'beginner',
+          prereqs: [],
+          difficulty: 1,
+          points: 50,
+          x: 0,
+          y: 0
+        }
+      ];
+      
+      const filtered = filterNodes(nodesWithSpecialChars, [], '(parentheses)', 'all');
+      expect(filtered).toHaveLength(1);
+    });
+  });
+
+  describe('Error handling', () => {
+    it('should handle malformed node data gracefully', () => {
+      const malformedNodes = [
+        {
+          id: 'valid',
+          name: 'Valid Node',
+          domain: 'test',
+          category: 'beginner',
+          prereqs: [],
+          difficulty: 1,
+          points: 50,
+          x: 0,
+          y: 0
+        },
+        {
+          id: null,
+          name: undefined,
+          domain: '',
+          category: null,
+          prereqs: null,
+          x: 'invalid',
+          y: 'invalid'
+        } as any
+      ];
+
+      expect(() => {
+        getNodeState('valid', [], malformedNodes);
+      }).not.toThrow();
+
+      expect(() => {
+        createConnections(malformedNodes);
+      }).not.toThrow();
+
+      expect(() => {
+        filterNodes(malformedNodes, ['test'], '', 'all');
+      }).not.toThrow();
+    });
+
+    it('should handle extremely large datasets', () => {
+      const largeNodeSet: Node[] = Array.from({ length: 1000 }, (_, i) => ({
+        id: `node${i}`,
+        name: `Node ${i}`,
+        domain: `domain${i % 10}`,
+        category: 'beginner',
+        prereqs: i > 0 ? [`node${i - 1}`] : [],
+        difficulty: 1,
+        points: 50,
+        x: i,
+        y: i
+      }));
+
+      const start = performance.now();
+      const connections = createConnections(largeNodeSet);
+      const end = performance.now();
+
+      expect(connections).toHaveLength(999); // n-1 connections
+      expect(end - start).toBeLessThan(1000); // Should complete within 1 second
+    });
+
+    it('should handle circular dependencies without infinite loops', () => {
+      const circularNodes: Node[] = [
+        {
+          id: 'a',
+          name: 'Node A',
+          domain: 'test',
+          category: 'beginner',
+          prereqs: ['b'],
+          difficulty: 1,
+          points: 50,
+          x: 0,
+          y: 0
+        },
+        {
+          id: 'b',
+          name: 'Node B',
+          domain: 'test',
+          category: 'beginner',
+          prereqs: ['a'],
+          difficulty: 1,
+          points: 50,
+          x: 100,
+          y: 0
+        }
+      ];
+
+      expect(() => {
+        const connections = createConnections(circularNodes);
+        expect(connections).toHaveLength(2);
+      }).not.toThrow();
+
+      expect(() => {
+        const state = getNodeState('a', [], circularNodes);
+        expect(state).toBe('locked');
+      }).not.toThrow();
     });
   });
 });

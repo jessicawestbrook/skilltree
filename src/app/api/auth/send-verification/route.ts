@@ -6,8 +6,14 @@ function getSupabaseAdmin() {
   const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
   const serviceRoleKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
   
-  if (!supabaseUrl || !serviceRoleKey) {
-    throw new Error('Missing Supabase environment variables');
+  if (!supabaseUrl) {
+    throw new Error('Missing NEXT_PUBLIC_SUPABASE_URL environment variable');
+  }
+  
+  // Check if we have a valid service role key (not placeholder)
+  if (!serviceRoleKey || serviceRoleKey.includes('placeholder')) {
+    console.warn('Service role key not configured - email verification disabled');
+    return null;
   }
   
   return createClient(
@@ -33,8 +39,20 @@ export async function POST(request: Request) {
       );
     }
 
-    // Generate verification token using the database function
+    // Get Supabase admin client
     const supabaseAdmin = getSupabaseAdmin();
+    
+    // If email service isn't configured, return success without sending email
+    if (!supabaseAdmin) {
+      console.log('Email service not configured - skipping verification email');
+      return NextResponse.json({
+        success: true,
+        message: 'Registration successful (email verification disabled in development)',
+        emailSkipped: true
+      });
+    }
+
+    // Generate verification token using the database function
     const { data: tokenData, error: tokenError } = await supabaseAdmin
       .rpc('generate_email_verification_token', {
         user_uuid: userId,

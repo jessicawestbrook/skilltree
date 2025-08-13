@@ -117,7 +117,7 @@ const sentryWebpackPluginOptions = {
 // PWA Configuration
 const withPWA = withPWAInit({
   dest: 'public',
-  register: true,
+  register: process.env.NODE_ENV !== 'development',
   skipWaiting: true,
   disable: process.env.NODE_ENV === 'development',
   // Turbopack compatibility
