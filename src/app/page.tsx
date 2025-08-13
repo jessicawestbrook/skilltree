@@ -29,6 +29,7 @@ import { Header } from '../components/Header';
 import { Sidebar } from '../components/Sidebar';
 import { AuthModal } from '../components/AuthModal';
 import { UserProfile } from '../components/UserProfile';
+import LearningModal from '../components/LearningModal';
 
 const App = () => {
   // Responsive detection
@@ -535,7 +536,7 @@ const App = () => {
                     width: '100%'
                   }}
                 >
-                  Start Challenge <ChevronRight size={16} style={{ verticalAlign: 'middle' }} />
+                  Start Learning <ChevronRight size={16} style={{ verticalAlign: 'middle' }} />
                 </button>
               )}
             </div>
@@ -639,8 +640,37 @@ const App = () => {
         )}
       </div>
 
-      {/* Quiz Modal */}
-      {showQuiz && selectedNode && (
+      {/* Learning Modal */}
+      {selectedNode && (
+        <LearningModal
+          isOpen={showQuiz}
+          onClose={() => {
+            setShowQuiz(false);
+            setCurrentQuestion(0);
+            setSelectedAnswer(null);
+            setAnswerFeedback(null);
+          }}
+          nodeId={selectedNode.id}
+          nodeTitle={selectedNode.name}
+          questions={currentQuizQuestions}
+          onComplete={(passed, score) => {
+            if (passed && selectedNode) {
+              const wasNewlyCompleted = completeNode(selectedNode.id, selectedNode.points);
+              if (wasNewlyCompleted) {
+                setShowAchievement(true);
+                setTimeout(() => setShowAchievement(false), 3000);
+              }
+            }
+            setShowQuiz(false);
+            setCurrentQuestion(0);
+            setSelectedAnswer(null);
+            setAnswerFeedback(null);
+          }}
+        />
+      )}
+
+      {/* Legacy Quiz Modal - Keeping for reference, remove later */}
+      {false && showQuiz && selectedNode && (
         <div style={{
           position: 'fixed',
           top: 0,
@@ -662,7 +692,7 @@ const App = () => {
             width: '100%'
           }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px' }}>
-              <h2 style={{ margin: 0, color: '#2a2a2a', fontWeight: 'bold' }}>{selectedNode.name} Challenge</h2>
+              <h2 style={{ margin: 0, color: '#2a2a2a', fontWeight: 'bold' }}>{selectedNode?.name} Challenge</h2>
               <button
                 onClick={() => {
                   setShowQuiz(false);
@@ -682,7 +712,7 @@ const App = () => {
               </div>
               <div style={{ height: '4px', background: '#e0e0e0', borderRadius: '2px' }}>
                 <div style={{
-                  width: '100%',
+                  width: `${((currentQuestion + 1) / (currentQuizQuestions.length || 1)) * 100}%`,
                   height: '100%',
                   background: 'linear-gradient(90deg, #667eea, #764ba2)',
                   borderRadius: '2px'
@@ -736,15 +766,15 @@ const App = () => {
                 <div style={{
                   marginTop: '20px',
                   padding: '15px',
-                  background: answerFeedback.isCorrect ? '#e8f5e9' : '#fff3e0',
+                  background: answerFeedback?.isCorrect ? '#e8f5e9' : '#fff3e0',
                   borderRadius: '10px',
-                  border: `1px solid ${answerFeedback.isCorrect ? '#00c851' : '#ff6f00'}`
+                  border: `1px solid ${answerFeedback?.isCorrect ? '#00c851' : '#ff6f00'}`
                 }}>
                   <div style={{ fontWeight: 'bold', marginBottom: '5px' }}>
-                    {answerFeedback.isCorrect ? '✅ Correct!' : '💡 Not quite!'}
+                    {answerFeedback?.isCorrect ? '✅ Correct!' : '💡 Not quite!'}
                   </div>
                   <div style={{ fontSize: '14px', color: '#4a4a4a' }}>
-                    {answerFeedback.explanation}
+                    {answerFeedback?.explanation}
                   </div>
                 </div>
               )}

@@ -10,7 +10,8 @@
     "migrate:questions": "node scripts/migrate-questions.js",
     "migrate:knowledge": "node scripts/migrate-knowledge-graph.js",
     "migrate:paths": "node scripts/migrate-learning-paths.js",
-    "migrate:all": "npm run migrate:knowledge && npm run migrate:paths && npm run migrate:questions"
+    "migrate:content": "node scripts/migrate-course-content.js",
+    "migrate:all": "npm run migrate:knowledge && npm run migrate:paths && npm run migrate:questions && npm run migrate:content"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.55.0",

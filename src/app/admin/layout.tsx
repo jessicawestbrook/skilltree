@@ -14,6 +14,7 @@ export default function AdminLayout({
 
   const navItems = [
     { href: '/admin', label: 'Dashboard', icon: '📊' },
+    { href: '/admin/content', label: 'Course Content', icon: '📚' },
     { href: '/admin/questions', label: 'Questions', icon: '❓' },
     { href: '/admin/nodes', label: 'Knowledge Nodes', icon: '🧠' },
     { href: '/admin/paths', label: 'Learning Paths', icon: '🛤️' },
