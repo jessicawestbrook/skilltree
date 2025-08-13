@@ -90,7 +90,7 @@ export const Header: React.FC<HeaderProps> = ({ userStats, isMobile, calculatePr
             {isAuthenticated ? (
               <>
                 <UserIcon size={18} />
-                {isMobile ? user?.username?.slice(0, 8) : user?.displayName || user?.username}
+                {isMobile ? user?.username?.slice(0, 8) : user?.username}
               </>
             ) : (
               <>

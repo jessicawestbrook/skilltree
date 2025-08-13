@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import { CourseContent as CourseContentType, CourseSection, LearningTip, CourseContentService } from '@/services/courseContentService';
 import { ChevronRight, Clock, BookOpen, Lightbulb, AlertCircle, CheckCircle, PlayCircle, FileText, Code } from 'lucide-react';
+import { ChatbotContainer } from './ChatbotContainer';
 
 interface CourseContentProps {
   nodeId: string;
@@ -93,7 +94,10 @@ export default function CourseContent({ nodeId, nodeTitle, onComplete, onStartQu
   const progress = content.sections ? ((completedSections.size / content.sections.length) * 100) : 0;
 
   return (
-    <div className="max-w-4xl mx-auto">
+    <div className="max-w-7xl mx-auto">
+      <div className="flex gap-6">
+        {/* Main Content Area */}
+        <div className="flex-1 max-w-4xl">
       {/* Header */}
       <div className="relative overflow-hidden rounded-t-lg">
         <div className="absolute inset-0 bg-gradient-to-br from-purple-600 via-blue-600 to-indigo-700 dark:from-purple-800 dark:via-blue-800 dark:to-indigo-900"></div>
@@ -345,6 +349,21 @@ export default function CourseContent({ nodeId, nodeTitle, onComplete, onStartQu
           )}
         </div>
       )}
+        </div>
+        
+        {/* Chatbot Sidebar */}
+        <div className="w-80 hidden lg:block">
+          <div className="sticky top-6">
+            <ChatbotContainer
+              nodeId={nodeId}
+              nodeTitle={nodeTitle}
+              currentContent={currentSectionData?.content}
+              isLearningMode={true}
+              className="h-full"
+            />
+          </div>
+        </div>
+      </div>
     </div>
   );
 }

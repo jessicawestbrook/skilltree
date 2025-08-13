@@ -127,7 +127,7 @@ export default function ModernHeader({
                     <User className="w-4 h-4" />
                   )}
                   <span className="text-sm font-medium hidden md:block">
-                    {user?.displayName || 'Profile'}
+                    {user?.username || 'Profile'}
                   </span>
                 </button>
               </>

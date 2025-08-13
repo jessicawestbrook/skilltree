@@ -1,5 +1,5 @@
 import React, { useState, CSSProperties } from 'react';
-import { X, User, Mail, Eye, EyeOff, UserPlus, LogIn } from 'lucide-react';
+import { X, User, Mail, Eye, EyeOff, UserPlus, LogIn, KeyRound } from 'lucide-react';
 import { useAuth } from '../contexts/AuthContext';
 
 interface AuthModalProps {
@@ -10,21 +10,28 @@ interface AuthModalProps {
 
 export const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose, onSuccess }) => {
   const [isLogin, setIsLogin] = useState(true);
+  const [isForgotPassword, setIsForgotPassword] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
+  const [resetEmailSent, setResetEmailSent] = useState(false);
+  const [verificationEmailSent, setVerificationEmailSent] = useState(false);
   const [formData, setFormData] = useState({
     email: '',
     password: '',
-    username: '',
-    displayName: ''
+    username: ''
   });
 
-  const { login, register, isLoading, error } = useAuth();
+  const { login, register, resetPassword, isLoading, error } = useAuth();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
     let result;
-    if (isLogin) {
+    if (isForgotPassword) {
+      result = await resetPassword(formData.email);
+      if (result.success) {
+        setResetEmailSent(true);
+      }
+    } else if (isLogin) {
       result = await login({
         email: formData.email,
         password: formData.password
@@ -33,14 +40,17 @@ export const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose, onSuccess
       result = await register({
         email: formData.email,
         password: formData.password,
-        username: formData.username,
-        displayName: formData.displayName || formData.username
+        username: formData.username
       });
+      if (result?.success && result?.requiresVerification) {
+        setVerificationEmailSent(true);
+        return;
+      }
     }
 
-    if (result.success) {
+    if (result?.success && !isForgotPassword && !verificationEmailSent) {
       onClose();
-      setFormData({ email: '', password: '', username: '', displayName: '' });
+      setFormData({ email: '', password: '', username: '' });
       if (onSuccess) {
         onSuccess();
       }
@@ -56,7 +66,24 @@ export const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose, onSuccess
 
   const switchMode = () => {
     setIsLogin(!isLogin);
-    setFormData({ email: '', password: '', username: '', displayName: '' });
+    setIsForgotPassword(false);
+    setResetEmailSent(false);
+    setVerificationEmailSent(false);
+    setFormData({ email: '', password: '', username: '' });
+  };
+
+  const handleForgotPassword = () => {
+    setIsForgotPassword(true);
+    setResetEmailSent(false);
+    setFormData({ email: '', password: '', username: '' });
+  };
+
+  const handleBackToLogin = () => {
+    setIsForgotPassword(false);
+    setResetEmailSent(false);
+    setVerificationEmailSent(false);
+    setIsLogin(true);
+    setFormData({ email: '', password: '', username: '' });
   };
 
   if (!isOpen) return null;
@@ -184,8 +211,22 @@ export const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose, onSuccess
       <div style={styles.modal}>
         <div style={styles.header}>
           <h2 style={styles.title}>
-            {isLogin ? <LogIn size={28} /> : <UserPlus size={28} />}
-            {isLogin ? 'Welcome Back' : 'Join NeuroQuest'}
+            {isForgotPassword ? (
+              <>
+                <KeyRound size={28} />
+                Reset Password
+              </>
+            ) : isLogin ? (
+              <>
+                <LogIn size={28} />
+                Welcome Back
+              </>
+            ) : (
+              <>
+                <UserPlus size={28} />
+                Join NeuroQuest
+              </>
+            )}
           </h2>
           <button
             onClick={onClose}
@@ -195,93 +236,162 @@ export const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose, onSuccess
           </button>
         </div>
 
-        <form onSubmit={handleSubmit} style={styles.form}>
-          <div style={styles.inputGroup}>
-            <input
-              type="email"
-              name="email"
-              placeholder="Email address"
-              value={formData.email}
-              onChange={handleChange}
-              required
-              style={styles.input}
-            />
-            <Mail size={20} style={styles.inputIcon} />
+        {resetEmailSent ? (
+          <div style={{ textAlign: 'center', padding: '20px' }}>
+            <div style={{ marginBottom: '20px', color: '#4caf50' }}>
+              ✓ Password reset email sent!
+            </div>
+            <p style={{ color: '#666', marginBottom: '20px' }}>
+              Please check your email for instructions to reset your password.
+            </p>
+            <button
+              onClick={handleBackToLogin}
+              style={styles.submitButton}
+            >
+              Back to Sign In
+            </button>
           </div>
+        ) : verificationEmailSent ? (
+          <div style={{ textAlign: 'center', padding: '20px' }}>
+            <div style={{ marginBottom: '20px', color: '#4caf50', fontSize: '48px' }}>
+              📧
+            </div>
+            <h3 style={{ color: '#2a2a2a', marginBottom: '20px' }}>
+              Verify Your Email
+            </h3>
+            <p style={{ color: '#666', marginBottom: '20px', lineHeight: '1.6' }}>
+              We&apos;ve sent a verification email to <strong>{formData.email}</strong>.
+              Please check your inbox and click the verification link to activate your account.
+            </p>
+            <p style={{ color: '#999', fontSize: '14px', marginBottom: '20px' }}>
+              Didn&apos;t receive the email? Check your spam folder or wait a few minutes.
+            </p>
+            <button
+              onClick={handleBackToLogin}
+              style={styles.submitButton}
+            >
+              Back to Sign In
+            </button>
+          </div>
+        ) : (
+          <form onSubmit={handleSubmit} style={styles.form}>
+            {isForgotPassword && (
+              <p style={{ color: '#666', marginBottom: '10px', fontSize: '14px' }}>
+                Enter your email address and we&apos;ll send you a link to reset your password.
+              </p>
+            )}
+            
+            <div style={styles.inputGroup}>
+              <input
+                type="email"
+                name="email"
+                placeholder="Email address"
+                value={formData.email}
+                onChange={handleChange}
+                required
+                style={styles.input}
+              />
+              <Mail size={20} style={styles.inputIcon} />
+            </div>
 
-          {!isLogin && (
-            <>
+            {!isLogin && !isForgotPassword && (
+              <>
+                <div style={styles.inputGroup}>
+                  <input
+                    type="text"
+                    name="username"
+                    placeholder="Username"
+                    value={formData.username}
+                    onChange={handleChange}
+                    required
+                    style={styles.input}
+                  />
+                  <User size={20} style={styles.inputIcon} />
+                </div>
+              </>
+            )}
+
+            {!isForgotPassword && (
               <div style={styles.inputGroup}>
                 <input
-                  type="text"
-                  name="username"
-                  placeholder="Username"
-                  value={formData.username}
+                  type={showPassword ? 'text' : 'password'}
+                  name="password"
+                  placeholder="Password"
+                  value={formData.password}
                   onChange={handleChange}
                   required
                   style={styles.input}
                 />
-                <User size={20} style={styles.inputIcon} />
+                <button
+                  type="button"
+                  onClick={() => setShowPassword(!showPassword)}
+                  style={styles.passwordToggle}
+                >
+                  {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
+                </button>
               </div>
+            )}
 
-              <div style={styles.inputGroup}>
-                <input
-                  type="text"
-                  name="displayName"
-                  placeholder="Display name (optional)"
-                  value={formData.displayName}
-                  onChange={handleChange}
-                  style={styles.input}
-                />
-                <User size={20} style={styles.inputIcon} />
+            {isLogin && !isForgotPassword && (
+              <div style={{ textAlign: 'right', marginTop: '-10px' }}>
+                <button
+                  type="button"
+                  onClick={handleForgotPassword}
+                  style={{ 
+                    ...styles.switchButton, 
+                    fontSize: '13px',
+                    textDecoration: 'none'
+                  }}
+                >
+                  Forgot password?
+                </button>
               </div>
-            </>
-          )}
+            )}
 
-          <div style={styles.inputGroup}>
-            <input
-              type={showPassword ? 'text' : 'password'}
-              name="password"
-              placeholder="Password"
-              value={formData.password}
-              onChange={handleChange}
-              required
-              style={styles.input}
-            />
-            <button
-              type="button"
-              onClick={() => setShowPassword(!showPassword)}
-              style={styles.passwordToggle}
-            >
-              {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
+            {error && <div style={styles.error}>{error}</div>}
+
+            <button type="submit" style={styles.submitButton} disabled={isLoading}>
+              {isLoading ? (
+                'Processing...'
+              ) : isForgotPassword ? (
+                <>
+                  <Mail size={20} />
+                  Send Reset Email
+                </>
+              ) : isLogin ? (
+                <>
+                  <LogIn size={20} />
+                  Sign In
+                </>
+              ) : (
+                <>
+                  <UserPlus size={20} />
+                  Create Account
+                </>
+              )}
             </button>
-          </div>
+          </form>
+        )}
 
-          {error && <div style={styles.error}>{error}</div>}
-
-          <button type="submit" style={styles.submitButton} disabled={isLoading}>
-            {isLoading ? (
-              'Processing...'
-            ) : isLogin ? (
+        {!resetEmailSent && !verificationEmailSent && (
+          <div style={styles.switchText}>
+            {isForgotPassword ? (
               <>
-                <LogIn size={20} />
-                Sign In
+                Remember your password?{' '}
+                <button onClick={handleBackToLogin} style={styles.switchButton}>
+                  Sign in
+                </button>
               </>
             ) : (
               <>
-                <UserPlus size={20} />
-                Create Account
+                {isLogin ? "Don't have an account? " : "Already have an account? "}
+                <button onClick={switchMode} style={styles.switchButton}>
+                  {isLogin ? 'Sign up' : 'Sign in'}
+                </button>
               </>
             )}
-          </button>
-        </form>
-
-        <div style={styles.switchText}>
-          {isLogin ? "Don't have an account? " : "Already have an account? "}
-          <button onClick={switchMode} style={styles.switchButton}>
-            {isLogin ? 'Sign up' : 'Sign in'}
-          </button>
-        </div>
+          </div>
+        )}
       </div>
     </div>
   );

@@ -1,10 +1,12 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { X, BookOpen, Brain, Trophy, ChevronRight } from 'lucide-react';
 import CourseContent from './CourseContent';
 // Quiz component is embedded below
 import { QuizQuestion } from '@/types';
+import { ProgressService } from '@/services/progressService';
+import { AnalyticsService } from '@/services/analyticsService';
 
 interface LearningModalProps {
   isOpen: boolean;
@@ -21,14 +23,16 @@ type LearningPhase = 'intro' | 'content' | 'quiz' | 'complete';
 interface QuizComponentProps {
   questions: QuizQuestion[];
   nodeTitle: string;
+  nodeId: string;
   onComplete: (passed: boolean, score: number) => void;
 }
 
-const QuizComponent: React.FC<QuizComponentProps> = ({ questions, onComplete }) => {
+const QuizComponent: React.FC<QuizComponentProps> = ({ questions, nodeId, onComplete }) => {
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [selectedAnswer, setSelectedAnswer] = useState<number | null>(null);
   const [correctAnswers, setCorrectAnswers] = useState(0);
   const [showFeedback, setShowFeedback] = useState(false);
+  const [startTime] = useState(new Date());
 
   const handleAnswerSelect = (answerIndex: number) => {
     setSelectedAnswer(answerIndex);
@@ -39,13 +43,38 @@ const QuizComponent: React.FC<QuizComponentProps> = ({ questions, onComplete }) 
     }
   };
 
-  const handleNext = () => {
+  const handleNext = async () => {
     if (currentQuestion < questions.length - 1) {
       setCurrentQuestion(currentQuestion + 1);
       setSelectedAnswer(null);
       setShowFeedback(false);
     } else {
       const score = Math.round((correctAnswers / questions.length) * 100);
+      const timeSpent = ProgressService.calculateTimeSpent(startTime);
+      
+      // Submit progress
+      const result = await ProgressService.submitProgress({
+        nodeId,
+        quiz_score: score,
+        time_spent_seconds: timeSpent
+      });
+      
+      // Track quiz completion analytics
+      const totalCorrect = Math.round((score / 100) * questions.length);
+      await AnalyticsService.trackQuizComplete(
+        nodeId,
+        score,
+        timeSpent,
+        questions.length,
+        totalCorrect
+      );
+      
+      if (result.success) {
+        console.log('Quiz progress recorded successfully');
+      } else {
+        console.error('Failed to record quiz progress:', result.error);
+      }
+      
       onComplete(score >= 80, score);
     }
   };
@@ -150,15 +179,25 @@ export default function LearningModal({
   const [contentCompleted, setContentCompleted] = useState(false);
   const [quizScore, setQuizScore] = useState(0);
 
+  // Track node visit when modal opens
+  useEffect(() => {
+    if (isOpen && nodeId && nodeTitle) {
+      AnalyticsService.trackNodeVisit(nodeId, nodeTitle);
+    }
+  }, [isOpen, nodeId, nodeTitle]);
+
   if (!isOpen) return null;
 
   const handleContentComplete = () => {
     setContentCompleted(true);
-    // Automatically transition to quiz after content
+    // Track content completion
+    AnalyticsService.trackContentView(nodeId, 'course_content');
   };
 
   const handleStartQuiz = () => {
     setPhase('quiz');
+    // Track quiz start
+    AnalyticsService.trackQuizStart(nodeId, questions.length);
   };
 
   const handleQuizComplete = (passed: boolean, score: number) => {
@@ -321,6 +360,7 @@ export default function LearningModal({
               <QuizComponent
                 questions={questions}
                 nodeTitle={nodeTitle}
+                nodeId={nodeId}
                 onComplete={handleQuizComplete}
               />
             </div>

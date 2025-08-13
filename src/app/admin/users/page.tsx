@@ -6,7 +6,6 @@ import { supabase } from '@/lib/supabase';
 interface UserProfile {
   id: string;
   username: string;
-  display_name: string;
   email?: string;
   avatar_url?: string;
   bio?: string;
@@ -59,7 +58,6 @@ export default function UsersPage() {
     const searchLower = searchTerm.toLowerCase();
     return (
       (u.username?.toLowerCase().includes(searchLower)) ||
-      (u.display_name?.toLowerCase().includes(searchLower)) ||
       (u.email?.toLowerCase().includes(searchLower))
     );
   });
@@ -128,17 +126,17 @@ export default function UsersPage() {
                 {user.avatar_url ? (
                   <img
                     src={user.avatar_url}
-                    alt={user.display_name}
+                    alt={user.username}
                     className="w-12 h-12 rounded-full"
                   />
                 ) : (
                   <div className="w-12 h-12 rounded-full bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center text-white font-bold">
-                    {user.display_name?.charAt(0) || user.username?.charAt(0) || '?'}
+                    {user.username?.charAt(0) || '?'}
                   </div>
                 )}
                 <div>
                   <h3 className="font-bold text-lg text-gray-800">
-                    {user.display_name || user.username}
+                    {user.username}
                   </h3>
                   <p className="text-sm text-gray-500">@{user.username}</p>
                 </div>

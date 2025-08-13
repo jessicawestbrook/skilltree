@@ -11,7 +11,6 @@ export const UserProfile: React.FC<UserProfileProps> = ({ isOpen, onClose }) => 
   const { user, logout, updateProfile, isLoading } = useAuth();
   const [isEditing, setIsEditing] = useState(false);
   const [editForm, setEditForm] = useState({
-    displayName: user?.displayName || '',
     username: user?.username || ''
   });
 
@@ -29,7 +28,6 @@ export const UserProfile: React.FC<UserProfileProps> = ({ isOpen, onClose }) => 
 
   const handleCancel = () => {
     setEditForm({
-      displayName: user?.displayName || '',
       username: user?.username || ''
     });
     setIsEditing(false);
@@ -190,21 +188,6 @@ export const UserProfile: React.FC<UserProfileProps> = ({ isOpen, onClose }) => 
               />
             ) : (
               <span style={styles.value}>{user.username}</span>
-            )}
-          </div>
-
-          <div style={styles.infoRow}>
-            <User size={20} color="#667eea" />
-            <span style={styles.label}>Display Name</span>
-            {isEditing ? (
-              <input
-                type="text"
-                value={editForm.displayName}
-                onChange={(e) => setEditForm(prev => ({ ...prev, displayName: e.target.value }))}
-                style={styles.input}
-              />
-            ) : (
-              <span style={styles.value}>{user.displayName || 'Not set'}</span>
             )}
           </div>
 

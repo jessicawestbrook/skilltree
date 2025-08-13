@@ -1,0 +1,64 @@
+{
+  "$schema": "https://turbo.build/schema.json",
+  "pipeline": {
+    "build": {
+      "dependsOn": ["^build"],
+      "outputs": [".next/**", "!.next/cache/**"],
+      "env": [
+        "NEXT_PUBLIC_SUPABASE_URL",
+        "NEXT_PUBLIC_SUPABASE_ANON_KEY",
+        "NEXT_PUBLIC_SENTRY_DSN",
+        "NEXT_PUBLIC_SENTRY_ENVIRONMENT",
+        "NEXT_PUBLIC_SENTRY_RELEASE"
+      ]
+    },
+    "dev": {
+      "cache": false,
+      "persistent": true
+    },
+    "start": {
+      "cache": false,
+      "persistent": true
+    },
+    "lint": {
+      "outputs": [],
+      "inputs": [
+        "src/**/*.{js,jsx,ts,tsx}",
+        ".eslintrc.json",
+        "tsconfig.json"
+      ]
+    },
+    "test": {
+      "outputs": [],
+      "inputs": [
+        "src/**/*.{js,jsx,ts,tsx}",
+        "test/**/*.{js,jsx,ts,tsx}",
+        "jest.config.js",
+        "tsconfig.json"
+      ]
+    },
+    "test:e2e": {
+      "outputs": [],
+      "inputs": [
+        "src/**/*.{js,jsx,ts,tsx}",
+        "playwright.config.ts",
+        "tests/**/*.{js,ts}"
+      ]
+    },
+    "migrate:all": {
+      "dependsOn": [],
+      "outputs": [],
+      "env": [
+        "SUPABASE_URL",
+        "SUPABASE_SERVICE_ROLE_KEY"
+      ]
+    }
+  },
+  "globalDependencies": [
+    "next.config.ts",
+    "tailwind.config.js",
+    "postcss.config.mjs",
+    "tsconfig.json",
+    ".env.local"
+  ]
+}

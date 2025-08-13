@@ -2,7 +2,7 @@
 
 An interactive knowledge learning platform that gamifies education across all domains of human knowledge. Master subjects from fundamental concepts to advanced topics through an engaging visual knowledge graph.
 
-![NeuroQuest](https://img.shields.io/badge/version-0.2.0-blue)
+![NeuroQuest](https://img.shields.io/badge/version-0.3.0-blue)
 ![Next.js](https://img.shields.io/badge/Next.js-15.4.6-black)
 ![React](https://img.shields.io/badge/React-19.1.0-61dafb)
 ![TypeScript](https://img.shields.io/badge/TypeScript-5.0-blue)
@@ -77,8 +77,24 @@ An interactive knowledge learning platform that gamifies education across all do
 3. **Set up environment variables**
    Create a `.env.local` file in the root directory:
    ```env
+   # Supabase Configuration
    NEXT_PUBLIC_SUPABASE_URL=your_supabase_project_url
    NEXT_PUBLIC_SUPABASE_ANON_KEY=your_supabase_anon_key
+   SUPABASE_SERVICE_ROLE_KEY=your_supabase_service_role_key
+   
+   # Email Service Configuration (Resend)
+   RESEND_API_KEY=your_resend_api_key
+   
+   # Application Configuration
+   NEXT_PUBLIC_APP_URL=http://localhost:3000
+   
+   # Optional: Error Tracking (Sentry)
+   NEXT_PUBLIC_SENTRY_DSN=your_sentry_dsn_here
+   NEXT_PUBLIC_SENTRY_ENVIRONMENT=development
+   NEXT_PUBLIC_SENTRY_RELEASE=1.0.0
+   
+   # Optional: PWA Configuration
+   NEXT_PUBLIC_PWA_ENABLED=true
    ```
 
 4. **Set up the database**
@@ -286,27 +302,71 @@ Edit `scripts/migrate-learning-paths.js`:
 - [ ] AI-powered learning recommendations
 - [ ] Multiplayer challenges
 
-## 📊 Recent Updates (v0.2.0)
+## 🏗️ Build Status
 
-### New Features
+✅ **Production Ready**: Application builds successfully without errors  
+✅ **TypeScript**: All type errors resolved  
+✅ **ESLint**: Code quality standards enforced  
+✅ **Environment**: Lazy initialization prevents build-time API key errors  
+
+## 🚀 Deployment
+
+### Environment Variables for Production
+Ensure these environment variables are set in your deployment platform:
+
+**Required:**
+- `NEXT_PUBLIC_SUPABASE_URL`
+- `NEXT_PUBLIC_SUPABASE_ANON_KEY` 
+- `SUPABASE_SERVICE_ROLE_KEY`
+- `RESEND_API_KEY`
+
+**Optional:**
+- `NEXT_PUBLIC_SENTRY_DSN` (Error tracking)
+- `NEXT_PUBLIC_PWA_ENABLED` (Progressive Web App features)
+
+### Build Commands
+```bash
+npm run build    # Creates optimized production build
+npm run start    # Serves production build
+npm run lint     # Validates code quality
+```
+
+## 📊 Recent Updates (v0.3.0)
+
+### 🔧 Build & Infrastructure
+- ✅ **Production Build**: Fixed all TypeScript compilation errors
+- ✅ **Environment Management**: Implemented lazy initialization for API clients
+- ✅ **Code Quality**: Resolved 50+ ESLint warnings and errors
+- ✅ **Type Safety**: Enhanced TypeScript definitions throughout
+- ✅ **Error Handling**: Improved API error boundaries
+
+### 🆕 New Features  
+- 📧 **Email Verification**: Complete email verification system with Resend
+- 🔐 **Authentication Flow**: Enhanced user registration and verification
+- 📱 **PWA Support**: Progressive Web App capabilities with offline functionality
+- 📊 **Analytics Integration**: User behavior tracking and performance monitoring
+- 🎨 **Modern UI**: Improved components with better accessibility
+
+### 🏠 Homepage & Landing
 - 🏠 **Landing Page**: Beautiful homepage for non-authenticated users
 - 🎨 **Modern UI Components**: Redesigned header, sidebar, and layout
 - 📚 **Course Content System**: Rich learning materials integrated with quiz system
 - 🌙 **Dark Mode**: Full theme support with ThemeContext
-- 🔧 **Code Quality**: Fixed all ESLint errors, improved TypeScript types
 - 📱 **Responsive Design**: Mobile-first approach with Tailwind CSS v3
 
-### Improvements
-- ✅ Cleaned up unused imports and variables
-- ✅ Fixed React Hook dependencies
-- ✅ Improved TypeScript type safety
-- ✅ Enhanced component modularity
-- ✅ Better error handling throughout
+### 🛠️ Developer Experience
+- ✅ **Error-Free Build**: Production-ready compilation
+- ✅ **Type Safety**: Comprehensive TypeScript coverage
+- ✅ **Code Quality**: ESLint rules enforced consistently
+- ✅ **Performance**: Optimized bundle size and load times
+- ✅ **Testing**: Unit tests with Jest and React Testing Library
 
-### Tech Stack Updates
-- Migrated to Tailwind CSS v3.4.0
-- Updated PostCSS configuration
-- Improved build performance
+### 🔄 Tech Stack Updates
+- **Next.js 15.4.6**: Latest App Router with enhanced performance
+- **React 19**: Modern React features and concurrent rendering
+- **TypeScript 5.0**: Enhanced type checking and inference
+- **Sentry Integration**: Error tracking and performance monitoring
+- **PWA Framework**: Service worker and offline capabilities
 
 ## 🤝 Contributing
 

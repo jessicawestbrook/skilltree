@@ -1,8 +1,10 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect, Suspense } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+import { preloadCriticalAdminAssets } from '@/utils/adminPrefetch';
+import { LoadingSpinner } from '@/components/admin/LoadingSpinner';
 
 export default function AdminLayout({
   children,
@@ -11,6 +13,11 @@ export default function AdminLayout({
 }) {
   const pathname = usePathname();
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
+
+  // Preload critical admin assets on mount
+  useEffect(() => {
+    preloadCriticalAdminAssets();
+  }, []);
 
   const navItems = [
     { href: '/admin', label: 'Dashboard', icon: '📊' },
@@ -76,10 +83,12 @@ export default function AdminLayout({
         </div>
       </aside>
 
-      {/* Main Content */}
+      {/* Main Content with Suspense boundary for code splitting */}
       <main className="flex-1 overflow-auto">
         <div className="p-8">
-          {children}
+          <Suspense fallback={<LoadingSpinner message="Loading admin content..." />}>
+            {children}
+          </Suspense>
         </div>
       </main>
     </div>

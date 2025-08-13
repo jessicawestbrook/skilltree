@@ -13,6 +13,7 @@ import { domainIcons } from '../data/domainIcons';
 // Import hooks
 import { useUserStats } from '../hooks/useUserStats';
 import { useQuizQuestions } from '../hooks/useQuizQuestions';
+import { useAuth } from '../contexts/AuthContext';
 
 // Import utilities
 import { 
@@ -32,10 +33,17 @@ import { AuthModal } from '../components/AuthModal';
 import { UserProfile } from '../components/UserProfile';
 import LearningModal from '../components/LearningModal';
 import { Homepage } from '../components/Homepage';
+import { AuthGuard } from '../components/AuthGuard';
+import ProgressTracker from '../components/ProgressTracker';
+import LearningInsights from '../components/LearningInsights';
+import { ChatbotContainer } from '../components/ChatbotContainer';
+import { AnalyticsService } from '../services/analyticsService';
+import { OnboardingTrigger } from '../components/onboarding/OnboardingTrigger';
+import PerformanceMonitor from '../components/PerformanceMonitor';
 
 const App = () => {
-  // Authentication state
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  // Authentication state from context
+  const { isAuthenticated } = useAuth();
   
   // Responsive detection
   const [isMobile, setIsMobile] = useState(false);
@@ -49,6 +57,16 @@ const App = () => {
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
   }, []);
+
+  // Initialize analytics when authenticated
+  useEffect(() => {
+    if (isAuthenticated) {
+      AnalyticsService.initialize();
+      return () => {
+        AnalyticsService.cleanup();
+      };
+    }
+  }, [isAuthenticated]);
 
   // Expanded nodes state for hierarchical display
   const [expandedNodes, setExpandedNodes] = useState<Set<string>>(new Set());
@@ -269,7 +287,6 @@ const App = () => {
           isOpen={showAuthModal} 
           onClose={() => setShowAuthModal(false)}
           onSuccess={() => {
-            setIsAuthenticated(true);
             setShowAuthModal(false);
           }}
         />
@@ -302,32 +319,11 @@ const App = () => {
         }
         rightPanel={
           <div className="space-y-4">
-            {/* User Stats */}
-            <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-4">
-              <h3 className="text-base font-bold text-gray-900 dark:text-gray-100 mb-4">Your Progress</h3>
-              <div className="text-center mb-5">
-                <div className="w-20 h-20 mx-auto mb-3 bg-gradient-to-br from-purple-600 to-blue-600 rounded-full flex items-center justify-center">
-                  <User size={40} className="text-white" />
-                </div>
-                <div className="font-bold text-lg text-gray-900 dark:text-gray-100">{userStats.title}</div>
-                <div className="text-xs text-gray-600 dark:text-gray-400 font-medium">Level {userStats.neuralLevel}</div>
-              </div>
-              
-              <div className="grid grid-cols-2 gap-2">
-                <div className="bg-gray-50 dark:bg-gray-900 p-3 rounded-lg text-center">
-                  <div className="text-lg font-bold text-purple-600 dark:text-purple-400">
-                    {userStats.conqueredNodes.length}
-                  </div>
-                  <div className="text-[10px] text-gray-600 dark:text-gray-400 font-semibold uppercase">Conquered</div>
-                </div>
-                <div className="bg-gray-50 dark:bg-gray-900 p-3 rounded-lg text-center">
-                  <div className="text-lg font-bold text-blue-600 dark:text-blue-400">
-                    {userStats.memoryCrystals}
-                  </div>
-                  <div className="text-[10px] text-gray-600 dark:text-gray-400 font-semibold uppercase">Crystals</div>
-                </div>
-              </div>
-            </div>
+            {/* User Progress Tracker */}
+            <ProgressTracker />
+
+            {/* Learning Insights */}
+            <LearningInsights />
 
             {/* Recent Achievements */}
             <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-4">
@@ -794,12 +790,24 @@ const App = () => {
       {/* Mobile Navigation */}
       {isMobile && <MobileNav />}
 
+      {/* Floating Chatbot */}
+      <ChatbotContainer
+        nodeId={selectedNode?.id}
+        nodeTitle={selectedNode?.name}
+        isLearningMode={false}
+      />
+
+      {/* Onboarding Trigger */}
+      <OnboardingTrigger />
+
+      {/* Performance Monitoring */}
+      <PerformanceMonitor />
+
       {/* Auth Modal */}
       <AuthModal 
         isOpen={showAuthModal} 
         onClose={() => setShowAuthModal(false)}
         onSuccess={() => {
-          setIsAuthenticated(true);
           setShowAuthModal(false);
         }}
       />
@@ -824,4 +832,12 @@ const App = () => {
   );
 };
 
-export default App;
+const AppWithAuth = () => {
+  return (
+    <AuthGuard>
+      <App />
+    </AuthGuard>
+  );
+};
+
+export default AppWithAuth;

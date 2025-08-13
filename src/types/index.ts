@@ -61,7 +61,6 @@ export interface User {
   id: string;
   email: string;
   username: string;
-  displayName?: string;
   avatar?: string;
   photoURL?: string;
   createdAt: Date;
@@ -84,12 +83,57 @@ export interface RegisterCredentials {
   email: string;
   password: string;
   username: string;
-  displayName?: string;
 }
 
 export interface AuthContextType extends AuthState {
   login: (credentials: LoginCredentials) => Promise<{ success: boolean; error?: string }>;
-  register: (credentials: RegisterCredentials) => Promise<{ success: boolean; error?: string }>;
+  register: (credentials: RegisterCredentials) => Promise<{ success: boolean; error?: string; requiresVerification?: boolean }>;
   logout: () => Promise<void>;
   updateProfile: (updates: Partial<User>) => Promise<{ success: boolean; error?: string }>;
+  resetPassword: (email: string) => Promise<{ success: boolean; error?: string }>;
+  updatePassword: (newPassword: string) => Promise<{ success: boolean; error?: string }>;
+  refreshSession: () => Promise<{ success: boolean; error?: string }>;
+  sessionReady: boolean;
+}
+
+// Onboarding types
+export interface OnboardingStep {
+  id: string;
+  title: string;
+  description: string;
+  component: string;
+  isOptional?: boolean;
+  estimatedTime?: number; // in minutes
+}
+
+export interface OnboardingProgress {
+  currentStep: number;
+  completedSteps: string[];
+  skippedSteps: string[];
+  totalSteps: number;
+  isCompleted: boolean;
+  startedAt?: Date;
+  completedAt?: Date;
+}
+
+export interface OnboardingContextType {
+  progress: OnboardingProgress;
+  currentStep: OnboardingStep | null;
+  isOnboarding: boolean;
+  startOnboarding: () => void;
+  nextStep: () => void;
+  previousStep: () => void;
+  skipStep: () => void;
+  completeStep: (stepId: string) => void;
+  completeOnboarding: () => void;
+  resetOnboarding: () => void;
+}
+
+export interface UserPreferences {
+  learningGoals: string[];
+  difficultyLevel: 'beginner' | 'intermediate' | 'advanced';
+  studyTime: number; // minutes per day
+  interests: string[];
+  notificationsEnabled: boolean;
+  emailUpdates: boolean;
 }
