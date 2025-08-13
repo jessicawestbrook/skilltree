@@ -1,5 +1,6 @@
-import { NextResponse } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
 import { createClient } from '@supabase/supabase-js';
+import { withRateLimit } from '@/lib/rateLimit';
 
 function getSupabaseAdmin() {
   const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
@@ -21,7 +22,8 @@ function getSupabaseAdmin() {
   );
 }
 
-export async function POST(request: Request) {
+export async function POST(request: NextRequest) {
+  return withRateLimit(request, async () => {
   try {
     const authHeader = request.headers.get('authorization');
     
@@ -90,11 +92,12 @@ export async function POST(request: Request) {
       message: 'Verification email resent successfully'
     });
 
-  } catch (error) {
-    console.error('Resend verification error:', error);
-    return NextResponse.json(
-      { error: 'Failed to resend verification email' },
-      { status: 500 }
-    );
-  }
+    } catch (error) {
+      console.error('Resend verification error:', error);
+      return NextResponse.json(
+        { error: 'Failed to resend verification email' },
+        { status: 500 }
+      );
+    }
+  }, 'auth-verification');
 }

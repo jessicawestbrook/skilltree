@@ -2,7 +2,7 @@
 
 An interactive knowledge learning platform that gamifies education across all domains of human knowledge. Master subjects from fundamental concepts to advanced topics through an engaging visual knowledge graph.
 
-![NeuroQuest](https://img.shields.io/badge/version-0.3.1-blue)
+![NeuroQuest](https://img.shields.io/badge/version-0.4.0-blue)
 ![Next.js](https://img.shields.io/badge/Next.js-15.4.6-black)
 ![React](https://img.shields.io/badge/React-19.1.0-61dafb)
 ![TypeScript](https://img.shields.io/badge/TypeScript-5.0-blue)
@@ -293,7 +293,10 @@ Edit `scripts/migrate-learning-paths.js`:
 
 ## 🚧 Roadmap
 
-- [ ] User authentication and profiles
+- [x] User authentication and profiles
+- [x] Production deployment infrastructure
+- [x] Push notifications system
+- [x] Health monitoring and observability
 - [ ] Social features (friends, study groups)
 - [ ] More quiz question types
 - [ ] Progress certificates
@@ -311,6 +314,22 @@ Edit `scripts/migrate-learning-paths.js`:
 
 ## 🚀 Deployment
 
+### Docker Deployment
+```bash
+# Build and run with Docker Compose
+docker-compose up --build
+
+# Or build manually
+docker build -t neuroquest .
+docker run -p 3000:3000 --env-file .env.local neuroquest
+```
+
+### GitHub Actions CI/CD
+The repository includes automated deployment workflows:
+- **PR Checks**: Runs on pull requests (lint, type-check, tests)
+- **Main Deploy**: Deploys to production on merge to main
+- **Manual Deploy**: Trigger deployment manually from Actions tab
+
 ### Environment Variables for Production
 Ensure these environment variables are set in your deployment platform:
 
@@ -319,21 +338,42 @@ Ensure these environment variables are set in your deployment platform:
 - `NEXT_PUBLIC_SUPABASE_ANON_KEY` 
 - `SUPABASE_SERVICE_ROLE_KEY`
 - `RESEND_API_KEY`
+- `DATABASE_URL` (PostgreSQL connection string)
+
+**Push Notifications:**
+- `NEXT_PUBLIC_VAPID_PUBLIC_KEY`
+- `VAPID_PRIVATE_KEY`
+- `VAPID_SUBJECT`
 
 **Optional:**
 - `NEXT_PUBLIC_SENTRY_DSN` (Error tracking)
 - `NEXT_PUBLIC_PWA_ENABLED` (Progressive Web App features)
+- `OTEL_EXPORTER_OTLP_ENDPOINT` (OpenTelemetry endpoint)
 
 ### Build Commands
 ```bash
-npm run build    # Creates optimized production build
-npm run start    # Serves production build
-npm run lint     # Validates code quality
+npm run build       # Creates optimized production build
+npm run start       # Serves production build
+npm run lint        # Validates code quality
+npm run typecheck   # TypeScript type checking
+npm test           # Run test suite
+npm run prisma:generate  # Generate Prisma client
+npm run prisma:migrate   # Run database migrations
 ```
 
-## 📊 Recent Updates (v0.3.1)
+## 📊 Recent Updates (v0.4.0)
 
-### 🐛 Bug Fixes & Improvements
+### 🚀 Production Deployment & Infrastructure
+- ✅ **GitHub Actions CI/CD**: Automated deployment pipeline with build, test, and deploy stages
+- ✅ **Docker Support**: Containerized application with multi-stage builds for optimized images
+- ✅ **Health Monitoring**: Health check endpoints and readiness probes for production
+- ✅ **Rate Limiting**: API rate limiting to prevent abuse and ensure fair usage
+- ✅ **Push Notifications**: Web push notification system with VAPID keys
+- ✅ **Observability Stack**: OpenTelemetry integration with Prometheus and Grafana
+- ✅ **Database Migrations**: Prisma ORM for database schema management
+- ✅ **Security Enhancements**: CSP headers, XSS protection, and secure cookies
+
+### 🐛 Bug Fixes & Improvements (v0.3.1)
 - ✅ **Onboarding Modal**: Fixed scrolling issues for welcome modal content visibility
 - ✅ **Navigation Fix**: Resolved Next button functionality in onboarding flow
 - ✅ **UI Polish**: Added proper z-index and positioning for interactive elements

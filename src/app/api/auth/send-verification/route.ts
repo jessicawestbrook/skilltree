@@ -1,6 +1,7 @@
-import { NextResponse } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
 import { createClient } from '@supabase/supabase-js';
 import { sendVerificationEmail } from '@/services/emailService';
+import { withRateLimit } from '@/lib/rateLimit';
 
 function getSupabaseAdmin() {
   const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
@@ -28,7 +29,8 @@ function getSupabaseAdmin() {
   );
 }
 
-export async function POST(request: Request) {
+export async function POST(request: NextRequest) {
+  return withRateLimit(request, async () => {
   try {
     const { userId, email, username } = await request.json();
 
@@ -92,11 +94,12 @@ export async function POST(request: Request) {
       expiresAt: expires_at
     });
 
-  } catch (error) {
-    console.error('Send verification error:', error);
-    return NextResponse.json(
-      { error: 'Failed to send verification email' },
-      { status: 500 }
-    );
-  }
+    } catch (error) {
+      console.error('Send verification error:', error);
+      return NextResponse.json(
+        { error: 'Failed to send verification email' },
+        { status: 500 }
+      );
+    }
+  }, 'auth-verification');
 }

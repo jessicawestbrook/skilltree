@@ -1,9 +1,11 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { createRouteHandlerClient } from '@supabase/auth-helpers-nextjs';
 import { cookies } from 'next/headers';
+import { withRateLimit } from '@/lib/rateLimit';
 
 export async function POST(request: NextRequest) {
-  try {
+  return withRateLimit(request, async () => {
+    try {
     const supabase = createRouteHandlerClient({ cookies });
     
     // Check authentication
@@ -69,13 +71,14 @@ export async function POST(request: NextRequest) {
       );
     }
 
-  } catch (error) {
-    console.error('Error managing session:', error);
-    return NextResponse.json(
-      { error: 'Failed to manage session' },
-      { status: 500 }
-    );
-  }
+    } catch (error) {
+      console.error('Error managing session:', error);
+      return NextResponse.json(
+        { error: 'Failed to manage session' },
+        { status: 500 }
+      );
+    }
+  }, 'api-relaxed');
 }
 
 function detectDeviceType(userAgent: string): string {

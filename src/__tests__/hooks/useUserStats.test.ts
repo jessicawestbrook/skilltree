@@ -2,6 +2,35 @@ import { renderHook, act } from '@testing-library/react';
 import { useUserStats } from '../../hooks/useUserStats';
 import { UserStats } from '../../types';
 
+// Mock the supabase module first
+jest.mock('../../lib/supabase', () => ({
+  supabase: {
+    auth: {
+      getUser: jest.fn(() => Promise.resolve({ data: { user: null }, error: null }))
+    },
+    from: jest.fn(() => ({
+      select: jest.fn(() => ({
+        eq: jest.fn(() => ({
+          single: jest.fn(() => Promise.resolve({ data: null, error: null }))
+        }))
+      })),
+      upsert: jest.fn(() => Promise.resolve({ data: null, error: null })),
+      delete: jest.fn(() => ({
+        eq: jest.fn(() => Promise.resolve({ data: null, error: null }))
+      }))
+    }))
+  }
+}));
+
+// Mock the pushNotificationService
+jest.mock('../../services/pushNotificationService', () => ({
+  pushNotificationService: {
+    notifyLevelUp: jest.fn(),
+    notifyStreak: jest.fn(),
+    notifyAchievement: jest.fn()
+  }
+}));
+
 describe('useUserStats', () => {
   it('should initialize with default user stats', () => {
     const { result } = renderHook(() => useUserStats());
@@ -49,52 +78,55 @@ describe('useUserStats', () => {
   });
 
   describe('completeNode', () => {
-    it('should add new node to conquered nodes and update stats', () => {
+    it('should add new node to conquered nodes and update stats', async () => {
       const { result } = renderHook(() => useUserStats());
       
-      act(() => {
-        const wasNewCompletion = result.current.completeNode('new-node', 100);
-        expect(wasNewCompletion).toBe(true);
+      let wasNewCompletion;
+      await act(async () => {
+        wasNewCompletion = await result.current.completeNode('new-node', 100);
       });
-
+      
+      expect(wasNewCompletion).toBe(true);
       expect(result.current.userStats.conqueredNodes).toContain('new-node');
       expect(result.current.userStats.pathfinderPoints).toBe(2550); // 2450 + 100
       expect(result.current.userStats.memoryCrystals).toBe(9); // 8 + 1
     });
 
-    it('should not add duplicate nodes', () => {
+    it('should not add duplicate nodes', async () => {
       const { result } = renderHook(() => useUserStats());
       
-      act(() => {
-        const wasNewCompletion = result.current.completeNode('symbols-meaning', 100);
-        expect(wasNewCompletion).toBe(false);
+      let wasNewCompletion;
+      await act(async () => {
+        wasNewCompletion = await result.current.completeNode('symbols-meaning', 100);
       });
+      
+      expect(wasNewCompletion).toBe(false);
 
       expect(result.current.userStats.conqueredNodes.filter(node => node === 'symbols-meaning')).toHaveLength(1);
       expect(result.current.userStats.pathfinderPoints).toBe(2450); // unchanged
     });
 
-    it('should update neural level based on conquered nodes count', () => {
+    it('should update neural level based on conquered nodes count', async () => {
       const { result } = renderHook(() => useUserStats());
       const initialLevel = result.current.userStats.neuralLevel;
       
       // Add one more node (currently 4, will be 5 total)
-      act(() => {
-        result.current.completeNode('new-node-1', 100);
+      await act(async () => {
+        await result.current.completeNode('new-node-1', 100);
       });
 
       const expectedLevel = Math.floor(5 / 5) + 1; // 2
       expect(result.current.userStats.neuralLevel).toBe(expectedLevel);
     });
 
-    it('should update title based on conquered nodes count', () => {
+    it('should update title based on conquered nodes count', async () => {
       const { result } = renderHook(() => useUserStats());
       
       // Add nodes one by one to reach the title thresholds
       // Start with 4 nodes, add enough to reach > 20 (Knowledge Master)
       for (let i = 0; i < 17; i++) {
-        act(() => {
-          result.current.completeNode(`new-node-${i}`, 50);
+        await act(async () => {
+          await result.current.completeNode(`new-node-${i}`, 50);
         });
       }
 
@@ -104,23 +136,23 @@ describe('useUserStats', () => {
       expect(result.current.userStats.title).toBe('Knowledge Master');
     });
 
-    it('should handle multiple node completions correctly', () => {
+    it('should handle multiple node completions correctly', async () => {
       const { result } = renderHook(() => useUserStats());
       const initialPoints = result.current.userStats.pathfinderPoints;
       const initialCrystals = result.current.userStats.memoryCrystals;
       const initialLength = result.current.userStats.conqueredNodes.length;
       
       // Complete nodes one by one to ensure state updates are processed
-      act(() => {
-        result.current.completeNode('node-1', 50);
+      await act(async () => {
+        await result.current.completeNode('node-1', 50);
       });
       
-      act(() => {
-        result.current.completeNode('node-2', 75);
+      await act(async () => {
+        await result.current.completeNode('node-2', 75);
       });
       
-      act(() => {
-        result.current.completeNode('node-3', 100);
+      await act(async () => {
+        await result.current.completeNode('node-3', 100);
       });
 
       // All three nodes should be added
@@ -161,14 +193,14 @@ describe('useUserStats', () => {
       expect(progress).toBe(133); // 4/3 * 100 = 133.33... rounded to 133
     });
 
-    it('should update progress calculation after completing nodes', () => {
+    it('should update progress calculation after completing nodes', async () => {
       const { result } = renderHook(() => useUserStats());
       
       let progress = result.current.calculateProgress(10);
       expect(progress).toBe(40); // 4/10 * 100 = 40%
 
-      act(() => {
-        result.current.completeNode('new-node', 100);
+      await act(async () => {
+        await result.current.completeNode('new-node', 100);
       });
 
       progress = result.current.calculateProgress(10);
@@ -177,23 +209,23 @@ describe('useUserStats', () => {
   });
 
   describe('Edge cases and error handling', () => {
-    it('should handle extremely large point values', () => {
+    it('should handle extremely large point values', async () => {
       const { result } = renderHook(() => useUserStats());
       
-      act(() => {
-        result.current.completeNode('large-node', Number.MAX_SAFE_INTEGER);
+      await act(async () => {
+        await result.current.completeNode('large-node', Number.MAX_SAFE_INTEGER);
       });
 
       expect(result.current.userStats.pathfinderPoints).toBeGreaterThan(2450);
       expect(typeof result.current.userStats.pathfinderPoints).toBe('number');
     });
 
-    it('should handle negative point values gracefully', () => {
+    it('should handle negative point values gracefully', async () => {
       const { result } = renderHook(() => useUserStats());
       const initialPoints = result.current.userStats.pathfinderPoints;
       
-      act(() => {
-        result.current.completeNode('negative-node', -100);
+      await act(async () => {
+        await result.current.completeNode('negative-node', -100);
       });
 
       // Should handle negative values without breaking
@@ -201,39 +233,41 @@ describe('useUserStats', () => {
       expect(result.current.userStats.pathfinderPoints).toBeLessThan(initialPoints + 100);
     });
 
-    it('should handle very long node IDs', () => {
+    it('should handle very long node IDs', async () => {
       const { result } = renderHook(() => useUserStats());
       const longNodeId = 'a'.repeat(1000);
       
-      act(() => {
-        const success = result.current.completeNode(longNodeId, 50);
-        expect(success).toBe(true);
+      let success;
+      await act(async () => {
+        success = await result.current.completeNode(longNodeId, 50);
       });
+      expect(success).toBe(true);
 
       expect(result.current.userStats.conqueredNodes).toContain(longNodeId);
     });
 
-    it('should handle special characters in node IDs', () => {
+    it('should handle special characters in node IDs', async () => {
       const { result } = renderHook(() => useUserStats());
       const specialNodeId = 'node-with-special-chars-!@#$%^&*()_+{}|:"<>?[]\\;\',./ ';
       
-      act(() => {
-        const success = result.current.completeNode(specialNodeId, 75);
-        expect(success).toBe(true);
+      let success;
+      await act(async () => {
+        success = await result.current.completeNode(specialNodeId, 75);
       });
+      expect(success).toBe(true);
 
       expect(result.current.userStats.conqueredNodes).toContain(specialNodeId);
     });
 
-    it('should handle rapid successive node completions', () => {
+    it('should handle rapid successive node completions', async () => {
       const { result } = renderHook(() => useUserStats());
       const initialLength = result.current.userStats.conqueredNodes.length;
       
       // Due to React state batching, only the last call in a single act() is effective
       // Test with a smaller number and individual acts to verify the functionality
       for (let i = 0; i < 5; i++) {
-        act(() => {
-          result.current.completeNode(`rapid-node-${i}`, 10);
+        await act(async () => {
+          await result.current.completeNode(`rapid-node-${i}`, 10);
         });
       }
 
@@ -242,7 +276,7 @@ describe('useUserStats', () => {
       expect(result.current.userStats.memoryCrystals).toBe(8 + 5); // 5 crystals
     });
 
-    it('should maintain consistent state after many operations', () => {
+    it('should maintain consistent state after many operations', async () => {
       const { result } = renderHook(() => useUserStats());
       
       // Perform operations in separate acts to ensure state updates
@@ -250,16 +284,16 @@ describe('useUserStats', () => {
         result.current.updateUserStats({ neuralPower: 100 });
       });
       
-      act(() => {
-        result.current.completeNode('test-1', 50);
+      await act(async () => {
+        await result.current.completeNode('test-1', 50);
       });
       
       act(() => {
         result.current.updateUserStats({ synapticStreak: 15 });
       });
       
-      act(() => {
-        result.current.completeNode('test-2', 75);
+      await act(async () => {
+        await result.current.completeNode('test-2', 75);
       });
 
       const stats = result.current.userStats;
@@ -280,11 +314,11 @@ describe('useUserStats', () => {
       expect(stats.conqueredNodes).toContain('test-2');
     });
 
-    it('should handle edge case calculations with zero values', () => {
+    it('should handle edge case calculations with zero values', async () => {
       const { result } = renderHook(() => useUserStats());
       
-      act(() => {
-        result.current.completeNode('zero-points', 0);
+      await act(async () => {
+        await result.current.completeNode('zero-points', 0);
       });
 
       // Should still add to conquered nodes even with 0 points

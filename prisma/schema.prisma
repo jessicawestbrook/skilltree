@@ -1,0 +1,137 @@
+// This is your Prisma schema file
+// Learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+// ============================================
+// Core Tables
+// ============================================
+
+model KnowledgeNode {
+  id                   String               @id @default(uuid())
+  name                 String
+  description          String?
+  domain               String?
+  category             String?
+  difficulty           Int                  @default(1)
+  points               Int                  @default(100)
+  level                Int                  @default(0)
+  isParent             Boolean              @default(false) @map("is_parent")
+  parentId             String?              @map("parent_id")
+  x                    Float?
+  y                    Float?
+  icon                 String?
+  isAvailable          Boolean              @default(true) @map("is_available")
+  createdAt            DateTime             @default(now()) @map("created_at")
+  updatedAt            DateTime             @updatedAt @map("updated_at")
+  
+  // Relations
+  parent               KnowledgeNode?       @relation("NodeHierarchy", fields: [parentId], references: [id])
+  children             KnowledgeNode[]      @relation("NodeHierarchy")
+  prerequisites        NodePrerequisite[]   @relation("PrerequisiteFrom")
+  dependents           NodePrerequisite[]   @relation("PrerequisiteTo")
+  questions            QuizQuestion[]
+  learningPathNodes    LearningPathNode[]
+  userProgress         UserProgress[]
+  courseContent        CourseContent[]
+  
+  @@index([domain])
+  @@index([category])
+  @@index([parentId])
+  @@map("knowledge_nodes")
+}
+
+model NodePrerequisite {
+  id               String         @id @default(uuid())
+  nodeId           String         @map("node_id")
+  prerequisiteId   String         @map("prerequisite_id")
+  createdAt        DateTime       @default(now()) @map("created_at")
+  
+  // Relations
+  node             KnowledgeNode  @relation("PrerequisiteTo", fields: [nodeId], references: [id], onDelete: Cascade)
+  prerequisite     KnowledgeNode  @relation("PrerequisiteFrom", fields: [prerequisiteId], references: [id], onDelete: Cascade)
+  
+  @@unique([nodeId, prerequisiteId])
+  @@index([nodeId])
+  @@index([prerequisiteId])
+  @@map("node_prerequisites")
+}
+
+model QuizQuestion {
+  id               String         @id @default(uuid())
+  nodeId           String         @map("node_id")
+  question         String
+  options          Json
+  correct          Int
+  explanation      String?
+  difficulty       Int            @default(1)
+  createdAt        DateTime       @default(now()) @map("created_at")
+  updatedAt        DateTime       @updatedAt @map("updated_at")
+  
+  // Relations
+  node             KnowledgeNode  @relation(fields: [nodeId], references: [id], onDelete: Cascade)
+  
+  @@index([nodeId])
+  @@map("quiz_questions")
+}
+
+model LearningPath {
+  id               String             @id @default(uuid())
+  name             String
+  description      String?
+  icon             String?
+  color            String?
+  difficulty       String?
+  estimatedHours   Int?               @map("estimated_hours")
+  isPublished      Boolean            @default(true) @map("is_published")
+  createdAt        DateTime           @default(now()) @map("created_at")
+  updatedAt        DateTime           @updatedAt @map("updated_at")
+  
+  // Relations
+  nodes            LearningPathNode[]
+  
+  @@map("learning_paths")
+}
+
+model LearningPathNode {
+  id               String         @id @default(uuid())
+  pathId           String         @map("path_id")
+  nodeId           String         @map("node_id")
+  sequenceOrder    Int            @map("sequence_order")
+  isRequired       Boolean        @default(true) @map("is_required")
+  
+  // Relations
+  path             LearningPath   @relation(fields: [pathId], references: [id], onDelete: Cascade)
+  node             KnowledgeNode  @relation(fields: [nodeId], references: [id], onDelete: Cascade)
+  
+  @@unique([pathId, nodeId])
+  @@index([pathId])
+  @@index([nodeId])
+  @@map("learning_path_nodes")
+}
+
+model CourseContent {
+  id               String         @id @default(uuid())
+  nodeId           String         @map("node_id")
+  title            String
+  content          Json
+  contentType      String         @default("lesson") @map("content_type")
+  sequenceOrder    Int            @default(0) @map("sequence_order")
+  estimatedMinutes Int            @default(10) @map("estimated_minutes")
+  createdAt        DateTime       @default(now()) @map("created_at")
+  updatedAt        DateTime       @updatedAt @map("updated_at")
+  
+  // Relations
+  node             KnowledgeNode  @relation(fields: [nodeId], references: [id], onDelete: Cascade)
+  
+  @@index([nodeId])
+  @@map("course_content")
+}

@@ -1,10 +1,12 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { createRouteHandlerClient } from '@supabase/auth-helpers-nextjs';
 import { cookies } from 'next/headers';
+import { withRateLimit } from '@/lib/rateLimit';
 
 // This endpoint is specifically for handling session end via sendBeacon
 export async function POST(request: NextRequest) {
-  try {
+  return withRateLimit(request, async () => {
+    try {
     const supabase = createRouteHandlerClient({ cookies });
     
     const body = await request.json();
@@ -31,11 +33,12 @@ export async function POST(request: NextRequest) {
       success: true
     });
 
-  } catch (error) {
-    console.error('Error in end-session endpoint:', error);
-    // Return success anyway since this is cleanup
-    return NextResponse.json({
-      success: true
-    });
-  }
+    } catch (error) {
+      console.error('Error in end-session endpoint:', error);
+      // Return success anyway since this is cleanup
+      return NextResponse.json({
+        success: true
+      });
+    }
+  }, 'api-relaxed');
 }

@@ -144,8 +144,8 @@ describe('nodeLayoutEngine', () => {
           const node2 = result.nodes[j];
           
           // Simple overlap check (nodes should be at least 120px apart horizontally or 140px vertically)
-          const xOverlap = Math.abs(node1.x - node2.x) < 120;
-          const yOverlap = Math.abs(node1.y - node2.y) < 140;
+          const xOverlap = Math.abs((node1.x ?? 0) - (node2.x ?? 0)) < 120;
+          const yOverlap = Math.abs((node1.y ?? 0) - (node2.y ?? 0)) < 140;
           
           // If nodes are close in one dimension, they should be separated in the other
           if (xOverlap && yOverlap) {

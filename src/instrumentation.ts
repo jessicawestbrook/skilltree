@@ -12,6 +12,15 @@ export async function register() {
       await import('../sentry.edge.config');
     }
   }
+  
+  // Initialize OpenTelemetry
+  if (process.env.NEXT_RUNTIME === 'nodejs') {
+    if (process.env.NODE_ENV === 'production' || process.env.OTEL_ENABLED === 'true') {
+      const { otelSDK } = await import('./lib/telemetry');
+      otelSDK.start();
+      console.log('OpenTelemetry instrumentation started');
+    }
+  }
 }
 
 export async function onRequestError(

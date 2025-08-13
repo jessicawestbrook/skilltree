@@ -40,6 +40,8 @@ import { ChatbotContainer } from '../components/ChatbotContainer';
 import { AnalyticsService } from '../services/analyticsService';
 import { OnboardingTrigger } from '../components/onboarding/OnboardingTrigger';
 import PerformanceMonitor from '../components/PerformanceMonitor';
+import { NotificationPermission } from '../components/NotificationPermission';
+import { pushNotificationService } from '../services/pushNotificationService';
 
 const App = () => {
   // Authentication state from context
@@ -58,10 +60,11 @@ const App = () => {
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
-  // Initialize analytics when authenticated
+  // Initialize analytics and push notifications when authenticated
   useEffect(() => {
     if (isAuthenticated) {
       AnalyticsService.initialize();
+      pushNotificationService.initialize();
       return () => {
         AnalyticsService.cleanup();
       };
@@ -137,10 +140,10 @@ const App = () => {
   };
 
   // Complete a node
-  const handleCompleteNode = () => {
+  const handleCompleteNode = async () => {
     if (!selectedNode) return;
     
-    const wasNewlyCompleted = completeNode(selectedNode.id, selectedNode.points);
+    const wasNewlyCompleted = await completeNode(selectedNode.id, selectedNode.points);
     
     if (wasNewlyCompleted) {
       setShowAchievement(true);
@@ -297,6 +300,9 @@ const App = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-slate-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900">
+      {/* Notification Permission Banner */}
+      {isAuthenticated && <NotificationPermission />}
+      
       {/* Header */}
       <ModernHeader 
         userStats={userStats} 
@@ -640,9 +646,9 @@ const App = () => {
           nodeId={selectedNode.id}
           nodeTitle={selectedNode.name}
           questions={currentQuizQuestions}
-          onComplete={(passed) => {
+          onComplete={async (passed) => {
             if (passed && selectedNode) {
-              const wasNewlyCompleted = completeNode(selectedNode.id, selectedNode.points);
+              const wasNewlyCompleted = await completeNode(selectedNode.id, selectedNode.points);
               if (wasNewlyCompleted) {
                 setShowAchievement(true);
                 setTimeout(() => setShowAchievement(false), 3000);

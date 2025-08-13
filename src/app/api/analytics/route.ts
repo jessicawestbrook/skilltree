@@ -1,9 +1,11 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { createRouteHandlerClient } from '@supabase/auth-helpers-nextjs';
 import { cookies } from 'next/headers';
+import { withRateLimit } from '@/lib/rateLimit';
 
 export async function GET(request: NextRequest) {
-  try {
+  return withRateLimit(request, async () => {
+    try {
     const supabase = createRouteHandlerClient({ cookies });
     
     // Check authentication
@@ -47,7 +49,7 @@ export async function GET(request: NextRequest) {
 
         return NextResponse.json({
           success: true,
-          data: insights || []
+          data: Array.isArray(insights) ? insights : []
         });
 
       case 'recommendations':
@@ -83,7 +85,7 @@ export async function GET(request: NextRequest) {
 
         return NextResponse.json({
           success: true,
-          data: recommendations || []
+          data: Array.isArray(recommendations) ? recommendations : []
         });
 
       case 'sessions':
@@ -101,7 +103,7 @@ export async function GET(request: NextRequest) {
 
         return NextResponse.json({
           success: true,
-          data: sessions || []
+          data: Array.isArray(sessions) ? sessions : []
         });
 
       default:
@@ -110,17 +112,19 @@ export async function GET(request: NextRequest) {
         }, { status: 400 });
     }
 
-  } catch (error) {
-    console.error('Error fetching analytics:', error);
-    return NextResponse.json(
-      { error: 'Failed to fetch analytics data' },
-      { status: 500 }
-    );
-  }
+    } catch (error) {
+      console.error('Error fetching analytics:', error);
+      return NextResponse.json(
+        { error: 'Failed to fetch analytics data' },
+        { status: 500 }
+      );
+    }
+  }, 'api-moderate');
 }
 
 export async function POST(request: NextRequest) {
-  try {
+  return withRateLimit(request, async () => {
+    try {
     const supabase = createRouteHandlerClient({ cookies });
     
     // Check authentication
@@ -161,11 +165,12 @@ export async function POST(request: NextRequest) {
       message: 'Event tracked successfully'
     });
 
-  } catch (error) {
-    console.error('Error tracking event:', error);
-    return NextResponse.json(
-      { error: 'Failed to track event' },
-      { status: 500 }
-    );
-  }
+    } catch (error) {
+      console.error('Error tracking event:', error);
+      return NextResponse.json(
+        { error: 'Failed to track event' },
+        { status: 500 }
+      );
+    }
+  }, 'api-moderate');
 }

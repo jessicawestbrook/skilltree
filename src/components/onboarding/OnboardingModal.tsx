@@ -34,11 +34,16 @@ export const OnboardingModal: React.FC<OnboardingModalProps> = ({ isOpen, onClos
       currentStepData: currentStep 
     });
     
+    // Always call nextStep first to update the progress
+    nextStep();
+    
+    // Check if we've reached the end after calling nextStep
     if (progress.currentStep >= progress.totalSteps - 1) {
-      completeOnboarding();
-      onClose();
-    } else {
-      nextStep();
+      // Use setTimeout to allow state to update before completing
+      setTimeout(() => {
+        completeOnboarding();
+        onClose();
+      }, 100);
     }
   };
 

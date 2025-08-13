@@ -1,0 +1,260 @@
+name: Code Quality
+
+on:
+  push:
+    branches: [main, develop]
+  pull_request:
+    branches: [main, develop]
+  schedule:
+    - cron: '0 0 * * 0' # Weekly on Sunday
+
+jobs:
+  sonarcloud:
+    name: SonarCloud Analysis
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # Full history for better analysis
+          
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          
+      - name: Install dependencies
+        run: npm ci
+        
+      - name: Run tests with coverage
+        run: npm test -- --coverage --watchAll=false
+        
+      - name: SonarCloud Scan
+        uses: SonarSource/sonarcloud-github-action@master
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        with:
+          args: >
+            -Dsonar.projectKey=neuroquest
+            -Dsonar.organization=${{ github.repository_owner }}
+            -Dsonar.javascript.lcov.reportPaths=coverage/lcov.info
+            -Dsonar.coverage.exclusions=**/*.test.tsx,**/*.test.ts,**/*.spec.tsx,**/*.spec.ts,**/tests/**
+            -Dsonar.exclusions=**/node_modules/**,**/build/**,**/.next/**,**/coverage/**
+
+  bundle-size:
+    name: Bundle Size Analysis
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          
+      - name: Install dependencies
+        run: npm ci
+        
+      - name: Build application
+        run: npm run build
+        
+      - name: Analyze bundle size
+        uses: ai/size-limit-action@v1
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          skip_step: install
+          
+      - name: Upload bundle stats
+        uses: actions/upload-artifact@v4
+        with:
+          name: bundle-stats
+          path: .next/analyze
+          retention-days: 30
+
+  accessibility:
+    name: Accessibility Testing
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          
+      - name: Install dependencies
+        run: npm ci
+        
+      - name: Build application
+        run: npm run build
+        
+      - name: Start server
+        run: |
+          npm run start &
+          sleep 10
+        
+      - name: Run axe accessibility tests
+        run: |
+          npm install -g @axe-core/cli
+          axe http://localhost:3000 --disable iframe
+          
+      - name: Run pa11y accessibility tests
+        run: |
+          npm install -g pa11y
+          pa11y http://localhost:3000 --reporter cli
+
+  performance:
+    name: Performance Testing
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          
+      - name: Install dependencies
+        run: npm ci
+        
+      - name: Build application
+        run: npm run build
+        
+      - name: Run performance tests
+        run: |
+          npm install -g lighthouse
+          npm run start &
+          sleep 10
+          lighthouse http://localhost:3000 \
+            --output=json \
+            --output-path=./lighthouse-report.json \
+            --chrome-flags="--headless --no-sandbox"
+            
+      - name: Upload performance results
+        uses: actions/upload-artifact@v4
+        with:
+          name: lighthouse-report
+          path: lighthouse-report.json
+          retention-days: 30
+          
+      - name: Performance budget check
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            const report = JSON.parse(fs.readFileSync('./lighthouse-report.json', 'utf8'));
+            
+            const scores = {
+              performance: report.categories.performance.score * 100,
+              accessibility: report.categories.accessibility.score * 100,
+              'best-practices': report.categories['best-practices'].score * 100,
+              seo: report.categories.seo.score * 100
+            };
+            
+            const budgets = {
+              performance: 80,
+              accessibility: 90,
+              'best-practices': 90,
+              seo: 90
+            };
+            
+            let failed = false;
+            let message = '## Lighthouse Performance Report\n\n';
+            
+            for (const [category, score] of Object.entries(scores)) {
+              const budget = budgets[category];
+              const passed = score >= budget;
+              const emoji = passed ? '✅' : '❌';
+              
+              message += `${emoji} **${category}**: ${score.toFixed(1)}/100 (budget: ${budget})\n`;
+              
+              if (!passed) failed = true;
+            }
+            
+            if (context.eventName === 'pull_request') {
+              await github.rest.issues.createComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: context.issue.number,
+                body: message
+              });
+            }
+            
+            if (failed) {
+              core.setFailed('Performance budget exceeded');
+            }
+
+  code-review:
+    name: AI Code Review
+    runs-on: ubuntu-latest
+    if: github.event_name == 'pull_request'
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          
+      - name: Get changed files
+        id: changed-files
+        uses: tj-actions/changed-files@v44
+        with:
+          separator: ','
+          
+      - name: Review code changes
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const files = '${{ steps.changed-files.outputs.all_changed_files }}'.split(',');
+            
+            // Filter for code files only
+            const codeFiles = files.filter(f => 
+              f.endsWith('.ts') || f.endsWith('.tsx') || 
+              f.endsWith('.js') || f.endsWith('.jsx')
+            );
+            
+            if (codeFiles.length === 0) return;
+            
+            const comments = [];
+            
+            for (const file of codeFiles) {
+              // Add automated code review checks
+              const { data: content } = await github.rest.repos.getContent({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                path: file,
+                ref: context.payload.pull_request.head.sha
+              });
+              
+              const code = Buffer.from(content.content, 'base64').toString();
+              
+              // Check for common issues
+              if (code.includes('console.log')) {
+                comments.push(`⚠️ Found \`console.log\` in ${file}. Consider removing or using proper logging.`);
+              }
+              
+              if (code.includes('// TODO') || code.includes('// FIXME')) {
+                comments.push(`📝 Found TODO/FIXME comments in ${file}. Consider creating issues for these.`);
+              }
+              
+              if (code.includes('any>') || code.includes(': any')) {
+                comments.push(`⚠️ Found \`any\` type in ${file}. Consider using proper TypeScript types.`);
+              }
+            }
+            
+            if (comments.length > 0) {
+              await github.rest.issues.createComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: context.issue.number,
+                body: `## 🤖 Automated Code Review\n\n${comments.join('\n')}`
+              });
+            }

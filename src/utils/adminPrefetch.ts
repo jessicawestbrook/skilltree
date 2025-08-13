@@ -1,14 +1,16 @@
-// Utility for prefetching admin routes and their data
+// Utility for prefetching admin routes using Next.js router
 export const prefetchAdminRoute = async (route: string) => {
   if (typeof window === 'undefined') return;
 
   // Use requestIdleCallback for better performance
   if ('requestIdleCallback' in window) {
     requestIdleCallback(() => {
-      // Prefetch the route
-      import(`@/app/admin${route}/page`).catch(() => {
-        // Silently fail if route doesn't exist
-      });
+      // Create a prefetch link element for the route
+      const link = document.createElement('link');
+      link.rel = 'prefetch';
+      link.href = `/admin${route}`;
+      link.as = 'document';
+      document.head.appendChild(link);
     });
   }
 };

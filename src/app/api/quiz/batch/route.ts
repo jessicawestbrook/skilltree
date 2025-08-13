@@ -1,8 +1,10 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { QuizService } from '@/services/quizService';
+import { withRateLimit } from '@/lib/rateLimit';
 
 export async function POST(request: NextRequest) {
-  try {
+  return withRateLimit(request, async () => {
+    try {
     const contentType = request.headers.get('content-type') || '';
     let result;
 
@@ -62,17 +64,18 @@ export async function POST(request: NextRequest) {
     } else {
       return NextResponse.json(result, { status: 400 });
     }
-  } catch (error) {
-    console.error('Batch operation error:', error);
-    return NextResponse.json(
-      { 
-        success: false, 
-        error: error instanceof Error ? error.message : 'Unknown error occurred',
-        errors: [error instanceof Error ? error.message : 'Unknown error occurred']
-      },
-      { status: 500 }
-    );
-  }
+    } catch (error) {
+      console.error('Batch operation error:', error);
+      return NextResponse.json(
+        { 
+          success: false, 
+          error: error instanceof Error ? error.message : 'Unknown error occurred',
+          errors: [error instanceof Error ? error.message : 'Unknown error occurred']
+        },
+        { status: 500 }
+      );
+    }
+  }, 'api-strict');
 }
 
 export async function GET() {

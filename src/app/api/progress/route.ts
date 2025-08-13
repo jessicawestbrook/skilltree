@@ -1,9 +1,11 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { createRouteHandlerClient } from '@supabase/auth-helpers-nextjs';
 import { cookies } from 'next/headers';
+import { withRateLimit } from '@/lib/rateLimit';
 
 export async function POST(request: NextRequest) {
-  try {
+  return withRateLimit(request, async () => {
+    try {
     const supabase = createRouteHandlerClient({ cookies });
     
     // Check authentication
@@ -99,17 +101,19 @@ export async function POST(request: NextRequest) {
         : 'Progress recorded successfully'
     });
 
-  } catch (error) {
-    console.error('Error recording progress:', error);
-    return NextResponse.json(
-      { error: 'Failed to record progress' },
-      { status: 500 }
-    );
-  }
+    } catch (error) {
+      console.error('Error recording progress:', error);
+      return NextResponse.json(
+        { error: 'Failed to record progress' },
+        { status: 500 }
+      );
+    }
+  }, 'api-moderate');
 }
 
 export async function GET(request: NextRequest) {
-  try {
+  return withRateLimit(request, async () => {
+    try {
     const supabase = createRouteHandlerClient({ cookies });
     
     // Check authentication
@@ -143,11 +147,12 @@ export async function GET(request: NextRequest) {
       data
     });
 
-  } catch (error) {
-    console.error('Error fetching progress:', error);
-    return NextResponse.json(
-      { error: 'Failed to fetch progress' },
-      { status: 500 }
-    );
-  }
+    } catch (error) {
+      console.error('Error fetching progress:', error);
+      return NextResponse.json(
+        { error: 'Failed to fetch progress' },
+        { status: 500 }
+      );
+    }
+  }, 'api-relaxed');
 }

@@ -25,6 +25,11 @@ const customJestConfig = {
       statements: 70,
     },
   },
+  maxWorkers: '50%',
+  workerIdleMemoryLimit: '512MB',
+  testTimeout: 30000,
+  clearMocks: true,
+  restoreMocks: true,
 }
 
 module.exports = createJestConfig(customJestConfig)

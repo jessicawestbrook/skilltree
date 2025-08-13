@@ -1,0 +1,246 @@
+name: PR Automation
+
+on:
+  pull_request:
+    types: [opened, edited, synchronize, ready_for_review]
+  pull_request_review:
+    types: [submitted]
+  issue_comment:
+    types: [created]
+
+permissions:
+  contents: read
+  pull-requests: write
+  issues: write
+
+jobs:
+  auto-label:
+    name: Auto Label PR
+    runs-on: ubuntu-latest
+    if: github.event_name == 'pull_request'
+    
+    steps:
+      - name: Label based on PR size
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const { data: pr } = await github.rest.pulls.get({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              pull_number: context.issue.number
+            });
+            
+            const labels = [];
+            
+            // Size labels
+            if (pr.additions + pr.deletions < 10) {
+              labels.push('size/XS');
+            } else if (pr.additions + pr.deletions < 50) {
+              labels.push('size/S');
+            } else if (pr.additions + pr.deletions < 150) {
+              labels.push('size/M');
+            } else if (pr.additions + pr.deletions < 500) {
+              labels.push('size/L');
+            } else {
+              labels.push('size/XL');
+            }
+            
+            // Type labels based on branch name
+            const branch = pr.head.ref.toLowerCase();
+            if (branch.includes('feature/')) labels.push('feature');
+            if (branch.includes('fix/') || branch.includes('bugfix/')) labels.push('bug');
+            if (branch.includes('docs/')) labels.push('documentation');
+            if (branch.includes('chore/')) labels.push('chore');
+            if (branch.includes('refactor/')) labels.push('refactor');
+            
+            // File type labels
+            const { data: files } = await github.rest.pulls.listFiles({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              pull_number: context.issue.number
+            });
+            
+            const hasTests = files.some(f => f.filename.includes('.test.') || f.filename.includes('.spec.'));
+            const hasDocs = files.some(f => f.filename.endsWith('.md'));
+            const hasWorkflows = files.some(f => f.filename.includes('.github/workflows'));
+            
+            if (hasTests) labels.push('tests');
+            if (hasDocs) labels.push('documentation');
+            if (hasWorkflows) labels.push('ci/cd');
+            
+            // Add labels
+            if (labels.length > 0) {
+              await github.rest.issues.addLabels({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: context.issue.number,
+                labels
+              });
+            }
+
+  pr-checks:
+    name: PR Validation Checks
+    runs-on: ubuntu-latest
+    if: github.event_name == 'pull_request'
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        
+      - name: Check PR title format
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const title = context.payload.pull_request.title;
+            const validPrefixes = ['feat:', 'fix:', 'docs:', 'style:', 'refactor:', 'test:', 'chore:', 'perf:', 'ci:', 'build:', 'revert:'];
+            
+            const isValid = validPrefixes.some(prefix => title.toLowerCase().startsWith(prefix));
+            
+            if (!isValid) {
+              await github.rest.issues.createComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: context.issue.number,
+                body: `❌ **Invalid PR Title Format**
+                
+                Please update your PR title to follow the conventional commits format:
+                - \`feat:\` for new features
+                - \`fix:\` for bug fixes
+                - \`docs:\` for documentation changes
+                - \`style:\` for code style changes
+                - \`refactor:\` for code refactoring
+                - \`test:\` for test additions/changes
+                - \`chore:\` for maintenance tasks
+                - \`perf:\` for performance improvements
+                - \`ci:\` for CI/CD changes
+                - \`build:\` for build system changes
+                - \`revert:\` for reverting changes
+                
+                Example: \`feat: add user authentication\``
+              });
+              
+              core.setFailed('PR title does not follow conventional commits format');
+            }
+            
+      - name: Check PR description
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const body = context.payload.pull_request.body;
+            
+            if (!body || body.trim().length < 50) {
+              await github.rest.issues.createComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: context.issue.number,
+                body: `⚠️ **PR Description Too Short**
+                
+                Please provide a more detailed description of your changes.
+                Include:
+                - What changes were made
+                - Why these changes are necessary
+                - Any breaking changes or migration steps
+                - Related issues or tickets`
+              });
+            }
+
+  dependency-review:
+    name: Dependency Review
+    runs-on: ubuntu-latest
+    if: github.event_name == 'pull_request'
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        
+      - name: Dependency Review
+        uses: actions/dependency-review-action@v4
+        with:
+          fail-on-severity: moderate
+          deny-licenses: GPL-3.0, AGPL-3.0
+          
+  auto-merge:
+    name: Auto Merge Dependabot PRs
+    runs-on: ubuntu-latest
+    if: github.event_name == 'pull_request' && github.actor == 'dependabot[bot]'
+    
+    steps:
+      - name: Dependabot metadata
+        id: metadata
+        uses: dependabot/fetch-metadata@v2
+        with:
+          github-token: "${{ secrets.GITHUB_TOKEN }}"
+          
+      - name: Enable auto-merge for Dependabot PRs
+        if: steps.metadata.outputs.update-type == 'version-update:semver-patch' || steps.metadata.outputs.update-type == 'version-update:semver-minor'
+        run: gh pr merge --auto --merge "$PR_URL"
+        env:
+          PR_URL: ${{ github.event.pull_request.html_url }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          
+  pr-comment-commands:
+    name: Handle PR Comment Commands
+    runs-on: ubuntu-latest
+    if: github.event_name == 'issue_comment' && github.event.issue.pull_request && startsWith(github.event.comment.body, '/')
+    
+    steps:
+      - name: Process commands
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const comment = context.payload.comment.body.trim();
+            const author = context.payload.comment.user.login;
+            
+            // Check if user has write permissions
+            const { data: perm } = await github.rest.repos.getCollaboratorPermissionLevel({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              username: author
+            });
+            
+            if (!['admin', 'write'].includes(perm.permission)) {
+              await github.rest.reactions.createForIssueComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                comment_id: context.payload.comment.id,
+                content: '-1'
+              });
+              return;
+            }
+            
+            // Handle commands
+            if (comment === '/rebase') {
+              // Add rebase logic
+              await github.rest.issues.createComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: context.issue.number,
+                body: '🔄 Rebasing PR with main branch...'
+              });
+            } else if (comment === '/update-snapshots') {
+              // Trigger snapshot update workflow
+              await github.rest.actions.createWorkflowDispatch({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                workflow_id: 'update-snapshots.yml',
+                ref: 'main'
+              });
+            } else if (comment.startsWith('/assign')) {
+              const assignee = comment.split(' ')[1];
+              if (assignee) {
+                await github.rest.issues.addAssignees({
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  issue_number: context.issue.number,
+                  assignees: [assignee]
+                });
+              }
+            }
+            
+            // React to processed command
+            await github.rest.reactions.createForIssueComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              comment_id: context.payload.comment.id,
+              content: 'rocket'
+            });

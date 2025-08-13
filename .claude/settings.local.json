@@ -1,34 +1,39 @@
 {
   "permissions": {
     "allow": [
-      "Bash(npm run lint)",
-      "Bash(npx tsc:*)",
-      "Bash(mkdir:*)",
-      "Bash(git add:*)",
-      "Bash(git push:*)",
-      "Bash(npm install:*)",
-      "Bash(npm run dev:*)",
-      "Bash(rm:*)",
-      "Bash(mv:*)",
-      "Bash(curl:*)",
-      "Bash(taskkill:*)",
-      "Bash(timeout 5 curl -s http://localhost:3000)",
-      "Bash(npm uninstall:*)",
-      "Bash(timeout:*)",
-      "Bash(/dev/null)",
-      "Bash(npx supabase db push:*)",
-      "Bash(npm run lint:*)",
-      "Bash(npm run test:*)",
-      "Bash(npm run build:*)",
+      "Bash(cat:*)",
+      "Edit",
+      "Write",
+      "MultiEdit",
+      "NotebookEdit",
       "Bash(npm test)",
+      "Bash(npm run lint)",
+      "Bash(npm run typecheck:*)",
+      "Bash(npm audit:*)",
       "Bash(npm run build:*)",
       "Bash(node:*)",
-      "Bash(node:*)",
-      "Bash(ESLINT_NO_DEV_ERRORS=true npm run build)",
-      "Bash(npm test:*)",
-      "Bash(npm test:*)"
+      "Bash(npm install:*)",
+      "Bash(mkdir:*)",
+      "Bash(npm run dev:*)",
+      "Bash(grep:*)",
+      "Bash(timeout:*)",
+      "Bash(git add:*)",
+      "Bash(rm:*)"
     ],
     "deny": [],
     "ask": []
+  },
+  "hooks": {
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "echo '✅ Task completed! Checking build...'; npm run build && echo '✅ Build successful!' || echo '❌ Build failed - check errors above'; echo '🚀 Starting dev server (will remain running)...'; npm run dev",
+            "timeout": 60
+          }
+        ]
+      }
+    ]
   }
 }
