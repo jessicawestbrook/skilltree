@@ -1,9 +1,10 @@
 'use client';
 
 import React from 'react';
-import { Brain, Flame, Trophy, Star, User, Menu } from 'lucide-react';
+import { Brain, Flame, Trophy, Star, User, Menu, Users } from 'lucide-react';
 import { UserStats } from '../types';
 import { useAuth } from '../contexts/AuthContext';
+import Link from 'next/link';
 
 interface ModernHeaderProps {
   userStats: UserStats;
@@ -115,6 +116,14 @@ export default function ModernHeader({
 
           {/* Right: User Actions */}
           <div className="flex items-center gap-3">
+            {isAuthenticated && (
+              <Link href="/social">
+                <button className="flex items-center gap-2 px-3 py-2 bg-gradient-to-r from-green-500 to-emerald-600 text-white rounded-lg hover:from-green-600 hover:to-emerald-700 transition-all text-sm font-medium">
+                  <Users className="w-4 h-4" />
+                  <span className="hidden sm:inline">Social Hub</span>
+                </button>
+              </Link>
+            )}
             {isAuthenticated ? (
               <>
                 <button

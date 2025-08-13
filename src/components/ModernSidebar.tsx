@@ -1,7 +1,8 @@
 'use client';
 
 import React from 'react';
-import { Search, Filter, BookOpen, Brain, Trophy, Target } from 'lucide-react';
+import { Search, Filter, BookOpen, Brain, Trophy, Target, Users, UserPlus, Activity } from 'lucide-react';
+import Link from 'next/link';
 
 interface ModernSidebarProps {
   searchTerm: string;
@@ -115,6 +116,38 @@ export default function ModernSidebar({
               </button>
             );
           })}
+        </div>
+      </div>
+
+      {/* Social Hub */}
+      <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-4">
+        <h3 className="text-sm font-semibold text-gray-900 dark:text-gray-100 mb-3">Social Hub</h3>
+        <Link href="/social" className="block">
+          <div className="bg-gradient-to-r from-green-500 to-emerald-600 rounded-lg p-3 mb-3 cursor-pointer hover:from-green-600 hover:to-emerald-700 transition-all">
+            <div className="flex items-center gap-3 text-white">
+              <Users className="w-5 h-5" />
+              <div>
+                <div className="font-semibold text-sm">Connect & Learn Together</div>
+                <div className="text-xs opacity-90">Join study groups, make friends</div>
+              </div>
+            </div>
+          </div>
+        </Link>
+        
+        <div className="grid grid-cols-2 gap-2">
+          <Link href="/social?tab=friends" className="block">
+            <button className="w-full px-3 py-2 bg-gray-50 dark:bg-gray-700 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-600 transition-all flex items-center justify-center gap-2 text-gray-700 dark:text-gray-300 text-sm">
+              <UserPlus className="w-4 h-4" />
+              Friends
+            </button>
+          </Link>
+          
+          <Link href="/social?tab=activity" className="block">
+            <button className="w-full px-3 py-2 bg-gray-50 dark:bg-gray-700 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-600 transition-all flex items-center justify-center gap-2 text-gray-700 dark:text-gray-300 text-sm">
+              <Activity className="w-4 h-4" />
+              Activity
+            </button>
+          </Link>
         </div>
       </div>
 
