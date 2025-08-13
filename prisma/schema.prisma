@@ -42,6 +42,7 @@ model KnowledgeNode {
   learningPathNodes    LearningPathNode[]
   userProgress         UserProgress[]
   courseContent        CourseContent[]
+  studyGroupChallenges StudyGroupChallenge[]
   
   @@index([domain])
   @@index([category])
@@ -134,4 +135,244 @@ model CourseContent {
   
   @@index([nodeId])
   @@map("course_content")
+}
+
+// ============================================
+// User Tables
+// ============================================
+
+model UserProfile {
+  id               String        @id @default(uuid())
+  userId           String        @unique @map("user_id")
+  email            String?
+  username         String?       @unique
+  avatarUrl        String?       @map("avatar_url")
+  bio              String?
+  neuralLevel      Int           @default(1) @map("neural_level")
+  totalPoints      Int           @default(0) @map("total_points")
+  memoryCrystals   Int           @default(0) @map("memory_crystals")
+  synapticStreak   Int           @default(0) @map("synaptic_streak")
+  lastActiveDate   DateTime?     @map("last_active_date")
+  createdAt        DateTime      @default(now()) @map("created_at")
+  updatedAt        DateTime      @updatedAt @map("updated_at")
+  
+  // Relations
+  progress         UserProgress[]
+  achievements     UserAchievement[]
+  
+  @@map("user_profiles")
+}
+
+model UserProgress {
+  id              String        @id @default(uuid())
+  userId          String        @map("user_id")
+  knowledgeNodeId String        @map("knowledge_node_id")
+  completed       Boolean       @default(false)
+  score           Int           @default(0)
+  attempts        Int           @default(0)
+  lastAttempt     DateTime?     @map("last_attempt")
+  completedAt     DateTime?     @map("completed_at")
+  createdAt       DateTime      @default(now()) @map("created_at")
+  updatedAt       DateTime      @updatedAt @map("updated_at")
+  
+  // Relations
+  user            UserProfile   @relation(fields: [userId], references: [userId], onDelete: Cascade)
+  node            KnowledgeNode @relation(fields: [knowledgeNodeId], references: [id], onDelete: Cascade)
+  
+  @@unique([userId, knowledgeNodeId])
+  @@index([userId])
+  @@index([knowledgeNodeId])
+  @@map("user_progress")
+}
+
+model Achievement {
+  id               String            @id @default(uuid())
+  name             String
+  description      String?
+  icon             String?
+  badgeColor       String?           @map("badge_color")
+  requirement      Json
+  points           Int               @default(100)
+  createdAt        DateTime          @default(now()) @map("created_at")
+  
+  // Relations
+  userAchievements UserAchievement[]
+  
+  @@map("achievements")
+}
+
+model UserAchievement {
+  id             String       @id @default(uuid())
+  userId         String       @map("user_id")
+  achievementId  String       @map("achievement_id")
+  earnedAt       DateTime     @default(now()) @map("earned_at")
+  
+  // Relations
+  user           UserProfile  @relation(fields: [userId], references: [userId], onDelete: Cascade)
+  achievement    Achievement  @relation(fields: [achievementId], references: [id], onDelete: Cascade)
+  
+  @@unique([userId, achievementId])
+  @@index([userId])
+  @@map("user_achievements")
+}
+
+// ============================================
+// Social Features Tables
+// ============================================
+
+model FriendRequest {
+  id           String    @id @default(uuid())
+  senderId     String    @map("sender_id")
+  receiverId   String    @map("receiver_id")
+  status       String    @default("pending")
+  message      String?
+  createdAt    DateTime  @default(now()) @map("created_at")
+  respondedAt  DateTime? @map("responded_at")
+  
+  @@unique([senderId, receiverId])
+  @@index([senderId])
+  @@index([receiverId])
+  @@index([status])
+  @@map("friend_requests")
+}
+
+model Friend {
+  id             String   @id @default(uuid())
+  userId         String   @map("user_id")
+  friendId       String   @map("friend_id")
+  friendshipDate DateTime @default(now()) @map("friendship_date")
+  
+  @@unique([userId, friendId])
+  @@index([userId])
+  @@index([friendId])
+  @@map("friends")
+}
+
+model StudyGroup {
+  id          String   @id @default(uuid())
+  name        String
+  description String?
+  avatarUrl   String?  @map("avatar_url")
+  ownerId     String   @map("owner_id")
+  maxMembers  Int      @default(20) @map("max_members")
+  isPublic    Boolean  @default(true) @map("is_public")
+  joinCode    String?  @unique @map("join_code")
+  createdAt   DateTime @default(now()) @map("created_at")
+  updatedAt   DateTime @updatedAt @map("updated_at")
+  
+  // Relations
+  members      StudyGroupMember[]
+  invitations  StudyGroupInvitation[]
+  activities   ActivityFeed[]
+  messages     StudyGroupMessage[]
+  challenges   StudyGroupChallenge[]
+  
+  @@map("study_groups")
+}
+
+model StudyGroupMember {
+  id         String     @id @default(uuid())
+  groupId    String     @map("group_id")
+  userId     String     @map("user_id")
+  role       String     @default("member")
+  joinedAt   DateTime   @default(now()) @map("joined_at")
+  lastActive DateTime   @default(now()) @map("last_active")
+  
+  // Relations
+  group      StudyGroup @relation(fields: [groupId], references: [id], onDelete: Cascade)
+  
+  @@unique([groupId, userId])
+  @@index([groupId])
+  @@index([userId])
+  @@map("study_group_members")
+}
+
+model StudyGroupInvitation {
+  id          String    @id @default(uuid())
+  groupId     String    @map("group_id")
+  inviterId   String    @map("inviter_id")
+  inviteeId   String    @map("invitee_id")
+  status      String    @default("pending")
+  createdAt   DateTime  @default(now()) @map("created_at")
+  respondedAt DateTime? @map("responded_at")
+  
+  // Relations
+  group       StudyGroup @relation(fields: [groupId], references: [id], onDelete: Cascade)
+  
+  @@unique([groupId, inviteeId])
+  @@map("study_group_invitations")
+}
+
+model ActivityFeed {
+  id           String      @id @default(uuid())
+  userId       String      @map("user_id")
+  activityType String      @map("activity_type")
+  title        String
+  description  String?
+  metadata     Json        @default("{}")
+  visibility   String      @default("friends")
+  groupId      String?     @map("group_id")
+  createdAt    DateTime    @default(now()) @map("created_at")
+  
+  // Relations
+  group        StudyGroup? @relation(fields: [groupId], references: [id], onDelete: Cascade)
+  
+  @@index([userId])
+  @@index([createdAt(sort: Desc)])
+  @@index([visibility])
+  @@map("activity_feed")
+}
+
+model StudyGroupMessage {
+  id          String      @id @default(uuid())
+  groupId     String      @map("group_id")
+  senderId    String      @map("sender_id")
+  message     String
+  attachments Json        @default("[]")
+  editedAt    DateTime?   @map("edited_at")
+  createdAt   DateTime    @default(now()) @map("created_at")
+  
+  // Relations
+  group       StudyGroup  @relation(fields: [groupId], references: [id], onDelete: Cascade)
+  
+  @@index([groupId])
+  @@index([createdAt(sort: Desc)])
+  @@map("study_group_messages")
+}
+
+model StudyGroupChallenge {
+  id              String         @id @default(uuid())
+  groupId         String         @map("group_id")
+  createdBy       String         @map("created_by")
+  knowledgeNodeId String?        @map("knowledge_node_id")
+  challengeType   String         @default("quiz") @map("challenge_type")
+  title           String
+  description     String?
+  startDate       DateTime       @map("start_date")
+  endDate         DateTime       @map("end_date")
+  minScore        Int            @default(70) @map("min_score")
+  rewardPoints    Int            @default(100) @map("reward_points")
+  createdAt       DateTime       @default(now()) @map("created_at")
+  
+  // Relations
+  group           StudyGroup     @relation(fields: [groupId], references: [id], onDelete: Cascade)
+  node            KnowledgeNode? @relation(fields: [knowledgeNodeId], references: [id])
+  participants    StudyGroupChallengeParticipant[]
+  
+  @@map("study_group_challenges")
+}
+
+model StudyGroupChallengeParticipant {
+  id           String              @id @default(uuid())
+  challengeId  String              @map("challenge_id")
+  userId       String              @map("user_id")
+  score        Int?
+  completedAt  DateTime?           @map("completed_at")
+  timeTaken    Int?                @map("time_taken") // in seconds
+  
+  // Relations
+  challenge    StudyGroupChallenge @relation(fields: [challengeId], references: [id], onDelete: Cascade)
+  
+  @@unique([challengeId, userId])
+  @@map("study_group_challenge_participants")
 }

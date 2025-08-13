@@ -39,7 +39,9 @@ export const otelSDK = new NodeSDK({
       '@opentelemetry/instrumentation-http': {
         requestHook: (span, request) => {
           // Add custom attributes to HTTP spans
-          span.setAttribute('http.request.body.size', request.headers['content-length'] || 0);
+          if ('headers' in request) {
+            span.setAttribute('http.request.body.size', (request as any).headers['content-length'] || 0);
+          }
         },
       },
     }),

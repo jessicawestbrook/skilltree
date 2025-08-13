@@ -2,7 +2,7 @@
 
 An interactive knowledge learning platform that gamifies education across all domains of human knowledge. Master subjects from fundamental concepts to advanced topics through an engaging visual knowledge graph.
 
-![NeuroQuest](https://img.shields.io/badge/version-0.4.0-blue)
+![NeuroQuest](https://img.shields.io/badge/version-0.5.0-blue)
 ![Next.js](https://img.shields.io/badge/Next.js-15.4.6-black)
 ![React](https://img.shields.io/badge/React-19.1.0-61dafb)
 ![TypeScript](https://img.shields.io/badge/TypeScript-5.0-blue)
@@ -17,6 +17,14 @@ An interactive knowledge learning platform that gamifies education across all do
 - **Achievement System**: Earn points, levels, badges, and maintain learning streaks
 - **Quiz Challenges**: Test your knowledge with interactive quizzes
 - **Expandable Parent Nodes**: Drill down into subtopics (Calculus, Statistics, Algorithms, Languages)
+
+### 👥 Social Features
+- **Friend System**: Connect with fellow learners and track their progress
+- **Study Groups**: Create or join groups for collaborative learning
+- **Activity Feed**: Real-time updates on community achievements
+- **Group Challenges**: Compete with your study group in knowledge challenges
+- **Friend Suggestions**: Discover learners with similar interests
+- **Private & Public Groups**: Control who can join your study sessions
 
 ### 📚 Comprehensive Knowledge Domains
 - **Foundation**: Communication, Quantitative Reasoning, Practical Skills
@@ -103,11 +111,12 @@ An interactive knowledge learning platform that gamifies education across all do
    
    ```sql
    -- Run each script in the Supabase SQL editor:
-   00-prepare-for-migration.sql    # Disables RLS for migration
-   01-create-core-tables.sql        # Core tables
-   02-create-dependent-tables.sql   # Dependent tables
-   03-create-user-tables.sql        # User profile tables
-   04-create-views-and-functions.sql # Views and triggers
+   00-prepare-for-migration.sql      # Disables RLS for migration
+   01-create-core-tables.sql          # Core tables
+   02-create-dependent-tables.sql     # Dependent tables
+   03-create-user-tables.sql          # User profile tables
+   04-create-views-and-functions.sql  # Views and triggers
+   10-social-features.sql             # Social features (friends, groups, activity feed)
    ```
 
 5. **Migrate the data**
@@ -182,11 +191,16 @@ neuroquest/
 ├── src/
 │   ├── app/              # Next.js app router pages
 │   │   ├── page.tsx      # Main knowledge graph view
-│   │   └── admin/        # Admin dashboard
+│   │   ├── admin/        # Admin dashboard
+│   │   └── social/       # Social features dashboard
 │   ├── components/       # React components
 │   │   ├── Header.tsx    # Top navigation with stats
 │   │   ├── Sidebar.tsx   # Domain filters and paths
-│   │   └── AuthModal.tsx # Login/signup modal
+│   │   ├── AuthModal.tsx # Login/signup modal
+│   │   └── social/       # Social feature components
+│   │       ├── FriendsPanel.tsx
+│   │       ├── StudyGroupsPanel.tsx
+│   │       └── ActivityFeed.tsx
 │   ├── contexts/         # React contexts
 │   ├── data/            # Static data files
 │   ├── hooks/           # Custom React hooks
@@ -216,7 +230,15 @@ neuroquest/
 - `user_progress` - Tracks completed nodes
 - `achievements` - Available achievements
 - `user_achievements` - Earned achievements
-- `user_connections` - Friend system
+
+### Social Tables
+- `friend_requests` - Pending friend connections
+- `friends` - Established friendships
+- `study_groups` - Collaborative learning groups
+- `study_group_members` - Group membership
+- `study_group_messages` - Group chat messages
+- `study_group_challenges` - Group competitions
+- `activity_feed` - User activity tracking
 
 ## 📝 Available Scripts
 
@@ -297,13 +319,13 @@ Edit `scripts/migrate-learning-paths.js`:
 - [x] Production deployment infrastructure
 - [x] Push notifications system
 - [x] Health monitoring and observability
-- [ ] Social features (friends, study groups)
-- [ ] More quiz question types
+- [x] Social features (friends, study groups)
+- [ ] More quiz question types (multiple select, fill-in-blank)
 - [ ] Progress certificates
 - [ ] Mobile app version
 - [ ] Content creator tools
 - [ ] AI-powered learning recommendations
-- [ ] Multiplayer challenges
+- [ ] Multiplayer real-time challenges
 
 ## 🏗️ Build Status
 
@@ -361,9 +383,19 @@ npm run prisma:generate  # Generate Prisma client
 npm run prisma:migrate   # Run database migrations
 ```
 
-## 📊 Recent Updates (v0.4.0)
+## 📊 Recent Updates (v0.5.0)
 
-### 🚀 Production Deployment & Infrastructure
+### 👥 Social Features & Community (NEW)
+- ✅ **Friend System**: Send/accept friend requests, manage connections
+- ✅ **Study Groups**: Create, join, and manage collaborative learning groups
+- ✅ **Activity Feed**: Track your and your friends' learning progress
+- ✅ **Group Challenges**: Compete in knowledge challenges within groups
+- ✅ **Social Dashboard**: Centralized hub for all social interactions
+- ✅ **Privacy Controls**: Manage visibility of your activities
+- ✅ **Join Codes**: Share private group access with unique codes
+- ✅ **Member Management**: Role-based permissions for group admins
+
+### 🚀 Production Deployment & Infrastructure (v0.4.0)
 - ✅ **GitHub Actions CI/CD**: Automated deployment pipeline with build, test, and deploy stages
 - ✅ **Docker Support**: Containerized application with multi-stage builds for optimized images
 - ✅ **Health Monitoring**: Health check endpoints and readiness probes for production

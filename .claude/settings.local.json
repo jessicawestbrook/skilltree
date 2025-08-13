@@ -18,7 +18,9 @@
       "Bash(grep:*)",
       "Bash(timeout:*)",
       "Bash(git add:*)",
-      "Bash(rm:*)"
+      "Bash(rm:*)",
+      "Bash(git push:*)",
+      "Bash(npx tsc:*)"
     ],
     "deny": [],
     "ask": []
@@ -31,6 +33,17 @@
             "type": "command",
             "command": "echo '✅ Task completed! Checking build...'; npm run build && echo '✅ Build successful!' || echo '❌ Build failed - check errors above'; echo '🚀 Starting dev server (will remain running)...'; npm run dev",
             "timeout": 60
+          }
+        ]
+      }
+    ],
+    "BeforeCommit": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "echo '📝 Pre-commit check: Updating README if needed...'; echo 'Please ensure README.md is updated with:'; echo '  - New features added'; echo '  - Version number if major release'; echo '  - Any new dependencies or setup steps'; echo '  - Updated roadmap items'; echo '⚠️  REMINDER: Update README.md before committing!'",
+            "timeout": 5
           }
         ]
       }
