@@ -1,13 +1,26 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useSearchParams } from 'next/navigation';
 import FriendsPanel from '@/components/social/FriendsPanel';
 import StudyGroupsPanel from '@/components/social/StudyGroupsPanel';
 import ActivityFeed from '@/components/social/ActivityFeed';
 import { Users, UserPlus, Activity, BookOpen } from 'lucide-react';
 
 export default function SocialPage() {
+  const searchParams = useSearchParams();
+  const tab = searchParams.get('tab');
   const [activeView, setActiveView] = useState<'feed' | 'friends' | 'groups'>('feed');
+
+  useEffect(() => {
+    if (tab === 'friends') {
+      setActiveView('friends');
+    } else if (tab === 'groups') {
+      setActiveView('groups');
+    } else if (tab === 'activity') {
+      setActiveView('feed');
+    }
+  }, [tab]);
 
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-900">

@@ -1,7 +1,8 @@
 import React, { CSSProperties } from 'react';
-import { Brain, Flame, LogIn, User as UserIcon } from 'lucide-react';
+import { Brain, Flame, LogIn, User as UserIcon, Users } from 'lucide-react';
 import { UserStats } from '../types';
 import { useAuth } from '../contexts/AuthContext';
+import Link from 'next/link';
 
 interface HeaderProps {
   userStats: UserStats;
@@ -66,6 +67,29 @@ export const Header: React.FC<HeaderProps> = ({ userStats, isMobile, calculatePr
                 </div>
                 <div style={{ fontSize: '10px', color: '#5a5a5a', fontWeight: '600' }}>LEVEL</div>
               </div>
+
+              {/* Social Hub Link */}
+              <Link href="/social" style={{ textDecoration: 'none' }}>
+                <button
+                  style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '8px',
+                    padding: '10px 16px',
+                    background: 'linear-gradient(135deg, #10b981, #059669)',
+                    color: 'white',
+                    border: 'none',
+                    borderRadius: '12px',
+                    fontSize: '14px',
+                    fontWeight: 'bold',
+                    cursor: 'pointer',
+                    transition: 'all 0.3s ease'
+                  }}
+                >
+                  <Users size={18} />
+                  {isMobile ? 'Social' : 'Social Hub'}
+                </button>
+              </Link>
             </>
           )}
 

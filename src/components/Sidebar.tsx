@@ -1,6 +1,8 @@
 import React, { CSSProperties } from 'react';
 import { domainIcons } from '../data/domainIcons';
 import { learningPaths } from '../data/learningPaths';
+import { Users, UserPlus, Activity } from 'lucide-react';
+import Link from 'next/link';
 
 interface SidebarProps {
   searchTerm: string;
@@ -105,6 +107,73 @@ export const Sidebar: React.FC<SidebarProps> = ({
               </button>
             );
           })}
+        </div>
+      </div>
+
+      {/* Social Hub */}
+      <div style={styles.panel}>
+        <h3 style={{ fontSize: '16px', marginBottom: '15px', color: '#2a2a2a', fontWeight: 'bold' }}>Social Hub</h3>
+        <Link href="/social" style={{ textDecoration: 'none' }}>
+          <div style={{
+            padding: '10px',
+            background: 'linear-gradient(135deg, #10b981, #059669)',
+            borderRadius: '8px',
+            marginBottom: '8px',
+            cursor: 'pointer',
+            color: 'white'
+          }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+              <Users size={20} />
+              <div>
+                <div style={{ fontWeight: 'bold', fontSize: '13px' }}>Connect & Learn Together</div>
+                <div style={{ fontSize: '11px', opacity: 0.9 }}>Join study groups, make friends</div>
+              </div>
+            </div>
+          </div>
+        </Link>
+        
+        <div style={{ display: 'flex', gap: '8px', marginTop: '10px' }}>
+          <Link href="/social?tab=friends" style={{ textDecoration: 'none', flex: 1 }}>
+            <button style={{
+              width: '100%',
+              padding: '8px',
+              background: '#f8f8f8',
+              border: 'none',
+              borderRadius: '8px',
+              cursor: 'pointer',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              gap: '4px',
+              fontSize: '12px',
+              color: '#4a4a4a',
+              fontWeight: '500'
+            }}>
+              <UserPlus size={14} />
+              Friends
+            </button>
+          </Link>
+          
+          <Link href="/social?tab=activity" style={{ textDecoration: 'none', flex: 1 }}>
+            <button style={{
+              width: '100%',
+              padding: '8px',
+              background: '#f8f8f8',
+              border: 'none',
+              borderRadius: '8px',
+              cursor: 'pointer',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              gap: '4px',
+              fontSize: '12px',
+              color: '#4a4a4a',
+              fontWeight: '500'
+            }}>
+              <Activity size={14} />
+              Activity
+            </button>
+          </Link>
         </div>
       </div>
 
