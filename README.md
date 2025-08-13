@@ -11,34 +11,36 @@ An interactive knowledge learning platform that gamifies education across all do
 ## ✨ Features
 
 ### 🎮 Gamified Learning Experience
-- **Visual Knowledge Graph**: Interactive node-based learning map
+- **Visual Knowledge Graph**: Interactive node-based learning map with 100+ topics
 - **Hierarchical Learning Paths**: Progress from foundations to mastery
-- **Achievement System**: Earn points, levels, and maintain learning streaks
+- **Achievement System**: Earn points, levels, badges, and maintain learning streaks
 - **Quiz Challenges**: Test your knowledge with interactive quizzes
+- **Expandable Parent Nodes**: Drill down into subtopics (Calculus, Statistics, Algorithms, Languages)
 
 ### 📚 Comprehensive Knowledge Domains
 - **Foundation**: Communication, Quantitative Reasoning, Practical Skills
 - **Fundamentals**: Mathematics, Science, Digital Literacy
 - **Specialized Domains**: 
-  - Programming & Computer Science
-  - Languages (World & Programming)
-  - Arts & Music
-  - Biology & Health
-  - Business & Entrepreneurship
-  - Advanced Physics & Mathematics
+  - Mathematics (Calculus, Statistics, Linear Algebra)
+  - Computer Science (Algorithms, Data Structures)
+  - World Languages (Spanish, French, German, Chinese, Japanese)
+  - Sciences (Biology, Chemistry, Physics)
+  - Practical Skills (Cooking, Money Management, Repairs)
 
 ### 🔄 Dynamic Features
-- **Expandable Knowledge Nodes**: Drill down into specific subtopics
+- **Expandable Knowledge Nodes**: Click parent nodes to reveal detailed subtopics
 - **Real-time Progress Tracking**: Visual progress bars and statistics
 - **Prerequisite System**: Unlock advanced topics by mastering fundamentals
-- **Responsive Design**: Works seamlessly on desktop and mobile
+- **User Profiles**: Track achievements, neural level, and learning streaks
+- **Leaderboard**: Compete with other learners
+- **Learning Paths**: 7 curated paths for different learning goals
 
 ## 🚀 Getting Started
 
 ### Prerequisites
 - Node.js 18+ 
 - npm or yarn
-- Supabase account (for quiz questions database)
+- Supabase account (free tier works)
 
 ### Installation
 
@@ -61,14 +63,36 @@ An interactive knowledge learning platform that gamifies education across all do
    ```
 
 4. **Set up the database**
-   - Go to your Supabase dashboard
-   - Run the SQL from `scripts/create-quiz-table.sql` in the SQL editor
-   - Run the migration to populate quiz questions:
-     ```bash
-     npm run migrate:questions
-     ```
+   
+   Run these SQL scripts in your Supabase SQL editor in order:
+   
+   ```sql
+   -- Run each script in the Supabase SQL editor:
+   00-prepare-for-migration.sql    # Disables RLS for migration
+   01-create-core-tables.sql        # Core tables
+   02-create-dependent-tables.sql   # Dependent tables
+   03-create-user-tables.sql        # User profile tables
+   04-create-views-and-functions.sql # Views and triggers
+   ```
 
-5. **Start the development server**
+5. **Migrate the data**
+   ```bash
+   npm run migrate:all
+   ```
+   
+   This will populate:
+   - 100+ knowledge nodes
+   - 50+ prerequisite relationships
+   - 7 learning paths
+   - Quiz questions for various topics
+
+6. **Re-enable security**
+   ```sql
+   -- Run in Supabase SQL editor:
+   05-enable-security.sql
+   ```
+
+7. **Start the development server**
    ```bash
    npm run dev
    ```
@@ -79,28 +103,34 @@ An interactive knowledge learning platform that gamifies education across all do
 
 ### Navigation
 - **Click nodes** to view details and start challenges
-- **Click parent nodes** (purple) to expand/collapse subnodes
-- **Complete prerequisites** to unlock new topics
-- **Use the sidebar** to filter by domain or search topics
+- **Click parent nodes** (with +/- icons) to expand/collapse subnodes
+- **Complete prerequisites** to unlock new topics (locked nodes show 🔒)
+- **Use the sidebar** to:
+  - Search for specific topics
+  - Filter by domain
+  - Select learning paths
+  - View your profile stats
 
 ### Learning Flow
 1. Start with foundation topics (unlocked by default)
 2. Complete quizzes to earn points and unlock prerequisites
 3. Progress through fundamentals to specialized domains
-4. Achieve mastery by completing advanced topics
+4. Expand parent nodes to explore detailed subtopics
+5. Achieve mastery by completing advanced topics
 
-### Features
-- **Search**: Find specific topics using the search bar
-- **Filters**: Filter by domain (Mathematics, Science, Arts, etc.)
-- **Learning Paths**: Follow suggested learning sequences
-- **Profile**: Track your stats, achievements, and progress
+### Game Elements
+- **Points**: Earn 25-300 points per completed topic
+- **Neural Level**: Level up every 500 points
+- **Memory Crystals**: Special rewards for achievements
+- **Synaptic Streak**: Maintain daily learning habits
+- **Achievements**: Unlock 8 different badges
 
 ## 🛠️ Tech Stack
 
 - **Frontend Framework**: [Next.js 15](https://nextjs.org/) with App Router
 - **UI Library**: [React 19](https://react.dev/)
 - **Language**: [TypeScript](https://www.typescriptlang.org/)
-- **Database**: [Supabase](https://supabase.com/)
+- **Database**: [Supabase](https://supabase.com/) (PostgreSQL)
 - **Styling**: CSS-in-JS with inline styles
 - **Icons**: [Lucide React](https://lucide.dev/)
 - **Authentication**: Supabase Auth (ready for integration)
@@ -111,48 +141,60 @@ An interactive knowledge learning platform that gamifies education across all do
 neuroquest/
 ├── src/
 │   ├── app/              # Next.js app router pages
+│   │   ├── page.tsx      # Main knowledge graph view
+│   │   └── admin/        # Admin dashboard
 │   ├── components/       # React components
-│   ├── contexts/         # React contexts (Auth, etc.)
-│   ├── data/            # Static data (knowledge graph, icons)
+│   │   ├── Header.tsx    # Top navigation with stats
+│   │   ├── Sidebar.tsx   # Domain filters and paths
+│   │   └── AuthModal.tsx # Login/signup modal
+│   ├── contexts/         # React contexts
+│   ├── data/            # Static data files
 │   ├── hooks/           # Custom React hooks
 │   ├── services/        # API services (Supabase)
-│   ├── types/           # TypeScript type definitions
+│   ├── types/           # TypeScript definitions
 │   └── utils/           # Utility functions
-├── scripts/             # Database and migration scripts
+├── scripts/             # Database setup and migrations
+│   ├── 00-05*.sql      # Step-by-step schema setup
+│   └── migrate-*.js    # Data migration scripts
 ├── public/              # Static assets
 └── docs/               # Documentation
+    ├── STEP_BY_STEP_SETUP.md    # Detailed setup guide
+    └── SUPABASE_SETUP_GUIDE.md  # Database setup guide
 ```
 
 ## 🗄️ Database Schema
 
-### Quiz Questions Table
-```sql
-CREATE TABLE quiz_questions (
-  id UUID PRIMARY KEY,
-  node_id VARCHAR(255),
-  question TEXT,
-  options JSONB,
-  correct_answer INTEGER,
-  explanation TEXT,
-  created_at TIMESTAMP,
-  updated_at TIMESTAMP
-)
-```
+### Core Tables
+- `knowledge_nodes` - All learning topics with hierarchy
+- `node_prerequisites` - Prerequisite relationships
+- `quiz_questions` - Questions for each node
+- `learning_paths` - Curated learning sequences
+- `learning_path_nodes` - Nodes in each path
+
+### User Tables
+- `user_profiles` - Extended user profiles with stats
+- `user_progress` - Tracks completed nodes
+- `achievements` - Available achievements
+- `user_achievements` - Earned achievements
+- `user_connections` - Friend system
 
 ## 📝 Available Scripts
 
 ```bash
-npm run dev          # Start development server
-npm run build        # Build for production
-npm run start        # Start production server
-npm run lint         # Run ESLint
-npm run migrate:questions  # Migrate quiz questions to Supabase
+npm run dev                # Start development server
+npm run build             # Build for production
+npm run start             # Start production server
+npm run lint              # Run ESLint
+npm run migrate:all       # Run all data migrations
+npm run migrate:knowledge # Migrate knowledge nodes
+npm run migrate:paths     # Migrate learning paths
+npm run migrate:questions # Migrate quiz questions
 ```
 
 ## 🎨 Customization
 
 ### Adding New Knowledge Nodes
-Edit `src/data/hierarchicalKnowledgeGraph.ts` to add new topics:
+Edit `scripts/migrate-knowledge-graph.js` to add new topics:
 ```javascript
 {
   id: 'your-topic-id',
@@ -168,17 +210,39 @@ Edit `src/data/hierarchicalKnowledgeGraph.ts` to add new topics:
 ```
 
 ### Adding Quiz Questions
-Use the QuizService to add questions programmatically:
+Edit `scripts/migrate-questions.js` to add questions:
 ```javascript
-import { QuizService } from '@/services/quizService';
-
-await QuizService.addQuestion('node-id', {
-  question: 'Your question?',
-  options: ['Option 1', 'Option 2', 'Option 3', 'Option 4'],
-  correct: 0,
-  explanation: 'Explanation here'
-});
+'your-topic-id': [
+  {
+    question: "Your question?",
+    options: ["Option 1", "Option 2", "Option 3", "Option 4"],
+    correct: 0,
+    explanation: "Explanation here"
+  }
+]
 ```
+
+### Creating Learning Paths
+Edit `scripts/migrate-learning-paths.js`:
+```javascript
+{
+  name: 'Path Name',
+  icon: 'IconName',
+  description: 'Path description',
+  nodes: ['node-1', 'node-2', 'node-3']
+}
+```
+
+## 🚧 Roadmap
+
+- [ ] User authentication and profiles
+- [ ] Social features (friends, study groups)
+- [ ] More quiz question types
+- [ ] Progress certificates
+- [ ] Mobile app version
+- [ ] Content creator tools
+- [ ] AI-powered learning recommendations
+- [ ] Multiplayer challenges
 
 ## 🤝 Contributing
 
@@ -199,6 +263,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 - Icons by [Lucide](https://lucide.dev/)
 - Database by [Supabase](https://supabase.com/)
 - Framework by [Next.js](https://nextjs.org/)
+- UI inspiration from skill trees in RPG games
 
 ## 📧 Contact
 

@@ -7,7 +7,10 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "migrate:questions": "node scripts/migrate-questions.js"
+    "migrate:questions": "node scripts/migrate-questions.js",
+    "migrate:knowledge": "node scripts/migrate-knowledge-graph.js",
+    "migrate:paths": "node scripts/migrate-learning-paths.js",
+    "migrate:all": "npm run migrate:knowledge && npm run migrate:paths && npm run migrate:questions"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.55.0",
