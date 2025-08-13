@@ -35,6 +35,15 @@ An interactive knowledge learning platform that gamifies education across all do
 - **Leaderboard**: Compete with other learners
 - **Learning Paths**: 7 curated paths for different learning goals
 
+### 🛠️ Admin Interface
+- **Dashboard**: Real-time statistics and quick actions
+- **Question Management**: CRUD operations, inline editing, search and filter
+- **Batch Upload**: Import questions via CSV/JSON files or web interface
+- **Knowledge Nodes**: Manage nodes, prerequisites, and availability
+- **Learning Paths**: Configure paths, manage nodes, and publication status
+- **User Management**: View user profiles, progress, and activity
+- **Settings Panel**: System configuration and maintenance tools
+
 ## 🚀 Getting Started
 
 ### Prerequisites
@@ -98,6 +107,11 @@ An interactive knowledge learning platform that gamifies education across all do
    ```
 
    Open [http://localhost:3000](http://localhost:3000) to see the app.
+
+8. **Access the admin interface**
+   ```
+   http://localhost:3000/admin
+   ```
 
 ## 📖 Usage
 
@@ -210,6 +224,22 @@ Edit `scripts/migrate-knowledge-graph.js` to add new topics:
 ```
 
 ### Adding Quiz Questions
+
+#### Method 1: Admin Interface
+1. Navigate to `/admin/questions/new` to add individual questions
+2. Use `/admin/upload` for batch uploading via CSV or JSON
+
+#### Method 2: Batch Upload Script
+```bash
+# Generate sample files
+node scripts/batch-load-questions.js --generate-sample
+
+# Load from file
+node scripts/batch-load-questions.js sample-questions.json
+node scripts/batch-load-questions.js sample-questions.csv
+```
+
+#### Method 3: Direct Database Edit
 Edit `scripts/migrate-questions.js` to add questions:
 ```javascript
 'your-topic-id': [
