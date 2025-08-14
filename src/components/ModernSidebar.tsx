@@ -344,7 +344,7 @@ export default function ModernSidebar({
                   >
                     <span className="text-base group-hover:scale-110 transition-transform">{icon}</span>
                     <div className="flex-1 text-left">
-                      <div className="text-sm font-medium transition-colors" style={{'--hover-color': currentColorScheme.colors[600]}} onMouseEnter={(e) => e.currentTarget.style.color = currentColorScheme.colors[600]} onMouseLeave={(e) => e.currentTarget.style.color = ''}>{category.name}</div>
+                      <div className="text-sm font-medium transition-colors" style={{'--hover-color': currentColorScheme.colors[600]} as React.CSSProperties} onMouseEnter={(e) => e.currentTarget.style.color = currentColorScheme.colors[600]} onMouseLeave={(e) => e.currentTarget.style.color = ''}>{category.name}</div>
                       <div className="text-xs text-gray-500 dark:text-gray-400 truncate">
                         {category.description}
                       </div>
@@ -370,7 +370,7 @@ export default function ModernSidebar({
                 {/* Expanded Subcategories */}
                 {hasSubcategories && isExpanded && (
                   <div className="ml-6 mt-2 space-y-1 border-l-2 border-gray-100 dark:border-gray-700 pl-3">
-                    {category.subcategories.map((subcategory) => (
+                    {category.subcategories.map((subcategory: any) => (
                       <div key={subcategory.id} className="space-y-1">
                         <button
                           onClick={() => handleSubcategoryClick(category.id, subcategory.id)}
@@ -423,7 +423,7 @@ export default function ModernSidebar({
                         {category.name}
                       </div>
                       <div className="space-y-2 max-h-96 overflow-y-auto">
-                        {category.subcategories.map((subcategory) => (
+                        {category.subcategories.map((subcategory: any) => (
                           <div key={subcategory.id} className="group/hover">
                             <div
                               onClick={(e) => {
@@ -445,7 +445,7 @@ export default function ModernSidebar({
                                 </div>
                                 {subcategory.nodes && subcategory.nodes.length > 0 && (
                                   <div className="mt-2 space-y-1">
-                                    {subcategory.nodes.slice(0, 2).map((node) => (
+                                    {subcategory.nodes.slice(0, 2).map((node: any) => (
                                       <div
                                         key={node.id}
                                         onClick={(e) => {

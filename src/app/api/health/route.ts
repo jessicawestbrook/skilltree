@@ -1,7 +1,8 @@
 import { NextResponse } from 'next/server';
-import { createServerSupabaseClient } from '@/lib/supabase-server';
+import { createClient } from '@/lib/supabase-server';
 
-export const runtime = 'edge';
+// Remove edge runtime for Node.js features
+// export const runtime = 'edge';
 
 interface HealthStatus {
   status: 'healthy' | 'degraded' | 'unhealthy';
@@ -25,7 +26,7 @@ export async function GET() {
   const health: HealthStatus = {
     status: 'healthy',
     timestamp: new Date().toISOString(),
-    version: process.env.npm_package_version || '0.1.0',
+    version: '0.6.0',
     services: {
       database: 'down',
       api: 'up',
@@ -34,15 +35,17 @@ export async function GET() {
 
   try {
     // Check database connectivity
-    const supabase = await createServerSupabaseClient();
-    const { error: dbError } = await supabase
-      .from('profiles')
-      .select('count')
-      .limit(1)
-      .single();
+    // Use knowledge_nodes table which exists and doesn't require authentication
+    const supabase = await createClient();
+    const { data, error: dbError } = await supabase
+      .from('knowledge_nodes')
+      .select('id')
+      .limit(1);
     
     if (!dbError) {
       health.services.database = 'up';
+    } else {
+      console.error('Database health check error:', dbError);
     }
     
     // Add metrics

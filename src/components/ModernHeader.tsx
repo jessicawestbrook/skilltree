@@ -27,7 +27,7 @@ export default function ModernHeader({
   const progress = calculateProgress();
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
-  const timeoutRef = useRef<NodeJS.Timeout>();
+  const timeoutRef = useRef<NodeJS.Timeout | null>(null);
 
   useEffect(() => {
     return () => {
@@ -192,7 +192,7 @@ export default function ModernHeader({
                       {/* User Info Header */}
                       <div className="px-4 py-3 border-b border-gray-200 dark:border-gray-700">
                         <p className="text-sm font-semibold text-gray-900 dark:text-gray-100">
-                          {user?.displayName || user?.username || 'User'}
+                          {user?.username || 'User'}
                         </p>
                         <p className="text-xs text-gray-500 dark:text-gray-400 mt-0.5">
                           {user?.email}

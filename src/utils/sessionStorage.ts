@@ -6,6 +6,7 @@ interface StoredSession {
     username: string;
     avatar?: string;
     photoURL?: string;
+    birthYear?: number;
   };
   expiresAt: number;
 }

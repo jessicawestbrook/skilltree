@@ -38,7 +38,40 @@ async function testConnection() {
       console.log('✓ Connected successfully with anon key');
     }
     
+    // Test the exact query used in health endpoint
+    console.log('\nTesting health endpoint query (profiles table)...');
+    const { data: profileData, error: profileError } = await supabaseAnon
+      .from('profiles')
+      .select('count')
+      .limit(1)
+      .single();
+    
+    if (profileError) {
+      console.log('❌ Health endpoint query failed:', profileError.message);
+      console.log('   Error code:', profileError.code);
+      console.log('   Error details:', profileError.details);
+      
+      // Try without .single()
+      const { data: profileData2, error: profileError2 } = await supabaseAnon
+        .from('profiles')
+        .select('id')
+        .limit(1);
+      
+      if (profileError2) {
+        console.log('❌ Alternative query also failed:', profileError2.message);
+      } else {
+        console.log('✓ Alternative query succeeded (without .single())');
+        console.log('   Rows returned:', profileData2 ? profileData2.length : 0);
+        if (profileData2 && profileData2.length === 0) {
+          console.log('   ⚠️  The profiles table is empty - this causes .single() to fail');
+        }
+      }
+    } else {
+      console.log('✓ Health endpoint query succeeded');
+    }
+    
     // Try to query a table (this will fail if RLS is enabled and no user is logged in)
+    console.log('\nTesting knowledge_nodes table...');
     const { data: tableData, error: tableError } = await supabaseAnon
       .from('knowledge_nodes')
       .select('count')

@@ -128,22 +128,6 @@
       ]
     }
   ],
-  "screenshots": [
-    {
-      "src": "/screenshots/desktop-home.png",
-      "sizes": "1280x720",
-      "type": "image/png",
-      "form_factor": "wide",
-      "label": "SkillTree Home Screen"
-    },
-    {
-      "src": "/screenshots/mobile-learn.png",
-      "sizes": "360x640",
-      "type": "image/png",
-      "form_factor": "narrow",
-      "label": "Learning Interface"
-    }
-  ],
   "related_applications": [],
   "prefer_related_applications": false,
   "edge_side_panel": {

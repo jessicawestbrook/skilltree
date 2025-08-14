@@ -49,7 +49,7 @@ function getParentPath(pathSegments: string[]): string[] {
 }
 
 function buildBreadcrumbs(pathSegments: string[]): Array<{name: string, path: string[]}> {
-  const breadcrumbs = [{ name: 'Knowledge Universe', path: [] }];
+  const breadcrumbs = [{ name: 'Knowledge Universe', path: [] as string[] }];
   
   for (let i = 0; i < pathSegments.length; i++) {
     const currentPath = pathSegments.slice(0, i + 1);

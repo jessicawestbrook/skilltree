@@ -34,3 +34,6 @@ export async function createServerSupabaseClient() {
     }
   );
 }
+
+// Alias for consistency with client-side naming
+export const createClient = createServerSupabaseClient;

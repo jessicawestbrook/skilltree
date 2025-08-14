@@ -66,6 +66,7 @@ export interface LearningRecommendation {
 export class AnalyticsService {
   private static currentSessionId: string | null = null;
   private static sessionStartTime: Date | null = null;
+  private static isEnabled = false; // Set to true after running the SQL script in Supabase
 
   /**
    * Start a new learning session
@@ -76,11 +77,14 @@ export class AnalyticsService {
     this.currentSessionId = sessionId;
     this.sessionStartTime = new Date();
     
-    // Asynchronously handle the database operations without blocking
-    this.startSessionAsync().catch(() => {
-      // Silently handle errors - session tracking is non-critical
-      // and we don't want to spam the console in development
-    });
+    // Only attempt database operations if analytics are enabled
+    if (this.isEnabled) {
+      // Asynchronously handle the database operations without blocking
+      this.startSessionAsync().catch(() => {
+        // Silently handle errors - session tracking is non-critical
+        // and we don't want to spam the console in development
+      });
+    }
     
     return sessionId;
   }
@@ -93,12 +97,15 @@ export class AnalyticsService {
       const userAgent = typeof navigator !== 'undefined' ? navigator.userAgent : 'Unknown';
       const deviceType = this.detectDeviceType();
 
-      await createClient().rpc('start_learning_session', {
+      const { data: sessionId } = await createClient().rpc('start_learning_session', {
         p_user_id: user.id,
         p_user_agent: userAgent,
-        p_device_type: deviceType,
-        p_session_id: this.currentSessionId
+        p_device_type: deviceType
       });
+      
+      if (sessionId) {
+        this.currentSessionId = sessionId;
+      }
     } catch (error) {
       // Silently fail - session tracking is non-critical
       // The app will work fine without analytics
@@ -111,7 +118,7 @@ export class AnalyticsService {
   static endSession(sessionId?: string): void {
     const targetSessionId = sessionId || this.currentSessionId;
     if (!targetSessionId) {
-      console.warn('Attempted to end session with no session ID');
+      // Silently return - analytics might be disabled or session not started
       return;
     }
 
