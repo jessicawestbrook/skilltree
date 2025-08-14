@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import { supabase } from '@/lib/supabase';
+import { createServerSupabaseClient } from '@/lib/supabase-server';
 
 export const runtime = 'edge';
 
@@ -34,6 +34,7 @@ export async function GET() {
 
   try {
     // Check database connectivity
+    const supabase = await createServerSupabaseClient();
     const { error: dbError } = await supabase
       .from('profiles')
       .select('count')

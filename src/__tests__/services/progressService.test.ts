@@ -4,19 +4,36 @@ import { ProgressService, ProgressSubmission, UserProgress } from '../../service
 global.fetch = jest.fn();
 const mockFetch = global.fetch as jest.MockedFunction<typeof fetch>;
 
-// Mock supabase
-jest.mock('../../lib/supabase', () => ({
-  supabase: {
-    auth: {
-      getUser: jest.fn()
-    },
-    from: jest.fn().mockReturnThis(),
-    select: jest.fn().mockReturnThis(),
-    eq: jest.fn().mockReturnThis(),
-    order: jest.fn().mockReturnThis(),
-    single: jest.fn().mockReturnThis(),
-    rpc: jest.fn()
-  }
+// Helper to create mock response
+const createMockResponse = (data: any, ok: boolean = true, status: number = 200) => ({
+  ok,
+  status,
+  headers: {
+    get: (name: string) => name === 'content-type' ? 'application/json' : null
+  },
+  json: () => Promise.resolve(data),
+  text: () => Promise.resolve(JSON.stringify(data))
+});
+
+// Mock supabase client
+const mockSupabaseClient = {
+  auth: {
+    getUser: jest.fn()
+  },
+  from: jest.fn(() => ({
+    select: jest.fn(() => ({
+      eq: jest.fn(() => ({
+        order: jest.fn(() => ({
+          single: jest.fn()
+        }))
+      }))
+    }))
+  })),
+  rpc: jest.fn()
+};
+
+jest.mock('../../lib/supabase-client', () => ({
+  createClient: jest.fn(() => mockSupabaseClient)
 }));
 
 describe('ProgressService', () => {
@@ -45,10 +62,7 @@ describe('ProgressService', () => {
         }
       };
 
-      mockFetch.mockResolvedValue({
-        ok: true,
-        json: () => Promise.resolve(mockResponse)
-      } as Response);
+      mockFetch.mockResolvedValue(createMockResponse(mockResponse) as any);
 
       const result = await ProgressService.submitProgress(mockProgressData);
 
@@ -68,15 +82,12 @@ describe('ProgressService', () => {
         error: 'Invalid data'
       };
 
-      mockFetch.mockResolvedValue({
-        ok: false,
-        json: () => Promise.resolve(mockErrorResponse)
-      } as Response);
+      mockFetch.mockResolvedValue(createMockResponse(mockErrorResponse, false, 400) as any);
 
       const result = await ProgressService.submitProgress(mockProgressData);
 
       expect(result.success).toBe(false);
-      expect(result.error).toBe('Invalid data');
+      expect(result.error).toBe('HTTP 400: {"error":"Invalid data"}');
     });
 
     it('should handle network errors', async () => {
@@ -101,10 +112,7 @@ describe('ProgressService', () => {
         time_spent_seconds: 120
       };
 
-      mockFetch.mockResolvedValue({
-        ok: true,
-        json: () => Promise.resolve({ data: [mockProgress] })
-      } as Response);
+      mockFetch.mockResolvedValue(createMockResponse({ data: [mockProgress] }) as any);
 
       const result = await ProgressService.getNodeProgress('node1');
 
@@ -118,20 +126,14 @@ describe('ProgressService', () => {
     });
 
     it('should return null when no progress found', async () => {
-      mockFetch.mockResolvedValue({
-        ok: true,
-        json: () => Promise.resolve({ data: [] })
-      } as Response);
+      mockFetch.mockResolvedValue(createMockResponse({ data: [] }) as any);
 
       const result = await ProgressService.getNodeProgress('node1');
       expect(result).toBeNull();
     });
 
     it('should handle fetch errors', async () => {
-      mockFetch.mockResolvedValue({
-        ok: false,
-        json: () => Promise.resolve({ error: 'Not found' })
-      } as Response);
+      mockFetch.mockResolvedValue(createMockResponse({ error: 'Not found' }, false) as any);
 
       const result = await ProgressService.getNodeProgress('node1');
       expect(result).toBeNull();
@@ -161,10 +163,7 @@ describe('ProgressService', () => {
         }
       ];
 
-      mockFetch.mockResolvedValue({
-        ok: true,
-        json: () => Promise.resolve({ data: mockProgressList })
-      } as Response);
+      mockFetch.mockResolvedValue(createMockResponse({ data: mockProgressList }) as any);
 
       const result = await ProgressService.getAllProgress();
 
@@ -247,8 +246,12 @@ describe('ProgressService', () => {
     it('should handle malformed JSON responses', async () => {
       mockFetch.mockResolvedValue({
         ok: true,
-        json: () => Promise.reject(new Error('Invalid JSON'))
-      } as Response);
+        headers: {
+          get: (name: string) => name === 'content-type' ? 'application/json' : null
+        },
+        json: () => Promise.reject(new Error('Invalid JSON')),
+        text: () => Promise.resolve('{"invalid json}')
+      } as any);
 
       const result = await ProgressService.submitProgress({
         nodeId: 'node1',
@@ -261,11 +264,7 @@ describe('ProgressService', () => {
     });
 
     it('should handle server errors with status codes', async () => {
-      mockFetch.mockResolvedValue({
-        ok: false,
-        status: 500,
-        json: () => Promise.resolve({ error: 'Internal server error' })
-      } as Response);
+      mockFetch.mockResolvedValue(createMockResponse({ error: 'Internal server error' }, false, 500) as any);
 
       const result = await ProgressService.submitProgress({
         nodeId: 'node1',
@@ -274,14 +273,11 @@ describe('ProgressService', () => {
       });
 
       expect(result.success).toBe(false);
-      expect(result.error).toBe('Internal server error');
+      expect(result.error).toBe('HTTP 500: {"error":"Internal server error"}');
     });
 
     it('should handle empty or null responses gracefully', async () => {
-      mockFetch.mockResolvedValue({
-        ok: true,
-        json: () => Promise.resolve(null)
-      } as Response);
+      mockFetch.mockResolvedValue(createMockResponse({ data: null }) as any);
 
       const result = await ProgressService.getAllProgress();
       expect(result).toEqual([]);
@@ -294,10 +290,7 @@ describe('ProgressService', () => {
         time_spent_seconds: Number.MAX_SAFE_INTEGER
       };
 
-      mockFetch.mockResolvedValue({
-        ok: true,
-        json: () => Promise.resolve({ success: true, data: largeProgressData })
-      } as Response);
+      mockFetch.mockResolvedValue(createMockResponse({ success: true, data: largeProgressData }) as any);
 
       const result = await ProgressService.submitProgress(largeProgressData);
       expect(result.success).toBe(true);
@@ -310,14 +303,11 @@ describe('ProgressService', () => {
         time_spent_seconds: -5
       };
 
-      mockFetch.mockResolvedValue({
-        ok: false,
-        json: () => Promise.resolve({ error: 'Invalid progress data' })
-      } as Response);
+      mockFetch.mockResolvedValue(createMockResponse({ error: 'Invalid progress data' }, false, 400) as any);
 
       const result = await ProgressService.submitProgress(invalidProgressData);
       expect(result.success).toBe(false);
-      expect(result.error).toBe('Invalid progress data');
+      expect(result.error).toBe('HTTP 400: {"error":"Invalid progress data"}');
     });
 
     it('should handle concurrent progress submissions', async () => {
@@ -327,10 +317,7 @@ describe('ProgressService', () => {
         time_spent_seconds: 120
       };
 
-      mockFetch.mockResolvedValue({
-        ok: true,
-        json: () => Promise.resolve({ success: true, data: mockProgressData })
-      } as Response);
+      mockFetch.mockResolvedValue(createMockResponse({ success: true, data: mockProgressData }) as any);
 
       // Submit multiple requests concurrently
       const promises = Array.from({ length: 5 }, () => 

@@ -92,8 +92,8 @@ export const NotificationPermission: React.FC<NotificationPermissionProps> = ({
 
   const handleTestNotification = async () => {
     await pushNotificationService.showLocalNotification({
-      title: '🧠 Test Notification',
-      body: 'This is a test notification from NeuroQuest!',
+      title: '🌳 Test Notification',
+      body: 'This is a test notification from SkillTree!',
       tag: 'test',
       actions: [
         { action: 'open', title: 'Open App' }
@@ -183,7 +183,7 @@ export const NotificationPermission: React.FC<NotificationPermissionProps> = ({
       opacity: isLoading ? 0.7 : 1
     } as CSSProperties,
     primaryButton: {
-      background: 'linear-gradient(135deg, #667eea, #764ba2)',
+      background: 'linear-gradient(135deg, #059669, #0ea5e9)',
       color: 'white'
     } as CSSProperties,
     secondaryButton: {

@@ -18,9 +18,9 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
 
   useEffect(() => {
     // Check localStorage for saved preference
-    const savedTheme = localStorage.getItem('theme') as Theme;
-    if (savedTheme) {
-      setTheme(savedTheme);
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme && (savedTheme === 'light' || savedTheme === 'dark' || savedTheme === 'system')) {
+      setTheme(savedTheme as Theme);
     }
   }, []);
 
@@ -56,7 +56,11 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
 
   const handleSetTheme = (newTheme: Theme) => {
     setTheme(newTheme);
-    localStorage.setItem('theme', newTheme);
+    try {
+      localStorage.setItem('theme', newTheme);
+    } catch (error) {
+      console.warn('Failed to save theme preference:', error);
+    }
   };
 
   return (

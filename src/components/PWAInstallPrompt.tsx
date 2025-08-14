@@ -196,7 +196,7 @@ export const PWAInstallPrompt: React.FC<PWAInstallPromptProps> = ({
       alignItems: 'center',
       gap: '8px',
       padding: '15px 30px',
-      background: 'linear-gradient(135deg, #667eea, #764ba2)',
+      background: 'linear-gradient(135deg, #059669, #0ea5e9)',
       color: 'white',
       border: 'none',
       borderRadius: '12px',
@@ -244,7 +244,7 @@ export const PWAInstallPrompt: React.FC<PWAInstallPromptProps> = ({
 
         <div style={styles.header}>
           <div style={styles.icon}>
-            <Download size={48} color="#667eea" />
+            <Download size={48} color="#059669" />
           </div>
           <h2 style={styles.title}>Install NeuroQuest</h2>
           <p style={styles.subtitle}>
@@ -254,15 +254,15 @@ export const PWAInstallPrompt: React.FC<PWAInstallPromptProps> = ({
 
         <div style={styles.features}>
           <div style={styles.featureItem}>
-            <Zap size={20} color="#667eea" />
+            <Zap size={20} color="#059669" />
             <span>Lightning-fast performance</span>
           </div>
           <div style={styles.featureItem}>
-            <Wifi size={20} color="#667eea" />
+            <Wifi size={20} color="#059669" />
             <span>Works offline</span>
           </div>
           <div style={styles.featureItem}>
-            {isIOS ? <Smartphone size={20} color="#667eea" /> : <Monitor size={20} color="#667eea" />}
+            {isIOS ? <Smartphone size={20} color="#059669" /> : <Monitor size={20} color="#059669" />}
             <span>Native app experience</span>
           </div>
         </div>

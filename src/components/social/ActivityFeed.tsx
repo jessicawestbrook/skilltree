@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect, useCallback } from 'react';
 import { Activity, Trophy, Target, Users, BookOpen, Award, Clock, TrendingUp } from 'lucide-react';
+import { safeFetch } from '@/utils/apiHelpers';
 
 interface ActivityItem {
   id: string;
@@ -39,7 +40,11 @@ const activityIcons: { [key: string]: any } = {
   streak_milestone: Clock,
 };
 
-export default function ActivityFeed() {
+interface ActivityFeedProps {
+  compact?: boolean;
+}
+
+export default function ActivityFeed({ compact = false }: ActivityFeedProps = {}) {
   const [activities, setActivities] = useState<ActivityItem[]>([]);
   const [loading, setLoading] = useState(true);
   const [filter, setFilter] = useState<'all' | 'friends' | 'groups' | 'personal'>('all');
@@ -52,20 +57,17 @@ export default function ActivityFeed() {
     setLoading(true);
     
     try {
-      const response = await fetch(
+      const data = await safeFetch(
         `/api/activity-feed?filter=${filter}&limit=${limit}&offset=${currentOffset}`
       );
-      const data = await response.json();
       
-      if (response.ok) {
-        if (reset) {
-          setActivities(data.data || []);
-        } else {
-          setActivities(prev => [...prev, ...(data.data || [])]);
-        }
-        setHasMore(data.hasMore);
-        setOffset(currentOffset + limit);
+      if (reset) {
+        setActivities(data.data || []);
+      } else {
+        setActivities(prev => [...prev, ...(data.data || [])]);
       }
+      setHasMore(data.hasMore);
+      setOffset(currentOffset + limit);
     } catch (error) {
       console.error('Error fetching activities:', error);
     } finally {
@@ -86,7 +88,7 @@ export default function ActivityFeed() {
   const getActivityColor = (type: string) => {
     const colors: { [key: string]: string } = {
       achievement_earned: 'text-yellow-500',
-      level_up: 'text-purple-500',
+      level_up: 'text-forest-500',
       node_completed: 'text-green-500',
       friend_added: 'text-blue-500',
       group_joined: 'text-cyan-500',
@@ -113,6 +115,63 @@ export default function ActivityFeed() {
     return 'just now';
   };
 
+  // Compact version for sidebar - no wrapper, no filters
+  if (compact) {
+    return (
+      <div className="space-y-2 max-h-56 overflow-y-auto pr-2 custom-scrollbar">
+        {loading ? (
+          <div className="text-center text-gray-500 py-4 text-sm">
+            Loading activities...
+          </div>
+        ) : activities.length === 0 ? (
+          <div className="text-center text-gray-500 py-4 text-sm">
+            No recent activity
+          </div>
+        ) : (
+          activities.slice(0, 5).map((activity) => (
+            <div
+              key={activity.id}
+              className="flex items-start gap-2 p-2 bg-gray-50 dark:bg-gray-700/50 rounded-lg text-sm"
+            >
+              <div className={`mt-0.5 flex-shrink-0 ${getActivityColor(activity.activity_type)}`}>
+                {React.cloneElement(getActivityIcon(activity.activity_type), { size: 14 })}
+              </div>
+              <div className="flex-1 min-w-0">
+                <p className="text-xs">
+                  <span className="font-medium text-gray-900 dark:text-gray-100">
+                    {activity.user?.user_profiles?.username || 'Someone'}
+                  </span>
+                  <span className="text-gray-600 dark:text-gray-400 ml-1">
+                    {activity.title}
+                  </span>
+                </p>
+                <p className="text-xs text-gray-500 mt-0.5">
+                  {formatTimeAgo(activity.created_at)}
+                </p>
+              </div>
+            </div>
+          ))
+        )}
+        <style jsx>{`
+          .custom-scrollbar::-webkit-scrollbar {
+            width: 4px;
+          }
+          .custom-scrollbar::-webkit-scrollbar-track {
+            background: transparent;
+          }
+          .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: rgba(156, 163, 175, 0.3);
+            border-radius: 2px;
+          }
+          .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+            background: rgba(156, 163, 175, 0.5);
+          }
+        `}</style>
+      </div>
+    );
+  }
+
+  // Full version with wrapper and filters
   return (
     <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6">
       <div className="flex items-center justify-between mb-6">
@@ -213,7 +272,7 @@ export default function ActivityFeed() {
                       </span>
                     )}
                     {activity.metadata.level && (
-                      <span className="text-xs bg-purple-100 dark:bg-purple-900 text-purple-600 dark:text-purple-300 px-2 py-1 rounded">
+                      <span className="text-xs bg-forest-100 dark:bg-forest-900 text-forest-600 dark:text-forest-300 px-2 py-1 rounded">
                         Level {activity.metadata.level}
                       </span>
                     )}

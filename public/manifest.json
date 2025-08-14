@@ -1,12 +1,12 @@
 {
-  "name": "NeuroQuest - Master All Human Knowledge",
-  "short_name": "NeuroQuest",
-  "description": "An interactive learning platform to master knowledge across all domains with offline capability and personalized learning paths",
+  "name": "SkillTree - Grow Your Skills. Master Your Future.",
+  "short_name": "SkillTree",
+  "description": "A nature-themed homeschooling and supplemental learning platform with interactive skill trees and gamified learning paths",
   "start_url": "/",
   "scope": "/",
   "display": "standalone",
-  "background_color": "#ffffff",
-  "theme_color": "#667eea",
+  "background_color": "#fafaf5",
+  "theme_color": "#059669",
   "orientation": "portrait-primary",
   "lang": "en",
   "categories": ["education", "learning", "productivity", "reference"],
@@ -134,7 +134,7 @@
       "sizes": "1280x720",
       "type": "image/png",
       "form_factor": "wide",
-      "label": "NeuroQuest Home Screen"
+      "label": "SkillTree Home Screen"
     },
     {
       "src": "/screenshots/mobile-learn.png",

@@ -15,6 +15,7 @@ import {
   clearFailedAttempts,
   isAccountLocked
 } from '../utils/credentialStorage';
+import { ProgressService } from '../services/progressService';
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
@@ -40,6 +41,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       username: supabaseUser.user_metadata?.username || supabaseUser.email?.split('@')[0] || '',
       avatar: supabaseUser.user_metadata?.avatar || undefined,
       photoURL: supabaseUser.user_metadata?.photoURL || undefined,
+      birthYear: supabaseUser.user_metadata?.birthYear || undefined,
       createdAt: new Date(supabaseUser.created_at),
       lastLoginAt: supabaseUser.last_sign_in_at ? new Date(supabaseUser.last_sign_in_at) : undefined
     };
@@ -129,7 +131,8 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
                 email: mappedUser.email,
                 username: mappedUser.username,
                 avatar: mappedUser.avatar,
-                photoURL: mappedUser.photoURL
+                photoURL: mappedUser.photoURL,
+                birthYear: mappedUser.birthYear
               },
               expiresAt: session.expires_at * 1000
             });
@@ -170,7 +173,8 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
                 email: mappedUser.email,
                 username: mappedUser.username,
                 avatar: mappedUser.avatar,
-                photoURL: mappedUser.photoURL
+                photoURL: mappedUser.photoURL,
+                birthYear: mappedUser.birthYear
               },
               expiresAt: session.expires_at * 1000
             });
@@ -266,6 +270,12 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
         // Clear any failed login attempts on successful login
         clearFailedAttempts(credentials.email);
         
+        // Initialize progress data for existing users who don't have it yet
+        ProgressService.initializeUserProgress(mappedUser.id).catch(error => {
+          console.warn('Failed to initialize user progress data:', error);
+          // Don't fail login if progress initialization fails
+        });
+        
         // Set user context for error tracking
         ErrorLogger.setUserContext({
           id: mappedUser.id,
@@ -288,7 +298,8 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
               email: mappedUser.email,
               username: mappedUser.username,
               avatar: mappedUser.avatar,
-              photoURL: mappedUser.photoURL
+              photoURL: mappedUser.photoURL,
+              birthYear: mappedUser.birthYear
             },
             expiresAt: data.session.expires_at * 1000
           });
@@ -384,6 +395,13 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
         if (data.session) {
           const mappedUser = mapSupabaseUser(data.user);
           setUser(mappedUser);
+          
+          // Initialize default progress data for new user
+          ProgressService.initializeUserProgress(mappedUser.id).catch(error => {
+            console.warn('Failed to initialize user progress data:', error);
+            // Don't fail registration if progress initialization fails
+          });
+          
           // Store session and setup token refresh
           if (data.session.expires_at) {
             saveSession({
@@ -453,7 +471,8 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
         data: {
           username: updates.username,
           avatar: updates.avatar,
-          photoURL: updates.photoURL
+          photoURL: updates.photoURL,
+          birthYear: updates.birthYear
         }
       });
 

@@ -144,7 +144,7 @@ function CategoryCard({
                 )}
                 {hasNodes && (
                   <div className="flex items-center gap-1">
-                    <div className="w-2 h-2 rounded-full bg-purple-400" />
+                    <div className="w-2 h-2 rounded-full bg-forest-400" />
                     <span>{category.nodes.length} topics</span>
                   </div>
                 )}
@@ -265,23 +265,6 @@ export default function Hierarchical2DKnowledgeMap({
         ))}
       </div>
       
-      {/* Legend */}
-      <div className="mt-8 bg-white rounded-lg p-4 shadow-sm">
-        <h3 className="text-sm font-semibold text-gray-700 mb-3">How to Use</h3>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-3 text-sm">
-          <div className="flex items-center gap-2">
-            <CheckCircle size={16} className="text-green-500" />
-            <span>Green checkmark indicates fully completed categories</span>
-          </div>
-          <div className="flex items-center gap-2">
-            <div className="w-4 h-2 bg-green-500 rounded-full"></div>
-            <span>Progress bar shows completion percentage</span>
-          </div>
-        </div>
-        <p className="text-xs text-gray-500 mt-3">
-          Click on any category card to explore its subcategories and learning topics
-        </p>
-      </div>
     </div>
   );
 }

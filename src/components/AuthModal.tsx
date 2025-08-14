@@ -137,7 +137,7 @@ export const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose, onSuccess
       display: 'flex',
       alignItems: 'center',
       justifyContent: 'center',
-      zIndex: 2000,
+      zIndex: 9999,
       padding: '20px'
     } as CSSProperties,
     modal: {
@@ -182,7 +182,7 @@ export const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose, onSuccess
       outline: 'none'
     } as CSSProperties,
     inputFocus: {
-      borderColor: '#667eea'
+      borderColor: '#059669'
     } as CSSProperties,
     inputIcon: {
       position: 'absolute',
@@ -204,7 +204,7 @@ export const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose, onSuccess
     } as CSSProperties,
     submitButton: {
       padding: '15px',
-      background: 'linear-gradient(135deg, #667eea, #764ba2)',
+      background: 'linear-gradient(135deg, #059669, #0ea5e9)',
       color: 'white',
       border: 'none',
       borderRadius: '12px',
@@ -227,7 +227,7 @@ export const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose, onSuccess
     switchButton: {
       background: 'none',
       border: 'none',
-      color: '#667eea',
+      color: '#059669',
       cursor: 'pointer',
       fontWeight: 'bold',
       textDecoration: 'underline'
@@ -252,7 +252,7 @@ export const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose, onSuccess
     checkbox: {
       width: '16px',
       height: '16px',
-      accentColor: '#667eea',
+      accentColor: '#059669',
       cursor: 'pointer'
     } as CSSProperties,
     checkboxLabel: {
@@ -289,7 +289,7 @@ export const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose, onSuccess
             ) : (
               <>
                 <UserPlus size={28} />
-                Join NeuroQuest
+                Join SkillTree
               </>
             )}
           </h2>

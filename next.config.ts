@@ -36,6 +36,16 @@ const nextConfig: NextConfig = {
   
   // Webpack configuration for production builds only
   webpack: (config, { isServer, dev }) => {
+    // Suppress Prisma instrumentation warning
+    if (isServer) {
+      config.ignoreWarnings = [
+        {
+          module: /@opentelemetry\/instrumentation/,
+          message: /Critical dependency/,
+        },
+      ];
+    }
+    
     // Only apply webpack customizations for production builds (not Turbopack dev)
     if (!dev) {
       // Generate source maps in production for Sentry

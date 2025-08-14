@@ -2,20 +2,52 @@
 @tailwind components;
 @tailwind utilities;
 
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Nunito:wght@400;600;700;800&display=swap');
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* Light theme - Nature-inspired */
+  --background: #fafaf5; /* Cream white with subtle green tint */
+  --foreground: #1f2937; /* Dark gray for text */
+  --card: #ffffff;
+  --card-foreground: #1f2937;
+  --primary: #059669; /* Forest green */
+  --primary-foreground: #ffffff;
+  --secondary: #0ea5e9; /* Sky blue */
+  --secondary-foreground: #ffffff;
+  --accent: #f97316; /* Sunset orange */
+  --accent-foreground: #ffffff;
+  --muted: #f3f4f6;
+  --muted-foreground: #6b7280;
+  --border: #e5e7eb;
+  --input: #f9fafb;
+  --ring: #059669;
+  --radius: 0.75rem;
 }
 
 .dark {
-  --background: #1a1b26;
-  --foreground: #f7f7f7;
+  /* Dark theme - Deep forest night */
+  --background: #0f1419; /* Deep forest night */
+  --foreground: #e0e0d1; /* Soft cream text */
+  --card: #1a2332;
+  --card-foreground: #e0e0d1;
+  --primary: #10b981; /* Brighter forest green for dark mode */
+  --primary-foreground: #064e3b;
+  --secondary: #38bdf8; /* Brighter sky blue for dark mode */
+  --secondary-foreground: #0c4a6e;
+  --accent: #fb923c; /* Brighter sunset orange for dark mode */
+  --accent-foreground: #7c2d12;
+  --muted: #1f2937;
+  --muted-foreground: #9ca3af;
+  --border: #374151;
+  --input: #1f2937;
+  --ring: #10b981;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: 'Inter', system-ui, sans-serif;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 @keyframes slideIn {

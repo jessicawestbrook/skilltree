@@ -134,7 +134,7 @@ describe('AuthModal', () => {
     });
 
     it('should switch to registration form', () => {
-      expect(screen.getByText('Join NeuroQuest')).toBeInTheDocument();
+      expect(screen.getByText('Join SkillTree')).toBeInTheDocument();
       expect(screen.getByPlaceholderText('Username')).toBeInTheDocument();
       expect(screen.getByRole('button', { name: /create account/i })).toBeInTheDocument();
     });

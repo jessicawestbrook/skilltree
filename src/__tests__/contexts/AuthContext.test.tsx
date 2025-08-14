@@ -1,25 +1,27 @@
+// Create mock auth object
+const mockAuth = {
+  signInWithPassword: jest.fn(),
+  signUp: jest.fn(),
+  signOut: jest.fn(),
+  resetPasswordForEmail: jest.fn(),
+  updateUser: jest.fn(),
+  getSession: jest.fn(),
+  onAuthStateChange: jest.fn(() => ({
+    data: { subscription: { unsubscribe: jest.fn() } }
+  }))
+};
+
+// Mock Supabase client
+jest.mock('../../lib/supabase-client', () => ({
+  createClient: jest.fn(() => ({
+    auth: mockAuth
+  }))
+}));
+
 import React from 'react';
 import { render, screen, waitFor, act } from '@testing-library/react';
 import { AuthProvider, useAuth } from '../../contexts/AuthContext';
-import { supabase } from '../../lib/supabase';
 import * as credentialStorage from '../../utils/credentialStorage';
-
-// Mock Supabase
-jest.mock('../../lib/supabase', () => ({
-  supabase: {
-    auth: {
-      signInWithPassword: jest.fn(),
-      signUp: jest.fn(),
-      signOut: jest.fn(),
-      resetPasswordForEmail: jest.fn(),
-      updateUser: jest.fn(),
-      getSession: jest.fn(),
-      onAuthStateChange: jest.fn(() => ({
-        data: { subscription: { unsubscribe: jest.fn() } }
-      }))
-    }
-  }
-}));
 
 // Mock credential storage
 jest.mock('../../utils/credentialStorage', () => ({
@@ -93,7 +95,7 @@ describe('AuthContext', () => {
 
     it('should initialize with loading state', async () => {
       // Mock getSession to resolve quickly
-      (supabase.auth.getSession as jest.Mock).mockResolvedValue({
+      (mockAuth.getSession as jest.Mock).mockResolvedValue({
         data: { session: null },
         error: null
       });
@@ -130,7 +132,7 @@ describe('AuthContext', () => {
         expires_at: Math.floor(Date.now() / 1000) + 3600
       };
       
-      (supabase.auth.signInWithPassword as jest.Mock).mockResolvedValue({
+      (mockAuth.signInWithPassword as jest.Mock).mockResolvedValue({
         data: { user: mockUser, session: mockSession },
         error: null
       });
@@ -156,7 +158,7 @@ describe('AuthContext', () => {
     });
 
     it('should handle invalid credentials error', async () => {
-      (supabase.auth.signInWithPassword as jest.Mock).mockResolvedValue({
+      (mockAuth.signInWithPassword as jest.Mock).mockResolvedValue({
         data: null,
         error: { message: 'Invalid login credentials' }
       });
@@ -201,11 +203,11 @@ describe('AuthContext', () => {
         expect(screen.getByTestId('error').textContent).toContain('5 minute');
       });
       
-      expect(supabase.auth.signInWithPassword).not.toHaveBeenCalled();
+      expect(mockAuth.signInWithPassword).not.toHaveBeenCalled();
     });
 
     it('should handle rate limiting error', async () => {
-      (supabase.auth.signInWithPassword as jest.Mock).mockResolvedValue({
+      (mockAuth.signInWithPassword as jest.Mock).mockResolvedValue({
         data: null,
         error: { message: 'Email rate limit exceeded' }
       });
@@ -236,7 +238,7 @@ describe('AuthContext', () => {
         user_metadata: { username: 'newuser' }
       };
       
-      (supabase.auth.signUp as jest.Mock).mockResolvedValue({
+      (mockAuth.signUp as jest.Mock).mockResolvedValue({
         data: { user: mockUser, session: null },
         error: null
       });
@@ -258,7 +260,7 @@ describe('AuthContext', () => {
       });
       
       await waitFor(() => {
-        expect(supabase.auth.signUp).toHaveBeenCalledWith({
+        expect(mockAuth.signUp).toHaveBeenCalledWith({
           email: 'new@example.com',
           password: 'password123',
           options: {
@@ -269,7 +271,7 @@ describe('AuthContext', () => {
     });
 
     it('should handle duplicate email error', async () => {
-      (supabase.auth.signUp as jest.Mock).mockResolvedValue({
+      (mockAuth.signUp as jest.Mock).mockResolvedValue({
         data: null,
         error: { message: 'User already registered' }
       });
@@ -290,7 +292,7 @@ describe('AuthContext', () => {
     });
 
     it('should handle weak password error', async () => {
-      (supabase.auth.signUp as jest.Mock).mockResolvedValue({
+      (mockAuth.signUp as jest.Mock).mockResolvedValue({
         data: null,
         error: { message: 'Password is too weak' }
       });
@@ -317,7 +319,7 @@ describe('AuthContext', () => {
         user_metadata: { username: 'newuser' }
       };
       
-      (supabase.auth.signUp as jest.Mock).mockResolvedValue({
+      (mockAuth.signUp as jest.Mock).mockResolvedValue({
         data: { user: mockUser, session: null },
         error: null
       });
@@ -350,7 +352,7 @@ describe('AuthContext', () => {
 
   describe('Logout', () => {
     it('should handle successful logout', async () => {
-      (supabase.auth.signOut as jest.Mock).mockResolvedValue({
+      (mockAuth.signOut as jest.Mock).mockResolvedValue({
         error: null
       });
       
@@ -371,7 +373,7 @@ describe('AuthContext', () => {
     });
 
     it('should handle logout error gracefully', async () => {
-      (supabase.auth.signOut as jest.Mock).mockResolvedValue({
+      (mockAuth.signOut as jest.Mock).mockResolvedValue({
         error: { message: 'Network error' }
       });
       
@@ -412,7 +414,7 @@ describe('AuthContext', () => {
         expires_at: Math.floor(Date.now() / 1000) + 3600
       };
       
-      (supabase.auth.signInWithPassword as jest.Mock).mockResolvedValue({
+      (mockAuth.signInWithPassword as jest.Mock).mockResolvedValue({
         data: { user: mockUser, session: mockSession },
         error: null
       });

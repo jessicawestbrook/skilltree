@@ -1,16 +1,30 @@
 'use client';
 
 import React, { useState, CSSProperties } from 'react';
-import { Clock, Zap, Gauge, Bell, Mail, Volume2 } from 'lucide-react';
+import { Clock, Zap, Gauge, Bell, Mail, Volume2, Calendar } from 'lucide-react';
+import { useAuth } from '../../../contexts/AuthContext';
 
 export const PreferencesStep: React.FC = () => {
+  const { updateProfile } = useAuth();
+  const currentYear = new Date().getFullYear();
   const [preferences, setPreferences] = useState({
+    birthYear: currentYear - 14, // Default to 14 years old
     difficultyLevel: 'intermediate' as 'beginner' | 'intermediate' | 'advanced',
     studyTime: 30,
     notificationsEnabled: true,
     emailUpdates: true,
     soundEnabled: true,
   });
+
+  // Calculate age from birth year
+  const age = currentYear - preferences.birthYear;
+
+  // Update user profile with birth year when preferences change
+  React.useEffect(() => {
+    if (preferences.birthYear) {
+      updateProfile({ birthYear: preferences.birthYear });
+    }
+  }, [preferences.birthYear, updateProfile]);
 
   const difficultyLevels = [
     {
@@ -178,6 +192,34 @@ export const PreferencesStep: React.FC = () => {
       color: '#666',
       lineHeight: '1.5',
     } as CSSProperties,
+    ageSection: {
+      display: 'flex',
+      alignItems: 'center',
+      gap: '16px',
+      padding: '16px',
+      background: '#f8f8f8',
+      borderRadius: '12px',
+    } as CSSProperties,
+    ageInput: {
+      width: '120px',
+      padding: '8px 12px',
+      borderRadius: '8px',
+      border: '2px solid #e0e0e0',
+      fontSize: '16px',
+      fontWeight: 'bold',
+      textAlign: 'center',
+      transition: 'border-color 0.3s ease',
+    } as CSSProperties,
+    ageLabel: {
+      fontSize: '14px',
+      color: '#666',
+    } as CSSProperties,
+    ageRecommendation: {
+      fontSize: '12px',
+      color: '#667eea',
+      fontStyle: 'italic',
+      marginLeft: 'auto',
+    } as CSSProperties,
   };
 
   const toggles = [
@@ -201,8 +243,50 @@ export const PreferencesStep: React.FC = () => {
     },
   ];
 
+  // Get age-based content recommendation
+  const getAgeRecommendation = () => {
+    if (age < 9) return 'Early Elementary content recommended';
+    if (age < 12) return 'Late Elementary content recommended';
+    if (age < 15) return 'Middle School content recommended';
+    if (age < 19) return 'High School content recommended';
+    if (age < 23) return 'College level content recommended';
+    return 'Adult learning content recommended';
+  };
+
   return (
     <div style={styles.container}>
+      {/* Age/Birth Year */}
+      <div style={styles.section}>
+        <h3 style={styles.sectionTitle}>
+          <Calendar size={20} color="#667eea" />
+          Your Age
+        </h3>
+        <div style={styles.ageSection}>
+          <label style={styles.ageLabel}>Birth Year:</label>
+          <input
+            type="number"
+            min={1900}
+            max={currentYear - 5}
+            value={preferences.birthYear}
+            onChange={(e) => {
+              const year = parseInt(e.target.value);
+              if (year >= 1900 && year <= currentYear - 5) {
+                setPreferences(prev => ({ ...prev, birthYear: year }));
+              }
+            }}
+            style={styles.ageInput}
+            onFocus={(e) => {
+              (e.target as HTMLInputElement).style.borderColor = '#667eea';
+            }}
+            onBlur={(e) => {
+              (e.target as HTMLInputElement).style.borderColor = '#e0e0e0';
+            }}
+          />
+          <span style={styles.ageLabel}>Age: {age} years</span>
+          <span style={styles.ageRecommendation}>{getAgeRecommendation()}</span>
+        </div>
+      </div>
+
       {/* Difficulty Level */}
       <div style={styles.section}>
         <h3 style={styles.sectionTitle}>
@@ -292,8 +376,9 @@ export const PreferencesStep: React.FC = () => {
       <div style={styles.summary}>
         <h4 style={styles.summaryTitle}>Your Learning Profile</h4>
         <p style={styles.summaryText}>
-          You&apos;ll start with <strong>{preferences.difficultyLevel}</strong> difficulty content, 
+          As a <strong>{age}-year-old learner</strong>, you&apos;ll start with <strong>{preferences.difficultyLevel}</strong> difficulty content, 
           studying for <strong>{preferences.studyTime} minutes per day</strong>. 
+          We&apos;ll recommend age-appropriate content to match your learning level.
           {preferences.notificationsEnabled && ' We&apos;ll send you helpful reminders.'}
           {preferences.emailUpdates && ' You&apos;ll receive progress updates via email.'}
         </p>

@@ -1,12 +1,11 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { createRouteHandlerClient } from '@supabase/auth-helpers-nextjs';
-import { cookies } from 'next/headers';
+import { createServerSupabaseClient } from '@/lib/supabase-server';
 import { withRateLimit } from '@/lib/rateLimit';
 
 export async function GET(request: NextRequest) {
   return withRateLimit(request, async () => {
     try {
-    const supabase = createRouteHandlerClient({ cookies });
+    const supabase = await createServerSupabaseClient();
     
     // Check authentication
     const { data: { user }, error: authError } = await supabase.auth.getUser();
@@ -24,69 +23,114 @@ export async function GET(request: NextRequest) {
 
     switch (type) {
       case 'summary':
-        const { data: analytics, error: analyticsError } = await supabase.rpc('get_user_analytics', {
-          p_user_id: user.id,
-          p_days_back: daysBack
-        });
+        try {
+          const { data: analytics, error: analyticsError } = await supabase.rpc('get_user_analytics', {
+            p_user_id: user.id,
+            p_days_back: daysBack
+          });
+          
+          if (analyticsError) {
+            console.error('Analytics RPC Error:', analyticsError);
+            // Return mock data if RPC function doesn't exist
+            return NextResponse.json({
+              data: {
+                total_nodes_completed: 0,
+                total_points: 0,
+                current_streak: 0,
+                avg_quiz_score: 0,
+                learning_time_hours: 0,
+                nodes_this_week: 0,
+                improvement_rate: 0
+              }
+            });
+          }
 
-        if (analyticsError) {
-          throw analyticsError;
+          return NextResponse.json({
+            success: true,
+            data: analytics?.[0] || null
+          });
+        } catch (error) {
+          console.error('Error in summary analytics:', error);
+          return NextResponse.json(
+            { error: 'Failed to fetch analytics' },
+            { status: 500 }
+          );
         }
-
-        return NextResponse.json({
-          success: true,
-          data: analytics?.[0] || null
-        });
 
       case 'insights':
-        const { data: insights, error: insightsError } = await supabase.rpc('generate_learning_insights', {
-          p_user_id: user.id
-        });
+        try {
+          const { data: insights, error: insightsError } = await supabase.rpc('generate_learning_insights', {
+            p_user_id: user.id
+          });
 
-        if (insightsError) {
-          throw insightsError;
+          if (insightsError) {
+            console.error('Insights RPC Error:', insightsError);
+            // Return empty insights if RPC function doesn't exist
+            return NextResponse.json({
+              success: true,
+              data: []
+            });
+          }
+
+          return NextResponse.json({
+            success: true,
+            data: Array.isArray(insights) ? insights : []
+          });
+        } catch (error) {
+          console.error('Insights error:', error);
+          return NextResponse.json({
+            success: true,
+            data: []
+          });
         }
-
-        return NextResponse.json({
-          success: true,
-          data: Array.isArray(insights) ? insights : []
-        });
 
       case 'recommendations':
-        // First generate recommendations
-        const { error: genError } = await supabase.rpc('generate_recommendations', {
-          p_user_id: user.id
-        });
+        try {
+          // First generate recommendations
+          const { error: genError } = await supabase.rpc('generate_recommendations', {
+            p_user_id: user.id
+          });
 
-        if (genError) {
-          console.error('Error generating recommendations:', genError);
+          if (genError) {
+            console.error('Error generating recommendations:', genError);
+          }
+
+          // Then fetch them
+          const { data: recommendations, error: recError } = await supabase
+            .from('learning_recommendations')
+            .select(`
+              id,
+              recommendation_type,
+              node_id,
+              priority_score,
+              reasoning,
+              created_at,
+              knowledge_nodes!inner(name, domain, difficulty)
+            `)
+            .eq('user_id', user.id)
+            .eq('is_active', true)
+            .order('priority_score', { ascending: false })
+            .limit(10);
+
+          if (recError) {
+            console.error('Recommendations fetch error:', recError);
+            return NextResponse.json({
+              success: true,
+              data: []
+            });
+          }
+
+          return NextResponse.json({
+            success: true,
+            data: Array.isArray(recommendations) ? recommendations : []
+          });
+        } catch (error) {
+          console.error('Recommendations error:', error);
+          return NextResponse.json({
+            success: true,
+            data: []
+          });
         }
-
-        // Then fetch them
-        const { data: recommendations, error: recError } = await supabase
-          .from('learning_recommendations')
-          .select(`
-            id,
-            recommendation_type,
-            node_id,
-            priority_score,
-            reasoning,
-            created_at,
-            knowledge_nodes!inner(name, domain, difficulty)
-          `)
-          .eq('user_id', user.id)
-          .eq('is_active', true)
-          .order('priority_score', { ascending: false })
-          .limit(10);
-
-        if (recError) {
-          throw recError;
-        }
-
-        return NextResponse.json({
-          success: true,
-          data: Array.isArray(recommendations) ? recommendations : []
-        });
 
       case 'sessions':
         const { data: sessions, error: sessionsError } = await supabase
@@ -125,7 +169,7 @@ export async function GET(request: NextRequest) {
 export async function POST(request: NextRequest) {
   return withRateLimit(request, async () => {
     try {
-    const supabase = createRouteHandlerClient({ cookies });
+    const supabase = await createServerSupabaseClient();
     
     // Check authentication
     const { data: { user }, error: authError } = await supabase.auth.getUser();

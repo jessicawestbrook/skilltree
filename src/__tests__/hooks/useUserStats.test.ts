@@ -2,9 +2,9 @@ import { renderHook, act } from '@testing-library/react';
 import { useUserStats } from '../../hooks/useUserStats';
 import { UserStats } from '../../types';
 
-// Mock the supabase module first
-jest.mock('../../lib/supabase', () => ({
-  supabase: {
+// Mock the supabase client
+jest.mock('../../lib/supabase-client', () => ({
+  createClient: jest.fn(() => ({
     auth: {
       getUser: jest.fn(() => Promise.resolve({ data: { user: null }, error: null }))
     },
@@ -19,7 +19,7 @@ jest.mock('../../lib/supabase', () => ({
         eq: jest.fn(() => Promise.resolve({ data: null, error: null }))
       }))
     }))
-  }
+  }))
 }));
 
 // Mock the pushNotificationService

@@ -158,7 +158,7 @@ patterns-basics,What defines a pattern?,Repetition of elements,Random arrangemen
             onClick={() => setUploadMode('file')}
             className={`px-4 py-2 rounded-lg font-medium transition-colors ${
               uploadMode === 'file'
-                ? 'bg-purple-600 text-white'
+                ? 'bg-forest-600 text-white'
                 : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
             }`}
           >
@@ -168,7 +168,7 @@ patterns-basics,What defines a pattern?,Repetition of elements,Random arrangemen
             onClick={() => setUploadMode('json')}
             className={`px-4 py-2 rounded-lg font-medium transition-colors ${
               uploadMode === 'json'
-                ? 'bg-purple-600 text-white'
+                ? 'bg-forest-600 text-white'
                 : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
             }`}
           >
@@ -210,8 +210,8 @@ patterns-basics,What defines a pattern?,Repetition of elements,Random arrangemen
                 file:mr-4 file:py-2 file:px-4
                 file:rounded-full file:border-0
                 file:text-sm file:font-semibold
-                file:bg-purple-50 file:text-purple-700
-                hover:file:bg-purple-100"
+                file:bg-forest-50 file:text-forest-700
+                hover:file:bg-forest-100"
             />
           </div>
 
@@ -232,7 +232,7 @@ patterns-basics,What defines a pattern?,Repetition of elements,Random arrangemen
             className={`px-6 py-2 rounded-lg font-medium transition-colors ${
               !selectedFile || uploadStatus === 'uploading'
                 ? 'bg-gray-300 text-gray-500 cursor-not-allowed'
-                : 'bg-purple-600 text-white hover:bg-purple-700'
+                : 'bg-forest-600 text-white hover:bg-forest-700'
             }`}
           >
             {uploadStatus === 'uploading' ? 'Uploading...' : 'Upload File'}
@@ -268,7 +268,7 @@ patterns-basics,What defines a pattern?,Repetition of elements,Random arrangemen
             className={`px-6 py-2 rounded-lg font-medium transition-colors ${
               !jsonInput.trim() || uploadStatus === 'uploading'
                 ? 'bg-gray-300 text-gray-500 cursor-not-allowed'
-                : 'bg-purple-600 text-white hover:bg-purple-700'
+                : 'bg-forest-600 text-white hover:bg-forest-700'
             }`}
           >
             {uploadStatus === 'uploading' ? 'Uploading...' : 'Upload JSON'}

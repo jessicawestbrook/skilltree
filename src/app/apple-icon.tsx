@@ -18,7 +18,7 @@ export default function AppleIcon() {
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
-          background: 'linear-gradient(135deg, #667eea, #764ba2)',
+          background: 'linear-gradient(135deg, #059669, #0ea5e9)',
           borderRadius: '20%',
         }}
       >
@@ -33,7 +33,7 @@ export default function AppleIcon() {
             fontSize: '100px',
           }}
         >
-          🧠
+          🌳
         </div>
       </div>
     ),

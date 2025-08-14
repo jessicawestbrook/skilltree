@@ -100,18 +100,18 @@ export default function CourseContent({ nodeId, nodeTitle, onComplete, onStartQu
         <div className="flex-1 max-w-4xl">
       {/* Header */}
       <div className="relative overflow-hidden rounded-t-lg">
-        <div className="absolute inset-0 bg-gradient-to-br from-purple-600 via-blue-600 to-indigo-700 dark:from-purple-800 dark:via-blue-800 dark:to-indigo-900"></div>
+        <div className="absolute inset-0 bg-gradient-to-br from-forest-600 via-sky-600 to-indigo-700 dark:from-forest-800 dark:via-sky-800 dark:to-indigo-900"></div>
         <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div>
         <div className="relative z-10 p-8">
           <h1 className="text-3xl md:text-4xl font-bold mb-3 text-white drop-shadow-lg">{content.title}</h1>
-          <p className="text-purple-50 mb-6 text-lg leading-relaxed max-w-3xl">{content.overview}</p>
+          <p className="text-forest-50 mb-6 text-lg leading-relaxed max-w-3xl">{content.overview}</p>
           <div className="flex flex-wrap items-center gap-4 text-sm">
             <div className="flex items-center gap-2 bg-white/20 backdrop-blur-sm px-3 py-1.5 rounded-full">
-              <Clock className="w-4 h-4 text-purple-100" />
+              <Clock className="w-4 h-4 text-forest-100" />
               <span className="text-white font-medium">{content.estimated_time} min</span>
             </div>
             <div className="flex items-center gap-2 bg-white/20 backdrop-blur-sm px-3 py-1.5 rounded-full">
-              <BookOpen className="w-4 h-4 text-purple-100" />
+              <BookOpen className="w-4 h-4 text-forest-100" />
               <span className="text-white font-medium">{content.sections?.length || 0} sections</span>
             </div>
             <div className="px-3 py-1.5 bg-white/20 backdrop-blur-sm rounded-full">
@@ -144,7 +144,7 @@ export default function CourseContent({ nodeId, nodeTitle, onComplete, onStartQu
         </div>
         <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2">
           <div 
-            className="bg-gradient-to-r from-purple-500 to-blue-500 h-2 rounded-full transition-all"
+            className="bg-gradient-to-r from-forest-500 to-sky-500 h-2 rounded-full transition-all"
             style={{ width: `${progress}%` }}
           />
         </div>
@@ -160,7 +160,7 @@ export default function CourseContent({ nodeId, nodeTitle, onComplete, onStartQu
                 onClick={() => setCurrentSection(index)}
                 className={`flex items-center gap-2 px-4 py-2 rounded-lg whitespace-nowrap transition-colors ${
                   index === currentSection
-                    ? 'bg-purple-600 text-white'
+                    ? 'bg-forest-600 text-white'
                     : completedSections.has(index)
                     ? 'bg-green-100 text-green-700'
                     : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
@@ -234,7 +234,7 @@ export default function CourseContent({ nodeId, nodeTitle, onComplete, onStartQu
             {currentSection < (content.sections?.length || 1) - 1 ? (
               <button
                 onClick={handleSectionComplete}
-                className="flex items-center gap-2 px-6 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700"
+                className="flex items-center gap-2 px-6 py-2 bg-forest-600 text-white rounded-lg hover:bg-forest-700"
               >
                 Next Section
                 <ChevronRight className="w-4 h-4" />
@@ -269,7 +269,7 @@ export default function CourseContent({ nodeId, nodeTitle, onComplete, onStartQu
           {showKeyConcepts && (
             <div className="mt-4 space-y-4">
               {content.key_concepts.map((concept) => (
-                <div key={concept.id} className="border-l-4 border-purple-500 pl-4">
+                <div key={concept.id} className="border-l-4 border-forest-500 pl-4">
                   <h4 className="font-bold text-gray-900 text-lg">{concept.term}</h4>
                   <p className="text-gray-800 mt-1 font-medium">{concept.definition}</p>
                   {concept.example && (

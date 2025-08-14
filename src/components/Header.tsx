@@ -1,5 +1,5 @@
 import React, { CSSProperties } from 'react';
-import { Brain, Flame, LogIn, User as UserIcon, Users } from 'lucide-react';
+import { Trees, Flame, LogIn, User as UserIcon, Users } from 'lucide-react';
 import { UserStats } from '../types';
 import { useAuth } from '../contexts/AuthContext';
 import Link from 'next/link';
@@ -30,10 +30,10 @@ export const Header: React.FC<HeaderProps> = ({ userStats, isMobile, calculatePr
     <div style={styles.header}>
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '15px' }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-          <Brain size={36} color="#667eea" />
+          <Trees size={36} color="#059669" />
           <div>
-            <h1 style={{ margin: 0, fontSize: isMobile ? '24px' : '28px', color: '#1a1a1a', fontWeight: 'bold' }}>NeuroQuest</h1>
-            <p style={{ margin: 0, fontSize: '12px', color: '#4a4a4a', fontWeight: '500' }}>Master All Human Knowledge</p>
+            <h1 style={{ margin: 0, fontSize: isMobile ? '24px' : '28px', color: '#1a1a1a', fontWeight: 'bold' }}>SkillTree</h1>
+            <p style={{ margin: 0, fontSize: '12px', color: '#4a4a4a', fontWeight: '500' }}>Grow Your Skills. Master Your Future.</p>
           </div>
         </div>
         
@@ -55,41 +55,19 @@ export const Header: React.FC<HeaderProps> = ({ userStats, isMobile, calculatePr
               </div>
               
               <div style={{ textAlign: 'center' }}>
-                <div style={{ fontSize: '20px', fontWeight: 'bold', color: '#667eea' }}>
+                <div style={{ fontSize: '20px', fontWeight: 'bold', color: '#059669' }}>
                   {userStats.pathfinderPoints.toLocaleString()}
                 </div>
                 <div style={{ fontSize: '10px', color: '#5a5a5a', fontWeight: '600' }}>POINTS</div>
               </div>
               
               <div style={{ textAlign: 'center' }}>
-                <div style={{ fontSize: '20px', fontWeight: 'bold', color: '#764ba2' }}>
+                <div style={{ fontSize: '20px', fontWeight: 'bold', color: '#0ea5e9' }}>
                   {userStats.neuralLevel}
                 </div>
                 <div style={{ fontSize: '10px', color: '#5a5a5a', fontWeight: '600' }}>LEVEL</div>
               </div>
 
-              {/* Social Hub Link */}
-              <Link href="/social" style={{ textDecoration: 'none' }}>
-                <button
-                  style={{
-                    display: 'flex',
-                    alignItems: 'center',
-                    gap: '8px',
-                    padding: '10px 16px',
-                    background: 'linear-gradient(135deg, #10b981, #059669)',
-                    color: 'white',
-                    border: 'none',
-                    borderRadius: '12px',
-                    fontSize: '14px',
-                    fontWeight: 'bold',
-                    cursor: 'pointer',
-                    transition: 'all 0.3s ease'
-                  }}
-                >
-                  <Users size={18} />
-                  {isMobile ? 'Social' : 'Social Hub'}
-                </button>
-              </Link>
             </>
           )}
 
@@ -101,9 +79,9 @@ export const Header: React.FC<HeaderProps> = ({ userStats, isMobile, calculatePr
               alignItems: 'center',
               gap: '8px',
               padding: '10px 16px',
-              background: isAuthenticated ? 'linear-gradient(135deg, #667eea, #764ba2)' : 'rgba(255, 255, 255, 0.9)',
-              color: isAuthenticated ? 'white' : '#667eea',
-              border: isAuthenticated ? 'none' : '2px solid #667eea',
+              background: isAuthenticated ? 'linear-gradient(135deg, #059669, #0ea5e9)' : 'rgba(255, 255, 255, 0.9)',
+              color: isAuthenticated ? 'white' : '#059669',
+              border: isAuthenticated ? 'none' : '2px solid #059669',
               borderRadius: '12px',
               fontSize: '14px',
               fontWeight: 'bold',
@@ -136,7 +114,7 @@ export const Header: React.FC<HeaderProps> = ({ userStats, isMobile, calculatePr
           <div style={{
             width: `${calculateProgress()}%`,
             height: '100%',
-            background: 'linear-gradient(90deg, #667eea, #764ba2)',
+            background: 'linear-gradient(90deg, #059669, #0ea5e9)',
             transition: 'width 0.5s ease'
           }} />
         </div>

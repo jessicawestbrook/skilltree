@@ -17,7 +17,11 @@ interface StudyGroup {
   user_role?: string;
 }
 
-export default function StudyGroupsPanel() {
+interface StudyGroupsPanelProps {
+  compact?: boolean;
+}
+
+export default function StudyGroupsPanel({ compact = false }: StudyGroupsPanelProps = {}) {
   const [groups, setGroups] = useState<StudyGroup[]>([]);
   const [loading, setLoading] = useState(true);
   const [filter, setFilter] = useState<'all' | 'my-groups' | 'public'>('my-groups');

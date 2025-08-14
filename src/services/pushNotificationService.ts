@@ -1,4 +1,4 @@
-import { supabase } from '@/lib/supabase';
+import { createClient } from '@/lib/supabase-client';
 
 interface PushSubscription {
   endpoint: string;
@@ -43,18 +43,43 @@ class PushNotificationService {
   }
 
   async initialize(): Promise<boolean> {
+    // Skip service worker initialization in development mode
+    if (process.env.NODE_ENV === 'development') {
+      console.log('Push notifications disabled in development mode');
+      return false;
+    }
+
     if (!this.isSupported) {
       console.log('Push notifications are not supported in this browser');
       return false;
     }
 
+    // Return early if already initialized
+    if (this.swRegistration) {
+      return true;
+    }
+
     try {
-      // Wait for service worker to be ready
-      this.swRegistration = await navigator.serviceWorker.ready;
+      // Wait for service worker to be ready with timeout
+      const timeoutPromise = new Promise<ServiceWorkerRegistration | null>((resolve) => {
+        setTimeout(() => resolve(null), 10000); // Increased to 10 second timeout
+      });
+      
+      const readyPromise = navigator.serviceWorker.ready;
+      
+      this.swRegistration = await Promise.race([readyPromise, timeoutPromise]) as ServiceWorkerRegistration | null;
+      
+      if (!this.swRegistration) {
+        console.warn('Service worker registration timed out - push notifications will not be available');
+        // Don't throw error, just return false
+        return false;
+      }
+      
       console.log('Push notification service initialized');
       return true;
     } catch (error) {
-      console.error('Failed to initialize push notifications:', error);
+      console.warn('Failed to initialize push notifications (non-critical):', error);
+      // Don't throw error, just return false
       return false;
     }
   }
@@ -110,10 +135,13 @@ class PushNotificationService {
         });
       }
 
-      // Save subscription to database
+      // Save subscription to database in background (don't wait)
       const subscriptionJSON = subscription.toJSON();
       if (subscriptionJSON) {
-        await this.saveSubscription(subscriptionJSON);
+        // Save in background to avoid delay
+        this.saveSubscription(subscriptionJSON).catch(err => 
+          console.error('Failed to save subscription to database:', err)
+        );
         return subscriptionJSON as PushSubscription;
       }
       return null;
@@ -191,6 +219,8 @@ class PushNotificationService {
 
   // Save subscription to database
   private async saveSubscription(subscription: PushSubscriptionJSON): Promise<void> {
+    // Create client once
+    const supabase = createClient();
     const { data: { user } } = await supabase.auth.getUser();
     
     if (!user) {
@@ -221,6 +251,8 @@ class PushNotificationService {
 
   // Remove subscription from database
   private async removeSubscription(): Promise<void> {
+    // Create client once
+    const supabase = createClient();
     const { data: { user } } = await supabase.auth.getUser();
     
     if (!user) {

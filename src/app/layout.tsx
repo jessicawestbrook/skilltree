@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { AuthProvider } from "../contexts/AuthContext";
@@ -7,6 +7,7 @@ import { ThemeProvider } from "../contexts/ThemeContext";
 import ErrorBoundary from "../components/ErrorBoundary";
 import PWAProvider from "../components/PWAProvider";
 import Analytics from "../components/seo/Analytics";
+import { ApiDebugger } from "../components/ApiDebugger";
 import { generateWebsiteStructuredData, generateOrganizationStructuredData } from "../utils/seo/structuredData";
 
 const geistSans = Geist({
@@ -20,12 +21,13 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "NeuroQuest - Master All Human Knowledge",
-  description: "An interactive learning platform to master knowledge across all domains with offline capability",
-  keywords: "learning, education, knowledge, PWA, offline, study, courses, interactive",
-  authors: [{ name: "NeuroQuest Team" }],
-  creator: "NeuroQuest",
-  publisher: "NeuroQuest",
+  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000'),
+  title: "SkillTree - Grow Your Skills. Master Your Future.",
+  description: "A nature-themed homeschooling and supplemental learning platform that helps students grow their skills through interactive learning paths",
+  keywords: "homeschool, supplemental learning, education, skills, learning paths, interactive, gamified learning, K-12",
+  authors: [{ name: "SkillTree Team" }],
+  creator: "SkillTree",
+  publisher: "SkillTree",
   formatDetection: {
     email: false,
     address: false,
@@ -40,34 +42,35 @@ export const metadata: Metadata = {
   appleWebApp: {
     capable: true,
     statusBarStyle: 'default',
-    title: 'NeuroQuest',
+    title: 'SkillTree',
   },
   openGraph: {
     type: 'website',
-    siteName: 'NeuroQuest',
-    title: 'NeuroQuest - Master All Human Knowledge',
-    description: 'An interactive learning platform to master knowledge across all domains with offline capability',
+    siteName: 'SkillTree',
+    title: 'SkillTree - Grow Your Skills. Master Your Future.',
+    description: 'A nature-themed homeschooling and supplemental learning platform that helps students grow their skills through interactive learning paths',
     images: [
       {
         url: '/og-image.png',
         width: 1200,
         height: 630,
-        alt: 'NeuroQuest - Master All Human Knowledge',
+        alt: 'SkillTree - Grow Your Skills. Master Your Future.',
       },
     ],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'NeuroQuest - Master All Human Knowledge',
-    description: 'An interactive learning platform to master knowledge across all domains with offline capability',
+    title: 'SkillTree - Grow Your Skills. Master Your Future.',
+    description: 'A nature-themed homeschooling and supplemental learning platform that helps students grow their skills through interactive learning paths',
     images: ['/og-image.png'],
   },
-  viewport: {
-    width: 'device-width',
-    initialScale: 1,
-    maximumScale: 1,
-    userScalable: false,
-  },
+};
+
+export const viewport: Viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  maximumScale: 1,
+  userScalable: false,
 };
 
 export default function RootLayout({
@@ -106,6 +109,7 @@ export default function RootLayout({
                 <ThemeProvider>
                   <Analytics />
                   {children}
+                  {process.env.NODE_ENV === 'development' && <ApiDebugger />}
                 </ThemeProvider>
               </OnboardingProvider>
             </AuthProvider>

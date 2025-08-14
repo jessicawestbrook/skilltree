@@ -1,8 +1,10 @@
-# 🧠 NeuroQuest
+# 🌳 SkillTree
 
-An interactive knowledge learning platform that gamifies education across all domains of human knowledge. Master subjects from fundamental concepts to advanced topics through an engaging visual knowledge graph.
+**Grow Your Skills. Master Your Future.**
 
-![NeuroQuest](https://img.shields.io/badge/version-0.5.0-blue)
+A nature-themed homeschooling and supplemental learning platform that helps students grow their skills through interactive learning paths. Designed with gamification that appeals to all learners while maintaining a welcoming, nature-inspired aesthetic.
+
+![SkillTree](https://img.shields.io/badge/version-0.5.0-green)
 ![Next.js](https://img.shields.io/badge/Next.js-15.4.6-black)
 ![React](https://img.shields.io/badge/React-19.1.0-61dafb)
 ![TypeScript](https://img.shields.io/badge/TypeScript-5.0-blue)
@@ -73,8 +75,8 @@ An interactive knowledge learning platform that gamifies education across all do
 
 1. **Clone the repository**
    ```bash
-   git clone https://github.com/jessicawestbrook/neuroquest.git
-   cd neuroquest
+   git clone https://github.com/jessicawestbrook/skilltree.git
+   cd skilltree
    ```
 
 2. **Install dependencies**
@@ -197,7 +199,7 @@ An interactive knowledge learning platform that gamifies education across all do
 ## 📁 Project Structure
 
 ```
-neuroquest/
+skilltree/
 ├── src/
 │   ├── app/              # Next.js app router pages
 │   │   ├── page.tsx      # Main knowledge graph view
@@ -352,8 +354,8 @@ Edit `scripts/migrate-learning-paths.js`:
 docker-compose up --build
 
 # Or build manually
-docker build -t neuroquest .
-docker run -p 3000:3000 --env-file .env.local neuroquest
+docker build -t skilltree .
+docker run -p 3000:3000 --env-file .env.local skilltree
 ```
 
 ### GitHub Actions CI/CD
@@ -482,7 +484,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 Jessica Westbrook - [GitHub](https://github.com/jessicawestbrook)
 
-Project Link: [https://github.com/jessicawestbrook/neuroquest](https://github.com/jessicawestbrook/neuroquest)
+Project Link: [https://github.com/jessicawestbrook/skilltree](https://github.com/jessicawestbrook/skilltree)
 
 ---
 

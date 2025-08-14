@@ -1,6 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { createRouteHandlerClient } from '@supabase/auth-helpers-nextjs';
-import { cookies } from 'next/headers';
+import { createServerSupabaseClient } from '@/lib/supabase-server';
 import { getRateLimiter, cache, cacheKeys, cacheTTL } from '@/lib/redis';
 
 // Rate limiters
@@ -9,27 +8,36 @@ const quizRateLimiter = getRateLimiter().quiz;
 
 export async function POST(request: NextRequest) {
   try {
-    // Apply rate limiting for quiz submissions
-    const identifier = request.headers.get('x-forwarded-for') || 'anonymous';
-    const { success, limit, reset, remaining } = await quizRateLimiter.limit(identifier);
+    // Rate limiting variables
+    let rateLimitData = { limit: 100, reset: Date.now() + 60000, remaining: 99 };
     
-    if (!success) {
-      const response = NextResponse.json(
-        { 
-          error: 'Too many quiz attempts. Please try again later.', 
-          retryAfter: Math.round((reset - Date.now()) / 1000) 
-        },
-        { status: 429 }
-      );
+    // Apply rate limiting for quiz submissions (with fallback for development)
+    try {
+      const identifier = request.headers.get('x-forwarded-for') || 'anonymous';
+      const { success, limit, reset, remaining } = await quizRateLimiter.limit(identifier);
+      rateLimitData = { limit, reset, remaining };
       
-      response.headers.set('X-RateLimit-Limit', limit.toString());
-      response.headers.set('X-RateLimit-Remaining', remaining.toString());
-      response.headers.set('X-RateLimit-Reset', new Date(reset).toISOString());
-      
-      return response;
+      if (!success) {
+        const response = NextResponse.json(
+          { 
+            error: 'Too many quiz attempts. Please try again later.', 
+            retryAfter: Math.round((reset - Date.now()) / 1000) 
+          },
+          { status: 429 }
+        );
+        
+        response.headers.set('X-RateLimit-Limit', limit.toString());
+        response.headers.set('X-RateLimit-Remaining', remaining.toString());
+        response.headers.set('X-RateLimit-Reset', new Date(reset).toISOString());
+        
+        return response;
+      }
+    } catch (rateLimitError) {
+      // In development or when Redis is not available, log the error but continue
+      console.warn('Rate limiting failed (continuing without rate limit):', rateLimitError instanceof Error ? rateLimitError.message : rateLimitError);
     }
 
-    const supabase = createRouteHandlerClient({ cookies });
+    const supabase = await createServerSupabaseClient();
     
     // Check authentication
     const { data: { user }, error: authError } = await supabase.auth.getUser();
@@ -131,9 +139,9 @@ export async function POST(request: NextRequest) {
         : 'Progress recorded successfully'
     });
 
-    response.headers.set('X-RateLimit-Limit', limit.toString());
-    response.headers.set('X-RateLimit-Remaining', remaining.toString());
-    response.headers.set('X-RateLimit-Reset', new Date(reset).toISOString());
+    response.headers.set('X-RateLimit-Limit', rateLimitData.limit.toString());
+    response.headers.set('X-RateLimit-Remaining', rateLimitData.remaining.toString());
+    response.headers.set('X-RateLimit-Reset', new Date(rateLimitData.reset).toISOString());
 
     return response;
 
@@ -148,27 +156,36 @@ export async function POST(request: NextRequest) {
 
 export async function GET(request: NextRequest) {
   try {
-    // Apply general API rate limiting
-    const identifier = request.headers.get('x-forwarded-for') || 'anonymous';
-    const { success, limit, reset, remaining } = await apiRateLimiter.limit(identifier);
+    // Rate limiting variables
+    let rateLimitData = { limit: 100, reset: Date.now() + 60000, remaining: 99 };
     
-    if (!success) {
-      const response = NextResponse.json(
-        { 
-          error: 'Too many requests. Please try again later.', 
-          retryAfter: Math.round((reset - Date.now()) / 1000) 
-        },
-        { status: 429 }
-      );
+    // Apply general API rate limiting (with fallback for development)
+    try {
+      const identifier = request.headers.get('x-forwarded-for') || 'anonymous';
+      const { success, limit, reset, remaining } = await apiRateLimiter.limit(identifier);
+      rateLimitData = { limit, reset, remaining };
       
-      response.headers.set('X-RateLimit-Limit', limit.toString());
-      response.headers.set('X-RateLimit-Remaining', remaining.toString());
-      response.headers.set('X-RateLimit-Reset', new Date(reset).toISOString());
-      
-      return response;
+      if (!success) {
+        const response = NextResponse.json(
+          { 
+            error: 'Too many requests. Please try again later.', 
+            retryAfter: Math.round((reset - Date.now()) / 1000) 
+          },
+          { status: 429 }
+        );
+        
+        response.headers.set('X-RateLimit-Limit', limit.toString());
+        response.headers.set('X-RateLimit-Remaining', remaining.toString());
+        response.headers.set('X-RateLimit-Reset', new Date(reset).toISOString());
+        
+        return response;
+      }
+    } catch (rateLimitError) {
+      // In development or when Redis is not available, log the error but continue
+      console.warn('Rate limiting failed (continuing without rate limit):', rateLimitError instanceof Error ? rateLimitError.message : rateLimitError);
     }
 
-    const supabase = createRouteHandlerClient({ cookies });
+    const supabase = await createServerSupabaseClient();
     
     // Check authentication
     const { data: { user }, error: authError } = await supabase.auth.getUser();
@@ -195,9 +212,9 @@ export async function GET(request: NextRequest) {
         data: cached
       });
       response.headers.set('X-Cache', 'HIT');
-      response.headers.set('X-RateLimit-Limit', limit.toString());
-      response.headers.set('X-RateLimit-Remaining', remaining.toString());
-      response.headers.set('X-RateLimit-Reset', new Date(reset).toISOString());
+      response.headers.set('X-RateLimit-Limit', rateLimitData.limit.toString());
+      response.headers.set('X-RateLimit-Remaining', rateLimitData.remaining.toString());
+      response.headers.set('X-RateLimit-Reset', new Date(rateLimitData.reset).toISOString());
       return response;
     }
 
@@ -223,9 +240,9 @@ export async function GET(request: NextRequest) {
     });
 
     response.headers.set('X-Cache', 'MISS');
-    response.headers.set('X-RateLimit-Limit', limit.toString());
-    response.headers.set('X-RateLimit-Remaining', remaining.toString());
-    response.headers.set('X-RateLimit-Reset', new Date(reset).toISOString());
+    response.headers.set('X-RateLimit-Limit', rateLimitData.limit.toString());
+    response.headers.set('X-RateLimit-Remaining', rateLimitData.remaining.toString());
+    response.headers.set('X-RateLimit-Reset', new Date(rateLimitData.reset).toISOString());
 
     return response;
 

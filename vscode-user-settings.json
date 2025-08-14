@@ -1,0 +1,31 @@
+{
+  // Copy these settings to your VSCode User Settings (Ctrl+Shift+P -> "Preferences: Open User Settings (JSON)")
+  // These are global settings that will help with memory across all projects
+  
+  "typescript.tsserver.maxTsServerMemory": 4096,
+  "editor.semanticHighlighting.enabled": false,
+  "editor.inlayHints.enabled": "off",
+  "editor.codeLens": false,
+  "editor.lightbulb.enabled": false,
+  "editor.minimap.enabled": false,
+  "breadcrumbs.enabled": false,
+  
+  // Performance
+  "extensions.autoUpdate": false,
+  "extensions.autoCheckUpdates": false,
+  "git.autorefresh": false,
+  "files.autoSave": "off",
+  
+  // Window management
+  "window.restoreWindows": "none",
+  "workbench.editor.limit.enabled": true,
+  "workbench.editor.limit.value": 10,
+  "workbench.startupEditor": "none",
+  
+  // Terminal
+  "terminal.integrated.scrollback": 1000,
+  "terminal.integrated.rendererType": "canvas",
+  
+  // Telemetry
+  "telemetry.telemetryLevel": "off"
+}

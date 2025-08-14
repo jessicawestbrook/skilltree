@@ -29,13 +29,13 @@ export interface PersonStructuredData {
 
 // Generate JSON-LD structured data for the website
 export function generateWebsiteStructuredData() {
-  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://neuroquest.app';
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://skilltree.app';
   
   return {
     '@context': 'https://schema.org',
     '@type': 'WebSite',
-    name: 'NeuroQuest',
-    description: 'An innovative interactive learning platform that transforms education through neural network visualization',
+    name: 'SkillTree',
+    description: 'A nature-themed homeschooling and supplemental learning platform that helps students grow their skills through interactive learning paths',
     url: siteUrl,
     potentialAction: {
       '@type': 'SearchAction',
@@ -44,13 +44,13 @@ export function generateWebsiteStructuredData() {
     },
     publisher: {
       '@type': 'Organization',
-      name: 'NeuroQuest',
+      name: 'SkillTree',
       url: siteUrl,
       logo: `${siteUrl}/logo.png`,
       sameAs: [
-        'https://twitter.com/neuroquest',
-        'https://linkedin.com/company/neuroquest',
-        'https://github.com/neuroquest'
+        'https://twitter.com/skilltree',
+        'https://linkedin.com/company/skilltree',
+        'https://github.com/skilltree'
       ]
     }
   };
@@ -58,24 +58,24 @@ export function generateWebsiteStructuredData() {
 
 // Generate JSON-LD structured data for educational organization
 export function generateOrganizationStructuredData() {
-  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://neuroquest.app';
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://skilltree.app';
   
   return {
     '@context': 'https://schema.org',
     '@type': 'EducationalOrganization',
-    name: 'NeuroQuest',
-    description: 'Revolutionary learning platform using neural network visualization for knowledge mastery',
+    name: 'SkillTree',
+    description: 'Grow Your Skills. Master Your Future. A nature-themed homeschooling and supplemental learning platform',
     url: siteUrl,
     logo: `${siteUrl}/logo.png`,
     image: `${siteUrl}/og-image.jpg`,
     sameAs: [
-      'https://twitter.com/neuroquest',
-      'https://linkedin.com/company/neuroquest'
+      'https://twitter.com/skilltree',
+      'https://linkedin.com/company/skilltree'
     ],
     contactPoint: {
       '@type': 'ContactPoint',
       contactType: 'customer service',
-      email: 'support@neuroquest.app'
+      email: 'support@skilltree.app'
     },
     address: {
       '@type': 'PostalAddress',
@@ -86,7 +86,7 @@ export function generateOrganizationStructuredData() {
 
 // Generate breadcrumb structured data
 export function generateBreadcrumbStructuredData(items: BreadcrumbItem[]) {
-  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://neuroquest.app';
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://skilltree.app';
   
   return {
     '@context': 'https://schema.org',

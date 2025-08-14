@@ -66,7 +66,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
               marginBottom: '8px',
               border: 'none',
               borderRadius: '8px',
-              background: currentView === view ? 'linear-gradient(135deg, #667eea, #764ba2)' : '#f0f0f0',
+              background: currentView === view ? 'linear-gradient(135deg, #059669, #0ea5e9)' : '#f0f0f0',
               color: currentView === view ? 'white' : '#3a3a3a',
               cursor: 'pointer',
               fontWeight: currentView === view ? 'bold' : 'normal',
@@ -93,7 +93,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
                   padding: '8px 12px',
                   border: 'none',
                   borderRadius: '20px',
-                  background: isActive ? 'linear-gradient(135deg, #667eea, #764ba2)' : '#f0f0f0',
+                  background: isActive ? 'linear-gradient(135deg, #059669, #0ea5e9)' : '#f0f0f0',
                   color: isActive ? 'white' : '#3a3a3a',
                   cursor: 'pointer',
                   fontSize: '12px',
@@ -191,7 +191,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
               cursor: 'pointer'
             }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                <Icon size={20} color="#667eea" />
+                <Icon size={20} color="#059669" />
                 <div>
                   <div style={{ fontWeight: 'bold', fontSize: '13px', color: '#2a2a2a' }}>{path.name}</div>
                   <div style={{ fontSize: '11px', color: '#4a4a4a' }}>{path.description}</div>

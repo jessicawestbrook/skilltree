@@ -49,7 +49,7 @@ export default function GlobalError({ error, reset }: GlobalErrorProps) {
             <div className="space-y-3">
               <button
                 onClick={reset}
-                className="w-full flex items-center justify-center gap-2 px-6 py-3 bg-gradient-to-r from-blue-600 to-purple-600 text-white font-semibold rounded-lg hover:from-blue-700 hover:to-purple-700 transition-all duration-200 shadow-lg hover:shadow-xl"
+                className="w-full flex items-center justify-center gap-2 px-6 py-3 bg-gradient-to-r from-forest-600 to-sky-600 text-white font-semibold rounded-lg hover:from-forest-700 hover:to-sky-700 transition-all duration-200 shadow-lg hover:shadow-xl"
               >
                 <RefreshCw className="w-4 h-4" />
                 Try Again

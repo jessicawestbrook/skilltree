@@ -1,7 +1,7 @@
 'use client';
 
 import React, { CSSProperties } from 'react';
-import { Brain, Sparkles, Target, Users } from 'lucide-react';
+import { Trees, Sparkles, Target, Users } from 'lucide-react';
 
 export const WelcomeStep: React.FC = () => {
   const styles = {
@@ -19,7 +19,7 @@ export const WelcomeStep: React.FC = () => {
       width: '120px',
       height: '120px',
       borderRadius: '50%',
-      background: 'linear-gradient(135deg, #667eea, #764ba2)',
+      background: 'linear-gradient(135deg, #059669, #0ea5e9)',
       marginBottom: '24px',
       boxShadow: '0 10px 30px rgba(102, 126, 234, 0.3)',
     } as CSSProperties,
@@ -55,7 +55,7 @@ export const WelcomeStep: React.FC = () => {
       width: '48px',
       height: '48px',
       borderRadius: '12px',
-      background: 'linear-gradient(135deg, #667eea, #764ba2)',
+      background: 'linear-gradient(135deg, #059669, #0ea5e9)',
       marginBottom: '12px',
     } as CSSProperties,
     featureTitle: {
@@ -98,7 +98,7 @@ export const WelcomeStep: React.FC = () => {
 
   const features = [
     {
-      icon: <Brain size={24} color="white" />,
+      icon: <Trees size={24} color="white" />,
       title: 'Smart Learning',
       description: 'AI-powered personalized learning paths'
     },
@@ -123,14 +123,14 @@ export const WelcomeStep: React.FC = () => {
     <div style={styles.container}>
       <div style={styles.hero}>
         <div style={styles.heroIcon}>
-          <Brain size={60} color="white" />
+          <Trees size={60} color="white" />
         </div>
         <h1 style={styles.welcomeText}>
-          Welcome to NeuroQuest! 🚀
+          Welcome to SkillTree! 🌳
         </h1>
         <p style={styles.subtitle}>
-          Embark on an epic journey to master all human knowledge. Our interactive platform 
-          uses cutting-edge learning science to help you achieve your educational goals faster than ever.
+          Grow Your Skills. Master Your Future. Plant the seeds of knowledge and watch your abilities 
+          bloom through personalized learning paths designed for homeschoolers and supplemental learners.
         </p>
       </div>
 
@@ -149,7 +149,7 @@ export const WelcomeStep: React.FC = () => {
       <div style={styles.stats}>
         <div style={styles.stat}>
           <span style={styles.statNumber}>10K+</span>
-          <span style={styles.statLabel}>Knowledge Nodes</span>
+          <span style={styles.statLabel}>Skills to Master</span>
         </div>
         <div style={styles.stat}>
           <span style={styles.statNumber}>50+</span>

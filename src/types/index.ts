@@ -16,6 +16,10 @@ export interface Node {
   isExpanded?: boolean;
   level?: number;
   isParent?: boolean;
+  // Grade level properties
+  gradeLevel?: number; // 3-12 for K-12 education
+  subject?: 'math' | 'ela' | 'science' | 'social-studies' | 'other';
+  standardsAlignment?: string[]; // Array of standard IDs this node aligns with
 }
 
 export interface Connection {
@@ -62,6 +66,7 @@ export interface User {
   username: string;
   avatar?: string;
   photoURL?: string;
+  birthYear?: number;
   createdAt: Date;
   lastLoginAt?: Date;
 }

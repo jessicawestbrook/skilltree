@@ -1,4 +1,4 @@
-import { supabase } from '../lib/supabase';
+import { createClient } from '../lib/supabase-client';
 
 export interface CourseContent {
   id: string;
@@ -57,6 +57,7 @@ export class CourseContentService {
    */
   static async getContentForNode(nodeId: string): Promise<CourseContent | null> {
     try {
+      const supabase = createClient();
       // Fetch main content
       const { data: contentData, error: contentError } = await supabase
         .from('course_content')

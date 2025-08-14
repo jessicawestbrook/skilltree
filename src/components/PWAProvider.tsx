@@ -181,7 +181,7 @@ function UpdateNotification({ onUpdate }: { onUpdate: () => void }) {
       position: 'fixed' as const,
       top: '20px',
       right: '20px',
-      background: 'linear-gradient(135deg, #667eea, #764ba2)',
+      background: 'linear-gradient(135deg, #059669, #0ea5e9)',
       color: 'white',
       padding: '16px 20px',
       borderRadius: '12px',
@@ -213,7 +213,7 @@ function UpdateNotification({ onUpdate }: { onUpdate: () => void }) {
     },
     updateButton: {
       backgroundColor: 'white',
-      color: '#667eea',
+      color: '#059669',
     },
     laterButton: {
       backgroundColor: 'rgba(255, 255, 255, 0.2)',

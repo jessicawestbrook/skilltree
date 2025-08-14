@@ -178,7 +178,7 @@ export default function NodeCommentary({ nodeId, nodeName }: NodeCommentaryProps
     switch (type) {
       case 'note': return 'text-blue-600 bg-blue-50';
       case 'insight': return 'text-yellow-600 bg-yellow-50';
-      case 'question': return 'text-purple-600 bg-purple-50';
+      case 'question': return 'text-forest-600 bg-forest-50';
       default: return 'text-gray-600 bg-gray-50';
     }
   };
@@ -195,7 +195,7 @@ export default function NodeCommentary({ nodeId, nodeName }: NodeCommentaryProps
                 className="w-10 h-10 rounded-full"
               />
             ) : (
-              <div className="w-10 h-10 rounded-full bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center text-white font-bold">
+              <div className="w-10 h-10 rounded-full bg-gradient-to-br from-forest-500 to-sky-500 flex items-center justify-center text-white font-bold">
                 {comment.username[0]?.toUpperCase()}
               </div>
             )}
@@ -229,7 +229,7 @@ export default function NodeCommentary({ nodeId, nodeName }: NodeCommentaryProps
                 <div className="flex gap-2 mt-2">
                   <button
                     onClick={() => handleEdit(comment.id)}
-                    className="px-3 py-1 bg-purple-600 text-white rounded-lg hover:bg-purple-700 text-sm"
+                    className="px-3 py-1 bg-forest-600 text-white rounded-lg hover:bg-forest-700 text-sm"
                   >
                     Save
                   </button>
@@ -281,7 +281,7 @@ export default function NodeCommentary({ nodeId, nodeName }: NodeCommentaryProps
                     setReplyingTo(comment.id);
                     setReplyContent('');
                   }}
-                  className="flex items-center gap-1 text-sm text-gray-500 hover:text-purple-600"
+                  className="flex items-center gap-1 text-sm text-gray-500 hover:text-forest-600"
                 >
                   <Reply className="w-4 h-4" />
                   Reply {comment.reply_count > 0 && `(${comment.reply_count})`}
@@ -346,7 +346,7 @@ export default function NodeCommentary({ nodeId, nodeName }: NodeCommentaryProps
                 <div className="flex gap-2 mt-2">
                   <button
                     onClick={() => handleSubmitReply(comment.id)}
-                    className="px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 text-sm"
+                    className="px-4 py-2 bg-forest-600 text-white rounded-lg hover:bg-forest-700 text-sm"
                   >
                     Reply
                   </button>
@@ -378,7 +378,7 @@ export default function NodeCommentary({ nodeId, nodeName }: NodeCommentaryProps
     <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6">
       <div className="mb-6">
         <h3 className="text-xl font-bold text-gray-900 dark:text-gray-100 mb-2 flex items-center gap-2">
-          <MessageSquare className="w-5 h-5 text-purple-600" />
+          <MessageSquare className="w-5 h-5 text-forest-600" />
           Community Commentary
         </h3>
         <p className="text-sm text-gray-600 dark:text-gray-400">
@@ -416,7 +416,7 @@ export default function NodeCommentary({ nodeId, nodeName }: NodeCommentaryProps
                 commentType === 'insight' ? "Share an insight or tip..." :
                 "Share your thoughts..."
               }
-              className="w-full p-4 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100 resize-none focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+              className="w-full p-4 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100 resize-none focus:ring-2 focus:ring-forest-500 focus:border-transparent"
               rows={4}
             />
           </div>
@@ -424,7 +424,7 @@ export default function NodeCommentary({ nodeId, nodeName }: NodeCommentaryProps
           <button
             type="submit"
             disabled={!newComment.trim()}
-            className="px-6 py-2.5 bg-gradient-to-r from-purple-600 to-pink-600 text-white rounded-lg hover:from-purple-700 hover:to-pink-700 disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2"
+            className="px-6 py-2.5 bg-gradient-to-r from-forest-600 to-sky-600 text-white rounded-lg hover:from-forest-700 hover:to-sky-700 disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2"
           >
             <Send className="w-4 h-4" />
             Post {commentType.charAt(0).toUpperCase() + commentType.slice(1)}
@@ -441,7 +441,7 @@ export default function NodeCommentary({ nodeId, nodeName }: NodeCommentaryProps
       <div className="space-y-4">
         {loading ? (
           <div className="text-center py-8">
-            <div className="inline-block animate-spin rounded-full h-8 w-8 border-b-2 border-purple-600"></div>
+            <div className="inline-block animate-spin rounded-full h-8 w-8 border-b-2 border-forest-600"></div>
           </div>
         ) : comments.length > 0 ? (
           comments.map(comment => renderComment(comment))

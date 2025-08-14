@@ -3,7 +3,7 @@
 import React, { useState, useEffect, CSSProperties } from 'react';
 import { Bell, Clock, Trophy, Users, Sparkles, Save, Check } from 'lucide-react';
 import { NotificationPermission } from './NotificationPermission';
-import { supabase } from '@/lib/supabase';
+import { createClient } from '@/lib/supabase-client';
 import { useAuth } from '../contexts/AuthContext';
 
 interface NotificationPreferences {
@@ -36,6 +36,7 @@ export const NotificationSettings: React.FC = () => {
     if (!user) return;
 
     try {
+      const supabase = createClient();
       const { data, error } = await supabase
         .from('user_notification_preferences')
         .select('*')
@@ -55,6 +56,7 @@ export const NotificationSettings: React.FC = () => {
 
     setIsLoading(true);
     try {
+      const supabase = createClient();
       const { error } = await supabase
         .from('user_notification_preferences')
         .upsert({

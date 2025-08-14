@@ -244,7 +244,7 @@ const styles = {
     alignItems: 'center',
     gap: '8px',
     padding: '12px 24px',
-    background: 'linear-gradient(135deg, #667eea, #764ba2)',
+    background: 'linear-gradient(135deg, #059669, #0ea5e9)',
     color: 'white',
     border: 'none',
     borderRadius: '8px',

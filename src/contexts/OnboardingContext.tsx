@@ -12,8 +12,8 @@ interface OnboardingProviderProps {
 const ONBOARDING_STEPS: OnboardingStep[] = [
   {
     id: 'welcome',
-    title: 'Welcome to NeuroQuest',
-    description: 'Discover how to master all human knowledge through our interactive learning platform',
+    title: 'Welcome to SkillTree',
+    description: 'Grow your skills and master your future through personalized learning paths',
     component: 'WelcomeStep',
     estimatedTime: 1,
   },
@@ -55,7 +55,7 @@ const ONBOARDING_STEPS: OnboardingStep[] = [
   },
 ];
 
-const STORAGE_KEY = 'neuroquest_onboarding_progress';
+const STORAGE_KEY = 'skilltree_onboarding_progress';
 
 export const OnboardingProvider: React.FC<OnboardingProviderProps> = ({ children }) => {
   const [progress, setProgress] = useState<OnboardingProgress>({

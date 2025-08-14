@@ -112,7 +112,7 @@ export const OnboardingModal: React.FC<OnboardingModalProps> = ({ isOpen, onClos
     } as CSSProperties,
     progressFill: {
       height: '100%',
-      background: 'linear-gradient(90deg, #667eea, #764ba2)',
+      background: 'linear-gradient(90deg, #059669, #0ea5e9)',
       borderRadius: '3px',
       transition: 'width 0.3s ease',
       width: `${progressPercentage}%`,
@@ -126,7 +126,7 @@ export const OnboardingModal: React.FC<OnboardingModalProps> = ({ isOpen, onClos
       color: '#666',
     } as CSSProperties,
     stepBadge: {
-      background: 'linear-gradient(135deg, #667eea, #764ba2)',
+      background: 'linear-gradient(135deg, #059669, #0ea5e9)',
       color: 'white',
       padding: '4px 12px',
       borderRadius: '12px',
@@ -180,7 +180,7 @@ export const OnboardingModal: React.FC<OnboardingModalProps> = ({ isOpen, onClos
       zIndex: 10,
     } as CSSProperties,
     primaryButton: {
-      background: 'linear-gradient(135deg, #667eea, #764ba2)',
+      background: 'linear-gradient(135deg, #059669, #0ea5e9)',
       color: 'white',
     } as CSSProperties,
     secondaryButton: {

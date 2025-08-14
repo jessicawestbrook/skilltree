@@ -31,7 +31,11 @@ interface FriendRequest {
   receiver?: any;
 }
 
-export default function FriendsPanel() {
+interface FriendsPanelProps {
+  compact?: boolean;
+}
+
+export default function FriendsPanel({ compact = false }: FriendsPanelProps = {}) {
   const [activeTab, setActiveTab] = useState<'friends' | 'requests' | 'find'>('friends');
   const [friends, setFriends] = useState<Friend[]>([]);
   const [friendRequests, setFriendRequests] = useState<FriendRequest[]>([]);
@@ -282,7 +286,7 @@ export default function FriendsPanel() {
               filteredFriends.map((friend) => (
                 <div key={friend.id} className="flex items-center justify-between p-3 bg-gray-50 dark:bg-gray-700 rounded-lg">
                   <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 rounded-full bg-gradient-to-br from-blue-400 to-purple-500 flex items-center justify-center text-white font-bold">
+                    <div className="w-10 h-10 rounded-full bg-gradient-to-br from-sky-400 to-forest-500 flex items-center justify-center text-white font-bold">
                       {friend.friend.user_profiles?.username?.[0]?.toUpperCase() || '?'}
                     </div>
                     <div>
@@ -356,7 +360,7 @@ export default function FriendsPanel() {
               return (
                 <div key={suggestion.suggested_user_id} className="flex items-center justify-between p-3 bg-gray-50 dark:bg-gray-700 rounded-lg">
                   <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 rounded-full bg-gradient-to-br from-blue-400 to-purple-500 flex items-center justify-center text-white font-bold">
+                    <div className="w-10 h-10 rounded-full bg-gradient-to-br from-sky-400 to-forest-500 flex items-center justify-center text-white font-bold">
                       {(suggestion.username || profile?.username)?.[0]?.toUpperCase() || '?'}
                     </div>
                     <div>

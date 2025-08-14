@@ -1,4 +1,4 @@
-import { supabase } from '../lib/supabase';
+import { createClient } from '../lib/supabase-client';
 import { QuizQuestion } from '../types';
 
 export interface DatabaseQuizQuestion {
@@ -14,11 +14,52 @@ export interface DatabaseQuizQuestion {
 
 export class QuizService {
   /**
+   * Fetch quiz questions for a specific node from Supabase (alias for getQuestionsForNode)
+   */
+  static async getQuestions(nodeId: string, limit?: number): Promise<QuizQuestion[]> {
+    try {
+      let query = createClient()
+        .from('quiz_questions')
+        .select('*')
+        .eq('node_id', nodeId)
+        .order('created_at', { ascending: true });
+
+      if (limit) {
+        query = query.limit(limit);
+      }
+
+      const { data, error } = await query;
+
+      if (error) {
+        console.error(`Error fetching questions for node ${nodeId}:`, error);
+        return [];
+      }
+
+      if (!data || data.length === 0) {
+        return [];
+      }
+
+      // Filter out invalid entries and transform to app format
+      return data
+        .filter(q => q && q.question && q.options && Array.isArray(q.options))
+        .map(q => ({
+          question: q.question,
+          options: q.options,
+          correct: q.correct_answer,
+          explanation: q.explanation
+        }));
+    } catch (err) {
+      console.error('Error in getQuestions:', err);
+      return [];
+    }
+  }
+
+  /**
    * Fetch quiz questions for a specific node from Supabase
    */
   static async getQuestionsForNode(nodeId: string): Promise<QuizQuestion[]> {
     try {
-      const { data, error } = await supabase
+      const { data, error } = await createClient()
         .from('quiz_questions')
         .select('*')
         .eq('node_id', nodeId)
@@ -52,7 +93,7 @@ export class QuizService {
    */
   static async getAllQuestions(): Promise<Record<string, QuizQuestion[]>> {
     try {
-      const { data, error } = await supabase
+      const { data, error } = await createClient()
         .from('quiz_questions')
         .select('*')
         .order('node_id', { ascending: true });
@@ -94,7 +135,7 @@ export class QuizService {
    */
   static async addQuestion(nodeId: string, question: QuizQuestion): Promise<boolean> {
     try {
-      const { error } = await supabase
+      const { error } = await createClient()
         .from('quiz_questions')
         .insert([{
           node_id: nodeId,
@@ -120,9 +161,13 @@ export class QuizService {
   /**
    * Update an existing question
    */
-  static async updateQuestion(questionId: string, updates: Partial<QuizQuestion>): Promise<boolean> {
+  static async updateQuestion(questionId: string, updates: any): Promise<any> {
+    if (!questionId || Object.keys(updates).length === 0) {
+      return null;
+    }
+
     try {
-      const updateData: Record<string, string | string[] | number | Date> = {
+      const updateData: any = {
         updated_at: new Date().toISOString()
       };
 
@@ -131,20 +176,21 @@ export class QuizService {
       if (updates.correct !== undefined) updateData.correct_answer = updates.correct;
       if (updates.explanation) updateData.explanation = updates.explanation;
 
-      const { error } = await supabase
+      const { data, error } = await createClient()
         .from('quiz_questions')
         .update(updateData)
-        .eq('id', questionId);
+        .eq('id', questionId)
+        .select();
 
       if (error) {
         console.error('Error updating question:', error);
-        return false;
+        return null;
       }
 
-      return true;
+      return data && data.length > 0 ? data[0] : null;
     } catch (err) {
       console.error('Error in updateQuestion:', err);
-      return false;
+      return null;
     }
   }
 
@@ -153,7 +199,12 @@ export class QuizService {
    */
   static async deleteQuestion(questionId: string): Promise<boolean> {
     try {
-      const { error } = await supabase
+      // Validate input
+      if (!questionId || questionId.trim() === '') {
+        return false;
+      }
+
+      const { error } = await createClient()
         .from('quiz_questions')
         .delete()
         .eq('id', questionId);
@@ -187,7 +238,7 @@ export class QuizService {
         created_at: new Date().toISOString()
       }));
 
-      const { data, error } = await supabase
+      const { data, error } = await createClient()
         .from('quiz_questions')
         .insert(questionsToInsert)
         .select();
@@ -223,7 +274,7 @@ export class QuizService {
         if (update.updates.correct !== undefined) updateData.correct_answer = update.updates.correct;
         if (update.updates.explanation) updateData.explanation = update.updates.explanation;
 
-        const { error } = await supabase
+        const { error } = await createClient()
           .from('quiz_questions')
           .update(updateData)
           .eq('id', update.id);
@@ -253,7 +304,7 @@ export class QuizService {
     const errors: string[] = [];
 
     try {
-      const { data, error } = await supabase
+      const { data, error } = await createClient()
         .from('quiz_questions')
         .delete()
         .in('id', questionIds)
@@ -465,5 +516,72 @@ export class QuizService {
         }
       ]
     };
+  }
+
+  /**
+   * Create a new question (alias for addQuestion, returning the created question)
+   */
+  static async createQuestion(questionData: any): Promise<any> {
+    if (!this.validateQuestionData(questionData)) {
+      return null;
+    }
+
+    try {
+      const { data, error } = await createClient()
+        .from('quiz_questions')
+        .insert([{
+          node_id: questionData.node_id,
+          question: questionData.question,
+          options: questionData.options,
+          correct_answer: questionData.correct,
+          explanation: questionData.explanation,
+          created_at: new Date().toISOString()
+        }])
+        .select();
+
+      if (error) {
+        console.error('Error creating question:', error);
+        return null;
+      }
+
+      return data && data.length > 0 ? data[0] : null;
+    } catch (err) {
+      console.error('Error in createQuestion:', err);
+      return null;
+    }
+  }
+
+
+
+  /**
+   * Validate question data
+   */
+  static validateQuestionData(questionData: any): boolean {
+    if (!questionData) return false;
+    if (!questionData.node_id || questionData.node_id.trim() === '') return false;
+    if (!questionData.question || questionData.question.trim() === '') return false;
+    if (!Array.isArray(questionData.options) || questionData.options.length < 2) return false;
+    if (questionData.correct < 0 || questionData.correct >= questionData.options.length) return false;
+    return true;
+  }
+
+  /**
+   * Get random questions for a node
+   */
+  static async getRandomQuestions(nodeId: string, count: number): Promise<any[]> {
+    try {
+      const allQuestions = await this.getQuestions(nodeId);
+      
+      if (allQuestions.length <= count) {
+        return allQuestions;
+      }
+
+      // Shuffle and return random subset
+      const shuffled = [...allQuestions].sort(() => 0.5 - Math.random());
+      return shuffled.slice(0, count);
+    } catch (err) {
+      console.error('Error in getRandomQuestions:', err);
+      return [];
+    }
   }
 }

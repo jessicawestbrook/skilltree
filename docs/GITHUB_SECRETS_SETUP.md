@@ -1,6 +1,6 @@
 # GitHub Secrets Setup Guide
 
-This guide explains how to configure GitHub Secrets for the NeuroQuest CI/CD pipeline.
+This guide explains how to configure GitHub Secrets for the SkillTree CI/CD pipeline.
 
 ## Required Secrets
 

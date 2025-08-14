@@ -1,13 +1,14 @@
 'use client';
 
 import React, { useState, useMemo, use } from 'react';
-import { ArrowLeft, ChevronRight, BookOpen, Users, Trophy, Star } from 'lucide-react';
+import { ArrowLeft, ChevronRight, BookOpen, Users, Trophy, Star, Grid3X3, List } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { knowledgeStructure, KnowledgeCategory, flattenKnowledgeStructure } from '@/data/comprehensiveKnowledgeStructure';
 import { useAuth } from '@/contexts/AuthContext';
 import { useUserStats } from '@/hooks/useUserStats';
 import { Node } from '@/types';
+import HierarchicalCategoryMenu from '@/components/HierarchicalCategoryMenu';
 
 interface CategoryPageProps {
   params: Promise<{
@@ -69,6 +70,7 @@ export default function CategoryPage({ params }: CategoryPageProps) {
   const { isAuthenticated } = useAuth();
   const { userStats } = useUserStats();
   const [selectedNode, setSelectedNode] = useState<Node | null>(null);
+  const [viewMode, setViewMode] = useState<'grid' | 'hierarchy'>('grid');
   
   // Unwrap the params Promise using React.use()
   const resolvedParams = use(params);
@@ -166,21 +168,55 @@ export default function CategoryPage({ params }: CategoryPageProps) {
               </div>
             </div>
             
-            {pathSegments.length > 0 && (
-              <button
-                onClick={() => {
-                  if (parentPath.length === 0) {
-                    router.push('/');
-                  } else {
-                    router.push(`/category/${parentPath.join('/')}`);
-                  }
-                }}
-                className="flex items-center space-x-2 px-4 py-2 bg-gray-100 hover:bg-gray-200 rounded-lg transition-colors"
-              >
-                <ArrowLeft size={20} />
-                <span>Back</span>
-              </button>
-            )}
+            <div className="flex items-center space-x-3">
+              {/* View Toggle */}
+              {(category.subcategories?.length || category.nodes?.length) && (
+                <div className="flex items-center bg-gray-100 rounded-lg p-1">
+                  <button
+                    onClick={() => setViewMode('grid')}
+                    className={`
+                      flex items-center space-x-2 px-3 py-2 rounded-md transition-colors text-sm font-medium
+                      ${viewMode === 'grid' 
+                        ? 'bg-white text-gray-900 shadow-sm' 
+                        : 'text-gray-600 hover:text-gray-900'
+                      }
+                    `}
+                  >
+                    <Grid3X3 size={16} />
+                    <span>Grid</span>
+                  </button>
+                  <button
+                    onClick={() => setViewMode('hierarchy')}
+                    className={`
+                      flex items-center space-x-2 px-3 py-2 rounded-md transition-colors text-sm font-medium
+                      ${viewMode === 'hierarchy' 
+                        ? 'bg-white text-gray-900 shadow-sm' 
+                        : 'text-gray-600 hover:text-gray-900'
+                      }
+                    `}
+                  >
+                    <List size={16} />
+                    <span>Tree</span>
+                  </button>
+                </div>
+              )}
+              
+              {pathSegments.length > 0 && (
+                <button
+                  onClick={() => {
+                    if (parentPath.length === 0) {
+                      router.push('/');
+                    } else {
+                      router.push(`/category/${parentPath.join('/')}`);
+                    }
+                  }}
+                  className="flex items-center space-x-2 px-4 py-2 bg-gray-100 hover:bg-gray-200 rounded-lg transition-colors"
+                >
+                  <ArrowLeft size={20} />
+                  <span>Back</span>
+                </button>
+              )}
+            </div>
           </div>
           
           {/* Progress Bar */}
@@ -203,119 +239,135 @@ export default function CategoryPage({ params }: CategoryPageProps) {
       
       {/* Content */}
       <div className="max-w-7xl mx-auto px-4 py-8">
-        {/* Subcategories */}
-        {category.subcategories && category.subcategories.length > 0 && (
-          <div className="mb-8">
-            <h2 className="text-2xl font-bold text-gray-900 mb-6">Explore Subcategories</h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {category.subcategories.map((subcategory) => {
-                const subStats = useMemo(() => {
-                  const allNodes = flattenKnowledgeStructure(subcategory, [], new Set());
-                  const completedNodes = new Set(userStats.conqueredNodes);
-                  const completed = allNodes.filter(n => completedNodes.has(n.id)).length;
-                  return {
-                    total: allNodes.length,
-                    completed,
-                    percentage: allNodes.length > 0 ? Math.round((completed / allNodes.length) * 100) : 0
-                  };
-                }, [subcategory, userStats.conqueredNodes]);
-                
-                return (
-                  <div
-                    key={subcategory.id}
-                    onClick={() => handleSubcategoryClick(subcategory)}
-                    className="bg-white rounded-xl shadow-sm border hover:shadow-md transition-all cursor-pointer p-6"
-                  >
-                    <div className="flex items-start justify-between mb-4">
-                      <div 
-                        className="w-12 h-12 rounded-lg flex items-center justify-center text-white"
-                        style={{ backgroundColor: subcategory.color }}
+        {viewMode === 'hierarchy' ? (
+          /* Hierarchical View */
+          <div>
+            <h2 className="text-2xl font-bold text-gray-900 mb-6">Content Structure</h2>
+            <div className="bg-white rounded-lg border shadow-sm p-6">
+              <HierarchicalCategoryMenu
+                category={category}
+                onNodeClick={handleNodeClick}
+                selectedNode={selectedNode}
+                level={0}
+              />
+            </div>
+          </div>
+        ) : (
+          /* Grid View (Original) */
+          <>
+            {/* Subcategories */}
+            {category.subcategories && category.subcategories.length > 0 && (
+              <div className="mb-8">
+                <h2 className="text-2xl font-bold text-gray-900 mb-6">Explore Subcategories</h2>
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                  {category.subcategories.map((subcategory) => {
+                    const allNodes = flattenKnowledgeStructure(subcategory, [], new Set());
+                    const completedNodes = new Set(userStats.conqueredNodes);
+                    const completed = allNodes.filter(n => completedNodes.has(n.id)).length;
+                    const subStats = {
+                      total: allNodes.length,
+                      completed,
+                      percentage: allNodes.length > 0 ? Math.round((completed / allNodes.length) * 100) : 0
+                    };
+                    
+                    return (
+                      <div
+                        key={subcategory.id}
+                        onClick={() => handleSubcategoryClick(subcategory)}
+                        className="bg-white rounded-xl shadow-sm border hover:shadow-md transition-all cursor-pointer p-6"
                       >
-                        <BookOpen size={24} />
-                      </div>
-                      <ChevronRight size={20} className="text-gray-400" />
-                    </div>
-                    
-                    <h3 className="text-lg font-semibold text-gray-900 mb-2">{subcategory.name}</h3>
-                    <p className="text-sm text-gray-600 mb-4">{subcategory.description}</p>
-                    
-                    <div className="space-y-2">
-                      <div className="flex items-center justify-between text-xs text-gray-500">
-                        <div className="flex items-center space-x-3">
-                          {subcategory.subcategories && (
-                            <span>{subcategory.subcategories.length} categories</span>
-                          )}
-                          {subcategory.nodes && (
-                            <span>{subcategory.nodes.length} topics</span>
+                        <div className="flex items-start justify-between mb-4">
+                          <div 
+                            className="w-12 h-12 rounded-lg flex items-center justify-center text-white"
+                            style={{ backgroundColor: subcategory.color }}
+                          >
+                            <BookOpen size={24} />
+                          </div>
+                          <ChevronRight size={20} className="text-gray-400" />
+                        </div>
+                        
+                        <h3 className="text-lg font-semibold text-gray-900 mb-2">{subcategory.name}</h3>
+                        <p className="text-sm text-gray-600 mb-4">{subcategory.description}</p>
+                        
+                        <div className="space-y-2">
+                          <div className="flex items-center justify-between text-xs text-gray-500">
+                            <div className="flex items-center space-x-3">
+                              {subcategory.subcategories && (
+                                <span>{subcategory.subcategories.length} categories</span>
+                              )}
+                              {subcategory.nodes && (
+                                <span>{subcategory.nodes.length} topics</span>
+                              )}
+                            </div>
+                            {subStats.total > 0 && (
+                              <span className="text-green-600 font-medium">
+                                {subStats.percentage}% complete
+                              </span>
+                            )}
+                          </div>
+                          
+                          {subStats.total > 0 && (
+                            <div className="w-full h-2 bg-gray-200 rounded-full overflow-hidden">
+                              <div 
+                                className="h-full bg-green-500 transition-all duration-300"
+                                style={{ width: `${subStats.percentage}%` }}
+                              />
+                            </div>
                           )}
                         </div>
-                        {subStats.total > 0 && (
-                          <span className="text-green-600 font-medium">
-                            {subStats.percentage}% complete
-                          </span>
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
+            )}
+            
+            {/* Learning Topics */}
+            {category.nodes && category.nodes.length > 0 && (
+              <div>
+                <h2 className="text-2xl font-bold text-gray-900 mb-6">Learning Topics</h2>
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+                  {category.nodes.map((node) => {
+                    const isCompleted = userStats.conqueredNodes.includes(node.id);
+                    const isAvailable = !node.prereqs || node.prereqs.every(p => userStats.conqueredNodes.includes(p));
+                    
+                    return (
+                      <div
+                        key={node.id}
+                        onClick={() => isAvailable && handleNodeClick(node)}
+                        className={`
+                          bg-white rounded-lg border p-4 transition-all cursor-pointer
+                          ${isAvailable ? 'hover:shadow-md' : 'opacity-60 cursor-not-allowed'}
+                          ${isCompleted ? 'border-green-300 bg-green-50' : ''}
+                          ${selectedNode?.id === node.id ? 'border-blue-500 bg-blue-50 shadow-lg' : ''}
+                        `}
+                      >
+                        <div className="flex items-start justify-between mb-2">
+                          <h3 className="font-semibold text-gray-900 text-sm">{node.name}</h3>
+                          {isCompleted && <Trophy size={16} className="text-green-500" />}
+                        </div>
+                        
+                        <div className="flex items-center space-x-3 text-xs text-gray-600">
+                          <div className="flex items-center space-x-1">
+                            {[...Array(node.difficulty || 1)].map((_, i) => (
+                              <Star key={i} size={10} className="fill-yellow-400 text-yellow-400" />
+                            ))}
+                          </div>
+                          <span className="font-medium">+{node.points}pts</span>
+                        </div>
+                        
+                        {node.prereqs && node.prereqs.length > 0 && (
+                          <div className="mt-2 text-xs text-gray-500">
+                            Requires: {node.prereqs.length} topics
+                          </div>
                         )}
                       </div>
-                      
-                      {subStats.total > 0 && (
-                        <div className="w-full h-2 bg-gray-200 rounded-full overflow-hidden">
-                          <div 
-                            className="h-full bg-green-500 transition-all duration-300"
-                            style={{ width: `${subStats.percentage}%` }}
-                          />
-                        </div>
-                      )}
-                    </div>
-                  </div>
-                );
-              })}
-            </div>
-          </div>
-        )}
-        
-        {/* Learning Topics */}
-        {category.nodes && category.nodes.length > 0 && (
-          <div>
-            <h2 className="text-2xl font-bold text-gray-900 mb-6">Learning Topics</h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
-              {category.nodes.map((node) => {
-                const isCompleted = userStats.conqueredNodes.includes(node.id);
-                const isAvailable = !node.prereqs || node.prereqs.every(p => userStats.conqueredNodes.includes(p));
-                
-                return (
-                  <div
-                    key={node.id}
-                    onClick={() => isAvailable && handleNodeClick(node)}
-                    className={`
-                      bg-white rounded-lg border p-4 transition-all cursor-pointer
-                      ${isAvailable ? 'hover:shadow-md' : 'opacity-60 cursor-not-allowed'}
-                      ${isCompleted ? 'border-green-300 bg-green-50' : ''}
-                      ${selectedNode?.id === node.id ? 'border-blue-500 bg-blue-50 shadow-lg' : ''}
-                    `}
-                  >
-                    <div className="flex items-start justify-between mb-2">
-                      <h3 className="font-semibold text-gray-900 text-sm">{node.name}</h3>
-                      {isCompleted && <Trophy size={16} className="text-green-500" />}
-                    </div>
-                    
-                    <div className="flex items-center space-x-3 text-xs text-gray-600">
-                      <div className="flex items-center space-x-1">
-                        {[...Array(node.difficulty || 1)].map((_, i) => (
-                          <Star key={i} size={10} className="fill-yellow-400 text-yellow-400" />
-                        ))}
-                      </div>
-                      <span className="font-medium">+{node.points}pts</span>
-                    </div>
-                    
-                    {node.prereqs && node.prereqs.length > 0 && (
-                      <div className="mt-2 text-xs text-gray-500">
-                        Requires: {node.prereqs.length} topics
-                      </div>
-                    )}
-                  </div>
-                );
-              })}
-            </div>
-          </div>
+                    );
+                  })}
+                </div>
+              </div>
+            )}
+          </>
         )}
         
         {/* Empty State */}

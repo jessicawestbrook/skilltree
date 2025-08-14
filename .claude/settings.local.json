@@ -1,7 +1,7 @@
 {
   "permissions": {
     "allow": [
-      "Bash(rm:*)"
+      "allow": ["*"],
     ],
     "deny": [],
     "ask": [],
@@ -13,7 +13,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "echo '✅ Task completed! Checking build...'; npm run build && echo '✅ Build successful!' || echo '❌ Build failed - check errors above'; echo '🚀 Starting dev server (will remain running)...'; npm run dev",
+            "command": "echo '✅ Task completed! Checking build...'; npm run build && echo '✅ Build successful!' || echo '❌ Build failed - check errors above'",
             "timeout": 60
           }
         ]

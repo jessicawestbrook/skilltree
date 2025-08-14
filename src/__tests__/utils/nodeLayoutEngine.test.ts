@@ -222,7 +222,7 @@ describe('nodeLayoutEngine', () => {
 
     it('should handle circular references in data', () => {
       const circularData: any = {
-        invalidCategory: {
+        category: {
           domain: []
         }
       };

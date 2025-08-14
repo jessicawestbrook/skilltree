@@ -161,7 +161,7 @@ export default function KnowledgeGraphView({
               <span className="text-gray-500">+{selectedNode.points} points</span>
             </div>
             {getNodeState(selectedNode.id) === 'available' && (
-              <button className="px-4 py-2 bg-gradient-to-r from-purple-600 to-blue-600 text-white rounded-lg font-medium text-sm hover:shadow-lg transition-all">
+              <button className="px-4 py-2 bg-gradient-to-r from-forest-600 to-sky-600 text-white rounded-lg font-medium text-sm hover:shadow-lg transition-all">
                 Start Learning
                 <ChevronRight className="inline w-4 h-4 ml-1" />
               </button>

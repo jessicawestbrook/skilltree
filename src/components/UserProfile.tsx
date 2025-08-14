@@ -1,5 +1,5 @@
 import React, { useState, CSSProperties } from 'react';
-import { User, LogOut, Edit3, Save, X, Calendar, Mail } from 'lucide-react';
+import { User, LogOut, Edit3, Save, X, Calendar, Mail, Cake } from 'lucide-react';
 import { useAuth } from '../contexts/AuthContext';
 
 interface UserProfileProps {
@@ -11,7 +11,8 @@ export const UserProfile: React.FC<UserProfileProps> = ({ isOpen, onClose }) => 
   const { user, logout, updateProfile, isLoading } = useAuth();
   const [isEditing, setIsEditing] = useState(false);
   const [editForm, setEditForm] = useState({
-    username: user?.username || ''
+    username: user?.username || '',
+    birthYear: user?.birthYear || new Date().getFullYear() - 18
   });
 
   const handleLogout = async () => {
@@ -28,10 +29,19 @@ export const UserProfile: React.FC<UserProfileProps> = ({ isOpen, onClose }) => 
 
   const handleCancel = () => {
     setEditForm({
-      username: user?.username || ''
+      username: user?.username || '',
+      birthYear: user?.birthYear || new Date().getFullYear() - 18
     });
     setIsEditing(false);
   };
+
+  const calculateAge = (birthYear?: number) => {
+    if (!birthYear) return null;
+    const currentYear = new Date().getFullYear();
+    return currentYear - birthYear;
+  };
+
+  const age = calculateAge(user?.birthYear);
 
   if (!isOpen || !user) return null;
 
@@ -78,7 +88,7 @@ export const UserProfile: React.FC<UserProfileProps> = ({ isOpen, onClose }) => 
       width: '80px',
       height: '80px',
       borderRadius: '50%',
-      background: 'linear-gradient(135deg, #667eea, #764ba2)',
+      background: 'linear-gradient(135deg, #059669, #0ea5e9)',
       display: 'flex',
       alignItems: 'center',
       justifyContent: 'center',
@@ -137,7 +147,7 @@ export const UserProfile: React.FC<UserProfileProps> = ({ isOpen, onClose }) => 
       opacity: isLoading ? 0.7 : 1
     } as CSSProperties,
     primaryButton: {
-      background: 'linear-gradient(135deg, #667eea, #764ba2)',
+      background: 'linear-gradient(135deg, #059669, #0ea5e9)',
       color: 'white'
     } as CSSProperties,
     secondaryButton: {
@@ -171,13 +181,13 @@ export const UserProfile: React.FC<UserProfileProps> = ({ isOpen, onClose }) => 
 
         <div style={styles.infoSection}>
           <div style={styles.infoRow}>
-            <Mail size={20} color="#667eea" />
+            <Mail size={20} color="#059669" />
             <span style={styles.label}>Email</span>
             <span style={styles.value}>{user.email}</span>
           </div>
 
           <div style={styles.infoRow}>
-            <User size={20} color="#667eea" />
+            <User size={20} color="#059669" />
             <span style={styles.label}>Username</span>
             {isEditing ? (
               <input
@@ -192,7 +202,28 @@ export const UserProfile: React.FC<UserProfileProps> = ({ isOpen, onClose }) => 
           </div>
 
           <div style={styles.infoRow}>
-            <Calendar size={20} color="#667eea" />
+            <Cake size={20} color="#059669" />
+            <span style={styles.label}>Age</span>
+            {isEditing ? (
+              <input
+                type="number"
+                value={editForm.birthYear}
+                onChange={(e) => setEditForm(prev => ({ ...prev, birthYear: parseInt(e.target.value) || new Date().getFullYear() - 18 }))}
+                min={1900}
+                max={new Date().getFullYear()}
+                style={styles.input}
+                placeholder="Birth Year"
+              />
+            ) : (
+              <span style={styles.value}>
+                {age ? `${age} years old` : 'Not specified'}
+                {user.birthYear && ` (born ${user.birthYear})`}
+              </span>
+            )}
+          </div>
+
+          <div style={styles.infoRow}>
+            <Calendar size={20} color="#059669" />
             <span style={styles.label}>Joined</span>
             <span style={styles.value}>{user.createdAt.toLocaleDateString()}</span>
           </div>

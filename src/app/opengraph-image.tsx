@@ -2,7 +2,7 @@ import { ImageResponse } from 'next/og'
 
 export const runtime = 'edge'
 
-export const alt = 'NeuroQuest - Master All Human Knowledge'
+export const alt = 'SkillTree - Grow Your Skills. Master Your Future.'
 export const size = {
   width: 1200,
   height: 630,
@@ -20,7 +20,7 @@ export default function OGImage() {
           flexDirection: 'column',
           alignItems: 'center',
           justifyContent: 'center',
-          background: 'linear-gradient(135deg, #667eea, #764ba2)',
+          background: 'linear-gradient(135deg, #059669, #0ea5e9)',
         }}
       >
         <div
@@ -37,7 +37,7 @@ export default function OGImage() {
               marginRight: '30px',
             }}
           >
-            🧠
+            🌳
           </div>
           <div
             style={{
@@ -53,7 +53,7 @@ export default function OGImage() {
                 letterSpacing: '-2px',
               }}
             >
-              NeuroQuest
+              SkillTree
             </div>
             <div
               style={{
@@ -62,7 +62,7 @@ export default function OGImage() {
                 marginTop: '10px',
               }}
             >
-              Master All Human Knowledge
+              Grow Your Skills. Master Your Future.
             </div>
           </div>
         </div>
@@ -73,7 +73,7 @@ export default function OGImage() {
             marginTop: '40px',
           }}
         >
-          {['🎨', '🔬', '💻', '🗣️', '🧮'].map((emoji, i) => (
+          {['🌱', '📚', '🎯', '🌟', '🏆'].map((emoji, i) => (
             <div
               key={i}
               style={{

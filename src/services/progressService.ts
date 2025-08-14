@@ -1,4 +1,4 @@
-import { supabase } from '../lib/supabase';
+import { createClient } from '../lib/supabase-client';
 
 export interface UserProgress {
   id: string;
@@ -18,6 +18,91 @@ export interface ProgressSubmission {
 
 export class ProgressService {
   /**
+   * Initialize default progress data for new users
+   */
+  static async initializeUserProgress(userId: string): Promise<{ success: boolean; error?: string }> {
+    try {
+      const supabase = createClient();
+      
+      // Check if user already has progress records
+      const { data: existingProgress } = await supabase
+        .from('user_progress')
+        .select('id')
+        .eq('user_id', userId)
+        .limit(1);
+      
+      // If user already has progress, don't initialize
+      if (existingProgress && existingProgress.length > 0) {
+        return { success: true };
+      }
+      
+      // Initialize user stats if they don't exist
+      const { error: statsError } = await supabase
+        .from('user_stats')
+        .upsert({
+          user_id: userId,
+          total_nodes_completed: 0,
+          total_points: 0,
+          current_streak: 0,
+          longest_streak: 0,
+          last_activity: new Date().toISOString(),
+          created_at: new Date().toISOString()
+        }, {
+          onConflict: 'user_id',
+          ignoreDuplicates: true
+        });
+      
+      if (statsError) {
+        console.error('Error initializing user stats:', statsError);
+      }
+      
+      // Initialize learning preferences
+      const { error: prefsError } = await supabase
+        .from('learning_preferences')
+        .upsert({
+          user_id: userId,
+          daily_goal_minutes: 30,
+          reminder_enabled: false,
+          reminder_time: '19:00',
+          preferred_difficulty: 'beginner',
+          preferred_subjects: ['general'],
+          created_at: new Date().toISOString()
+        }, {
+          onConflict: 'user_id',
+          ignoreDuplicates: true
+        });
+      
+      if (prefsError) {
+        console.error('Error initializing learning preferences:', prefsError);
+      }
+      
+      // Initialize achievements (unlock the "Getting Started" achievement)
+      const { error: achievementError } = await supabase
+        .from('user_achievements')
+        .upsert({
+          user_id: userId,
+          achievement_id: 'getting_started',
+          unlocked_at: new Date().toISOString()
+        }, {
+          onConflict: 'user_id,achievement_id',
+          ignoreDuplicates: true
+        });
+      
+      if (achievementError) {
+        console.error('Error initializing achievements:', achievementError);
+      }
+      
+      return { success: true };
+    } catch (error) {
+      console.error('Error initializing user progress:', error);
+      return { 
+        success: false, 
+        error: error instanceof Error ? error.message : 'Failed to initialize user progress' 
+      };
+    }
+  }
+
+  /**
    * Submit quiz completion and record progress
    */
   static async submitProgress(data: ProgressSubmission): Promise<{ success: boolean; data?: UserProgress; error?: string }> {
@@ -30,11 +115,18 @@ export class ProgressService {
         body: JSON.stringify(data),
       });
 
-      const result = await response.json();
-
       if (!response.ok) {
-        throw new Error(result.error || 'Failed to submit progress');
+        const errorText = await response.text();
+        throw new Error(`HTTP ${response.status}: ${errorText || 'Failed to submit progress'}`);
       }
+
+      const contentType = response.headers.get('content-type');
+      if (!contentType || !contentType.includes('application/json')) {
+        const responseText = await response.text();
+        throw new Error(`Expected JSON response but got: ${contentType}. Response: ${responseText.substring(0, 200)}`);
+      }
+
+      const result = await response.json();
 
       return { success: true, data: result.data };
     } catch (error) {
@@ -55,12 +147,20 @@ export class ProgressService {
         },
       });
 
-      const result = await response.json();
-
       if (!response.ok) {
-        console.error('Failed to fetch progress:', result.error);
+        const errorText = await response.text();
+        console.error('Failed to fetch progress:', errorText);
         return null;
       }
+
+      const contentType = response.headers.get('content-type');
+      if (!contentType || !contentType.includes('application/json')) {
+        const responseText = await response.text();
+        console.error(`Expected JSON response but got: ${contentType}. Response: ${responseText.substring(0, 200)}`);
+        return null;
+      }
+
+      const result = await response.json();
 
       return result.data?.[0] || null;
     } catch (error) {
@@ -81,12 +181,20 @@ export class ProgressService {
         },
       });
 
-      const result = await response.json();
-
       if (!response.ok) {
-        console.error('Failed to fetch all progress:', result.error);
+        const errorText = await response.text();
+        console.error('Failed to fetch all progress:', errorText);
         return [];
       }
+
+      const contentType = response.headers.get('content-type');
+      if (!contentType || !contentType.includes('application/json')) {
+        const responseText = await response.text();
+        console.error(`Expected JSON response but got: ${contentType}. Response: ${responseText.substring(0, 200)}`);
+        return [];
+      }
+
+      const result = await response.json();
 
       return result.data || [];
     } catch (error) {
@@ -100,6 +208,7 @@ export class ProgressService {
    */
   static async getUserProgress(userId: string): Promise<UserProgress[]> {
     try {
+      const supabase = createClient();
       const { data, error } = await supabase
         .from('user_progress')
         .select('*')
@@ -123,6 +232,7 @@ export class ProgressService {
    */
   static async isNodeCompleted(nodeId: string): Promise<boolean> {
     try {
+      const supabase = createClient();
       const { data: { user } } = await supabase.auth.getUser();
       
       if (!user) return false;
@@ -151,6 +261,7 @@ export class ProgressService {
     recentCompletions: any[];
   } | null> {
     try {
+      const supabase = createClient();
       const { data: { user } } = await supabase.auth.getUser();
       
       if (!user) return null;
@@ -200,6 +311,7 @@ export class ProgressService {
    */
   static async getLeaderboard(limit: number = 10): Promise<any[]> {
     try {
+      const supabase = createClient();
       // Get user progress grouped by user with aggregated stats
       const { data: progressData, error: progressError } = await supabase
         .from('user_progress')

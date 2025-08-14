@@ -89,8 +89,8 @@ export default function ProgressTracker() {
       icon: Brain,
       label: 'Neural Level',
       value: stats.neuralLevel,
-      color: 'text-purple-600',
-      bgColor: 'bg-purple-100'
+      color: 'text-forest-600',
+      bgColor: 'bg-forest-100'
     },
     {
       icon: Target,
@@ -144,7 +144,7 @@ export default function ProgressTracker() {
         </div>
         <div className="w-full bg-gray-200 rounded-full h-2">
           <div 
-            className="bg-gradient-to-r from-purple-500 to-blue-500 h-2 rounded-full transition-all"
+            className="bg-gradient-to-r from-forest-500 to-sky-500 h-2 rounded-full transition-all"
             style={{ width: `${(stats.totalPoints % 200) / 2}%` }}
           />
         </div>

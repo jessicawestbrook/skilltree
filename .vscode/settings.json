@@ -1,0 +1,133 @@
+{
+  // Reduce memory usage in VS Code
+  "files.watcherExclude": {
+    "**/.git/objects/**": true,
+    "**/.git/subtree-cache/**": true,
+    "**/node_modules/**": true,
+    "**/.next/**": true,
+    "**/dist/**": true,
+    "**/build/**": true,
+    "**/coverage/**": true,
+    "**/.turbo/**": true,
+    "**/standalone/**": true,
+    "**/.sentryclirc": true,
+    "**/public/workbox-*.js": true,
+    "**/public/sw.js": true,
+    "**/public/sw.js.map": true,
+    "**/public/worker-*.js": true
+  },
+  
+  // Exclude files from search to improve performance
+  "search.exclude": {
+    "**/node_modules": true,
+    "**/.next": true,
+    "**/dist": true,
+    "**/build": true,
+    "**/.git": true,
+    "**/coverage": true,
+    "**/.turbo": true,
+    "**/standalone": true,
+    "**/*.log": true,
+    "**/.DS_Store": true,
+    "**/Thumbs.db": true
+  },
+  
+  // TypeScript performance improvements
+  "typescript.tsserver.maxTsServerMemory": 4096,
+  "typescript.tsserver.experimental.enableProjectDiagnostics": false,
+  "typescript.disableAutomaticTypeAcquisition": true,
+  "typescript.surveys.enabled": false,
+  "typescript.preferences.includePackageJsonAutoImports": "off",
+  "typescript.suggest.autoImports": false,
+  "typescript.validate.enable": false,
+  "typescript.format.enable": false,
+  
+  // Disable features that consume memory
+  "git.autorefresh": false,
+  "git.autoRepositoryDetection": false,
+  "extensions.autoUpdate": false,
+  "extensions.autoCheckUpdates": false,
+  
+  // Editor performance settings
+  "editor.minimap.enabled": false,
+  "editor.renderWhitespace": "none",
+  "editor.cursorBlinking": "solid",
+  "editor.cursorSmoothCaretAnimation": "off",
+  "editor.smoothScrolling": false,
+  "editor.fastScrollSensitivity": 5,
+  "editor.mouseWheelScrollSensitivity": 2,
+  "editor.suggest.maxVisibleSuggestions": 10,
+  "editor.semanticHighlighting.enabled": false,
+  "editor.codeLens": false,
+  "editor.inlayHints.enabled": "off",
+  "editor.lightbulb.enabled": "off",
+  
+  // Terminal performance
+  "terminal.integrated.rendererType": "canvas",
+  "terminal.integrated.scrollback": 1000,
+  
+  // File handling
+  "files.autoSave": "off",
+  "files.exclude": {
+    "**/.git": false,
+    "**/.svn": true,
+    "**/.hg": true,
+    "**/CVS": true,
+    "**/.DS_Store": true,
+    "**/Thumbs.db": true,
+    "**/node_modules": false,
+    "**/.next": true,
+    "**/build": true,
+    "**/dist": true,
+    "**/coverage": true
+  },
+  
+  // Disable telemetry
+  "telemetry.telemetryLevel": "off",
+  
+  // Workbench performance
+  "workbench.editor.limit.enabled": true,
+  "workbench.editor.limit.value": 5,
+  "workbench.editor.limit.perEditorGroup": true,
+  "workbench.startupEditor": "none",
+  "workbench.tips.enabled": false,
+  
+  // Extension recommendations
+  "extensions.ignoreRecommendations": true,
+  
+  // Disable unused features
+  "npm.autoDetect": "off",
+  "task.autoDetect": "off",
+  
+  // For Next.js projects
+  "emmet.excludeLanguages": ["markdown"],
+  "emmet.includeLanguages": {
+    "javascript": "javascriptreact"
+  },
+  
+  // Additional memory optimizations
+  "javascript.suggest.autoImports": false,
+  "javascript.validate.enable": false,
+  "html.validate.styles": false,
+  "html.validate.scripts": false,
+  "css.validate": false,
+  "json.validate.enable": false,
+  
+  // Disable language features that consume memory
+  "breadcrumbs.enabled": false,
+  "outline.showVariables": false,
+  "outline.showFunctions": false,
+  "outline.showClasses": false,
+  
+  // Reduce IntelliSense overhead
+  "editor.parameterHints.enabled": false,
+  "editor.quickSuggestions": {
+    "other": false,
+    "comments": false,
+    "strings": false
+  },
+  
+  // Disable problematic extensions for large projects
+  "eslint.enable": false,
+  "prettier.enable": false
+}

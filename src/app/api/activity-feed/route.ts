@@ -4,20 +4,70 @@ import { createServerSupabaseClient } from '@/lib/supabase-server';
 export async function GET(request: NextRequest) {
   try {
     const supabase = await createServerSupabaseClient();
-
-    const { data: { user }, error: authError } = await supabase.auth.getUser();
-    
-    if (authError || !user) {
-      return NextResponse.json(
-        { error: 'Unauthorized' },
-        { status: 401 }
-      );
-    }
-
     const searchParams = request.nextUrl.searchParams;
     const filter = searchParams.get('filter') || 'all';
     const limit = parseInt(searchParams.get('limit') || '20');
     const offset = parseInt(searchParams.get('offset') || '0');
+    const publicOnly = searchParams.get('public') === 'true';
+
+    const { data: { user }, error: authError } = await supabase.auth.getUser();
+    
+    // Allow public access to public activities
+    if ((authError || !user) && !publicOnly) {
+      return NextResponse.json(
+        { error: 'Unauthorized. Use ?public=true to view public activities.' },
+        { status: 401 }
+      );
+    }
+
+    // If public only mode, show only public activities
+    if (publicOnly || !user) {
+      const { data: activities, error, count } = await supabase
+        .from('activity_feed')
+        .select(`
+          *,
+          user:user_id(
+            id,
+            email,
+            user_profiles!inner(
+              username,
+              avatar_url,
+              neural_level
+            )
+          ),
+          group:group_id(
+            id,
+            name
+          )
+        `)
+        .eq('visibility', 'public')
+        .order('created_at', { ascending: false })
+        .range(offset, offset + limit - 1);
+
+      if (error) {
+        console.error('Error fetching public activity feed:', error);
+        // Return empty data instead of error for missing tables
+        if (error.message?.includes('relation') || error.message?.includes('does not exist')) {
+          return NextResponse.json({
+            data: [],
+            count: 0,
+            hasMore: false,
+            message: 'Activity feed table not yet configured'
+          });
+        }
+        return NextResponse.json(
+          { error: 'Failed to fetch activity feed' },
+          { status: 500 }
+        );
+      }
+
+      return NextResponse.json({ 
+        data: activities || [],
+        count: count || 0,
+        hasMore: (count || 0) > offset + limit,
+        public: true
+      });
+    }
 
     // Get user's friends for filtering
     const { data: friends } = await supabase
@@ -64,12 +114,7 @@ export async function GET(request: NextRequest) {
       query = query.eq('user_id', user.id);
     } else {
       // Show all relevant activities
-      query = query.or(`
-        visibility.eq.public,
-        user_id.eq.${user.id},
-        and(visibility.eq.friends,user_id.in.(${[...friendIds, user.id].join(',')})),
-        and(visibility.eq.group,group_id.in.(${groupIds.join(',')}))
-      `);
+      query = query.or(`visibility.eq.public,user_id.eq.${user.id},and(visibility.eq.friends,user_id.in.(${[...friendIds, user.id].join(',')})),and(visibility.eq.group,group_id.in.(${groupIds.join(',')}))`);
     }
 
     // Apply pagination and ordering
@@ -79,6 +124,14 @@ export async function GET(request: NextRequest) {
 
     if (error) {
       console.error('Error fetching activity feed:', error);
+      // Return empty data instead of error for missing tables
+      if (error.message?.includes('relation') || error.message?.includes('does not exist')) {
+        return NextResponse.json({
+          data: [],
+          count: 0,
+          hasMore: false
+        });
+      }
       return NextResponse.json(
         { error: 'Failed to fetch activity feed' },
         { status: 500 }

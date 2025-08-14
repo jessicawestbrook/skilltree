@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { CourseSection } from '@/services/courseContentService';
 import { Plus, Trash2, GripVertical, Save, ArrowLeft } from 'lucide-react';
-import { supabase } from '@/lib/supabase';
+import { createClient } from '@/lib/supabase-client';
 
 export default function NewContentPage() {
   const router = useRouter();

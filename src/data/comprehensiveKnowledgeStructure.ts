@@ -28,9 +28,9 @@ export const knowledgeStructure: KnowledgeCategory = {
           color: '#60a5fa',
           description: 'Study of mathematical symbols and rules',
           nodes: [
-            { id: 'basic-algebra', name: 'Basic Algebra', domain: 'algebra', prereqs: [], difficulty: 2, points: 100 },
-            { id: 'linear-algebra', name: 'Linear Algebra', domain: 'algebra', prereqs: ['basic-algebra'], difficulty: 3, points: 150 },
-            { id: 'abstract-algebra', name: 'Abstract Algebra', domain: 'algebra', prereqs: ['linear-algebra'], difficulty: 5, points: 250 }
+            { id: 'basic-algebra', name: 'Basic Algebra', domain: 'algebra', prereqs: [], difficulty: 2, points: 100, gradeLevel: 9, subject: 'math', standardsAlignment: ['CCSS.MATH.HSA.SSE.A.1'] },
+            { id: 'linear-algebra', name: 'Linear Algebra', domain: 'algebra', prereqs: ['basic-algebra'], difficulty: 3, points: 150, gradeLevel: 11, subject: 'math', standardsAlignment: ['CCSS.MATH.HSA.APR.A.1'] },
+            { id: 'abstract-algebra', name: 'Abstract Algebra', domain: 'algebra', prereqs: ['linear-algebra'], difficulty: 5, points: 250, gradeLevel: 12, subject: 'math' }
           ]
         },
         {
@@ -39,10 +39,10 @@ export const knowledgeStructure: KnowledgeCategory = {
           color: '#60a5fa',
           description: 'Study of continuous change and limits',
           nodes: [
-            { id: 'calculus-1', name: 'Calculus I', domain: 'analysis', prereqs: ['basic-algebra'], difficulty: 3, points: 150 },
-            { id: 'calculus-2', name: 'Calculus II', domain: 'analysis', prereqs: ['calculus-1'], difficulty: 3, points: 150 },
-            { id: 'real-analysis', name: 'Real Analysis', domain: 'analysis', prereqs: ['calculus-2'], difficulty: 5, points: 250 },
-            { id: 'complex-analysis', name: 'Complex Analysis', domain: 'analysis', prereqs: ['real-analysis'], difficulty: 5, points: 300 }
+            { id: 'calculus-1', name: 'Calculus I', domain: 'analysis', prereqs: ['basic-algebra'], difficulty: 3, points: 150, gradeLevel: 12, subject: 'math', standardsAlignment: ['CCSS.MATH.HSF.IF.C.7'] },
+            { id: 'calculus-2', name: 'Calculus II', domain: 'analysis', prereqs: ['calculus-1'], difficulty: 3, points: 150, gradeLevel: 12, subject: 'math' },
+            { id: 'real-analysis', name: 'Real Analysis', domain: 'analysis', prereqs: ['calculus-2'], difficulty: 5, points: 250, gradeLevel: 12, subject: 'math' },
+            { id: 'complex-analysis', name: 'Complex Analysis', domain: 'analysis', prereqs: ['real-analysis'], difficulty: 5, points: 300, gradeLevel: 12, subject: 'math' }
           ]
         },
         {
@@ -51,10 +51,10 @@ export const knowledgeStructure: KnowledgeCategory = {
           color: '#60a5fa',
           description: 'Study of shapes, spaces, and structures',
           nodes: [
-            { id: 'euclidean-geometry', name: 'Euclidean Geometry', domain: 'geometry', prereqs: [], difficulty: 2, points: 100 },
-            { id: 'analytic-geometry', name: 'Analytic Geometry', domain: 'geometry', prereqs: ['euclidean-geometry'], difficulty: 3, points: 150 },
-            { id: 'differential-geometry', name: 'Differential Geometry', domain: 'geometry', prereqs: ['calculus-2'], difficulty: 5, points: 250 },
-            { id: 'topology', name: 'Topology', domain: 'geometry', prereqs: ['real-analysis'], difficulty: 5, points: 300 }
+            { id: 'euclidean-geometry', name: 'Euclidean Geometry', domain: 'geometry', prereqs: [], difficulty: 2, points: 100, gradeLevel: 8, subject: 'math' },
+            { id: 'analytic-geometry', name: 'Analytic Geometry', domain: 'geometry', prereqs: ['euclidean-geometry'], difficulty: 3, points: 150, gradeLevel: 10, subject: 'math', standardsAlignment: ['CCSS.MATH.HSG.CO.A.1'] },
+            { id: 'differential-geometry', name: 'Differential Geometry', domain: 'geometry', prereqs: ['calculus-2'], difficulty: 5, points: 250, gradeLevel: 12, subject: 'math' },
+            { id: 'topology', name: 'Topology', domain: 'geometry', prereqs: ['real-analysis'], difficulty: 5, points: 300, gradeLevel: 12, subject: 'math' }
           ]
         },
         {
@@ -63,10 +63,10 @@ export const knowledgeStructure: KnowledgeCategory = {
           color: '#60a5fa',
           description: 'Analysis of data and uncertainty',
           nodes: [
-            { id: 'descriptive-stats', name: 'Descriptive Statistics', domain: 'statistics', prereqs: [], difficulty: 2, points: 100 },
-            { id: 'probability', name: 'Probability Theory', domain: 'statistics', prereqs: ['descriptive-stats'], difficulty: 3, points: 150 },
-            { id: 'inferential-stats', name: 'Inferential Statistics', domain: 'statistics', prereqs: ['probability'], difficulty: 4, points: 200 },
-            { id: 'bayesian-statistics', name: 'Bayesian Statistics', domain: 'statistics', prereqs: ['inferential-stats'], difficulty: 5, points: 250 }
+            { id: 'descriptive-stats', name: 'Descriptive Statistics', domain: 'statistics', prereqs: [], difficulty: 2, points: 100, gradeLevel: 7, subject: 'math', standardsAlignment: ['CCSS.MATH.7.RP.A.2'] },
+            { id: 'probability', name: 'Probability Theory', domain: 'statistics', prereqs: ['descriptive-stats'], difficulty: 3, points: 150, gradeLevel: 8, subject: 'math' },
+            { id: 'inferential-stats', name: 'Inferential Statistics', domain: 'statistics', prereqs: ['probability'], difficulty: 4, points: 200, gradeLevel: 11, subject: 'math' },
+            { id: 'bayesian-statistics', name: 'Bayesian Statistics', domain: 'statistics', prereqs: ['inferential-stats'], difficulty: 5, points: 250, gradeLevel: 12, subject: 'math' }
           ]
         },
         {
@@ -75,9 +75,9 @@ export const knowledgeStructure: KnowledgeCategory = {
           color: '#60a5fa',
           description: 'Study of integers and their properties',
           nodes: [
-            { id: 'elementary-number-theory', name: 'Elementary Number Theory', domain: 'number-theory', prereqs: [], difficulty: 3, points: 150 },
-            { id: 'analytic-number-theory', name: 'Analytic Number Theory', domain: 'number-theory', prereqs: ['complex-analysis'], difficulty: 6, points: 350 },
-            { id: 'algebraic-number-theory', name: 'Algebraic Number Theory', domain: 'number-theory', prereqs: ['abstract-algebra'], difficulty: 6, points: 350 }
+            { id: 'elementary-number-theory', name: 'Elementary Number Theory', domain: 'number-theory', prereqs: [], difficulty: 3, points: 150, gradeLevel: 10, subject: 'math' },
+            { id: 'analytic-number-theory', name: 'Analytic Number Theory', domain: 'number-theory', prereqs: ['complex-analysis'], difficulty: 6, points: 350, gradeLevel: 12, subject: 'math' },
+            { id: 'algebraic-number-theory', name: 'Algebraic Number Theory', domain: 'number-theory', prereqs: ['abstract-algebra'], difficulty: 6, points: 350, gradeLevel: 12, subject: 'math' }
           ]
         },
         {
@@ -86,9 +86,9 @@ export const knowledgeStructure: KnowledgeCategory = {
           color: '#60a5fa',
           description: 'Finding optimal solutions to mathematical problems',
           nodes: [
-            { id: 'linear-programming', name: 'Linear Programming', domain: 'optimization', prereqs: ['linear-algebra'], difficulty: 3, points: 150 },
-            { id: 'nonlinear-optimization', name: 'Nonlinear Optimization', domain: 'optimization', prereqs: ['calculus-2'], difficulty: 4, points: 200 },
-            { id: 'convex-optimization', name: 'Convex Optimization', domain: 'optimization', prereqs: ['nonlinear-optimization'], difficulty: 5, points: 250 }
+            { id: 'linear-programming', name: 'Linear Programming', domain: 'optimization', prereqs: ['linear-algebra'], difficulty: 3, points: 150, gradeLevel: 12, subject: 'math' },
+            { id: 'nonlinear-optimization', name: 'Nonlinear Optimization', domain: 'optimization', prereqs: ['calculus-2'], difficulty: 4, points: 200, gradeLevel: 12, subject: 'math' },
+            { id: 'convex-optimization', name: 'Convex Optimization', domain: 'optimization', prereqs: ['nonlinear-optimization'], difficulty: 5, points: 250, gradeLevel: 12, subject: 'math' }
           ]
         }
       ]
@@ -111,10 +111,10 @@ export const knowledgeStructure: KnowledgeCategory = {
               color: '#6ee7b7',
               description: 'Traditional physics concepts',
               nodes: [
-                { id: 'mechanics', name: 'Classical Mechanics', domain: 'classical-physics', prereqs: ['calculus-1'], difficulty: 3, points: 150 },
-                { id: 'thermodynamics', name: 'Thermodynamics', domain: 'classical-physics', prereqs: ['mechanics'], difficulty: 4, points: 200 },
-                { id: 'electromagnetism', name: 'Electromagnetism', domain: 'classical-physics', prereqs: ['mechanics', 'calculus-2'], difficulty: 4, points: 200 },
-                { id: 'optics', name: 'Optics', domain: 'classical-physics', prereqs: ['electromagnetism'], difficulty: 4, points: 200 }
+                { id: 'mechanics', name: 'Classical Mechanics', domain: 'classical-physics', prereqs: ['calculus-1'], difficulty: 3, points: 150, gradeLevel: 11, subject: 'science' },
+                { id: 'thermodynamics', name: 'Thermodynamics', domain: 'classical-physics', prereqs: ['mechanics'], difficulty: 4, points: 200, gradeLevel: 12, subject: 'science' },
+                { id: 'electromagnetism', name: 'Electromagnetism', domain: 'classical-physics', prereqs: ['mechanics', 'calculus-2'], difficulty: 4, points: 200, gradeLevel: 12, subject: 'science' },
+                { id: 'optics', name: 'Optics', domain: 'classical-physics', prereqs: ['electromagnetism'], difficulty: 4, points: 200, gradeLevel: 12, subject: 'science' }
               ]
             },
             {
@@ -123,10 +123,10 @@ export const knowledgeStructure: KnowledgeCategory = {
               color: '#6ee7b7',
               description: '20th century physics and beyond',
               nodes: [
-                { id: 'special-relativity', name: 'Special Relativity', domain: 'modern-physics', prereqs: ['mechanics'], difficulty: 4, points: 200 },
-                { id: 'general-relativity', name: 'General Relativity', domain: 'modern-physics', prereqs: ['special-relativity', 'differential-geometry'], difficulty: 6, points: 350 },
-                { id: 'quantum-mechanics', name: 'Quantum Mechanics', domain: 'modern-physics', prereqs: ['linear-algebra', 'mechanics'], difficulty: 5, points: 300 },
-                { id: 'quantum-field-theory', name: 'Quantum Field Theory', domain: 'modern-physics', prereqs: ['quantum-mechanics'], difficulty: 6, points: 400 }
+                { id: 'special-relativity', name: 'Special Relativity', domain: 'modern-physics', prereqs: ['mechanics'], difficulty: 4, points: 200, gradeLevel: 12, subject: 'science' },
+                { id: 'general-relativity', name: 'General Relativity', domain: 'modern-physics', prereqs: ['special-relativity', 'differential-geometry'], difficulty: 6, points: 350, gradeLevel: 12, subject: 'science' },
+                { id: 'quantum-mechanics', name: 'Quantum Mechanics', domain: 'modern-physics', prereqs: ['linear-algebra', 'mechanics'], difficulty: 5, points: 300, gradeLevel: 12, subject: 'science', standardsAlignment: ['HS-PS3-3'] },
+                { id: 'quantum-field-theory', name: 'Quantum Field Theory', domain: 'modern-physics', prereqs: ['quantum-mechanics'], difficulty: 6, points: 400, gradeLevel: 12, subject: 'science' }
               ]
             },
             {
@@ -135,9 +135,9 @@ export const knowledgeStructure: KnowledgeCategory = {
               color: '#6ee7b7',
               description: 'Physics of celestial objects',
               nodes: [
-                { id: 'stellar-physics', name: 'Stellar Physics', domain: 'astrophysics', prereqs: ['thermodynamics'], difficulty: 4, points: 200 },
-                { id: 'cosmology', name: 'Cosmology', domain: 'astrophysics', prereqs: ['general-relativity'], difficulty: 5, points: 300 },
-                { id: 'black-holes', name: 'Black Hole Physics', domain: 'astrophysics', prereqs: ['general-relativity'], difficulty: 6, points: 350 }
+                { id: 'stellar-physics', name: 'Stellar Physics', domain: 'astrophysics', prereqs: ['thermodynamics'], difficulty: 4, points: 200, gradeLevel: 12, subject: 'science' },
+                { id: 'cosmology', name: 'Cosmology', domain: 'astrophysics', prereqs: ['general-relativity'], difficulty: 5, points: 300, gradeLevel: 12, subject: 'science' },
+                { id: 'black-holes', name: 'Black Hole Physics', domain: 'astrophysics', prereqs: ['general-relativity'], difficulty: 6, points: 350, gradeLevel: 12, subject: 'science' }
               ]
             }
           ]
@@ -154,10 +154,10 @@ export const knowledgeStructure: KnowledgeCategory = {
               color: '#6ee7b7',
               description: 'Fundamental chemical concepts',
               nodes: [
-                { id: 'atomic-structure', name: 'Atomic Structure', domain: 'general-chemistry', prereqs: [], difficulty: 2, points: 100 },
-                { id: 'chemical-bonding', name: 'Chemical Bonding', domain: 'general-chemistry', prereqs: ['atomic-structure'], difficulty: 2, points: 100 },
-                { id: 'stoichiometry', name: 'Stoichiometry', domain: 'general-chemistry', prereqs: ['atomic-structure'], difficulty: 3, points: 150 },
-                { id: 'chemical-equilibrium', name: 'Chemical Equilibrium', domain: 'general-chemistry', prereqs: ['stoichiometry'], difficulty: 3, points: 150 }
+                { id: 'atomic-structure', name: 'Atomic Structure', domain: 'general-chemistry', prereqs: [], difficulty: 2, points: 100, gradeLevel: 9, subject: 'science', standardsAlignment: ['HS-PS1-1'] },
+                { id: 'chemical-bonding', name: 'Chemical Bonding', domain: 'general-chemistry', prereqs: ['atomic-structure'], difficulty: 2, points: 100, gradeLevel: 9, subject: 'science' },
+                { id: 'stoichiometry', name: 'Stoichiometry', domain: 'general-chemistry', prereqs: ['atomic-structure'], difficulty: 3, points: 150, gradeLevel: 10, subject: 'science' },
+                { id: 'chemical-equilibrium', name: 'Chemical Equilibrium', domain: 'general-chemistry', prereqs: ['stoichiometry'], difficulty: 3, points: 150, gradeLevel: 10, subject: 'science' }
               ]
             },
             {
@@ -166,10 +166,10 @@ export const knowledgeStructure: KnowledgeCategory = {
               color: '#6ee7b7',
               description: 'Chemistry of carbon compounds',
               nodes: [
-                { id: 'hydrocarbons', name: 'Hydrocarbons', domain: 'organic-chemistry', prereqs: ['chemical-bonding'], difficulty: 3, points: 150 },
-                { id: 'functional-groups', name: 'Functional Groups', domain: 'organic-chemistry', prereqs: ['hydrocarbons'], difficulty: 3, points: 150 },
-                { id: 'organic-synthesis', name: 'Organic Synthesis', domain: 'organic-chemistry', prereqs: ['functional-groups'], difficulty: 4, points: 200 },
-                { id: 'biochemistry', name: 'Biochemistry', domain: 'organic-chemistry', prereqs: ['organic-synthesis'], difficulty: 5, points: 250 }
+                { id: 'hydrocarbons', name: 'Hydrocarbons', domain: 'organic-chemistry', prereqs: ['chemical-bonding'], difficulty: 3, points: 150, gradeLevel: 11, subject: 'science' },
+                { id: 'functional-groups', name: 'Functional Groups', domain: 'organic-chemistry', prereqs: ['hydrocarbons'], difficulty: 3, points: 150, gradeLevel: 11, subject: 'science' },
+                { id: 'organic-synthesis', name: 'Organic Synthesis', domain: 'organic-chemistry', prereqs: ['functional-groups'], difficulty: 4, points: 200, gradeLevel: 12, subject: 'science' },
+                { id: 'biochemistry', name: 'Biochemistry', domain: 'organic-chemistry', prereqs: ['organic-synthesis'], difficulty: 5, points: 250, gradeLevel: 12, subject: 'science' }
               ]
             },
             {
@@ -178,9 +178,9 @@ export const knowledgeStructure: KnowledgeCategory = {
               color: '#6ee7b7',
               description: 'Physics applied to chemistry',
               nodes: [
-                { id: 'chemical-thermodynamics', name: 'Chemical Thermodynamics', domain: 'physical-chemistry', prereqs: ['thermodynamics', 'chemical-equilibrium'], difficulty: 4, points: 200 },
-                { id: 'chemical-kinetics', name: 'Chemical Kinetics', domain: 'physical-chemistry', prereqs: ['chemical-equilibrium'], difficulty: 4, points: 200 },
-                { id: 'quantum-chemistry', name: 'Quantum Chemistry', domain: 'physical-chemistry', prereqs: ['quantum-mechanics', 'chemical-bonding'], difficulty: 5, points: 300 }
+                { id: 'chemical-thermodynamics', name: 'Chemical Thermodynamics', domain: 'physical-chemistry', prereqs: ['thermodynamics', 'chemical-equilibrium'], difficulty: 4, points: 200, gradeLevel: 12, subject: 'science' },
+                { id: 'chemical-kinetics', name: 'Chemical Kinetics', domain: 'physical-chemistry', prereqs: ['chemical-equilibrium'], difficulty: 4, points: 200, gradeLevel: 12, subject: 'science' },
+                { id: 'quantum-chemistry', name: 'Quantum Chemistry', domain: 'physical-chemistry', prereqs: ['quantum-mechanics', 'chemical-bonding'], difficulty: 5, points: 300, gradeLevel: 12, subject: 'science' }
               ]
             }
           ]
@@ -197,10 +197,10 @@ export const knowledgeStructure: KnowledgeCategory = {
               color: '#6ee7b7',
               description: 'Life at the molecular level',
               nodes: [
-                { id: 'cell-structure', name: 'Cell Structure', domain: 'molecular-biology', prereqs: [], difficulty: 2, points: 100 },
-                { id: 'dna-rna', name: 'DNA & RNA', domain: 'molecular-biology', prereqs: ['cell-structure'], difficulty: 3, points: 150 },
-                { id: 'protein-synthesis', name: 'Protein Synthesis', domain: 'molecular-biology', prereqs: ['dna-rna'], difficulty: 3, points: 150 },
-                { id: 'gene-regulation', name: 'Gene Regulation', domain: 'molecular-biology', prereqs: ['protein-synthesis'], difficulty: 4, points: 200 }
+                { id: 'cell-structure', name: 'Cell Structure', domain: 'molecular-biology', prereqs: [], difficulty: 2, points: 100, gradeLevel: 6, subject: 'science', standardsAlignment: ['MS-LS1-1'] },
+                { id: 'dna-rna', name: 'DNA & RNA', domain: 'molecular-biology', prereqs: ['cell-structure'], difficulty: 3, points: 150, gradeLevel: 10, subject: 'science', standardsAlignment: ['HS-LS1-1'] },
+                { id: 'protein-synthesis', name: 'Protein Synthesis', domain: 'molecular-biology', prereqs: ['dna-rna'], difficulty: 3, points: 150, gradeLevel: 10, subject: 'science' },
+                { id: 'gene-regulation', name: 'Gene Regulation', domain: 'molecular-biology', prereqs: ['protein-synthesis'], difficulty: 4, points: 200, gradeLevel: 11, subject: 'science' }
               ]
             },
             {
@@ -209,10 +209,10 @@ export const knowledgeStructure: KnowledgeCategory = {
               color: '#6ee7b7',
               description: 'Study of complete organisms',
               nodes: [
-                { id: 'anatomy', name: 'Anatomy', domain: 'organismal-biology', prereqs: [], difficulty: 2, points: 100 },
-                { id: 'physiology', name: 'Physiology', domain: 'organismal-biology', prereqs: ['anatomy'], difficulty: 3, points: 150 },
-                { id: 'neurobiology', name: 'Neurobiology', domain: 'organismal-biology', prereqs: ['physiology'], difficulty: 4, points: 200 },
-                { id: 'immunology', name: 'Immunology', domain: 'organismal-biology', prereqs: ['physiology'], difficulty: 4, points: 200 }
+                { id: 'anatomy', name: 'Anatomy', domain: 'organismal-biology', prereqs: [], difficulty: 2, points: 100, gradeLevel: 9, subject: 'science' },
+                { id: 'physiology', name: 'Physiology', domain: 'organismal-biology', prereqs: ['anatomy'], difficulty: 3, points: 150, gradeLevel: 10, subject: 'science' },
+                { id: 'neurobiology', name: 'Neurobiology', domain: 'organismal-biology', prereqs: ['physiology'], difficulty: 4, points: 200, gradeLevel: 11, subject: 'science' },
+                { id: 'immunology', name: 'Immunology', domain: 'organismal-biology', prereqs: ['physiology'], difficulty: 4, points: 200, gradeLevel: 11, subject: 'science' }
               ]
             },
             {
@@ -221,10 +221,10 @@ export const knowledgeStructure: KnowledgeCategory = {
               color: '#6ee7b7',
               description: 'Life in context',
               nodes: [
-                { id: 'population-biology', name: 'Population Biology', domain: 'ecology-evolution', prereqs: ['descriptive-stats'], difficulty: 3, points: 150 },
-                { id: 'community-ecology', name: 'Community Ecology', domain: 'ecology-evolution', prereqs: ['population-biology'], difficulty: 4, points: 200 },
-                { id: 'evolutionary-biology', name: 'Evolutionary Biology', domain: 'ecology-evolution', prereqs: ['population-biology'], difficulty: 4, points: 200 },
-                { id: 'conservation-biology', name: 'Conservation Biology', domain: 'ecology-evolution', prereqs: ['community-ecology'], difficulty: 4, points: 200 }
+                { id: 'population-biology', name: 'Population Biology', domain: 'ecology-evolution', prereqs: ['descriptive-stats'], difficulty: 3, points: 150, gradeLevel: 10, subject: 'science' },
+                { id: 'community-ecology', name: 'Community Ecology', domain: 'ecology-evolution', prereqs: ['population-biology'], difficulty: 4, points: 200, gradeLevel: 11, subject: 'science' },
+                { id: 'evolutionary-biology', name: 'Evolutionary Biology', domain: 'ecology-evolution', prereqs: ['population-biology'], difficulty: 4, points: 200, gradeLevel: 11, subject: 'science' },
+                { id: 'conservation-biology', name: 'Conservation Biology', domain: 'ecology-evolution', prereqs: ['community-ecology'], difficulty: 4, points: 200, gradeLevel: 12, subject: 'science', standardsAlignment: ['HS-ESS3-3'] }
               ]
             }
           ]
@@ -241,10 +241,10 @@ export const knowledgeStructure: KnowledgeCategory = {
               color: '#6ee7b7',
               description: 'Study of Earth\'s structure',
               nodes: [
-                { id: 'mineralogy', name: 'Mineralogy', domain: 'geology', prereqs: ['atomic-structure'], difficulty: 3, points: 150 },
-                { id: 'petrology', name: 'Petrology', domain: 'geology', prereqs: ['mineralogy'], difficulty: 3, points: 150 },
-                { id: 'structural-geology', name: 'Structural Geology', domain: 'geology', prereqs: ['petrology'], difficulty: 4, points: 200 },
-                { id: 'plate-tectonics', name: 'Plate Tectonics', domain: 'geology', prereqs: ['structural-geology'], difficulty: 4, points: 200 }
+                { id: 'mineralogy', name: 'Mineralogy', domain: 'geology', prereqs: ['atomic-structure'], difficulty: 3, points: 150, gradeLevel: 10, subject: 'science' },
+                { id: 'petrology', name: 'Petrology', domain: 'geology', prereqs: ['mineralogy'], difficulty: 3, points: 150, gradeLevel: 11, subject: 'science' },
+                { id: 'structural-geology', name: 'Structural Geology', domain: 'geology', prereqs: ['petrology'], difficulty: 4, points: 200, gradeLevel: 11, subject: 'science' },
+                { id: 'plate-tectonics', name: 'Plate Tectonics', domain: 'geology', prereqs: ['structural-geology'], difficulty: 4, points: 200, gradeLevel: 11, subject: 'science', standardsAlignment: ['HS-ESS2-1'] }
               ]
             },
             {
@@ -347,53 +347,6 @@ export const knowledgeStructure: KnowledgeCategory = {
                 { id: 'arabic', name: 'Arabic', domain: 'semitic-languages', prereqs: [], difficulty: 5, points: 350 },
                 { id: 'hebrew', name: 'Hebrew', domain: 'semitic-languages', prereqs: [], difficulty: 4, points: 250 },
                 { id: 'aramaic', name: 'Aramaic', domain: 'semitic-languages', prereqs: [], difficulty: 5, points: 350 }
-              ]
-            }
-          ]
-        },
-        {
-          id: 'programming-languages',
-          name: 'Programming Languages',
-          color: '#fbbf24',
-          description: 'Computer programming languages',
-          subcategories: [
-            {
-              id: 'low-level',
-              name: 'Low-Level Languages',
-              color: '#fde68a',
-              description: 'Close to hardware',
-              nodes: [
-                { id: 'assembly', name: 'Assembly', domain: 'low-level', prereqs: [], difficulty: 5, points: 300 },
-                { id: 'c-lang', name: 'C', domain: 'low-level', prereqs: [], difficulty: 4, points: 250 },
-                { id: 'cpp-lang', name: 'C++', domain: 'low-level', prereqs: ['c-lang'], difficulty: 5, points: 300 },
-                { id: 'rust-lang', name: 'Rust', domain: 'low-level', prereqs: ['c-lang'], difficulty: 5, points: 300 }
-              ]
-            },
-            {
-              id: 'high-level',
-              name: 'High-Level Languages',
-              color: '#fde68a',
-              description: 'Abstract from hardware',
-              nodes: [
-                { id: 'python-lang', name: 'Python', domain: 'high-level', prereqs: [], difficulty: 2, points: 150 },
-                { id: 'javascript-lang', name: 'JavaScript', domain: 'high-level', prereqs: [], difficulty: 3, points: 200 },
-                { id: 'java-lang', name: 'Java', domain: 'high-level', prereqs: [], difficulty: 4, points: 250 },
-                { id: 'csharp-lang', name: 'C#', domain: 'high-level', prereqs: [], difficulty: 4, points: 250 },
-                { id: 'go-lang', name: 'Go', domain: 'high-level', prereqs: [], difficulty: 3, points: 200 },
-                { id: 'swift-lang', name: 'Swift', domain: 'high-level', prereqs: [], difficulty: 4, points: 250 }
-              ]
-            },
-            {
-              id: 'functional',
-              name: 'Functional Languages',
-              color: '#fde68a',
-              description: 'Functional programming paradigm',
-              nodes: [
-                { id: 'haskell', name: 'Haskell', domain: 'functional', prereqs: [], difficulty: 5, points: 300 },
-                { id: 'scala', name: 'Scala', domain: 'functional', prereqs: [], difficulty: 4, points: 250 },
-                { id: 'clojure', name: 'Clojure', domain: 'functional', prereqs: [], difficulty: 4, points: 250 },
-                { id: 'erlang', name: 'Erlang', domain: 'functional', prereqs: [], difficulty: 4, points: 250 },
-                { id: 'fsharp', name: 'F#', domain: 'functional', prereqs: [], difficulty: 4, points: 250 }
               ]
             }
           ]
@@ -610,6 +563,53 @@ export const knowledgeStructure: KnowledgeCategory = {
                 { id: 'computer-vision', name: 'Computer Vision', domain: 'ai-ml', prereqs: ['deep-learning'], difficulty: 5, points: 300 },
                 { id: 'nlp', name: 'Natural Language Processing', domain: 'ai-ml', prereqs: ['deep-learning'], difficulty: 5, points: 300 },
                 { id: 'reinforcement-learning', name: 'Reinforcement Learning', domain: 'ai-ml', prereqs: ['ml-basics'], difficulty: 6, points: 350 }
+              ]
+            },
+            {
+              id: 'programming-languages',
+              name: 'Programming Languages',
+              color: '#c4b5fd',
+              description: 'Computer programming languages',
+              subcategories: [
+                {
+                  id: 'low-level',
+                  name: 'Low-Level Languages',
+                  color: '#ddd6fe',
+                  description: 'Close to hardware',
+                  nodes: [
+                    { id: 'assembly', name: 'Assembly', domain: 'low-level', prereqs: [], difficulty: 5, points: 300 },
+                    { id: 'c-lang', name: 'C', domain: 'low-level', prereqs: [], difficulty: 4, points: 250 },
+                    { id: 'cpp-lang', name: 'C++', domain: 'low-level', prereqs: ['c-lang'], difficulty: 5, points: 300 },
+                    { id: 'rust-lang', name: 'Rust', domain: 'low-level', prereqs: ['c-lang'], difficulty: 5, points: 300 }
+                  ]
+                },
+                {
+                  id: 'high-level',
+                  name: 'High-Level Languages',
+                  color: '#ddd6fe',
+                  description: 'Abstract from hardware',
+                  nodes: [
+                    { id: 'python-lang', name: 'Python', domain: 'high-level', prereqs: [], difficulty: 2, points: 150 },
+                    { id: 'javascript-lang', name: 'JavaScript', domain: 'high-level', prereqs: [], difficulty: 3, points: 200 },
+                    { id: 'java-lang', name: 'Java', domain: 'high-level', prereqs: [], difficulty: 4, points: 250 },
+                    { id: 'csharp-lang', name: 'C#', domain: 'high-level', prereqs: [], difficulty: 4, points: 250 },
+                    { id: 'go-lang', name: 'Go', domain: 'high-level', prereqs: [], difficulty: 3, points: 200 },
+                    { id: 'swift-lang', name: 'Swift', domain: 'high-level', prereqs: [], difficulty: 4, points: 250 }
+                  ]
+                },
+                {
+                  id: 'functional',
+                  name: 'Functional Languages',
+                  color: '#ddd6fe',
+                  description: 'Functional programming paradigm',
+                  nodes: [
+                    { id: 'haskell', name: 'Haskell', domain: 'functional', prereqs: [], difficulty: 5, points: 300 },
+                    { id: 'scala', name: 'Scala', domain: 'functional', prereqs: [], difficulty: 4, points: 250 },
+                    { id: 'clojure', name: 'Clojure', domain: 'functional', prereqs: [], difficulty: 4, points: 250 },
+                    { id: 'erlang', name: 'Erlang', domain: 'functional', prereqs: [], difficulty: 4, points: 250 },
+                    { id: 'fsharp', name: 'F#', domain: 'functional', prereqs: [], difficulty: 4, points: 250 }
+                  ]
+                }
               ]
             },
             {
