@@ -7,6 +7,7 @@ import CourseContent from './CourseContent';
 import { QuizQuestion } from '@/types';
 import { ProgressService } from '@/services/progressService';
 import { AnalyticsService } from '@/services/analyticsService';
+import { themeConfig } from '@/config/theme';
 
 interface LearningModalProps {
   isOpen: boolean;
@@ -91,7 +92,7 @@ const QuizComponent: React.FC<QuizComponentProps> = ({ questions, nodeId, onComp
         </div>
         <div className="w-full bg-gray-200 rounded-full h-2">
           <div 
-            className="bg-gradient-to-r from-purple-500 to-blue-500 h-2 rounded-full transition-all"
+            className="bg-gradient-to-r from-forest-500 to-sky-500 h-2 rounded-full transition-all"
             style={{ width: `${((currentQuestion + 1) / questions.length) * 100}%` }}
           />
         </div>
@@ -108,7 +109,7 @@ const QuizComponent: React.FC<QuizComponentProps> = ({ questions, nodeId, onComp
               disabled={showFeedback}
               className={`w-full text-left p-4 rounded-lg border-2 transition-all ${
                 !showFeedback 
-                  ? 'hover:bg-purple-50 hover:border-purple-300 cursor-pointer border-gray-200'
+                  ? 'hover:bg-forest-50 hover:border-forest-300 cursor-pointer border-gray-200'
                   : selectedAnswer === index
                     ? isCorrect
                       ? 'bg-green-50 border-green-500'
@@ -157,7 +158,7 @@ const QuizComponent: React.FC<QuizComponentProps> = ({ questions, nodeId, onComp
         {showFeedback && (
           <button
             onClick={handleNext}
-            className="mt-6 w-full px-6 py-3 bg-gradient-to-r from-purple-600 to-blue-600 text-white rounded-lg font-medium hover:shadow-lg"
+            className="mt-6 w-full px-6 py-3 bg-gradient-to-r from-forest-600 to-sky-600 text-white rounded-lg font-medium hover:shadow-lg"
           >
             {currentQuestion < questions.length - 1 ? 'Next Question' : 'Complete Quiz'}
           </button>
@@ -214,7 +215,7 @@ export default function LearningModal({
 
   const renderIntro = () => (
     <div className="flex flex-col items-center justify-center min-h-[400px] text-center p-8">
-      <div className="w-20 h-20 bg-gradient-to-br from-purple-500 to-blue-500 rounded-full flex items-center justify-center mb-6">
+      <div className="w-20 h-20 bg-gradient-to-br from-forest-500 to-sky-500 rounded-full flex items-center justify-center mb-6">
         <BookOpen className="w-10 h-10 text-white" />
       </div>
       <h2 className="text-3xl font-bold mb-4 text-gray-900">Ready to Learn?</h2>
@@ -223,8 +224,8 @@ export default function LearningModal({
       </p>
       <div className="flex items-center gap-4 mb-8">
         <div className="flex items-center gap-2">
-          <div className="w-10 h-10 bg-purple-100 rounded-full flex items-center justify-center">
-            <BookOpen className="w-5 h-5 text-purple-600" />
+          <div className="w-10 h-10 bg-forest-100 rounded-full flex items-center justify-center">
+            <BookOpen className="w-5 h-5 text-forest-600" />
           </div>
           <span className="font-semibold text-gray-800">Learn</span>
         </div>
@@ -245,7 +246,7 @@ export default function LearningModal({
       </div>
       <button
         onClick={() => setPhase('content')}
-        className="px-8 py-3 bg-gradient-to-r from-purple-600 to-blue-600 text-white rounded-lg font-medium hover:shadow-lg transform hover:-translate-y-0.5 transition-all"
+        className="px-8 py-3 bg-gradient-to-r from-forest-600 to-sky-600 text-white rounded-lg font-medium hover:shadow-lg transform hover:-translate-y-0.5 transition-all"
       >
         Start Learning
       </button>
@@ -281,7 +282,7 @@ export default function LearningModal({
         )}
         <button
           onClick={onClose}
-          className="px-6 py-2 bg-gradient-to-r from-purple-600 to-blue-600 text-white rounded-lg hover:shadow-lg"
+          className="px-6 py-2 bg-gradient-to-r from-forest-600 to-sky-600 text-white rounded-lg hover:shadow-lg"
         >
           Continue Learning
         </button>
@@ -290,10 +291,10 @@ export default function LearningModal({
   );
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
+    <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black bg-opacity-50">
       <div className="bg-white rounded-xl shadow-2xl w-full max-w-5xl max-h-[90vh] overflow-hidden">
         {/* Header */}
-        <div className="bg-gradient-to-r from-purple-600 to-blue-600 text-white p-4 flex items-center justify-between">
+        <div className="bg-gradient-to-r from-forest-600 to-sky-600 text-white p-4 flex items-center justify-between">
           <div className="flex items-center gap-3">
             <div className="w-8 h-8 bg-white/20 rounded-full flex items-center justify-center">
               {phase === 'intro' && <BookOpen className="w-4 h-4" />}
@@ -303,7 +304,7 @@ export default function LearningModal({
             </div>
             <div>
               <h2 className="font-bold text-lg">{nodeTitle}</h2>
-              <p className="text-purple-100 text-sm">
+              <p className="text-forest-100 text-sm">
                 {phase === 'intro' && 'Introduction'}
                 {phase === 'content' && 'Course Content'}
                 {phase === 'quiz' && 'Knowledge Check'}
@@ -323,7 +324,7 @@ export default function LearningModal({
         <div className="bg-gray-100 p-2">
           <div className="flex items-center justify-center gap-2">
             <div className={`flex items-center gap-2 px-3 py-1 rounded-full text-sm ${
-              phase === 'content' ? 'bg-purple-600 text-white' : 
+              phase === 'content' ? 'bg-forest-600 text-white' : 
               contentCompleted ? 'bg-green-100 text-green-700' : 'bg-white text-gray-500'
             }`}>
               <BookOpen className="w-4 h-4" />

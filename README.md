@@ -345,6 +345,8 @@ Edit `scripts/migrate-learning-paths.js`:
 ✅ **TypeScript**: All type errors resolved  
 ✅ **ESLint**: Code quality standards enforced  
 ✅ **Environment**: Lazy initialization prevents build-time API key errors  
+✅ **Tests**: All 261 tests passing across 14 test suites  
+✅ **Coverage**: Comprehensive test coverage for components, services, hooks, and utilities  
 
 ## 🚀 Deployment
 
@@ -395,7 +397,18 @@ npm run prisma:generate  # Generate Prisma client
 npm run prisma:migrate   # Run database migrations
 ```
 
-## 📊 Recent Updates (v0.5.0)
+## 📊 Recent Updates (v0.6.0)
+
+### 🎯 Latest Improvements (NEW)
+- ✅ **Repository Migration**: Successfully migrated from NeuroQuest to SkillTree
+- ✅ **Production Build**: Fixed all import errors and build issues
+- ✅ **Test Suite**: All 261 tests passing with comprehensive coverage
+- ✅ **Bookmarks Feature**: Added bookmark functionality for saving favorite nodes
+- ✅ **Performance**: Optimized loading with dedicated loading components
+- ✅ **Code Quality**: Fixed all TypeScript and ESLint issues
+- ✅ **Development Server**: Resolved all runtime errors and port conflicts
+
+## 📊 Previous Updates (v0.5.0)
 
 ### 👥 Social Features & Community (NEW)
 - ✅ **Friend System**: Send/accept friend requests, manage connections

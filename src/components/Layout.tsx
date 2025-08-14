@@ -21,7 +21,7 @@ export default function Layout({ children, sidebar, rightPanel, isMobile = false
         `}>
           {/* Left Sidebar */}
           {!isMobile && sidebar && (
-            <aside className="space-y-4 relative" style={{ zIndex: 9999 }}>
+            <aside className="space-y-4 relative z-30">
               <div className="sticky top-6 overflow-visible">
                 {sidebar}
               </div>

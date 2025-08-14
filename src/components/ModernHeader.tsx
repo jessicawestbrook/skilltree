@@ -1,7 +1,7 @@
 'use client';
 
-import React from 'react';
-import { Trees, Flame, Trophy, Star, User, Menu, Users, Settings } from 'lucide-react';
+import React, { useState, useRef, useEffect } from 'react';
+import { Trees, Flame, Trophy, Star, User, Menu, Users, Settings, LogOut, UserCircle } from 'lucide-react';
 import { UserStats } from '../types';
 import { useAuth } from '../contexts/AuthContext';
 import Link from 'next/link';
@@ -23,8 +23,37 @@ export default function ModernHeader({
   onMenuClick,
   onSettingsClick 
 }: ModernHeaderProps) {
-  const { user, isAuthenticated } = useAuth();
+  const { user, isAuthenticated, logout } = useAuth();
   const progress = calculateProgress();
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const dropdownRef = useRef<HTMLDivElement>(null);
+  const timeoutRef = useRef<NodeJS.Timeout>();
+
+  useEffect(() => {
+    return () => {
+      if (timeoutRef.current) {
+        clearTimeout(timeoutRef.current);
+      }
+    };
+  }, []);
+
+  const handleMouseEnter = () => {
+    if (timeoutRef.current) {
+      clearTimeout(timeoutRef.current);
+    }
+    setIsDropdownOpen(true);
+  };
+
+  const handleMouseLeave = () => {
+    timeoutRef.current = setTimeout(() => {
+      setIsDropdownOpen(false);
+    }, 200);
+  };
+
+  const handleLogout = async () => {
+    await logout();
+    setIsDropdownOpen(false);
+  };
 
   return (
     <header className="sticky top-0 z-40 w-full backdrop-blur-xl bg-white/80 dark:bg-gray-900/80 border-b border-gray-200 dark:border-gray-700">
@@ -118,44 +147,94 @@ export default function ModernHeader({
           <div className="flex items-center gap-3">
             {isAuthenticated ? (
               <>
-                {/* Settings & Profile Button */}
-                <button
-                  onClick={onSettingsClick}
-                  className="group relative flex items-center gap-3 px-4 py-2.5 bg-white dark:bg-gray-800 rounded-xl hover:bg-gradient-to-r hover:from-forest-50 hover:to-sky-50 dark:hover:from-gray-800 dark:hover:to-gray-700 transition-all duration-300 border-2 border-gray-200 dark:border-gray-700 hover:border-forest-400 dark:hover:border-forest-600 hover:shadow-xl shadow-lg"
-                  aria-label="Settings & Profile"
+                {/* Profile Dropdown */}
+                <div 
+                  className="relative"
+                  ref={dropdownRef}
+                  onMouseEnter={handleMouseEnter}
+                  onMouseLeave={handleMouseLeave}
                 >
-                  {/* Avatar */}
-                  <div className="relative">
-                    {user?.photoURL ? (
-                      <img 
-                        src={user.photoURL} 
-                        alt="Profile" 
-                        className="w-8 h-8 rounded-full border-2 border-gray-300 dark:border-gray-600 group-hover:border-forest-500 transition-all duration-300" 
-                      />
-                    ) : (
-                      <div className="w-8 h-8 rounded-full bg-gradient-to-br from-forest-500 to-sky-500 flex items-center justify-center shadow-inner">
-                        <User className="w-4 h-4 text-white" />
+                  <button
+                    className="group relative flex items-center gap-3 px-4 py-2.5 bg-white dark:bg-gray-800 rounded-xl hover:bg-gradient-to-r hover:from-forest-50 hover:to-sky-50 dark:hover:from-gray-800 dark:hover:to-gray-700 transition-all duration-300 border-2 border-gray-200 dark:border-gray-700 hover:border-forest-400 dark:hover:border-forest-600 hover:shadow-xl shadow-lg"
+                    aria-label="Profile Menu"
+                  >
+                    {/* Avatar */}
+                    <div className="relative">
+                      {user?.photoURL ? (
+                        <img 
+                          src={user.photoURL} 
+                          alt="Profile" 
+                          className="w-8 h-8 rounded-full border-2 border-gray-300 dark:border-gray-600 group-hover:border-forest-500 transition-all duration-300" 
+                        />
+                      ) : (
+                        <div className="w-8 h-8 rounded-full bg-gradient-to-br from-forest-500 to-sky-500 flex items-center justify-center shadow-inner">
+                          <User className="w-4 h-4 text-white" />
+                        </div>
+                      )}
+                      {/* Hover glow effect */}
+                      <div className="absolute inset-0 rounded-full bg-gradient-to-r from-forest-400 to-sky-400 opacity-0 group-hover:opacity-40 blur-md transition-opacity duration-300 pointer-events-none"></div>
+                    </div>
+                    
+                    {/* Username with gradient on hover */}
+                    <span className="text-sm font-semibold text-gray-700 dark:text-gray-200 group-hover:bg-gradient-to-r group-hover:from-forest-600 group-hover:to-sky-600 group-hover:bg-clip-text group-hover:text-transparent transition-all duration-300 hidden md:block">
+                      {user?.username || 'Profile'}
+                    </span>
+                    
+                    {/* Premium shine overlay */}
+                    <div className="absolute inset-0 rounded-xl overflow-hidden pointer-events-none">
+                      <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/0 group-hover:via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
+                    </div>
+                  </button>
+
+                  {/* Dropdown Menu */}
+                  {isDropdownOpen && (
+                    <div className="absolute right-0 mt-2 w-56 bg-white dark:bg-gray-800 rounded-xl shadow-2xl border border-gray-200 dark:border-gray-700 overflow-hidden animate-fadeIn">
+                      {/* User Info Header */}
+                      <div className="px-4 py-3 border-b border-gray-200 dark:border-gray-700">
+                        <p className="text-sm font-semibold text-gray-900 dark:text-gray-100">
+                          {user?.displayName || user?.username || 'User'}
+                        </p>
+                        <p className="text-xs text-gray-500 dark:text-gray-400 mt-0.5">
+                          {user?.email}
+                        </p>
                       </div>
-                    )}
-                    {/* Hover glow effect */}
-                    <div className="absolute inset-0 rounded-full bg-gradient-to-r from-forest-400 to-sky-400 opacity-0 group-hover:opacity-40 blur-md transition-opacity duration-300 pointer-events-none"></div>
-                  </div>
-                  
-                  {/* Username with gradient on hover */}
-                  <span className="text-sm font-semibold text-gray-700 dark:text-gray-200 group-hover:bg-gradient-to-r group-hover:from-forest-600 group-hover:to-sky-600 group-hover:bg-clip-text group-hover:text-transparent transition-all duration-300 hidden md:block">
-                    {user?.username || 'Profile'}
-                  </span>
-                  
-                  {/* Settings icon with animation */}
-                  <div className="relative">
-                    <Settings className="w-4 h-4 text-gray-500 dark:text-gray-400 group-hover:text-forest-600 dark:group-hover:text-forest-400 transition-all duration-500 group-hover:rotate-180" />
-                  </div>
-                  
-                  {/* Premium shine overlay */}
-                  <div className="absolute inset-0 rounded-xl overflow-hidden pointer-events-none">
-                    <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/0 group-hover:via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
-                  </div>
-                </button>
+
+                      {/* Menu Items */}
+                      <div className="py-2">
+                        <Link href="/profile">
+                          <button
+                            className="w-full px-4 py-2.5 text-left flex items-center gap-3 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors duration-200"
+                            onClick={() => setIsDropdownOpen(false)}
+                          >
+                            <UserCircle className="w-4 h-4 text-gray-600 dark:text-gray-400" />
+                            <span className="text-sm text-gray-700 dark:text-gray-200">View Profile</span>
+                          </button>
+                        </Link>
+
+                        <button
+                          onClick={() => {
+                            onSettingsClick?.();
+                            setIsDropdownOpen(false);
+                          }}
+                          className="w-full px-4 py-2.5 text-left flex items-center gap-3 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors duration-200"
+                        >
+                          <Settings className="w-4 h-4 text-gray-600 dark:text-gray-400" />
+                          <span className="text-sm text-gray-700 dark:text-gray-200">Settings</span>
+                        </button>
+
+                        <div className="my-2 border-t border-gray-200 dark:border-gray-700"></div>
+
+                        <button
+                          onClick={handleLogout}
+                          className="w-full px-4 py-2.5 text-left flex items-center gap-3 hover:bg-red-50 dark:hover:bg-red-900/20 transition-colors duration-200"
+                        >
+                          <LogOut className="w-4 h-4 text-red-600 dark:text-red-400" />
+                          <span className="text-sm text-red-600 dark:text-red-400">Sign Out</span>
+                        </button>
+                      </div>
+                    </div>
+                  )}
+                </div>
               </>
             ) : (
               <button

@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useEffect, useState } from 'react';
-import { supabase } from '@/lib/supabase-client';
+import { createClient } from '@/lib/supabase-client';
 import {
   Users,
   Search,
@@ -25,6 +25,8 @@ import {
   Star,
   AlertCircle
 } from 'lucide-react';
+
+const supabase = createClient();
 
 interface UserProfile {
   id: string;

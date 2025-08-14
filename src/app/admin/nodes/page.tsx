@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useEffect, useState } from 'react';
-import { supabase } from '@/lib/supabase-client';
+import { createClient } from '@/lib/supabase-client';
 
 interface KnowledgeNode {
   id: string;
@@ -30,6 +30,7 @@ export default function NodesPage() {
 
   const fetchNodes = async () => {
     try {
+      const supabase = createClient();
       const { data, error } = await supabase
         .from('knowledge_nodes')
         .select('*')

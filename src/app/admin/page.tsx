@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useEffect, useState } from 'react';
-import { supabase } from '@/lib/supabase-client';
+import { createClient } from '@/lib/supabase-client';
 import { 
   Users, 
   Brain, 
@@ -67,7 +67,7 @@ export default function AdminDashboard() {
   useEffect(() => {
     fetchStats();
     // Set up real-time subscription for activity
-    const subscription = supabase
+    const subscription = createClient()
       .channel('admin-activity')
       .on('postgres_changes', { 
         event: '*', 
@@ -98,6 +98,7 @@ export default function AdminDashboard() {
 
   const fetchStats = async () => {
     try {
+      const supabase = createClient();
       setLoading(true);
       
       // Parallel fetch all stats
