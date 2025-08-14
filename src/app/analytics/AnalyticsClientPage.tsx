@@ -17,7 +17,6 @@ export default function AnalyticsClientPage() {
           isMobile={false}
           calculateProgress={() => 0}
           onAuthClick={() => {}}
-          onProfileClick={() => {}}
         />
         
         <div className="container mx-auto px-4 py-8">

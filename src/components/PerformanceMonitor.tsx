@@ -107,16 +107,13 @@ export default function PerformanceMonitor() {
 
           // Track the metrics after a delay to ensure all data is collected
           setTimeout(() => {
-            AnalyticsService.trackEvent({
-              event_type: 'performance_metrics',
-              event_data: {
-                ...metrics,
-                user_agent: navigator.userAgent,
-                viewport_width: window.innerWidth,
-                viewport_height: window.innerHeight,
-                connection_type: (navigator as NavigatorWithConnection).connection?.effectiveType || 'unknown',
-                timestamp: new Date().toISOString()
-              }
+            AnalyticsService.trackEvent('performance_metrics', {
+              ...metrics,
+              user_agent: navigator.userAgent,
+              viewport_width: window.innerWidth,
+              viewport_height: window.innerHeight,
+              connection_type: (navigator as NavigatorWithConnection).connection?.effectiveType || 'unknown',
+              timestamp: new Date().toISOString()
             });
           }, 3000);
         }
@@ -130,14 +127,11 @@ export default function PerformanceMonitor() {
       if ('memory' in performance) {
         const memory = (performance as PerformanceWithMemory).memory;
         if (memory) {
-          AnalyticsService.trackEvent({
-            event_type: 'memory_usage',
-            event_data: {
-              used_heap: memory.usedJSHeapSize,
-              total_heap: memory.totalJSHeapSize,
-              heap_limit: memory.jsHeapSizeLimit,
-              timestamp: new Date().toISOString()
-            }
+          AnalyticsService.trackEvent('memory_usage', {
+            used_heap: memory.usedJSHeapSize,
+            total_heap: memory.totalJSHeapSize,
+            heap_limit: memory.jsHeapSizeLimit,
+            timestamp: new Date().toISOString()
           });
         }
       }
@@ -148,15 +142,12 @@ export default function PerformanceMonitor() {
       if ('connection' in navigator) {
         const connection = (navigator as NavigatorWithConnection).connection;
         if (connection) {
-          AnalyticsService.trackEvent({
-            event_type: 'network_info',
-            event_data: {
-              effective_type: connection.effectiveType,
-              downlink: connection.downlink,
-              rtt: connection.rtt,
-              save_data: connection.saveData || false,
-              timestamp: new Date().toISOString()
-            }
+          AnalyticsService.trackEvent('network_info', {
+            effective_type: connection.effectiveType,
+            downlink: connection.downlink,
+            rtt: connection.rtt,
+            save_data: connection.saveData || false,
+            timestamp: new Date().toISOString()
           });
         }
       }
@@ -171,12 +162,9 @@ export default function PerformanceMonitor() {
 
     // Track page visibility changes
     const handleVisibilityChange = () => {
-      AnalyticsService.trackEvent({
-        event_type: 'page_visibility',
-        event_data: {
-          visibility_state: document.visibilityState,
-          timestamp: new Date().toISOString()
-        }
+      AnalyticsService.trackEvent('page_visibility', {
+        visibility_state: document.visibilityState,
+        timestamp: new Date().toISOString()
       });
     };
 
@@ -185,12 +173,9 @@ export default function PerformanceMonitor() {
     // Track page unload
     const handleBeforeUnload = () => {
       const sessionStats = AnalyticsService.getSessionStats();
-      AnalyticsService.trackEvent({
-        event_type: 'page_unload',
-        event_data: {
-          session_duration: sessionStats.duration,
-          timestamp: new Date().toISOString()
-        }
+      AnalyticsService.trackEvent('page_unload', {
+        session_duration: sessionStats.duration,
+        timestamp: new Date().toISOString()
       });
     };
 
@@ -207,27 +192,21 @@ export default function PerformanceMonitor() {
   // Track errors
   useEffect(() => {
     const handleError = (event: ErrorEvent) => {
-      AnalyticsService.trackEvent({
-        event_type: 'javascript_error',
-        event_data: {
-          message: event.message,
-          filename: event.filename,
-          line_number: event.lineno,
-          column_number: event.colno,
-          stack: event.error?.stack,
-          timestamp: new Date().toISOString()
-        }
+      AnalyticsService.trackEvent('javascript_error', {
+        message: event.message,
+        filename: event.filename,
+        line_number: event.lineno,
+        column_number: event.colno,
+        stack: event.error?.stack,
+        timestamp: new Date().toISOString()
       });
     };
 
     const handleUnhandledRejection = (event: PromiseRejectionEvent) => {
-      AnalyticsService.trackEvent({
-        event_type: 'unhandled_promise_rejection',
-        event_data: {
-          reason: event.reason?.toString(),
-          stack: event.reason?.stack,
-          timestamp: new Date().toISOString()
-        }
+      AnalyticsService.trackEvent('unhandled_promise_rejection', {
+        reason: event.reason?.toString(),
+        stack: event.reason?.stack,
+        timestamp: new Date().toISOString()
       });
     };
 

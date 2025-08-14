@@ -190,7 +190,7 @@ function detectNodeSubject(node: Node): Subject {
     return 'social-studies';
   }
 
-  return 'other';
+  return 'math'; // Default to math if no clear subject match
 }
 
 /**
@@ -285,11 +285,9 @@ export function updateNodeGradeLevel(node: Node): Node {
   updatedNode.gradeLevel = gradeLevel;
   
   // Find matching standards
-  if (subject !== 'other') {
-    const standards = findMatchingStandards(node, subject, gradeLevel);
-    if (standards.length > 0) {
-      updatedNode.standardsAlignment = standards;
-    }
+  const standards = findMatchingStandards(node, subject, gradeLevel);
+  if (standards.length > 0) {
+    updatedNode.standardsAlignment = standards;
   }
   
   return updatedNode;

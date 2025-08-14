@@ -1,5 +1,6 @@
 import { Node } from '../types';
-import { GradeLevel, Subject, assignGradeLevel, analyzeContent, validateGradeLevelAppropriate } from './gradeLevelAnalysis';
+import { assignGradeLevel, analyzeContent, validateGradeLevelAppropriate } from './gradeLevelAnalysis';
+import { GradeLevel, Subject } from '../data/gradeLevelStandards';
 
 export interface AgeGroup {
   minAge: number;
