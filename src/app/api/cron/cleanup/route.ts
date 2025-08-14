@@ -15,7 +15,7 @@ import { headers } from 'next/headers';
 export async function GET(request: NextRequest) {
   try {
     // Optional: Add authentication for cron endpoints
-    const headersList = headers();
+    const headersList = await headers();
     const cronSecret = headersList.get('x-cron-secret');
     
     // Uncomment to enable cron secret validation

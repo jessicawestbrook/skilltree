@@ -4,7 +4,7 @@ import { cookies } from 'next/headers';
 
 export async function POST(request: NextRequest) {
   try {
-    const supabase = createRouteHandlerClient({ cookies: await cookies() });
+    const supabase = createRouteHandlerClient({ cookies });
     
     // Get the authenticated user
     const { data: { user }, error: authError } = await supabase.auth.getUser();
@@ -73,7 +73,7 @@ export async function POST(request: NextRequest) {
 
 export async function GET(request: NextRequest) {
   try {
-    const supabase = createRouteHandlerClient({ cookies: await cookies() });
+    const supabase = createRouteHandlerClient({ cookies });
     
     // Get the authenticated user
     const { data: { user }, error: authError } = await supabase.auth.getUser();

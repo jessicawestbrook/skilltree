@@ -7,7 +7,7 @@ import { withRateLimit } from '@/lib/rateLimit';
 export async function POST(request: NextRequest) {
   return withRateLimit(request, async () => {
     try {
-    const supabase = createRouteHandlerClient({ cookies: await cookies() });
+    const supabase = createRouteHandlerClient({ cookies });
     
     const body = await request.json();
     const { sessionId } = body;
