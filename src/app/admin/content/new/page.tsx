@@ -66,6 +66,7 @@ export default function NewContentPage() {
     setSaving(true);
     
     try {
+      const supabase = createClient();
       // First create the main content
       const { data: contentData, error: contentError } = await supabase
         .from('course_content')
