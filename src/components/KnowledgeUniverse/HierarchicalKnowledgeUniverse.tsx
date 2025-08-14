@@ -289,7 +289,7 @@ function UniverseScene({
   
   const positions = useMemo(() => {
     const pos = new Map<string, [number, number, number]>();
-    let radius = 10;
+    const radius = 10;
     
     if (currentCategory.subcategories) {
       const count = currentCategory.subcategories.length;
