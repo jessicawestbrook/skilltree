@@ -289,8 +289,8 @@ export class ProgressService {
 
       // Calculate summary statistics
       const totalNodes = progressData.length;
-      const totalPoints = progressData.reduce((sum, p) => sum + (p.points_earned || 0), 0);
-      const totalScores = progressData.reduce((sum, p) => sum + (p.quiz_score || 0), 0);
+      const totalPoints = progressData.reduce((sum: number, p: any) => sum + (p.points_earned || 0), 0);
+      const totalScores = progressData.reduce((sum: number, p: any) => sum + (p.quiz_score || 0), 0);
       const averageScore = totalNodes > 0 ? Math.round(totalScores / totalNodes) : 0;
       const recentCompletions = progressData.slice(0, 5); // Get 5 most recent
 
@@ -334,7 +334,7 @@ export class ProgressService {
         avg_score: number;
       }>();
 
-      progressData.forEach(record => {
+      progressData.forEach((record: any) => {
         const existing = userStats.get(record.user_id) || {
           user_id: record.user_id,
           total_points: 0,

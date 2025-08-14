@@ -41,8 +41,8 @@ export class QuizService {
 
       // Filter out invalid entries and transform to app format
       return data
-        .filter(q => q && q.question && q.options && Array.isArray(q.options))
-        .map(q => ({
+        .filter((q: any) => q && q.question && q.options && Array.isArray(q.options))
+        .map((q: any) => ({
           question: q.question,
           options: q.options,
           correct: q.correct_answer,
@@ -76,7 +76,7 @@ export class QuizService {
       }
 
       // Transform database format to app format
-      return data.map(q => ({
+      return data.map((q: any) => ({
         question: q.question,
         options: q.options,
         correct: q.correct_answer,
@@ -110,7 +110,7 @@ export class QuizService {
       // Group questions by node_id
       const groupedQuestions: Record<string, QuizQuestion[]> = {};
       
-      data.forEach(q => {
+      data.forEach((q: any) => {
         if (!groupedQuestions[q.node_id]) {
           groupedQuestions[q.node_id] = [];
         }

@@ -40,7 +40,7 @@ export default function PathsPage() {
 
       // Get node counts for each path
       const pathsWithCounts = await Promise.all(
-        (pathsData || []).map(async (path) => {
+        (pathsData || []).map(async (path: any) => {
           const { count } = await supabase
             .from('learning_path_nodes')
             .select('*', { count: 'exact', head: true })

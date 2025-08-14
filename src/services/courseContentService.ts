@@ -114,6 +114,7 @@ export class CourseContentService {
    */
   static async upsertContent(nodeId: string, content: Partial<CourseContent>): Promise<boolean> {
     try {
+      const supabase = createClient();
       const { error } = await supabase
         .from('course_content')
         .upsert({
@@ -147,6 +148,7 @@ export class CourseContentService {
    */
   static async addSection(contentId: string, section: Omit<CourseSection, 'id' | 'content_id'>): Promise<boolean> {
     try {
+      const supabase = createClient();
       const { error } = await supabase
         .from('course_sections')
         .insert({
@@ -166,6 +168,7 @@ export class CourseContentService {
    */
   static async updateSectionOrder(sectionId: string, newOrder: number): Promise<boolean> {
     try {
+      const supabase = createClient();
       const { error } = await supabase
         .from('course_sections')
         .update({ section_order: newOrder })
@@ -183,6 +186,7 @@ export class CourseContentService {
    */
   static async addResource(contentId: string, resource: Omit<CourseResource, 'id' | 'content_id'>): Promise<boolean> {
     try {
+      const supabase = createClient();
       const { error } = await supabase
         .from('course_resources')
         .insert({
@@ -202,6 +206,7 @@ export class CourseContentService {
    */
   static async addKeyConcept(contentId: string, concept: Omit<KeyConcept, 'id' | 'content_id'>): Promise<boolean> {
     try {
+      const supabase = createClient();
       const { error } = await supabase
         .from('key_concepts')
         .insert({
@@ -221,6 +226,7 @@ export class CourseContentService {
    */
   static async addLearningTip(contentId: string, tip: Omit<LearningTip, 'id' | 'content_id'>): Promise<boolean> {
     try {
+      const supabase = createClient();
       const { error } = await supabase
         .from('learning_tips')
         .insert({
@@ -240,6 +246,7 @@ export class CourseContentService {
    */
   static async deleteSection(sectionId: string): Promise<boolean> {
     try {
+      const supabase = createClient();
       const { error } = await supabase
         .from('course_sections')
         .delete()
@@ -263,6 +270,7 @@ export class CourseContentService {
     updated_at: string;
   }>> {
     try {
+      const supabase = createClient();
       const { data, error } = await supabase
         .from('course_content')
         .select('id, node_id, title, estimated_time, updated_at')
@@ -281,6 +289,7 @@ export class CourseContentService {
    */
   static async nodeHasContent(nodeId: string): Promise<boolean> {
     try {
+      const supabase = createClient();
       const { data, error } = await supabase
         .from('course_content')
         .select('id')

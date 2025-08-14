@@ -46,11 +46,11 @@ export async function GET(request: NextRequest) {
     const commentMap = new Map();
     const rootComments: any[] = [];
 
-    comments?.forEach(comment => {
+    comments?.forEach((comment: any) => {
       commentMap.set(comment.id, { ...comment, replies: [] });
     });
 
-    comments?.forEach(comment => {
+    comments?.forEach((comment: any) => {
       if (comment.parent_id) {
         const parent = commentMap.get(comment.parent_id);
         if (parent) {

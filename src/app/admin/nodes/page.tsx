@@ -47,6 +47,7 @@ export default function NodesPage() {
 
   const toggleAvailability = async (nodeId: string, currentStatus: boolean) => {
     try {
+      const supabase = createClient();
       const { error } = await supabase
         .from('knowledge_nodes')
         .update({ is_available: !currentStatus })

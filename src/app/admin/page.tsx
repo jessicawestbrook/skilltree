@@ -124,11 +124,11 @@ export default function AdminDashboard() {
       const progressData = progressResult.data || [];
       const totalCompletions = progressData.length;
       const averageScore = progressData.length > 0 
-        ? progressData.reduce((sum, p) => sum + (p.quiz_score || 0), 0) / progressData.length 
+        ? progressData.reduce((sum: number, p: any) => sum + (p.quiz_score || 0), 0) / progressData.length 
         : 0;
 
       // Get unique active users from last 7 days
-      const activeUserIds = new Set(activeUsersResult.data?.map(p => p.user_id) || []);
+      const activeUserIds = new Set(activeUsersResult.data?.map((p: any) => p.user_id) || []);
       
       // Calculate completion rate
       const completionRate = nodesResult.count && totalCompletions 
@@ -178,6 +178,7 @@ export default function AdminDashboard() {
   };
 
   const getTopPerformers = async () => {
+    const supabase = createClient();
     const { data } = await supabase
       .from('user_progress')
       .select('user_id, points_earned')
@@ -188,7 +189,7 @@ export default function AdminDashboard() {
 
     // Group by user and calculate totals
     const userTotals = new Map();
-    data.forEach(record => {
+    data.forEach((record: any) => {
       const current = userTotals.get(record.user_id) || { 
         user_id: record.user_id, 
         total_points: 0, 
@@ -206,6 +207,7 @@ export default function AdminDashboard() {
   };
 
   const getRecentActivity = async () => {
+    const supabase = createClient();
     const { data } = await supabase
       .from('user_progress')
       .select('*')
@@ -214,7 +216,7 @@ export default function AdminDashboard() {
 
     if (!data) return [];
 
-    return data.map(record => ({
+    return data.map((record: any) => ({
       type: record.quiz_score >= 80 ? 'success' as const : 'info' as const,
       description: `${record.quiz_score}% score on ${record.node_id}`,
       timestamp: record.completed_at,
