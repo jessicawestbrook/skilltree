@@ -36,26 +36,77 @@ export default function FriendsPanel() {
   const [friends, setFriends] = useState<Friend[]>([]);
   const [friendRequests, setFriendRequests] = useState<FriendRequest[]>([]);
   const [suggestions, setSuggestions] = useState<any[]>([]);
+  const [suggestionProfiles, setSuggestionProfiles] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
   const [searchQuery, setSearchQuery] = useState('');
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [authError, setAuthError] = useState<string | null>(null);
 
   useEffect(() => {
-    fetchFriends();
-    fetchFriendRequests();
+    checkAuthAndFetch();
   }, []);
+
+  const checkAuthAndFetch = async () => {
+    // Skip auth check and try to fetch directly
+    // The API endpoints will return 401 if not authenticated
+    setIsAuthenticated(true);
+    await fetchFriends();
+    await fetchFriendRequests();
+  };
 
   const fetchFriends = async () => {
     try {
       const response = await fetch('/api/friends/list');
       const data = await response.json();
+      console.log('Friends API response:', response.status, data);
+      
       if (response.ok) {
         setFriends(data.friends || []);
         setSuggestions(data.suggestions || []);
+        
+        // If suggestions already have profile data, no need to fetch separately
+        if (data.suggestions && data.suggestions.length > 0) {
+          // Check if suggestions already include profile data
+          if (data.suggestions[0].username) {
+            // Profile data is already included
+            setSuggestionProfiles(data.suggestions);
+          } else {
+            // Need to fetch profile data separately
+            const userIds = data.suggestions.map((s: any) => s.suggested_user_id);
+            fetchSuggestionProfiles(userIds);
+          }
+        }
+        setAuthError(null);
+      } else {
+        console.error('Failed to fetch friends:', data.error);
+        if (response.status === 401) {
+          setAuthError('Please log in to view friends');
+        } else {
+          setAuthError(`Error: ${data.error || 'Failed to load friends'}`);
+        }
       }
     } catch (error) {
       console.error('Error fetching friends:', error);
+      setAuthError('Failed to connect to server');
     } finally {
       setLoading(false);
+    }
+  };
+  
+  const fetchSuggestionProfiles = async (userIds: string[]) => {
+    try {
+      const response = await fetch('/api/users/profiles', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ userIds })
+      });
+      
+      if (response.ok) {
+        const data = await response.json();
+        setSuggestionProfiles(data.profiles || []);
+      }
+    } catch (error) {
+      console.error('Error fetching suggestion profiles:', error);
     }
   };
 
@@ -130,6 +181,30 @@ export default function FriendsPanel() {
     f.friend.user_profiles?.username?.toLowerCase().includes(searchQuery.toLowerCase()) ||
     f.friend.email.toLowerCase().includes(searchQuery.toLowerCase())
   );
+
+  // Show authentication error if not logged in
+  if (authError) {
+    return (
+      <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6">
+        <div className="flex items-center justify-between mb-6">
+          <h2 className="text-2xl font-bold flex items-center gap-2">
+            <Users className="w-6 h-6" />
+            Friends
+          </h2>
+        </div>
+        <div className="text-center py-12">
+          <Users className="w-16 h-16 mx-auto text-gray-400 mb-4" />
+          <p className="text-lg text-gray-600 dark:text-gray-400 mb-4">{authError}</p>
+          <a 
+            href="/auth" 
+            className="inline-block px-6 py-3 bg-blue-500 text-white rounded-lg hover:bg-blue-600"
+          >
+            Log In to Continue
+          </a>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6">
@@ -276,24 +351,36 @@ export default function FriendsPanel() {
           {suggestions.length === 0 ? (
             <p className="text-center text-gray-500 py-8">No suggestions available</p>
           ) : (
-            suggestions.map((suggestion) => (
-              <div key={suggestion.suggested_user_id} className="flex items-center justify-between p-3 bg-gray-50 dark:bg-gray-700 rounded-lg">
-                <div>
-                  <p className="font-semibold">User {suggestion.suggested_user_id.slice(0, 8)}</p>
-                  <p className="text-sm text-gray-500">
-                    {suggestion.common_groups > 0 && `${suggestion.common_groups} common groups • `}
-                    {suggestion.common_nodes} topics in common
-                  </p>
+            suggestions.map((suggestion) => {
+              const profile = suggestion.username ? suggestion : suggestionProfiles.find(p => p.user_id === suggestion.suggested_user_id);
+              return (
+                <div key={suggestion.suggested_user_id} className="flex items-center justify-between p-3 bg-gray-50 dark:bg-gray-700 rounded-lg">
+                  <div className="flex items-center gap-3">
+                    <div className="w-10 h-10 rounded-full bg-gradient-to-br from-blue-400 to-purple-500 flex items-center justify-center text-white font-bold">
+                      {(suggestion.username || profile?.username)?.[0]?.toUpperCase() || '?'}
+                    </div>
+                    <div>
+                      <p className="font-semibold">
+                        {suggestion.username || profile?.username || `User ${suggestion.suggested_user_id.slice(0, 8)}`}
+                      </p>
+                      <p className="text-sm text-gray-500">
+                        Level {suggestion.neural_level || profile?.neural_level || 1} • 
+                        {' '}{suggestion.total_points || profile?.total_points || 0} points
+                        {suggestion.common_groups > 0 && ` • ${suggestion.common_groups} common groups`}
+                        {suggestion.common_nodes > 0 && ` • ${suggestion.common_nodes} topics in common`}
+                      </p>
+                    </div>
+                  </div>
+                  <button
+                    onClick={() => sendFriendRequest(suggestion.suggested_user_id)}
+                    className="p-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600"
+                    title="Send friend request"
+                  >
+                    <UserPlus className="w-5 h-5" />
+                  </button>
                 </div>
-                <button
-                  onClick={() => sendFriendRequest(suggestion.suggested_user_id)}
-                  className="p-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600"
-                  title="Send friend request"
-                >
-                  <UserPlus className="w-5 h-5" />
-                </button>
-              </div>
-            ))
+              );
+            })
           )}
         </div>
       )}

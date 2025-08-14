@@ -221,7 +221,6 @@ async function migrateKnowledgeGraph() {
       const nodeData = {
         id: node.id,
         name: node.name,
-        category: node.category,
         domain: node.domain,
         difficulty: node.difficulty,
         points: node.points,

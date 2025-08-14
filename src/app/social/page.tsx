@@ -2,10 +2,11 @@
 
 import React, { useState, useEffect } from 'react';
 import { useSearchParams } from 'next/navigation';
+import Link from 'next/link';
 import FriendsPanel from '@/components/social/FriendsPanel';
 import StudyGroupsPanel from '@/components/social/StudyGroupsPanel';
 import ActivityFeed from '@/components/social/ActivityFeed';
-import { Users, UserPlus, Activity, BookOpen } from 'lucide-react';
+import { Users, UserPlus, Activity, BookOpen, Home, ArrowLeft } from 'lucide-react';
 
 export default function SocialPage() {
   const searchParams = useSearchParams();
@@ -26,6 +27,16 @@ export default function SocialPage() {
     <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
       <div className="container mx-auto px-4 py-8">
         <div className="mb-8">
+          <div className="flex items-center gap-4 mb-4">
+            <Link 
+              href="/"
+              className="flex items-center gap-2 px-3 py-2 text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-colors"
+            >
+              <ArrowLeft size={20} />
+              <Home size={20} />
+              <span className="font-medium">Back to Learning</span>
+            </Link>
+          </div>
           <h1 className="text-4xl font-bold mb-2">Social Hub</h1>
           <p className="text-gray-600 dark:text-gray-300">
             Connect with fellow learners, join study groups, and track your community's progress

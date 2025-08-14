@@ -7,7 +7,6 @@ describe('nodeUtils', () => {
       id: 'node1',
       name: 'Node 1',
       domain: 'math',
-      category: 'beginner',
       prereqs: [],
       difficulty: 1,
       points: 50,
@@ -18,7 +17,6 @@ describe('nodeUtils', () => {
       id: 'node2',
       name: 'Node 2',
       domain: 'math',
-      category: 'intermediate',
       prereqs: ['node1'],
       difficulty: 2,
       points: 100,
@@ -29,7 +27,6 @@ describe('nodeUtils', () => {
       id: 'node3',
       name: 'Advanced Node',
       domain: 'science',
-      category: 'advanced',
       prereqs: ['node1', 'node2'],
       difficulty: 3,
       points: 150,
@@ -92,7 +89,6 @@ describe('nodeUtils', () => {
           id: 'standalone',
           name: 'Standalone',
           domain: 'test',
-          category: 'beginner',
           prereqs: [],
           difficulty: 1,
           points: 50,
@@ -111,7 +107,6 @@ describe('nodeUtils', () => {
           id: 'node1',
           name: 'Node 1',
           domain: 'test',
-          category: 'beginner',
           prereqs: ['nonexistent'],
           difficulty: 1,
           points: 50,
@@ -155,16 +150,11 @@ describe('nodeUtils', () => {
       expect(filtered[0].name).toBe('Advanced Node');
     });
 
-    it('should filter nodes by category', () => {
-      const filtered = filterNodes(mockNodes, [], '', 'beginner');
-      expect(filtered).toHaveLength(1);
-      expect(filtered[0].category).toBe('beginner');
-    });
-
     it('should apply multiple filters simultaneously', () => {
-      const filtered = filterNodes(mockNodes, ['math'], 'node', 'intermediate');
-      expect(filtered).toHaveLength(1);
-      expect(filtered[0].id).toBe('node2');
+      const filtered = filterNodes(mockNodes, ['math'], 'node', 'all');
+      expect(filtered).toHaveLength(2);
+      expect(filtered.some(n => n.id === 'node1')).toBe(true);
+      expect(filtered.some(n => n.id === 'node2')).toBe(true);
     });
 
     it('should return empty array when no nodes match filters', () => {
@@ -190,7 +180,6 @@ describe('nodeUtils', () => {
           id: 'special',
           name: 'Node with (parentheses)',
           domain: 'test',
-          category: 'beginner',
           prereqs: [],
           difficulty: 1,
           points: 50,
@@ -211,7 +200,6 @@ describe('nodeUtils', () => {
           id: 'valid',
           name: 'Valid Node',
           domain: 'test',
-          category: 'beginner',
           prereqs: [],
           difficulty: 1,
           points: 50,
@@ -222,7 +210,6 @@ describe('nodeUtils', () => {
           id: null,
           name: undefined,
           domain: '',
-          category: null,
           prereqs: null,
           x: 'invalid',
           y: 'invalid'
@@ -247,7 +234,6 @@ describe('nodeUtils', () => {
         id: `node${i}`,
         name: `Node ${i}`,
         domain: `domain${i % 10}`,
-        category: 'beginner',
         prereqs: i > 0 ? [`node${i - 1}`] : [],
         difficulty: 1,
         points: 50,
@@ -269,7 +255,6 @@ describe('nodeUtils', () => {
           id: 'a',
           name: 'Node A',
           domain: 'test',
-          category: 'beginner',
           prereqs: ['b'],
           difficulty: 1,
           points: 50,
@@ -280,7 +265,6 @@ describe('nodeUtils', () => {
           id: 'b',
           name: 'Node B',
           domain: 'test',
-          category: 'beginner',
           prereqs: ['a'],
           difficulty: 1,
           points: 50,

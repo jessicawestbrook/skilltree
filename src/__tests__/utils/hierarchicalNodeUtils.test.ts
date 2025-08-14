@@ -14,7 +14,6 @@ describe('hierarchicalNodeUtils', () => {
       id: 'parent1',
       name: 'Parent 1',
       domain: 'math',
-      category: 'beginner',
       prereqs: [],
       difficulty: 1,
       points: 50,
@@ -25,7 +24,6 @@ describe('hierarchicalNodeUtils', () => {
       id: 'child1',
       name: 'Child 1',
       domain: 'math',
-      category: 'beginner',
       prereqs: [],
       parentId: 'parent1',
       difficulty: 1,
@@ -37,7 +35,6 @@ describe('hierarchicalNodeUtils', () => {
       id: 'child2',
       name: 'Child 2',
       domain: 'math',
-      category: 'intermediate',
       prereqs: ['child1'],
       parentId: 'parent1',
       difficulty: 2,
@@ -49,7 +46,6 @@ describe('hierarchicalNodeUtils', () => {
       id: 'parent2',
       name: 'Parent 2',
       domain: 'science',
-      category: 'advanced',
       prereqs: ['parent1'],
       difficulty: 3,
       points: 150,
@@ -74,7 +70,6 @@ describe('hierarchicalNodeUtils', () => {
           id: 'standalone',
           name: 'Standalone',
           domain: 'test',
-          category: 'beginner',
           prereqs: [],
           difficulty: 1,
           points: 50,
@@ -122,13 +117,6 @@ describe('hierarchicalNodeUtils', () => {
       expect(filtered.every(node => node.name.toLowerCase().includes('child'))).toBe(true);
     });
 
-    it('should apply category filters', () => {
-      const expandedNodes = new Set(['parent1']);
-      const filtered = filterHierarchicalNodes(mockNodes, [], '', 'beginner', expandedNodes);
-      
-      expect(filtered).toHaveLength(2);
-      expect(filtered.every(node => node.category === 'beginner')).toBe(true);
-    });
   });
 
   describe('toggleNodeExpansion', () => {
@@ -182,7 +170,6 @@ describe('hierarchicalNodeUtils', () => {
           id: 'child3',
           name: 'Child 3',
           domain: 'science',
-          category: 'advanced',
           prereqs: [],
           parentId: 'parent2',
           difficulty: 3,

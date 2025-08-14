@@ -124,8 +124,14 @@ export async function GET(request: NextRequest) {
 
     if (error) {
       console.error('Error fetching friend requests:', error);
+      console.error('Error details:', { 
+        message: error.message, 
+        code: error.code, 
+        details: error.details,
+        hint: error.hint 
+      });
       return NextResponse.json(
-        { error: 'Failed to fetch friend requests' },
+        { error: 'Failed to fetch friend requests', details: error.message },
         { status: 500 }
       );
     }

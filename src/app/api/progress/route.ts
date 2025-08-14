@@ -1,11 +1,34 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { createRouteHandlerClient } from '@supabase/auth-helpers-nextjs';
 import { cookies } from 'next/headers';
-import { withRateLimit } from '@/lib/rateLimit';
+import { getRateLimiter, cache, cacheKeys, cacheTTL } from '@/lib/redis';
+
+// Rate limiters
+const apiRateLimiter = getRateLimiter().api;
+const quizRateLimiter = getRateLimiter().quiz;
 
 export async function POST(request: NextRequest) {
-  return withRateLimit(request, async () => {
-    try {
+  try {
+    // Apply rate limiting for quiz submissions
+    const identifier = request.headers.get('x-forwarded-for') || 'anonymous';
+    const { success, limit, reset, remaining } = await quizRateLimiter.limit(identifier);
+    
+    if (!success) {
+      const response = NextResponse.json(
+        { 
+          error: 'Too many quiz attempts. Please try again later.', 
+          retryAfter: Math.round((reset - Date.now()) / 1000) 
+        },
+        { status: 429 }
+      );
+      
+      response.headers.set('X-RateLimit-Limit', limit.toString());
+      response.headers.set('X-RateLimit-Remaining', remaining.toString());
+      response.headers.set('X-RateLimit-Reset', new Date(reset).toISOString());
+      
+      return response;
+    }
+
     const supabase = createRouteHandlerClient({ cookies });
     
     // Check authentication
@@ -93,7 +116,14 @@ export async function POST(request: NextRequest) {
       console.error('Error updating user stats:', profileError);
     }
 
-    return NextResponse.json({
+    // Invalidate related caches
+    await Promise.all([
+      cache.delete(cacheKeys.userProgress(user.id)),
+      cache.delete(cacheKeys.userStats(user.id)),
+      cache.delete(cacheKeys.nodeStats(nodeId))
+    ]);
+
+    const response = NextResponse.json({
       success: true,
       data: progressData,
       message: existingProgress 
@@ -101,19 +131,43 @@ export async function POST(request: NextRequest) {
         : 'Progress recorded successfully'
     });
 
-    } catch (error) {
-      console.error('Error recording progress:', error);
-      return NextResponse.json(
-        { error: 'Failed to record progress' },
-        { status: 500 }
-      );
-    }
-  }, 'api-moderate');
+    response.headers.set('X-RateLimit-Limit', limit.toString());
+    response.headers.set('X-RateLimit-Remaining', remaining.toString());
+    response.headers.set('X-RateLimit-Reset', new Date(reset).toISOString());
+
+    return response;
+
+  } catch (error) {
+    console.error('Error recording progress:', error);
+    return NextResponse.json(
+      { error: 'Failed to record progress' },
+      { status: 500 }
+    );
+  }
 }
 
 export async function GET(request: NextRequest) {
-  return withRateLimit(request, async () => {
-    try {
+  try {
+    // Apply general API rate limiting
+    const identifier = request.headers.get('x-forwarded-for') || 'anonymous';
+    const { success, limit, reset, remaining } = await apiRateLimiter.limit(identifier);
+    
+    if (!success) {
+      const response = NextResponse.json(
+        { 
+          error: 'Too many requests. Please try again later.', 
+          retryAfter: Math.round((reset - Date.now()) / 1000) 
+        },
+        { status: 429 }
+      );
+      
+      response.headers.set('X-RateLimit-Limit', limit.toString());
+      response.headers.set('X-RateLimit-Remaining', remaining.toString());
+      response.headers.set('X-RateLimit-Reset', new Date(reset).toISOString());
+      
+      return response;
+    }
+
     const supabase = createRouteHandlerClient({ cookies });
     
     // Check authentication
@@ -129,6 +183,24 @@ export async function GET(request: NextRequest) {
     const { searchParams } = new URL(request.url);
     const nodeId = searchParams.get('nodeId');
 
+    // Try to get from cache
+    const cacheKey = nodeId 
+      ? `${cacheKeys.userProgress(user.id)}:${nodeId}`
+      : cacheKeys.userProgress(user.id);
+    
+    const cached = await cache.get(cacheKey);
+    if (cached) {
+      const response = NextResponse.json({
+        success: true,
+        data: cached
+      });
+      response.headers.set('X-Cache', 'HIT');
+      response.headers.set('X-RateLimit-Limit', limit.toString());
+      response.headers.set('X-RateLimit-Remaining', remaining.toString());
+      response.headers.set('X-RateLimit-Reset', new Date(reset).toISOString());
+      return response;
+    }
+
     let query = supabase
       .from('user_progress')
       .select('*')
@@ -142,17 +214,26 @@ export async function GET(request: NextRequest) {
 
     if (error) throw error;
 
-    return NextResponse.json({
+    // Cache the result
+    await cache.set(cacheKey, data, cacheTTL.medium);
+
+    const response = NextResponse.json({
       success: true,
       data
     });
 
-    } catch (error) {
-      console.error('Error fetching progress:', error);
-      return NextResponse.json(
-        { error: 'Failed to fetch progress' },
-        { status: 500 }
-      );
-    }
-  }, 'api-relaxed');
+    response.headers.set('X-Cache', 'MISS');
+    response.headers.set('X-RateLimit-Limit', limit.toString());
+    response.headers.set('X-RateLimit-Remaining', remaining.toString());
+    response.headers.set('X-RateLimit-Reset', new Date(reset).toISOString());
+
+    return response;
+
+  } catch (error) {
+    console.error('Error fetching progress:', error);
+    return NextResponse.json(
+      { error: 'Failed to fetch progress' },
+      { status: 500 }
+    );
+  }
 }

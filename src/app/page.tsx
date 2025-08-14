@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState, useEffect, useMemo, CSSProperties } from 'react';
-import { Brain, Trophy, Star, Lock, CheckCircle, X, ChevronRight, Grid, Map, User, Plus, Minus } from 'lucide-react';
+import { Brain, Trophy, Star, Lock, CheckCircle, X, ChevronRight, Grid, Map, User, Plus, Minus, MessageSquare } from 'lucide-react';
 
 // Import types
 import { Node, AnswerFeedback } from '../types';
@@ -42,6 +42,8 @@ import { OnboardingTrigger } from '../components/onboarding/OnboardingTrigger';
 import PerformanceMonitor from '../components/PerformanceMonitor';
 import { NotificationPermission } from '../components/NotificationPermission';
 import { pushNotificationService } from '../services/pushNotificationService';
+import Hierarchical2DKnowledgeMap from '../components/Hierarchical2DKnowledgeMap';
+import NodeCommentary from '../components/comments/NodeCommentary';
 
 const App = () => {
   // Authentication state from context
@@ -104,6 +106,7 @@ const App = () => {
   const [answerFeedback, setAnswerFeedback] = useState<AnswerFeedback | null>(null);
   const [showAuthModal, setShowAuthModal] = useState(false);
   const [showProfileModal, setShowProfileModal] = useState(false);
+  const [showCommentary, setShowCommentary] = useState(false);
   
   // Fetch quiz questions from database
   const { questions: currentQuizQuestions, loading: questionsLoading } = useQuizQuestions(
@@ -381,12 +384,23 @@ const App = () => {
           </div>
         }
       >
-        {/* Knowledge Graph */}
-        <div style={{
-          ...styles.graphContainer,
-          minWidth: isMobile ? '100%' : '1200px',
-          height: `${graphHeight}px`
-        }}>
+        {/* Knowledge Map */}
+        <Hierarchical2DKnowledgeMap
+          completedNodes={new Set(userStats.conqueredNodes)}
+          onNodeClick={(node) => {
+            setSelectedNode(node);
+            setShowQuiz(true);
+          }}
+          selectedNode={selectedNode}
+        />
+
+        {/* Old 2D map code - keeping for reference */}
+        {false && (
+          <div style={{
+            ...styles.graphContainer,
+            minWidth: isMobile ? '100%' : '1200px',
+            height: `${graphHeight}px`
+          }}>
           {/* Category Labels */}
           {Object.entries(getCategoryLabels(allNodes)).map(([category, label]) => (
             <div
@@ -589,12 +603,33 @@ const App = () => {
                     </div>
                   )}
                 </div>
-                <button
-                  onClick={() => setSelectedNode(null)}
-                  style={{ background: 'none', border: 'none', cursor: 'pointer' }}
-                >
-                  <X size={20} />
-                </button>
+                <div style={{ display: 'flex', gap: '10px' }}>
+                  <button
+                    onClick={() => setShowCommentary(true)}
+                    style={{ 
+                      background: 'linear-gradient(135deg, #8b5cf6, #a78bfa)',
+                      border: 'none',
+                      cursor: 'pointer',
+                      color: 'white',
+                      padding: '8px 12px',
+                      borderRadius: '8px',
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: '5px',
+                      fontSize: '12px',
+                      fontWeight: 'bold'
+                    }}
+                  >
+                    <MessageSquare size={16} />
+                    Commentary
+                  </button>
+                  <button
+                    onClick={() => setSelectedNode(null)}
+                    style={{ background: 'none', border: 'none', cursor: 'pointer' }}
+                  >
+                    <X size={20} />
+                  </button>
+                </div>
               </div>
               {selectedNode.isParent ? (
                 <div style={{
@@ -631,6 +666,7 @@ const App = () => {
             </div>
           )}
         </div>
+        )}
       </Layout>
 
       {/* Learning Modal */}
@@ -660,6 +696,60 @@ const App = () => {
             setAnswerFeedback(null);
           }}
         />
+      )}
+
+      {/* Commentary Modal */}
+      {selectedNode && showCommentary && (
+        <div style={{
+          position: 'fixed',
+          top: 0,
+          left: 0,
+          right: 0,
+          bottom: 0,
+          background: 'rgba(0,0,0,0.8)',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          zIndex: 1000,
+          padding: '20px'
+        }}>
+          <div style={{
+            background: 'white',
+            borderRadius: '20px',
+            padding: '0',
+            maxWidth: '800px',
+            width: '100%',
+            maxHeight: '90vh',
+            overflow: 'hidden',
+            display: 'flex',
+            flexDirection: 'column' as const
+          }}>
+            <div style={{
+              padding: '20px',
+              borderBottom: '1px solid #e5e7eb',
+              display: 'flex',
+              justifyContent: 'space-between',
+              alignItems: 'center'
+            }}>
+              <h2 style={{ margin: 0, color: '#2a2a2a', fontWeight: 'bold' }}>
+                Community Commentary: {selectedNode.name}
+              </h2>
+              <button
+                onClick={() => setShowCommentary(false)}
+                style={{ background: 'none', border: 'none', cursor: 'pointer' }}
+              >
+                <X size={24} />
+              </button>
+            </div>
+            <div style={{
+              flex: 1,
+              overflow: 'auto',
+              padding: '20px'
+            }}>
+              <NodeCommentary nodeId={selectedNode.id} nodeName={selectedNode.name} />
+            </div>
+          </div>
+        </div>
       )}
 
       {/* Legacy Quiz Modal - Keeping for reference, remove later */}

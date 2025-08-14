@@ -15,7 +15,6 @@ export const FirstNodeStep: React.FC = () => {
       difficulty: 'Beginner',
       duration: '5 min',
       points: 50,
-      category: 'Science',
       color: '#4facfe',
     },
     {
@@ -25,7 +24,6 @@ export const FirstNodeStep: React.FC = () => {
       difficulty: 'Beginner',
       duration: '7 min',
       points: 60,
-      category: 'Mathematics',
       color: '#667eea',
     },
     {
@@ -35,7 +33,6 @@ export const FirstNodeStep: React.FC = () => {
       difficulty: 'Beginner',
       duration: '6 min',
       points: 55,
-      category: 'History',
       color: '#fa709a',
     },
     {
@@ -45,7 +42,6 @@ export const FirstNodeStep: React.FC = () => {
       difficulty: 'Beginner',
       duration: '4 min',
       points: 45,
-      category: 'Skills',
       color: '#4ade80',
     },
   ];
@@ -113,16 +109,6 @@ export const FirstNodeStep: React.FC = () => {
       alignItems: 'flex-start',
       justifyContent: 'space-between',
       marginBottom: '12px',
-    } as CSSProperties,
-    nodeCategory: {
-      display: 'inline-block',
-      padding: '4px 8px',
-      borderRadius: '6px',
-      fontSize: '10px',
-      fontWeight: 'bold',
-      color: 'white',
-      textTransform: 'uppercase',
-      letterSpacing: '0.5px',
     } as CSSProperties,
     playButton: {
       width: '36px',
@@ -298,9 +284,7 @@ export const FirstNodeStep: React.FC = () => {
             )}
             
             <div style={styles.nodeHeader}>
-              <span style={{ ...styles.nodeCategory, background: node.color }}>
-                {node.category}
-              </span>
+              <div></div>
               <button 
                 style={styles.playButton}
                 onMouseEnter={(e) => {

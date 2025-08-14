@@ -21,15 +21,15 @@ export default function Layout({ children, sidebar, rightPanel, isMobile = false
         `}>
           {/* Left Sidebar */}
           {!isMobile && sidebar && (
-            <aside className="space-y-4">
-              <div className="sticky top-6">
+            <aside className="space-y-4 relative" style={{ zIndex: 9999 }}>
+              <div className="sticky top-6 overflow-visible">
                 {sidebar}
               </div>
             </aside>
           )}
 
           {/* Main Content Area */}
-          <main className="min-w-0">
+          <main className="min-w-0 relative z-20">
             <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-xl overflow-hidden">
               {children}
             </div>
@@ -37,7 +37,7 @@ export default function Layout({ children, sidebar, rightPanel, isMobile = false
 
           {/* Right Panel */}
           {!isMobile && rightPanel && (
-            <aside className="space-y-4">
+            <aside className="space-y-4 relative z-10">
               <div className="sticky top-6">
                 {rightPanel}
               </div>

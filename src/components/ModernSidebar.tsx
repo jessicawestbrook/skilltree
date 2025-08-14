@@ -1,8 +1,10 @@
 'use client';
 
 import React from 'react';
-import { Search, Filter, BookOpen, Brain, Trophy, Target, Users, UserPlus, Activity } from 'lucide-react';
+import { Search, Filter, BookOpen, Brain, Trophy, Target, Users, UserPlus, Activity, ChevronRight } from 'lucide-react';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
+import { knowledgeStructure } from '@/data/comprehensiveKnowledgeStructure';
 
 interface ModernSidebarProps {
   searchTerm: string;
@@ -21,22 +23,31 @@ export default function ModernSidebar({
   activeFilters,
   toggleFilter
 }: ModernSidebarProps) {
-  const views = [
-    { id: 'all', label: 'All Nodes', icon: Brain, color: 'purple' },
-    { id: 'available', label: 'Available', icon: Target, color: 'blue' },
-    { id: 'completed', label: 'Completed', icon: Trophy, color: 'green' },
-    { id: 'locked', label: 'Locked', icon: BookOpen, color: 'gray' }
-  ];
+  const router = useRouter();
 
-  const filters = [
-    { id: 'fundamentals', label: 'Fundamentals', icon: '📚' },
-    { id: 'specialized', label: 'Specialized', icon: '🎯' },
-    { id: 'advanced', label: 'Advanced', icon: '🚀' },
-    { id: 'practical', label: 'Practical', icon: '🛠️' }
-  ];
+  // Get main knowledge categories from the actual data structure
+  const mainCategories = knowledgeStructure.subcategories || [];
+  
+  const categoryIcons: { [key: string]: string } = {
+    mathematics: '🧮',
+    sciences: '🔬',
+    languages: '🗣️',
+    arts: '🎨',
+    technology: '💻',
+    history: '📚',
+    'social-sciences': '👥',
+    'practical-skills': '🛠️',
+    'health-fitness': '💪',
+    'philosophy-religion': '🤔',
+    business: '💼'
+  };
+
+  const handleCategoryClick = (categoryId: string) => {
+    router.push(`/category/${categoryId}`);
+  };
 
   return (
-    <div className="space-y-4">
+    <div className="space-y-4 overflow-visible relative" style={{ zIndex: 100 }}>
       {/* Search */}
       <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-4">
         <div className="relative">
@@ -51,57 +62,112 @@ export default function ModernSidebar({
         </div>
       </div>
 
-      {/* View Selector */}
-      <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-4">
+      {/* Knowledge Categories */}
+      <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-4 relative" style={{ zIndex: 100 }}>
         <h3 className="text-sm font-semibold text-gray-700 dark:text-gray-300 mb-3 flex items-center gap-2">
-          <Filter className="w-4 h-4" />
-          View Mode
+          <BookOpen className="w-4 h-4" />
+          Knowledge Categories
         </h3>
-        <div className="space-y-2">
-          {views.map((view) => {
-            const Icon = view.icon;
-            const isActive = currentView === view.id;
+        <div className="space-y-1 relative" style={{ zIndex: 100 }}>
+          {mainCategories.map((category) => {
+            const icon = categoryIcons[category.id] || '📚';
+            const hasSubcategories = category.subcategories && category.subcategories.length > 0;
+            
             return (
-              <button
-                key={view.id}
-                onClick={() => setCurrentView(view.id)}
-                className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-lg transition-all ${
-                  isActive
-                    ? `bg-${view.color}-100 dark:bg-${view.color}-900/30 text-${view.color}-700 dark:text-${view.color}-300 font-medium`
-                    : 'hover:bg-gray-50 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-300'
-                }`}
-              >
-                <Icon className="w-4 h-4" />
-                <span className="text-sm">{view.label}</span>
-                {isActive && (
-                  <div className="ml-auto w-2 h-2 bg-current rounded-full"></div>
+              <div key={category.id} className="relative group/category z-auto">
+                <button
+                  onClick={() => handleCategoryClick(category.id)}
+                  className="w-full flex items-center gap-3 px-3 py-2.5 rounded-lg transition-all hover:bg-gray-50 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-300 group relative z-10"
+                >
+                  <span className="text-base">{icon}</span>
+                  <div className="flex-1 text-left">
+                    <div className="text-sm font-medium">{category.name}</div>
+                    <div className="text-xs text-gray-500 dark:text-gray-400 truncate">
+                      {category.description}
+                    </div>
+                  </div>
+                  <ChevronRight size={14} className="text-gray-400 group-hover:text-gray-600 dark:group-hover:text-gray-300" />
+                </button>
+                
+                {/* Hover Menu for Subcategories */}
+                {hasSubcategories && (
+                  <div 
+                    className="absolute left-full top-0 ml-2 w-64 bg-white dark:bg-gray-800 rounded-xl shadow-2xl border border-gray-200 dark:border-gray-700 opacity-0 invisible group-hover/category:opacity-100 group-hover/category:visible transition-all duration-200 pointer-events-none group-hover/category:pointer-events-auto isolate"
+                    style={{ 
+                      zIndex: 999999,
+                      position: 'absolute'
+                    }}
+                  >
+                    <div className="p-3">
+                      <div className="text-xs font-semibold text-gray-600 dark:text-gray-400 mb-2 px-2">
+                        {category.name} Subcategories
+                      </div>
+                      <div className="space-y-1 max-h-80 overflow-y-auto">
+                        {category.subcategories.map((subcategory) => (
+                          <button
+                            key={subcategory.id}
+                            onClick={() => router.push(`/category/${category.id}/${subcategory.id}`)}
+                            className="w-full flex items-start gap-2 px-2 py-2 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 text-left transition-colors group/sub"
+                          >
+                            <div 
+                              className="w-3 h-3 rounded-full mt-1 flex-shrink-0"
+                              style={{ backgroundColor: subcategory.color }}
+                            />
+                            <div className="flex-1 min-w-0">
+                              <div className="text-sm font-medium text-gray-900 dark:text-gray-100 group-hover/sub:text-blue-600 dark:group-hover/sub:text-blue-400 transition-colors">
+                                {subcategory.name}
+                              </div>
+                              <div className="text-xs text-gray-500 dark:text-gray-400 line-clamp-2 leading-relaxed">
+                                {subcategory.description.length > 60 
+                                  ? `${subcategory.description.substring(0, 60)}...` 
+                                  : subcategory.description
+                                }
+                              </div>
+                              {subcategory.subcategories && (
+                                <div className="text-xs text-gray-400 mt-1">
+                                  {subcategory.subcategories.length} subcategories
+                                </div>
+                              )}
+                              {subcategory.nodes && (
+                                <div className="text-xs text-gray-400 mt-1">
+                                  {subcategory.nodes.length} topics
+                                </div>
+                              )}
+                            </div>
+                          </button>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
                 )}
-              </button>
+              </div>
             );
           })}
         </div>
       </div>
 
-      {/* Category Filters */}
+      {/* Legacy Domain Filters - for backward compatibility */}
       <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-4">
-        <h3 className="text-sm font-semibold text-gray-700 dark:text-gray-300 mb-3">
-          Categories
+        <h3 className="text-sm font-semibold text-gray-700 dark:text-gray-300 mb-3 flex items-center gap-2">
+          <Filter className="w-4 h-4" />
+          Legacy Filters
         </h3>
         <div className="space-y-2">
-          {filters.map((filter) => {
-            const isActive = activeFilters.includes(filter.id);
+          {mainCategories.slice(0, 6).map((category) => {
+            const isActive = activeFilters.includes(category.id);
+            const icon = categoryIcons[category.id] || '📚';
             return (
               <button
-                key={filter.id}
-                onClick={() => toggleFilter(filter.id)}
+                key={category.id}
+                onClick={() => toggleFilter(category.id)}
                 className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-lg transition-all ${
                   isActive
                     ? 'bg-purple-100 dark:bg-purple-900/30 text-purple-700 dark:text-purple-300 font-medium'
                     : 'hover:bg-gray-50 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-300'
                 }`}
               >
-                <span className="text-lg">{filter.icon}</span>
-                <span className="text-sm">{filter.label}</span>
+                <span className="text-lg">{icon}</span>
+                <span className="text-sm">{category.name}</span>
                 <div className={`ml-auto w-4 h-4 rounded border-2 transition-all ${
                   isActive
                     ? 'bg-purple-600 border-purple-600'

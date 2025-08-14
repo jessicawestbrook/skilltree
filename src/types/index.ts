@@ -4,7 +4,6 @@ export interface Node {
   id: string;
   name: string;
   prereqs: string[];
-  category: string;
   domain: string;
   difficulty: number;
   points: number;

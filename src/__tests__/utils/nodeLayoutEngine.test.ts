@@ -10,7 +10,6 @@ describe('nodeLayoutEngine', () => {
             id: 'math1',
             name: 'Basic Math',
             domain: 'math',
-            category: 'foundation',
             prereqs: [],
             difficulty: 1,
             points: 50,
@@ -20,7 +19,6 @@ describe('nodeLayoutEngine', () => {
             id: 'math2',
             name: 'Advanced Math',
             domain: 'math',
-            category: 'foundation',
             prereqs: ['math1'],
             difficulty: 2,
             points: 100,
@@ -30,8 +28,7 @@ describe('nodeLayoutEngine', () => {
                 id: 'math2-sub1',
                 name: 'Calculus',
                 domain: 'math',
-                category: 'foundation',
-                prereqs: [],
+                    prereqs: [],
                 difficulty: 3,
                 points: 150,
                 parentId: 'math2'
@@ -44,7 +41,6 @@ describe('nodeLayoutEngine', () => {
             id: 'sci1',
             name: 'Basic Science',
             domain: 'science',
-            category: 'foundation',
             prereqs: [],
             difficulty: 1,
             points: 50,
@@ -57,7 +53,6 @@ describe('nodeLayoutEngine', () => {
           id: 'adv1',
           name: 'Advanced Topic',
           domain: 'mixed',
-          category: 'advanced',
           prereqs: ['math1', 'sci1'],
           difficulty: 4,
           points: 200,
@@ -71,7 +66,6 @@ describe('nodeLayoutEngine', () => {
       
       expect(result.nodes).toBeDefined();
       expect(result.nodes.length).toBeGreaterThan(0);
-      expect(result.categoryLabels).toBeDefined();
     });
 
     it('should assign unique positions to each node', () => {
@@ -108,30 +102,19 @@ describe('nodeLayoutEngine', () => {
       expect(subnode).toBeUndefined();
     });
 
-    it('should create category labels', () => {
-      const result = layoutNodesWithCollisionDetection(mockHierarchicalData);
-      
-      expect(result.categoryLabels).toBeDefined();
-      expect(result.categoryLabels['foundation']).toBeDefined();
-      expect(result.categoryLabels['foundation'].name).toBe('FOUNDATION');
-      expect(typeof result.categoryLabels['foundation'].y).toBe('number');
-    });
 
     it('should handle null or undefined data gracefully', () => {
       const result1 = layoutNodesWithCollisionDetection(null);
       expect(result1.nodes).toEqual([]);
-      expect(result1.categoryLabels).toEqual({});
       
       const result2 = layoutNodesWithCollisionDetection(undefined);
       expect(result2.nodes).toEqual([]);
-      expect(result2.categoryLabels).toEqual({});
     });
 
     it('should handle empty data', () => {
       const result = layoutNodesWithCollisionDetection({});
       
       expect(result.nodes).toEqual([]);
-      expect(result.categoryLabels).toEqual({});
     });
 
     it('should prevent node collisions', () => {
@@ -163,7 +146,6 @@ describe('nodeLayoutEngine', () => {
             id: 'master1',
             name: 'Master Node',
             domain: 'mastery',
-            category: 'mastery',
             prereqs: [],
             difficulty: 5,
             points: 500,
@@ -204,7 +186,6 @@ describe('nodeLayoutEngine', () => {
               id: `node-${cat}-${dom}-${node}`,
               name: `Node ${cat}-${dom}-${node}`,
               domain: `domain${dom}`,
-              category: `category${cat}`,
               prereqs: [],
               difficulty: 1,
               points: 50,
@@ -241,7 +222,7 @@ describe('nodeLayoutEngine', () => {
 
     it('should handle circular references in data', () => {
       const circularData: any = {
-        category: {
+        invalidCategory: {
           domain: []
         }
       };

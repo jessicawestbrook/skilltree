@@ -51,10 +51,8 @@ export const filterNodes = (
     );
   }
   
-  // Filter by view
-  if (currentView !== 'all') {
-    nodes = nodes.filter(node => node.category === currentView);
-  }
+  // Filter by view (removed category filtering since categories are no longer used)
+  // View filtering can be reimplemented based on other criteria if needed
   
   return nodes;
 };

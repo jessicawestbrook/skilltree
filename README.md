@@ -111,13 +111,23 @@ An interactive knowledge learning platform that gamifies education across all do
    
    ```sql
    -- Run each script in the Supabase SQL editor:
+   scripts/create-social-tables.sql   # Creates all social feature tables (friends, groups, activity feed)
+   
+   -- Or run individual migration scripts:
    00-prepare-for-migration.sql      # Disables RLS for migration
    01-create-core-tables.sql          # Core tables
    02-create-dependent-tables.sql     # Dependent tables
    03-create-user-tables.sql          # User profile tables
    04-create-views-and-functions.sql  # Views and triggers
-   10-social-features.sql             # Social features (friends, groups, activity feed)
    ```
+   
+   **Important**: The `create-social-tables.sql` script creates all necessary tables for social features including:
+   - Friends and friend requests tables
+   - User profiles table
+   - Study groups and members tables
+   - Activity feed table
+   - Friend suggestions function
+   - All necessary RLS policies
 
 5. **Migrate the data**
    ```bash

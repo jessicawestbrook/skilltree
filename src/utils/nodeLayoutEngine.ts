@@ -52,26 +52,22 @@ const findAvailablePosition = (
 export const layoutNodesWithCollisionDetection = (
   hierarchicalData: any,
   expandedNodes: Set<string> = new Set()
-): { nodes: Node[]; categoryLabels: { [key: string]: { y: number, name: string } } } => {
+): { nodes: Node[] } => {
   try {
     const nodes: Node[] = [];
     const occupiedRects: Array<{ x: number; y: number; width: number; height: number }> = [];
     let index = 0;
     let globalY = 80; // Start with some padding from top
     
-    // Add category labels as special nodes
-    const categoryLabels: { [key: string]: { y: number, name: string } } = {};
     
     // Validate input data
     if (!hierarchicalData || typeof hierarchicalData !== 'object') {
       console.warn('Invalid hierarchical data provided to layout engine');
-      return { nodes: [], categoryLabels: {} };
+      return { nodes: [] };
     }
     
     // Process each category
     Object.entries(hierarchicalData).forEach(([categoryName, domains]) => {
-    // Store category position for label
-    categoryLabels[categoryName] = { y: globalY - 40, name: categoryName.toUpperCase() };
     let categoryMaxY = globalY;
     
     if (typeof domains === 'object' && !Array.isArray(domains) && domains !== null) {
@@ -193,13 +189,13 @@ export const layoutNodesWithCollisionDetection = (
     globalY = categoryMaxY + CATEGORY_SPACING;
   });
   
-  return { nodes, categoryLabels };
+  return { nodes };
   } catch (error) {
     console.error('Error in layout engine:', error);
     // Return fallback layout on error
     return { 
       nodes: [], 
-      categoryLabels: {} 
+ 
     };
   }
 };

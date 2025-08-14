@@ -384,7 +384,7 @@ export const hierarchicalKnowledgeGraph = {
 export const getAllHierarchicalNodes = (expandedNodes: Set<string> = new Set()): Node[] => {
   try {
     // Use the new collision-detection layout engine
-    const { nodes, categoryLabels } = layoutNodesWithCollisionDetection(hierarchicalKnowledgeGraph, expandedNodes);
+    const { nodes } = layoutNodesWithCollisionDetection(hierarchicalKnowledgeGraph, expandedNodes);
     
     // If no nodes were generated, fall back to simple layout
     if (nodes.length === 0) {
@@ -392,11 +392,7 @@ export const getAllHierarchicalNodes = (expandedNodes: Set<string> = new Set()):
       return createFallbackLayout(expandedNodes);
     }
     
-    // Add category labels to the export for backward compatibility
-    const nodesWithLabels = nodes as Node[] & { categoryLabels: typeof categoryLabels };
-    nodesWithLabels.categoryLabels = categoryLabels;
-    
-    return nodesWithLabels;
+    return nodes;
   } catch (error) {
     console.error('Error in getAllHierarchicalNodes, using fallback:', error);
     return createFallbackLayout(expandedNodes);
@@ -446,15 +442,10 @@ const createFallbackLayout = (expandedNodes: Set<string> = new Set()): Node[] =>
     }
   });
   
-  const categoryLabels = {};
-  const nodesWithLabels = nodes as Node[] & { categoryLabels: typeof categoryLabels };
-  nodesWithLabels.categoryLabels = categoryLabels;
-  
-  return nodesWithLabels;
+  return nodes;
 };
 
-// Helper to get category labels
+// Helper to get category labels (deprecated - categories removed)
 export const getCategoryLabels = (nodes: Node[]): { [key: string]: { y: number, name: string } } => {
-  const nodesWithLabels = nodes as Node[] & { categoryLabels?: { [key: string]: { y: number, name: string } } };
-  return nodesWithLabels.categoryLabels || {};
+  return {};
 };

@@ -1,8 +1,8 @@
 'use client';
 
-import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
+import React, { createContext, useContext, useState, useEffect, ReactNode, useMemo } from 'react';
 import { AuthContextType, User, LoginCredentials, RegisterCredentials } from '../types';
-import { supabase } from '../lib/supabase';
+import { createClient } from '../lib/supabase-client';
 import type { User as SupabaseUser } from '@supabase/supabase-js';
 import { saveSession, getStoredSession, clearStoredSession } from '../utils/sessionStorage';
 import { ErrorLogger } from '../utils/errorLogger';
@@ -28,6 +28,9 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const [error, setError] = useState<string | null>(null);
   const [sessionChecked, setSessionChecked] = useState(false);
   const [refreshTimer, setRefreshTimer] = useState<NodeJS.Timeout | null>(null);
+  
+  // Create supabase client once using useMemo
+  const supabase = useMemo(() => createClient(), []);
 
   // Helper function to convert Supabase user to our User type
   const mapSupabaseUser = (supabaseUser: SupabaseUser): User => {
