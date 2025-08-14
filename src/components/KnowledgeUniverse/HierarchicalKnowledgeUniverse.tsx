@@ -10,18 +10,13 @@ import {
   Line,
   PerspectiveCamera,
   Float,
-  Sparkles,
-  Box,
-  RoundedBox,
-  Billboard
+  Sparkles
 } from '@react-three/drei';
 import * as THREE from 'three';
 import { Node } from '@/types';
 import { 
   knowledgeStructure, 
-  KnowledgeCategory, 
-  flattenKnowledgeStructure,
-  getCategoryHierarchy 
+  KnowledgeCategory
 } from '@/data/comprehensiveKnowledgeStructure';
 
 interface CategoryNodeProps {
@@ -285,7 +280,6 @@ function UniverseScene({
   hoveredCategory,
   onHoverCategory
 }: UniverseSceneProps) {
-  const { camera } = useThree();
   
   const positions = useMemo(() => {
     const pos = new Map<string, [number, number, number]>();
