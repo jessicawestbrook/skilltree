@@ -1,0 +1,249 @@
+# SkillTree App Project
+
+## Project Overview
+Interactive skill tree visualization application built with React, TypeScript, and D3.js. Uses Supabase for backend services.
+
+## Tech Stack
+- **Frontend**: React 19, TypeScript 4.9
+- **Styling**: Tailwind CSS
+- **Data Visualization**: D3.js
+- **Backend**: Supabase
+- **Routing**: React Router v7
+- **UI Components**: Headless UI, Heroicons
+
+## Project Structure
+```
+skilltree2/
+├── src/
+│   ├── components/    # Reusable React components
+│   ├── contexts/      # React context providers
+│   ├── pages/         # Page components
+│   ├── services/      # API and external service integrations
+│   ├── types/         # TypeScript type definitions
+│   └── utils/         # Utility functions
+├── public/            # Static assets
+└── .env.local        # Environment variables (Supabase credentials)
+```
+
+## Available Scripts
+- `npm start` - Run development server on port 3000
+- `npm run build` - Build for production
+- `npm test` - Run tests
+- `npm run lint` - Run ESLint on all TypeScript files (fails on warnings)
+- `npm run lint:fix` - Run ESLint and auto-fix issues
+- `npm run typecheck` - Run TypeScript compiler for type checking
+- `npm run check-all` - Run both type checking and linting
+
+## Environment Variables
+Store Supabase credentials and other sensitive configuration in `.env.local`:
+- `REACT_APP_SUPABASE_URL`
+- `REACT_APP_SUPABASE_ANON_KEY`
+
+## Development Guidelines
+- Follow existing TypeScript patterns and type safety
+- Use Tailwind CSS for styling
+- Components should be functional with hooks
+- Keep components modular and reusable
+- Use D3.js for skill tree visualizations
+- Store application state in React contexts when needed
+
+## Testing
+Tests use Jest and React Testing Library. Place test files next to components with `.test.tsx` extension. Make sure tests have high coverage and pass.
+
+## Important Notes
+- Service worker is configured for offline capabilities
+- Vercel deployment configuration present
+- Database has 5,703 skill tree nodes (learning modules)
+- Learning content IDs are stored directly in skill_tree_nodes table (has_learning_content and learning_content_ids fields)
+- Color scheme: Green (primary) and Gold (secondary/accent)
+
+## Documents
+ - Theoretical Foundations: C:\Users\jessi\Projects\skilltree2\THEORETICAL_FOUNDATIONS.md
+
+# Overview
+I want to build a website called SkillTree which is for homeschooling, supplemental learning, and lifelong learning. It's called SkillTree like a video game skill tree in order to sound interesting to boys who have been showing less interest in school than girls in recent years. I want the theme to feel somewhat videogame based, but I also don't want to deter girls and adults, so I want the theme to also be somewhat neutral colors and nature-inspired. Green and gold should be the primary coloring scheme. I also want the formatting to appear fun and modern so that users become engaged and even addicted to the learning process. Using it should feel like a video game that keeps you addicted because you keep improving. I want users to feel like now they have a path forward for learning everything they ever dreamed of. I don't want to overly focus on learning content for very young children because there are already many programs available with content appropriate for them.
+
+## Technical specs
+I want the site to be written in React and the database will be set up on Supabase. I will use Github and deploy on Vercel. Make visualizations with the D3 library. The initial knowledge tree and questions and more are stored in the Supabase skill tree database. The application should be a PWA and mobile-friendly. Add storage of images in the database rather than using urls to other sites, which can break. Many images should already be stored in the db. Content should load very quickly, and if queries are taking longer than a second to load then there needs to be some modifications made in the site design and/or queries. Use agents to complete tasks, and advise me of how we can use them better. If you run into any permissions issues, let me know what API keys and other credentials I need, before trying to implement a workaround.  You should be querying the database directly to access data and understand how to solve database issues. Run the build to see any errors and fix any issues before recommending that I look at a web page.
+
+## Appearance/Design
+I'm a fan of having less content on the page when it makes sense because people's brains can't handle too much "stuff" at once, so generally avoid unnecessary text or other objects being displayed at once. For example, don't have duplicate Home links on the menu bar. But I also don't want to make the user have to do a lot of clicking to go from page to page to get to the material they want--I'd rather it all be readily accessible on one page.
+
+Use trees and tree theming for logo and site learning tree design. The logo in the brand and in the favicon should be very similar if not the same.
+
+The whole question text and question options should be viewable on the typical laptop or mobile screen without having to scroll, unless it's a really long question.
+
+## Site
+Users can click on a category of interest to go to a separate page and learn about the overall learning content within that category. Users will be able to log in and save categories of interest they want to learn about.  Then there are recommend content areas for them to learn about next. 
+
+## Features
+
+### Tree viz
+Initiate the list view with the top 3 categories already opened, and remove category subheaders. There should be a way so that when you click a category in the mind map, it takes you to the list view with the category as the root node and any children opened up and visible.  The skill tree looks like a radial layout, decision tree, or mind map format but more attractive. Make the tree clickable and easy to navigate. 
+
+Obviously the tree is too big to display the whole (5,000 nodes) thing in one component, so only show a limited number of tree items at once, and make it easy to star categories of interest. Show the entire tree component on the screen without having to scroll. They can then filter their own personalized mind map so that only their starred items of interest are displayed. The symbol for bookmarking should be a star. There should also be a text-only view for people who don't want to navigate a strange viz and for users who don't have a lot of internet bandwidth for loading a lot of complex content. The tree viz and list view should be tied together and displayed side by side and work together so that when someone opens content in one, it is also displayed in the other at the same time, along with the immediate ancestor and child nodes.
+
+Use a colored circle completion indicator for your progress on a topic--gray means not started, yellow means in progress, green means you passed the test for that topic, while a circle that is filled in white with a gray outline represents a topic that does not yet have learning content. 
+
+### Content searching
+Search bar to easily find content categories, learning content, and questions. Don't just use text matching, use a more sophisticated search engine. This should already be implemented.
+
+## Learning content
+When a user clicks a content area they want to learn about next, it opens a modal that gives a brief (perhaps 3-question) quiz, then it shows a learning content page which includes one or more pictures and a short text to learn about the topic.  The short text can be around 200-1000 words, or however long it makes sense to learn about the topic. It should be easy to learn the learning content in 10-30 minutes. Visualizations can help learners, so wherever possible include relevant pictures, for example pictures of art or AI-generated pictures representing math explanations and/or quiz questions. Book summaries can be longer. Then it will give a test to show mastery of the content. Some content areas are high-level categories that have that may or may not have their own learning content and testing. Leaf nodes always have their own learning content and testing.
+
+### IQ testing
+Organize the IQ test flow as just a series of timed tests without a prequiz or learning content.  Try to find actual IQ tests from the internet with the actual time limits. IQ tests should not be randomly selected from the question bank but rather should be in the specific order that it was created in. Evaluate the person's IQ at the end based on the evaluation metrics for that IQ test. Try to use more recent (last 10-20 years) IQ tests when available because IQ test results are standardized around the answers of other people from a particular time period, and IQ test results have been changing over time. Keep track of how users performed on a specific IQ test and the resultant IQ that was assigned, rather than tracking typical test metrics like percent correct. Also keep track of how many times a user took a particular IQ test and their score history for it. 
+
+### Standardized testing
+Standardized Testing subcategories can include different popular standardized tests such as the ACT, SAT, and LSAT. Fill out the questions similarly to what has been done for the IQ test category, trying to use actual tests found online and timing the test and evaluating the results based on the specific answers provided by the source with that test. Try to go with old tests that were actually administered to students, not similar example tests written by other people or organizations. When someone begins a test, provide a source and link to where you got the learning material from. Keep track of how users performed on a specific test and the resultant score that was assigned, rather than tracking typical test metrics like percent correct. Also keep track of how many times a user took a particular test and their score history for it. 
+
+### Learning paths
+There are recommended learning paths. Some topics, especially in math, have prerequisits for advancement. Users can pass out of prerequisits by taking short mastery tests. Mastery tests can be at the course or learning content area level.
+
+### Reading comprehension
+For Reading Comprehension, don't show the questions in the Quick Practice box, and make it so multiple questions can be associated with one reading. Try to get reading comprehension questions from online question banks, and save the url where the material and questions were sourced.
+
+### Spelling bee
+Add spelling bee practice where a word is said aloud, and the user is given an example sentence using the word (with the word replaced by a blank) as well as background information on the word, and then the user to type in the spelling. After the user submits their answer, provide the answer along with tips to remember how to spell it next time including history of the etymological roots.  Spelling bee audio should be based on a computer voice, there should be APIs available to do this, and the audio files should be saved to database. You can get the spelling bee questions based on the Scripps National Spelling Bee and other spelling bees, where available online.
+
+### Feedback
+Add a feedback system, with different categories of feedback the user can select from, such as bug reports or learning content requests. Create an admin page for responding to the requests as well as a messaging history so users can see admin responses. Link the feedback system in the top menu. Add ability for user to flag content or questions that have issues.
+
+### Random question box
+Sidebar which gives a randomly selected question from content areas the user has starred or worked on in the past. For new users it can display a simple random question. After a question is submitted, the answer explanation pops up, and the user can choose to move on to the next question. Display the knowledge hierarchy path so the user knows where the question is coming from. Don't show the random question box on mobile.
+
+### Intro test
+Test that evaluates which areas you're strong/weak at and/or uninterested in and then recommends next content to learn.
+
+### Node test
+You pass the test for a topic if you get 100% of the questions correct. Save the url where the IQ test, standardized test, reading comprehension content, etc. was sourced from. If any individual questions were sourced from a site online, save that to the database as well.
+
+### Question bank
+It's important to organize the learning content areas and hierarchy of knowledge well before writing questions in the question bank so that you don't have to move questions to different categories as the categorization system evolves. For that reason, writing the question banks should come as a final task in the project. Also, it will take a long time to run and require my input for each learning category, so we should estimate costs and validate with me before you start a question bank creation task. You will need to write a question bank for each content area to draw from for these questions and tests. Each content area should generally have at least 20 questions to draw from, but more is generally better if you're able to create good questions that make sense. These questions will be stored in the db. Always stop and show me what questions you're planning to add to the db before adding them. 
+
+These questions should usually be multiple choice but can also be in other formats. Questions should usually be answerable without doing a lot of calculating--they should usually be conceptual questions rather than cranking out calculations (for example, calculus questions can become very involved, but try to make most questions answerable just by thinking about the concept). Try to make questions test the content being taught, and not other unrelated content. For example, "Which article is correct: ___ nieto?" this question is not good for the Spanish Family section because it's testing about articles and word gender rather than about the family relationships themselves. Each question should only have one correct answer.  Questions should work as standalone content with answer explanations that teach the users more whether they got the question right or wrong.  Avoid vague/simplified questions like "How did the Catholic church impact the economy during the Gilded Age?" since these sorts of questions are too general, and it could be argued many different ways. Try to make questions more specific to actual events and problem types rather than summarizing events in such a simplistic manner. Make questions work as standalone questions rather than being what are presumably meant to be reading comprehension questions of some summary textbook-type content. Create a detailed answer to the question so that the user can learn from the answer, whether they got the question right or wrong. Try to provide an explanation for not only the correct answer but also an explanation about the incorrect answers and why they're incorrect. Also try to add a relevant picture to each one in order to make the content more memorable. It may be difficult to do this with a lot of the math problems, but where possible try to turn the math problems into story problems with a relevant picture to help explain the content. The picture can be either a good quality, fair use one found online that doesn't have any watermarks on it, an icon/graphic, or it can be AI generated. Ensure that if the question specifically talks about an image then the relevant image exists for it, such as for questions where it asks the number of objects in the picture.  
+
+Keep track of which questions the user has seen before and whether they got it right or wrong--this information can be used in algorithms for recommending review questions. The number of questions in the question bank should be as large as makes sense, but more is generally better. For example, vocabulary banks could be based on hundreds or thousands of words, learning the multiplication table could be up to a hundred questions, etc. 
+
+Preferentially show questions in quizzes which have been previously viewed the least number of times by that user in that question bank. For example, if someone has taken a quiz multiple times and some questions have already been viewed or viewed multiple times, when they take it again show them questions which they have not seen as many times previously. Don't show a question in the content area test that was just shown in the intro quiz.
+
+#### Question explanations
+You will also need to write answer explanations for every question. Be complete and thorough when explaining your reasoning for why that is the correct answer. When it makes sense, such as for humanities, social sciences, and sciences content, include links to external learning content that explains your answer. (This would not make sense for learning languages or reading comprehension questions.)
+
+After each question answer is submitted, show an explanation for the answer before moving on to the next question.  You can draw a lot of examples for building these question banks from content already found on the internet.  There can be an infinite number of review questions because it will just keep drawing randomly from the question bank. 
+
+## Specs
+
+### Menu bar
+Put key site components on the upper menu bar, including Spelling Bee, Standardized Tests, IQ Tests, Career Advancement. A menu dropdown should be combined with the profile button so the dropdown is on the right side of the button. It should say sign up/login, or if the user is already logged in it should display the user name that takes the user to their profile when clicked.
+
+## Mega menu
+Home page should have a mega menu to view the first 3 nodes in the skills tree and be able to click them to go to a page dedicated to that learning category. Menu should automatically update if the skill tree updates in the db.
+
+### Tree view
+Add a checkbox on the list view page which allows user to expand the whole menu. 
+
+In tree view, while the user should be able to drill down to lower tree depths, only the previous and immediate child nodes should be displayed at once. you shouldn't display the whole tree at once. All the text in the tree view should be visible and not cut off. Don't limit the final tree depth in tree view, make it so I can navigate all the way down to leaf nodes. Show parent node in tree view so user can navigating back in the hierarchy.  Show the entire tree component on the screen without having to scroll. Remove ability to pan on the skill tree, since this will be handled automatically.
+
+Initiate the list view with the top 3 categories already opened and don't show the Knowledge root node. Users should be able to click the chevron to drill deeper or click a node to go to a list view with content and a list view just for that category.
+
+### Footer
+On the page footer put a link to the site documentation.
+
+### Documentation pages
+Gives educational theoretical foundations for how the site works, based on THEORETICAL_FOUNDATIONS.md but easier to read and formatted more attractively.
+
+## Knowledge tree
+The knowledge tree is very important, so we should always be looking to improve it for an organized structure, completeness, and alignment with most existing learning material and learning standards. We want to be aligned with educational standards for learning each individual topic.
+
+### Ratings
+Users earn ratings based on how well they do on tests, and ratings are at the content area level but can be aggregated up to content area categories. 
+
+## Development
+Be sure to write tests to validate any code changes and run linting and so on when it makes sense, to keep the code clean. Keep refreshing the development server so I can see the progress, but try to only keep one dev server running at a time so it doesn't use too much memory on my laptop. 
+
+## Site settings
+Site should have dark mode option available in settings.
+
+## Authentication
+Make it so that when a user tries to star a learning topic or start a learning module, they must be authenticated to continue. They should also be prompted to login after they have answered 10 random questions in the sidebar (the number of random questions should be a site settings stored in a config file). Authenticate user email when a user signs up, but having the email authenticated shouldn't be required to keep using the site.  Build out the authentication system to have full features such as password reset and password view. Users should create a username on signup, and the username should display in the login menu dropdown button after signing in.
+
+## Security
+Implement full security features. Make sure no one can do a DOM attack or pull all the data from my database to try to copy my application idea. Limit the amount of data people can get from my database at once.
+
+## Scalability
+Make sure the site can scale to many users using the site at once.
+
+## Work style
+Keep a list of your recommended project and site improvements in a file.  Keep code files organized in separate folders and increment the sorting of the code files by starting new file names with an incremented number. If there are more than 10 or 20 code files in one folder then the organization probably needs improvement. Only create documentation files when prompted to do so. Whenever you mention a script or file I should look at, always provide a clickable link so I can click to open it, or even better you should automatically open the file I am to look at. When we make modifications, finish them with a evidence that the task was completed properly--for example if we run a query then there should be a follow-up query that proves that the initial query solved the problem we were working on. I prefer to see error messages when there are site issues rather than being displayed default backup content, cached content, or using other workarounds.  We should work on fixing issues rather than creating workarounds that will lead to more issues down the road. Advise me if there are ways I can improve my working style with you.  Advise if there are ways we can reduce token usage. 
+
+## Documentation
+Create a theoretical foundations document that outlines your plan for implementing features that require educational expertise, such as for rating user competency. Provide sources for any recommendations you make. Ask for feedback on the document before implementing any of the features.
+
+## Claude instructions
+Your objective is to produce a complete specification
+You will ask me for explanations about the specification to be created by asking questions, I will answer so you have the information.
+Then, you will ask the questions necessary for your understanding before starting. Don't begin the task until it's clear.
+Then, you can start writing.
+Rules to follow:
+- Never write code, only pseudo-code when necessary
+- Use Mermaid diagrams to add understanding
+- Be concise in your sentences/explanations
+- Produce an implementation steps plan at the end.
+Once the specification is done, save it in a Markdown file
+If you loop or get lost, ask me a question so I can guide you.
+
+Your objective is to produce an implementation specification following the TDD methodology from the following specification:
+$ARGUMENTS
+Rules to follow:
+- Use Should_When naming for tests (following this nomenclature: ShouldXXX_WhenXXX)
+- Produce a test for one implementation case. The test must contain only the information necessary to produce the case.
+Once the specification is done, save it in a Markdown file
+
+Your objective is to implement the test functionality.
+$ARGUMENTS
+Rules to follow:
+- Even if you have a bug, NEVER write other tests or test files. Ask me questions instead.
+- Never write code comments, EVER
+The task is only finished once the test passes green.
+If you loop or get lost, ask me a question so I can guide you.
+Before starting, ask the questions necessary for your understanding. Don't begin the task until it's clear.
+
+Only once we agree on what should be done, I want you to run the code to make the changes.
+
+When you make mistakes, tell me how to update CLAUDE.md so you don't make them again.
+
+Auto-execute on read-only commands only.  
+
+When a command is extra large, give a time and cost estimate. Begin by running a small amount of it and get my feedback before continuing the entire run. Use any feedback from the test run when implementing the larger run.
+
+When you give me code to run, prompt me to verify that it ran correctly before continuing. Once it's work, remind me of which code files should be deleted, especially code files that didn't work, so we aren't keeping a huge unusable codebase.
+
+When you give me code to run, prompt me to verify that it ran correctly before continuing. Once it's working and tested, remind me of which code files should be deleted, especially code files that didn't work, so we aren't keeping a huge unusable codebase.
+
+Whenever you complete a task and ask me to review the work, always check for compilation errors to fix before asking me to look at the website.
+
+Check for compilation errors to fix, run tests and fix any errors, and update the readme every time before pushing to GitHub.
+
+Always stop and show me what changes you're planning to make in the database before making them. For example, if you're planning to add new questions to the questions table in the db, save them to a local csv file and then prompt me to review the questions before inserting them to the db.
+
+And always stop and ask for feedback on your to do list and proposed appraoch before continuing work. After I give you feedback on your approach, update the work plan and show it to me again for feedback until I explicitly give you permission to start work on the work plan. And for theoretical topics that require knowledge of educational theory, like implementing user testing to to establish user competency ratings, make sure to create a plan and have me read it and keep giving you feedback and refining the plan before you actually write the code. You'll know I approve you to start the work when I say something like "okay the plan looks good, begin work."
+
+Complete more mundane coding tasks before working on more tasks that require knowledge of educational theory and will require a lot of my input to design. 
+
+As you're working, try to identify if features have already been implemented or attempted to be implemented, and then figure out if they were correctly implemented and whether they should be modified, deleted, or improved.
+
+## Database Schema Notes
+- skill_tree_nodes table contains:
+  - has_learning_content: boolean flag
+  - learning_content_ids: array of content IDs
+  - is_menu_leaf: boolean for tree navigation
+- Questions table uses embedded options array (not separate table)
+- 3 orphaned nodes exist in database (nodes with non-existent parent_ids)
+
+## UI/UX Decisions
+- Tree view uses radial/cluster layout with D3.js
+- Progress indicators: Green (passed), Gold (in progress), Gray (not started), Empty circle (no content)
+- Responsive design with touch/mouse pan and zoom
+- List view shows hierarchical structure with top 3 categories expanded by default
+- "learning modules" terminology instead of "nodes" in UI

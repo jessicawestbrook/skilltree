@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Tree Icon Generator</title>
+</head>
+<body>
+    <canvas id="canvas" width="32" height="32"></canvas>
+    <script>
+        const canvas = document.getElementById('canvas');
+        const ctx = canvas.getContext('2d');
+        
+        // Clear canvas
+        ctx.clearRect(0, 0, 32, 32);
+        
+        // Tree trunk
+        ctx.fillStyle = '#8B4513';
+        ctx.fillRect(14, 20, 4, 8);
+        
+        // Tree crown - main green
+        ctx.fillStyle = '#22c55e';
+        ctx.beginPath();
+        ctx.moveTo(16, 4);
+        ctx.lineTo(8, 20);
+        ctx.lineTo(24, 20);
+        ctx.closePath();
+        ctx.fill();
+        
+        // Add some yellow dots for skills
+        ctx.fillStyle = '#fbbf24';
+        ctx.beginPath();
+        ctx.arc(16, 10, 1.5, 0, 2 * Math.PI);
+        ctx.fill();
+        ctx.beginPath();
+        ctx.arc(12, 14, 1.5, 0, 2 * Math.PI);
+        ctx.fill();
+        ctx.beginPath();
+        ctx.arc(20, 14, 1.5, 0, 2 * Math.PI);
+        ctx.fill();
+        
+        // Instructions
+        document.body.innerHTML += '<p>Right-click the icon above and save as favicon.ico</p>';
+    </script>
+</body>
+</html>
