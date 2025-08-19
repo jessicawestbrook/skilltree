@@ -3,6 +3,8 @@ import React, { createContext, useContext, useEffect, useState } from 'react'
 interface ThemeContextType {
   darkMode: boolean
   toggleDarkMode: () => void
+  menuPinned: boolean
+  toggleMenuPinned: () => void
 }
 
 const ThemeContext = createContext<ThemeContextType | undefined>(undefined)
@@ -21,6 +23,12 @@ export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({ childre
     return savedTheme ? JSON.parse(savedTheme) : false
   })
 
+  const [menuPinned, setMenuPinned] = useState(() => {
+    // Clear any existing saved state and default to pinned
+    localStorage.removeItem('menuPinned')
+    return true
+  })
+
   useEffect(() => {
     localStorage.setItem('darkMode', JSON.stringify(darkMode))
     if (darkMode) {
@@ -30,12 +38,20 @@ export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({ childre
     }
   }, [darkMode])
 
+  useEffect(() => {
+    localStorage.setItem('menuPinned', JSON.stringify(menuPinned))
+  }, [menuPinned])
+
   const toggleDarkMode = () => {
     setDarkMode(!darkMode)
   }
 
+  const toggleMenuPinned = () => {
+    setMenuPinned(!menuPinned)
+  }
+
   return (
-    <ThemeContext.Provider value={{ darkMode, toggleDarkMode }}>
+    <ThemeContext.Provider value={{ darkMode, toggleDarkMode, menuPinned, toggleMenuPinned }}>
       {children}
     </ThemeContext.Provider>
   )

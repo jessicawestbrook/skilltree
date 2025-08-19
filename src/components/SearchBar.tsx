@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef, useCallback } from 'react'
+import React, { useState, useEffect, useRef, useCallback, useMemo } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { 
   MagnifyingGlassIcon, 
@@ -67,35 +67,39 @@ const SearchBar: React.FC<SearchBarProps> = ({
     return () => document.removeEventListener('mousedown', handleClickOutside)
   }, [])
 
-  // Debounced search function
-  const debouncedSearch = useCallback(
-    debounce(async (searchQuery: string) => {
-      if (searchQuery.length < 2) {
-        setResults([])
-        setSuggestions([])
-        return
-      }
+  // Search function with debouncing
+  const performSearch = useCallback(async (searchQuery: string) => {
+    if (searchQuery.length < 2) {
+      setResults([])
+      setSuggestions([])
+      return
+    }
 
-      setIsLoading(true)
-      try {
-        const [searchResults, searchSuggestions] = await Promise.all([
-          searchService.search(searchQuery, {
-            limit: 8,
-            threshold: 0.2,
-            searchIn: ['title', 'learning_area']
-          }),
-          searchService.getSuggestions(searchQuery, 5)
-        ])
-        
-        setResults(searchResults)
-        setSuggestions(searchSuggestions)
-      } catch (error) {
-        console.error('Search error:', error)
-      } finally {
-        setIsLoading(false)
-      }
+    setIsLoading(true)
+    try {
+      const [searchResults, searchSuggestions] = await Promise.all([
+        searchService.search(searchQuery, {
+          limit: 8,
+          threshold: 0.2,
+          searchIn: ['title', 'learning_area']
+        }),
+        searchService.getSuggestions(searchQuery, 5)
+      ])
+      
+      setResults(searchResults)
+      setSuggestions(searchSuggestions)
+    } catch (error) {
+      console.error('Search error:', error)
+    } finally {
+      setIsLoading(false)
+    }
+  }, [])
+
+  const debouncedSearch = useMemo(
+    () => debounce((searchQuery: string) => {
+      performSearch(searchQuery)
     }, 300),
-    []
+    [performSearch]
   )
 
   // Handle input change
