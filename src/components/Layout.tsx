@@ -1,15 +1,9 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { Outlet, Link } from 'react-router-dom'
 import { AcademicCapIcon } from '@heroicons/react/24/outline'
-import RandomQuestionBox from './RandomQuestionBox'
-import RecommendedContent from './RecommendedContent'
 import UnifiedDropdownMenu from './UnifiedDropdownMenu'
-import { useAuth } from '../contexts/AuthContext'
 
 const Layout: React.FC = () => {
-  const { user } = useAuth()
-  const [showRandomQuestion, setShowRandomQuestion] = useState(true)
-  const showRecommended = true
 
   return (
     <div className="min-h-screen flex flex-col">
@@ -82,35 +76,10 @@ const Layout: React.FC = () => {
 
       <div className="flex-1">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-          <div className="flex flex-col lg:flex-row gap-6">
-            {/* Recommended Content - Upper Left */}
-            {user && showRecommended && (
-              <aside className="lg:w-96 order-first">
-                <div className="sticky top-4 space-y-4">
-                  <RecommendedContent />
-                  {showRandomQuestion && (
-                    <div className="hidden lg:block">
-                      <RandomQuestionBox onClose={() => setShowRandomQuestion(false)} />
-                    </div>
-                  )}
-                </div>
-              </aside>
-            )}
-            
-            {/* Random Question Box for non-logged-in users - Hidden on mobile */}
-            {!user && showRandomQuestion && (
-              <aside className="hidden lg:block lg:w-80 order-first">
-                <div className="sticky top-4">
-                  <RandomQuestionBox onClose={() => setShowRandomQuestion(false)} />
-                </div>
-              </aside>
-            )}
-            
-            {/* Main Content */}
-            <main className="flex-1">
-              <Outlet />
-            </main>
-          </div>
+          {/* Main Content */}
+          <main>
+            <Outlet />
+          </main>
         </div>
       </div>
     </div>
