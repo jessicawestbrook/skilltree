@@ -63,7 +63,6 @@ const MegaMenu: React.FC = () => {
       const topLevelCategories = thirdLevel || []
 
       setTopCategories(topLevelCategories)
-      console.log('MegaMenu - Fetched 3rd level nodes:', topLevelCategories.length)
 
       // Step 4: Get children and grandchildren for each top category
       if (topLevelCategories.length > 0) {
@@ -147,7 +146,7 @@ const MegaMenu: React.FC = () => {
 
   return (
     <section className="bg-white dark:bg-neutral-900 rounded-xl shadow-lg p-4 mb-8">
-      <div className="grid lg:grid-cols-3 md:grid-cols-2 gap-4">
+      <div className="grid lg:grid-cols-3 md:grid-cols-3 sm:grid-cols-2 gap-4">
         {topCategories.map(category => (
           <div key={category.id} className="space-y-2">
             <Link

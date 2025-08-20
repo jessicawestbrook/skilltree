@@ -89,3 +89,62 @@ export interface Feedback {
   created_at: string
   updated_at: string
 }
+
+export interface Language {
+  id: string
+  name: string
+  code: string
+  flag_emoji?: string
+  created_at: string
+  updated_at: string
+}
+
+export interface LanguageCategory {
+  id: string
+  language_id: string
+  name: string
+  description: string
+  display_order: number
+  created_at: string
+  updated_at: string
+}
+
+export interface LanguageQuestion {
+  id: string
+  language_id: string
+  category_id: string
+  question_text: string
+  question_type: string
+  options: string[]
+  correct_answer_index: number
+  explanation: string
+  difficulty_level: number
+  image_url?: string
+  audio_url?: string
+  source_url?: string
+  created_at: string
+  updated_at: string
+}
+
+export interface UserLanguageAttempt {
+  id: string
+  user_id: string
+  question_id: string
+  selected_option_index: number
+  is_correct: boolean
+  time_taken_seconds: number
+  created_at: string
+}
+
+export interface UserLanguageProgress {
+  id: string
+  user_id: string
+  language_id: string
+  category_id: string
+  questions_attempted: number
+  questions_correct: number
+  accuracy_percentage: number
+  last_practiced: string
+  created_at: string
+  updated_at: string
+}

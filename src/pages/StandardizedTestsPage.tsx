@@ -1,4 +1,5 @@
-import React, { useState } from 'react'
+import React from 'react'
+import { Link } from 'react-router-dom'
 import { 
   AcademicCapIcon, 
   DocumentTextIcon,
@@ -21,8 +22,6 @@ interface TestInfo {
 }
 
 const StandardizedTestsPage: React.FC = () => {
-  const [selectedTest, setSelectedTest] = useState<string | null>(null)
-
   const tests: TestInfo[] = [
     {
       id: 'sat',
@@ -91,12 +90,6 @@ const StandardizedTestsPage: React.FC = () => {
       icon: <AcademicCapIcon className="h-8 w-8" />
     }
   ]
-
-  const handleStartTest = (testId: string) => {
-    // This would navigate to the specific test page
-    // For now, we'll just set the selected test
-    setSelectedTest(testId)
-  }
 
   return (
     <div className="max-w-6xl mx-auto space-y-8">
@@ -170,13 +163,13 @@ const StandardizedTestsPage: React.FC = () => {
             </div>
 
             {test.available ? (
-              <button
-                onClick={() => handleStartTest(test.id)}
+              <Link
+                to={`/test/${test.id}`}
                 className="w-full py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition-colors flex items-center justify-center gap-2"
               >
                 <span>Start Practice</span>
                 <ArrowRightIcon className="h-4 w-4" />
-              </button>
+              </Link>
             ) : (
               <button
                 disabled
@@ -188,24 +181,6 @@ const StandardizedTestsPage: React.FC = () => {
           </div>
         ))}
       </div>
-
-      {selectedTest && (
-        <div className="bg-blue-50 dark:bg-blue-900/20 rounded-lg p-6">
-          <h3 className="font-semibold text-blue-900 dark:text-blue-300 mb-2">
-            Test Selected: {tests.find(t => t.id === selectedTest)?.name}
-          </h3>
-          <p className="text-sm text-blue-800 dark:text-blue-400">
-            Full test functionality will be implemented soon. Tests will include:
-          </p>
-          <ul className="mt-2 space-y-1 text-sm text-blue-700 dark:text-blue-400">
-            <li>• Actual past exam questions</li>
-            <li>• Timed practice sessions</li>
-            <li>• Score calculation based on official scoring</li>
-            <li>• Detailed performance analytics</li>
-            <li>• Study recommendations based on weak areas</li>
-          </ul>
-        </div>
-      )}
 
       <div className="bg-neutral-100 dark:bg-neutral-800 rounded-lg p-6">
         <h3 className="font-semibold mb-3">Tips for Test Preparation:</h3>

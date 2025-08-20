@@ -409,13 +409,13 @@ const VocabularyTrainerPage: React.FC = () => {
                   <button
                     key={index}
                     onClick={() => handleAnswerSelect(option)}
-                    className={`p-2 text-left border-2 rounded-lg transition-colors ${
+                    className={`p-3 text-left border-2 rounded-lg transition-colors ${
                       selectedAnswer === option
                         ? 'border-primary-600 bg-primary-50 dark:bg-primary-900/20'
                         : 'border-neutral-300 dark:border-neutral-600 hover:border-primary-400 hover:bg-primary-50 dark:hover:bg-primary-900/10 bg-white dark:bg-neutral-800'
                     }`}
                   >
-                    <span className="font-mono text-base">{option}</span>
+                    <span className="text-base">{option}</span>
                   </button>
                 ))}
               </div>

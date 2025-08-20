@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import { Outlet, Link } from 'react-router-dom'
-import { AcademicCapIcon, Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline'
+import { AcademicCapIcon, Bars3Icon, XMarkIcon, ChevronDownIcon } from '@heroicons/react/24/outline'
 import { useTheme } from '../contexts/ThemeContext'
 import UnifiedDropdownMenu from './UnifiedDropdownMenu'
 import SearchBar from './SearchBar'
@@ -8,6 +8,8 @@ import SearchBar from './SearchBar'
 const Layout: React.FC = () => {
   const { menuPinned, toggleMenuPinned } = useTheme()
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false) // Closed by default
+  const [standardizedTestsOpen, setStandardizedTestsOpen] = useState(false)
+  const standardizedTestsRef = useRef<HTMLDivElement>(null)
 
   // Close mobile menu when switching to pinned
   useEffect(() => {
@@ -15,6 +17,17 @@ const Layout: React.FC = () => {
       setMobileMenuOpen(false) // Close mobile menu when pinned
     }
   }, [menuPinned])
+
+  // Close standardized tests dropdown when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (standardizedTestsRef.current && !standardizedTestsRef.current.contains(event.target as Node)) {
+        setStandardizedTestsOpen(false)
+      }
+    }
+    document.addEventListener('mousedown', handleClickOutside)
+    return () => document.removeEventListener('mousedown', handleClickOutside)
+  }, [])
 
   const handleToggleMenuPinned = () => {
     toggleMenuPinned()
@@ -70,23 +83,84 @@ const Layout: React.FC = () => {
                   Vocabulary
                 </Link>
                 <Link 
-                  to="/iq-test" 
+                  to="/language-trainer" 
                   className="px-3 py-2 text-sm font-medium text-neutral-700 dark:text-neutral-300 hover:text-primary-600 dark:hover:text-primary-400 hover:bg-neutral-50 dark:hover:bg-neutral-700 rounded-lg transition-colors"
                 >
-                  IQ Tests
+                  Languages
                 </Link>
-                <Link 
-                  to="/standardized-tests" 
-                  className="px-3 py-2 text-sm font-medium text-neutral-700 dark:text-neutral-300 hover:text-primary-600 dark:hover:text-primary-400 hover:bg-neutral-50 dark:hover:bg-neutral-700 rounded-lg transition-colors"
-                >
-                  Standardized Tests
-                </Link>
-                <Link 
-                  to="/career-advancement" 
-                  className="px-3 py-2 text-sm font-medium text-neutral-700 dark:text-neutral-300 hover:text-primary-600 dark:hover:text-primary-400 hover:bg-neutral-50 dark:hover:bg-neutral-700 rounded-lg transition-colors"
-                >
-                  Career
-                </Link>
+                {/* Standardized Tests Dropdown */}
+                <div className="relative" ref={standardizedTestsRef}>
+                  <button
+                    onClick={() => setStandardizedTestsOpen(!standardizedTestsOpen)}
+                    className="flex items-center px-3 py-2 text-sm font-medium text-neutral-700 dark:text-neutral-300 hover:text-primary-600 dark:hover:text-primary-400 hover:bg-neutral-50 dark:hover:bg-neutral-700 rounded-lg transition-colors"
+                  >
+                    Tests
+                    <ChevronDownIcon className={`ml-1 h-4 w-4 transition-transform ${standardizedTestsOpen ? 'rotate-180' : ''}`} />
+                  </button>
+                  
+                  {standardizedTestsOpen && (
+                    <div className="absolute top-full left-0 mt-1 w-52 bg-white dark:bg-neutral-800 rounded-lg shadow-xl border border-neutral-200 dark:border-neutral-700 py-1 z-50">
+                      <Link
+                        to="/standardized-tests"
+                        onClick={() => setStandardizedTestsOpen(false)}
+                        className="block px-4 py-2 text-sm text-neutral-700 dark:text-neutral-300 hover:bg-neutral-100 dark:hover:bg-neutral-700 transition-colors"
+                      >
+                        All Tests Overview
+                      </Link>
+                      <div className="border-t border-neutral-200 dark:border-neutral-600 my-1"></div>
+                      <Link
+                        to="/test/sat"
+                        onClick={() => setStandardizedTestsOpen(false)}
+                        className="block px-4 py-2 text-sm text-neutral-700 dark:text-neutral-300 hover:bg-neutral-100 dark:hover:bg-neutral-700 transition-colors"
+                      >
+                        SAT
+                      </Link>
+                      <Link
+                        to="/test/act"
+                        onClick={() => setStandardizedTestsOpen(false)}
+                        className="block px-4 py-2 text-sm text-neutral-700 dark:text-neutral-300 hover:bg-neutral-100 dark:hover:bg-neutral-700 transition-colors"
+                      >
+                        ACT
+                      </Link>
+                      <Link
+                        to="/test/lsat"
+                        onClick={() => setStandardizedTestsOpen(false)}
+                        className="block px-4 py-2 text-sm text-neutral-700 dark:text-neutral-300 hover:bg-neutral-100 dark:hover:bg-neutral-700 transition-colors"
+                      >
+                        LSAT
+                      </Link>
+                      <Link
+                        to="/test/gre"
+                        onClick={() => setStandardizedTestsOpen(false)}
+                        className="block px-4 py-2 text-sm text-neutral-700 dark:text-neutral-300 hover:bg-neutral-100 dark:hover:bg-neutral-700 transition-colors opacity-60"
+                      >
+                        GRE (Coming Soon)
+                      </Link>
+                      <Link
+                        to="/test/gmat"
+                        onClick={() => setStandardizedTestsOpen(false)}
+                        className="block px-4 py-2 text-sm text-neutral-700 dark:text-neutral-300 hover:bg-neutral-100 dark:hover:bg-neutral-700 transition-colors opacity-60"
+                      >
+                        GMAT (Coming Soon)
+                      </Link>
+                      <Link
+                        to="/test/mcat"
+                        onClick={() => setStandardizedTestsOpen(false)}
+                        className="block px-4 py-2 text-sm text-neutral-700 dark:text-neutral-300 hover:bg-neutral-100 dark:hover:bg-neutral-700 transition-colors opacity-60"
+                      >
+                        MCAT (Coming Soon)
+                      </Link>
+                      <div className="border-t border-neutral-200 dark:border-neutral-600 my-1"></div>
+                      <Link
+                        to="/iq-test"
+                        onClick={() => setStandardizedTestsOpen(false)}
+                        className="block px-4 py-2 text-sm text-neutral-700 dark:text-neutral-300 hover:bg-neutral-100 dark:hover:bg-neutral-700 transition-colors"
+                      >
+                        IQ Tests
+                      </Link>
+                    </div>
+                  )}
+                </div>
                 <Link 
                   to="/learning-paths" 
                   className="px-3 py-2 text-sm font-medium text-neutral-700 dark:text-neutral-300 hover:text-primary-600 dark:hover:text-primary-400 hover:bg-neutral-50 dark:hover:bg-neutral-700 rounded-lg transition-colors"

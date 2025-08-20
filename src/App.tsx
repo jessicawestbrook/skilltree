@@ -26,11 +26,12 @@ import ReadingComprehensionPage from './pages/ReadingComprehensionPage'
 import IntroAssessmentPage from './pages/IntroAssessmentPage'
 import IQTestPage from './pages/IQTestPage'
 import StandardizedTestsPage from './pages/StandardizedTestsPage'
-import CareerAdvancementPage from './pages/CareerAdvancementPage'
 import LearningPathsPage from './pages/LearningPathsPage'
 import AdminSpellingBeePage from './pages/AdminSpellingBeePage'
 import SpellingBeeSetupPage from './pages/SpellingBeeSetupPage'
 import VocabularyTrainerPage from './pages/VocabularyTrainerPage'
+import LanguageTrainerPage from './pages/LanguageTrainerPage'
+import TestPage from './pages/TestPage'
 import ProtectedRoute from './components/ProtectedRoute'
 
 function App() {
@@ -80,11 +81,12 @@ function App() {
               <Route path="spelling-bee" element={<SpellingBeePage />} />
               <Route path="spelling-bee-setup" element={<SpellingBeeSetupPage />} />
               <Route path="vocabulary-trainer" element={<VocabularyTrainerPage />} />
+              <Route path="language-trainer" element={<LanguageTrainerPage />} />
               <Route path="reading-comprehension" element={<ReadingComprehensionPage />} />
               <Route path="intro-assessment" element={<IntroAssessmentPage />} />
               <Route path="iq-test" element={<IQTestPage />} />
               <Route path="standardized-tests" element={<StandardizedTestsPage />} />
-              <Route path="career-advancement" element={<CareerAdvancementPage />} />
+              <Route path="test/:testId" element={<TestPage />} />
               <Route path="learning-paths" element={<LearningPathsPage />} />
               <Route
                 path="admin"

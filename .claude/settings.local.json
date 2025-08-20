@@ -36,9 +36,13 @@
       "Bash(TASKKILL /F /PID 21628)",
       "Bash(PORT=3001 npm start)",
       "Bash(npx kill-port:*)",
-      "Bash(grep:*)"
+      "Bash(grep:*)",
+      "Bash(cp:*)"
     ],
     "deny": [],
-    "ask": []
+    "ask": [],
+    "additionalDirectories": [
+      "C:\\c\\Users\\jessi\\Projects\\skilltree2"
+    ]
   }
 }
