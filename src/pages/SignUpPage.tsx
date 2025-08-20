@@ -84,7 +84,7 @@ const SignUpPage: React.FC = () => {
         <div className="flex justify-center mb-6">
           <Link to="/" className="flex items-center space-x-2">
             <AcademicCapIcon className="h-10 w-10 text-primary-600" />
-            <span className="font-game text-3xl bg-gradient-to-r from-primary-600 to-secondary-500 bg-clip-text text-transparent">
+            <span className="font-game text-3xl text-primary-600 dark:text-primary-400">
               SkillTree
             </span>
           </Link>

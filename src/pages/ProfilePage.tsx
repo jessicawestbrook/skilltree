@@ -228,7 +228,7 @@ const ProfilePage: React.FC = () => {
           <div className="flex items-center justify-between mb-4">
             <h2 className="text-xl font-semibold text-neutral-900 dark:text-white">Recent Activity</h2>
             <Link 
-              to="/skill-tree" 
+              to="/learning-paths" 
               className="text-primary-600 hover:text-primary-700 text-sm font-medium flex items-center gap-1"
             >
               View All <ArrowRightIcon className="h-4 w-4" />
@@ -242,7 +242,7 @@ const ProfilePage: React.FC = () => {
                 No learning progress yet. Start exploring!
               </p>
               <Link 
-                to="/skill-tree"
+                to="/learning-paths"
                 className="inline-flex items-center gap-2 px-4 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition-colors"
               >
                 <RocketLaunchIcon className="h-4 w-4" />
@@ -376,7 +376,7 @@ const ProfilePage: React.FC = () => {
           <div className="flex items-center justify-between mb-4">
             <h2 className="text-xl font-semibold text-neutral-900 dark:text-white">Recommended for You</h2>
             <Link 
-              to="/skill-tree" 
+              to="/learning-paths" 
               className="text-primary-600 hover:text-primary-700 text-sm font-medium flex items-center gap-1"
             >
               Explore More <ArrowRightIcon className="h-4 w-4" />

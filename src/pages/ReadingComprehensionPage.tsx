@@ -398,7 +398,7 @@ The water cycle plays a crucial role in weather patterns, climate regulation, an
     <div className="max-w-6xl mx-auto p-6 space-y-6">
       <div className="text-center mb-8">
         <h1 className="text-4xl font-bold mb-4">
-          <span className="bg-gradient-to-r from-primary-600 to-gold-500 bg-clip-text text-transparent">
+          <span className="text-primary-600 dark:text-primary-400">
             Reading Comprehension
           </span>
         </h1>

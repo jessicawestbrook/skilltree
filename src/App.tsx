@@ -6,8 +6,6 @@ import { SpellingBeeProvider } from './contexts/SpellingBeeContext'
 import { NotificationProvider } from './contexts/NotificationContext'
 import Layout from './components/Layout'
 import HomePage from './pages/HomePage'
-import SkillTreePage from './pages/SkillTreePage'
-import TextOnlySkillTreePage from './pages/TextOnlySkillTreePage'
 import SimpleLearningPage from './pages/SimpleLearningPage'
 import ProfilePage from './pages/ProfilePage'
 import LoginPage from './pages/LoginPage'
@@ -52,8 +50,6 @@ function App() {
                 <Route path="/verify-email" element={<EmailVerificationPage />} />
                 <Route path="/" element={<Layout />}>
               <Route index element={<HomePage />} />
-              <Route path="skill-tree" element={<SkillTreePage />} />
-              <Route path="text-tree" element={<TextOnlySkillTreePage />} />
               <Route path="category/:categoryId" element={<CategoryPage />} />
               <Route
                 path="learning/:contentId?"

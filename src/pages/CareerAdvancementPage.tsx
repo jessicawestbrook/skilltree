@@ -188,10 +188,8 @@ const CareerAdvancementPage: React.FC = () => {
   return (
     <div className="max-w-6xl mx-auto space-y-8">
       <div className="text-center">
-        <h1 className="text-4xl font-bold mb-4">
-          <span className="bg-gradient-to-r from-primary-600 to-gold-500 bg-clip-text text-transparent">
-            Career Advancement
-          </span>
+        <h1 className="text-4xl font-bold mb-4 text-primary-600 dark:text-primary-400">
+          Career Advancement
         </h1>
         <p className="text-lg text-neutral-600 dark:text-neutral-400 max-w-3xl mx-auto">
           Explore career paths and learn the skills needed to achieve your professional goals.
@@ -270,7 +268,7 @@ const CareerAdvancementPage: React.FC = () => {
 
             {career.treeNodeId && (
               <Link
-                to={`/skill-tree?focus=${career.treeNodeId}`}
+                to={`/category/${career.treeNodeId}`}
                 className="w-full py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition-colors flex items-center justify-center gap-2"
               >
                 <span>Learn Required Skills</span>

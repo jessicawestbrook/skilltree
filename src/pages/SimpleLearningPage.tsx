@@ -97,7 +97,7 @@ const SimpleLearningPage: React.FC = () => {
     return (
       <div className="text-center py-12">
         <p className="text-xl text-neutral-600">No learning content available</p>
-        <button onClick={() => navigate('/skill-tree')} className="btn-primary mt-4">
+        <button onClick={() => navigate('/learning-paths')} className="btn-primary mt-4">
           Back to Skill Tree
         </button>
       </div>
@@ -167,7 +167,7 @@ const SimpleLearningPage: React.FC = () => {
             {Math.round((score / questions.length) * 100)}%
           </div>
           <button 
-            onClick={() => navigate('/skill-tree')} 
+            onClick={() => navigate('/learning-paths')} 
             className="btn-primary mt-6"
           >
             Back to Skill Tree

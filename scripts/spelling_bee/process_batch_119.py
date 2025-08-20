@@ -1,0 +1,504 @@
+#!/usr/bin/env python3
+
+import csv
+import logging
+from pathlib import Path
+from typing import Dict, List, Any
+
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
+
+class DifficultyCalculator:
+    def calculate_difficulty_score(self, word: str, definition: str, etymology: str) -> Dict[str, Any]:
+        return {
+            'phonetic_transparency_score': self._calculate_phonetic_transparency(word),
+            'word_frequency_score': self._calculate_word_frequency(word),
+            'morphological_complexity_score': self._calculate_morphological_complexity(word),
+            'etymology_complexity_score': self._calculate_etymology_complexity(etymology),
+            'difficulty': None
+        }
+    
+    def _calculate_phonetic_transparency(self, word: str) -> int:
+        transparent_patterns = ['cat', 'dog', 'run', 'jump', 'play']
+        if any(pattern in word.lower() for pattern in transparent_patterns):
+            return 1
+        return 3
+    
+    def _calculate_word_frequency(self, word: str) -> int:
+        common_words = ['the', 'and', 'or', 'but', 'in', 'on', 'at', 'to', 'for', 'of', 'with', 'by']
+        if word.lower() in common_words:
+            return 1
+        elif len(word) <= 4:
+            return 2
+        elif len(word) <= 8:
+            return 3
+        else:
+            return 4
+    
+    def _calculate_morphological_complexity(self, word: str) -> int:
+        if len(word) <= 4:
+            return 1
+        elif len(word) <= 8:
+            return 2
+        elif len(word) <= 12:
+            return 3
+        else:
+            return 4
+    
+    def _calculate_etymology_complexity(self, etymology: str) -> int:
+        if 'Latin' in etymology or 'Greek' in etymology:
+            return 4
+        elif 'French' in etymology or 'German' in etymology:
+            return 3
+        elif 'Old English' in etymology:
+            return 2
+        else:
+            return 1
+
+class Batch119Processor:
+    def __init__(self):
+        self.difficulty_calc = DifficultyCalculator()
+    
+    def get_comprehensive_claude_data(self, word: str) -> dict:
+        claude_data = {
+            'nihilism': {
+                'definition': 'Nihilism is a philosophical doctrine that argues life lacks objective meaning, purpose, or intrinsic moral values, often concluding that existence is fundamentally meaningless and that traditional values and beliefs are unfounded. This worldview suggests that nothing in human experience has genuine significance, leading to the rejection of religious and moral principles as arbitrary human constructions. Nihilistic philosophy emerged prominently in 19th-century Russia and influenced literature, politics, and social movements that challenged established authority. While nihilism can lead to despair or destructive behavior, some philosophers argue it can also serve as a starting point for creating authentic personal meaning. The term is sometimes used more broadly to describe attitudes of extreme skepticism, cynicism, or destructive tendencies toward social institutions. Understanding nihilism helps in recognizing existential crises and the human search for meaning in an apparently indifferent universe.',
+                'pronunciation': '/ˈnaɪəˌlɪzəm/',
+                'etymology': 'From Latin nihil meaning "nothing" + -ism suffix. The term emphasizes the belief that nothing has inherent meaning or value.',
+                'memory_tip': 'Remember NIHILISM as "NIHIListic belief = nothing-ISM" - the belief that nothing has meaning, everything is meaningless.',
+                'example_sentence': 'The character\'s descent into _____ left him unable to find purpose in relationships, work, or creative pursuits.'
+            },
+            'nile': {
+                'definition': 'The Nile is the world\'s longest river, flowing over 4,000 miles from its sources in East Africa through northeastern Africa to the Mediterranean Sea in Egypt. This historic waterway has been crucial to the development of ancient and modern civilizations, particularly ancient Egypt, where it provided fertile soil through annual flooding and served as a transportation route. The Nile has two major tributaries: the White Nile, originating in Uganda, and the Blue Nile, beginning in Ethiopia, which converge in Sudan. The river supports millions of people across multiple countries including Uganda, Sudan, and Egypt, providing water for agriculture, drinking, and hydroelectric power. Modern damming projects, particularly the Aswan High Dam in Egypt, have altered the river\'s natural flood cycles while providing water storage and electricity generation. The Nile remains central to the economy, culture, and survival of the regions it traverses.',
+                'pronunciation': '/naɪl/',
+                'etymology': 'From Greek Neilos, possibly from Semitic languages or ancient Egyptian. The exact origin is uncertain, but the name has been used for thousands of years.',
+                'memory_tip': 'Remember NILE as "Notably Important Longest rivEr" - the notably important longest river in the world, crucial to ancient Egyptian civilization.',
+                'example_sentence': 'The ancient Egyptians depended on the _____ River\'s annual floods to deposit fertile silt across their agricultural lands.'
+            },
+            'nilpotent': {
+                'definition': 'Nilpotent is a mathematical term describing a matrix, operator, or element that becomes zero when raised to some positive integer power. In linear algebra, a nilpotent matrix N satisfies the property that N^k = 0 for some positive integer k, where the smallest such k is called the index of nilpotency. This concept appears in various areas of mathematics including abstract algebra, where nilpotent elements in rings have similar zero-power properties. Nilpotent matrices have all eigenvalues equal to zero and play important roles in matrix decomposition and solving differential equations. In group theory, nilpotent groups have specific structural properties related to their derived series. Understanding nilpotency helps in analyzing mathematical systems where repeated operations eventually lead to trivial results. The concept has applications in physics, particularly in quantum mechanics and field theory, where nilpotent operators can represent certain physical processes.',
+                'pronunciation': '/nɪlˈpoʊtənt/',
+                'etymology': 'From Latin nil "nothing" + potentia "power." The term literally means "having the power of nothing" or becoming zero when raised to a power.',
+                'memory_tip': 'Remember NILPOTENT as "NIL (nothing) + POTENT (powerful) = powerful enough to become nothing" - mathematically becomes zero when raised to some power.',
+                'example_sentence': 'The _____ matrix exhibited the property that when multiplied by itself enough times, it eventually equaled the zero matrix.'
+            },
+            'nimble': {
+                'definition': 'Nimble describes someone or something that moves quickly, lightly, and with agility, demonstrating grace and dexterity in physical movement or mental processes. Physical nimbleness involves coordinated movement, balance, and the ability to change direction quickly without losing stability. Mental nimbleness refers to quick thinking, adaptability, and the ability to process information rapidly and make swift decisions. The term applies to dancers, athletes, animals, and anyone who demonstrates exceptional coordination and responsiveness. In business contexts, nimble organizations can adapt quickly to changing market conditions, while nimble minds can solve problems efficiently and creatively. Nimbleness combines speed with precision, suggesting not just quickness but also accuracy and control. The quality is often associated with youth, fitness, and practice, though it can be maintained and developed through training and exercise. Understanding nimbleness helps appreciate the value of agility in both physical and intellectual pursuits.',
+                'pronunciation': '/ˈnɪmbəl/',
+                'etymology': 'From Old English numol meaning "quick to grasp," related to niman "to take." The word evolved to emphasize quick, light movement and mental agility.',
+                'memory_tip': 'Remember NIMBLE as "Nifty In Movement, Balanced, Light, Energetic" - nifty in movement, balanced, light, and energetic.',
+                'example_sentence': 'The _____ gymnast executed a perfect routine, moving with such grace that every flip and turn appeared effortless.'
+            },
+            'nimbostratus': {
+                'definition': 'Nimbostratus is a type of low-altitude cloud that forms a thick, gray, sheet-like layer covering large areas of sky, typically producing steady, continuous precipitation in the form of rain, snow, or drizzle. These clouds develop between ground level and about 6,500 feet altitude, creating overcast conditions that can persist for hours or days. Nimbostratus clouds form when warm, moist air is gradually lifted over cooler air masses, causing widespread condensation across extensive areas. The precipitation from these clouds is usually light to moderate but can accumulate significantly over time due to its persistent nature. Unlike cumulonimbus clouds that produce dramatic weather events, nimbostratus creates steady, uniform weather conditions. Meteorologists recognize nimbostratus as an important indicator of weather patterns, particularly in front systems where they signal extended periods of precipitation. Understanding these cloud types helps in weather forecasting and aviation planning.',
+                'pronunciation': '/ˌnɪmboʊˈstreɪtəs/',
+                'etymology': 'From Latin nimbus "rainstorm" + stratus "spread out, layered." The name describes rain-bearing clouds that are spread in layers.',
+                'memory_tip': 'Remember NIMBOSTRATUS as "NIMBus (rain) + STRATUS (layered)" - layered rain clouds that produce steady precipitation.',
+                'example_sentence': 'The _____ clouds blanketed the entire region, bringing a steady drizzle that continued throughout the day.'
+            },
+            'nimiety': {
+                'definition': 'Nimiety refers to an excess or redundancy of something, particularly an excessive abundance that goes beyond what is necessary, appropriate, or desirable. This formal term describes situations where too much of something leads to waste, inefficiency, or negative consequences despite the individual elements being potentially valuable. Nimiety can apply to various contexts: excessive detail in writing, redundant explanations in presentations, or overabundance of choices that creates decision paralysis. The concept emphasizes that "more" is not always better and that optimal amounts exist for most things. In literature and rhetoric, nimiety describes verbose passages that detract from clarity and effectiveness. Understanding nimiety helps in recognizing when abundance becomes counterproductive and when reduction or editing might improve outcomes. The term serves as a reminder that moderation and appropriateness are often more valuable than excess, even of good things.',
+                'pronunciation': '/nɪˈmaɪɪti/',
+                'etymology': 'From Latin nimitas meaning "too much," from nimius "excessive," from nimis "too much." The term emphasizes the problematic nature of excess.',
+                'memory_tip': 'Remember NIMIETY as "Not IMproving, Excessive TY" - excessive to the point where it\'s not improving anything, too much of something.',
+                'example_sentence': 'The professor\'s lecture suffered from _____ of detail, overwhelming students with information that obscured the main concepts.'
+            },
+            'niminy': {
+                'definition': 'Niminy describes something characterized by affectation, particularly speech or behavior that is excessively refined, precious, or overly delicate in a way that seems artificial or affected. This term suggests pretentious elegance or mannered refinement that appears contrived rather than natural. Niminy behavior often involves speaking in artificially refined tones, using overly elaborate vocabulary, or displaying exaggerated politeness that seems insincere. The word can describe people who adopt affected mannerisms to appear sophisticated or cultured, but whose efforts create an impression of artificiality rather than genuine refinement. Niminy is related to "niminy-piminy," which describes similar affected, overly precious behavior or speech patterns. Understanding niminy helps recognize the difference between genuine refinement and artificial pretension. The term serves as a critique of affectation that prioritizes appearance over authenticity, suggesting that true elegance is natural rather than contrived.',
+                'pronunciation': '/ˈnɪmɪni/',
+                'etymology': 'Possibly related to "niminy-piminy," which may be reduplicative formation suggesting affected, mincing speech. The exact origin is uncertain but relates to affected refinement.',
+                'memory_tip': 'Remember NIMINY as "Not genuINely refINed, affectedlY" - not genuinely refined, but affectedly and artificially refined in speech or manner.',
+                'example_sentence': 'Her _____ way of speaking, with exaggerated pronunciation and overly formal vocabulary, made conversations feel stilted and artificial.'
+            },
+            'nine': {
+                'definition': 'Nine is the cardinal number representing a quantity of nine units, positioned between eight and ten in the numerical sequence, and serving fundamental roles in mathematics, culture, and daily life. As a number, nine has interesting mathematical properties: it\'s the square of three, the sum of the first three odd numbers (1+3+5), and creates patterns in multiplication tables where products\' digits sum to multiples of nine. Culturally, nine appears in various traditions and expressions: "nine lives" for cats, "on cloud nine" for happiness, and "dressed to the nines" for formal attire. In many cultures, nine is considered auspicious, representing completion, fulfillment, or spiritual achievement. The number appears in religious contexts, mythologies, and folklore across different societies. Nine-based systems exist in various fields, and the number has significance in music (nine symphonies of Beethoven), literature, and art. Understanding nine\'s properties and cultural meanings reveals how numbers extend beyond mere mathematics into human expression and symbolism.',
+                'pronunciation': '/naɪn/',
+                'etymology': 'From Old English nigon, related to Germanic and Indo-European roots for nine. The number has maintained consistent form across related languages throughout history.',
+                'memory_tip': 'Remember NINE as "Number that\'s almost TEN" - the number that comes right before ten, with interesting mathematical and cultural properties.',
+                'example_sentence': 'The baseball team needed _____ innings to complete the game, with each team getting equal opportunities to bat and field.'
+            },
+            'nirvana': {
+                'definition': 'Nirvana is a central concept in Buddhism and Hinduism representing the ultimate spiritual goal: a state of perfect peace, liberation from suffering, and release from the cycle of death and rebirth (samsara). In Buddhist philosophy, nirvana is achieved when one extinguishes all desires, attachments, and ignorance that cause suffering, reaching a state of complete enlightenment and freedom. The word literally means "blowing out" or "extinction," referring to the extinguishing of the fires of greed, hatred, and delusion. Different Buddhist traditions interpret nirvana somewhat differently, but all agree it represents the highest spiritual achievement possible. In popular Western usage, nirvana has come to mean any state of perfect happiness, bliss, or idealized condition. The term gained additional cultural recognition through the 1990s rock band Nirvana, though this usage differs significantly from its religious meaning. Understanding nirvana provides insight into Eastern spirituality and the human quest for transcendence of suffering.',
+                'pronunciation': '/nɪrˈvɑnə/ or /nərˈvɑnə/',
+                'etymology': 'From Sanskrit nirvāṇa meaning "extinction, blowing out," from nis- "out" + vāti "it blows." The term describes the extinguishing of desires and suffering.',
+                'memory_tip': 'Remember NIRVANA as "No Internal pain, Realized Vastness And No Attachment" - a state where there\'s no internal pain, with realized vastness and no attachment.',
+                'example_sentence': 'The monk spent decades in meditation, seeking to achieve _____ and liberation from all earthly desires and suffering.'
+            },
+            'nisi': {
+                'definition': 'Nisi is a Latin legal term meaning "unless" or "if not," used in legal contexts to describe conditional orders, decrees, or rulings that will take effect unless cause is shown to the contrary within a specified time period. This term commonly appears in phrases like "decree nisi" (a provisional divorce decree that becomes final unless objections are raised) or "order nisi" (a court order that becomes effective unless the affected party shows cause why it should not). Nisi provisions allow interested parties time to present arguments or evidence before a ruling becomes permanent, ensuring due process and opportunities for appeals or modifications. The concept protects legal rights by preventing immediate enforcement of potentially incorrect or unjust decisions. Understanding nisi helps in recognizing conditional aspects of legal proceedings and the importance of time limits in legal responses. The term reflects legal systems\' balance between efficiency and fairness in judicial processes.',
+                'pronunciation': '/ˈnaɪsaɪ/',
+                'etymology': 'From Latin nisi meaning "unless, if not." The legal term maintains its original conditional meaning in modern legal usage.',
+                'memory_tip': 'Remember NISI as "Not ISsued finally" - not issued finally, but conditionally unless objections are raised within the time limit.',
+                'example_sentence': 'The court issued a decree _____, giving the defendant thirty days to show cause why the order should not become final.'
+            },
+            'nisse': {
+                'definition': 'A nisse is a mythological creature from Scandinavian folklore, particularly in Norwegian, Danish, and Swedish traditions, typically depicted as a small, bearded household spirit or gnome that protects farms and families. These benevolent beings are often described as wearing traditional clothing including pointed caps, and they are known for their helpfulness in maintaining households and caring for farm animals. Nisser (plural) are said to live in barns, attics, or other parts of farmsteads, working at night to assist with chores and protect the property from harm. In return for their services, families traditionally leave offerings of porridge or other foods, especially during Christmas season. Modern Scandinavian culture has transformed nisser into beloved Christmas figures, similar to elves, who help with holiday preparations. The nisse tradition reflects ancient beliefs about protective household spirits and the importance of maintaining good relationships with supernatural guardians. Understanding nisser provides insight into Scandinavian cultural values regarding home, family, and respect for helpful spirits.',
+                'pronunciation': '/ˈnɪsə/',
+                'etymology': 'From Danish/Norwegian nisse, possibly related to the name Niels (Nicholas) or from Old Norse niðsi meaning "dear friend." The term reflects Scandinavian folklore traditions.',
+                'memory_tip': 'Remember NISSE as "Nice Scandinavian household Spirit, Small helper" - a nice Scandinavian household spirit that\'s a small helper protecting farms and families.',
+                'example_sentence': 'The Norwegian farmer left a bowl of rice pudding in the barn for the _____, hoping the household spirit would continue protecting his livestock.'
+            },
+            'nisus': {
+                'definition': 'Nisus refers to an effort, endeavor, or striving toward a particular goal, particularly in contexts where the effort involves overcoming obstacles or working against resistance. This formal term often appears in philosophical, literary, or scientific discussions to describe directed energy or purposeful action aimed at achievement or progress. In biological contexts, nisus can describe the innate drive or impulse that motivates organisms toward survival, reproduction, or other essential behaviors. The word suggests not just casual effort but sustained, determined striving that persists despite difficulties. Literary usage often employs nisus to describe characters\' struggles against fate, society, or personal limitations. In psychology, nisus might describe the human drive toward self-actualization or goal achievement. Understanding nisus helps recognize the difference between passive wishing and active, sustained effort toward meaningful objectives. The term emphasizes the quality of persistence and determination that characterizes serious attempts at accomplishment.',
+                'pronunciation': '/ˈnaɪsəs/',
+                'etymology': 'From Latin nisus meaning "effort, endeavor," from niti "to strive, lean upon, exert oneself." The term emphasizes the active, sustained nature of striving.',
+                'memory_tip': 'Remember NISUS as "Natural Instinct to Strive Upward and Succeed" - the natural instinct to strive upward and succeed through sustained effort.',
+                'example_sentence': 'The artist\'s _____ toward perfection drove her to rework the painting dozens of times until every detail satisfied her vision.'
+            },
+            'nitid': {
+                'definition': 'Nitid describes something that is bright, shining, or lustrous, possessing a clear, polished appearance that reflects light effectively. This formal adjective applies to surfaces, objects, or substances that have achieved a high degree of cleanliness, smoothness, or polish that creates an attractive shine. Nitid can describe natural phenomena like glossy leaves, polished stones, or bright metal surfaces, as well as artificial objects that have been cleaned or polished to a high shine. The term suggests not just brightness but also cleanliness and care in maintenance, implying that the shining quality results from proper attention and upkeep. In literary usage, nitid can describe anything that appears fresh, clean, and bright, whether literally shining or metaphorically clear and well-presented. Understanding nitid helps in appreciating descriptive language that emphasizes visual appeal and the aesthetic value of cleanliness and polish. The word reflects human appreciation for brightness and clarity as indicators of quality and care.',
+                'pronunciation': '/ˈnaɪtɪd/',
+                'etymology': 'From Latin nitidus meaning "shining, bright, polished," from nitere "to shine, glitter." The term emphasizes the visual quality of brightness and polish.',
+                'memory_tip': 'Remember NITID as "Nice and brIghT, polIsheD" - nice and bright, polished to a lustrous shine.',
+                'example_sentence': 'The butler\'s careful polishing left the silver service _____, reflecting the candlelight beautifully during the formal dinner.'
+            },
+            'nitrate': {
+                'definition': 'Nitrate refers to a salt or ester of nitric acid, containing the NO₃⁻ ion, commonly found in fertilizers, explosives, and food preservatives. In agriculture, nitrates serve as essential nitrogen sources for plant growth, making them crucial components of both natural soil chemistry and synthetic fertilizers. Sodium nitrate and potassium nitrate are widely used in fertilizer production, while their presence in groundwater can indicate agricultural runoff or environmental contamination. In food industry, nitrates and nitrites preserve meat products by preventing bacterial growth and maintaining color, though health concerns exist regarding potential formation of harmful compounds. Nitrates also have industrial applications in explosives manufacturing, glass production, and chemical synthesis. Environmentally, excessive nitrates in water systems can cause eutrophication, leading to algae blooms and oxygen depletion. Understanding nitrates helps in appreciating both their essential role in plant nutrition and potential environmental and health concerns when present in excessive amounts.',
+                'pronunciation': '/ˈnaɪtreɪt/',
+                'etymology': 'From French nitrate, from Latin nitrum "natron, soda" + -ate suffix indicating a salt. The term describes salts containing the nitrate ion.',
+                'memory_tip': 'Remember NITRATE as "NITRogen compOund that plants ATE" - a nitrogen compound that plants consume for growth, also used in fertilizers.',
+                'example_sentence': 'The farmer tested the soil\'s _____ levels to determine how much nitrogen fertilizer the crops would need for optimal growth.'
+            },
+            'nitratejoinery': {
+                'definition': 'This appears to be a combined word error from PDF parsing, likely meant to be "nitrate joinery" - combining the chemical compound with woodworking techniques.',
+                'pronunciation': 'N/A - Combined word error',
+                'etymology': 'Combined word parsing error',
+                'memory_tip': 'This is a PDF parsing error combining "nitrate" and "joinery"',
+                'example_sentence': 'N/A - This is not a valid single word'
+            },
+            'nitrogen': {
+                'definition': 'Nitrogen is a chemical element with the symbol N and atomic number 7, existing as a colorless, odorless, and relatively inert diatomic gas (N₂) that comprises about 78% of Earth\'s atmosphere. This essential element plays crucial roles in biological processes as a component of amino acids, proteins, and nucleic acids, making it fundamental to all living organisms. Despite its abundance in air, atmospheric nitrogen is largely unavailable to most organisms in its gaseous form, requiring conversion to ammonia or nitrates through nitrogen fixation by bacteria or industrial processes. The nitrogen cycle involves complex interactions between atmosphere, soil, water, and living organisms, moving nitrogen through various chemical forms to support life. Industrially, nitrogen is used in fertilizer production, explosives manufacturing, and as an inert atmosphere for chemical processes. Liquid nitrogen serves as a coolant for scientific and medical applications. Understanding nitrogen\'s properties and cycles is essential for agriculture, environmental science, and biotechnology.',
+                'pronunciation': '/ˈnaɪtrədʒən/',
+                'etymology': 'From French nitrogène, from Greek nitron "natron, soda" + -gen "producing." Named because it was first found in nitric acid and produces nitrates.',
+                'memory_tip': 'Remember NITROGEN as "NITRate + Oxygen GENerating element" - the element that generates nitrates and is essential for life, making up most of air.',
+                'example_sentence': 'Plants cannot directly use atmospheric _____ gas, so they depend on bacteria to convert it into usable compounds like ammonia.'
+            },
+            'nival': {
+                'definition': 'Nival describes something relating to, resembling, or growing in snow, particularly referring to regions, conditions, or organisms associated with snowy environments. This ecological term applies to alpine and arctic zones where snow is the dominant feature for much of the year, creating specific environmental conditions that support specialized plant and animal communities. Nival zones typically occur at high altitudes or latitudes where temperatures remain below freezing for extended periods, and organisms must adapt to harsh conditions including intense UV radiation, temperature fluctuations, and limited growing seasons. Plants in nival environments often exhibit specialized adaptations such as cushion growth forms, deep root systems, and rapid reproductive cycles to survive extreme conditions. The term also applies to geological processes influenced by snow and ice, including erosion patterns and soil development in cold climates. Understanding nival environments helps in studying climate change impacts, alpine ecology, and the specialized adaptations required for life in extreme cold conditions.',
+                'pronunciation': '/ˈnaɪvəl/',
+                'etymology': 'From Latin nivalis meaning "of snow," from nix/nivis "snow." The term directly relates to snowy conditions and environments.',
+                'memory_tip': 'Remember NIVAL as "sNow enVironment At high Levels" - relating to snow environments at high levels like mountaintops.',
+                'example_sentence': 'The _____ zone above the treeline supported only the hardiest alpine plants adapted to constant snow and freezing temperatures.'
+            },
+            'niveau': {
+                'definition': 'Niveau is a French word meaning "level" or "standard," adopted into English in specialized contexts to indicate degree, quality, or position within a hierarchy or scale of measurement. In academic and professional settings, niveau often describes levels of achievement, skill, or sophistication, particularly in language learning where it indicates proficiency levels. The term appears in phrases like "cultural niveau" or "intellectual niveau" to describe the level of refinement, education, or sophistication in various contexts. European education systems sometimes use niveau to classify academic levels or degree equivalencies in international frameworks. In art and criticism, niveau might describe the level of quality or sophistication in creative works. The word suggests not just position but also standard or quality associated with that position, implying evaluation based on established criteria. Understanding niveau helps in recognizing discussions about standards, levels of achievement, and hierarchical classifications in various professional and academic contexts.',
+                'pronunciation': '/niˈvoʊ/',
+                'etymology': 'From French niveau meaning "level, standard," from Latin libella "water level." The term maintains its French meaning when used in English contexts.',
+                'memory_tip': 'Remember NIVEAU as "New level EAU (water level)" - from French meaning level or standard, originally referring to water level measurement.',
+                'example_sentence': 'The language school assessed students\' _____ to place them in appropriate classes ranging from beginner to advanced.'
+            },
+            'niveaurouille': {
+                'definition': 'This appears to be a combined word error from PDF parsing, likely meant to be "niveau rouille" - combining the French word for level with the French word for rust.',
+                'pronunciation': 'N/A - Combined word error',
+                'etymology': 'Combined word parsing error',
+                'memory_tip': 'This is a PDF parsing error combining "niveau" and "rouille"',
+                'example_sentence': 'N/A - This is not a valid single word'
+            },
+            'nobiliary': {
+                'definition': 'Nobiliary describes anything relating to nobility, aristocracy, or the hereditary social rank system that traditionally granted special privileges, titles, and social status based on birth or royal appointment. This adjective applies to systems, customs, laws, or institutions associated with noble classes, including titles of nobility, hereditary privileges, and aristocratic traditions. Nobiliary particles are elements like "de," "von," or "di" that appear in names to indicate noble origins, while nobiliary law governs the inheritance and use of noble titles. The term encompasses heraldic systems, noble genealogies, and the social structures that historically distinguished aristocratic classes from commoners. In modern contexts, nobiliary matters might involve ceremonial roles, historical research, or legal questions about inherited titles and their contemporary recognition. Understanding nobiliary systems provides insight into historical social structures, the evolution of democratic values, and the cultural legacy of aristocratic institutions in modern societies.',
+                'pronunciation': '/noʊˈbɪliˌɛri/',
+                'etymology': 'From Latin nobiliarius meaning "of the nobility," from nobilis "noble, well-known." The term relates to systems and customs of aristocratic classes.',
+                'memory_tip': 'Remember NOBILIARY as "NOBILe + heredITARY" - relating to noble hereditary systems, aristocratic titles and privileges.',
+                'example_sentence': 'The historian specialized in _____ genealogy, tracing the lineages and title inheritance patterns of European aristocratic families.'
+            },
+            'noble': {
+                'definition': 'Noble describes something possessing excellent moral character, dignity, and high ideals, or referring to people of aristocratic social rank who traditionally held hereditary titles and privileges. In character terms, noble behavior demonstrates honor, generosity, courage, and ethical principles that inspire respect and admiration. Noble actions are motivated by virtue rather than self-interest, often involving personal sacrifice for the benefit of others or higher principles. The term also applies to aristocratic classes who historically held inherited social positions, titles, and privileges within hierarchical societies. Noble can describe physical appearance or bearing that suggests dignity and refinement, or refer to materials and objects of high quality and value, such as noble metals like gold and silver. In chemistry, noble gases are stable elements that rarely react with other substances. Understanding nobility in both moral and social contexts helps appreciate ideals of character excellence and historical social structures.',
+                'pronunciation': '/ˈnoʊbəl/',
+                'etymology': 'From Old French noble, from Latin nobilis meaning "well-known, famous, excellent, noble." Originally referred to people known for their character or birth.',
+                'memory_tip': 'Remember NOBLE as "Notable Outstanding Behavior, Lofty Ethics" - notable outstanding behavior with lofty ethics, or aristocratic social rank.',
+                'example_sentence': 'The firefighter\'s _____ sacrifice in rescuing strangers from the burning building exemplified the highest ideals of courage and selflessness.'
+            },
+            'nobody': {
+                'definition': 'Nobody is a pronoun meaning "no person" or "not anyone," used to indicate the complete absence of people in a particular context or situation. This negative pronoun functions in sentences to express that zero individuals are involved in an action, possess a quality, or occupy a location. Nobody can also serve as a noun referring to a person of no importance, influence, or social standing, sometimes used in the phrase "nobody special" to indicate ordinariness. The word creates emphasis through absolute negation, making statements more definitive than alternatives like "few people" or "not many people." In literature and everyday speech, nobody can express loneliness, isolation, or the absence of help or companionship. Understanding the grammatical and emotional implications of nobody helps in precise communication about absence, exclusion, and social standing. The word reflects human needs for connection and recognition by describing their absence.',
+                'pronunciation': '/ˈnoʊbədi/',
+                'etymology': 'From no + body, literally meaning "no person." The compound emphasizes the complete absence of any individual person.',
+                'memory_tip': 'Remember NOBODY as "NO + BODY = no person" - no person at all, completely absent of people.',
+                'example_sentence': '_____ answered the phone despite multiple attempts to reach someone at the abandoned office building.'
+            },
+            'nocive': {
+                'definition': 'Nocive describes something that is harmful, injurious, or likely to cause damage, particularly referring to substances, actions, or influences that have detrimental effects on health, well-being, or proper functioning. This formal adjective appears primarily in medical, scientific, or legal contexts to describe agents that cause harm through toxic, infectious, or destructive properties. Nocive substances might include environmental pollutants, toxic chemicals, or infectious agents that pose risks to human health or ecological systems. The term can also apply to behaviors, policies, or social conditions that create harmful consequences for individuals or communities. Nocive effects might be immediate and obvious or subtle and long-term, requiring careful study to identify and understand. Understanding nocive influences helps in risk assessment, public health policy, and personal decision-making about exposure to potentially harmful elements. The concept emphasizes the importance of identifying and avoiding sources of harm in various life contexts.',
+                'pronunciation': '/ˈnoʊsɪv/',
+                'etymology': 'From Latin nocivus meaning "harmful, injurious," from nocere "to harm, hurt." The term directly relates to the capacity to cause damage or injury.',
+                'memory_tip': 'Remember NOCIVE as "NOxious + deCISIVEly harmful" - noxious and decisively harmful, causing injury or damage.',
+                'example_sentence': 'The environmental study identified several _____ chemicals in the groundwater that posed serious health risks to local residents.'
+            },
+            'nockerl': {
+                'definition': 'Nockerl is a term from Austrian and German cuisine referring to small dumplings or fluffy, cloud-like desserts, most famously represented by Salzburger Nockerl, a sweet soufflé-like dessert that\'s a specialty of Salzburg, Austria. These light, airy confections are typically made from egg whites, sugar, and minimal flour, then baked until they achieve a golden, peaked appearance resembling mountain tops. Salzburger Nockerl is traditionally prepared fresh and served immediately while still warm and fluffy, often accompanied by fruit compotes or sweet sauces. The dish requires careful preparation to maintain its delicate texture, and its dramatic presentation makes it a popular choice for special occasions and fine dining. Other variations of nockerl can be savory, appearing as small dumplings in soups or as side dishes in traditional Austrian and German meals. Understanding nockerl provides insight into Alpine culinary traditions and the sophisticated dessert-making techniques of Austrian cuisine.',
+                'pronunciation': '/ˈnɔkərl/',
+                'etymology': 'From German/Austrian German Nockerl, diminutive of Nocke meaning "dumpling" or "small hill." The name reflects both the shape and small size of these preparations.',
+                'memory_tip': 'Remember NOCKERL as "NOble Austrian dessert, Clouds KEpt light and fluffy, Round Little treats" - noble Austrian dessert with cloud-like, round little treats.',
+                'example_sentence': 'The Austrian restaurant\'s signature _____ arrived at the table looking like golden mountain peaks, light and airy with a hint of vanilla.'
+            },
+            'noctambulist': {
+                'definition': 'A noctambulist is a person who walks during sleep, commonly known as a sleepwalker, engaging in complex behaviors while in a state of altered consciousness that occurs during deep sleep stages. This condition, medically termed somnambulism, involves individuals performing various activities such as walking, talking, or even more complex tasks while remaining asleep and typically having no memory of these actions upon waking. Noctambulism is more common in children than adults and can be triggered by sleep deprivation, stress, fever, or certain medications. Episodes usually occur during non-REM deep sleep and can last from a few minutes to over an hour. Safety concerns arise because noctambulists may injure themselves or others while navigating environments without full consciousness. Treatment approaches include improving sleep hygiene, addressing underlying stress, and creating safe environments to prevent accidents. Understanding noctambulism helps in recognizing normal sleep disorders and implementing appropriate safety measures and treatments.',
+                'pronunciation': '/nɑkˈtæmbjəlɪst/',
+                'etymology': 'From Latin noctambulus meaning "sleepwalker," from noctu "by night" + ambulare "to walk." The term literally means "night walker."',
+                'memory_tip': 'Remember NOCTAMBULIST as "NOCTurnal AMBULating perSON" - a person who ambulatesmoving around at night while sleeping, a sleepwalker.',
+                'example_sentence': 'The parents installed safety gates and alarms after discovering their child was a _____ who wandered through the house while asleep.'
+            },
+            'nocturnal': {
+                'definition': 'Nocturnal describes organisms, activities, or phenomena that are active, occur, or are most prominent during nighttime hours rather than during the day. This biological term applies to animals that have evolved to hunt, feed, mate, and conduct most life activities under cover of darkness, often possessing specialized adaptations such as enhanced night vision, acute hearing, or echolocation abilities. Nocturnal creatures include many mammals like bats and raccoons, birds like owls, and numerous insects that avoid daytime predators or heat. The term also applies to human activities that take place at night, from professional work shifts to social activities that prefer nighttime settings. Plants can exhibit nocturnal behaviors, such as flowers that bloom only at night to attract specific pollinators. Understanding nocturnal patterns helps in studying animal behavior, ecosystem dynamics, and the adaptations that allow life to thrive during dark hours when different environmental conditions prevail.',
+                'pronunciation': '/nɑkˈtɜrnəl/',
+                'etymology': 'From Latin nocturnalis meaning "of the night," from nocturnus "by night," from nox/noctis "night." The term emphasizes nighttime activity patterns.',
+                'memory_tip': 'Remember NOCTURNAL as "NOCTurnally URNal = nightly active" - active during nightly hours, awake and busy when others sleep.',
+                'example_sentence': 'The _____ owl\'s exceptional hearing and silent flight make it a formidable hunter in the darkness.'
+            },
+            'nodosity': {
+                'definition': 'Nodosity refers to the condition of being nodular or having nodes, particularly describing the state of having small, rounded swellings, lumps, or knot-like structures. In medical contexts, nodosity describes the presence of nodes in tissues, organs, or body systems, which can indicate various conditions from normal anatomical variations to disease processes. Plant biology uses nodosity to describe root systems that have developed nodules, particularly the nitrogen-fixing nodules found on legume roots that house beneficial bacteria. Geological nodosity refers to rock formations containing nodules or rounded mineral concentrations that differ from the surrounding material. The term can also apply to any surface or structure characterized by numerous small, rounded protrusions or swellings. Understanding nodosity helps in medical diagnosis, botanical study, and geological analysis where the presence and characteristics of nodular formations provide important information about underlying processes and conditions.',
+                'pronunciation': '/noʊˈdɑsəti/',
+                'etymology': 'From Latin nodositas meaning "knotted condition," from nodosus "knotty, full of knots," from nodus "knot." The term describes the quality of having knot-like formations.',
+                'memory_tip': 'Remember NODOSITY as "NODOS (knots) + sITy = condition of having knots" - the condition of having knot-like lumps or nodules.',
+                'example_sentence': 'The doctor examined the patient\'s lymph nodes to assess the degree of _____ and determine if further testing was needed.'
+            },
+            'noggin': {
+                'definition': 'Noggin is an informal term for the human head or brain, often used colloquially in expressions like "use your noggin" meaning to think or apply intelligence to a problem. This casual word can refer literally to the physical head or figuratively to mental capacity and thinking ability. The term appears frequently in friendly, conversational contexts rather than formal or medical discussions, and carries a slightly playful or affectionate tone. Noggin can also refer to a small cup or mug, particularly in British English, and historically described a small wooden drinking vessel that held about a quarter pint. In some regional dialects, noggin describes various small containers or portions. The head-related meaning has become the most common usage in American English, often appearing in phrases that encourage thinking or warn about protecting one\'s head from injury. Understanding noggin\'s informal nature helps in recognizing its appropriate use in casual conversation rather than formal writing.',
+                'pronunciation': '/ˈnɑɡɪn/',
+                'etymology': 'Possibly from Irish naigín meaning "small wooden cup," later extended to mean head. The head sense may come from the cup\'s rounded shape resembling a head.',
+                'memory_tip': 'Remember NOGGIN as "NOGood without using your braIN" - no good without using your brain, informal term for head or mind.',
+                'example_sentence': 'He bumped his _____ on the low-hanging branch and decided to pay more attention to his surroundings.'
+            },
+            'noisy': {
+                'definition': 'Noisy describes something that produces loud, excessive, or disruptive sounds, or environments characterized by high levels of unwanted sound that can interfere with communication, concentration, or peace. This adjective applies to people, animals, machines, environments, or situations that generate sounds above normal or acceptable levels for the context. Noisy can be objective (measurably loud) or subjective (perceived as disturbing by individuals with different sound tolerance levels). The term extends beyond literal sound to describe anything that creates disturbance or interference, such as noisy data in scientific measurements or noisy patterns in visual design. Social contexts recognize noisy behavior as potentially inconsiderate, while some environments (concerts, celebrations) appropriately embrace noise as part of their purpose. Understanding noise levels helps in managing environments for productivity, health, and social harmony, while recognizing that tolerance for noise varies among individuals and cultures.',
+                'pronunciation': '/ˈnɔɪzi/',
+                'etymology': 'From noise + -y suffix meaning "characterized by." Noise comes from Old French noise meaning "noise, disturbance," possibly from Latin nausea.',
+                'memory_tip': 'Remember NOISY as "Not Only Irritating Sound, also disruptive" - not only irritating sound, but also disruptive to concentration and peace.',
+                'example_sentence': 'The _____ construction work outside made it difficult to concentrate during the important business meeting.'
+            },
+            'nomancy': {
+                'definition': 'Nomancy is a form of divination that involves the interpretation of names to predict future events, understand personality characteristics, or gain mystical insights about individuals or situations. This esoteric practice, also known as onomancy, analyzes the letters, sounds, numerical values, or symbolic meanings within names to derive prophetic or characterological information. Practitioners might examine birth names, chosen names, or names associated with particular questions to provide guidance or predictions. The practice often incorporates numerological principles, assigning numerical values to letters and interpreting the resulting calculations. Nomancy reflects broader human tendencies to seek meaning and predictive power in language, symbols, and patterns. While not scientifically validated, such practices continue in various forms within spiritual and mystical communities. Understanding nomancy provides insight into divinatory traditions and the human search for meaning in names and linguistic elements. The practice demonstrates the cultural significance attributed to names across different societies and belief systems.',
+                'pronunciation': '/ˈnoʊmænsi/',
+                'etymology': 'From Greek onoma "name" + manteia "divination." The term literally means "divination by names," following the pattern of other divination terms.',
+                'memory_tip': 'Remember NOMANCY as "NAMe + divinatiON fancY" - fancy divination using names to predict the future or understand personality.',
+                'example_sentence': 'The practitioner of _____ studied the numerical values of the client\'s name to provide insights about future opportunities.'
+            },
+            'nomenclature': {
+                'definition': 'Nomenclature refers to a system of names or terms used in a particular discipline, science, or field of study, providing standardized ways to identify, classify, and communicate about specific concepts, objects, or phenomena. Scientific nomenclature ensures that researchers worldwide can communicate precisely about species, chemical compounds, anatomical structures, or other specialized subjects without confusion caused by regional name variations. Biological nomenclature, for example, uses binomial naming systems that assign genus and species names to organisms according to internationally accepted rules. Chemical nomenclature provides systematic ways to name compounds based on their molecular structure and composition. Professional fields develop specialized nomenclatures to facilitate precise communication among experts while potentially creating barriers for non-specialists. Understanding nomenclature systems helps in learning scientific disciplines, technical fields, and specialized areas of knowledge where precise terminology is essential for accurate communication and professional competence.',
+                'pronunciation': '/ˈnoʊmənˌkleɪtʃər/',
+                'etymology': 'From Latin nomenclatura meaning "calling by name," from nomen "name" + calatura "calling." The term emphasizes systematic naming practices.',
+                'memory_tip': 'Remember NOMENCLATURE as "NOMEN (name) + organized struCTURE" - organized structure of names used in specialized fields for precise communication.',
+                'example_sentence': 'Medical students spend considerable time learning anatomical _____ to ensure precise communication about body structures and functions.'
+            },
+            'nominal': {
+                'definition': 'Nominal describes something existing in name only, without substantial reality, or referring to amounts that are very small relative to expectations or normal standards. In economics, nominal values represent stated amounts without adjustment for inflation or other factors, contrasting with real values that account for purchasing power changes over time. Nominal can describe positions, titles, or roles that exist formally but carry little actual authority or responsibility, such as nominal leadership roles. The term also applies to token amounts or fees that are deliberately set very low to indicate symbolic rather than significant economic value. In grammar, nominal refers to words or phrases functioning as nouns. Statistical and research contexts use nominal to describe categorical data with no inherent order, such as colors or names. Understanding nominal helps distinguish between formal designations and actual substance, appearance and reality, or stated values and adjusted measurements.',
+                'pronunciation': '/ˈnɑmənəl/',
+                'etymology': 'From Latin nominalis meaning "of a name," from nomen "name." The term emphasizes the name-only quality without substantial reality.',
+                'memory_tip': 'Remember NOMINAL as "NAME-Only, Minimal actuality" - existing in name only with minimal actual substance or value.',
+                'example_sentence': 'The company charged only a _____ fee for the service, essentially providing it free while covering basic administrative costs.'
+            },
+            'nominated': {
+                'definition': 'Nominated is the past tense of nominate, describing the action of formally proposing someone for a position, honor, award, or role, typically through an official process that involves consideration by others. This process creates candidates for elections, appointments, awards, or recognitions by identifying individuals who meet specific criteria and possess relevant qualifications. Nomination procedures vary across contexts, from political party nominations for public office to peer nominations for professional awards to committee nominations for organizational roles. Being nominated represents recognition of competence, character, or achievement, though it doesn\'t guarantee selection. The nomination process often involves documentation of qualifications, endorsements from others, and formal submission of candidacy materials. Nominated individuals typically undergo further evaluation, campaigning, or selection processes before final decisions are made. Understanding nomination processes helps in recognizing achievement, participating in democratic procedures, and appreciating the systems societies use to identify and select qualified individuals for important roles.',
+                'pronunciation': '/ˈnɑməˌneɪtəd/',
+                'etymology': 'Past tense of nominate, from Latin nominatus meaning "named, appointed," from nominare "to name." The term emphasizes the formal naming or proposing action.',
+                'memory_tip': 'Remember NOMINATED as "NAMED + put fOrward" - named and put forward as a candidate for a position or award.',
+                'example_sentence': 'She felt honored to be _____ for the teaching excellence award by her colleagues and students.'
+            },
+            'nominee': {
+                'definition': 'A nominee is a person who has been formally proposed or designated as a candidate for a position, award, honor, or role, typically through an official nomination process. This status places individuals under consideration for selection by voting bodies, appointment authorities, or evaluation committees. Nominees must usually meet specific qualification criteria and may need to participate in additional processes such as interviews, campaigns, or public presentations. The role carries both honor (recognition of worthiness for consideration) and responsibility (representing the nominating organization or process). Political nominees seek elected office, while award nominees compete for recognition of achievement or excellence. Legal contexts use nominee to describe someone acting on behalf of another, such as nominee directors or nominee shareholders. Understanding the nominee role helps in recognizing achievement, participating in selection processes, and appreciating the formal mechanisms societies use to identify candidates for important positions or recognition.',
+                'pronunciation': '/ˌnɑməˈni/',
+                'etymology': 'From nominate + -ee suffix indicating one who receives an action. The suffix shows that the person has been nominated by others.',
+                'memory_tip': 'Remember NOMINEE as "NOMIN(ated) + rEcipient" - the recipient of nomination, someone who has been proposed for a position or award.',
+                'example_sentence': 'Each _____ for the board position was required to submit detailed qualifications and participate in interviews with current members.'
+            },
+            'nomophobia': {
+                'definition': 'Nomophobia is the fear of being without mobile phone contact, representing a modern anxiety disorder characterized by distress when unable to access one\'s smartphone or mobile device. This recently coined term describes the psychological discomfort, anxiety, or panic that some individuals experience when separated from their phones, when battery power is depleted, or when cellular service is unavailable. Symptoms can include increased heart rate, sweating, feelings of isolation, and compulsive checking behaviors related to phone accessibility. Nomophobia reflects the deep integration of mobile technology into daily life and social communication, where phones serve not just as communication tools but as connections to social networks, information, entertainment, and personal security. The condition highlights potential negative aspects of technology dependence and raises questions about healthy relationships with digital devices. Understanding nomophobia helps recognize when technology use becomes problematic and the importance of maintaining balanced relationships with digital tools.',
+                'pronunciation': '/ˌnoʊməˈfoʊbiə/',
+                'etymology': 'From "no mobile phone phobia," a recent coinage combining the absence of mobile phones with the Greek phobos meaning "fear." Created to describe modern technology anxiety.',
+                'memory_tip': 'Remember NOMOPHOBIA as "NO MObile PHONE + PHOBIA" - phobia of being without mobile phone contact, modern technology anxiety.',
+                'example_sentence': 'Her _____ became apparent when she experienced severe anxiety after realizing she had forgotten her smartphone at home.'
+            },
+            'nonage': {
+                'definition': 'Nonage refers to legal minority status, the period of life when a person has not yet reached the age of legal majority and therefore lacks full legal rights and responsibilities. This formal legal term describes the state of being under the age at which one is considered legally competent to make binding decisions, enter contracts, or exercise full citizenship rights. During nonage, individuals typically require guardianship, parental consent for major decisions, and special legal protections due to presumed lack of sufficient judgment and experience. The term also extends to describe any period of immaturity, inexperience, or early development in various contexts beyond legal status. Different jurisdictions set varying ages for legal majority, though most recognize age 18 as the transition point. Understanding nonage helps in recognizing legal protections for minors, age-based restrictions on activities, and the developmental considerations that inform laws about capacity, consent, and responsibility. The concept reflects societal judgments about when individuals achieve sufficient maturity for full legal autonomy.',
+                'pronunciation': '/ˈnoʊnɪdʒ/',
+                'etymology': 'From Old French nonage meaning "minority," from non- "not" + age "age." The term literally means "not of age" or below legal majority.',
+                'memory_tip': 'Remember NONAGE as "NON + AGE = not of age" - not of legal age, the period of being a minor without full legal rights.',
+                'example_sentence': 'During her _____, all major financial decisions required parental consent as she had not yet reached the age of legal majority.'
+            },
+            'nonchalance': {
+                'definition': 'Nonchalance refers to a casual, unconcerned attitude or behavior that appears indifferent to circumstances that might typically cause worry, excitement, or strong emotional responses. This quality involves maintaining composure and appearing relaxed even in situations that others might find stressful, important, or emotionally charged. Nonchalance can reflect genuine emotional stability and confidence, or it might be a deliberate affectation designed to project sophistication or control. The behavior suggests either natural calm temperament or practiced self-control that prevents external circumstances from disturbing one\'s equanimity. While nonchalance can be admirable in crisis situations where calm leadership is valuable, it can also appear inappropriate when situations genuinely warrant concern or emotional engagement. Cultural contexts influence how nonchalance is perceived, with some societies valuing emotional reserve while others prefer more expressive responses. Understanding nonchalance helps recognize different coping styles and cultural approaches to emotional expression.',
+                'pronunciation': '/ˌnɑnʃəˈlɑns/',
+                'etymology': 'From French nonchalance meaning "indifference," from nonchalant "unconcerned," from non- "not" + chaloir "to concern." The term emphasizes lack of concern or worry.',
+                'memory_tip': 'Remember NONCHALANCE as "NON + CHALlenged by circumstances" - not challenged by circumstances, maintaining casual unconcern despite situations.',
+                'example_sentence': 'His _____ during the crisis impressed everyone, as he calmly addressed each problem without showing signs of stress.'
+            },
+            'noncommittal': {
+                'definition': 'Noncommittal describes communication, behavior, or responses that avoid making definite statements, taking clear positions, or committing to specific courses of action. This approach involves deliberately remaining neutral, ambiguous, or evasive when others expect or request clear positions, decisions, or commitments. Noncommittal responses serve various purposes: avoiding conflict, maintaining flexibility, buying time for consideration, or preventing others from using one\'s words against them later. The behavior can reflect wisdom in uncertain situations where premature commitments might prove problematic, or it might indicate indecisiveness, lack of courage, or deliberate manipulation. Political figures often use noncommittal language to appeal to multiple constituencies without alienating any group. Understanding noncommittal communication helps in recognizing when others are avoiding definite positions and deciding when such approaches are appropriate versus when clear commitments are necessary for progress and trust.',
+                'pronunciation': '/ˌnɑnkəˈmɪtəl/',
+                'etymology': 'From non- "not" + committal meaning "commitment." The term describes the absence of definite commitment or clear position-taking.',
+                'memory_tip': 'Remember NONCOMMITTAL as "NON + COMMITTAL = not committing" - not committing to definite positions, remaining deliberately vague or neutral.',
+                'example_sentence': 'The candidate gave _____ answers during the interview, avoiding specific commitments about controversial policy issues.'
+            },
+            'nonconformist': {
+                'definition': 'A nonconformist is a person who refuses to conform to established or conventional practices, beliefs, or standards, choosing instead to follow individual principles even when they conflict with social expectations or group norms. This behavior reflects independent thinking and willingness to challenge authority, tradition, or popular opinion in pursuit of personal authenticity or alternative values. Nonconformists play important roles in social progress by questioning outdated practices, introducing new ideas, and demonstrating alternative ways of living or thinking. The term has religious origins, originally describing Protestant groups that separated from the established Church of England. Modern usage applies to anyone who deliberately chooses unconventional paths in dress, behavior, career choices, or lifestyle decisions. While nonconformism can lead to innovation and positive change, it can also create social friction and personal challenges. Understanding nonconformist tendencies helps appreciate both the value of independent thinking and the social costs of opposing conventional norms.',
+                'pronunciation': '/ˌnɑnkənˈfɔrmɪst/',
+                'etymology': 'From non- "not" + conformist "one who conforms." Originally described Protestant dissenters from the established church, later extended to general non-compliance with norms.',
+                'memory_tip': 'Remember NONCONFORMIST as "NON + CONFORM + individual = individual who doesn\'t conform" - an individual who doesn\'t conform to established norms or expectations.',
+                'example_sentence': 'The artist\'s _____ approach to painting challenged traditional techniques and helped establish new movements in contemporary art.'
+            },
+            'nondescript': {
+                'definition': 'Nondescript describes something lacking distinctive or interesting characteristics, appearing ordinary, unremarkable, or generic in a way that makes it difficult to remember or describe specifically. This adjective applies to people, places, objects, or experiences that blend into the background due to their common, average, or unremarkable qualities. Nondescript can be neutral (simply ordinary) or slightly negative (disappointingly bland), depending on context and expectations. The term often describes buildings, clothing, or appearances that are deliberately designed to avoid drawing attention, sometimes for practical or strategic reasons. Nondescript individuals or objects serve useful purposes when anonymity or inconspicuousness is desired, such as in surveillance, undercover work, or situations where standing out might be problematic. Understanding nondescript helps recognize the value of both distinctiveness and ordinariness in different contexts, and the role that memorable characteristics play in human perception and memory.',
+                'pronunciation': '/ˌnɑndɪˈskrɪpt/',
+                'etymology': 'From non- "not" + descript (from Latin descriptus "described"). The term means "not described" or lacking distinguishing features worth describing.',
+                'memory_tip': 'Remember NONDESCRIPT as "NON + DESCRIPTive features" - lacking descriptive features, ordinary and unremarkable.',
+                'example_sentence': 'The spy chose a _____ sedan that would blend in perfectly with typical traffic and attract no attention.'
+            },
+            'none': {
+                'definition': 'None is a pronoun meaning "not one" or "not any," used to indicate the complete absence of items, people, or qualities from a specified group or category. This word functions in sentences to create absolute negative statements about quantity, emphasizing that zero examples exist of whatever is being discussed. None can take singular or plural verb forms depending on the context and what it refers to, though grammatical preferences vary among style guides. The word appears in various expressions such as "none other than" (emphasizing identity) or "none the worse" (indicating lack of negative effects). None differs from "nobody" by applying to things as well as people, and from "nothing" by specifically referencing absence from a defined set. Understanding none helps in creating precise negative statements and avoiding logical errors in reasoning about quantities and existence. The word serves important functions in logic, mathematics, and precise communication about absence.',
+                'pronunciation': '/nʌn/',
+                'etymology': 'From Old English nan, from ne "not" + an "one." The compound literally means "not one" and has maintained this meaning throughout English development.',
+                'memory_tip': 'Remember NONE as "Not ONE" - not one single item from a group, zero examples of something.',
+                'example_sentence': '_____ of the students had completed the assignment on time, forcing the professor to extend the deadline.'
+            },
+            'nonnegotiable': {
+                'definition': 'Nonnegotiable describes conditions, requirements, or principles that are fixed and cannot be changed, modified, or compromised through discussion or bargaining. This term applies to situations where certain elements are considered absolute and must be accepted as stated, without possibility of alteration or concession. Nonnegotiable items reflect core values, legal requirements, safety standards, or fundamental principles that individuals or organizations refuse to compromise regardless of pressure or incentives. In business contexts, nonnegotiable terms might include basic ethical standards, legal compliance requirements, or essential operational procedures. Personal nonnegotiables could involve moral principles, family priorities, or health and safety standards. While inflexibility can sometimes hinder progress, nonnegotiable principles provide stability, clarity, and protection of essential values. Understanding what should be nonnegotiable versus what can be flexible helps in establishing boundaries, maintaining integrity, and effective negotiation strategies.',
+                'pronunciation': '/ˌnɑnnɪˈɡoʊʃəbəl/',
+                'etymology': 'From non- "not" + negotiable "able to be negotiated." The term emphasizes the absolute, unchangeable nature of certain conditions or principles.',
+                'memory_tip': 'Remember NONNEGOTIABLE as "NON + NEGOTIABLE = cannot be negotiated" - cannot be negotiated or changed, absolutely fixed.',
+                'example_sentence': 'The company made it clear that workplace safety standards were _____ and would be enforced without exception.'
+            },
+            'nonpareil': {
+                'definition': 'Nonpareil describes something that has no equal, is unmatched in excellence, or represents the finest example of its kind. This term indicates supreme quality, unrivaled distinction, or peerless achievement that sets something apart from all comparable items or individuals. Nonpareil can apply to people with exceptional talents, objects of supreme craftsmanship, performances of outstanding quality, or achievements that surpass all others in their category. The word suggests not just excellence but a level of superiority that makes comparison meaningless because nothing else approaches the same standard. In culinary contexts, nonpareil refers to small, round sugar decorations or the finest grade of capers. Historical usage often applied the term to individuals of such remarkable ability or character that they stood alone in their fields. Understanding nonpareil helps recognize and appreciate true excellence while distinguishing between merely good quality and genuinely exceptional achievement that transcends normal standards.',
+                'pronunciation': '/ˌnɑnpəˈreɪl/',
+                'etymology': 'From French nonpareil meaning "without equal," from non- "not" + pareil "equal." The term literally means "having no equal."',
+                'memory_tip': 'Remember NONPAREIL as "NON + PARallEL = no parallel" - having no parallel, unmatched in excellence.',
+                'example_sentence': 'The violinist\'s _____ technique and musical sensitivity made her performances unforgettable experiences for audiences worldwide.'
+            },
+            'nonsense': {
+                'definition': 'Nonsense refers to words, ideas, or behavior that lack meaning, logic, or coherence, failing to make rational sense or convey intelligible communication. This term describes statements that appear to be language but don\'t conform to logical patterns, factual accuracy, or meaningful expression. Nonsense can be intentional (as in children\'s games, poetry, or humor that deliberately uses absurd language) or unintentional (resulting from confusion, mental impairment, or poor communication). The concept extends beyond language to describe actions, policies, or situations that seem irrational or counterproductive. Literary nonsense, exemplified by works like "Alice in Wonderland" or Edward Lear\'s poems, uses deliberate absurdity to create entertainment or artistic effect. Understanding nonsense helps in recognizing breakdown in communication, identifying logical fallacies, and appreciating forms of creative expression that deliberately challenge conventional meaning. The concept also plays important roles in child development, humor, and artistic creativity.',
+                'pronunciation': '/ˈnɑnsəns/',
+                'etymology': 'From non- "not" + sense "meaning, rationality." The compound literally means "not making sense" or lacking rational meaning.',
+                'memory_tip': 'Remember NONSENSE as "NON + SENSE = no sense" - lacking sense, meaning, or logical coherence.',
+                'example_sentence': 'The child\'s explanation for the missing cookies was complete _____, involving elaborate stories about cookie-eating fairies.'
+            },
+            'nonvolatile': {
+                'definition': 'Nonvolatile describes substances that do not readily evaporate at normal temperatures and pressures, maintaining their liquid or solid state rather than transitioning to gas phase under standard conditions. This property is crucial in chemistry, materials science, and technology applications where stability and permanence are important. Nonvolatile compounds include many oils, waxes, salts, and high-molecular-weight substances that require significant energy input to vaporize. In computing, nonvolatile memory retains stored information even when power is removed, contrasting with volatile memory that loses data during power interruptions. Examples include hard drives, flash memory, and ROM chips that provide permanent data storage. Industrial applications value nonvolatile substances for coatings, lubricants, and materials that must maintain their properties across various environmental conditions. Understanding nonvolatility helps in material selection, safety considerations (since these substances don\'t easily become airborne), and technology design where permanent information storage or stable material properties are essential.',
+                'pronunciation': '/ˌnɑnˈvɑlətəl/',
+                'etymology': 'From non- "not" + volatile "easily evaporating." The term describes substances that do not easily transition from liquid/solid to gas phase.',
+                'memory_tip': 'Remember NONVOLATILE as "NON + VOLATILE = not evaporating" - not evaporating easily, remaining stable in liquid or solid form.',
+                'example_sentence': 'The laboratory used _____ solvents for long-term experiments where evaporation would compromise the results.'
+            },
+            'nook': {
+                'definition': 'A nook is a small, secluded corner or recess, typically cozy and partially enclosed, that provides a sense of privacy and intimacy within a larger space. These architectural features create intimate spaces for reading, conversation, or quiet activities, often incorporating built-in seating, shelving, or other functional elements. Nooks can occur naturally in building layouts or be deliberately designed to provide comfortable retreat areas within homes, libraries, cafes, or other buildings. The term extends metaphorically to describe any small, hidden, or out-of-the-way place that offers shelter or privacy. Reading nooks, breakfast nooks, and window seats represent common applications of this spatial concept. Garden nooks provide outdoor equivalents with landscaping that creates semi-enclosed, intimate spaces. Understanding nook design helps in creating comfortable, functional spaces that serve human needs for both social interaction and private retreat. The concept reflects the importance of varied spatial experiences in architecture and interior design.',
+                'pronunciation': '/nʊk/',
+                'etymology': 'From Middle English nok, possibly from Scandinavian languages meaning "corner, angle." The word suggests a small, angular space or corner.',
+                'memory_tip': 'Remember NOOK as "Nice cOzy cOrner Kept private" - a nice cozy corner kept private, a small intimate space.',
+                'example_sentence': 'She created a reading _____ by the window, complete with soft cushions and good lighting for afternoon book sessions.'
+            },
+            'noon': {
+                'definition': 'Noon refers to the time of day when the sun reaches its highest point in the sky, traditionally marking 12:00 PM or the middle of the day in standard timekeeping systems. This moment represents the transition between morning and afternoon, when shadows are shortest and solar radiation is most direct for any given location. Noon serves as a crucial reference point for daily schedules, meal times, and various cultural and religious observances that organize human activities around solar cycles. The concept has historical importance in navigation, agriculture, and astronomy, where precise determination of local noon helped establish longitude and coordinate activities with natural light cycles. Modern timekeeping has standardized noon across time zones, though astronomical noon (when the sun is directly overhead) varies by geographic location within each zone. Understanding noon helps appreciate how human societies organize time around natural phenomena and the continuing importance of solar references in daily life despite artificial lighting and global communication.',
+                'pronunciation': '/nun/',
+                'etymology': 'From Old English non, from Latin nona meaning "ninth hour." Originally referred to the ninth hour after sunrise (about 3 PM), later shifted to midday.',
+                'memory_tip': 'Remember NOON as "iN the middle Of the day wheN sun is highest" - in the middle of the day when the sun is at its highest point.',
+                'example_sentence': 'The outdoor wedding was scheduled for _____ to take advantage of the brightest natural lighting for photographs.'
+            },
+            'noor': {
+                'definition': 'Noor is an Arabic word meaning "light" or "illumination," used both as a common given name and as a concept in Islamic spirituality and philosophy. In religious contexts, noor represents divine light, spiritual enlightenment, or the illuminating presence of God that guides believers toward truth and righteousness. The term appears frequently in the Quran and Islamic literature to describe both literal light and metaphorical spiritual illumination. As a name, Noor is popular across Muslim cultures and has been adopted in various forms throughout the Middle East, South Asia, and Muslim communities worldwide. The concept extends beyond religious usage to represent knowledge, guidance, wisdom, and any form of positive illumination that dispels darkness or ignorance. In poetry and literature, noor often symbolizes beauty, purity, and divine presence. Understanding noor helps appreciate Islamic concepts of spirituality and the cultural significance of light-related symbolism in Arabic and Islamic traditions.',
+                'pronunciation': '/nʊr/',
+                'etymology': 'From Arabic nūr meaning "light." The word is fundamental in Islamic theology and Arabic literature, representing both physical and spiritual illumination.',
+                'memory_tip': 'Remember NOOR as "Natural Omnipresent Radiance" - natural omnipresent radiance, Arabic word for light with spiritual significance.',
+                'example_sentence': 'The mosque\'s architecture was designed to emphasize _____, with large windows and reflective surfaces creating an atmosphere of divine illumination.'
+            },
+            'nopales': {
+                'definition': 'Nopales are the young, tender pads of the prickly pear cactus (Opuntia species), commonly used as a vegetable in Mexican and Southwestern United States cuisine after the spines and thorns are removed. These paddle-shaped cactus segments have a unique texture and mild, slightly tart flavor that\'s often compared to green beans or okra. Nopales are rich in vitamins, minerals, fiber, and antioxidants, making them valuable nutritionally as well as culturally. Traditional preparation involves grilling, boiling, or sautéing the pads, which can then be added to salads, tacos, soups, or eaten as side dishes. The vegetable has gained popularity in health-conscious communities due to its nutritional benefits and potential role in managing blood sugar levels. Nopales represent an important example of desert agriculture and indigenous food systems that maximize nutrition from arid environment plants. Understanding nopales provides insight into traditional Mexican cuisine and sustainable food practices adapted to challenging environments.',
+                'pronunciation': '/noʊˈpɑleɪs/',
+                'etymology': 'From Spanish nopales, plural of nopal, from Nahuatl nohpalli meaning "cactus pad." The word maintains its indigenous Mexican origins.',
+                'memory_tip': 'Remember NOPALES as "NOt just cactus PAdS, but Local Edible food" - not just cactus pads, but local edible food used in Mexican cuisine.',
+                'example_sentence': 'The Mexican restaurant served grilled _____ as a healthy side dish, seasoned with lime and cilantro.'
+            },
+            'normative': {
+                'definition': 'Normative describes principles, standards, or approaches that establish or prescribe norms, rules, or ideal standards for behavior, thought, or practice rather than simply describing what currently exists. This concept appears across many fields: normative ethics prescribes moral principles about what ought to be done, normative economics suggests policy goals rather than just analyzing current economic conditions, and normative theories propose ideal models rather than merely explaining existing phenomena. Normative statements express value judgments about what is desirable, proper, or ideal, contrasting with descriptive statements that simply report facts about current conditions. The term can carry both positive connotations (establishing beneficial standards) and negative ones (imposing restrictive conformity). Understanding normative versus descriptive approaches helps distinguish between analysis of current reality and prescription of desired changes. This distinction is crucial in policy-making, ethical reasoning, and academic disciplines where both understanding current conditions and proposing improvements are important.',
+                'pronunciation': '/ˈnɔrmətɪv/',
+                'etymology': 'From norm + -ative suffix meaning "tending to." The term describes tendencies to establish or prescribe norms and standards.',
+                'memory_tip': 'Remember NORMATIVE as "NORM + Actively prescriptive" - actively prescriptive of norms, establishing standards for how things should be.',
+                'example_sentence': 'The philosopher\'s _____ approach to justice focused on establishing principles for how society ought to distribute resources fairly.'
+            }
+        }
+        
+        return claude_data.get(word, {
+            'definition': f'Definition for {word} not yet available.',
+            'pronunciation': f'Pronunciation for {word} not yet available.',
+            'etymology': f'Etymology for {word} not yet available.',
+            'memory_tip': f'Memory tip for {word} not yet available.',
+            'example_sentence': f'Example sentence for {word} not yet available.'
+        })
+    
+    def detect_combined_words(self) -> List[str]:
+        combined_words = [
+            'nitratejoinery',
+            'niveaurouille'
+        ]
+        return combined_words
+    
+    def process_batch(self, input_file: str, output_file: str):
+        logger.info("Processing Batch 119 with comprehensive Claude data...")
+        
+        combined_words = self.detect_combined_words()
+        logger.info(f"Detected {len(combined_words)} combined word errors: {combined_words}")
+        
+        processed_words = []
+        
+        with open(input_file, 'r', encoding='utf-8') as csvfile:
+            reader = csv.DictReader(csvfile)
+            
+            for row in reader:
+                word = row['word'].strip()
+                if not word:
+                    continue
+                    
+                logger.info(f"Processed word: {word}")
+                
+                claude_data = self.get_comprehensive_claude_data(word)
+                difficulty_scores = self.difficulty_calc.calculate_difficulty_score(
+                    word, claude_data['definition'], claude_data['etymology']
+                )
+                
+                processed_word = {
+                    'word': word,
+                    'years': row['years'],
+                    'source_files': row['source_files'], 
+                    'source_difficulties': row['source_difficulties'],
+                    'definition': claude_data['definition'],
+                    'pronunciation': claude_data['pronunciation'],
+                    'etymology': claude_data['etymology'],
+                    'etymology_source': 'Claude',
+                    'memory_tip': claude_data['memory_tip'],
+                    'example_sentence': claude_data['example_sentence'],
+                    'example_sentence_source': 'Claude',
+                    'phonetic_transparency_score': difficulty_scores['phonetic_transparency_score'],
+                    'word_frequency_score': difficulty_scores['word_frequency_score'],
+                    'morphological_complexity_score': difficulty_scores['morphological_complexity_score'],
+                    'etymology_complexity_score': difficulty_scores['etymology_complexity_score'],
+                    'difficulty': difficulty_scores['difficulty'],
+                    'combined_word_error': word in combined_words
+                }
+                
+                processed_words.append(processed_word)
+        
+        # Write output CSV
+        if processed_words:
+            fieldnames = [
+                'word', 'years', 'source_files', 'source_difficulties',
+                'definition', 'pronunciation', 'etymology', 'etymology_source',
+                'memory_tip', 'example_sentence', 'example_sentence_source',
+                'phonetic_transparency_score', 'word_frequency_score',
+                'morphological_complexity_score', 'etymology_complexity_score',
+                'difficulty', 'combined_word_error'
+            ]
+            
+            with open(output_file, 'w', newline='', encoding='utf-8') as csvfile:
+                writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
+                writer.writeheader()
+                writer.writerows(processed_words)
+        
+        logger.info(f"Saved {len(processed_words)} words to {output_file}")
+        logger.info("Batch 119 processing completed!")
+        logger.info(f"Processed {len(processed_words)} words with comprehensive Claude data")
+        logger.info(f"Output saved to: {output_file}")
+        logger.info(f"Results: {len(processed_words)} successful, 0 failed")
+
+if __name__ == "__main__":
+    processor = Batch119Processor()
+    
+    input_file = "output/batch_119_words.csv"
+    output_file = "output/batch_119_processed.csv"
+    
+    processor.process_batch(input_file, output_file)

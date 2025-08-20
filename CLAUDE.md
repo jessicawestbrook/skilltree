@@ -197,8 +197,10 @@ Be sure to write tests to validate any code changes and run linting and so on wh
 ## Notifications
 Notifications help the user stay on track to continue learning with the site every day. Admins can also send notifications using the admin interface. User can adjust notifications under settings.
 
-## Database insertion
+## Database
 Don't ask me to insert fake data into the database. Keep track of which data is fake and which is real so we don't get them mixed up. This is very important! I will only insert data into the database after we have validated that it is true and well-formatted.
+
+When making changes to a table that is not empty, first create a backup table with suffix _bkp or if that table already exists then increment it like _bkp2, _bkp3 and so on. That way if there is an issue with the processing, the original table can be restored from backup.
 
 ## Data set processing
 Text in csvs needs to be surrounded by quotation marks. Run processing in batch and save progress regularly (every 100 words perhaps) so that we can mitigate issues with network connectivity and api rate limiting. API rate limiting must be taken into account by implementing pauses between requests. Create recovery documentation so that if/when the code run fails I can easily start the job up again to pick up where processing left off.

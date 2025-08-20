@@ -339,11 +339,11 @@ const SettingsPage: React.FC = () => {
 
   if (!user) {
     return (
-      <div className="max-w-4xl mx-auto px-4 py-8">
-        <div className="text-center py-12">
-          <UserCircleIcon className="h-16 w-16 text-neutral-400 mx-auto mb-4" />
-          <h2 className="text-2xl font-bold mb-2">Sign in to access settings</h2>
-          <p className="text-neutral-600 dark:text-neutral-400 mb-6">
+      <div className="max-w-3xl mx-auto px-4 py-6">
+        <div className="text-center py-8">
+          <UserCircleIcon className="h-12 w-12 text-neutral-400 mx-auto mb-3" />
+          <h2 className="text-xl font-bold mb-2">Sign in to access settings</h2>
+          <p className="text-neutral-600 dark:text-neutral-400 mb-4 text-sm">
             You need to be logged in to customize your experience
           </p>
           <button
@@ -358,53 +358,53 @@ const SettingsPage: React.FC = () => {
   }
 
   return (
-    <div className="max-w-4xl mx-auto px-4 py-8">
-      <div className="mb-6">
+    <div className="max-w-3xl mx-auto px-4 py-6">
+      <div className="mb-4">
         <button
           onClick={() => navigate(-1)}
-          className="flex items-center text-neutral-600 dark:text-neutral-400 hover:text-neutral-800 dark:hover:text-neutral-200 mb-4"
+          className="flex items-center text-neutral-600 dark:text-neutral-400 hover:text-neutral-800 dark:hover:text-neutral-200 mb-2"
         >
           <ArrowLeftIcon className="h-4 w-4 mr-2" />
           Back
         </button>
-        <h1 className="text-3xl font-bold">Settings</h1>
-        <p className="text-neutral-600 dark:text-neutral-400 mt-2">
+        <h1 className="text-2xl font-bold">Settings</h1>
+        <p className="text-neutral-600 dark:text-neutral-400 text-sm mt-1">
           Customize your SkillTree experience
         </p>
       </div>
 
-      <div className="space-y-8">
+      <div className="space-y-4">
         {settingsSections.map((section) => (
-          <div key={section.title} className="card">
-            <div className="flex items-center gap-3 mb-4">
+          <div key={section.title} className="card py-4">
+            <div className="flex items-center gap-2 mb-3">
               <div className="text-primary-600 dark:text-primary-400">
                 {section.icon}
               </div>
-              <h2 className="text-xl font-semibold">{section.title}</h2>
+              <h2 className="text-lg font-semibold">{section.title}</h2>
             </div>
             
-            <div className="space-y-4">
+            <div className="space-y-3">
               {section.settings.map((setting) => (
                 <div
                   key={setting.label}
-                  className={`flex items-center justify-between py-3 ${
+                  className={`flex items-center justify-between py-2 ${
                     'comingSoon' in setting && setting.comingSoon ? 'opacity-60' : ''
                   }`}
                 >
-                  <div className="flex-1">
+                  <div className="flex-1 pr-4">
                     <div className="flex items-center gap-2">
-                      <h3 className="font-medium">{setting.label}</h3>
+                      <h3 className="font-medium text-sm">{setting.label}</h3>
                       {'comingSoon' in setting && setting.comingSoon && (
-                        <span className="text-xs bg-neutral-200 dark:bg-neutral-700 text-neutral-600 dark:text-neutral-400 px-2 py-0.5 rounded">
+                        <span className="text-xs bg-neutral-200 dark:bg-neutral-700 text-neutral-600 dark:text-neutral-400 px-1.5 py-0.5 rounded">
                           Coming Soon
                         </span>
                       )}
                     </div>
-                    <p className="text-sm text-neutral-600 dark:text-neutral-400">
+                    <p className="text-xs text-neutral-600 dark:text-neutral-400 mt-0.5">
                       {setting.description}
                     </p>
                   </div>
-                  <div className="ml-4">
+                  <div className="flex-shrink-0">
                     {setting.control}
                   </div>
                 </div>
@@ -414,76 +414,68 @@ const SettingsPage: React.FC = () => {
         ))}
       </div>
 
-      <div className="mt-12 card bg-gradient-to-r from-primary-50 to-secondary-50 dark:from-primary-900/20 dark:to-secondary-900/20 border-primary-200 dark:border-primary-800">
-        <h3 className="text-lg font-semibold mb-4">Account Information</h3>
+      <div className="mt-6 card py-4 bg-gradient-to-r from-primary-50 to-secondary-50 dark:from-primary-900/20 dark:to-secondary-900/20 border-primary-200 dark:border-primary-800">
+        <h3 className="text-lg font-semibold mb-3">Account Information</h3>
         
         {/* Username Management */}
-        <div className="mb-6">
-          <div className="flex items-center justify-between">
-            <div>
-              <span className="text-neutral-600 dark:text-neutral-400 text-sm">Username:</span>
-              {!isEditingUsername ? (
-                <div className="flex items-center gap-2 mt-1">
-                  <span className="font-medium">
-                    {currentUsername || 'Not set'}
-                  </span>
-                  <button
-                    onClick={startEditingUsername}
-                    className="text-primary-600 hover:text-primary-700 text-xs font-medium"
-                  >
-                    {currentUsername ? 'Change' : 'Set Username'}
-                  </button>
-                </div>
-              ) : (
-                <div className="mt-2">
-                  <div className="flex items-center gap-2 mb-2">
-                    <input
-                      type="text"
-                      value={newUsername}
-                      onChange={(e) => setNewUsername(e.target.value)}
-                      placeholder="Enter username"
-                      className="flex-1 px-3 py-1 text-sm border border-neutral-300 dark:border-neutral-600 rounded-lg bg-white dark:bg-neutral-800 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent"
-                      disabled={usernameLoading}
-                    />
-                    <button
-                      onClick={handleUsernameUpdate}
-                      disabled={usernameLoading || !newUsername.trim()}
-                      className="px-3 py-1 bg-primary-600 hover:bg-primary-700 disabled:bg-neutral-400 text-white text-xs font-medium rounded-lg transition-colors"
-                    >
-                      {usernameLoading ? 'Saving...' : 'Save'}
-                    </button>
-                    <button
-                      onClick={cancelEditingUsername}
-                      disabled={usernameLoading}
-                      className="px-3 py-1 bg-neutral-200 hover:bg-neutral-300 dark:bg-neutral-700 dark:hover:bg-neutral-600 text-neutral-700 dark:text-neutral-300 text-xs font-medium rounded-lg transition-colors"
-                    >
-                      Cancel
-                    </button>
-                  </div>
-                  {usernameError && (
-                    <p className="text-red-600 dark:text-red-400 text-xs">{usernameError}</p>
-                  )}
-                  {usernameSuccess && (
-                    <p className="text-green-600 dark:text-green-400 text-xs">{usernameSuccess}</p>
-                  )}
-                  <p className="text-neutral-500 text-xs mt-1">
-                    3-30 characters, letters, numbers, underscores and hyphens only
-                  </p>
-                </div>
-              )}
+        <div className="mb-4">
+          <span className="text-neutral-600 dark:text-neutral-400 text-xs">Username:</span>
+          {!isEditingUsername ? (
+            <div className="flex items-center gap-2 mt-1">
+              <span className="font-medium text-sm">
+                {currentUsername || 'Not set'}
+              </span>
+              <button
+                onClick={startEditingUsername}
+                className="text-primary-600 hover:text-primary-700 text-xs font-medium"
+              >
+                {currentUsername ? 'Change' : 'Set'}
+              </button>
             </div>
-          </div>
+          ) : (
+            <div className="mt-1">
+              <div className="flex items-center gap-2 mb-1">
+                <input
+                  type="text"
+                  value={newUsername}
+                  onChange={(e) => setNewUsername(e.target.value)}
+                  placeholder="Enter username"
+                  className="flex-1 px-2 py-1 text-xs border border-neutral-300 dark:border-neutral-600 rounded bg-white dark:bg-neutral-800 focus:outline-none focus:ring-1 focus:ring-primary-500 focus:border-transparent"
+                  disabled={usernameLoading}
+                />
+                <button
+                  onClick={handleUsernameUpdate}
+                  disabled={usernameLoading || !newUsername.trim()}
+                  className="px-2 py-1 bg-primary-600 hover:bg-primary-700 disabled:bg-neutral-400 text-white text-xs font-medium rounded transition-colors"
+                >
+                  {usernameLoading ? 'Saving...' : 'Save'}
+                </button>
+                <button
+                  onClick={cancelEditingUsername}
+                  disabled={usernameLoading}
+                  className="px-2 py-1 bg-neutral-200 hover:bg-neutral-300 dark:bg-neutral-700 dark:hover:bg-neutral-600 text-neutral-700 dark:text-neutral-300 text-xs font-medium rounded transition-colors"
+                >
+                  Cancel
+                </button>
+              </div>
+              {usernameError && (
+                <p className="text-red-600 dark:text-red-400 text-xs mb-1">{usernameError}</p>
+              )}
+              {usernameSuccess && (
+                <p className="text-green-600 dark:text-green-400 text-xs mb-1">{usernameSuccess}</p>
+              )}
+              <p className="text-neutral-500 text-xs">
+                3-30 characters, letters, numbers, underscores and hyphens only
+              </p>
+            </div>
+          )}
         </div>
 
         {/* Other Account Info */}
-        <div className="space-y-2 text-sm border-t border-neutral-200 dark:border-neutral-700 pt-4">
+        <div className="space-y-1 text-xs border-t border-neutral-200 dark:border-neutral-700 pt-3">
           <p>
             <span className="text-neutral-600 dark:text-neutral-400">Email:</span>{' '}
             <span className="font-medium">{user.email}</span>
-          </p>
-          <p>
-            <span className="text-neutral-600 dark:text-neutral-400">User ID:</span>{' '}
-            <span className="font-mono text-xs">{user.id}</span>
           </p>
           <p>
             <span className="text-neutral-600 dark:text-neutral-400">Member Since:</span>{' '}
@@ -494,7 +486,7 @@ const SettingsPage: React.FC = () => {
         </div>
       </div>
 
-      <div className="mt-8 text-center text-sm text-neutral-500">
+      <div className="mt-4 text-center text-xs text-neutral-500">
         <p>Version 1.0.0 • © 2024 SkillTree</p>
       </div>
     </div>

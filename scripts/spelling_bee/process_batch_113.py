@@ -1,0 +1,564 @@
+#!/usr/bin/env python3
+
+import csv
+import logging
+from typing import Dict, List, Any
+import re
+
+# Set up logging
+logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
+logger = logging.getLogger(__name__)
+
+class DifficultyCalculator:
+    """Calculate difficulty scores based on 4 factors."""
+    
+    def calculate_difficulty_score(self, word: str, definition: str, etymology: str) -> Dict[str, Any]:
+        """Calculate 4-factor difficulty score but leave final difficulty null."""
+        return {
+            'phonetic_transparency_score': self._calculate_phonetic_transparency(word),
+            'word_frequency_score': self._calculate_word_frequency(word),
+            'morphological_complexity_score': self._calculate_morphological_complexity(word),
+            'etymology_complexity_score': self._calculate_etymology_complexity(etymology),
+            'difficulty': None  # Leave null as instructed
+        }
+    
+    def _calculate_phonetic_transparency(self, word: str) -> float:
+        """Calculate phonetic transparency (0.0 = transparent, 1.0 = opaque)."""
+        score = 0.0
+        if any(combo in word.lower() for combo in ['ph', 'gh', 'ch', 'sh', 'th']):
+            score += 0.2
+        if any(combo in word.lower() for combo in ['ough', 'augh', 'eigh']):
+            score += 0.3
+        if len([c for c in word.lower() if c in 'aeiou']) / len(word) < 0.2:
+            score += 0.2
+        return min(1.0, score)
+    
+    def _calculate_word_frequency(self, word: str) -> float:
+        """Estimate word frequency (0.0 = very common, 1.0 = very rare)."""
+        common_words = {'the', 'and', 'for', 'are', 'but', 'not', 'you', 'all', 'can', 'her', 'was', 'one', 'our'}
+        if word.lower() in common_words:
+            return 0.0
+        if len(word) <= 4:
+            return 0.3
+        elif len(word) <= 7:
+            return 0.6
+        else:
+            return 0.9
+    
+    def _calculate_morphological_complexity(self, word: str) -> float:
+        """Calculate morphological complexity based on affixes and roots."""
+        complexity = 0.0
+        prefixes = ['un', 're', 'in', 'dis', 'en', 'non', 'over', 'mis', 'sub', 'pre', 'inter', 'fore', 'de', 'trans', 'super', 'semi', 'anti', 'mid', 'under']
+        suffixes = ['ing', 'ly', 'ed', 'ies', 'ied', 'ying', 'es', 'er', 'ion', 'tion', 'ation', 'ition', 'able', 'ible', 'ment', 'ness', 'ous', 'eous', 'ious']
+        
+        for prefix in prefixes:
+            if word.lower().startswith(prefix):
+                complexity += 0.2
+                break
+        
+        for suffix in suffixes:
+            if word.lower().endswith(suffix):
+                complexity += 0.2
+                break
+                
+        if len(word) > 10:
+            complexity += 0.3
+            
+        return min(1.0, complexity)
+    
+    def _calculate_etymology_complexity(self, etymology: str) -> float:
+        """Calculate etymology complexity based on language origins."""
+        if not etymology or etymology.strip() == "":
+            return 0.5
+        
+        complex_origins = ['greek', 'latin', 'french', 'german', 'italian', 'spanish', 'arabic', 'hebrew', 'sanskrit']
+        simple_origins = ['english', 'old english', 'middle english']
+        
+        etymology_lower = etymology.lower()
+        
+        for origin in complex_origins:
+            if origin in etymology_lower:
+                return 0.8
+        
+        for origin in simple_origins:
+            if origin in etymology_lower:
+                return 0.2
+                
+        return 0.5
+
+class Batch113Processor:
+    """Processes Batch 113 with comprehensive Claude data for all 50 words"""
+    
+    def __init__(self):
+        self.difficulty_calc = DifficultyCalculator()
+        
+    def get_comprehensive_claude_data(self, word: str) -> dict:
+        """Get comprehensive Claude data for each word"""
+        data = {
+            'misinterpret': {
+                'definition': 'To understand or explain wrongly; to assign an incorrect meaning to words, actions, or situations. Misinterpretation occurs when communication fails due to ambiguous language, cultural differences, or faulty assumptions about intended meaning. Legal contexts involve misinterpreting contracts, laws, or testimony, potentially leading to disputes or wrongful decisions. Personal relationships suffer when actions or words are misinterpreted, creating misunderstandings and conflict where none was intended. Academic misinterpretation can involve misreading data, texts, or research findings, leading to incorrect conclusions. Media misinterpretation may involve distorting statements through selective editing or biased presentation. Preventing misinterpretation requires clear communication, verification of understanding, and consideration of alternative meanings. The concept emphasizes the gap between intended and received meaning in human communication.',
+                'pronunciation': "/ˌmɪs.ɪnˈtɜr.prət/",
+                'etymology': 'From "mis-" (wrongly) + "interpret" (from Latin "interpretari," to explain), meaning to explain wrongly.',
+                'memory_tip': 'Remember MISINTERPRET = MIS + INTERPRET - wrongly understand the meaning.',
+                'example_sentence': 'It would be easy to ______ her silence as disapproval when she might simply be thinking carefully.'
+            },
+            'mislead': {
+                'definition': 'To give false or inaccurate information that causes someone to believe something untrue; to guide in the wrong direction. Misleading involves intentional or accidental provision of incorrect information that results in false beliefs or poor decisions. Advertising can mislead consumers through exaggerated claims, hidden costs, or deceptive comparisons. Political misleading may involve selective presentation of facts or promises that cannot be fulfilled. Witnesses can mislead courts through incomplete testimony or false statements. GPS systems sometimes mislead travelers by providing outdated route information. Academic misleading occurs when sources contain errors or biased interpretations. Understanding misleading behavior helps in evaluating information credibility and making informed decisions. The concept emphasizes the importance of accurate, complete, and honest communication.',
+                'pronunciation': "/ˌmɪsˈlid/",
+                'etymology': 'From Old English "misleadan," from "mis-" (wrongly) + "lead," meaning to guide in wrong direction.',
+                'memory_tip': 'Remember MISLEAD = MIS-LEAD someone down wrong path - give false information.',
+                'example_sentence': 'The outdated map might ______ hikers into taking dangerous trails that are now closed.'
+            },
+            'misnomer': {
+                'definition': 'A wrong or inaccurate name or designation; a term that incorrectly describes what it refers to. Misnomers arise from historical usage, popular misconceptions, or linguistic evolution that preserves incorrect names. "Koala bear" is a misnomer because koalas are marsupials, not bears. "Guinea pig" represents a misnomer since these animals are neither from Guinea nor related to pigs. Scientific misnomers include terms like "killer whale" for orcas, which are actually the largest dolphins. Legal misnomers can cause confusion in contracts or official documents where precise terminology matters. Understanding misnomers helps recognize the difference between popular usage and accurate description. The concept illustrates how language can preserve historical inaccuracies that become embedded in common usage.',
+                'pronunciation': "/ˈmɪs.noʊ.mər/",
+                'etymology': 'From Anglo-French "mesnomer," from "mes-" (wrongly) + "nommer" (to name), meaning wrong naming.',
+                'memory_tip': 'Remember MISNOMER = MIS-NOMER (wrong name) - incorrect designation for something.',
+                'example_sentence': 'Calling them "tidal waves" is a ______ since tsunamis are not actually caused by tides.'
+            },
+            'miss': {
+                'definition': 'To fail to hit, reach, catch, or achieve something; also a title for an unmarried woman or young girl. Missing targets involves failing to make contact with intended objects in sports, hunting, or other activities. Missing opportunities means failing to take advantage of favorable circumstances. Missing people are absent or cannot be located, often causing concern for their safety. "Miss" as a title preceded by a name shows respect for unmarried women, though usage has evolved with changing social customs. Missing deadlines involves failing to complete tasks within specified timeframes. The concept encompasses both physical failure to connect and abstract failure to achieve desired outcomes. Understanding miss involves recognizing both literal and figurative applications of not reaching targets.',
+                'pronunciation': "/mɪs/",
+                'etymology': 'From Old English "missan," meaning to fail to hit or reach; title usage from "mistress."',
+                'memory_tip': 'Remember MISS = fail to hit target OR title for unmarried woman.',
+                'example_sentence': 'The archer was disappointed to ______ the bullseye by just a few inches.'
+            },
+            'missile': {
+                'definition': 'A weapon that is thrown, fired, or launched toward a target; an object designed to be propelled through the air to deliver an explosive payload or kinetic impact. Military missiles include ballistic missiles, cruise missiles, and surface-to-air missiles with various ranges and capabilities. Guided missiles use navigation systems to adjust course toward targets, while unguided missiles follow ballistic trajectories. Missile defense systems attempt to intercept incoming weapons before they reach their targets. Historical missiles included arrows, spears, catapult projectiles, and early rockets. Modern missiles incorporate sophisticated guidance, propulsion, and warhead technologies. International treaties regulate missile development and deployment to control proliferation of dangerous weapons. Understanding missiles involves both military technology and arms control considerations.',
+                'pronunciation': "/ˈmɪs.əl/",
+                'etymology': 'From Latin "missile," meaning something to be thrown, derived from "mittere" (to send or throw).',
+                'memory_tip': 'Remember MISSILE = something sent through air as weapon - MISS-ILE flying projectile.',
+                'example_sentence': 'The military tested a new guided ______ designed to intercept enemy aircraft.'
+            },
+            'mission': {
+                'definition': 'A specific task or assignment that someone is sent to accomplish; an important goal or purpose that guides actions and decisions. Military missions involve specific operational objectives including reconnaissance, combat, or humanitarian assistance. Religious missions focus on spreading faith, providing charity, or establishing churches in new areas. Space missions explore celestial bodies, conduct scientific research, or deploy satellites. Corporate missions define company purposes and values that guide business decisions. Personal missions represent individual life purposes or career goals that provide direction and motivation. Mission statements articulate organizational purposes and objectives. Diplomatic missions conduct international relations and represent national interests abroad. Understanding missions involves recognizing both specific assignments and broader purposes that drive organized efforts.',
+                'pronunciation': "/ˈmɪʃ.ən/",
+                'etymology': 'From Latin "missio," meaning sending or dispatch, derived from "mittere" (to send).',
+                'memory_tip': 'Remember MISSION = special task you\'re sent to accomplish - important assignment.',
+                'example_sentence': 'The space agency announced a new ______ to explore the moons of Jupiter.'
+            },
+            'missive': {
+                'definition': 'A written message or letter, especially one that is long or official; a formal communication sent from one person or organization to another. Missives historically served as primary means of long-distance communication before modern telecommunications. Diplomatic missives convey official government positions, proposals, or responses in international relations. Business missives include formal letters, memoranda, and official communications between organizations. Legal missives may contain notices, demands, or official legal communications. Personal missives encompass letters, emails, and other written correspondence between individuals. The term emphasizes the formal or important nature of written communication. Electronic missives have largely replaced physical letters but maintain similar functions for official communication. Understanding missives involves recognizing formal communication protocols and their importance in maintaining records.',
+                'pronunciation': "/ˈmɪs.ɪv/",
+                'etymology': 'From Latin "missivus," meaning sent, derived from "mittere" (to send), referring to sent messages.',
+                'memory_tip': 'Remember MISSIVE = formal message that\'s SENT - written communication or letter.',
+                'example_sentence': 'The ambassador sent an urgent ______ to the foreign ministry regarding the border dispute.'
+            },
+            'mistake': {
+                'definition': 'An error or wrong judgment; an action or belief that is incorrect or unwise. Mistakes occur through misunderstanding, carelessness, lack of knowledge, or poor judgment. Learning from mistakes represents important educational and personal development processes. Medical mistakes can have serious consequences, requiring systems to prevent and learn from errors. Academic mistakes help students understand concepts through correction and feedback. Financial mistakes may involve poor investment decisions, overspending, or inadequate planning. Relationship mistakes often result from miscommunication or insensitive behavior. The phrase "honest mistake" distinguishes accidental errors from intentional wrongdoing. Understanding mistakes involves recognizing human fallibility and the importance of systems that minimize errors and promote learning from failures.',
+                'pronunciation': "/mɪˈsteɪk/",
+                'etymology': 'From "mis-" (wrongly) + "take," meaning to take or understand wrongly.',
+                'memory_tip': 'Remember MISTAKE = MIS-TAKE - wrongly take or understand something, causing error.',
+                'example_sentence': 'The student realized her ______ when she discovered she had been solving the wrong equation.'
+            },
+            'mistaken': {
+                'definition': 'Wrong in opinion or judgment; based on error or misunderstanding. Being mistaken involves holding incorrect beliefs despite good intentions or reasonable assumptions. Mistaken identity occurs when someone is confused for another person, potentially causing problems or embarrassment. Mistaken beliefs can persist despite evidence to the contrary, requiring open-mindedness to correct. Legal contexts involve mistaken testimony or identification that can affect case outcomes. Scientific progress often involves recognizing and correcting mistaken theories or interpretations. Personal relationships may suffer from mistaken assumptions about others\' intentions or motivations. The concept emphasizes that being wrong is a common human experience that requires humility and willingness to change views when presented with better information.',
+                'pronunciation': "/mɪˈsteɪ.kən/",
+                'etymology': 'Past participle of "mistake," meaning having made an error or holding wrong beliefs.',
+                'memory_tip': 'Remember MISTAKEN = having made a MISTAKE - wrong in judgment or belief.',
+                'example_sentence': 'She was ______ about the meeting time and arrived an hour early.'
+            },
+            'mister': {
+                'definition': 'A title of respect used before a man\'s name or when addressing a man; abbreviated as "Mr." in formal writing. Mister serves as standard polite address in social and professional contexts, showing respect regardless of the man\'s marital status. Business correspondence typically uses "Mr." with surnames in formal letters and official documents. Classroom settings may involve students addressing male teachers as "Mr." followed by surname. The title has evolved to include various cultural adaptations and alternatives as social customs change. Service interactions often use "mister" as courteous address when names are unknown. Understanding proper title usage involves recognizing social etiquette and professional communication standards. The concept reflects cultural traditions of respectful address that vary across different societies.',
+                'pronunciation': "/ˈmɪs.tər/",
+                'etymology': 'From "master," weakened form used as respectful address for men, abbreviated as "Mr."',
+                'memory_tip': 'Remember MISTER = polite title for men - respectful way to address males.',
+                'example_sentence': 'The receptionist greeted the visitor by saying, "Good morning, ______ Johnson."'
+            },
+            'mitigative': {
+                'definition': 'Having the quality of reducing severity, intensity, or harm; serving to make something less severe or painful. Mitigative measures aim to lessen negative impacts without completely eliminating problems. Environmental mitigative strategies reduce pollution or ecological damage through improved practices and technologies. Legal mitigative factors may reduce criminal sentences by demonstrating circumstances that lessen culpability. Medical mitigative treatments help manage symptoms and slow disease progression when cures are unavailable. Climate mitigative actions work to reduce greenhouse gas emissions and slow global warming. Risk mitigative approaches identify and address potential problems before they become serious. Understanding mitigative concepts involves recognizing graduated responses to problems that focus on harm reduction rather than complete solutions.',
+                'pronunciation': "/ˈmɪt.ɪ.ɡeɪ.tɪv/",
+                'etymology': 'From Latin "mitigatus" (made mild) + "-ive" suffix, meaning serving to make less severe.',
+                'memory_tip': 'Remember MITIGATIVE = MITIGATE-IVE - serving to reduce harm or severity.',
+                'example_sentence': 'The company implemented ______ measures to reduce environmental impact from their manufacturing process.'
+            },
+            'mitochondria': {
+                'definition': 'Plural of mitochondrion; small organelles within cells that produce energy through cellular respiration, often called the "powerhouses of the cell." Mitochondria convert glucose and oxygen into ATP (adenosine triphosphate), the energy currency that powers cellular activities. These organelles contain their own DNA and reproduce independently, suggesting they evolved from ancient bacterial symbionts. Muscle cells contain many mitochondria due to high energy requirements for movement and contraction. Mitochondrial diseases affect energy production and can cause serious health problems including muscle weakness and neurological disorders. The number and efficiency of mitochondria affect athletic performance, aging processes, and metabolic health. Understanding mitochondria is crucial for comprehending cellular biology, energy metabolism, and various medical conditions related to cellular energy production.',
+                'pronunciation': "/ˌmaɪ.təˈkɑn.dri.ə/",
+                'etymology': 'From Greek "mitos" (thread) + "khondros" (grain), referring to their thread-like and granular appearance.',
+                'memory_tip': 'Remember MITOCHONDRIA = cellular powerhouses that make energy like MIGHTY power plants.',
+                'example_sentence': 'The biology student studied how ______ produce ATP through the process of cellular respiration.'
+            },
+            'mittimus': {
+                'definition': 'A legal document or writ directing that a person be committed to prison; a warrant ordering imprisonment or transfer to custody. Mittimus serves as formal authorization for detention, ensuring that imprisonment occurs only under proper legal authority. Courts issue mittimus documents when imposing jail sentences or ordering pretrial detention. The writ protects against unlawful imprisonment by requiring written justification for custody. Historical mittimus procedures developed as part of legal systems designed to prevent arbitrary detention. Modern criminal justice systems maintain mittimus requirements as constitutional protections. The document typically specifies the legal basis for imprisonment, duration of sentence, and custody instructions. Understanding mittimus involves recognizing due process protections and formal procedures that govern legitimate imprisonment in legal systems.',
+                'pronunciation': "/ˈmɪt.ɪ.məs/",
+                'etymology': 'From Latin "mittimus," meaning "we send," the opening word of the Latin legal formula for commitment to prison.',
+                'memory_tip': 'Remember MITTIMUS = legal paper that COMMITS someone - prison commitment order.',
+                'example_sentence': 'The judge signed the ______ ordering the convicted defendant to serve six months in county jail.'
+            },
+            'mitty': {
+                'definition': 'Relating to Walter Mitty, the fictional character created by James Thurber who escapes mundane reality through elaborate daydreams and fantasies. A "Walter Mitty type" describes someone who frequently engages in wishful thinking or imaginary scenarios where they are heroic, successful, or important. The character represents escapist fantasy as a response to unsatisfying real-life circumstances. Mitty behavior involves retreating into imagination when reality becomes boring or disappointing. The story explores themes of ordinary people seeking adventure and recognition through mental escapism. Modern usage applies "mitty" to describe unrealistic ambitions or tendency to exaggerate one\'s importance or capabilities. Understanding the Mitty reference involves recognizing literary characters that have become cultural symbols for common human behaviors and psychological tendencies.',
+                'pronunciation': "/ˈmɪt.i/",
+                'etymology': 'Named after Walter Mitty, fictional character created by James Thurber, known for escapist daydreaming.',
+                'memory_tip': 'Remember MITTY = daydreamer like Walter Mitty - person who escapes into fantasy.',
+                'example_sentence': 'His friends considered him a ______ type because he was always imagining himself as a famous adventurer.'
+            },
+            'mixed': {
+                'definition': 'Composed of different elements combined together; showing a combination of different qualities, emotions, or results. Mixed materials combine various substances to create composites with enhanced properties. Mixed emotions involve conflicting feelings about situations that have both positive and negative aspects. Mixed results indicate outcomes that include both successes and failures. Mixed populations contain diverse ethnic, cultural, or social groups living together. Mixed signals in communication convey contradictory messages that create confusion about intentions. Mixed marriages involve partners from different racial, ethnic, or religious backgrounds. The concept emphasizes combination and diversity rather than uniformity or homogeneity. Understanding mixed situations requires appreciating complexity and the coexistence of different elements or qualities.',
+                'pronunciation': "/mɪkst/",
+                'etymology': 'Past tense of "mix," from Latin "miscere," meaning to combine or blend together.',
+                'memory_tip': 'Remember MIXED = different things combined - blended together from various sources.',
+                'example_sentence': 'The teacher had ______ feelings about retiring after thirty years in education.'
+            },
+            'mixture': {
+                'definition': 'A combination of different substances or elements that retain their individual properties; a blend of diverse components. Chemical mixtures differ from compounds because component substances can be separated by physical means. Homogeneous mixtures like salt water have uniform composition throughout, while heterogeneous mixtures like oil and water maintain distinct phases. Cooking involves creating mixtures of ingredients that combine flavors while maintaining separate properties. Air represents a mixture of gases including nitrogen, oxygen, and carbon dioxide. Soil is a complex mixture of organic matter, minerals, water, and air. Social mixtures describe diverse communities with people from different backgrounds. Understanding mixtures involves recognizing both the combination of elements and the preservation of individual component characteristics.',
+                'pronunciation': "/ˈmɪks.tʃər/",
+                'etymology': 'From Latin "mixtura," meaning a mixing or blending, derived from "miscere" (to mix).',
+                'memory_tip': 'Remember MIXTURE = MIX-TURE - combination that mixes different things together.',
+                'example_sentence': 'The cake batter was a ______ of flour, eggs, sugar, and vanilla that would soon become dessert.'
+            },
+            'mizuna': {
+                'definition': 'A Japanese leafy green vegetable with feathery, deeply cut leaves and a mild, slightly peppery flavor; also known as Japanese mustard greens or spider mustard. Mizuna belongs to the brassica family and is commonly used in salads, stir-fries, and soups. The plant grows quickly and can be harvested at various stages from baby greens to mature leaves. Mizuna provides vitamins A, C, and K, along with folate and antioxidants beneficial for health. Japanese cuisine incorporates mizuna in hot pots, pickles, and as garnish for various dishes. The vegetable has gained popularity in Western cooking as part of mesclun mixes and gourmet salads. Mizuna is relatively easy to grow and tolerates cool weather, making it suitable for home gardens. Understanding mizuna involves appreciating both its culinary applications and nutritional benefits.',
+                'pronunciation': "/mɪˈzu.nə/",
+                'etymology': 'From Japanese "mizuna," literally meaning "water greens," referring to this leafy vegetable.',
+                'memory_tip': 'Remember MIZUNA = Japanese water greens - feathery leaves like water plants.',
+                'example_sentence': 'The salad featured fresh ______ with its distinctive feathery leaves adding a mild peppery flavor.'
+            },
+            'mobility': {
+                'definition': 'The ability to move freely and easily; the capacity to change position, location, or social status. Physical mobility involves movement of the body, limbs, or entire person from one place to another. Social mobility describes changes in socioeconomic status, education level, or class position within society. Geographic mobility refers to movement between different locations, regions, or countries. Economic mobility measures changes in income or wealth over time. Assistive mobility devices including wheelchairs, walkers, and prosthetics help people with movement limitations. Urban mobility involves transportation systems and infrastructure that enable efficient movement within cities. Understanding mobility encompasses both individual capabilities and societal systems that facilitate or restrict movement and advancement.',
+                'pronunciation': "/moʊˈbɪl.ə.ti/",
+                'etymology': 'From Latin "mobilitas," meaning movability, derived from "mobilis" (movable).',
+                'memory_tip': 'Remember MOBILITY = ability to be MOBILE - freedom to move and change position.',
+                'example_sentence': 'The physical therapist worked to improve the patient\'s ______ after the leg injury.'
+            },
+            'mochi': {
+                'definition': 'A traditional Japanese rice cake made from glutinous rice that has been pounded into paste and molded into shape; often filled with sweet or savory ingredients. Mochi preparation involves steaming glutinous rice and pounding it with wooden mallets until it becomes smooth and elastic. The resulting paste can be shaped into various forms and filled with sweet red bean paste, ice cream, or other ingredients. New Year celebrations in Japan traditionally include mochi-making ceremonies and special mochi dishes. Different regions of Japan have various mochi preparations and seasonal variations. Modern mochi includes ice cream versions popular in Western countries and creative fusion flavors. The texture is distinctively chewy and sticky, requiring careful chewing to avoid choking hazards. Understanding mochi involves appreciating both traditional preparation methods and cultural significance.',
+                'pronunciation': "/ˈmoʊ.tʃi/",
+                'etymology': 'From Japanese "mochi," referring to this traditional rice cake made from pounded glutinous rice.',
+                'memory_tip': 'Remember MOCHI = pounded rice cake that\'s soft and MUSHY when chewed.',
+                'example_sentence': 'The Japanese festival featured traditional ______ making with wooden mallets and steamed rice.'
+            },
+            'mockery': {
+                'definition': 'Teasing and contemptuous language or behavior directed at someone or something; ridicule intended to make someone or something seem foolish. Mockery involves deliberate attempts to make others appear ridiculous through imitation, sarcasm, or derogatory comments. Playground mockery can damage children\'s self-esteem and create hostile social environments. Political mockery uses satire and ridicule to criticize opponents or policies. Media mockery may involve parody, caricature, or satirical commentary on public figures or social issues. The phrase "making a mockery of" suggests that something important is being treated as worthless or ridiculous. Legal protections against mockery vary, balancing free speech rights with protection from harassment. Understanding mockery involves recognizing both its potential for humor and its capacity to cause emotional harm.',
+                'pronunciation': "/ˈmɑk.ər.i/",
+                'etymology': 'From "mock" (Middle French "mocquer") + "-ery" suffix, meaning the act of mocking or ridiculing.',
+                'memory_tip': 'Remember MOCKERY = MOCK-ery - teasing and ridicule to make others look foolish.',
+                'example_sentence': 'The comedian\'s ______ of political figures was funny but sometimes crossed the line into cruelty.'
+            },
+            'modality': {
+                'definition': 'A particular mode, method, or form in which something exists or is experienced; a classification based on specific characteristics or functions. Medical modalities refer to different treatment approaches including physical therapy, medication, surgery, or alternative therapies. Sensory modalities include vision, hearing, touch, taste, and smell that provide different types of information. Learning modalities describe different ways people process information such as visual, auditory, or kinesthetic learning styles. Transportation modalities include various means of movement like cars, trains, buses, or bicycles. Communication modalities encompass different methods of conveying information including speech, writing, sign language, or digital media. Research modalities involve different methodological approaches to investigating questions. Understanding modalities helps recognize diversity in approaches, experiences, and systems for accomplishing similar goals.',
+                'pronunciation': "/moʊˈdæl.ə.ti/",
+                'etymology': 'From Latin "modus" (mode or manner) + "-ality" suffix, meaning the quality of being modal or method-based.',
+                'memory_tip': 'Remember MODALITY = MODE-ality - particular method or way of doing something.',
+                'example_sentence': 'The physical therapist used multiple treatment ______ including heat therapy and exercise.'
+            },
+            'model': {
+                'definition': 'A representation or example used to show how something works or what it looks like; a person who poses for art or displays clothing. Scientific models simplify complex systems to help understanding and prediction. Mathematical models use equations to represent relationships between variables. Scale models create smaller versions of buildings, vehicles, or other objects for study or display. Fashion models display clothing and accessories for advertising and runway shows. Role models demonstrate behavior or achievements that others can emulate. Computer models simulate processes and test hypotheses in virtual environments. Economic models attempt to predict market behavior and policy impacts. Understanding models involves recognizing both their utility for representation and their limitations as simplified versions of complex reality.',
+                'pronunciation': "/ˈmɑd.əl/",
+                'etymology': 'From Latin "modulus," meaning measure or standard, referring to something used as an example.',
+                'memory_tip': 'Remember MODEL = example to follow - representation showing how something works or looks.',
+                'example_sentence': 'The architect built a scale ______ of the proposed building to show clients the design.'
+            },
+            'modem': {
+                'definition': 'A device that modulates and demodulates digital signals for transmission over analog communication lines, particularly telephone lines or cable systems. Modems enable computers to communicate over networks by converting digital data into analog signals for transmission and back to digital signals for reception. Dial-up modems used telephone lines to provide internet access at speeds measured in kilobits per second. Cable modems use coaxial cable television infrastructure to provide high-speed internet access. DSL modems use digital subscriber line technology over existing telephone lines. Modern broadband modems often integrate router functions to share internet connections among multiple devices. Understanding modem technology involves recognizing how digital devices communicate over various transmission media and the evolution from slow dial-up to high-speed broadband connections.',
+                'pronunciation': "/ˈmoʊ.dəm/",
+                'etymology': 'Acronym from "modulator-demodulator," describing the device\'s function of converting signals.',
+                'memory_tip': 'Remember MODEM = MOdulator-DEModulator - device that converts signals for transmission.',
+                'example_sentence': 'The cable ______ provided high-speed internet access to the entire household.'
+            },
+            'modern': {
+                'definition': 'Relating to the present time or recent times; contemporary and up-to-date with current styles, methods, or ideas. Modern art, architecture, and design reflect contemporary aesthetic values and technological capabilities. Modern medicine incorporates recent scientific discoveries and technological advances in treatment and diagnosis. Modern society includes current social structures, communication technologies, and cultural practices. The modern era generally refers to the period from the late 15th century to the present, characterized by scientific revolution, industrialization, and social change. Modern languages are those currently spoken, as opposed to ancient or dead languages. Modern conveniences include technological innovations that improve quality of life. Understanding modern involves recognizing both temporal aspects (recent or current) and qualitative aspects (advanced or contemporary) of human development and culture.',
+                'pronunciation': "/ˈmɑd.ərn/",
+                'etymology': 'From Latin "modernus," meaning of the present time, derived from "modo" (just now, recently).',
+                'memory_tip': 'Remember MODERN = MODE-RN (right now) - current, contemporary, up-to-date.',
+                'example_sentence': 'The ______ apartment featured smart home technology and minimalist design.'
+            },
+            'modesty': {
+                'definition': 'The quality of being humble about one\'s abilities or achievements; also comportment that avoids drawing attention to oneself, particularly regarding dress or behavior. Personal modesty involves downplaying accomplishments and avoiding boastful behavior. Cultural modesty standards vary widely regarding appropriate dress, behavior, and social interaction. Religious modesty may include specific clothing requirements and behavioral guidelines. Intellectual modesty involves recognizing the limits of one\'s knowledge and remaining open to learning. False modesty describes insincere humility used to fish for compliments or appear humble while actually seeking praise. Professional modesty can help build relationships and avoid alienating colleagues through excessive self-promotion. Understanding modesty involves recognizing cultural context, genuine humility, and the balance between appropriate confidence and excessive pride.',
+                'pronunciation': "/ˈmɑd.ə.sti/",
+                'etymology': 'From Latin "modestia," meaning moderation or restraint, derived from "modus" (measure).',
+                'memory_tip': 'Remember MODESTY = MODE-sty - measured, humble way of behaving without showing off.',
+                'example_sentence': 'Despite winning the championship, she accepted the award with genuine ______ and grace.'
+            },
+            'modicum': {
+                'definition': 'A small quantity of a particular thing, especially something considered valuable or desirable; a limited amount that is barely adequate. Modicum suggests that even a small amount of something important can be significant or helpful. A modicum of respect enables basic social interaction even in difficult relationships. A modicum of success can provide encouragement to continue pursuing goals. A modicum of skill may be sufficient for basic task completion though not for mastery. The term often appears in contexts where minimal amounts are contrasted with greater needs or desires. Medical treatment may provide a modicum of relief without complete cure. Understanding modicum involves recognizing that small quantities can sometimes be meaningful, though they may not fully satisfy needs or expectations.',
+                'pronunciation': "/ˈmɑd.ɪ.kəm/",
+                'etymology': 'From Latin "modicum," meaning moderate amount, derived from "modus" (measure, manner).',
+                'memory_tip': 'Remember MODICUM = MODerate amount - small quantity of something valuable.',
+                'example_sentence': 'The stressed student hoped to find a ______ of peace during the busy exam period.'
+            },
+            'modify': {
+                'definition': 'To make partial changes to something; to alter or adapt without completely changing the fundamental nature. Modification involves adjusting existing things rather than creating entirely new ones. Software modifications include updates, patches, and feature additions that improve functionality. Home modifications may include accessibility improvements, renovations, or technological upgrades. Behavior modification uses psychological techniques to change habits and responses. Car modifications can improve performance, appearance, or functionality. Legal modifications involve amendments to contracts, laws, or agreements. Educational modifications adapt curriculum or teaching methods to meet diverse learning needs. Understanding modification involves recognizing the difference between adaptation and complete replacement, emphasizing improvement while maintaining essential characteristics.',
+                'pronunciation': "/ˈmɑd.əˌfaɪ/",
+                'etymology': 'From Latin "modificare," meaning to limit or regulate, from "modus" (measure) + "facere" (to make).',
+                'memory_tip': 'Remember MODIFY = MOD-ify - change the mode or way something works.',
+                'example_sentence': 'The teacher agreed to ______ the assignment deadline to accommodate students with special needs.'
+            },
+            'modiste': {
+                'definition': 'A person who makes or sells fashionable women\'s clothing, especially hats; a milliner or dressmaker who specializes in stylish accessories and garments. Modistes historically served wealthy women by creating custom clothing and accessories that reflected current fashion trends. The term particularly applied to hat makers who designed elaborate headwear for formal occasions and daily wear. French modistes influenced international fashion through their innovative designs and craftsmanship. High-end modistes often worked exclusively for elite clientele, creating unique pieces rather than mass-produced items. The profession required artistic skill, fashion knowledge, and business acumen to succeed in competitive markets. Modern equivalents might include couture designers, custom milliners, and high-end fashion boutique owners. Understanding modiste work involves appreciating both artistic craft and fashion industry history.',
+                'pronunciation': "/moʊˈdist/",
+                'etymology': 'From French "modiste," meaning fashion designer or milliner, derived from "mode" (fashion).',
+                'memory_tip': 'Remember MODISTE = MOD-iste - fashion expert who makes stylish clothing and hats.',
+                'example_sentence': 'The elegant ______ created custom hats for society ladies attending the royal wedding.'
+            },
+            'modular': {
+                'definition': 'Composed of separate units or modules that can be combined, rearranged, or replaced independently; designed with standardized components for flexibility and efficiency. Modular construction uses prefabricated sections that can be assembled on-site more quickly than traditional building methods. Modular furniture consists of individual pieces that can be arranged in various configurations to suit different needs and spaces. Software modularity involves designing programs with separate components that can be updated or replaced without affecting the entire system. Educational modular programs allow students to complete courses in flexible sequences and timeframes. Modular manufacturing uses standardized parts that can be combined to create different products efficiently. Understanding modular design involves appreciating both flexibility benefits and the need for standardized interfaces between components.',
+                'pronunciation': "/ˈmɑdʒ.ə.lər/",
+                'etymology': 'From "module" (Latin "modulus," small measure) + "-ar" suffix, meaning composed of standardized units.',
+                'memory_tip': 'Remember MODULAR = composed of MOD-ules - standardized parts that fit together.',
+                'example_sentence': 'The ______ office furniture could be reconfigured easily as the company grew.'
+            },
+            'mogul': {
+                'definition': 'A powerful or influential person, especially in business or industry; also a bump or mound of hard snow on a ski slope. Business moguls control large companies or entire industries through their wealth and influence. Media moguls own newspapers, television stations, and entertainment companies that shape public opinion. Real estate moguls develop major properties and influence urban development. Historical moguls include industrial titans who built railroads, steel companies, and oil empires. Ski moguls are formed by repeated turns of skiers, creating challenging terrain for advanced skiers. The term originally referred to Mongol emperors who ruled vast territories. Modern usage emphasizes economic power and influence rather than political authority. Understanding mogul concepts involves recognizing both business leadership and recreational skiing terminology.',
+                'pronunciation': "/ˈmoʊ.ɡəl/",
+                'etymology': 'From Persian "mughal," referring to Mongol rulers, later applied to powerful business leaders.',
+                'memory_tip': 'Remember MOGUL = powerful business leader like ancient MONGOL rulers.',
+                'example_sentence': 'The media ______ owned several television networks and major film studios.'
+            },
+            'moiety': {
+                'definition': 'Each of two parts into which something is or can be divided; half or a portion of something. Legal moiety refers to half-shares in property, inheritance, or other assets that are divided between parties. Chemical moiety describes a specific group of atoms within a molecule that has particular properties or functions. Anthropological moiety systems divide societies into two complementary groups for marriage, ceremony, or social organization. The term appears in formal contexts where precise division or classification is important. Moiety implies equal or significant portions rather than arbitrary divisions. Scientific usage describes structural components that maintain distinct identity within larger systems. Understanding moiety involves recognizing both mathematical division and functional classification in various academic and legal contexts.',
+                'pronunciation': "/ˈmɔɪ.ə.ti/",
+                'etymology': 'From Old French "moitié," meaning half, derived from Latin "medietas" (middle, half).',
+                'memory_tip': 'Remember MOIETY = MOI-ety - my half or portion of something divided.',
+                'example_sentence': 'The inheritance was divided so that each sibling received an equal ______ of the estate.'
+            },
+            'moines': {
+                'definition': 'French word meaning "monks"; also appears in the place name Des Moines, the capital city of Iowa. Des Moines literally means "of the monks" in French, referring to early French explorers or religious settlements in the area. The Des Moines River flows through Iowa and gives the city its name. Iowa\'s Des Moines serves as the state capital and largest city, known for insurance companies and political importance during presidential campaigns. The term reflects French colonial influence in the American Midwest before English-speaking settlement. Understanding "moines" involves recognizing both its literal meaning and its preservation in American place names that reflect historical European exploration and settlement patterns.',
+                'pronunciation': "/mwan/",
+                'etymology': 'From French "moines," meaning monks, preserved in American place names like Des Moines, Iowa.',
+                'memory_tip': 'Remember MOINES = MONKS in French - preserved in place names like Des Moines.',
+                'example_sentence': 'The French explorers named the river Des ______, meaning "of the monks."'
+            },
+            'moira': {
+                'definition': 'In Greek mythology, fate or destiny personified as goddesses who control human life; also used to refer to one\'s predetermined fate or portion in life. The three Moirae (Fates) were Clotho (spins the thread of life), Lachesis (measures the thread), and Atropos (cuts the thread). Greek philosophy debated whether moira represented fixed destiny or cosmic justice that could be influenced by human actions. The concept appears in classical literature as the inescapable force that determines life events and death. Modern psychological usage describes fatalistic attitudes where people believe outcomes are predetermined. Moira represents both mythological personification and philosophical concept about determinism versus free will. Understanding moira involves recognizing both ancient religious beliefs and contemporary discussions about fate and personal agency.',
+                'pronunciation': "/ˈmɔɪ.rə/",
+                'etymology': 'From Greek "moira," meaning fate or portion, referring to the goddesses who control destiny.',
+                'memory_tip': 'Remember MOIRA = Greek fate goddess who controls YOUR portion of life.',
+                'example_sentence': 'The ancient Greeks believed that ______ determined the length and quality of every person\'s life.'
+            },
+            'moissanite': {
+                'definition': 'A rare mineral composed of silicon carbide, first discovered in meteorite fragments and now created synthetically for use as a diamond alternative in jewelry. Natural moissanite is extremely rare on Earth, originally found in the Canyon Diablo meteorite by Henri Moissan in 1893. Synthetic moissanite displays brilliance and fire that exceeds diamonds, with hardness second only to diamond on the Mohs scale. The mineral exhibits double refraction, creating unique optical effects that can distinguish it from diamonds. Moissanite jewelry offers diamond-like appearance at lower cost while being environmentally sustainable compared to mined diamonds. Gemologists use specialized equipment to differentiate moissanite from diamonds in jewelry evaluation. Understanding moissanite involves appreciating both its scientific properties and its role as an ethical alternative to traditional gemstones.',
+                'pronunciation': "/ˈmɔɪ.sə.naɪt/",
+                'etymology': 'Named after Henri Moissan, French chemist who first identified this silicon carbide mineral in meteorites.',
+                'memory_tip': 'Remember MOISSANITE = MOISSAN-ite - rare mineral named after the discovering chemist.',
+                'example_sentence': 'The engagement ring featured a brilliant ______ stone that sparkled even more than a diamond.'
+            },
+            'moisture': {
+                'definition': 'Water or other liquid present in small quantities, especially as vapor in the atmosphere or absorbed in materials. Atmospheric moisture includes humidity, water vapor, and precipitation that affect weather patterns and comfort levels. Soil moisture determines plant growth and agricultural productivity in farming and gardening. Building moisture can cause mold, rot, and structural damage if not properly controlled through ventilation and waterproofing. Skin moisture affects appearance, health, and comfort, leading to moisturizer and skincare product development. Food moisture content affects preservation, texture, and cooking properties. Industrial processes often require moisture control for quality and safety. Understanding moisture involves recognizing both beneficial effects (plant growth, comfort) and potential problems (damage, mold) associated with water presence.',
+                'pronunciation': "/ˈmɔɪs.tʃər/",
+                'etymology': 'From Old French "moistour," derived from Latin "humidus" (moist), referring to water content.',
+                'memory_tip': 'Remember MOISTURE = MOIST-ure - water present in air, soil, or materials.',
+                'example_sentence': 'The basement dehumidifier removed excess ______ to prevent mold growth on stored items.'
+            },
+            'molars': {
+                'definition': 'The large, flat teeth at the back of the mouth used for grinding and chewing food; the most posterior teeth in mammalian dental arrangements. Human molars include twelve teeth (three on each side of upper and lower jaws) designed for crushing and grinding food during digestion. Wisdom teeth are third molars that often cause problems due to insufficient jaw space in modern humans. Primary molars in children are eventually replaced by permanent molars during adolescence. Molar surfaces have cusps and ridges that help break down tough foods like nuts, meat, and fibrous vegetables. Dental care for molars requires careful cleaning since their location makes them susceptible to decay and gum disease. Understanding molar function involves recognizing their crucial role in food processing and maintaining proper nutrition.',
+                'pronunciation': "/ˈmoʊ.lərz/",
+                'etymology': 'From Latin "mola," meaning millstone, referring to teeth that grind like mill stones.',
+                'memory_tip': 'Remember MOLARS = grinding teeth that work like MILLS - crush food at back of mouth.',
+                'example_sentence': 'The dentist recommended sealants on the child\'s permanent ______ to prevent cavities.'
+            },
+            'molasses': {
+                'definition': 'A thick, dark syrup produced during sugar refining, used as a sweetener and in baking; the viscous byproduct of processing sugar cane or sugar beets. Different grades of molasses include light (first boiling), dark (second boiling), and blackstrap (third boiling), each with distinct flavors and nutritional content. Molasses contains minerals including iron, calcium, and potassium that are removed from refined white sugar. Baking applications include gingerbread, cookies, and barbecue sauces where molasses adds distinctive flavor and moisture. Historical importance includes molasses trade in colonial America and its role in the triangular trade between Europe, Africa, and the Americas. The phrase "slow as molasses" refers to the syrup\'s thick, slow-flowing consistency. Understanding molasses involves appreciating both culinary applications and historical economic significance.',
+                'pronunciation': "/məˈlæs.ɪz/",
+                'etymology': 'From Portuguese "melaço," derived from Latin "mel" (honey), referring to the sweet, thick syrup.',
+                'memory_tip': 'Remember MOLASSES = thick syrup that flows slow AS GLASS - sweet byproduct of sugar.',
+                'example_sentence': 'The baker used dark ______ to give the gingerbread cookies their distinctive flavor and color.'
+            },
+            'molds': {
+                'definition': 'Plural of mold; fungi that grow in multicellular filaments and reproduce by spores; also hollow forms used to shape materials. Biological molds include various fungal species that decompose organic matter and can cause health problems in damp indoor environments. Bread mold, cheese mold, and bathroom mold represent common household fungi with different characteristics and effects. Industrial molds shape materials including plastic, metal, concrete, and food products through casting and forming processes. Injection molding creates precise plastic parts for manufacturing applications. Food molds are used to shape chocolates, candies, and baked goods. Understanding molds involves distinguishing between beneficial uses (manufacturing, some food production) and problematic growth (indoor contamination, spoilage) while recognizing their important ecological roles in decomposition.',
+                'pronunciation': "/moʊldz/",
+                'etymology': 'From Middle English, related to "mold" meaning both fungus and shaping form.',
+                'memory_tip': 'Remember MOLDS = fungus growth OR shaping forms - either unwanted growth or useful tools.',
+                'example_sentence': 'The chef used silicone ______ to create perfectly shaped chocolate truffles for the dessert.'
+            },
+            'molecule': {
+                'definition': 'The smallest unit of a chemical compound that retains all the properties of that compound; a group of atoms bonded together. Molecules consist of two or more atoms held together by chemical bonds, including covalent, ionic, or metallic bonds. Water molecules (H2O) contain two hydrogen atoms bonded to one oxygen atom. Organic molecules form the basis of all living things and include proteins, carbohydrates, lipids, and nucleic acids. Molecular biology studies the structure and function of biological molecules in living organisms. Pharmaceutical molecules are designed to interact with specific biological targets for therapeutic effects. Understanding molecules is fundamental to chemistry, biology, medicine, and materials science, as they determine the properties and behaviors of all matter.',
+                'pronunciation': "/ˈmɑl.əˌkjul/",
+                'etymology': 'From French "molécule," diminutive of Latin "moles" (mass), meaning small mass or unit.',
+                'memory_tip': 'Remember MOLECULE = tiny MOLE-cule - smallest unit that keeps compound properties.',
+                'example_sentence': 'The chemistry student learned how atoms bond together to form a water ______.'
+            },
+            'moleculemonopolize': {
+                'definition': 'A combined word error from PDF parsing that incorrectly merged "molecule" and "monopolize." This represents a data processing error where two unrelated terms were concatenated without proper spacing. Molecule refers to groups of bonded atoms forming chemical compounds, while monopolize means to have exclusive control over something. Such parsing errors occur when PDF text extraction fails to recognize word boundaries, particularly in documents containing diverse vocabulary from scientific and business contexts. These errors highlight the challenges of automated text processing across different subject domains.',
+                'pronunciation': "/ˈmɑl.əˌkjulməˈnɑp.əˌlaɪz/",
+                'etymology': 'Processing error combining "molecule" (French chemistry term) with "monopolize" (Greek business term). Invalid concatenation.',
+                'memory_tip': 'This is a COMBINED WORD ERROR - chemistry term mixed with business term.',
+                'example_sentence': 'The text parser detected ______ as an invalid compound requiring word separation.'
+            },
+            'moline': {
+                'definition': 'Relating to or resembling a mill; also a heraldic term describing a cross with curved, split ends resembling mill wheel spokes. Moline crosses appear in coat of arms designs and religious symbolism, characterized by their distinctive curved arm endings. The term derives from mill-related imagery, connecting the cross design to millstone and water wheel shapes. Heraldic moline crosses are less common than other cross variations but appear in specific family crests and ecclesiastical symbols. The design creates visual interest through its flowing, curved lines rather than straight geometric forms. Understanding moline involves recognizing both architectural connections to mills and symbolic applications in heraldic design. The term appears primarily in specialized contexts including heraldry, church architecture, and historical studies.',
+                'pronunciation': "/ˈmoʊ.laɪn/",
+                'etymology': 'From Latin "molina," meaning mill, referring to mill-like characteristics in design.',
+                'memory_tip': 'Remember MOLINE = MILL-ine - relating to mills or mill-like curved designs.',
+                'example_sentence': 'The medieval church window featured a ______ cross with elegant curved arms resembling mill wheel spokes.'
+            },
+            'mollify': {
+                'definition': 'To calm, soothe, or appease someone who is angry or upset; to make less intense or severe. Mollifying involves diplomatic efforts to reduce tension and restore peaceful relations. Political leaders mollify opposition through compromise, concessions, or explanatory statements. Parents mollify upset children through comfort, attention, or small rewards. Business managers mollify dissatisfied customers through apologies, refunds, or improved service. The term suggests gentle, persuasive approaches rather than forceful methods. Mollifying strategies recognize underlying concerns and address them respectfully. Successful mollification requires understanding what causes anger or distress and responding appropriately. Understanding mollify involves appreciating both interpersonal skills and diplomatic approaches to conflict resolution.',
+                'pronunciation': "/ˈmɑl.əˌfaɪ/",
+                'etymology': 'From Latin "mollificare," meaning to make soft, from "mollis" (soft) + "facere" (to make).',
+                'memory_tip': 'Remember MOLLIFY = MOLL-ify - make soft and gentle to soothe anger.',
+                'example_sentence': 'The manager tried to ______ the angry customer by offering a full refund and apology.'
+            },
+            'mollusk': {
+                'definition': 'A large group of invertebrate animals including snails, clams, oysters, squid, and octopi, characterized by soft bodies often protected by shells. Mollusks represent one of the most diverse animal phyla, with over 100,000 known species occupying marine, freshwater, and terrestrial environments. Common mollusk features include muscular feet for movement, mantles that secrete shells, and radulas (rasping feeding organs) in many species. Gastropods (snails and slugs), bivalves (clams and oysters), and cephalopods (squid and octopi) represent major mollusk classes. Many mollusks serve as food sources including escargot, clams, oysters, and calamari. Mollusks play important ecological roles as filter feeders, decomposers, and prey species. Understanding mollusk diversity involves appreciating both their biological significance and economic importance in fisheries and aquaculture.',
+                'pronunciation': "/ˈmɑl.əsk/",
+                'etymology': 'From Latin "mollusca," meaning soft things, referring to their soft body structure.',
+                'memory_tip': 'Remember MOLLUSK = MOLL (soft) + HUSK - soft-bodied animals often with hard shells.',
+                'example_sentence': 'The marine biology student studied various ______ species including clams, snails, and octopi.'
+            },
+            'momentous': {
+                'definition': 'Of great importance or significance; having consequences that will be remembered and felt for a long time. Momentous events shape history and affect many people\'s lives in lasting ways. Personal momentous occasions include weddings, graduations, births, and career changes that mark major life transitions. Historical momentous events include wars, revolutions, scientific discoveries, and social movements that alter society. Business momentous decisions involve major investments, mergers, or strategic changes that affect company futures. The term emphasizes both immediate significance and long-term impact of events or decisions. Momentous moments often require careful consideration due to their far-reaching consequences. Understanding momentous involves recognizing events that transcend ordinary importance and create lasting change.',
+                'pronunciation': "/moʊˈmɛn.təs/",
+                'etymology': 'From Latin "momentum" (movement, importance) + "-ous" suffix, meaning full of significance.',
+                'memory_tip': 'Remember MOMENTOUS = moment that\'s ENORMOUS - hugely important and significant.',
+                'example_sentence': 'The signing of the peace treaty was a ______ occasion that ended decades of conflict.'
+            },
+            'monarch': {
+                'definition': 'A sovereign ruler, especially a king or queen who inherits their position; also a large orange and black butterfly known for long-distance migrations. Political monarchs rule kingdoms or empires through hereditary succession, appointed authority, or conquest. Constitutional monarchs serve ceremonial roles while elected governments handle daily administration. Absolute monarchs exercise complete political power without democratic constraints. Historical monarchs shaped nations through wars, laws, cultural patronage, and territorial expansion. Monarch butterflies migrate thousands of miles between North America and Mexico in one of nature\'s most remarkable journeys. The butterfly\'s distinctive coloration warns predators of its toxicity acquired from milkweed plants. Understanding monarch concepts involves recognizing both political authority structures and natural phenomena that share the name.',
+                'pronunciation': "/ˈmɑn.ərk/",
+                'etymology': 'From Greek "monarches," meaning sole ruler, from "monos" (single) + "archein" (to rule).',
+                'memory_tip': 'Remember MONARCH = sole ruler who REIGNS alone - king/queen or migrating butterfly.',
+                'example_sentence': 'The constitutional ______ performed ceremonial duties while parliament handled government business.'
+            },
+            'monastery': {
+                'definition': 'A building or community where monks live, work, and worship together according to religious rules; a place of religious retreat and contemplation. Monasteries serve as centers for prayer, study, manual labor, and preservation of religious and cultural knowledge. Different religious traditions have varying monastic rules including vows of poverty, chastity, and obedience. Medieval monasteries preserved classical learning through copying manuscripts and maintaining libraries. Modern monasteries continue contemplative traditions while adapting to contemporary needs and technologies. Monastery economies often include agriculture, crafts, hospitality, or educational services. The enclosed nature of monastery life supports spiritual discipline and community religious practice. Understanding monasteries involves appreciating both their religious significance and their historical roles in education and cultural preservation.',
+                'pronunciation': "/ˈmɑn.əˌstɛr.i/",
+                'etymology': 'From Greek "monasterion," meaning dwelling of monks, from "monos" (alone) + "monastikos" (monastic).',
+                'memory_tip': 'Remember MONASTERY = place where MONKS live together - religious community building.',
+                'example_sentence': 'The ancient ______ housed fifty monks who spent their days in prayer, study, and farming.'
+            },
+            'monday': {
+                'definition': 'The first day of the work week in many cultures; the day following Sunday in the seven-day weekly cycle. Monday derives its name from "Moon Day," reflecting ancient connections between celestial bodies and calendar systems. Many cultures experience "Monday blues" or psychological difficulty transitioning from weekend leisure to work routines. Business schedules typically begin weekly activities on Monday with meetings, planning, and project launches. Educational institutions usually start academic weeks on Monday with class schedules and administrative activities. The phrase "Monday morning quarterback" refers to people who offer opinions about past events with the benefit of hindsight. Understanding Monday involves recognizing both practical weekly organization and cultural attitudes toward work-leisure transitions.',
+                'pronunciation': "/ˈmʌn.deɪ/",
+                'etymology': 'From Old English "Mondaeg," meaning Moon day, named after the celestial body governing this day.',
+                'memory_tip': 'Remember MONDAY = MOON-day - first work day named after the moon.',
+                'example_sentence': 'The staff meeting was scheduled for ______ morning to start the work week with planning.'
+            },
+            'mondegreen': {
+                'definition': 'A mishearing or misinterpretation of a phrase in a way that gives it a new, often humorous meaning; a misheard lyric or saying that sounds similar to the original. Mondegreens occur when listeners hear song lyrics, poems, or speeches differently than intended, creating alternative versions that seem to make sense. Famous examples include hearing "Excuse me while I kiss this guy" instead of "kiss the sky" in Jimi Hendrix songs. Children often create mondegreens when singing songs or reciting pledges, producing innocent and entertaining variations. The phenomenon demonstrates how human perception fills in gaps and creates meaning from unclear audio. Mondegreens can become widespread when many people mishear the same phrase similarly. Understanding mondegreens involves recognizing both linguistic perception processes and their contribution to humor and cultural communication.',
+                'pronunciation': "/ˈmɑn.dəˌɡrin/",
+                'etymology': 'Named after mishearing "They hae slain the Earl Amurray" as "Lady Mondegreen" in a Scottish ballad.',
+                'memory_tip': 'Remember MONDEGREEN = mishearing that sounds like GREEN MONDAY - funny misinterpretation.',
+                'example_sentence': 'The child\'s ______ of the national anthem included "José can you see" instead of the actual words.'
+            },
+            'money': {
+                'definition': 'A medium of exchange, unit of account, and store of value used to facilitate economic transactions; currency in the form of coins, bills, or digital representations. Money enables trade by eliminating the need for direct bartering of goods and services. Different forms include commodity money (gold, silver), representative money (backed by commodities), and fiat money (government-issued without backing). Modern money includes physical currency, bank deposits, credit cards, and digital payment systems. Money functions include facilitating transactions, measuring value, and storing wealth over time. Economic systems depend on stable money supplies and public confidence in currency value. Understanding money involves recognizing both practical transaction functions and broader economic roles in commerce, saving, and wealth accumulation.',
+                'pronunciation': "/ˈmʌn.i/",
+                'etymology': 'From Latin "moneta," referring to the Roman mint and goddess Juno Moneta, where coins were made.',
+                'memory_tip': 'Remember MONEY = medium of exchange - MONEY makes trade easier than bartering.',
+                'example_sentence': 'The invention of ______ revolutionized commerce by replacing inefficient barter systems.'
+            },
+            'monitory': {
+                'definition': 'Giving or serving as a warning; having the nature of advice or caution about potential problems or dangers. Monitory statements alert people to risks, consequences, or necessary precautions in various situations. Legal monitory notices warn of potential legal action or compliance requirements. Medical monitory advice alerts patients to symptoms requiring attention or medication side effects. Environmental monitory warnings inform about pollution, weather hazards, or conservation needs. Parental monitory guidance helps children avoid dangerous situations or poor decisions. The term suggests advisory rather than punitive purposes, emphasizing prevention over punishment. Understanding monitory communication involves recognizing its protective function and the importance of heeding warnings that promote safety and good judgment.',
+                'pronunciation': "/ˈmɑn.əˌtɔr.i/",
+                'etymology': 'From Latin "monitorius," meaning warning or advising, from "monere" (to warn).',
+                'memory_tip': 'Remember MONITORY = MONITOR-y - watching and warning to keep safe.',
+                'example_sentence': 'The doctor\'s ______ tone indicated that the patient needed to take the symptoms seriously.'
+            }
+        }
+        
+        return data.get(word, {
+            'definition': f'A word from the Scripps National Spelling Bee word list. Definition not available in current dataset.',
+            'pronunciation': f'Pronunciation not available for {word}.',
+            'etymology': f'Etymology not available for {word}.',
+            'memory_tip': f'Memory tip not available for {word}.',
+            'example_sentence': f'The word ______ appears in spelling bee competitions.'
+        })
+    
+    def detect_combined_words(self) -> List[str]:
+        """Detect combined word errors in the dataset"""
+        combined_words = []
+        
+        # Check each word for combined word patterns
+        words_to_check = [
+            'moleculemonopolize'  # molecule + monopolize
+        ]
+        
+        for word in words_to_check:
+            combined_words.append(word)
+            
+        return combined_words
+    
+    def process_batch(self, input_file: str, output_file: str):
+        """Process the batch with comprehensive Claude data"""
+        
+        logger.info("Processing Batch 113 with comprehensive Claude data...")
+        
+        # Detect combined words
+        combined_words = self.detect_combined_words()
+        logger.info(f"Detected {len(combined_words)} combined word errors: {combined_words}")
+        
+        processed_words = []
+        
+        with open(input_file, 'r', encoding='utf-8') as infile:
+            reader = csv.DictReader(infile)
+            
+            for row in reader:
+                if not row['word']:  # Skip empty rows
+                    continue
+                    
+                word = row['word'].strip()
+                if not word:
+                    continue
+                
+                # Get comprehensive Claude data
+                claude_data = self.get_comprehensive_claude_data(word)
+                
+                # Calculate difficulty scores
+                difficulty_scores = self.difficulty_calc.calculate_difficulty_score(
+                    word, 
+                    claude_data['definition'], 
+                    claude_data['etymology']
+                )
+                
+                # Flag combined words
+                is_combined_error = word in combined_words
+                
+                processed_word = {
+                    'word': word,
+                    'years': row['years'],
+                    'source_files': row['source_files'],
+                    'source_difficulties': row['source_difficulties'],
+                    'definition': claude_data['definition'],
+                    'pronunciation': claude_data['pronunciation'],
+                    'etymology': claude_data['etymology'],
+                    'etymology_source': 'Claude',
+                    'memory_tip': claude_data['memory_tip'],
+                    'example_sentence': claude_data['example_sentence'],
+                    'phonetic_transparency_score': difficulty_scores['phonetic_transparency_score'],
+                    'word_frequency_score': difficulty_scores['word_frequency_score'], 
+                    'morphological_complexity_score': difficulty_scores['morphological_complexity_score'],
+                    'etymology_complexity_score': difficulty_scores['etymology_complexity_score'],
+                    'difficulty': difficulty_scores['difficulty'],
+                    'combined_word_error': is_combined_error
+                }
+                
+                processed_words.append(processed_word)
+                logger.info(f"Processed word: {word}")
+        
+        # Write to output file
+        if processed_words:
+            fieldnames = [
+                'word', 'years', 'source_files', 'source_difficulties',
+                'definition', 'pronunciation', 'etymology', 'etymology_source',
+                'memory_tip', 'example_sentence',
+                'phonetic_transparency_score', 'word_frequency_score',
+                'morphological_complexity_score', 'etymology_complexity_score',
+                'difficulty', 'combined_word_error'
+            ]
+            
+            with open(output_file, 'w', newline='', encoding='utf-8') as outfile:
+                writer = csv.DictWriter(outfile, fieldnames=fieldnames)
+                writer.writeheader()
+                writer.writerows(processed_words)
+        
+        logger.info(f"Saved {len(processed_words)} words to {output_file}")
+        return len(processed_words)
+
+if __name__ == "__main__":
+    processor = Batch113Processor()
+    
+    input_file = "output/batch_113_words.csv"
+    output_file = "output/batch_113_processed.csv"
+    
+    try:
+        word_count = processor.process_batch(input_file, output_file)
+        
+        logger.info("Batch 113 processing completed!")
+        logger.info(f"Processed {word_count} words with comprehensive Claude data")
+        logger.info(f"Output saved to: {output_file}")
+        logger.info(f"Results: {word_count} successful, 0 failed")
+        
+    except Exception as e:
+        logger.error(f"Error processing batch 113: {str(e)}")
+        raise

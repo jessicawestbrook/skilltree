@@ -3,6 +3,7 @@ import { supabase } from '../services/supabase'
 import { useAuth } from '../contexts/AuthContext'
 import { useSpellingBee } from '../contexts/SpellingBeeContext'
 import { checkSpellingBeeTables, createSpellingBeeTables } from '../utils/createSpellingBeeTables'
+import { replaceWordAndVariationsWithBlanks } from '../utils/vocabularyHelpers'
 import { 
   SpeakerWaveIcon, 
   CheckCircleIcon, 
@@ -388,7 +389,7 @@ const SpellingBeePage: React.FC = () => {
                   Definition
                 </h3>
                 <p className="text-xs text-neutral-700 dark:text-neutral-300">
-                  {currentWord.definition}
+                  {replaceWordAndVariationsWithBlanks(currentWord.definition, currentWord.word)}
                 </p>
               </div>
 

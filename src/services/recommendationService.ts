@@ -267,7 +267,7 @@ class RecommendationService {
 
     try {
       // Fetch user profile data
-      const [profileResult, progressResult, starredResult, activityResult] = await Promise.all([
+      const [profileResult, progressResult, starredResult, activityResult] = await Promise.allSettled([
         supabase.from('profiles').select('*').eq('id', userId).single(),
         supabase.from('user_progress').select('*').eq('user_id', userId),
         supabase.from('user_starred_nodes').select('skill_node_id').eq('user_id', userId),
@@ -280,18 +280,18 @@ class RecommendationService {
 
       const userProfile: UserProfile = {
         id: userId,
-        overall_rating: profileResult.data?.overall_rating || 50,
-        starred_nodes: starredResult.data?.map(s => s.skill_node_id) || [],
-        completed_nodes: progressResult.data
-          ?.filter(p => p.status === 'completed')
-          .map(p => p.skill_node_id) || [],
-        in_progress_nodes: progressResult.data
-          ?.filter(p => p.status === 'in_progress')
-          .map(p => p.skill_node_id) || [],
-        recent_activity: activityResult.data?.map(a => ({
+        overall_rating: (profileResult.status === 'fulfilled' && profileResult.value.data?.overall_rating) || 50,
+        starred_nodes: (starredResult.status === 'fulfilled' && starredResult.value.data?.map((s: any) => s.skill_node_id)) || [],
+        completed_nodes: (progressResult.status === 'fulfilled' && progressResult.value.data
+          ?.filter((p: any) => p.status === 'completed')
+          .map((p: any) => p.skill_node_id)) || [],
+        in_progress_nodes: (progressResult.status === 'fulfilled' && progressResult.value.data
+          ?.filter((p: any) => p.status === 'in_progress')
+          .map((p: any) => p.skill_node_id)) || [],
+        recent_activity: (activityResult.status === 'fulfilled' && activityResult.value.data?.map((a: any) => ({
           node_id: a.skill_node_id,
           timestamp: a.last_accessed
-        })) || []
+        }))) || []
       }
 
       // Fetch candidate nodes

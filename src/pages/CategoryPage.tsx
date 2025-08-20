@@ -74,14 +74,21 @@ const CategoryPage: React.FC = () => {
 
       // Check if starred by user
       if (user) {
-        const { data: starData } = await supabase
-          .from('user_starred_nodes')
-          .select('id')
-          .eq('user_id', user.id)
-          .eq('skill_node_id', categoryId)
-          .single()
+        try {
+          const { data: starData, error: starError } = await supabase
+            .from('user_starred_nodes')
+            .select('id')
+            .eq('user_id', user.id)
+            .eq('skill_node_id', categoryId)
+            .single()
 
-        setIsStarred(!!starData)
+          // Only set starred if query was successful and data exists
+          setIsStarred(!starError && !!starData)
+        } catch (error) {
+          // Silently handle starring errors - user can still use the page
+          console.warn('Could not check starred status:', error)
+          setIsStarred(false)
+        }
 
         // Calculate user progress
         const { data: progressData } = await supabase
@@ -127,23 +134,32 @@ const CategoryPage: React.FC = () => {
     }
 
     try {
+      let success = false
       if (isStarred) {
-        await supabase
+        const { error } = await supabase
           .from('user_starred_nodes')
           .delete()
           .eq('user_id', user.id)
           .eq('skill_node_id', categoryId)
+        success = !error
       } else {
-        await supabase
+        const { error } = await supabase
           .from('user_starred_nodes')
           .insert({
             user_id: user.id,
             skill_node_id: categoryId
           })
+        success = !error
       }
-      setIsStarred(!isStarred)
+      
+      if (success) {
+        setIsStarred(!isStarred)
+      } else {
+        console.warn('Could not update starred status - table may not be properly configured')
+      }
     } catch (error) {
-      console.error('Error toggling star:', error)
+      console.warn('Error toggling star:', error)
+      // Don't show error to user since starring is not critical functionality
     }
   }
 
@@ -186,8 +202,8 @@ const CategoryPage: React.FC = () => {
       <nav className="mb-6">
         <ol className="flex items-center space-x-2 text-sm">
           <li>
-            <Link to="/skill-tree" className="text-primary-600 hover:text-primary-700">
-              Skill Tree
+            <Link to="/learning-paths" className="text-primary-600 hover:text-primary-700">
+              Learning Paths
             </Link>
           </li>
           <li className="text-neutral-400">/</li>

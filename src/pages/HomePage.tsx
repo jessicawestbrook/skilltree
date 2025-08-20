@@ -50,10 +50,8 @@ const HomePage: React.FC = () => {
   return (
     <div className="space-y-16">
       <section className="text-center py-3">
-        <h1 className="text-3xl font-bold mb-2">
-          <span className="bg-gradient-to-r from-primary-600 to-gold-500 bg-clip-text text-transparent">
-            Welcome to SkillTree
-          </span>
+        <h1 className="text-3xl font-bold mb-2 text-primary-600 dark:text-primary-400">
+          Welcome to SkillTree
         </h1>
         <p className="text-base text-neutral-600 dark:text-neutral-400 max-w-xl mx-auto">
           Your path to mastering everything you've ever dreamed of learning. 
@@ -93,8 +91,8 @@ const HomePage: React.FC = () => {
               Create Free Account
             </Link>
           ) : (
-            <Link to="/skill-tree" className="btn-primary text-lg px-8 py-3">
-              Explore Skill Tree
+            <Link to="/learning-paths" className="btn-primary text-lg px-8 py-3">
+              Explore Learning Paths
             </Link>
           )}
         </div>

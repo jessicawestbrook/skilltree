@@ -116,10 +116,8 @@ const TestPage: React.FC = () => {
             {test.icon}
           </div>
         </div>
-        <h1 className="text-4xl font-bold mb-2">
-          <span className="bg-gradient-to-r from-primary-600 to-gold-500 bg-clip-text text-transparent">
-            {test.name}
-          </span>
+        <h1 className="text-4xl font-bold mb-2 text-primary-600 dark:text-primary-400">
+          {test.name}
         </h1>
         <p className="text-xl text-neutral-600 dark:text-neutral-400 mb-2">
           {test.fullName}

@@ -1,0 +1,505 @@
+#!/usr/bin/env python3
+
+import csv
+import logging
+from pathlib import Path
+from typing import Dict, List, Any
+
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
+
+class DifficultyCalculator:
+    def calculate_difficulty_score(self, word: str, definition: str, etymology: str) -> Dict[str, Any]:
+        return {
+            'phonetic_transparency_score': self._calculate_phonetic_transparency(word),
+            'word_frequency_score': self._calculate_word_frequency(word),
+            'morphological_complexity_score': self._calculate_morphological_complexity(word),
+            'etymology_complexity_score': self._calculate_etymology_complexity(etymology),
+            'difficulty': None
+        }
+    
+    def _calculate_phonetic_transparency(self, word: str) -> int:
+        transparent_patterns = ['cat', 'dog', 'run', 'jump', 'play']
+        if any(pattern in word.lower() for pattern in transparent_patterns):
+            return 1
+        return 3
+    
+    def _calculate_word_frequency(self, word: str) -> int:
+        common_words = ['the', 'and', 'or', 'but', 'in', 'on', 'at', 'to', 'for', 'of', 'with', 'by']
+        if word.lower() in common_words:
+            return 1
+        elif len(word) <= 4:
+            return 2
+        elif len(word) <= 8:
+            return 3
+        else:
+            return 4
+    
+    def _calculate_morphological_complexity(self, word: str) -> int:
+        if len(word) <= 4:
+            return 1
+        elif len(word) <= 8:
+            return 2
+        elif len(word) <= 12:
+            return 3
+        else:
+            return 4
+    
+    def _calculate_etymology_complexity(self, etymology: str) -> int:
+        if 'Latin' in etymology or 'Greek' in etymology:
+            return 4
+        elif 'French' in etymology or 'German' in etymology:
+            return 3
+        elif 'Old English' in etymology:
+            return 2
+        else:
+            return 1
+
+class Batch115Processor:
+    def __init__(self):
+        self.difficulty_calc = DifficultyCalculator()
+    
+    def get_comprehensive_claude_data(self, word: str) -> dict:
+        claude_data = {
+            'motor': {
+                'definition': 'A motor is a machine that converts energy into mechanical force or motion, typically used to power other devices or systems. Electric motors convert electrical energy into rotational motion through electromagnetic interactions, while internal combustion engines convert chemical energy from fuel into mechanical power. Motors are essential components in countless applications, from household appliances and power tools to vehicles and industrial machinery. Different types include AC motors, DC motors, stepper motors, and servo motors, each designed for specific applications requiring particular speed, torque, or precision characteristics. Motor design considerations include efficiency, power output, size constraints, and environmental conditions. Understanding motor principles is fundamental to engineering, manufacturing, and modern technology, as motors enable automation and mechanical assistance in virtually every aspect of modern life.',
+                'pronunciation': '/ˈmoʊtər/',
+                'etymology': 'From Latin motor meaning "mover," from movere "to move." The term entered English in the late 19th century as motorized devices became more common in industrial and transportation applications.',
+                'memory_tip': 'Remember MOTOR as "MOvement generaTOR" - it\'s a device that generates movement by converting energy into mechanical motion.',
+                'example_sentence': 'The electric _____ hummed quietly as it powered the conveyor belt in the assembly line.'
+            },
+            'motrin': {
+                'definition': 'Motrin is a brand name for ibuprofen, a nonsteroidal anti-inflammatory drug (NSAID) commonly used to reduce pain, inflammation, and fever. Originally developed by Boots Group and later acquired by Johnson & Johnson, Motrin became one of the most recognizable over-the-counter pain relief medications. Ibuprofen works by inhibiting cyclooxygenase enzymes that produce prostaglandins, which cause inflammation and pain. It\'s effective for treating headaches, muscle aches, arthritis, menstrual cramps, and minor injuries. Available in various forms including tablets, liquid gels, and children\'s suspensions, Motrin requires careful dosing to avoid side effects. Like other NSAIDs, prolonged use can affect the stomach, kidneys, and cardiovascular system, so medical guidance is recommended for long-term use or high-dose therapy.',
+                'pronunciation': '/ˈmoʊtrɪn/',
+                'etymology': 'Brand name created by pharmaceutical company, likely combining "motor" (movement/activity) with common pharmaceutical suffix patterns. Introduced as a brand name for ibuprofen in the 1960s.',
+                'memory_tip': 'Remember MOTRIN as "MOTor again" - it helps you get your motor (body) moving again by reducing pain and inflammation.',
+                'example_sentence': 'She took _____ to relieve the headache that had been bothering her all morning.'
+            },
+            'motto': {
+                'definition': 'A motto is a short phrase or sentence that expresses a guiding principle, belief, or ideal that characterizes a person, organization, institution, or group. Mottoes often appear on coats of arms, official seals, logos, and ceremonial items, serving as inspirational reminders of core values or objectives. They can be written in any language, though Latin phrases are traditional for many formal institutions. Personal mottoes reflect individual philosophy or life approaches, while organizational mottoes communicate mission, values, or culture to internal members and external audiences. Effective mottoes are memorable, concise, and meaningful, capturing complex ideas in few words. Many nations, military units, schools, and companies use mottoes to reinforce identity and purpose, creating shared understanding of fundamental principles that guide decision-making and behavior.',
+                'pronunciation': '/ˈmɑːtoʊ/',
+                'etymology': 'From Italian motto meaning "word, saying," ultimately from Latin muttum meaning "grunt, mutter." The term evolved to mean a brief statement or phrase expressing a principle.',
+                'memory_tip': 'Remember MOTTO as "MOst imporTant wOrds" - it\'s the most important words that capture someone\'s or something\'s core beliefs.',
+                'example_sentence': 'The school\'s _____ "Knowledge is Power" was inscribed above the entrance to the library.'
+            },
+            'moulage': {
+                'definition': 'Moulage refers to the art and technique of creating realistic reproductions of wounds, injuries, or medical conditions for training purposes, particularly in medical education, emergency response training, and theatrical applications. This specialized makeup artistry uses materials like wax, silicone, gelatin, and latex to simulate various injuries, diseases, or trauma conditions with startling realism. In medical training, moulage helps students and professionals practice diagnosis, treatment procedures, and emergency response without using real patients. The technique requires artistic skill, medical knowledge, and understanding of materials to create believable simulations. Military and disaster response training also employs moulage to prepare personnel for realistic casualty scenarios. Beyond training, moulage artists work in film, television, and theater to create special effects makeup for dramatic productions.',
+                'pronunciation': '/muˈlɑːʒ/',
+                'etymology': 'From French moulage meaning "molding, casting," from mouler "to mold," ultimately from Latin modulus "measure, model." The term entered medical education vocabulary through French medical training traditions.',
+                'memory_tip': 'Remember MOULAGE as "MOULd + fake injAGE" - it\'s molding fake images of injuries for medical training purposes.',
+                'example_sentence': 'The medical student practiced triage skills using realistic _____ wounds created by the training instructor.'
+            },
+            'mound': {
+                'definition': 'A mound is a raised area of earth, stones, or other materials that forms a hill-like formation, either naturally occurring or artificially constructed. Natural mounds can result from geological processes, erosion, or animal activity, such as ant hills or beaver dams. Artificial mounds serve various purposes including burial sites, defensive fortifications, ceremonial platforms, or landscaping features. Archaeological mounds provide important information about ancient civilizations, containing artifacts, structures, or human remains that reveal historical cultures and practices. In baseball, the pitcher\'s mound is a raised circular area from which pitches are thrown. Garden mounds improve drainage and create visual interest in landscape design. The term also describes any heap or pile of loose material, such as a mound of dirt or leaves.',
+                'pronunciation': '/maʊnd/',
+                'etymology': 'From Middle English mound, possibly from Old English mund meaning "protection, hand," or from Old French mont meaning "hill." The defensive earthwork sense may connect to the protection meaning.',
+                'memory_tip': 'Remember MOUND as "MOre groUND piled up" - it\'s more ground piled up to create a raised area or hill.',
+                'example_sentence': 'The ancient burial _____ contained pottery fragments and tools that revealed information about the prehistoric culture.'
+            },
+            'mountain': {
+                'definition': 'A mountain is a large natural elevation of the earth\'s surface rising abruptly from the surrounding level, typically higher than a hill and often forming part of a range or chain. Mountains form through tectonic forces, volcanic activity, or erosion processes over millions of years. They significantly influence climate patterns, weather systems, and biodiversity by creating different ecological zones based on altitude, temperature, and precipitation. Mountains provide essential ecosystem services including watershed protection, carbon storage, and habitat for specialized plant and animal species. They hold cultural and spiritual significance for many societies and offer recreational opportunities like hiking, skiing, and mountaineering. Mountain resources include minerals, timber, and hydroelectric power potential. Understanding mountain geology, ecology, and climate is crucial for environmental conservation and sustainable development in mountainous regions.',
+                'pronunciation': '/ˈmaʊntən/',
+                'etymology': 'From Old French montagne, from Vulgar Latin montanea, from Latin montanus meaning "of a mountain," from mons/montis "mountain." The word has maintained its basic meaning throughout its evolution.',
+                'memory_tip': 'Remember MOUNTAIN as "MOUNTed high terrain" - it\'s terrain that\'s mounted or raised high above the surrounding landscape.',
+                'example_sentence': 'The snow-capped _____ dominated the horizon, its peak reaching nearly 14,000 feet above sea level.'
+            },
+            'mourners': {
+                'definition': 'Mourners are people who attend funerals, memorial services, or other ceremonies to honor deceased individuals and support grieving families during times of loss. They participate in rituals that commemorate the life of the departed, offer condolences to bereaved relatives, and provide emotional support through their presence and shared grief. Mourners may include family members, friends, colleagues, community members, or even strangers who wish to pay respects. Their role varies across cultures and religions, from active participation in burial rites to quiet reflection and prayer. Professional mourners exist in some cultures, hired to demonstrate grief and enhance the solemnity of funeral proceedings. The gathering of mourners serves important social functions, creating community support networks and helping process collective loss while honoring the memory and impact of the deceased person.',
+                'pronunciation': '/ˈmɔːrnərz/',
+                'etymology': 'From mourn + -er suffix + plural -s. Mourn comes from Old English murnan meaning "to mourn, care for," related to other Germanic languages expressing grief and sorrow.',
+                'memory_tip': 'Remember MOURNERS as "MORe people who gRIEVE togetheR" - more people who grieve together to support each other during loss.',
+                'example_sentence': 'The _____ gathered at the cemetery to pay their final respects to the beloved community leader.'
+            },
+            'mournful': {
+                'definition': 'Mournful describes something characterized by grief, sorrow, or melancholy, expressing or evoking feelings of sadness and loss. The term applies to facial expressions, sounds, music, or atmospheres that convey deep sadness or lamentation. Mournful music often features slow tempos, minor keys, and plaintive melodies that resonate with listeners\' emotions during times of grief. In literature, mournful tones help establish mood and emotional atmosphere, drawing readers into characters\' experiences of loss or disappointment. Natural sounds can be described as mournful when they evoke sadness, such as the mournful call of certain birds or the wind through empty spaces. The word emphasizes the expression or appearance of grief rather than just the internal emotional state, making sadness visible or audible to others through various forms of expression.',
+                'pronunciation': '/ˈmɔːrnfəl/',
+                'etymology': 'From mourn + -ful suffix meaning "full of." The combination creates an adjective meaning "full of mourning or expressing grief," following standard English word formation patterns.',
+                'memory_tip': 'Remember MOURNFUL as "MOURN + FULl" - full of mourning, completely filled with grief and sadness.',
+                'example_sentence': 'The _____ sound of the violin melody brought tears to the audience\'s eyes during the memorial service.'
+            },
+            'moussaka': {
+                'definition': 'Moussaka is a traditional Mediterranean dish, most famously associated with Greek cuisine, consisting of layered ingredients typically including eggplant, ground meat (usually lamb or beef), and a creamy béchamel or cheese sauce, baked until golden brown. The dish varies regionally, with some versions including potatoes, zucchini, or other vegetables. Greek moussaka preparation involves salting and grilling eggplant slices to remove bitterness, creating a rich meat sauce with onions, tomatoes, and herbs, then layering these components before topping with a thick white sauce and baking. The result is a hearty, flavorful casserole that represents the essence of Greek comfort food. Similar dishes exist throughout the Middle East and Balkans, each reflecting local ingredients and culinary traditions. Moussaka requires time and skill to prepare properly, making it a special occasion dish in many households.',
+                'pronunciation': '/muˈsɑːkə/',
+                'etymology': 'From Greek mousakas, possibly from Arabic musakhkhan or Persian mūsaqqā. The dish and name spread throughout the Mediterranean region through cultural exchange and trade.',
+                'memory_tip': 'Remember MOUSSAKA as "MOUSe + sAuce + eggplAnt KAsserole" - a rich casserole dish with sauce and eggplant layers, though no actual mice involved!',
+                'example_sentence': 'The Greek restaurant\'s _____ was perfectly prepared with tender eggplant layers and a golden, creamy topping.'
+            },
+            'mousse': {
+                'definition': 'Mousse is a light, airy dessert or savory dish characterized by its smooth, creamy texture achieved through incorporating air via whipping or folding techniques. Sweet mousses typically contain chocolate, fruit, or vanilla as primary flavors, combined with eggs, cream, gelatin, or other stabilizers to create the characteristic light consistency. The preparation involves careful temperature control and gentle folding to maintain the delicate foam structure that gives mousse its distinctive texture. Chocolate mousse remains the most popular variety, requiring precise technique to achieve the perfect balance of richness and airiness. Savory mousses use similar techniques with ingredients like fish, vegetables, or cheese, often served as appetizers or elegant side dishes. The success of mousse depends on proper ingredient temperatures, timing, and gentle handling to preserve the incorporated air that creates its signature lightness.',
+                'pronunciation': '/muːs/',
+                'etymology': 'From French mousse meaning "foam, froth," from Latin mulsa meaning "honeyed wine." The culinary term developed from the foam-like texture that characterizes the dish.',
+                'memory_tip': 'Remember MOUSSE as "MOUth pleasing Smooth, Soft, Elegant dessert" - it\'s a smooth, soft, elegant dessert that pleases the mouth.',
+                'example_sentence': 'The chocolate _____ was so light and airy that it seemed to melt on her tongue before she could fully taste it.'
+            },
+            'moustache': {
+                'definition': 'A moustache (British spelling of mustache) is facial hair that grows on the upper lip, cultivated and shaped for aesthetic, cultural, or personal reasons. Throughout history, moustaches have served various purposes including displaying masculinity, indicating social status, following military regulations, or expressing individual style. Different styles include the handlebar, chevron, pencil, walrus, and horseshoe, each requiring specific grooming techniques and maintenance. Cultural attitudes toward moustaches vary significantly across societies and historical periods, from symbols of authority and wisdom to fashion statements or professional requirements. Military and emergency service personnel sometimes grow moustaches within regulation guidelines. Proper moustache care involves regular trimming, washing, and sometimes styling with wax or other grooming products. The choice to grow a moustache often reflects personal identity, cultural belonging, or aesthetic preferences.',
+                'pronunciation': '/məˈstæʃ/',
+                'etymology': 'From French moustache, from Italian mostaccio, ultimately from Greek mystax meaning "upper lip, mustache." The British spelling retains the French pronunciation influence.',
+                'memory_tip': 'Remember MOUSTACHE as "MOUth + STyled hAir CHarming Enhancement" - charming enhancement of styled hair around the mouth area.',
+                'example_sentence': 'The Victorian gentleman waxed his elaborate _____ into perfect curls that extended well beyond his upper lip.'
+            },
+            'mouthfilters': {
+                'definition': 'This appears to be a combined word error from PDF parsing, likely meant to be "mouth filters" - referring to devices or mechanisms that filter air or substances entering the mouth.',
+                'pronunciation': 'N/A - Combined word error',
+                'etymology': 'Combined word parsing error',
+                'memory_tip': 'This is a PDF parsing error combining "mouth" and "filters"',
+                'example_sentence': 'N/A - This is not a valid single word'
+            },
+            'move': {
+                'definition': 'Move means to change position or location, or to cause something else to change position, encompassing both physical displacement and abstract changes in situation, emotion, or status. The verb describes action from simple body movements to complex relocations, strategic decisions, or emotional responses. In chess and other games, a move represents a single turn or action within the game\'s rules. Social and professional contexts use "move" to describe career changes, relationship developments, or strategic decisions. The word also expresses emotional impact, as in being "moved" by a performance or story. Physical movement involves kinetic energy and spatial relationships, while metaphorical movements involve changes in abstract concepts like progress, influence, or emotional state. Understanding movement is fundamental to physics, biology, psychology, and many other fields of study.',
+                'pronunciation': '/muːv/',
+                'etymology': 'From Old French movoir, from Latin movere meaning "to move, set in motion." The word has maintained its basic meaning of changing position throughout its evolution.',
+                'memory_tip': 'Remember MOVE as "Make Objects/Oneself Venture Elsewhere" - making yourself or objects venture from one place to another.',
+                'example_sentence': 'The dancer\'s graceful _____ across the stage captivated the entire audience with its fluid beauty.'
+            },
+            'movie': {
+                'definition': 'A movie, also called a film or motion picture, is a series of moving images recorded and projected to tell a story, document events, or convey information through visual and auditory means. Movies combine cinematography, acting, sound, music, and editing to create immersive experiences that entertain, educate, or inspire audiences. The medium evolved from early experiments with moving pictures in the late 19th century to become a major art form and entertainment industry. Different genres include drama, comedy, action, documentary, horror, and science fiction, each with distinct conventions and audience expectations. Movie production involves complex processes including scriptwriting, casting, filming, editing, and distribution. The industry significantly influences culture, social attitudes, and artistic expression, while technological advances continue to expand creative possibilities through digital effects, improved sound systems, and new distribution methods.',
+                'pronunciation': '/ˈmuːvi/',
+                'etymology': 'Short for "moving picture," coined in the early 20th century as the film industry developed. The term emphasized the revolutionary aspect of pictures that moved, distinguishing them from static photographs.',
+                'memory_tip': 'Remember MOVIE as "MOving Visual Interactive Experience" - it\'s a moving visual interactive experience that tells stories through motion pictures.',
+                'example_sentence': 'The classic _____ from the 1940s still captivates audiences with its timeless story and brilliant performances.'
+            },
+            'movimento': {
+                'definition': 'Movimento is an Italian word meaning "movement" or "motion," used in English primarily in musical contexts to describe sections or movements within larger compositions such as symphonies, concertos, or sonatas. In classical music, each movimento typically has distinct tempo, key signature, and thematic material while contributing to the overall structure and narrative of the complete work. The term may also appear in dance, describing specific movement patterns or choreographic sequences that form part of larger performances. Italian musical terminology became standard in classical music due to Italy\'s dominant role in early Western classical music development, and many tempo and structural terms remain in Italian even in non-Italian compositions. Understanding movimento helps in analyzing musical architecture and appreciating how composers organize longer works through contrasting sections.',
+                'pronunciation': '/ˌmoʊvəˈmento/',
+                'etymology': 'From Italian movimento meaning "movement," from Latin movimentum, from movere "to move." Adopted into musical terminology through Italian\'s influence on classical music vocabulary.',
+                'memory_tip': 'Remember MOVIMENTO as "MOVing music MENTOr" - it\'s the mentor concept that describes how music moves through different sections in classical works.',
+                'example_sentence': 'The third _____ of the symphony featured a lively allegro tempo that contrasted beautifully with the slow second movement.'
+            },
+            'moving': {
+                'definition': 'Moving describes something that is in motion, changing position or location, or something that evokes strong emotional responses in observers or participants. Physical moving involves displacement through space, requiring energy and often affecting surrounding objects or environments. Emotionally moving experiences touch people deeply, inspiring feelings of sympathy, joy, sadness, or other powerful emotions that create lasting impressions. The gerund form describes ongoing action, while the adjective form characterizes the quality of evoking emotion. Moving can describe vehicles in transit, people relocating residences, objects being transported, or performances that deeply affect audiences. In both physical and emotional contexts, moving implies change, impact, and the transfer of energy or feeling from one state or person to another. The dual meaning reflects the connection between physical and emotional experiences.',
+                'pronunciation': '/ˈmuːvɪŋ/',
+                'etymology': 'From move + -ing suffix, creating both present participle and gerund forms. The emotional sense developed from the metaphorical idea of being "moved" or affected by experiences.',
+                'memory_tip': 'Remember MOVING as "Motion Or Vivid Inspiring Nudging" - either physical motion or vivid inspiring nudging of emotions.',
+                'example_sentence': 'The _____ truck carefully navigated the narrow street while the residents watched their belongings being relocated.'
+            },
+            'mower': {
+                'definition': 'A mower is a machine designed to cut grass, crops, or other vegetation to a uniform height, essential for lawn maintenance, agricultural harvesting, and landscape management. Lawn mowers range from simple push reel mowers to sophisticated riding mowers with multiple cutting decks and attachments. The cutting mechanism typically involves rotating blades that slice through plant material, requiring regular maintenance for optimal performance and safety. Different types include rotary mowers, reel mowers, and flail mowers, each designed for specific applications and terrain conditions. Agricultural mowers handle larger areas and tougher vegetation for hay production or field management. Safety considerations include proper blade guards, operator protection, and awareness of terrain hazards. Modern mowers increasingly feature ergonomic designs, emission controls, and noise reduction technology to improve user experience and environmental impact.',
+                'pronunciation': '/ˈmoʊər/',
+                'etymology': 'From mow + -er suffix indicating agent or tool. Mow comes from Old English mawan meaning "to mow, cut down," related to similar words in Germanic languages for cutting or reaping.',
+                'memory_tip': 'Remember MOWER as "MOW + machineR" - a machine that mows or cuts grass and vegetation uniformly.',
+                'example_sentence': 'The landscaper started the riding _____ early in the morning to cut the large lawn before the heat became too intense.'
+            },
+            'moxie': {
+                'definition': 'Moxie refers to energetic determination, courage, and bold confidence in facing difficulties or challenges, often accompanied by a spirited, plucky attitude that refuses to be intimidated. The term suggests a combination of guts, nerve, and vigor that enables people to tackle tough situations with enthusiasm rather than fear. Originally an American slang term, moxie implies both mental toughness and the energy to act on one\'s convictions despite obstacles or opposition. People with moxie don\'t just have courage—they approach challenges with zest and assertiveness that often surprises others. The quality is particularly valued in entrepreneurial, artistic, and leadership contexts where taking risks and pushing boundaries are essential for success. Moxie combines bravery with a distinctive energetic enthusiasm that makes it more dynamic than simple courage.',
+                'pronunciation': '/ˈmɑːksi/',
+                'etymology': 'Originally from Moxie, a brand name for a bitter-tasting soft drink popular in New England in the early 1900s. The drink\'s bold, distinctive flavor led to the slang use meaning "courage, vigor."',
+                'memory_tip': 'Remember MOXIE as "MOre energy + boXIng spirit" - more energy combined with a boxing spirit to face challenges boldly.',
+                'example_sentence': 'It took real _____ for the young entrepreneur to quit her job and start her own company during the economic downturn.'
+            },
+            'mozo': {
+                'definition': 'Mozo is a Spanish word meaning "young man," "servant," or "waiter," commonly used in Latin American countries to refer to male service workers, particularly in restaurants, hotels, or domestic settings. The term can range from neutral occupational description to potentially demeaning depending on context and regional usage. In some areas, mozo specifically refers to waitstaff or porters, while in others it might indicate general laborers or assistants. The word reflects historical class structures and employment relationships in Spanish-speaking societies. Modern usage varies significantly by country and social context, with some regions moving away from the term due to its potential classist implications. Understanding cultural nuances around such terms is important for appropriate communication and cultural sensitivity when traveling or working in international environments.',
+                'pronunciation': '/ˈmoːso/',
+                'etymology': 'From Spanish mozo meaning "young man, lad," ultimately from Latin musteus meaning "new, young, fresh." The occupational sense developed from the practice of young men working as servants or assistants.',
+                'memory_tip': 'Remember MOZO as "MOst poZitive yOung helper" - a young helper or server, though the term requires cultural sensitivity in usage.',
+                'example_sentence': 'The hotel _____ efficiently carried their luggage to the room while explaining the local amenities.'
+            },
+            'muchacha': {
+                'definition': 'Muchacha is a Spanish word meaning "girl" or "young woman," commonly used throughout Spanish-speaking countries as both a general term for females and sometimes as an occupational reference to female domestic workers or servants. The word can be used affectionately within families or communities to refer to daughters, young female relatives, or friends. However, like its male counterpart "muchacho," the term requires cultural sensitivity as it can carry different connotations depending on context, region, and the relationship between speakers. In some professional settings, particularly domestic work, the term might be considered outdated or inappropriate due to its historical associations with class distinctions. Understanding proper usage involves awareness of social dynamics, regional variations, and evolving cultural norms around respectful language for referring to people by age, gender, or occupation.',
+                'pronunciation': '/muˈtʃatʃa/',
+                'etymology': 'From Spanish muchacha, feminine form of muchacho meaning "boy, lad." Ultimately derived from Latin words relating to youth and servitude, reflecting historical social structures.',
+                'memory_tip': 'Remember MUCHACHA as "MUCh younger femAle CouragHeous Amiga" - a young female friend, though context matters for appropriate usage.',
+                'example_sentence': 'The grandmother affectionately called her granddaughter _____ while teaching her traditional cooking techniques.'
+            },
+            'muddy': {
+                'definition': 'Muddy describes something covered with, containing, or resembling mud—a mixture of water and fine soil particles that creates a thick, sticky, wet substance. The term applies to physical conditions where surfaces, objects, or areas become coated with this wet earth mixture, typically after rain or in areas with poor drainage. Muddy can also describe water that appears cloudy or unclear due to suspended particles, affecting visibility and quality. Metaphorically, muddy describes confusion, lack of clarity, or situations that are unclear or complicated, such as "muddy thinking" or "muddy waters" in decision-making contexts. In art, muddy colors result from mixing too many pigments, creating dull, unclear hues. The condition often presents practical challenges for transportation, construction, agriculture, and outdoor activities, requiring special equipment or techniques to manage effectively.',
+                'pronunciation': '/ˈmʌdi/',
+                'etymology': 'From mud + -y suffix creating an adjective meaning "characterized by mud." Mud comes from Middle Low German mudde or Middle Dutch modde, referring to wet, soft earth.',
+                'memory_tip': 'Remember MUDDY as "MUD + messY" - messy with mud, whether literally covered in wet earth or figuratively unclear and confusing.',
+                'example_sentence': 'After the heavy rain, the hiking trail became so _____ that the hikers\' boots were completely caked with thick clay.'
+            },
+            'muesli': {
+                'definition': 'Muesli is a breakfast cereal consisting of rolled oats mixed with nuts, seeds, dried fruits, and sometimes fresh fruit, typically served with milk, yogurt, or fruit juice. Originally developed in Switzerland around 1900 by physician Maximilian Bircher-Benner as a healthy meal for patients, muesli emphasizes natural, unprocessed ingredients and nutritional balance. Unlike granola, traditional muesli is not baked or sweetened, maintaining the raw nutritional value of its components. The mixture provides complex carbohydrates, fiber, healthy fats, proteins, vitamins, and minerals in a convenient, customizable format. Modern variations include different grain bases, various nut and fruit combinations, and preparation methods ranging from soaking overnight to serving immediately. Muesli represents the growing interest in healthy, natural breakfast options and has become popular worldwide as awareness of nutrition and natural foods has increased.',
+                'pronunciation': '/ˈmjuːzli/',
+                'etymology': 'From Swiss German müesli, diminutive of müe(s) meaning "mush, puree." The term reflects the Swiss origin of this healthy breakfast mixture.',
+                'memory_tip': 'Remember MUESLI as "MUlti-ingredient hEalthy Swiss breakfast mixLI" - a healthy Swiss breakfast mix with multiple natural ingredients.',
+                'example_sentence': 'She prepared her _____ the night before, allowing the oats to soften in milk and develop a creamy texture by morning.'
+            },
+            'mufti': {
+                'definition': 'Mufti has two distinct meanings: in Islamic contexts, a mufti is a religious scholar qualified to interpret Islamic law and issue legal opinions (fatwas) on religious matters, serving as an authority on jurisprudence and religious practice. In military contexts, particularly British usage, mufti refers to civilian clothing worn by off-duty military personnel instead of uniforms. The religious role requires extensive education in Islamic theology, law, and Arabic language, with muftis often serving as advisors to courts, governments, or communities on matters requiring religious interpretation. The civilian clothing sense originated from British military slang, possibly referencing the distinctive robes worn by Islamic scholars. Both uses reflect authority and expertise—religious authority in Islamic law or the authority to dress outside military regulations. Understanding context is essential to distinguish between these very different applications of the same word.',
+                'pronunciation': '/ˈmʌfti/',
+                'etymology': 'From Arabic muftī meaning "one who gives legal decisions," from the verb aftā "to give a legal decision." The civilian clothing sense may derive from the distinctive dress of Islamic scholars.',
+                'memory_tip': 'Remember MUFTI as "Muslim legal expert" OR "Military UniForms Temporarily Ignored" - either an Islamic legal scholar or civilian clothes for off-duty military.',
+                'example_sentence': 'The _____ carefully considered the religious texts before issuing his opinion on the complex theological question.'
+            },
+            'mugs': {
+                'definition': 'Mugs are cylindrical drinking vessels, typically made of ceramic, glass, metal, or plastic, characterized by handles and designed for hot beverages like coffee, tea, or hot chocolate. Unlike cups, mugs are generally larger, more durable, and better insulated for temperature retention. They serve both functional and personal purposes, often featuring designs, logos, or messages that reflect personality, affiliations, or memories. Coffee mugs have become cultural symbols, representing comfort, routine, and personal preference in beverage consumption. The term also serves as slang for faces or expressions, as in "mug shot" for police photographs. In British English, "mug" can mean a foolish person easily taken advantage of. Collectible mugs represent travel destinations, events, or organizations, making them popular souvenir items. Design considerations include ergonomics, heat retention, durability, and aesthetic appeal.',
+                'pronunciation': '/mʌɡz/',
+                'etymology': 'Plural of mug. The vessel sense may come from Scandinavian languages, while the face sense possibly derives from 18th-century drinking mugs decorated with faces.',
+                'memory_tip': 'Remember MUGS as "My Usual Gripping beverageS" - the usual gripping vessels for hot beverages that you hold by handles.',
+                'example_sentence': 'The coffee shop displayed dozens of unique _____ from different countries, each telling a story of its origin.'
+            },
+            'mugwumpdollars': {
+                'definition': 'This appears to be a combined word error from PDF parsing, likely meant to be "mugwump dollars" - combining the political term mugwump with currency.',
+                'pronunciation': 'N/A - Combined word error',
+                'etymology': 'Combined word parsing error',
+                'memory_tip': 'This is a PDF parsing error combining "mugwump" and "dollars"',
+                'example_sentence': 'N/A - This is not a valid single word'
+            },
+            'muktuk': {
+                'definition': 'Muktuk is a traditional Inuit food consisting of whale skin and blubber, typically from bowhead, beluga, or narwhal whales, served raw or sometimes lightly cooked. This nutrient-dense food provides essential vitamins, particularly vitamin C, and high-calorie content crucial for survival in Arctic environments where fresh vegetables are scarce. The preparation involves carefully removing the skin and attached blubber layer, then cutting it into manageable pieces for consumption. Muktuk has cultural significance beyond nutrition, connecting Inuit communities to their whaling traditions, ancestral practices, and relationship with marine mammals. The food requires acquired taste for those unfamiliar with its unique texture and flavor profile. Sustainable harvesting practices ensure whale populations remain healthy while maintaining traditional food security. Modern Inuit communities continue consuming muktuk as part of cultural identity and nutritional needs.',
+                'pronunciation': '/ˈmʌktʌk/',
+                'etymology': 'From Inuktitut muktaaq referring to whale skin and blubber. The word entered English through contact with Inuit cultures and Arctic exploration accounts.',
+                'memory_tip': 'Remember MUKTUK as "MUch nUtrition from blubber TUcKed under whale skin" - nutritious traditional food from whale skin and blubber.',
+                'example_sentence': 'The elder shared traditional _____ with visitors, explaining its importance in Inuit culture and Arctic survival.'
+            },
+            'mulberry': {
+                'definition': 'A mulberry is a deciduous tree of the genus Morus, native to temperate regions of Asia, Africa, and the Americas, known for its aggregate fruit that resembles blackberries but grows on trees rather than bushes. Mulberry fruits can be white, red, or dark purple when ripe, with a sweet, slightly tart flavor that makes them popular for eating fresh, making jams, or baking. Historically, mulberry trees were crucial for silk production as their leaves serve as the exclusive food source for silkworms. Different species include white mulberry (primarily for silkworm feeding), red mulberry (native to North America), and black mulberry (prized for fruit quality). The trees are fast-growing, hardy, and can live for many decades, making them valuable for orchards, landscaping, and wildlife habitat. Mulberry fruit provides vitamins, antioxidants, and minerals, contributing to both nutrition and traditional medicine.',
+                'pronunciation': '/ˈmʌlbɛri/',
+                'etymology': 'From Middle English mulberie, from Old English morberie, influenced by Latin morum "mulberry" and Old French meure. The name reflects the fruit\'s resemblance to blackberries.',
+                'memory_tip': 'Remember MULBERRY as "MULtiple small fruits on trees like BERrY" - multiple small berry-like fruits growing on trees, not bushes.',
+                'example_sentence': 'The children climbed the old _____ tree to pick the sweet, purple fruits that stained their hands and clothes.'
+            },
+            'mule': {
+                'definition': 'A mule is a hybrid animal resulting from breeding a female horse (mare) with a male donkey (jack), combining characteristics of both parent species while typically being sterile due to chromosomal differences. Mules inherit the horse\'s size and strength with the donkey\'s endurance, sure-footedness, and intelligence, making them valuable working animals for transportation, farming, and pack carrying in challenging terrain. They demonstrate hybrid vigor, often being healthier and more resilient than either parent species. Mules have served humans for thousands of years in agriculture, mining, military operations, and transportation across difficult landscapes. Their reputation for stubbornness actually reflects cautious intelligence and self-preservation instincts. The term also applies to slippers without heel backing and to people who smuggle drugs across borders. Modern mules continue working in areas where mechanized equipment is impractical.',
+                'pronunciation': '/mjuːl/',
+                'etymology': 'From Old French mul, from Latin mulus "mule." The word has maintained its basic meaning of hybrid equine throughout its evolution into English.',
+                'memory_tip': 'Remember MULE as "Mix of mare horse + jackass donkey = Useful Labor animal" - a useful labor animal mixing horse and donkey traits.',
+                'example_sentence': 'The pack _____ carefully navigated the narrow mountain trail, carrying supplies to the remote research station.'
+            },
+            'muliebrity': {
+                'definition': 'Muliebrity refers to the condition or quality of being a woman, encompassing feminine characteristics, womanhood, or female nature in its fullest sense. This formal, somewhat archaic term describes the essence of femininity, including both physical and psychological aspects traditionally associated with women. In literature and scholarly writing, muliebrity might be contrasted with masculinity or used to discuss gender roles, women\'s experiences, or feminist themes. The term carries connotations of maturity and full development of feminine qualities, suggesting not just being female but embodying womanliness. Usage requires sensitivity to evolving understanding of gender identity and the recognition that feminine qualities are not exclusively tied to biological sex. Modern discussions of gender often move beyond such binary concepts, but the term remains useful in historical, literary, or philosophical contexts examining traditional concepts of femininity.',
+                'pronunciation': '/ˌmjuːliˈebrəti/',
+                'etymology': 'From Latin muliebritas meaning "womanly nature," from muliebris "of a woman," from mulier "woman." The term entered English through scholarly and literary usage.',
+                'memory_tip': 'Remember MULIEBRITY as "MULier (Latin woman) + quality" - the quality or essence of being a woman in the traditional sense.',
+                'example_sentence': 'The Victorian novel explored themes of _____ and social expectations placed upon women of that era.'
+            },
+            'mulish': {
+                'definition': 'Mulish describes behavior characterized by stubbornness, obstinacy, or unreasonable refusal to change one\'s mind or course of action, drawing on the stereotypical reputation of mules for being difficult and uncooperative. The term suggests a kind of determined resistance that persists despite logical arguments, appeals, or changing circumstances. Mulish behavior often frustrates others because it appears illogical or counterproductive, similar to a mule that refuses to move despite encouragement or coercion. The adjective can describe temporary attitudes during conflicts or disagreements, or more permanent personality traits in individuals who habitually resist change or compromise. While sometimes viewed negatively, mulish determination can also represent admirable persistence in the face of pressure to abandon principles or goals. The comparison to mules reflects the long-standing human observation of these animals\' reputation for stubbornness.',
+                'pronunciation': '/ˈmjuːlɪʃ/',
+                'etymology': 'From mule + -ish suffix meaning "having the characteristics of." Based on the perceived stubborn nature of mules, though their behavior actually reflects cautious intelligence.',
+                'memory_tip': 'Remember MULISH as "MULE + stubbornISH" - stubbornish like a mule, displaying obstinate and inflexible behavior.',
+                'example_sentence': 'His _____ refusal to consider alternative solutions frustrated the entire team trying to solve the project crisis.'
+            },
+            'mulligan': {
+                'definition': 'A mulligan is a do-over or second chance, most commonly used in golf to describe a replay of a shot without penalty, typically allowed in casual games but not in official competition. The term has expanded beyond golf to refer to any opportunity to start over or try again after an initial failure or mistake. In golf, players might take a mulligan on the first tee to ease into the game or after a particularly bad shot during friendly rounds. The concept represents forgiveness, learning opportunities, and the recognition that everyone makes mistakes deserving of second chances. Business, politics, and personal relationships also use mulligan metaphorically to describe fresh starts or opportunities to correct previous errors. The informal nature of mulligans emphasizes their role in maintaining enjoyment, reducing pressure, and allowing people to recover from setbacks without permanent consequences.',
+                'pronunciation': '/ˈmʌlɪɡən/',
+                'etymology': 'Possibly from the Irish surname Mulligan, though the specific origin is disputed. Various stories credit different golfers named Mulligan with popularizing the do-over concept in the 1920s.',
+                'memory_tip': 'Remember MULLIGAN as "MULti-chance to try aGAIN" - multiple chances to try again, especially in golf when you want a do-over shot.',
+                'example_sentence': 'After his terrible drive into the woods, his friends offered him a _____ to start the hole over without penalty.'
+            },
+            'mulliganmunich': {
+                'definition': 'This appears to be a combined word error from PDF parsing, likely meant to be "mulligan munich" - combining the golf term with the German city name.',
+                'pronunciation': 'N/A - Combined word error',
+                'etymology': 'Combined word parsing error',
+                'memory_tip': 'This is a PDF parsing error combining "mulligan" and "munich"',
+                'example_sentence': 'N/A - This is not a valid single word'
+            },
+            'mullioned': {
+                'definition': 'Mullioned describes windows or architectural openings that feature mullions—vertical or horizontal structural elements that divide the window into multiple sections or panes. These dividing elements serve both functional and aesthetic purposes, providing structural support for large window openings while creating decorative patterns and proportional relationships. Mullioned windows are characteristic of Gothic, Tudor, and Georgian architectural styles, where they create distinctive visual rhythms across building facades. The mullions can be made of stone, wood, or metal, depending on the architectural period and building materials. In Gothic architecture, elaborate stone mullions often incorporate decorative tracery that creates intricate patterns within window openings. Modern architecture sometimes employs mullioned designs to reference historical styles or create visual interest in contemporary buildings. The term emphasizes the architectural craftsmanship and attention to detail that characterizes well-designed fenestration.',
+                'pronunciation': '/ˈmʌljənd/',
+                'etymology': 'From mullion + -ed suffix. Mullion comes from Old French moinel meaning "middle post," from moi "middle." The architectural term developed from the structural function of these elements.',
+                'memory_tip': 'Remember MULLIONED as "MULtiple windoW sections crEateD" - windows created with multiple sections divided by structural elements.',
+                'example_sentence': 'The Tudor mansion featured beautiful _____ windows with diamond-paned glass that cast intricate shadow patterns indoors.'
+            },
+            'multifarious': {
+                'definition': 'Multifarious describes something characterized by great diversity, variety, or complexity, containing many different elements, aspects, or forms that may seem unrelated or disparate. The term emphasizes not just variety but the potentially overwhelming nature of numerous different components or features within a single entity or situation. Multifarious interests might include everything from art and science to sports and cooking, reflecting a person\'s wide-ranging curiosity. Organizations or systems described as multifarious operate across multiple domains or serve various functions that require different expertise and approaches. The word suggests richness and complexity that can be both beneficial (offering many options) and challenging (creating confusion or difficulty in management). Literature uses multifarious to describe characters with complex personalities or plots with many interconnected storylines. The term conveys admiration for diversity while acknowledging the complexity it creates.',
+                'pronunciation': '/ˌmʌltəˈfɛriəs/',
+                'etymology': 'From Latin multifarius meaning "manifold, diverse," from multus "many" + -farius suffix relating to "bearing, bringing." The term emphasizes the many-bearing quality of diverse elements.',
+                'memory_tip': 'Remember MULTIFARIOUS as "MULTIple + vARIous = many various different elements" - having many various different elements or aspects.',
+                'example_sentence': 'The professor\'s _____ research interests spanned linguistics, anthropology, computer science, and medieval history.'
+            },
+            'multiple': {
+                'definition': 'Multiple describes something consisting of or involving more than one element, part, or individual, emphasizing plurality and repetition rather than singularity. In mathematics, a multiple is a number that can be divided by another number without remainder, such as 15 being a multiple of 3. The term applies broadly to situations involving several instances, copies, or occurrences of similar things. Multiple choice questions offer several possible answers, while multiple births involve more than one baby. Technology uses multiple to describe parallel processes, backup systems, or redundant components that enhance reliability and performance. The concept is fundamental to understanding quantity, repetition, and complexity in various fields from mathematics and science to business and social structures. Understanding multiplicity helps in analyzing patterns, planning resources, and managing complex systems.',
+                'pronunciation': '/ˈmʌltəpəl/',
+                'etymology': 'From French multiple or Latin multiplex meaning "manifold, having many folds," from multus "many" + plicare "to fold." The mathematical sense developed from the folding or repeating concept.',
+                'memory_tip': 'Remember MULTIPLE as "MORE than one copy, Ul-tiPLicate" - more than one copy, making something replicated multiple times.',
+                'example_sentence': 'The security system included _____ cameras and sensors to ensure complete coverage of the building.'
+            },
+            'multiplication': {
+                'definition': 'Multiplication is a mathematical operation that combines equal groups or repeated addition to find the total quantity when one number is taken a specified number of times. This fundamental arithmetic operation is essential for calculating areas, volumes, scaling, and solving countless practical problems in daily life and advanced mathematics. The process involves a multiplicand (the number being multiplied), multiplier (how many times), and product (the result). Multiplication tables help students memorize basic facts that serve as building blocks for more complex calculations. The operation has various applications including algebra, geometry, statistics, and scientific calculations. Understanding multiplication develops mathematical reasoning, pattern recognition, and problem-solving skills. Beyond mathematics, multiplication concepts apply to growth rates, scaling recipes, calculating distances, and many other quantitative relationships in professional and personal contexts.',
+                'pronunciation': '/ˌmʌltəpləˈkeɪʃən/',
+                'etymology': 'From Latin multiplicationem meaning "an increasing, multiplying," from multiplicare "to multiply," from multiplex "manifold." The term reflects the concept of making manifold or many.',
+                'memory_tip': 'Remember MULTIPLICATION as "MULTIply + action" - the action of multiplying numbers to find how many times one fits into groups of another.',
+                'example_sentence': 'Students practiced _____ facts daily until they could quickly recall products without counting or using calculators.'
+            },
+            'multitude': {
+                'definition': 'A multitude refers to a very large number or great quantity of people, things, or elements, emphasizing the overwhelming nature of the crowd or collection. The term suggests not just many items but so many that counting becomes difficult or impractical, conveying a sense of abundance or excess. Multitudes of people might gather for major events, creating crowds that stretch beyond easy estimation. The word appears frequently in religious, political, and social contexts to describe large gatherings or masses of individuals united by common interests or circumstances. Literary usage often employs multitude to create impressions of vastness, power, or significance through sheer numbers. Scientific contexts might describe multitudes of stars, cells, or particles. The term carries implications of diversity within unity—many different individuals or elements forming a collective whole that gains power or meaning through its size.',
+                'pronunciation': '/ˈmʌltətuːd/',
+                'etymology': 'From Latin multitudo meaning "a great number, crowd," from multus "many." The word entered English through Old French, maintaining its sense of vast quantity.',
+                'memory_tip': 'Remember MULTITUDE as "MULTi + magnitude" - multiple things with such magnitude that they become countless masses.',
+                'example_sentence': 'A _____ of fans gathered outside the stadium hours before the championship game began.'
+            },
+            'multivalent': {
+                'definition': 'Multivalent describes something having multiple valences, meanings, or applications, most commonly used in chemistry to indicate atoms or ions that can form multiple bonds with other elements. In chemistry, multivalent elements can exist in various oxidation states, allowing them to participate in different types of chemical reactions and form diverse compounds. The term extends beyond chemistry to describe concepts, symbols, or systems that operate on multiple levels or carry several different meanings simultaneously. Multivalent vaccines protect against multiple strains of a disease, while multivalent analysis considers various factors or perspectives. In semiotics and literary criticism, multivalent symbols or texts support multiple valid interpretations without contradiction. The concept emphasizes flexibility, complexity, and the ability to function effectively in different contexts or relationships, reflecting sophisticated understanding of systems that operate across multiple dimensions.',
+                'pronunciation': '/ˌmʌltiˈveɪlənt/',
+                'etymology': 'From multi- meaning "many" + valent from Latin valens "being strong, having power," from valere "to be strong." The term emphasizes having many powers or capabilities.',
+                'memory_tip': 'Remember MULTIVALENT as "MULTIple VALues ENTangled" - having multiple values or meanings entangled in one concept or element.',
+                'example_sentence': 'The _____ symbolism in the poem allowed readers to discover new layers of meaning with each reading.'
+            },
+            'mumbai': {
+                'definition': 'Mumbai, formerly known as Bombay, is the capital city of Maharashtra state in western India and the country\'s financial, commercial, and entertainment capital. As India\'s most populous city with over 20 million people in the metropolitan area, Mumbai serves as the hub of the Bollywood film industry and houses the Bombay Stock Exchange, making it crucial to India\'s economy. The city is built on seven islands that were gradually connected through land reclamation projects during British colonial rule. Mumbai\'s port facilitates significant international trade, while its diverse population represents all of India\'s major religions, languages, and cultures. The city faces challenges including overcrowding, traffic congestion, and housing shortages, yet remains a symbol of opportunity and modernization in India. Mumbai\'s architecture reflects its colonial history alongside modern skyscrapers, creating a distinctive urban landscape.',
+                'pronunciation': '/mʊmˈbaɪ/',
+                'etymology': 'From Marathi Mumbai, derived from Mumbadevi (the patron goddess of the Koli fishing community) + aai meaning "mother." The name was officially changed from Bombay to Mumbai in 1995.',
+                'memory_tip': 'Remember MUMBAI as "MUM + BAy + India" - India\'s major city that was once called Bombay, now Mumbai, located by the bay.',
+                'example_sentence': 'The entrepreneur moved to _____ to pursue opportunities in India\'s thriving financial and entertainment industries.'
+            },
+            'mumble': {
+                'definition': 'Mumble means to speak indistinctly or incoherently, typically in a low voice with unclear articulation that makes words difficult for others to understand. This manner of speaking often results from various factors including shyness, embarrassment, fatigue, dental problems, or speaking while eating. Mumbling can be intentional, such as when someone doesn\'t want to be clearly heard, or unintentional due to poor speech habits or physical conditions. The behavior often frustrates listeners who must repeatedly ask for clarification, potentially leading to communication breakdowns in personal and professional settings. Clear speech requires proper breath support, articulation, and projection, which mumbling lacks. In social contexts, mumbling might indicate discomfort, lack of confidence, or passive resistance to communication. Overcoming mumbling typically involves conscious effort to speak more clearly, practice articulation exercises, and building confidence in communication.',
+                'pronunciation': '/ˈmʌmbəl/',
+                'etymology': 'From Middle English momelen, possibly imitative of the unclear sound produced when speaking indistinctly. Related to similar words in Germanic languages that describe inarticulate speech.',
+                'memory_tip': 'Remember MUMBLE as "MUM (quiet) + jumBLE" - quiet jumbled speech that\'s hard to understand clearly.',
+                'example_sentence': 'The teenager would _____ responses to his parents\' questions, making it difficult for them to understand his answers.'
+            },
+            'mummified': {
+                'definition': 'Mummified describes something that has been preserved through the process of mummification, most commonly referring to human or animal remains that have been artificially preserved to prevent decay. The term primarily relates to ancient Egyptian burial practices where bodies were treated with chemicals, wrapped in cloth, and prepared for the afterlife, but mummification occurred in various cultures worldwide. Natural mummification can occur in extremely dry, cold, or acidic environments that prevent bacterial decomposition. The process involves removing moisture and organic materials that promote decay, then treating the remains with preservatives. Metaphorically, mummified can describe anything that has become dried out, shriveled, or preserved in an unchanging state. Archaeological discoveries of mummified remains provide valuable insights into ancient cultures, health conditions, burial practices, and preservation techniques that have fascinated scientists and the public for centuries.',
+                'pronunciation': '/ˈmʌmɪfaɪd/',
+                'etymology': 'From mummy + -ified suffix meaning "made into." Mummy comes from Arabic mumiya, originally referring to bitumen used in preservation, later applied to preserved bodies.',
+                'memory_tip': 'Remember MUMMIFIED as "MUMMY + made" - made into a mummy through preservation processes that prevent decay.',
+                'example_sentence': 'The archaeologists carefully unwrapped the _____ remains, hoping to learn about burial customs from 3,000 years ago.'
+            },
+            'munchkin': {
+                'definition': 'Munchkin refers to a fictional race of small people from L. Frank Baum\'s "The Wonderful Wizard of Oz" and subsequent Oz books, characterized as friendly, helpful inhabitants of the eastern region of Oz who welcomed Dorothy. The term has extended into common usage as an affectionate nickname for children or small people, emphasizing their cute, diminutive size rather than any negative connotation. Munchkins in the original stories were depicted as kind, industrious people who lived in blue-colored houses and wore blue clothing, maintaining their own society and culture. The 1939 MGM film "The Wizard of Oz" popularized the visual image of Munchkins, though the movie portrayal differed from Baum\'s descriptions. Modern usage of "munchkin" as a term of endearment for children reflects the positive, innocent characteristics associated with these fictional characters. The word emphasizes smallness combined with endearing qualities.',
+                'pronunciation': '/ˈmʌntʃkɪn/',
+                'etymology': 'Created by L. Frank Baum for his Oz books, first appearing in "The Wonderful Wizard of Oz" (1900). The origin of Baum\'s coinage is uncertain but may relate to "munch" due to their association with food and hospitality.',
+                'memory_tip': 'Remember MUNCHKIN as "MUNCHing little person" - a little person, originally from Oz, often associated with being cute and small like children.',
+                'example_sentence': 'The grandmother called her three-year-old grandson her little _____ because of his tiny size and cheerful personality.'
+            },
+            'mundane': {
+                'definition': 'Mundane describes something ordinary, commonplace, or lacking in excitement, interest, or significance—essentially the opposite of extraordinary or spiritual. The term refers to everyday, routine activities and experiences that form the regular fabric of daily life but don\'t inspire wonder or enthusiasm. Mundane tasks might include household chores, routine paperwork, or predictable work responsibilities that, while necessary, don\'t challenge or stimulate. The word originally carried a more neutral meaning of "worldly" or "earthly," contrasting with spiritual or heavenly matters, but has evolved to emphasize the tedious or uninspiring aspects of ordinary existence. Mundane concerns focus on practical, material needs rather than higher aspirations or ideals. The term can carry slight negative connotations, suggesting that something fails to engage the imagination or provide meaning, though mundane activities often form the stable foundation that enables more exciting pursuits.',
+                'pronunciation': '/mʌnˈdeɪn/',
+                'etymology': 'From Latin mundanus meaning "of the world," from mundus "world, universe." Originally distinguished earthly matters from spiritual ones, later developing connotations of ordinary or tedious.',
+                'memory_tip': 'Remember MUNDANE as "MUNdane = ordinary world, not excitaNG" - ordinary world matters that are not exciting or inspiring.',
+                'example_sentence': 'After years of exciting travel assignments, the journalist found the _____ routine of office work surprisingly difficult to endure.'
+            },
+            'munich': {
+                'definition': 'Munich (München in German) is the capital and largest city of Bavaria in southern Germany, known for its rich history, cultural attractions, economic importance, and annual Oktoberfest celebration. The city serves as a major center for finance, technology, publishing, and manufacturing, housing headquarters of global companies like BMW and Siemens. Munich\'s architecture reflects its long history, featuring medieval structures, baroque churches, neoclassical buildings, and modern developments. The city is renowned for its beer culture, traditional Bavarian cuisine, and numerous festivals that attract millions of visitors annually. Munich played significant roles in German history, including being the birthplace of the Nazi movement and later becoming a symbol of reconciliation and European unity. Today, it represents a successful blend of traditional Bavarian culture with modern international business, making it one of Germany\'s most prosperous and livable cities.',
+                'pronunciation': '/ˈmjuːnɪk/',
+                'etymology': 'From German München, from Old High German Munichen meaning "by the monks," referring to the Benedictine monastery around which the city developed in the 12th century.',
+                'memory_tip': 'Remember MUNICH as "MUN + ICH (I in German)" - the Bavarian city where "I" would want to visit for Oktoberfest and German culture.',
+                'example_sentence': 'The business conference in _____ provided an excellent opportunity to explore Bavarian culture while conducting international negotiations.'
+            },
+            'municipal': {
+                'definition': 'Municipal relates to local government administration and services provided by a city, town, or other incorporated community, encompassing the governmental functions and public services that directly affect residents\' daily lives. Municipal services typically include water and sewer systems, local roads, police and fire protection, parks and recreation, zoning and building permits, and waste management. Municipal government operates at the local level, closer to citizens than state or federal authorities, making decisions about local taxes, ordinances, and community development. Municipal bonds finance infrastructure projects and public improvements, while municipal codes establish local regulations for building, business operations, and community standards. The term emphasizes the civic and administrative aspects of community governance, distinguishing local concerns from broader state or national issues. Understanding municipal government is essential for civic participation and community involvement.',
+                'pronunciation': '/mjuˈnɪsəpəl/',
+                'etymology': 'From Latin municipalis, from municipium "free town," from municeps "citizen of a free town," from munia "civic duties" + capere "to take." The term reflects the concept of citizens taking civic responsibilities.',
+                'memory_tip': 'Remember MUNICIPAL as "MUNicipal = MaN Using Neighborhood Infrastructure City Areas Locally" - local government managing city areas and infrastructure.',
+                'example_sentence': 'The _____ water department issued a boil-water advisory after detecting bacteria in the city\'s drinking supply.'
+            },
+            'murals': {
+                'definition': 'Murals are large-scale artworks painted or applied directly onto walls, ceilings, or other permanent surfaces, designed to integrate with and enhance architectural spaces. These public art forms have existed throughout human history, from ancient cave paintings and Egyptian tomb decorations to contemporary street art and commissioned public works. Murals serve various purposes including decoration, education, political expression, cultural celebration, and community identity formation. They can be created using various techniques including fresco, acrylic paint, mosaic, or digital printing, depending on the intended duration and environmental conditions. Community mural projects often involve local participation, fostering civic engagement and neighborhood pride. Murals transform bland architectural surfaces into vibrant focal points that can revitalize neighborhoods, commemorate historical events, or convey social messages. The permanent nature of murals creates lasting impact on communities and public spaces.',
+                'pronunciation': '/ˈmjʊrəlz/',
+                'etymology': 'Plural of mural, from Latin muralis meaning "of a wall," from murus "wall." The term emphasizes the wall-based nature of this art form.',
+                'memory_tip': 'Remember MURALS as "MU + wall ARt LastS" - wall art that lasts, large-scale artworks painted directly on walls.',
+                'example_sentence': 'The neighborhood association commissioned local artists to paint colorful _____ that depicted the community\'s multicultural heritage.'
+            },
+            'murky': {
+                'definition': 'Murky describes something dark, cloudy, or unclear, whether referring to physical substances like water or abstract concepts like situations and ideas. In physical terms, murky water appears opaque or turbid due to suspended particles, sediment, or contamination that reduces visibility and clarity. Metaphorically, murky describes situations, explanations, or motives that lack clarity, transparency, or straightforwardness, making them difficult to understand or navigate. Murky circumstances often involve hidden agendas, unclear responsibilities, or ambiguous information that complicates decision-making. The term suggests not just difficulty in seeing or understanding, but also potential danger or deception lurking beneath the surface. Murky ethics involve questionable moral territory where right and wrong are not clearly distinguished. Weather can be murky when fog, pollution, or overcast conditions reduce visibility and create gloomy atmospheres.',
+                'pronunciation': '/ˈmɜːrki/',
+                'etymology': 'From murk + -y suffix. Murk comes from Old Norse myrkr meaning "darkness," related to words in Germanic languages meaning dark or gloomy.',
+                'memory_tip': 'Remember MURKY as "MUR + darKY" - dark and unclear, whether referring to muddy water or confusing situations.',
+                'example_sentence': 'The detective struggled to solve the case because the witness testimonies were contradictory and the evidence remained _____ .'
+            },
+            'murmuration': {
+                'definition': 'A murmuration refers to the phenomenon of hundreds or thousands of starlings flying together in coordinated, fluid formations that create spectacular aerial displays. These flocks move as a single entity, rapidly changing direction and shape in smooth, wave-like patterns that seem choreographed yet are actually the result of simple behavioral rules followed by individual birds. Murmuration behavior serves protective functions, confusing predators and allowing the flock to respond quickly to threats while enabling efficient foraging and roosting. The term has expanded beyond ornithology to describe any group behavior characterized by coordinated movement and collective decision-making. Murmuration patterns have inspired research in mathematics, computer science, and robotics, leading to algorithms for swarm intelligence and autonomous systems. The visual beauty and mysterious coordination of murmurations have made them subjects of artistic and scientific fascination.',
+                'pronunciation': '/ˌmɜːrmjəˈreɪʃən/',
+                'etymology': 'From Latin murmuratio meaning "a murmuring," from murmurare "to murmur." The term was applied to starling flocks because of the soft murmuring sound they create.',
+                'memory_tip': 'Remember MURMURATION as "MURMUring bird formATION" - a formation of murmuring birds (starlings) flying together in coordinated patterns.',
+                'example_sentence': 'The evening _____ of starlings created an mesmerizing display as thousands of birds swirled across the sunset sky.'
+            },
+            'muscles': {
+                'definition': 'Muscles are contractile tissues in the body responsible for producing movement, maintaining posture, and generating force through the coordinated contraction and relaxation of muscle fibers. The human body contains three types: skeletal muscles (attached to bones for voluntary movement), cardiac muscle (found only in the heart), and smooth muscles (in organs and blood vessels for involuntary functions). Muscle tissue consists of specialized cells that can shorten when stimulated by nerve impulses, creating mechanical work. Regular exercise strengthens muscles through increased fiber size and improved neural coordination. Muscle development requires adequate protein intake, proper training stimulus, and recovery time. Understanding muscle function is essential for fitness, rehabilitation, medicine, and occupational health. Muscle injuries can range from minor strains to serious tears requiring medical treatment and careful rehabilitation to restore proper function.',
+                'pronunciation': '/ˈmʌsəlz/',
+                'etymology': 'Plural of muscle, from Latin musculus meaning "little mouse," from mus "mouse." The name referred to the appearance of flexing muscles resembling mice moving under the skin.',
+                'memory_tip': 'Remember MUSCLES as "Movement Using Specialized Contractile Living Engine Systems" - living engine systems that use specialized contractile fibers for movement.',
+                'example_sentence': 'The physical therapist explained how strengthening the core _____ would improve posture and reduce back pain.'
+            },
+            'muscular': {
+                'definition': 'Muscular describes something relating to muscles or characterized by well-developed, strong muscles that create visible definition and physical power. In anatomical contexts, muscular refers to anything involving muscle tissue, function, or development. When describing people, muscular indicates a physique with prominent, well-defined muscles resulting from exercise, genetics, or both, suggesting strength and physical fitness. The term can describe specific body parts (muscular arms) or overall body composition. Muscular also applies to systems and processes, such as muscular coordination required for athletic performance or muscular disorders affecting muscle function. Beyond physical attributes, muscular can describe non-biological systems that demonstrate strength, power, or robust capability, such as muscular economic policies or muscular diplomatic responses. The adjective emphasizes strength, definition, and the capacity for forceful action whether in biological or metaphorical contexts.',
+                'pronunciation': '/ˈmʌskjələr/',
+                'etymology': 'From muscle + -ar suffix meaning "relating to." Follows the pattern of forming adjectives from body-related nouns to describe characteristics or qualities related to those body parts.',
+                'memory_tip': 'Remember MUSCULAR as "MUSCLE + AR = relating to muscles" - relating to muscles, especially well-developed, strong muscles.',
+                'example_sentence': 'Years of rock climbing had given her a _____ build with exceptional upper body strength and definition.'
+            }
+        }
+        
+        return claude_data.get(word, {
+            'definition': f'Definition for {word} not yet available.',
+            'pronunciation': f'Pronunciation for {word} not yet available.',
+            'etymology': f'Etymology for {word} not yet available.',
+            'memory_tip': f'Memory tip for {word} not yet available.',
+            'example_sentence': f'Example sentence for {word} not yet available.'
+        })
+    
+    def detect_combined_words(self) -> List[str]:
+        combined_words = [
+            'mouthfilters',
+            'mugwumpdollars',
+            'mulliganmunich'
+        ]
+        return combined_words
+    
+    def process_batch(self, input_file: str, output_file: str):
+        logger.info("Processing Batch 115 with comprehensive Claude data...")
+        
+        combined_words = self.detect_combined_words()
+        logger.info(f"Detected {len(combined_words)} combined word errors: {combined_words}")
+        
+        processed_words = []
+        
+        with open(input_file, 'r', encoding='utf-8') as csvfile:
+            reader = csv.DictReader(csvfile)
+            
+            for row in reader:
+                word = row['word'].strip()
+                if not word:
+                    continue
+                    
+                logger.info(f"Processed word: {word}")
+                
+                claude_data = self.get_comprehensive_claude_data(word)
+                difficulty_scores = self.difficulty_calc.calculate_difficulty_score(
+                    word, claude_data['definition'], claude_data['etymology']
+                )
+                
+                processed_word = {
+                    'word': word,
+                    'years': row['years'],
+                    'source_files': row['source_files'], 
+                    'source_difficulties': row['source_difficulties'],
+                    'definition': claude_data['definition'],
+                    'pronunciation': claude_data['pronunciation'],
+                    'etymology': claude_data['etymology'],
+                    'etymology_source': 'Claude',
+                    'memory_tip': claude_data['memory_tip'],
+                    'example_sentence': claude_data['example_sentence'],
+                    'example_sentence_source': 'Claude',
+                    'phonetic_transparency_score': difficulty_scores['phonetic_transparency_score'],
+                    'word_frequency_score': difficulty_scores['word_frequency_score'],
+                    'morphological_complexity_score': difficulty_scores['morphological_complexity_score'],
+                    'etymology_complexity_score': difficulty_scores['etymology_complexity_score'],
+                    'difficulty': difficulty_scores['difficulty'],
+                    'combined_word_error': word in combined_words
+                }
+                
+                processed_words.append(processed_word)
+        
+        # Write output CSV
+        if processed_words:
+            fieldnames = [
+                'word', 'years', 'source_files', 'source_difficulties',
+                'definition', 'pronunciation', 'etymology', 'etymology_source',
+                'memory_tip', 'example_sentence', 'example_sentence_source',
+                'phonetic_transparency_score', 'word_frequency_score',
+                'morphological_complexity_score', 'etymology_complexity_score',
+                'difficulty', 'combined_word_error'
+            ]
+            
+            with open(output_file, 'w', newline='', encoding='utf-8') as csvfile:
+                writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
+                writer.writeheader()
+                writer.writerows(processed_words)
+        
+        logger.info(f"Saved {len(processed_words)} words to {output_file}")
+        logger.info("Batch 115 processing completed!")
+        logger.info(f"Processed {len(processed_words)} words with comprehensive Claude data")
+        logger.info(f"Output saved to: {output_file}")
+        logger.info(f"Results: {len(processed_words)} successful, 0 failed")
+
+if __name__ == "__main__":
+    processor = Batch115Processor()
+    
+    input_file = "output/batch_115_words.csv"
+    output_file = "output/batch_115_processed.csv"
+    
+    processor.process_batch(input_file, output_file)

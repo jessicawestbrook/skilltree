@@ -7,7 +7,6 @@ import { SkillTreeNode } from '../types/database.types'
 import {
   ChevronDownIcon,
   ChevronLeftIcon,
-  HomeIcon,
   AcademicCapIcon,
   ChatBubbleBottomCenterTextIcon,
   Cog6ToothIcon,
@@ -19,7 +18,6 @@ import {
   LanguageIcon,
   BookOpenIcon,
   SparklesIcon,
-  DocumentTextIcon,
   QueueListIcon,
   ClipboardDocumentListIcon,
   PuzzlePieceIcon
@@ -100,10 +98,6 @@ const UnifiedDropdownMenu: React.FC = () => {
   }
 
   const navigationItems = [
-    { to: '/', label: 'Home', icon: HomeIcon },
-    { to: '/skill-tree', label: 'Skill Tree', icon: AcademicCapIcon },
-    { to: '/text-tree', label: 'Text-Only View', icon: DocumentTextIcon },
-    { to: '/learning-paths', label: 'Learning Paths', icon: BookOpenIcon },
     { to: '/intro-assessment', label: 'Skill Assessment', icon: SparklesIcon },
   ]
 
@@ -157,17 +151,21 @@ const UnifiedDropdownMenu: React.FC = () => {
       )}
 
       {dropdownOpen && (
-        <div className="absolute right-0 z-50 mt-2 w-56 rounded-lg shadow-xl bg-white dark:bg-neutral-800 ring-1 ring-black ring-opacity-5 divide-y divide-neutral-200 dark:divide-neutral-700">
-          {/* User Info Section (if logged in) */}
+        <div className="absolute right-0 z-50 mt-2 w-56 rounded-lg shadow-xl bg-white dark:bg-neutral-800 ring-1 ring-black ring-opacity-5">
+          {/* User Info Section (if logged in) - Clickable to go to profile */}
           {user && (
-            <div className="px-3 py-2">
+            <Link
+              to="/profile"
+              onClick={() => setDropdownOpen(false)}
+              className="block px-3 py-2 hover:bg-neutral-50 dark:hover:bg-neutral-700 transition-colors cursor-pointer"
+            >
               <p className="text-xs font-medium text-neutral-900 dark:text-white truncate">
                 {user.email}
               </p>
               <p className="text-xs text-neutral-500 dark:text-neutral-400">
-                Signed in
+                Signed in • Click to view profile
               </p>
-            </div>
+            </Link>
           )}
 
           {/* Auth Section (if not logged in) */}
@@ -197,7 +195,7 @@ const UnifiedDropdownMenu: React.FC = () => {
           )}
 
           {/* Search Section - Only visible on small screens */}
-          <div className="sm:hidden p-2 border-b border-neutral-200 dark:border-neutral-700">
+          <div className="sm:hidden p-2">
             <SearchBar placeholder="Search..." className="w-full" />
           </div>
 
@@ -217,7 +215,7 @@ const UnifiedDropdownMenu: React.FC = () => {
             ))}
 
             {/* Subjects Section with Submenu */}
-            <div className="border-t border-neutral-200 dark:border-neutral-700 mt-1 pt-1 relative" ref={subjectsRef}>
+            <div className="relative" ref={subjectsRef}>
               <div
                 className="flex items-center px-3 py-1.5 text-xs text-neutral-700 dark:text-neutral-300 hover:bg-neutral-100 dark:hover:bg-neutral-700 transition-colors cursor-pointer"
                 onMouseEnter={() => setSubjectsHovered(true)}
@@ -259,7 +257,7 @@ const UnifiedDropdownMenu: React.FC = () => {
             </div>
 
             {/* Flashcards Section with Submenu */}
-            <div className="border-t border-neutral-200 dark:border-neutral-700 mt-1 pt-1 relative" ref={flashcardsRef}>
+            <div className="relative" ref={flashcardsRef}>
               <div
                 className="flex items-center px-3 py-1.5 text-xs text-neutral-700 dark:text-neutral-300 hover:bg-neutral-100 dark:hover:bg-neutral-700 transition-colors cursor-pointer"
                 onMouseEnter={() => setFlashcardsHovered(true)}
@@ -296,7 +294,7 @@ const UnifiedDropdownMenu: React.FC = () => {
             </div>
 
             {/* Tests Section with Submenu */}
-            <div className="border-t border-neutral-200 dark:border-neutral-700 mt-1 pt-1 relative" ref={testsRef}>
+            <div className="relative" ref={testsRef}>
               <div
                 className="flex items-center px-3 py-1.5 text-xs text-neutral-700 dark:text-neutral-300 hover:bg-neutral-100 dark:hover:bg-neutral-700 transition-colors cursor-pointer"
                 onMouseEnter={() => setTestsHovered(true)}
@@ -332,71 +330,69 @@ const UnifiedDropdownMenu: React.FC = () => {
               )}
             </div>
 
-            {/* Other Items */}
-            <div className="border-t border-neutral-200 dark:border-neutral-700 mt-1 pt-1">
-              {otherItems.map((item) => (
-                <Link
-                  key={item.to}
-                  to={item.to}
-                  onClick={() => setDropdownOpen(false)}
-                  className="flex items-center px-3 py-1.5 text-xs text-neutral-700 dark:text-neutral-300 hover:bg-neutral-100 dark:hover:bg-neutral-700 transition-colors"
-                >
-                  <item.icon className="h-3 w-3 mr-2 text-neutral-500" />
-                  {item.label}
-                </Link>
-              ))}
-            </div>
-            
-          </div>
+            {/* Learning Paths */}
+            <Link
+              to="/learning-paths"
+              onClick={() => setDropdownOpen(false)}
+              className="flex items-center px-3 py-1.5 text-xs text-neutral-700 dark:text-neutral-300 hover:bg-neutral-100 dark:hover:bg-neutral-700 transition-colors"
+            >
+              <BookOpenIcon className="h-3 w-3 mr-2 text-neutral-500" />
+              Learning Paths
+            </Link>
 
-          {/* User-specific items and Settings */}
-          {user && (
-            <div className="py-1">
+            {/* Other Items */}
+            {otherItems.map((item) => (
               <Link
-                to="/profile"
+                key={item.to}
+                to={item.to}
                 onClick={() => setDropdownOpen(false)}
                 className="flex items-center px-3 py-1.5 text-xs text-neutral-700 dark:text-neutral-300 hover:bg-neutral-100 dark:hover:bg-neutral-700 transition-colors"
               >
-                <UserCircleIcon className="h-3 w-3 mr-2 text-neutral-500" />
-                Profile
+                <item.icon className="h-3 w-3 mr-2 text-neutral-500" />
+                {item.label}
               </Link>
-              {userItems.map((item) => (
-                <Link
-                  key={item.to}
-                  to={item.to}
-                  onClick={() => setDropdownOpen(false)}
-                  className="flex items-center px-3 py-1.5 text-xs text-neutral-700 dark:text-neutral-300 hover:bg-neutral-100 dark:hover:bg-neutral-700 transition-colors"
-                >
-                  <item.icon className="h-3 w-3 mr-2 text-neutral-500" />
-                  {item.label}
-                </Link>
-              ))}
-              
-              {/* Admin link */}
-              {isAdmin && (
-                <Link
-                  to="/admin"
-                  onClick={() => setDropdownOpen(false)}
-                  className="flex items-center px-3 py-1.5 text-xs text-neutral-700 dark:text-neutral-300 hover:bg-neutral-100 dark:hover:bg-neutral-700 transition-colors"
-                >
-                  <ShieldCheckIcon className="h-3 w-3 mr-2 text-neutral-500" />
-                  Admin Panel
-                </Link>
-              )}
-            </div>
-          )}
+            ))}
+
+            {/* User-specific items and Settings */}
+            {user && (
+              <>
+                {userItems.map((item) => (
+                  <Link
+                    key={item.to}
+                    to={item.to}
+                    onClick={() => setDropdownOpen(false)}
+                    className="flex items-center px-3 py-1.5 text-xs text-neutral-700 dark:text-neutral-300 hover:bg-neutral-100 dark:hover:bg-neutral-700 transition-colors"
+                  >
+                    <item.icon className="h-3 w-3 mr-2 text-neutral-500" />
+                    {item.label}
+                  </Link>
+                ))}
+                
+                {/* Admin link */}
+                {isAdmin && (
+                  <Link
+                    to="/admin"
+                    onClick={() => setDropdownOpen(false)}
+                    className="flex items-center px-3 py-1.5 text-xs text-neutral-700 dark:text-neutral-300 hover:bg-neutral-100 dark:hover:bg-neutral-700 transition-colors"
+                  >
+                    <ShieldCheckIcon className="h-3 w-3 mr-2 text-neutral-500" />
+                    Admin Panel
+                  </Link>
+                )}
+              </>
+            )}
+            
+          </div>
 
           {/* Sign Out Section */}
           {user && (
-            <div className="p-1.5">
-              <button
-                onClick={handleSignOut}
-                className="flex items-center justify-center w-full px-2 py-1.5 text-xs font-medium text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/20 rounded-md transition-colors"
-              >
-                <ArrowRightOnRectangleIcon className="h-3 w-3 mr-1.5" />
-                Sign Out
-              </button>
-            </div>
+            <button
+              onClick={handleSignOut}
+              className="flex items-center px-3 py-1.5 text-xs text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/20 transition-colors w-full"
+            >
+              <ArrowRightOnRectangleIcon className="h-3 w-3 mr-2 text-red-500" />
+              Sign Out
+            </button>
           )}
         </div>
       )}

@@ -269,10 +269,8 @@ const LearningPathsPage: React.FC = () => {
   return (
     <div className="max-w-6xl mx-auto space-y-8">
       <div className="text-center">
-        <h1 className="text-4xl font-bold mb-4">
-          <span className="bg-gradient-to-r from-primary-600 to-gold-500 bg-clip-text text-transparent">
-            Learning Paths
-          </span>
+        <h1 className="text-4xl font-bold mb-4 text-primary-600 dark:text-primary-400">
+          Learning Paths
         </h1>
         <p className="text-lg text-neutral-600 dark:text-neutral-400 max-w-3xl mx-auto">
           Follow structured learning paths to master new skills. Each path includes prerequisites

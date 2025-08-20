@@ -374,7 +374,7 @@ const IntroAssessmentPage: React.FC = () => {
               <SparklesIcon className="h-8 w-8 text-primary-600 dark:text-primary-400" />
             </div>
             <h1 className="text-4xl font-bold mb-4">
-              <span className="bg-gradient-to-r from-primary-600 to-gold-500 bg-clip-text text-transparent">
+              <span className="text-primary-600 dark:text-primary-400">
                 Skill Assessment Test
               </span>
             </h1>
@@ -552,7 +552,7 @@ const IntroAssessmentPage: React.FC = () => {
 
           <div className="flex gap-3">
             <button
-              onClick={() => navigate('/skill-tree')}
+              onClick={() => navigate('/learning-paths')}
               className="flex-1 py-3 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition-colors font-medium"
             >
               Start Learning

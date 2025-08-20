@@ -3,6 +3,7 @@ import { supabase } from '../services/supabase'
 import { useAuth } from '../contexts/AuthContext'
 import { useSpellingBee } from '../contexts/SpellingBeeContext'
 import { checkSpellingBeeTables, createSpellingBeeTables } from '../utils/createSpellingBeeTables'
+import { replaceWordAndVariationsWithBlanks } from '../utils/vocabularyHelpers'
 import { 
   CheckCircleIcon, 
   XCircleIcon,
@@ -378,7 +379,7 @@ const VocabularyTrainerPage: React.FC = () => {
             <div className="space-y-3 mb-4">
               <div className="bg-gradient-to-br from-primary-50 to-primary-100 dark:from-primary-900/30 dark:to-primary-800/20 rounded-xl p-4 sm:p-6 border-2 border-primary-200 dark:border-primary-700 shadow-lg">
                 <p className="text-lg sm:text-xl font-medium text-neutral-800 dark:text-neutral-200 leading-relaxed text-center">
-                  {currentQuestion.word.definition}
+                  {replaceWordAndVariationsWithBlanks(currentQuestion.word.definition, currentQuestion.word.word)}
                 </p>
               </div>
 

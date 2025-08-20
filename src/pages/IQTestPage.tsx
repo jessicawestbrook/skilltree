@@ -519,8 +519,8 @@ const IQTestPage: React.FC = () => {
 
           {/* Actions */}
           <div className="flex gap-3">
-            <button onClick={() => navigate('/skill-tree')} className="btn-secondary flex-1">
-              Back to Skill Tree
+            <button onClick={() => navigate('/learning-paths')} className="btn-secondary flex-1">
+              Back to Learning Paths
             </button>
             <button onClick={() => window.location.reload()} className="btn-primary flex-1">
               Take Another Test
