@@ -10,6 +10,7 @@ import {
   ChevronDownIcon
 } from '@heroicons/react/24/outline'
 import FlagContentModal from '../components/FlagContentModal'
+import StudyListActions from '../components/StudyListActions'
 
 interface Language {
   id: string
@@ -465,15 +466,24 @@ const LanguageTrainerPage: React.FC = () => {
 
       {/* Combined Language Practice Card */}
       <div className="bg-white dark:bg-neutral-900 rounded-lg sm:rounded-xl shadow-lg p-2 sm:p-6 relative">
-        {/* Flag Button */}
+        {/* Action Buttons */}
         {currentQuestion && (
-          <button
-            onClick={() => setShowFlagModal(true)}
-            className="absolute top-2 right-2 p-1.5 text-neutral-400 hover:text-red-500 hover:bg-red-50 dark:hover:bg-red-900/20 rounded-lg transition-colors z-10"
-            title="Report an issue with this question"
-          >
-            <FlagIcon className="h-4 w-4" />
-          </button>
+          <div className="absolute top-2 right-2 flex items-center gap-1 z-10">
+            <StudyListActions
+              itemType="language_question"
+              itemId={currentQuestion.id}
+              itemData={currentQuestion}
+              itemTitle={`${selectedLanguage?.name || 'Language'}: ${currentQuestion.question_text.substring(0, 50)}...`}
+              className="bg-white dark:bg-neutral-800 rounded-lg shadow-sm border border-neutral-200 dark:border-neutral-700 px-2 py-1"
+            />
+            <button
+              onClick={() => setShowFlagModal(true)}
+              className="p-1.5 text-neutral-400 hover:text-red-500 hover:bg-red-50 dark:hover:bg-red-900/20 rounded-lg transition-colors bg-white dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700"
+              title="Report an issue with this question"
+            >
+              <FlagIcon className="h-4 w-4" />
+            </button>
+          </div>
         )}
         
         {/* Settings and Stats Row */}

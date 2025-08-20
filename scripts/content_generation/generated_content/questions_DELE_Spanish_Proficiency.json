@@ -1,0 +1,127 @@
+{
+  "topic_id": "db54f5dc-ce8b-4393-aa6b-e190aa819861",
+  "topic_name": "DELE Spanish Proficiency",
+  "questions": [
+    {
+      "question_text": "Which organization administers the DELE exam?",
+      "options": [
+        "The Spanish Ministry of Education and Vocational Training",
+        "The Instituto Cervantes",
+        "The Spanish Language Association",
+        "The European Union Language Council"
+      ],
+      "correct_answer": 1,
+      "explanation": "The correct answer is the Instituto Cervantes, as stated in the content: 'The DELE (Diploma de Español como Lengua Extranjera) is the official Spanish proficiency exam administered by the Instituto Cervantes on behalf of the Spanish Ministry of Education and Vocational Training.'",
+      "difficulty": "easy"
+    },
+    {
+      "question_text": "What is the purpose of the DELE exam?",
+      "options": [
+        "To test your ability to understand and use basic Spanish phrases",
+        "To assess your mastery of the Spanish language",
+        "To evaluate your proficiency in listening, reading, writing, and speaking Spanish",
+        "All of the above"
+      ],
+      "correct_answer": 3,
+      "explanation": "The content states that the DELE exam 'assesses your skills across four key areas: listening comprehension, reading comprehension, written expression and interaction, and oral expression and interaction.' This aligns with the 'All of the above' option, which is the correct answer.",
+      "difficulty": "medium"
+    },
+    {
+      "question_text": "Which of the following DELE exam levels is the most advanced?",
+      "options": [
+        "A1 (Breakthrough)",
+        "A2 (Waystage)",
+        "B1 (Threshold)",
+        "C2 (Advanced)"
+      ],
+      "correct_answer": 3,
+      "explanation": "According to the content, the DELE exam levels range from A1 (beginner) to C2 (advanced). Therefore, the C2 (Advanced) level is the most advanced of the options provided.",
+      "difficulty": "medium"
+    },
+    {
+      "question_text": "At the A1 (Breakthrough) level, what can you demonstrate on the DELE exam?",
+      "options": [
+        "Understanding and using basic Spanish phrases and expressions for everyday situations",
+        "Handling basic communication needs and understanding simple texts",
+        "Comprehending the main points of clear, standard-level input on familiar matters",
+        "Producing simple, connected text on topics that are familiar or of personal interest"
+      ],
+      "correct_answer": 0,
+      "explanation": "The content states that at the A1 (Breakthrough) level, the exam 'tests your ability to understand and use basic Spanish phrases and expressions for everyday situations, such as introducing yourself, making simple requests, and describing your immediate environment.'",
+      "difficulty": "easy"
+    },
+    {
+      "question_text": "What is the primary focus of the B1 (Threshold) DELE exam?",
+      "options": [
+        "Understanding basic communication needs and expressing yourself on familiar topics",
+        "Comprehending the main points of clear, standard-level input on familiar matters",
+        "Producing simple, connected text on topics that are familiar or of personal interest",
+        "All of the above"
+      ],
+      "correct_answer": 1,
+      "explanation": "According to the content, the B1 exam 'assesses your competence in understanding the main points of clear, standard-level input on familiar matters, and your ability to produce simple, connected text on topics that are familiar or of personal interest.'",
+      "difficulty": "medium"
+    },
+    {
+      "question_text": "Which of the following is NOT one of the four key areas assessed by the DELE exam?",
+      "options": [
+        "Listening comprehension",
+        "Reading comprehension",
+        "Written expression and interaction",
+        "Vocabulary and grammar"
+      ],
+      "correct_answer": 3,
+      "explanation": "The content states that the DELE exam 'assesses your skills across four key areas: listening comprehension, reading comprehension, written expression and interaction, and oral expression and interaction.' Vocabulary and grammar are not explicitly mentioned as a separate key area.",
+      "difficulty": "medium"
+    },
+    {
+      "question_text": "At which DELE exam level can you demonstrate your ability to handle basic communication needs and understand simple texts?",
+      "options": [
+        "A1 (Breakthrough)",
+        "A2 (Waystage)",
+        "B1 (Threshold)",
+        "B2 (Vantage)"
+      ],
+      "correct_answer": 1,
+      "explanation": "The content states that at the A2 (Waystage) level, you'll 'demonstrate your skills in handling basic communication needs, understanding simple texts, and expressing yourself on familiar topics.'",
+      "difficulty": "medium"
+    },
+    {
+      "question_text": "Which of the following is NOT a reason why earning a DELE certification is valuable?",
+      "options": [
+        "It demonstrates your mastery of the Spanish language",
+        "It opens doors to academic opportunities",
+        "It helps you secure professional positions",
+        "It allows you to participate in online Spanish language courses"
+      ],
+      "correct_answer": 3,
+      "explanation": "The content does not mention that earning a DELE certification allows you to participate in online Spanish language courses. The other options are all stated as reasons why the DELE certification is valuable, as it 'demonstrates your mastery of the Spanish language, opening doors to academic, professional, and personal opportunities.'",
+      "difficulty": "hard"
+    },
+    {
+      "question_text": "How many different DELE exam levels are there?",
+      "options": [
+        "4",
+        "5",
+        "6",
+        "7"
+      ],
+      "correct_answer": 2,
+      "explanation": "The content states that 'Depending on your current level of Spanish, you can take one of six DELE exams, ranging from A1 (beginner) to C2 (advanced).' Therefore, there are 6 different DELE exam levels.",
+      "difficulty": "easy"
+    },
+    {
+      "question_text": "Which DELE exam level is considered the entry-level?",
+      "options": [
+        "A1 (Breakthrough)",
+        "A2 (Waystage)",
+        "B1 (Threshold)",
+        "B2 (Vantage)"
+      ],
+      "correct_answer": 0,
+      "explanation": "According to the content, the A1 (Breakthrough) level is the entry-level DELE exam, as it 'tests your ability to understand and use basic Spanish phrases and expressions for everyday situations.'",
+      "difficulty": "medium"
+    }
+  ],
+  "generated_at": "2025-08-20T10:41:25.971564"
+}

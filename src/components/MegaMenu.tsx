@@ -151,15 +151,16 @@ const MegaMenu: React.FC = () => {
           <div key={category.id} className="space-y-2">
             <Link
               to={`/category/${category.id}`}
-              className="block group"
+              className="block group mb-3"
             >
-              <div className="flex items-center justify-between p-2 bg-gradient-to-r from-primary-50 to-gold-50 dark:from-primary-900/20 dark:to-gold-900/20 rounded-lg hover:shadow-md transition-all">
+              <div className="flex items-center justify-between p-3 bg-gradient-to-r from-primary-100 to-gold-100 dark:from-primary-800/30 dark:to-gold-800/30 rounded-lg hover:shadow-lg transition-all border border-primary-200 dark:border-primary-700 hover:border-primary-300 dark:hover:border-primary-600">
                 <div>
-                  <h3 className="text-lg font-semibold text-primary-700 dark:text-primary-400 group-hover:text-primary-800 dark:group-hover:text-primary-300">
+                  <h3 className="text-lg font-bold text-primary-800 dark:text-primary-300 group-hover:text-primary-900 dark:group-hover:text-primary-200">
                     {category.name}
                   </h3>
+                  <p className="text-xs text-primary-600 dark:text-primary-400 mt-1">Click to explore category</p>
                 </div>
-                <ChevronRightIcon className="h-4 w-4 text-primary-600 dark:text-primary-400 group-hover:translate-x-1 transition-transform" />
+                <ChevronRightIcon className="h-5 w-5 text-primary-700 dark:text-primary-400 group-hover:translate-x-1 transition-transform" />
               </div>
             </Link>
             

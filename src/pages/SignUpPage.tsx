@@ -4,6 +4,7 @@ import { useAuth } from '../contexts/AuthContext'
 import { AcademicCapIcon, EyeIcon, EyeSlashIcon } from '@heroicons/react/24/outline'
 
 const SignUpPage: React.FC = () => {
+  const [username, setUsername] = useState('')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [confirmPassword, setConfirmPassword] = useState('')
@@ -18,6 +19,27 @@ const SignUpPage: React.FC = () => {
     e.preventDefault()
     setError('')
 
+    // Username validation
+    if (!username.trim()) {
+      setError('Username is required')
+      return
+    }
+
+    if (username.length < 3) {
+      setError('Username must be at least 3 characters long')
+      return
+    }
+
+    if (username.length > 30) {
+      setError('Username must be less than 30 characters')
+      return
+    }
+
+    if (!/^[a-zA-Z0-9_-]+$/.test(username)) {
+      setError('Username can only contain letters, numbers, underscores, and hyphens')
+      return
+    }
+
     if (password !== confirmPassword) {
       setError('Passwords do not match')
       return
@@ -30,13 +52,29 @@ const SignUpPage: React.FC = () => {
 
     setLoading(true)
 
-    const { error } = await signUp(email, password)
+    const { data, error } = await signUp(email, password, username)
     
     if (error) {
-      setError(error.message)
+      // Provide more user-friendly error messages
+      let errorMessage = error.message
+      if (error.message?.includes('already registered')) {
+        errorMessage = 'An account with this email already exists. Try logging in instead.'
+      } else if (error.message?.includes('invalid email')) {
+        errorMessage = 'Please enter a valid email address.'
+      } else if (error.message?.includes('weak password')) {
+        errorMessage = 'Password must be at least 6 characters long.'
+      }
+      
+      setError(errorMessage)
       setLoading(false)
     } else {
-      navigate('/')
+      // Check if email confirmation is required
+      if (data?.user && !data.session) {
+        setError('Please check your email and click the confirmation link before signing in.')
+        setLoading(false)
+      } else {
+        navigate('/profile')
+      }
     }
   }
 
@@ -61,6 +99,26 @@ const SignUpPage: React.FC = () => {
         )}
 
         <form onSubmit={handleSubmit} className="space-y-4">
+          <div>
+            <label htmlFor="username" className="block text-sm font-medium mb-2">
+              Username
+            </label>
+            <input
+              id="username"
+              type="text"
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
+              className="input-field"
+              placeholder="Enter a unique username"
+              required
+              minLength={3}
+              maxLength={30}
+            />
+            <p className="text-xs text-neutral-500 mt-1">
+              3-30 characters, letters, numbers, underscores and hyphens only
+            </p>
+          </div>
+
           <div>
             <label htmlFor="email" className="block text-sm font-medium mb-2">
               Email

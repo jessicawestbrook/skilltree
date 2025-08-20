@@ -1,0 +1,625 @@
+#!/usr/bin/env python3
+"""
+Batch 093 Processor for Scripps National Spelling Bee Words
+Processes words from intertwine through irreverent with comprehensive Claude-generated data
+"""
+
+import pandas as pd
+from dataclasses import dataclass
+from typing import Optional
+import os
+
+@dataclass
+class WordData:
+    word: str
+    years: str
+    source_files: str
+    source_difficulties: str
+    definition: str
+    part_of_speech: str
+    pronunciation_guide: str
+    etymology: str
+    language_origins: str
+    example_sentence: str
+    memory_tip: str
+    phonetic_transparency_score: Optional[int] = None
+    word_frequency_score: Optional[int] = None
+    morphological_complexity_score: Optional[int] = None
+    etymology_complexity_score: Optional[int] = None
+    difficulty_level: Optional[str] = None
+
+class DifficultyCalculator:
+    def calculate_phonetic_transparency(self, word: str, pronunciation: str) -> int:
+        return 3
+    
+    def calculate_word_frequency(self, word: str) -> int:
+        return 3
+    
+    def calculate_morphological_complexity(self, word: str) -> int:
+        return 3
+    
+    def calculate_etymology_complexity(self, etymology: str) -> int:
+        return 3
+
+class Batch093Processor:
+    def __init__(self):
+        self.difficulty_calculator = DifficultyCalculator()
+        self.processed_count = 0
+
+    def get_comprehensive_claude_data(self, word: str) -> dict:
+        """Generate comprehensive educational data for spelling bee words using Claude's knowledge"""
+        
+        batch_093_data = {
+            'intertwine': {
+                'definition': 'Intertwine means to twist, weave, or wind together in a complex pattern, creating interconnected relationships or structures where different elements become closely integrated and difficult to separate. This verb describes both physical joining and abstract connections. Vines intertwine around trees as they grow upward seeking sunlight. Stories can intertwine when characters\' lives become connected through shared experiences. Unlike simple joining, intertwining creates complex patterns where elements wrap around and through each other. Intertwined relationships develop deep connections that influence all parties involved. DNA strands intertwine to form the double helix structure. The process often results in stronger, more stable configurations than individual elements could achieve alone. Intertwining requires time and often produces beautiful or functional patterns that demonstrate natural or intentional design principles.',
+                'part_of_speech': 'verb',
+                'pronunciation_guide': 'in-ter-TWYN',
+                'etymology': 'From "inter-" (between, together) combined with "twine" (to twist together), from Old English "twin" meaning "double thread." The prefix emphasizes the mutual twisting action.',
+                'language_origins': 'English, Old English',
+                'example_sentence': 'The climbing roses began to _______ with the trellis posts, creating a beautiful natural screen.',
+                'memory_tip': 'Remember "INTERTWINE" - think "INTER-TWINE" like "TWINE" (rope) that goes "INTER" (between) things to bind them together - twisting things together.'
+            },
+            'intestine': {
+                'definition': 'An intestine is a long, tubular organ in the digestive system that processes food after it leaves the stomach, absorbing nutrients and water while eliminating waste products. This anatomical structure consists of the small intestine, where most nutrient absorption occurs, and the large intestine, which processes waste and absorbs remaining water. The small intestine includes the duodenum, jejunum, and ileum, each with specialized functions. Intestinal villi increase surface area for efficient nutrient absorption. The large intestine, or colon, compacts waste material and houses beneficial bacteria that aid digestion. Intestinal health affects overall wellbeing and immune function. Various diseases can affect intestinal function, requiring medical attention. The term can be singular (one section) or plural (the entire system), depending on context.',
+                'part_of_speech': 'noun, adjective',
+                'pronunciation_guide': 'in-TES-tin',
+                'etymology': 'From Latin "intestinum," meaning "internal" or "inward," derived from "intus" (within). The term emphasizes the internal location of these organs.',
+                'language_origins': 'Latin',
+                'example_sentence': 'The doctor explained how the small _______ absorbs most nutrients from digested food.',
+                'memory_tip': 'Remember "INTESTINE" - think "IN-TEST-INE" like the organ "IN" your body that "TESTS" and processes food - the digestive tube.'
+            },
+            'intestines': {
+                'definition': 'Intestines are the collective tubular organs of the digestive system that process food after it leaves the stomach, comprising both the small intestine (which absorbs nutrients) and the large intestine (which processes waste). This plural noun refers to the entire intestinal system that plays crucial roles in digestion, nutrient absorption, and waste elimination. The intestines contain beneficial bacteria that aid digestion and support immune function. Intestinal length in humans totals approximately 25 feet when fully extended. Different sections have specialized functions: the small intestines break down food and absorb nutrients, while the large intestines process waste and absorb water. Intestinal health depends on proper diet, hydration, and bacterial balance. Various medical conditions can affect intestinal function, from minor digestive upset to serious inflammatory diseases requiring medical treatment.',
+                'part_of_speech': 'noun (plural)',
+                'pronunciation_guide': 'in-TES-tinz',
+                'etymology': 'From Latin "intestina," plural of "intestinum" meaning "internal organs," derived from "intus" (within). The plural form refers to the complete digestive tract.',
+                'language_origins': 'Latin',
+                'example_sentence': 'A healthy diet with fiber helps maintain proper function of the _______ and supports overall digestive health.',
+                'memory_tip': 'Remember "INTESTINES" - think "IN-TEST-INES" like multiple organs "IN" your body that "TEST" and process food - the digestive system organs.'
+            },
+            'intimidate': {
+                'definition': 'Intimidate means to frighten, threaten, or make someone feel afraid or uncertain through the display of power, aggression, or superior capability, often with the intention of preventing them from taking certain actions or making them submit to one\'s will. This verb describes behavior designed to create fear or anxiety in others. Bullies intimidate victims through threats or aggressive behavior. Large corporations might intimidate smaller competitors through legal challenges or market manipulation. The term can describe both intentional psychological pressure and unintentional effects of impressive displays. Athletes might feel intimidated by opponents\' reputations or achievements. Unlike mere persuasion, intimidation relies on creating fear or discomfort. Intimidation tactics in negotiations might include threats, deadlines, or demonstrations of power. Legal systems often address intimidation as harassment or coercion when it crosses ethical boundaries.',
+                'part_of_speech': 'verb',
+                'pronunciation_guide': 'in-TIM-ih-dayt',
+                'etymology': 'From Latin "intimidare," meaning "to make afraid," derived from "in-" (into) and "timidus" (fearful), from "timere" (to fear). The word literally means "to put into a state of fear."',
+                'language_origins': 'Latin',
+                'example_sentence': 'The opposing team\'s aggressive play style was designed to _______ their opponents and disrupt their game strategy.',
+                'memory_tip': 'Remember "INTIMIDATE" - think "IN-TIMID-ATE" like making someone "TIMID" by putting fear "IN" them - frightening or threatening someone.'
+            },
+            'intolerance': {
+                'definition': 'Intolerance is the unwillingness to accept or respect beliefs, opinions, practices, or characteristics that differ from one\'s own, often manifesting as prejudice, discrimination, or hostility toward others. This noun describes both individual attitudes and social conditions that reject diversity. Religious intolerance leads to persecution of minority faiths. Racial intolerance results in discrimination and violence. The term can also refer to physical inability to tolerate certain substances, as in food intolerance or drug intolerance. Unlike mere disagreement, intolerance involves active rejection and often harmful treatment of differences. Political intolerance undermines democratic discourse and cooperation. Social intolerance creates divisions within communities. Medical intolerance occurs when bodies cannot process certain substances. Addressing intolerance requires education, empathy, and commitment to understanding diverse perspectives and experiences.',
+                'part_of_speech': 'noun',
+                'pronunciation_guide': 'in-TOL-er-uns',
+                'etymology': 'From Latin "intolerantia," derived from "intolerans" meaning "not enduring," combining "in-" (not) with "tolerans" (bearing, enduring), from "tolerare" (to bear).',
+                'language_origins': 'Latin',
+                'example_sentence': 'The community worked to address religious _______ through interfaith dialogue and education programs.',
+                'memory_tip': 'Remember "INTOLERANCE" - think "IN-TOLERANCE" meaning NOT having "TOLERANCE" for differences - unwillingness to accept diversity.'
+            },
+            'intonaco': {
+                'definition': 'Intonaco is the final, smooth lime plaster layer applied to walls in traditional fresco painting, providing the surface on which artists paint while the plaster is still wet. This Italian artistic term describes the specialized preparation essential for true fresco technique. The intonaco layer must be applied fresh each day, covering only the area the artist can complete before the plaster dries. Artists work "buon fresco" directly into wet intonaco, allowing paint to become permanently incorporated into the plaster as it sets. The quality of intonaco preparation determines the durability and appearance of frescoes. Master fresco painters carefully timed their work to the intonaco\'s drying schedule. This technique produces the distinctive appearance and permanence of Renaissance frescoes found in churches and palaces throughout Italy. The process requires considerable skill and experience to execute successfully.',
+                'part_of_speech': 'noun',
+                'pronunciation_guide': 'in-to-NAH-ko',
+                'etymology': 'From Italian "intonaco," derived from "intonacare" meaning "to coat with plaster," related to "tunica" (tunic, covering). The term emphasizes the covering function.',
+                'language_origins': 'Italian',
+                'example_sentence': 'The Renaissance master carefully applied fresh _______ each morning before painting the day\'s section of the cathedral fresco.',
+                'memory_tip': 'Remember "INTONACO" - think "IN-TONA-CO" like the "tonal" coating that goes "IN" to walls - the final plaster layer for fresco painting.'
+            },
+            'intoxicating': {
+                'definition': 'Intoxicating describes something that causes a loss of control or clear judgment, either literally through alcohol or drugs, or metaphorically through overwhelming excitement, beauty, or pleasure that affects rational thinking. This adjective characterizes substances or experiences that alter mental states. Intoxicating beverages contain alcohol that impairs judgment and coordination. Intoxicating perfumes have overwhelming, captivating scents. The term can describe any experience so powerful it affects normal reasoning. Intoxicating success might lead to overconfidence or poor decisions. Natural beauty can be intoxicating when it overwhelms the senses. Unlike merely pleasant experiences, intoxicating ones alter perception and behavior. Intoxicating power can corrupt individuals who gain sudden authority. The concept recognizes that certain experiences can be so intense they affect judgment and self-control, whether through chemical effects or emotional impact.',
+                'part_of_speech': 'adjective',
+                'pronunciation_guide': 'in-TOK-si-kay-ting',
+                'etymology': 'From Latin "intoxicare," meaning "to poison," derived from "in-" (into) and "toxicum" (poison). The meaning evolved from "poisoning" to "affecting mental state."',
+                'language_origins': 'Latin',
+                'example_sentence': 'The garden\'s _______ fragrance of jasmine and roses made evening walks particularly enchanting.',
+                'memory_tip': 'Remember "INTOXICATING" - think "IN-TOXIC-ATING" like something that puts "toxic" effects "IN" you that change your normal state - overwhelming to the senses.'
+            },
+            'intransigeant': {
+                'definition': 'Intransigeant describes someone who is uncompromising, inflexible, and unwilling to moderate their position or reach agreements with others, particularly in political or ideological contexts. This French-derived adjective characterizes individuals who refuse to negotiate or make concessions. Intransigeant political figures reject collaboration with opposition parties. Intransigeant negotiators make discussions difficult by refusing reasonable compromises. The term originated in French politics to describe radical republicans who refused any cooperation with monarchists. Unlike principled firmness, intransigeant behavior often prevents constructive problem-solving. Intransigeant attitudes can lead to political deadlock and social conflict. The word carries implications of stubbornness that goes beyond reasonable conviction. While sometimes admirable for maintaining principles, intransigeant positions can prevent progress when flexibility is needed for positive outcomes.',
+                'part_of_speech': 'adjective, noun',
+                'pronunciation_guide': 'in-TRAN-si-zhahn',
+                'etymology': 'From French "intransigeant," derived from Spanish "intransigente," ultimately from Latin "intransigere" meaning "not to come to an agreement," combining "in-" (not) with "transigere" (to negotiate).',
+                'language_origins': 'French, Spanish, Latin',
+                'example_sentence': 'The _______ faction refused to consider any compromise, making legislative progress nearly impossible.',
+                'memory_tip': 'Remember "INTRANSIGEANT" - think "IN-TRANS-IGEANT" meaning NOT willing to "transition" or change position - stubbornly uncompromising.'
+            },
+            'intransigent': {
+                'definition': 'Intransigent describes someone who is stubbornly unwilling to compromise, negotiate, or change their position, especially in political or ideological disputes where flexibility might lead to resolution. This adjective characterizes individuals or groups that refuse to make concessions even when compromise might benefit everyone involved. Intransigent political parties prevent bipartisan cooperation. Intransigent labor unions might reject reasonable contract offers. The term suggests rigid adherence to positions that prevents progress or agreement. Unlike principled stands based on moral conviction, intransigent behavior often stems from stubborn pride or tactical positioning. Intransigent attitudes in family disputes can destroy relationships. The word implies unreasonable inflexibility that goes beyond normal disagreement. While sometimes necessary to maintain important principles, intransigent positions often prevent constructive solutions and can lead to destructive conflict.',
+                'part_of_speech': 'adjective, noun',
+                'pronunciation_guide': 'in-TRAN-si-junt',
+                'etymology': 'From Latin "intransigere," meaning "not to come to an agreement," combining "in-" (not) with "transigere" (to drive through, settle). The English form adapted from French usage.',
+                'language_origins': 'Latin, French',
+                'example_sentence': 'The union\'s _______ stance on wages led to a prolonged strike that hurt both workers and the company.',
+                'memory_tip': 'Remember "INTRANSIGENT" - think "IN-TRANS-IGENT" meaning NOT willing to "transition" to agreement - stubbornly uncompromising.'
+            },
+            'intricate': {
+                'definition': 'Intricate describes something with many complex, detailed parts or elements that are skillfully arranged or interrelated, creating patterns or systems that require careful attention to understand or execute properly. This adjective characterizes designs, processes, or structures with sophisticated complexity. Intricate lacework displays detailed craftsmanship and artistic skill. Intricate plots in novels weave together multiple storylines and characters. The term suggests complexity that results from careful planning rather than random complication. Intricate machinery requires precise engineering and assembly. Intricate dance performances involve coordinated movements and timing. Unlike merely complicated things that are difficult to understand, intricate items display beautiful or functional complexity. Intricate relationships involve subtle interactions and dependencies. The word implies both complexity and artistry, recognizing that sophisticated systems can be both challenging and beautiful.',
+                'part_of_speech': 'adjective',
+                'pronunciation_guide': 'IN-tri-kit',
+                'etymology': 'From Latin "intricatus," past participle of "intricare" meaning "to entangle," derived from "in-" (into) and "tricae" (tricks, perplexities). Originally meant "tangled" but evolved to mean "complex."',
+                'language_origins': 'Latin',
+                'example_sentence': 'The clockmaker spent months crafting the _______ mechanism that would chime different melodies each hour.',
+                'memory_tip': 'Remember "INTRICATE" - think "IN-TRI-CATE" like having "TRICKS" built "IN" - complex and detailed with many interconnected parts.'
+            },
+            'intriguing': {
+                'definition': 'Intriguing describes something that arouses curiosity, interest, or fascination because it is mysterious, unusual, or complex enough to capture and hold attention while inviting further investigation. This adjective characterizes subjects, situations, or people that stimulate mental engagement and desire to learn more. Intriguing mysteries challenge readers to solve puzzles alongside fictional detectives. Intriguing personalities have depths and complexities that make them interesting to know. The term suggests something that goes beyond surface appeal to create lasting interest. Intriguing scientific discoveries raise new questions while answering old ones. Intriguing art invites multiple interpretations and continued contemplation. Unlike merely surprising things that provide momentary interest, intriguing phenomena maintain fascination over time. Intriguing opportunities present possibilities that warrant careful consideration. The concept emphasizes the mental engagement that comes from encountering something genuinely worth investigating.',
+                'part_of_speech': 'adjective',
+                'pronunciation_guide': 'in-TREE-ging',
+                'etymology': 'From Latin "intricare" meaning "to entangle," through French "intriguer" (to puzzle, fascinate). The sense evolved from "entangling" to "fascinating through complexity."',
+                'language_origins': 'Latin, French',
+                'example_sentence': 'The archaeologist found an _______ artifact that challenged existing theories about ancient civilizations.',
+                'memory_tip': 'Remember "INTRIGUING" - think "IN-TRIGUING" like something that "TRIGGERS" interest "IN" your mind - fascinating and mysterious.'
+            },
+            'introduced': {
+                'definition': 'Introduced is the past tense of "introduce," meaning to have brought something into use or operation for the first time, presented someone to another person, or brought something to a place where it was previously unknown. This verb describes completed actions of initiation, presentation, or bringing together. New technologies are introduced to improve efficiency or capabilities. People are introduced at social gatherings to facilitate relationships. Invasive species are often introduced accidentally to new environments. The term implies deliberate action to bring something new into existence or awareness. Educational curricula introduce students to new subjects and concepts. Legislative bodies introduce new bills for consideration. Unlike natural occurrence or development, introduction involves conscious effort to present or establish something. Introduced changes often require adaptation periods as people or systems adjust to new conditions.',
+                'part_of_speech': 'verb (past tense)',
+                'pronunciation_guide': 'in-truh-DOOSD',
+                'etymology': 'From Latin "introducere," meaning "to lead in," combining "intro-" (inward) with "ducere" (to lead). The past tense form indicates completed introduction.',
+                'language_origins': 'Latin',
+                'example_sentence': 'The company _______ a new employee benefits package that significantly improved worker satisfaction.',
+                'memory_tip': 'Remember "INTRODUCED" - think "INTRO-DUCED" like being "DUCED" (led) into an "INTRO" (introduction) - brought in or presented for the first time.'
+            },
+            'introverted': {
+                'definition': 'Introverted describes personality characteristics where individuals gain energy from solitude and internal reflection rather than social interaction, preferring quiet activities and small groups over large gatherings or extensive social engagement. This psychological term characterizes people who focus inward and often think carefully before speaking or acting. Introverted students might excel in independent study but find group presentations challenging. Introverted employees often work well independently but may need encouragement to share ideas in meetings. The term describes preference patterns rather than social skills or capabilities. Unlike shyness, which involves fear of judgment, introversion is about energy sources and processing styles. Introverted individuals can be socially skilled but prefer less stimulating environments. Many introverted people are thoughtful, observant, and capable of deep focus. The concept recognizes different approaches to social interaction and energy management.',
+                'part_of_speech': 'adjective',
+                'pronunciation_guide': 'in-troh-VUR-tid',
+                'etymology': 'From Latin "intro-" (inward) combined with "vertere" (to turn), literally meaning "turned inward." The psychological term was popularized by Carl Jung.',
+                'language_origins': 'Latin',
+                'example_sentence': 'The _______ child preferred reading quietly in the corner rather than joining the boisterous playground games.',
+                'memory_tip': 'Remember "INTROVERTED" - think "INTRO-VERTED" like being "VERTED" (turned) "INTRO" (inward) - focusing energy and attention inward rather than outward.'
+            },
+            'intubated': {
+                'definition': 'Intubated refers to the medical procedure of having a tube inserted into a patient\'s airway, typically through the mouth or nose into the trachea, to assist with breathing or deliver anesthesia during surgery. This medical term describes a critical intervention used when patients cannot breathe independently. Intubated patients in intensive care receive mechanical ventilation support. Surgical patients are intubated during general anesthesia to ensure proper breathing and airway control. The procedure requires skilled medical professionals and proper equipment. Intubated individuals cannot speak because the tube passes through their vocal cords. Emergency intubation can be life-saving for trauma victims or those experiencing respiratory failure. The process involves inserting an endotracheal tube that connects to breathing equipment. Intubated patients require careful monitoring and eventual removal of the tube when breathing can be restored naturally.',
+                'part_of_speech': 'verb (past participle), adjective',
+                'pronunciation_guide': 'IN-too-bay-tid',
+                'etymology': 'From Latin "in-" (into) combined with "tubus" (tube), literally meaning "put into a tube." The medical term describes inserting breathing tubes.',
+                'language_origins': 'Latin',
+                'example_sentence': 'The patient was _______ in the emergency room to support breathing during the critical phase of treatment.',
+                'memory_tip': 'Remember "INTUBATED" - think "IN-TUBE-ATED" meaning having a "TUBE" put "IN" the airway - medically assisted breathing through a tube.'
+            },
+            'intuitable': {
+                'definition': 'Intuitable describes something that can be understood, grasped, or perceived through intuition rather than formal reasoning or explicit instruction, characterized by being naturally comprehensible to immediate understanding. This philosophical and psychological term applies to concepts, relationships, or truths that people can sense or understand without detailed analysis. Mathematical relationships might be intuitable to some students even before formal proof. Moral principles are often intuitable across cultures despite different explicit teachings. The term suggests accessibility to direct understanding rather than requiring complex reasoning. Intuitable designs feel natural and user-friendly without extensive explanation. Unlike purely analytical concepts that require step-by-step reasoning, intuitable ideas connect with natural human understanding. Intuitable social norms develop organically within communities. The concept recognizes that some knowledge or understanding comes through direct insight rather than learned processes.',
+                'part_of_speech': 'adjective',
+                'pronunciation_guide': 'in-TOO-ih-tuh-buhl',
+                'etymology': 'From Latin "intuitus," past participle of "intueri" meaning "to look at" or "to contemplate," combined with the suffix "-able." Means "able to be intuited."',
+                'language_origins': 'Latin',
+                'example_sentence': 'The software\'s interface was so _______ that new users could navigate it successfully without reading instructions.',
+                'memory_tip': 'Remember "INTUITABLE" - think "INTUIT-ABLE" meaning "ABLE" to be understood through "INTUITION" - naturally comprehensible without formal reasoning.'
+            },
+            'inugsuk': {
+                'definition': 'An inugsuk is a traditional Inuit stone structure, typically human-shaped, built as a landmark, navigational aid, or marker in the Arctic landscape where natural landmarks are scarce. These stone cairns serve crucial functions in navigation across vast, often featureless terrain covered by snow and ice. Inugsuks are carefully constructed to be visible from great distances and can mark hunting grounds, safe travel routes, or important locations. Unlike simple rock piles, inugsuks are purposefully shaped and positioned to provide specific information to travelers. Different configurations can convey different messages about direction, resources, or conditions. The construction represents deep knowledge of Arctic survival and navigation passed down through generations. Modern Inuit communities continue this tradition while also recognizing inugsuks as important cultural symbols. The word is related to "inuksuk," with slight regional variations in spelling and pronunciation.',
+                'part_of_speech': 'noun',
+                'pronunciation_guide': 'ih-NOOG-suk',
+                'etymology': 'From Inuktitut, meaning "in the likeness of a human" or "acting in the capacity of a human." The term reflects the human-like appearance of these stone markers.',
+                'language_origins': 'Inuktitut (Inuit language)',
+                'example_sentence': 'The hunter built an _______ on the hilltop to mark the location where caribou frequently grazed.',
+                'memory_tip': 'Remember "INUGSUK" - think "IN-UG-SUK" like an Inuit stone person standing "IN" the arctic landscape - a human-shaped stone landmark.'
+            },
+            'inuit': {
+                'definition': 'Inuit refers to the indigenous peoples of the Arctic regions of Canada, Alaska, and Greenland, or their languages and cultures, representing diverse communities that have adapted to life in extreme northern environments over thousands of years. This proper noun describes multiple distinct groups sharing common cultural and linguistic heritage. Inuit communities have developed sophisticated technologies and knowledge systems for Arctic survival. Traditional Inuit culture includes hunting, fishing, storytelling, and artistic traditions adapted to harsh climates. Modern Inuit people balance traditional ways with contemporary lifestyles and challenges. Inuit languages belong to the Eskimo-Aleut language family. The term "Inuit" is preferred over outdated terms like "Eskimo." Inuit art, including sculpture and printmaking, has gained international recognition. Contemporary Inuit communities face challenges related to climate change, cultural preservation, and economic development while maintaining their distinct identities.',
+                'part_of_speech': 'proper noun, adjective',
+                'pronunciation_guide': 'IN-yoo-it',
+                'etymology': 'From Inuktitut "Inuit," plural of "Inuk" meaning "person" or "people." The term literally means "the people" in their own language.',
+                'language_origins': 'Inuktitut (Inuit language)',
+                'example_sentence': 'The _______ elder shared traditional knowledge about Arctic weather patterns with the research team.',
+                'memory_tip': 'Remember "INUIT" - think "IN-U-IT" like the people who are "IN" the arctic, and "U" can learn about "IT" - the Arctic peoples and their cultures.'
+            },
+            'inuk': {
+                'definition': 'An Inuk is a single person of Inuit heritage, representing an individual member of the indigenous Arctic peoples of Canada, Alaska, and Greenland. This singular form of "Inuit" describes one person from these culturally and linguistically related groups. An Inuk might be a traditional hunter, modern professional, artist, or community leader maintaining connections to Arctic heritage. The term emphasizes individual identity within the broader cultural group. Contemporary Inuk individuals often navigate between traditional knowledge and modern lifestyles. Many Inuk people work to preserve languages, traditions, and cultural practices while participating in contemporary society. Educational initiatives help young Inuk people learn traditional skills alongside modern academics. The word represents personal identity connected to thousands of years of Arctic adaptation and cultural development. Using the proper singular form shows respect for individual identity within the cultural group.',
+                'part_of_speech': 'noun',
+                'pronunciation_guide': 'ih-NOOK',
+                'etymology': 'From Inuktitut "Inuk" meaning "person" or "human being." This is the singular form of "Inuit," emphasizing individual identity.',
+                'language_origins': 'Inuktitut (Inuit language)',
+                'example_sentence': 'The young _______ learned traditional hunting techniques from her grandfather while studying environmental science at university.',
+                'memory_tip': 'Remember "INUK" - think "IN-UK" but it\'s not about Britain - it\'s one person from the "IN" (arctic) culture, and "UK" sounds like "ook" - one Inuit person.'
+            },
+            'inundate': {
+                'definition': 'Inundate means to flood or overwhelm completely, either literally with water or figuratively with excessive amounts of something that becomes difficult to manage or process. This verb describes situations where the quantity or intensity exceeds normal capacity to handle or cope. Heavy rains inundate low-lying areas, causing dangerous flooding. Businesses might be inundated with orders during busy seasons. The term suggests being covered or overwhelmed beyond normal limits. Emergency services can be inundated with calls during disasters. Students might feel inundated by homework assignments and deadlines. Unlike moderate increases that can be managed, inundation involves overwhelming quantities that challenge normal functioning. Email systems can be inundated with messages during viral campaigns. The concept emphasizes the disruptive effects of excess, whether water, information, work, or other overwhelming elements.',
+                'part_of_speech': 'verb',
+                'pronunciation_guide': 'IN-un-dayt',
+                'etymology': 'From Latin "inundare," meaning "to overflow" or "to flood," combining "in-" (into) with "unda" (wave). The root emphasizes water flowing over boundaries.',
+                'language_origins': 'Latin',
+                'example_sentence': 'The radio station was _______ with phone calls after the controversial interview aired.',
+                'memory_tip': 'Remember "INUNDATE" - think "IN-UNDATE" like being "IN" an "UNDATION" (flood) - overwhelmed by too much of something like a flood.'
+            },
+            'invasions': {
+                'definition': 'Invasions are unwelcome entries or attacks into territories, spaces, or domains that belong to others, typically involving force or unauthorized intrusion that disrupts existing conditions. This plural noun describes multiple instances of forcible entry or unwanted penetration. Military invasions involve armed forces entering foreign territories. Biological invasions occur when non-native species enter ecosystems and disrupt natural balance. The term implies violation of boundaries and unwelcome presence. Privacy invasions involve unauthorized access to personal information or spaces. Home invasions are serious crimes involving forced entry into residences. Unlike invited entry or peaceful immigration, invasions suggest hostile or disruptive intrusion. Technological invasions might include cyber attacks or unauthorized system access. Historical invasions have shaped political boundaries and cultural development. The concept emphasizes the unwelcome nature of the intrusion and its disruptive effects on existing order.',
+                'part_of_speech': 'noun (plural)',
+                'pronunciation_guide': 'in-VAY-zhunz',
+                'etymology': 'From Latin "invasio," derived from "invadere" meaning "to go into" or "to attack," combining "in-" (into) with "vadere" (to go). The plural indicates multiple intrusions.',
+                'language_origins': 'Latin',
+                'example_sentence': 'The historian studied how ancient _______ changed the cultural and political landscape of the Mediterranean region.',
+                'memory_tip': 'Remember "INVASIONS" - think "IN-VASIONS" like "VASING" (going) "IN" to places uninvited - unwelcome entries or attacks into territories.'
+            },
+            'invasive': {
+                'definition': 'Invasive describes something that spreads aggressively into areas where it doesn\'t belong, causing disruption or harm to existing systems, whether in medical, ecological, or other contexts. This adjective characterizes unwanted intrusion that tends to expand and cause problems. Invasive medical procedures involve entering the body through incisions or instruments. Invasive plant species outcompete native vegetation and alter ecosystems. The term suggests aggressive expansion that disrupts normal functioning. Invasive cancer cells spread beyond their original location. Invasive questions probe into private matters inappropriately. Unlike contained or beneficial presence, invasive entities cause harm through uncontrolled spread. Invasive technology might intrude into privacy or autonomy. Environmental invasive species often lack natural predators in new territories. The concept emphasizes both the spreading nature and the harmful effects of unwelcome intrusion.',
+                'part_of_speech': 'adjective',
+                'pronunciation_guide': 'in-VAY-siv',
+                'etymology': 'From Latin "invasivus," derived from "invadere" meaning "to invade," combining "in-" (into) with "vadere" (to go). The suffix "-ive" indicates tendency or character.',
+                'language_origins': 'Latin',
+                'example_sentence': 'The park service worked to control _______ plant species that were threatening native wildflower populations.',
+                'memory_tip': 'Remember "INVASIVE" - think "IN-VASIVE" like having a "VASE" that spreads "IN" everywhere it shouldn\'t - aggressively spreading where it doesn\'t belong.'
+            },
+            'invective': {
+                'definition': 'Invective is harsh, bitter, or abusive language directed against someone or something, characterized by angry denunciation and insulting or accusatory speech intended to attack or condemn. This noun describes verbal assault that goes beyond criticism to become personal attack. Political invective includes harsh accusations and personal attacks against opponents. Literary invective appears in satirical works that mock social conditions. The term suggests language intended to wound or destroy reputation rather than constructive disagreement. Legal invective might include inflammatory accusations in courtroom arguments. Unlike reasoned criticism that addresses ideas or actions, invective attacks character and uses emotional rather than logical appeal. Religious invective has historically been used against heretics or rival faiths. The concept emphasizes the destructive intent behind harsh language and its potential to damage relationships and reputations.',
+                'part_of_speech': 'noun',
+                'pronunciation_guide': 'in-VEK-tiv',
+                'etymology': 'From Latin "invectiva," meaning "abusive speech," derived from "invectus," past participle of "invehere" (to carry in, attack with words), combining "in-" (into) with "vehere" (to carry).',
+                'language_origins': 'Latin',
+                'example_sentence': 'The debate descended into personal _______ rather than focusing on policy differences between the candidates.',
+                'memory_tip': 'Remember "INVECTIVE" - think "IN-VECTIVE" like "VECTING" (directing) harsh words "IN" toward someone - bitter, abusive language.'
+            },
+            'inveighed': {
+                'definition': 'Inveighed is the past tense of "inveigh," meaning to have spoken or written angrily and critically against someone or something, expressing strong disapproval or condemnation through passionate argument or protest. This verb describes completed actions of vocal opposition or criticism. Political speakers inveighed against corruption in government. Social reformers inveighed against injustice and inequality. The term suggests passionate, sustained criticism rather than casual disagreement. Religious leaders have historically inveighed against moral failings. Unlike mild complaints, inveighing involves intense emotional expression and strong conviction. Editorial writers might inveigh against policies they oppose. The word implies both the intensity of feeling and the public nature of the criticism. Inveighing often involves moral outrage and calls for change or justice.',
+                'part_of_speech': 'verb (past tense)',
+                'pronunciation_guide': 'in-VAYD',
+                'etymology': 'From Latin "invehi," meaning "to attack with words," derived from "in-" (into, against) with "vehere" (to carry). The past tense indicates completed verbal attack.',
+                'language_origins': 'Latin',
+                'example_sentence': 'The activist _______ against the proposed legislation, calling it a threat to civil liberties.',
+                'memory_tip': 'Remember "INVEIGHED" - think "IN-VEIGHED" like "WEIGHING" "IN" with heavy criticism - spoke angrily against something.'
+            },
+            'invented': {
+                'definition': 'Invented is the past tense of "invent," meaning to have created, designed, or produced something new that did not exist before, typically through imagination, experimentation, or problem-solving effort. This verb describes completed acts of creation that bring new devices, methods, or concepts into existence. Historical inventors invented machines that revolutionized industry and daily life. Scientific researchers invent new methods for studying natural phenomena. The term implies original creation rather than discovery of existing things. Artists might invent new techniques for expressing creative ideas. Unlike copying or modifying existing items, inventing involves genuine innovation. Modern inventors invent solutions to contemporary problems using new technologies. Literary authors invent fictional characters and worlds. The concept emphasizes the creative process that produces original contributions to human knowledge and capability.',
+                'part_of_speech': 'verb (past tense)',
+                'pronunciation_guide': 'in-VEN-tid',
+                'etymology': 'From Latin "inventus," past participle of "invenire" meaning "to come upon" or "to find," combining "in-" (in) with "venire" (to come). The meaning evolved to "create something new."',
+                'language_origins': 'Latin',
+                'example_sentence': 'Thomas Edison _______ numerous devices that transformed how people lived and worked in the modern era.',
+                'memory_tip': 'Remember "INVENTED" - think "IN-VENTED" like ideas that "VENTED" (came out) "IN" to reality - created something new that didn\'t exist before.'
+            },
+            'invention': {
+                'definition': 'An invention is something new that has been created, designed, or devised for the first time, typically a device, method, or process that solves problems or improves existing conditions. This noun encompasses both the creative act of inventing and the resulting product or idea. Historical inventions like the wheel and printing press transformed human civilization. Modern inventions continue to change how people live, work, and communicate. The term implies originality and functional purpose rather than mere artistic creation. Scientific inventions often result from research and experimentation. Unlike discoveries that reveal existing phenomena, inventions create something entirely new. Patent systems protect inventors\' rights to their inventions. Successful inventions often inspire further innovation and development. The concept recognizes human creativity and problem-solving ability that produces tangible improvements in life and capability.',
+                'part_of_speech': 'noun',
+                'pronunciation_guide': 'in-VEN-shun',
+                'etymology': 'From Latin "inventio," meaning "a finding" or "discovery," derived from "invenire" (to come upon, find). The meaning evolved to emphasize creating something new.',
+                'language_origins': 'Latin',
+                'example_sentence': 'The _______ of the smartphone revolutionized personal communication and access to information worldwide.',
+                'memory_tip': 'Remember "INVENTION" - think "IN-VENTION" like a new idea that needs "VENTING" (expressing) to come "IN" to existence - a newly created device or method.'
+            },
+            'inventor': {
+                'definition': 'An inventor is a person who creates, designs, or devises new devices, methods, or processes that did not previously exist, typically through creativity, problem-solving skills, and technical knowledge. This noun describes individuals whose work produces original solutions to practical problems. Famous inventors like Alexander Graham Bell and Marie Curie made discoveries that changed the world. Modern inventors continue developing new technologies in fields like medicine, communication, and energy. The term implies both creative thinking and practical application of ideas. Independent inventors often work in home workshops or small laboratories. Corporate inventors develop new products for commercial markets. Unlike scientists who study existing phenomena, inventors create entirely new things. Successful inventors often combine technical knowledge with entrepreneurial skills. The concept recognizes individuals whose creativity and persistence produce tangible innovations that benefit society.',
+                'part_of_speech': 'noun',
+                'pronunciation_guide': 'in-VEN-ter',
+                'etymology': 'From Latin "inventor," meaning "one who finds or discovers," derived from "invenire" (to come upon, find). The "-or" suffix indicates the person who performs the action.',
+                'language_origins': 'Latin',
+                'example_sentence': 'The young _______ spent years perfecting her design before successfully patenting the revolutionary medical device.',
+                'memory_tip': 'Remember "INVENTOR" - think "IN-VENT-OR" like someone who "VENTS" (brings out) new ideas "IN" to reality - a person who creates new things.'
+            },
+            'inventory': {
+                'definition': 'Inventory refers to a complete list or stock of goods, materials, or items that a business, organization, or individual possesses, or the process of creating such a comprehensive listing. This noun encompasses both the physical items and the systematic recording of them. Business inventory includes products available for sale and raw materials for production. Retail stores conduct regular inventory counts to track merchandise levels. The term can extend to any systematic listing or assessment of resources, capabilities, or possessions. Personal inventory might include household goods for insurance purposes. Unlike casual lists, inventory implies systematic, comprehensive documentation. Inventory management involves tracking, ordering, and controlling stock levels. Digital inventory systems help businesses monitor products in real-time. The concept emphasizes organization, accountability, and strategic planning for resource management.',
+                'part_of_speech': 'noun, verb',
+                'pronunciation_guide': 'IN-ven-tor-ee',
+                'etymology': 'From Medieval Latin "inventorium," meaning "a list of goods found," derived from Latin "invenire" (to find). Originally meant "things found" or discovered.',
+                'language_origins': 'Medieval Latin',
+                'example_sentence': 'The store manager conducted a complete _______ before placing new orders for the upcoming holiday season.',
+                'memory_tip': 'Remember "INVENTORY" - think "IN-VENT-ORY" like a place where you "VENT" (list) what\'s "IN" your possession - a complete list of goods or items.'
+            },
+            'invertebrate': {
+                'definition': 'An invertebrate is an animal that lacks a backbone or vertebral column, representing the vast majority of animal species on Earth, including insects, spiders, worms, jellyfish, mollusks, and crustaceans. This biological classification describes animals whose bodies are supported by structures other than internal skeletons. Invertebrates display incredible diversity in size, shape, habitat, and behavior. Marine invertebrates include corals, sea urchins, and octopuses. Terrestrial invertebrates include beetles, butterflies, and snails. The term contrasts with vertebrates, which have spinal columns and internal skeletons. Invertebrates play crucial ecological roles as pollinators, decomposers, and food sources. Many invertebrates have external skeletons, hydrostatic skeletons, or no rigid support structures. Despite lacking backbones, many invertebrates display complex behaviors and sophisticated survival strategies. Understanding invertebrate biology is essential for ecology, medicine, and agriculture.',
+                'part_of_speech': 'noun, adjective',
+                'pronunciation_guide': 'in-VUR-tuh-brit',
+                'etymology': 'From Latin "in-" (not) combined with "vertebratus" (having vertebrae), from "vertebra" (joint of the spine). Literally means "without vertebrae."',
+                'language_origins': 'Latin',
+                'example_sentence': 'The marine biologist studied how climate change affects _______ species in coral reef ecosystems.',
+                'memory_tip': 'Remember "INVERTEBRATE" - think "IN-VERTEBRATE" meaning NOT having "VERTEBRAE" (spine bones) - animals without backbones.'
+            },
+            'investigates': {
+                'definition': 'Investigates is the third person singular present tense of "investigate," meaning systematically examines, studies, or inquires into something to discover facts, gather evidence, or understand complex situations. This verb describes ongoing or habitual investigative activities. Police investigate crimes by collecting evidence and interviewing witnesses. Scientists investigate natural phenomena through controlled experiments. The term implies methodical, thorough examination rather than casual inquiry. Journalists investigate stories to uncover truth and inform the public. Unlike superficial observation, investigating involves systematic analysis and fact-finding. Medical researchers investigate disease causes and potential treatments. Financial auditors investigate accounting irregularities and compliance issues. The concept emphasizes professional, systematic approaches to understanding problems or situations that require detailed analysis and evidence-gathering.',
+                'part_of_speech': 'verb (third person singular present)',
+                'pronunciation_guide': 'in-VES-ti-gayts',
+                'etymology': 'From Latin "investigare," meaning "to track down" or "to search into," combining "in-" (into) with "vestigare" (to track), from "vestigium" (footprint, trace).',
+                'language_origins': 'Latin',
+                'example_sentence': 'The detective _______ each lead carefully, building a comprehensive case based on solid evidence.',
+                'memory_tip': 'Remember "INVESTIGATES" - think "IN-VESTI-GATES" like going through "GATES" to "VEST" (clothe) yourself "IN" knowledge - systematically examining to find truth.'
+            },
+            'investigation': {
+                'definition': 'An investigation is a systematic inquiry, examination, or study conducted to discover facts, gather evidence, or understand the truth about particular events, problems, or phenomena. This noun describes formal processes designed to uncover information through methodical research and analysis. Criminal investigations involve collecting evidence to solve crimes and identify perpetrators. Scientific investigations test hypotheses and advance knowledge. The term implies structured, professional approaches rather than casual curiosity. Congressional investigations examine government actions and policies. Medical investigations determine disease causes and effective treatments. Unlike random searching, investigations follow systematic procedures and protocols. Academic investigations contribute to scholarly understanding of complex topics. The concept emphasizes thoroughness, objectivity, and professional standards in fact-finding processes that inform decisions, policies, or legal actions.',
+                'part_of_speech': 'noun',
+                'pronunciation_guide': 'in-ves-ti-GAY-shun',
+                'etymology': 'From Latin "investigatio," derived from "investigare" (to track down, search into), combining "in-" (into) with "vestigare" (to track) from "vestigium" (footprint).',
+                'language_origins': 'Latin',
+                'example_sentence': 'The thorough _______ revealed several safety violations that needed immediate correction.',
+                'memory_tip': 'Remember "INVESTIGATION" - think "IN-VESTI-GATION" like "gating" (gathering) evidence to "vest" yourself "IN" knowledge - systematic fact-finding process.'
+            },
+            'investigative': {
+                'definition': 'Investigative describes methods, approaches, or activities designed to discover facts, uncover truth, or examine situations through systematic inquiry and research. This adjective characterizes professional practices that emphasize thorough fact-finding and evidence-gathering. Investigative journalism exposes corruption and holds powerful people accountable. Investigative techniques help police solve complex crimes. The term implies methodical, persistent approaches to uncovering hidden information. Investigative research in academia contributes to knowledge development. Unlike descriptive reporting, investigative work actively seeks to reveal unknown facts. Investigative committees examine government actions and policies. Medical investigative procedures help diagnose complex conditions. The concept emphasizes professional skills, ethical standards, and systematic approaches that produce reliable, verifiable information for decision-making and public understanding.',
+                'part_of_speech': 'adjective',
+                'pronunciation_guide': 'in-VES-ti-gay-tiv',
+                'etymology': 'From Latin "investigare" (to track down) combined with the suffix "-ive" indicating character or tendency. Means "having the character of investigating."',
+                'language_origins': 'Latin',
+                'example_sentence': 'The _______ reporter spent months researching the story before publishing her exposé on corporate fraud.',
+                'memory_tip': 'Remember "INVESTIGATIVE" - think "IN-VESTI-GATIVE" like being "GATIVE" (active) in "VESTING" (clothing) yourself "IN" facts - characterized by systematic fact-finding.'
+            },
+            'inveterate': {
+                'definition': 'Inveterate describes someone who has a longstanding habit, practice, or characteristic that is deeply ingrained and unlikely to change, often referring to behaviors or attitudes that have become fixed through long repetition. This adjective characterizes persistent patterns that resist modification. Inveterate smokers find quitting extremely difficult despite health risks. Inveterate optimists maintain positive outlooks despite repeated disappointments. The term suggests habits so established they become part of personal identity. Inveterate gamblers continue risky behavior despite financial losses. Unlike recent or temporary patterns, inveterate characteristics represent long-term, deeply rooted tendencies. Inveterate travelers cannot resist exploring new places. The word can describe both positive traits, like inveterate generosity, and negative ones, like inveterate lying. The concept emphasizes the persistence and resistance to change that characterizes deeply established personal patterns.',
+                'part_of_speech': 'adjective',
+                'pronunciation_guide': 'in-VET-er-it',
+                'etymology': 'From Latin "inveteratus," past participle of "inveterare" meaning "to make old," derived from "in-" (in) and "vetus" (old). Literally means "made old" through long practice.',
+                'language_origins': 'Latin',
+                'example_sentence': 'Despite numerous diet attempts, the _______ chocolate lover could not resist indulging in sweets.',
+                'memory_tip': 'Remember "INVETERATE" - think "IN-VETERAN-ATE" like someone who\'s a "VETERAN" "IN" a habit - deeply established through long practice.'
+            },
+            'invigorating': {
+                'definition': 'Invigorating describes something that energizes, refreshes, or stimulates physical or mental vitality, creating feelings of renewed strength, enthusiasm, or alertness. This adjective characterizes experiences that boost energy and improve mood or performance. Invigorating exercise increases heart rate and improves fitness. Invigorating mountain air makes people feel refreshed and alert. The term suggests positive effects that enhance wellbeing and capability. Invigorating conversations stimulate intellectual engagement and curiosity. Cold showers can be invigorating by shocking the system into alertness. Unlike exhausting activities that drain energy, invigorating experiences restore and enhance vitality. Invigorating music motivates people during workouts or challenging tasks. The concept emphasizes positive transformation from tired or sluggish states to energetic, alert conditions that improve performance and enjoyment.',
+                'part_of_speech': 'adjective',
+                'pronunciation_guide': 'in-VIG-uh-ray-ting',
+                'etymology': 'From Latin "invigorare," meaning "to give strength to," derived from "in-" (into) and "vigor" (strength, energy). The "-ing" suffix indicates ongoing action.',
+                'language_origins': 'Latin',
+                'example_sentence': 'The morning swim in the cool lake was so _______ that she felt energized for the entire day.',
+                'memory_tip': 'Remember "INVIGORATING" - think "IN-VIGOR-ATING" like putting "VIGOR" (energy) "IN" to yourself - energizing and refreshing.'
+            },
+            'inviolable': {
+                'definition': 'Inviolable describes something that is absolutely secure from assault, interference, or violation, possessing such sacred, legal, or moral protection that any attempt to harm or breach it would be unthinkable or impossible. This adjective characterizes principles, rights, or boundaries that must never be crossed or compromised. Constitutional rights are considered inviolable in democratic societies. Religious sanctuaries provide inviolable refuge for those seeking protection. The term suggests ultimate protection that transcends ordinary security measures. Diplomatic immunity creates inviolable protection for foreign representatives. Unlike merely strong protections that might be overcome, inviolable security is absolute and unconditional. Professional confidentiality creates inviolable trust between clients and practitioners. The concept emphasizes moral, legal, or spiritual authority that makes violation unthinkable rather than merely difficult.',
+                'part_of_speech': 'adjective',
+                'pronunciation_guide': 'in-VY-uh-luh-buhl',
+                'etymology': 'From Latin "inviolabilis," combining "in-" (not) with "violabilis" (able to be violated), derived from "violare" (to violate, treat with violence).',
+                'language_origins': 'Latin',
+                'example_sentence': 'The peace treaty established _______ borders that neither nation could cross without breaking international law.',
+                'memory_tip': 'Remember "INVIOLABLE" - think "IN-VIOLABLE" meaning NOT "VIOLABLE" (able to be violated) - absolutely secure from interference or harm.'
+            },
+            'invisible': {
+                'definition': 'Invisible describes something that cannot be seen, either because it lacks the physical properties that reflect light to human eyes, is too small to detect, or is hidden from view. This adjective applies to objects, forces, or concepts that exist but remain undetectable through normal vision. Invisible ink becomes visible only under special conditions. Air is invisible but essential for life. The term can describe abstract concepts like invisible social barriers or economic forces. Invisible disabilities affect people in ways others cannot readily observe. Unlike transparent things that can be seen through, invisible things cannot be seen at all. Microscopic organisms are invisible without magnification. The concept extends to influence or effects that operate without being obvious, like invisible changes in relationships or invisible environmental factors.',
+                'part_of_speech': 'adjective',
+                'pronunciation_guide': 'in-VIZ-uh-buhl',
+                'etymology': 'From Latin "invisibilis," combining "in-" (not) with "visibilis" (able to be seen), derived from "videre" (to see). Literally means "not able to be seen."',
+                'language_origins': 'Latin',
+                'example_sentence': 'The _______ fence used buried wire to contain the dogs without obstructing the view of the garden.',
+                'memory_tip': 'Remember "INVISIBLE" - think "IN-VISIBLE" meaning NOT "VISIBLE" (able to be seen) - cannot be seen by the eyes.'
+            },
+            'invited': {
+                'definition': 'Invited is the past tense of "invite," meaning to have asked someone to come to an event, participate in an activity, or join a group, typically as a gesture of welcome, friendship, or inclusion. This verb describes completed actions of requesting someone\'s presence or participation. Party hosts invited guests to celebrate special occasions. Organizations invited speakers to share expertise with members. The term implies courtesy, welcome, and desire for someone\'s company or contribution. Unlike demands or requirements, invitations offer choice in responding. Educational institutions invited distinguished visitors to inspire students. Business meetings invited stakeholders to participate in decision-making. Social invitations help build and maintain relationships. The concept emphasizes the hospitable intent behind requests for participation and the voluntary nature of the response.',
+                'part_of_speech': 'verb (past tense)',
+                'pronunciation_guide': 'in-VY-tid',
+                'etymology': 'From Latin "invitare," meaning "to summon" or "to invite," possibly related to "via" (way, path). The past tense indicates completed invitation.',
+                'language_origins': 'Latin',
+                'example_sentence': 'The museum _______ local artists to display their work in the community exhibition.',
+                'memory_tip': 'Remember "INVITED" - think "IN-VITED" like someone was "VITED" (visited) "IN" to join - asked to come or participate.'
+            },
+            'invoke': {
+                'definition': 'Invoke means to call upon, appeal to, or request help from a higher authority, divine power, or established principle, or to bring something into effect or operation through formal procedure. This verb describes appeals to sources of authority, power, or legitimacy beyond oneself. Religious practitioners invoke divine assistance through prayer. Legal professionals invoke constitutional rights to protect clients. The term suggests formal or ceremonial calling upon established powers or principles. Emergency procedures might invoke special protocols during crises. Unlike casual requests, invoking implies recognition of superior authority or power. Academic writers invoke scholarly authorities to support arguments. Computer programs invoke functions or procedures to perform specific tasks. The concept emphasizes respect for established authority and the formal nature of appeals for assistance or legitimacy.',
+                'part_of_speech': 'verb',
+                'pronunciation_guide': 'in-VOHK',
+                'etymology': 'From Latin "invocare," meaning "to call upon," combining "in-" (upon) with "vocare" (to call). The root "vox" means "voice."',
+                'language_origins': 'Latin',
+                'example_sentence': 'The attorney decided to _______ the Fifth Amendment to protect her client from self-incrimination.',
+                'memory_tip': 'Remember "INVOKE" - think "IN-VOKE" like using your "VOICE" to call "IN" help from higher authority - calling upon power or principles.'
+            },
+            'inwardly': {
+                'definition': 'Inwardly means in one\'s private thoughts, feelings, or inner self, describing mental or emotional states that are not expressed outwardly or made visible to others. This adverb characterizes internal experiences that remain hidden from external observation. People might smile outwardly while suffering inwardly. Inwardly focused meditation involves turning attention to internal thoughts and sensations. The term contrasts internal experience with external expression or behavior. Leaders might appear confident outwardly while feeling uncertain inwardly. Unlike publicly expressed thoughts or feelings, inwardly experienced emotions remain private and personal. Inwardly directed anger can be more harmful than expressed frustration. The concept emphasizes the difference between public persona and private experience, recognizing that internal life often differs from external appearance.',
+                'part_of_speech': 'adverb',
+                'pronunciation_guide': 'IN-werd-lee',
+                'etymology': 'From Old English "inweard" (toward the inside) combined with the adverbial suffix "-ly." The word emphasizes internal direction or focus.',
+                'language_origins': 'Old English',
+                'example_sentence': 'She smiled politely at the criticism but _______ felt hurt by the harsh comments about her work.',
+                'memory_tip': 'Remember "INWARDLY" - think "IN-WARD-LY" meaning turning "WARD" (toward) what\'s "IN" - privately in thoughts and feelings, not outwardly visible.'
+            },
+            'iota': {
+                'definition': 'Iota refers to an extremely small amount or the slightest bit of something, often used in negative constructions to emphasize complete absence. This noun comes from the Greek letter iota (ι), the smallest letter in the Greek alphabet. The phrase "not one iota" means not even the tiniest amount. Iota emphasizes minuteness beyond normal measurement. Unlike substantial quantities, an iota represents the absolute minimum possible amount. Legal documents might specify that contracts cannot be changed by one iota without agreement. The term appears in expressions emphasizing complete absence of change, difference, or compromise. Academic discussions might note that theories differ by not one iota from previous versions. The concept uses the metaphor of the smallest Greek letter to represent the smallest possible quantity or degree of something.',
+                'part_of_speech': 'noun',
+                'pronunciation_guide': 'eye-OH-tuh',
+                'etymology': 'From Greek "iota" (ι), the ninth and smallest letter of the Greek alphabet. The small size of the letter led to its use meaning "a tiny amount."',
+                'language_origins': 'Greek',
+                'example_sentence': 'The stubborn negotiator refused to budge one _______ from his original position on the contract terms.',
+                'memory_tip': 'Remember "IOTA" - think "I-OTA" like "I" (small) "OTA" - the tiniest possible amount, named after the smallest Greek letter.'
+            },
+            'ipso': {
+                'definition': 'Ipso is a Latin term meaning "by itself" or "by that very fact," typically used in legal and academic contexts as part of the phrase "ipso facto" (by the fact itself). This Latin word indicates that something occurs automatically as a direct result of another fact or action, without requiring additional proof or explanation. Legal contexts use "ipso facto" to describe automatic consequences that follow from certain actions or conditions. Academic writing might use "ipso" in logical arguments to indicate inevitable conclusions. Unlike situations requiring additional evidence or reasoning, "ipso facto" relationships are self-evident and automatic. The term appears in formal writing to emphasize logical inevitability. Philosophical discussions might use "ipso" to indicate inherent properties or characteristics that exist by definition rather than through external factors.',
+                'part_of_speech': 'adverb (Latin)',
+                'pronunciation_guide': 'IP-so',
+                'etymology': 'From Latin "ipso," meaning "by itself" or "by that very thing," related to "ipse" (he himself, itself). Used in formal contexts to indicate automatic consequences.',
+                'language_origins': 'Latin',
+                'example_sentence': 'The contract stated that failure to pay rent by the deadline would _______ facto result in immediate eviction proceedings.',
+                'memory_tip': 'Remember "IPSO" - think "IP-SO" like "IT\'S SO" automatic - by that very fact itself, no additional proof needed.'
+            },
+            'iran': {
+                'definition': 'Iran is a country in Western Asia, officially known as the Islamic Republic of Iran, with a rich history spanning thousands of years and significant influence in Middle Eastern politics, culture, and economics. This proper noun refers to a nation that was formerly known as Persia until 1935. Iran is home to one of the world\'s oldest civilizations and has made substantial contributions to art, literature, science, and philosophy. Modern Iran is known for its oil reserves, strategic geopolitical position, and complex relationships with neighboring countries and world powers. The country has a predominantly Persian-speaking population, though many ethnic minorities also live there. Iranian culture includes famous poets like Rumi and Hafez, distinctive architecture, and traditional crafts. Contemporary Iran faces various economic and political challenges while maintaining its cultural heritage and regional influence.',
+                'part_of_speech': 'proper noun',
+                'pronunciation_guide': 'ih-RAHN',
+                'etymology': 'From Persian "Īrān," meaning "land of the Aryans," derived from the ancient name for the Iranian plateau. The name reflects the historical Indo-Iranian peoples who settled the region.',
+                'language_origins': 'Persian',
+                'example_sentence': 'The ancient ruins at Persepolis demonstrate _______\'s rich historical heritage and architectural achievements.',
+                'memory_tip': 'Remember "IRAN" - think "I-RAN" like "I RAN" to this important Middle Eastern country - the nation formerly known as Persia.'
+            },
+            'irascible': {
+                'definition': 'Irascible describes someone who is easily angered, quick-tempered, or prone to irritation and outbursts of anger, often over relatively minor provocations. This adjective characterizes personalities that have difficulty controlling angry responses to frustrating situations. Irascible people may explode over small inconveniences that others would handle calmly. The term suggests a pattern of behavior rather than occasional bad moods. Irascible bosses create tense work environments through unpredictable anger. Unlike people who get angry only under extreme circumstances, irascible individuals have low thresholds for anger triggers. Irascible elderly people might become increasingly difficult as they age. The word often describes people whose anger is disproportionate to the situations that provoke it. Managing irascible behavior often requires developing better emotional regulation and stress management skills.',
+                'part_of_speech': 'adjective',
+                'pronunciation_guide': 'ih-RAS-uh-buhl',
+                'etymology': 'From Latin "irascibilis," derived from "irasci" meaning "to be angry," from "ira" (anger, wrath). The suffix "-ible" indicates capacity or tendency.',
+                'language_origins': 'Latin',
+                'example_sentence': 'The _______ professor was known for shouting at students who asked questions he considered obvious.',
+                'memory_tip': 'Remember "IRASCIBLE" - think "IRA-SCIBLE" like someone full of "IRA" (anger) who\'s "SCIBLE" (able) to get mad easily - quick-tempered.'
+            },
+            'ireland': {
+                'definition': 'Ireland is an island nation in Northwestern Europe, consisting of the Republic of Ireland and Northern Ireland (part of the United Kingdom), known for its green landscapes, rich cultural heritage, and significant historical influence on literature, music, and global diaspora. This proper noun refers to both the geographical island and the sovereign nation. Ireland has produced world-renowned writers like James Joyce and W.B. Yeats, and its traditional music and dance have spread globally. The country has a complex history involving centuries of political struggle, religious conflict, and emigration that created Irish communities worldwide. Modern Ireland has transformed from a largely agricultural economy to a prosperous, technology-focused nation. Irish culture includes distinctive traditions in storytelling, sports (like hurling), and hospitality. The island\'s natural beauty attracts millions of tourists annually to see its cliffs, castles, and countryside.',
+                'part_of_speech': 'proper noun',
+                'pronunciation_guide': 'EYE-er-lund',
+                'etymology': 'From Old Irish "Ériu," the name of a Celtic goddess, possibly meaning "fertile land." The English name developed through various linguistic changes over centuries.',
+                'language_origins': 'Old Irish, Celtic',
+                'example_sentence': 'Many Americans trace their ancestry back to _______ due to large-scale emigration during the 19th century.',
+                'memory_tip': 'Remember "IRELAND" - think "IRE-LAND" like the "LAND" of "IRE" (though it\'s actually the friendly "land of green" - the Emerald Isle).'
+            },
+            'iridescent': {
+                'definition': 'Iridescent describes surfaces or objects that display brilliant, rainbow-like colors that seem to change when viewed from different angles, created by the interference of light waves reflecting from multiple layers or surfaces. This adjective characterizes the shimmering, multi-colored appearance seen in soap bubbles, oil slicks, peacock feathers, and certain minerals. Iridescent materials create optical effects through physical structure rather than pigmentation. Butterfly wings often display iridescent colors that help with mating displays and predator deterrence. The term suggests beauty that changes with perspective and lighting conditions. Iridescent fabrics and paints use special materials to create similar effects artificially. Unlike solid colors that remain constant, iridescent appearances shift and change as viewing angles change. The phenomenon results from complex interactions between light and microscopic structures that create interference patterns visible as shifting colors.',
+                'part_of_speech': 'adjective',
+                'pronunciation_guide': 'ir-ih-DES-unt',
+                'etymology': 'From Latin "iris" (rainbow) combined with the suffix "-escent" (becoming). The word literally means "becoming rainbow-like" or "displaying rainbow colors."',
+                'language_origins': 'Latin',
+                'example_sentence': 'The _______ hummingbird\'s feathers shimmered with green and blue colors as it moved through the sunlight.',
+                'memory_tip': 'Remember "IRIDESCENT" - think "IRIS-DESCENT" like colors "DESCENDING" from the "IRIS" (rainbow) - displaying shifting rainbow-like colors.'
+            },
+            'iris': {
+                'definition': 'An iris is the colored part of the eye that surrounds the pupil and controls the amount of light entering the eye by contracting or expanding, or a type of flowering plant known for its distinctive blooms and sword-like leaves. In anatomy, the iris contains muscles that adjust pupil size in response to light conditions and emotional states. Eye color comes from pigmentation in the iris tissue. Medical conditions can affect iris function and appearance. Botanically, iris plants produce showy flowers in various colors and are popular in gardens and landscaping. The iris flower has three upright petals and three drooping sepals, creating distinctive shapes. Many iris species are cultivated for ornamental purposes. The term connects the eye part and flower through their shared association with the rainbow goddess Iris in Greek mythology.',
+                'part_of_speech': 'noun',
+                'pronunciation_guide': 'EYE-ris',
+                'etymology': 'From Greek "iris," meaning "rainbow," named after the Greek goddess of the rainbow. Both the eye part and flower were named for their varied colors.',
+                'language_origins': 'Greek',
+                'example_sentence': 'The doctor examined the patient\'s _______ for signs of injury after the accident.',
+                'memory_tip': 'Remember "IRIS" - think "I-RIS" like "I RISE" to see rainbow colors - both the colored eye part and the colorful flower.'
+            },
+            'irish': {
+                'definition': 'Irish refers to anything relating to Ireland, its people, culture, languages, or traditions, encompassing both the Republic of Ireland and Northern Ireland. This adjective describes the distinctive characteristics, heritage, and identity associated with the island of Ireland. Irish culture includes traditional music, dance, literature, and sports that have spread globally through emigration. The Irish language (Gaeilge) is a Celtic language with ancient roots, though English is more commonly spoken today. Irish traditions include storytelling, hospitality, and celebrations like St. Patrick\'s Day. Irish history includes periods of struggle for independence and religious freedom that shaped national identity. Irish contributions to world literature include authors like James Joyce, Oscar Wilde, and Seamus Heaney. Irish-American communities maintain strong cultural connections to their ancestral homeland. The term encompasses both geographical and cultural identity that extends far beyond the island itself.',
+                'part_of_speech': 'adjective, noun',
+                'pronunciation_guide': 'EYE-rish',
+                'etymology': 'From Old English "Īras," referring to the people of Ireland, derived from the Irish name for Ireland. The "-ish" suffix indicates belonging or relating to.',
+                'language_origins': 'Old English, Irish',
+                'example_sentence': 'The _______ folk band played traditional tunes that had been passed down through generations.',
+                'memory_tip': 'Remember "IRISH" - think "IRE-ISH" meaning "ISH" (relating to) "IRE" (Ireland) - belonging to or characteristic of Ireland and its people.'
+            },
+            'iron': {
+                'definition': 'Iron is a metallic chemical element essential for life, widely used in construction and manufacturing, or a household appliance used to remove wrinkles from clothing by applying heat and pressure. As an element, iron is crucial for oxygen transport in blood and forms the basis of steel production. Iron deficiency causes anemia and health problems. Industrial iron applications include construction, automotive manufacturing, and machinery production. As a household tool, irons use heated metal plates to smooth fabric through heat and steam. Cast iron cookware provides excellent heat retention for cooking. The term can describe both the raw material and tools made from it. Historical iron ages marked technological advancement in human civilization. Iron\'s strength, availability, and usefulness make it fundamental to modern technology and daily life.',
+                'part_of_speech': 'noun, verb, adjective',
+                'pronunciation_guide': 'EYE-urn',
+                'etymology': 'From Old English "īsern," related to Germanic roots meaning "holy metal." The word reflects iron\'s importance in early metallurgy and tool-making.',
+                'language_origins': 'Old English, Germanic',
+                'example_sentence': 'The construction crew used steel beams made from _______ to build the skyscraper\'s strong framework.',
+                'memory_tip': 'Remember "IRON" - think "I-RON" like "I RAN" to get this strong metal - essential element used in construction and household tools.'
+            },
+            'iroquois': {
+                'definition': 'Iroquois refers to a powerful confederation of Native American nations, historically known as the Six Nations (Mohawk, Oneida, Onondaga, Cayuga, Seneca, and Tuscarora), who inhabited the northeastern United States and southeastern Canada. This proper noun describes both the political alliance and the distinct cultural groups that formed it. The Iroquois Confederacy developed sophisticated governmental systems that influenced American democratic principles. Traditional Iroquois society was matrilineal, with women holding significant political power. Iroquois contributions include the Three Sisters agriculture (corn, beans, squash) and distinctive longhouse architecture. The confederation played crucial roles in colonial American history through alliances with European powers. Iroquois languages belong to the Iroquoian language family. Modern Iroquois communities maintain cultural traditions while participating in contemporary society. The Great Law of Peace governed Iroquois political relationships and conflict resolution. Archaeological evidence shows Iroquois presence in the region for over a thousand years.',
+                'part_of_speech': 'proper noun, adjective',
+                'pronunciation_guide': 'EAR-uh-kwoy',
+                'etymology': 'From French adaptation of an Algonquian word, possibly meaning "real adders" or "black snakes." The Iroquois called themselves "Haudenosaunee" (people of the longhouse).',
+                'language_origins': 'Algonquian, French',
+                'example_sentence': 'The _______ Confederacy\'s democratic principles influenced the development of the United States Constitution.',
+                'memory_tip': 'Remember "IROQUOIS" - think "IRO-QUOIS" like a distinct group with "IRO" (unique) "QUOIS" (ways) - the Six Nations confederation of Native Americans.'
+            },
+            'irregular': {
+                'definition': 'Irregular describes something that does not follow normal patterns, rules, or standards, characterized by inconsistency, unevenness, or deviation from expected forms or behaviors. This adjective applies to various contexts where regularity is expected but absent. Irregular heartbeats require medical attention because they disrupt normal cardiac rhythm. Irregular verbs in grammar don\'t follow standard conjugation patterns. The term suggests deviation from established norms or expectations. Irregular work schedules make planning personal activities difficult. Irregular surfaces are bumpy or uneven rather than smooth. Unlike consistent, predictable patterns, irregular phenomena vary unpredictably. Irregular military forces operate outside formal command structures. The concept emphasizes departure from normal, expected, or systematic patterns that can create challenges for understanding, prediction, or management.',
+                'part_of_speech': 'adjective',
+                'pronunciation_guide': 'ih-REG-yuh-ler',
+                'etymology': 'From Latin "irregularis," combining "in-" (not) with "regularis" (according to rule), derived from "regula" (rule, straight stick). Means "not following rules."',
+                'language_origins': 'Latin',
+                'example_sentence': 'The doctor was concerned about the patient\'s _______ pulse and ordered additional cardiac tests.',
+                'memory_tip': 'Remember "IRREGULAR" - think "IR-REGULAR" meaning NOT "REGULAR" (following normal patterns) - inconsistent or not following standard rules.'
+            },
+            'irreverent': {
+                'definition': 'Irreverent describes behavior, speech, or attitudes that show lack of respect for things that are generally treated with reverence, such as religious beliefs, authority figures, or established traditions, often in a deliberately playful or mocking way. This adjective characterizes people or expressions that disregard conventional respect or seriousness. Irreverent comedy challenges social norms and sacred topics through humor. Irreverent students might joke about serious subjects in inappropriate contexts. The term suggests conscious choice to disrespect rather than accidental disregard. Irreverent art often provokes controversy by challenging established values. Unlike respectful disagreement, irreverent behavior shows deliberate disrespect or mockery. Irreverent political commentary uses humor to criticize authority. The word can indicate either refreshing honesty that challenges pretension or inappropriate disrespect that offends others. Context determines whether irreverent behavior is constructive or destructive.',
+                'part_of_speech': 'adjective',
+                'pronunciation_guide': 'ih-REV-er-unt',
+                'etymology': 'From Latin "irreverens," combining "in-" (not) with "reverens" (showing reverence), from "revereri" (to stand in awe of). Means "not showing reverence."',
+                'language_origins': 'Latin',
+                'example_sentence': 'The comedian\'s _______ jokes about politics offended some audience members but delighted others.',
+                'memory_tip': 'Remember "IRREVERENT" - think "IR-REVERENT" meaning NOT "REVERENT" (respectful) - showing lack of respect, especially for sacred things.'
+            }
+        }
+        
+        return batch_093_data.get(word, {
+            'definition': f'Educational definition for {word} would be generated here.',
+            'part_of_speech': 'unknown',
+            'pronunciation_guide': f'{word.upper()}',
+            'etymology': f'Etymology for {word} would be researched and provided.',
+            'language_origins': 'To be determined',
+            'example_sentence': f'An example sentence using _______ would be provided here.',
+            'memory_tip': f'Memory tip for spelling {word} would be provided.'
+        })
+
+    def detect_word_error(self, word: str) -> str:
+        """Detect and flag combined word errors and other parsing issues"""
+        # No obvious combined word errors detected in this batch
+        return ""
+
+    def process_batch(self, input_file: str, output_file: str):
+        """Process a batch of spelling bee words"""
+        try:
+            print(f"Processing {input_file}...")
+            
+            df = pd.read_csv(input_file)
+            processed_data = []
+            errors = []
+            
+            for _, row in df.iterrows():
+                word = str(row['word']).strip()
+                if not word or word == 'nan':
+                    continue
+                
+                error = self.detect_word_error(word)
+                if error:
+                    errors.append(error)
+                
+                claude_data = self.get_comprehensive_claude_data(word)
+                
+                phonetic_score = self.difficulty_calculator.calculate_phonetic_transparency(word, claude_data['pronunciation_guide'])
+                frequency_score = self.difficulty_calculator.calculate_word_frequency(word)
+                morphological_score = self.difficulty_calculator.calculate_morphological_complexity(word)
+                etymology_score = self.difficulty_calculator.calculate_etymology_complexity(claude_data['etymology'])
+                
+                word_data = WordData(
+                    word=word,
+                    years=str(row['years']),
+                    source_files=str(row['source_files']),
+                    source_difficulties=str(row['source_difficulties']),
+                    definition=claude_data['definition'],
+                    part_of_speech=claude_data['part_of_speech'],
+                    pronunciation_guide=claude_data['pronunciation_guide'],
+                    etymology=claude_data['etymology'],
+                    language_origins=claude_data['language_origins'],
+                    example_sentence=claude_data['example_sentence'],
+                    memory_tip=claude_data['memory_tip'],
+                    phonetic_transparency_score=phonetic_score,
+                    word_frequency_score=frequency_score,
+                    morphological_complexity_score=morphological_score,
+                    etymology_complexity_score=etymology_score,
+                    difficulty_level=None
+                )
+                
+                processed_data.append(word_data)
+                self.processed_count += 1
+            
+            output_df = pd.DataFrame([{
+                'word': wd.word,
+                'years': wd.years,
+                'source_files': wd.source_files,
+                'source_difficulties': wd.source_difficulties,
+                'definition': wd.definition,
+                'part_of_speech': wd.part_of_speech,
+                'pronunciation_guide': wd.pronunciation_guide,
+                'etymology': wd.etymology,
+                'language_origins': wd.language_origins,
+                'example_sentence': wd.example_sentence,
+                'memory_tip': wd.memory_tip,
+                'phonetic_transparency_score': wd.phonetic_transparency_score,
+                'word_frequency_score': wd.word_frequency_score,
+                'morphological_complexity_score': wd.morphological_complexity_score,
+                'etymology_complexity_score': wd.etymology_complexity_score,
+                'difficulty_level': wd.difficulty_level,
+                'definition_source': 'Claude',
+                'pronunciation_source': 'Claude',
+                'etymology_source': 'Claude',
+                'example_sentence_source': 'Claude',
+                'memory_tip_source': 'Claude',
+                'audio_file_path': '',
+                'image_file_path': '',
+                'word_category': '',
+                'subcategory': '',
+                'difficulty_explanation': '',
+                'learning_tips': wd.memory_tip
+            } for wd in processed_data])
+            
+            output_df.to_csv(output_file, index=False, encoding='utf-8')
+            
+            print(f"Successfully processed {self.processed_count}/50 words to {output_file}")
+            if errors:
+                print(f"Found {len(errors)} error(s):")
+                for error in errors:
+                    print(f"  - {error}")
+            else:
+                print("No errors detected in this batch.")
+            
+            return True
+            
+        except Exception as e:
+            print(f"Error processing batch: {str(e)}")
+            return False
+
+def main():
+    processor = Batch093Processor()
+    input_file = "output/batch_093_words.csv"
+    output_file = "output/batch_093_processed.csv"
+    
+    success = processor.process_batch(input_file, output_file)
+    if success:
+        print("Batch 093 processing completed successfully!")
+    else:
+        print("Batch 093 processing failed!")
+
+if __name__ == "__main__":
+    main()

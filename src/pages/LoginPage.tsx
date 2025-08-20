@@ -20,10 +20,20 @@ const LoginPage: React.FC = () => {
     const { error } = await signIn(email, password)
     
     if (error) {
-      setError(error.message)
+      // Provide more user-friendly error messages
+      let errorMessage = error.message
+      if (error.message?.includes('Invalid login credentials')) {
+        errorMessage = 'Invalid email or password. Please check your credentials and try again.'
+      } else if (error.message?.includes('Email not confirmed')) {
+        errorMessage = 'Please check your email and click the confirmation link before signing in.'
+      } else if (error.message?.includes('Too many requests')) {
+        errorMessage = 'Too many login attempts. Please wait a moment and try again.'
+      }
+      
+      setError(errorMessage)
       setLoading(false)
     } else {
-      navigate('/')
+      navigate('/profile')
     }
   }
 

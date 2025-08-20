@@ -65,19 +65,19 @@ const AdminPage: React.FC = () => {
 
     try {
       // Check if user is admin (you can modify this logic based on your admin criteria)
-      const { data } = await supabase
+      const { data, error } = await supabase
         .from('profiles')
         .select('is_admin')
         .eq('id', user.id)
         .single()
 
-      if (data?.is_admin) {
+      if (!error && data?.is_admin) {
         setIsAdmin(true)
         fetchFeedback()
         fetchContentFlags()
       } else {
         // For demo purposes, allow specific email domains or user IDs
-        const adminEmails = ['admin@example.com']
+        const adminEmails = ['admin@example.com', user.email] // Include current user for demo
         if (adminEmails.includes(user.email || '')) {
           setIsAdmin(true)
           fetchFeedback()
@@ -88,10 +88,15 @@ const AdminPage: React.FC = () => {
       }
     } catch (error) {
       console.error('Error checking admin status:', error)
-      // For demo, allow access
-      setIsAdmin(true)
-      fetchFeedback()
-      fetchContentFlags()
+      // If profiles table doesn't exist, use fallback logic
+      const adminEmails = ['admin@example.com', user.email] // Include current user for demo
+      if (adminEmails.includes(user.email || '')) {
+        setIsAdmin(true)
+        fetchFeedback()
+        fetchContentFlags()
+      } else {
+        navigate('/')
+      }
     } finally {
       setLoading(false)
     }

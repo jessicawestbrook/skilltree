@@ -1,0 +1,132 @@
+[
+  {
+    "question_text": "What does the acronym 'DELE' stand for?",
+    "options": [
+      "Diplomas de Español como Lengua Extranjera",
+      "Diploma of English Language Examination",
+      "Diploma of European Language Evaluation",
+      "Diplomas of Exceptional Language Expertise"
+    ],
+    "correct_answer": 0,
+    "explanation": "The correct answer is 'Diplomas de Español como Lengua Extranjera', as the passage states that 'DELE' stands for 'Diplomas de Español como Lengua Extranjera'.",
+    "difficulty": "easy",
+    "image_url": null
+  },
+  {
+    "question_text": "Which organization administers the DELE exams?",
+    "options": [
+      "The Spanish Ministry of Education, Culture and Sport",
+      "The Instituto Cervantes",
+      "The European Union",
+      "The United Nations Educational, Scientific and Cultural Organization (UNESCO)"
+    ],
+    "correct_answer": 1,
+    "explanation": "The correct answer is 'The Instituto Cervantes', as the passage states that the DELE exams are 'administered by the Instituto Cervantes on behalf of the Spanish Ministry of Education, Culture and Sport'.",
+    "difficulty": "easy",
+    "image_url": null
+  },
+  {
+    "question_text": "What is the purpose of the DELE exams?",
+    "options": [
+      "To assess and certify an individual's level of Spanish language competency",
+      "To teach the Spanish language",
+      "To promote the Spanish language globally",
+      "To regulate the use of the Spanish language"
+    ],
+    "correct_answer": 0,
+    "explanation": "The correct answer is 'To assess and certify an individual's level of Spanish language competency', as the passage states that the DELE exams are 'designed to assess and certify an individual's level of Spanish language competency'.",
+    "difficulty": "medium",
+    "image_url": null
+  },
+  {
+    "question_text": "Which of the following is NOT one of the DELE exam levels?",
+    "options": [
+      "A1 (Breakthrough)",
+      "B2 (Vantage)",
+      "C1 (Effective Operational Proficiency)",
+      "C3 (Advanced)"
+    ],
+    "correct_answer": 3,
+    "explanation": "The correct answer is 'C3 (Advanced)'. The passage lists the DELE exam levels as A1, A2, B1, B2, C1, and C2, but does not mention a C3 level.",
+    "difficulty": "medium",
+    "image_url": null
+  },
+  {
+    "question_text": "What is the highest level of the DELE exam?",
+    "options": [
+      "A1 (Breakthrough)",
+      "B1 (Threshold)",
+      "C1 (Effective Operational Proficiency)",
+      "C2 (Mastery)"
+    ],
+    "correct_answer": 3,
+    "explanation": "The correct answer is 'C2 (Mastery)'. The passage states that the DELE exam is offered at six different levels, with C2 being the highest level.",
+    "difficulty": "medium",
+    "image_url": null
+  },
+  {
+    "question_text": "Which of the following is NOT a reason why obtaining a DELE certification is valuable?",
+    "options": [
+      "It demonstrates your Spanish language skills to potential employers",
+      "It is a highly respected and sought-after credential",
+      "It is required for admission to universities in Spain",
+      "It is widely recognized around the world"
+    ],
+    "correct_answer": 2,
+    "explanation": "The correct answer is 'It is required for admission to universities in Spain'. The passage does not mention the DELE certification being a requirement for university admission in Spain, but rather states that it can be valuable for 'potential employers, universities, or anyone else who may require proof of your proficiency'.",
+    "difficulty": "medium",
+    "image_url": null
+  },
+  {
+    "question_text": "At the A1 (Breakthrough) level, which of the following can a person do?",
+    "options": [
+      "Understand and use familiar everyday expressions and basic phrases",
+      "Understand sentences and frequently used expressions related to areas of most immediate relevance",
+      "Engage in fluent conversations on a wide range of topics",
+      "Communicate effectively in professional and academic settings"
+    ],
+    "correct_answer": 0,
+    "explanation": "The correct answer is 'Understand and use familiar everyday expressions and basic phrases'. The passage states that at the A1 level, 'you can understand and use familiar everyday expressions and basic phrases'.",
+    "difficulty": "easy",
+    "image_url": null
+  },
+  {
+    "question_text": "What is the first level of the DELE exam above the beginner level?",
+    "options": [
+      "A2 (Waystage)",
+      "B1 (Threshold)",
+      "B2 (Vantage)",
+      "C1 (Effective Operational Proficiency)"
+    ],
+    "correct_answer": 0,
+    "explanation": "The correct answer is 'A2 (Waystage)'. The passage lists the DELE exam levels in order, and states that A2 is the level above the A1 (Breakthrough) beginner level.",
+    "difficulty": "medium",
+    "image_url": null
+  },
+  {
+    "question_text": "Which of the following is NOT a characteristic of the A2 (Waystage) level?",
+    "options": [
+      "Understanding sentences and frequently used expressions related to areas of most immediate relevance",
+      "Communicating effectively in everyday situations",
+      "Engaging in complex discussions on a wide range of topics",
+      "Expressing oneself on familiar topics and in familiar situations"
+    ],
+    "correct_answer": 2,
+    "explanation": "The correct answer is 'Engaging in complex discussions on a wide range of topics'. The passage states that at the A2 level, 'you can understand sentences and frequently used expressions related to areas of most immediate relevance (e.g., basic personal and family information, shopping, local geography, employment)', which does not include engaging in complex discussions on a wide range of topics.",
+    "difficulty": "hard",
+    "image_url": null
+  },
+  {
+    "question_text": "What is the purpose of the DELE certification according to the passage?",
+    "options": [
+      "To assess and certify an individual's level of Spanish language competency",
+      "To promote the Spanish language globally",
+      "To regulate the use of the Spanish language",
+      "To provide a comprehensive Spanish language education"
+    ],
+    "correct_answer": 0,
+    "explanation": "The correct answer is 'To assess and certify an individual's level of Spanish language competency'. The passage clearly states that the DELE exams are 'designed to assess and certify an individual's level of Spanish language competency'.",
+    "difficulty": "easy",
+    "image_url": null
+  }
+]

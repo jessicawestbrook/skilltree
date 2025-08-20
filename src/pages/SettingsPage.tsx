@@ -1,7 +1,9 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import { useTheme } from '../contexts/ThemeContext'
 import { useAuth } from '../contexts/AuthContext'
+import { useNotifications } from '../contexts/NotificationContext'
 import { useNavigate } from 'react-router-dom'
+import { supabase } from '../services/supabase'
 import { 
   MoonIcon, 
   SunIcon,
@@ -28,7 +30,144 @@ interface SettingsSection {
 const SettingsPage: React.FC = () => {
   const { darkMode, toggleDarkMode } = useTheme()
   const { user } = useAuth()
+  const { preferences, updatePreferences } = useNotifications()
   const navigate = useNavigate()
+  
+  const [currentUsername, setCurrentUsername] = useState<string>('')
+  const [newUsername, setNewUsername] = useState<string>('')
+  const [isEditingUsername, setIsEditingUsername] = useState(false)
+  const [usernameLoading, setUsernameLoading] = useState(false)
+  const [usernameError, setUsernameError] = useState<string>('')
+  const [usernameSuccess, setUsernameSuccess] = useState<string>('')
+
+  useEffect(() => {
+    if (user) {
+      fetchUserProfile()
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [user])
+
+  const fetchUserProfile = async () => {
+    if (!user) return
+    
+    try {
+      const { data, error } = await supabase
+        .from('profiles')
+        .select('username')
+        .eq('id', user.id)
+        .single()
+      
+      if (error) {
+        console.error('Error fetching profile:', error)
+        // If profile doesn't exist, create one
+        if (error.code === 'PGRST116') {
+          await supabase
+            .from('profiles')
+            .insert({ id: user.id, email: user.email })
+        }
+        return
+      }
+      
+      setCurrentUsername(data.username || '')
+    } catch (err) {
+      console.error('Error in fetchUserProfile:', err)
+    }
+  }
+
+  const validateUsername = (username: string) => {
+    if (!username.trim()) {
+      return 'Username cannot be empty'
+    }
+    if (username.length < 3) {
+      return 'Username must be at least 3 characters long'
+    }
+    if (username.length > 30) {
+      return 'Username must be less than 30 characters'
+    }
+    if (!/^[a-zA-Z0-9_-]+$/.test(username)) {
+      return 'Username can only contain letters, numbers, underscores, and hyphens'
+    }
+    return null
+  }
+
+  const checkUsernameAvailability = async (username: string) => {
+    const { data, error } = await supabase
+      .from('profiles')
+      .select('id')
+      .eq('username', username)
+      .neq('id', user?.id)
+      .single()
+    
+    if (error && error.code !== 'PGRST116') {
+      throw error
+    }
+    
+    return !data // true if available (no data found)
+  }
+
+  const handleUsernameUpdate = async () => {
+    if (!user || !newUsername) return
+    
+    setUsernameLoading(true)
+    setUsernameError('')
+    setUsernameSuccess('')
+    
+    try {
+      // Validate username format
+      const validationError = validateUsername(newUsername)
+      if (validationError) {
+        setUsernameError(validationError)
+        return
+      }
+      
+      // Check if username is available
+      const isAvailable = await checkUsernameAvailability(newUsername)
+      if (!isAvailable) {
+        setUsernameError('Username is already taken')
+        return
+      }
+      
+      // Update username in database
+      const { error } = await supabase
+        .from('profiles')
+        .upsert({ 
+          id: user.id, 
+          email: user.email, 
+          username: newUsername,
+          updated_at: new Date().toISOString()
+        })
+      
+      if (error) throw error
+      
+      setCurrentUsername(newUsername)
+      setNewUsername('')
+      setIsEditingUsername(false)
+      setUsernameSuccess('Username updated successfully!')
+      
+      // Clear success message after 3 seconds
+      setTimeout(() => setUsernameSuccess(''), 3000)
+      
+    } catch (error) {
+      console.error('Error updating username:', error)
+      setUsernameError('Failed to update username. Please try again.')
+    } finally {
+      setUsernameLoading(false)
+    }
+  }
+
+  const startEditingUsername = () => {
+    setNewUsername(currentUsername)
+    setIsEditingUsername(true)
+    setUsernameError('')
+    setUsernameSuccess('')
+  }
+
+  const cancelEditingUsername = () => {
+    setNewUsername('')
+    setIsEditingUsername(false)
+    setUsernameError('')
+    setUsernameSuccess('')
+  }
 
   const settingsSections: SettingsSection[] = [
     {
@@ -63,30 +202,88 @@ const SettingsPage: React.FC = () => {
       icon: <BellIcon className="h-5 w-5" />,
       settings: [
         {
-          label: 'Email Notifications',
-          description: 'Receive updates about new content and achievements',
+          label: 'Achievement Notifications',
+          description: 'Get notified when you earn achievements and complete learning goals',
           control: (
             <button
-              className="relative inline-flex h-6 w-11 items-center rounded-full bg-neutral-300"
-              disabled
+              onClick={() => updatePreferences({ achievement_notifications: !preferences?.achievement_notifications })}
+              className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors ${
+                preferences?.achievement_notifications ? 'bg-primary-600' : 'bg-neutral-300'
+              }`}
+              role="switch"
+              aria-checked={preferences?.achievement_notifications}
             >
-              <span className="inline-block h-4 w-4 transform rounded-full bg-white translate-x-1" />
+              <span className="sr-only">Toggle achievement notifications</span>
+              <span
+                className={`inline-block h-4 w-4 transform rounded-full bg-white transition-transform ${
+                  preferences?.achievement_notifications ? 'translate-x-6' : 'translate-x-1'
+                }`}
+              />
             </button>
-          ),
-          comingSoon: true
+          )
+        },
+        {
+          label: 'Progress Updates',
+          description: 'Receive updates about your learning progress and milestones',
+          control: (
+            <button
+              onClick={() => updatePreferences({ progress_notifications: !preferences?.progress_notifications })}
+              className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors ${
+                preferences?.progress_notifications ? 'bg-primary-600' : 'bg-neutral-300'
+              }`}
+              role="switch"
+              aria-checked={preferences?.progress_notifications}
+            >
+              <span className="sr-only">Toggle progress notifications</span>
+              <span
+                className={`inline-block h-4 w-4 transform rounded-full bg-white transition-transform ${
+                  preferences?.progress_notifications ? 'translate-x-6' : 'translate-x-1'
+                }`}
+              />
+            </button>
+          )
         },
         {
           label: 'Learning Reminders',
-          description: 'Get reminded to continue your learning journey',
+          description: 'Get gentle reminders to continue your learning journey',
           control: (
             <button
-              className="relative inline-flex h-6 w-11 items-center rounded-full bg-neutral-300"
-              disabled
+              onClick={() => updatePreferences({ reminder_notifications: !preferences?.reminder_notifications })}
+              className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors ${
+                preferences?.reminder_notifications ? 'bg-primary-600' : 'bg-neutral-300'
+              }`}
+              role="switch"
+              aria-checked={preferences?.reminder_notifications}
             >
-              <span className="inline-block h-4 w-4 transform rounded-full bg-white translate-x-1" />
+              <span className="sr-only">Toggle reminder notifications</span>
+              <span
+                className={`inline-block h-4 w-4 transform rounded-full bg-white transition-transform ${
+                  preferences?.reminder_notifications ? 'translate-x-6' : 'translate-x-1'
+                }`}
+              />
             </button>
-          ),
-          comingSoon: true
+          )
+        },
+        {
+          label: 'System Notifications',
+          description: 'Important system updates and announcements',
+          control: (
+            <button
+              onClick={() => updatePreferences({ system_notifications: !preferences?.system_notifications })}
+              className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors ${
+                preferences?.system_notifications ? 'bg-primary-600' : 'bg-neutral-300'
+              }`}
+              role="switch"
+              aria-checked={preferences?.system_notifications}
+            >
+              <span className="sr-only">Toggle system notifications</span>
+              <span
+                className={`inline-block h-4 w-4 transform rounded-full bg-white transition-transform ${
+                  preferences?.system_notifications ? 'translate-x-6' : 'translate-x-1'
+                }`}
+              />
+            </button>
+          )
         }
       ]
     },
@@ -218,8 +415,68 @@ const SettingsPage: React.FC = () => {
       </div>
 
       <div className="mt-12 card bg-gradient-to-r from-primary-50 to-secondary-50 dark:from-primary-900/20 dark:to-secondary-900/20 border-primary-200 dark:border-primary-800">
-        <h3 className="text-lg font-semibold mb-2">Account Information</h3>
-        <div className="space-y-2 text-sm">
+        <h3 className="text-lg font-semibold mb-4">Account Information</h3>
+        
+        {/* Username Management */}
+        <div className="mb-6">
+          <div className="flex items-center justify-between">
+            <div>
+              <span className="text-neutral-600 dark:text-neutral-400 text-sm">Username:</span>
+              {!isEditingUsername ? (
+                <div className="flex items-center gap-2 mt-1">
+                  <span className="font-medium">
+                    {currentUsername || 'Not set'}
+                  </span>
+                  <button
+                    onClick={startEditingUsername}
+                    className="text-primary-600 hover:text-primary-700 text-xs font-medium"
+                  >
+                    {currentUsername ? 'Change' : 'Set Username'}
+                  </button>
+                </div>
+              ) : (
+                <div className="mt-2">
+                  <div className="flex items-center gap-2 mb-2">
+                    <input
+                      type="text"
+                      value={newUsername}
+                      onChange={(e) => setNewUsername(e.target.value)}
+                      placeholder="Enter username"
+                      className="flex-1 px-3 py-1 text-sm border border-neutral-300 dark:border-neutral-600 rounded-lg bg-white dark:bg-neutral-800 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                      disabled={usernameLoading}
+                    />
+                    <button
+                      onClick={handleUsernameUpdate}
+                      disabled={usernameLoading || !newUsername.trim()}
+                      className="px-3 py-1 bg-primary-600 hover:bg-primary-700 disabled:bg-neutral-400 text-white text-xs font-medium rounded-lg transition-colors"
+                    >
+                      {usernameLoading ? 'Saving...' : 'Save'}
+                    </button>
+                    <button
+                      onClick={cancelEditingUsername}
+                      disabled={usernameLoading}
+                      className="px-3 py-1 bg-neutral-200 hover:bg-neutral-300 dark:bg-neutral-700 dark:hover:bg-neutral-600 text-neutral-700 dark:text-neutral-300 text-xs font-medium rounded-lg transition-colors"
+                    >
+                      Cancel
+                    </button>
+                  </div>
+                  {usernameError && (
+                    <p className="text-red-600 dark:text-red-400 text-xs">{usernameError}</p>
+                  )}
+                  {usernameSuccess && (
+                    <p className="text-green-600 dark:text-green-400 text-xs">{usernameSuccess}</p>
+                  )}
+                  <p className="text-neutral-500 text-xs mt-1">
+                    3-30 characters, letters, numbers, underscores and hyphens only
+                  </p>
+                </div>
+              )}
+            </div>
+          </div>
+        </div>
+
+        {/* Other Account Info */}
+        <div className="space-y-2 text-sm border-t border-neutral-200 dark:border-neutral-700 pt-4">
           <p>
             <span className="text-neutral-600 dark:text-neutral-400">Email:</span>{' '}
             <span className="font-medium">{user.email}</span>

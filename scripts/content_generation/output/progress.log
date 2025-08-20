@@ -1,0 +1,45 @@
+[2025-08-20 10:14:45] Processing node: DELE Spanish Proficiency (Path: None)
+[2025-08-20 10:14:45] Generating learning content for: DELE Spanish Proficiency
+[2025-08-20 10:14:46] Error generating content for DELE Spanish Proficiency: Error code: 404 - {'type': 'error', 'error': {'type': 'not_found_error', 'message': 'model: claude-3-sonnet-20240229'}, 'request_id': 'req_011CSK6qxgdHi1FxoGCZFbsX'}
+[2025-08-20 10:14:46] Failed to generate content for: DELE Spanish Proficiency
+[2025-08-20 10:15:16] Processing node: DELE Spanish Proficiency (Path: None)
+[2025-08-20 10:15:16] Generating learning content for: DELE Spanish Proficiency
+[2025-08-20 10:15:16] Error generating content for DELE Spanish Proficiency: Error code: 404 - {'type': 'error', 'error': {'type': 'not_found_error', 'message': 'model: claude-3-5-sonnet-20241022'}, 'request_id': 'req_011CSK6tDk3rihWAH5BQGZU5'}
+[2025-08-20 10:15:16] Failed to generate content for: DELE Spanish Proficiency
+[2025-08-20 10:15:30] Processing node: DELE Spanish Proficiency (Path: None)
+[2025-08-20 10:15:30] Generating learning content for: DELE Spanish Proficiency
+[2025-08-20 10:15:30] Error generating content for DELE Spanish Proficiency: Error code: 404 - {'type': 'error', 'error': {'type': 'not_found_error', 'message': 'model: claude-3-5-sonnet-20240620'}, 'request_id': 'req_011CSK6uEXCviaQyXb3NAZ48'}
+[2025-08-20 10:15:30] Failed to generate content for: DELE Spanish Proficiency
+[2025-08-20 10:16:12] Processing node: DELE Spanish Proficiency (Path: None)
+[2025-08-20 10:16:12] Generating learning content for: DELE Spanish Proficiency
+[2025-08-20 10:16:22] Generating questions for: DELE Spanish Proficiency
+[2025-08-20 10:16:22] Error generating questions for DELE Spanish Proficiency: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'max_tokens: 8000 > 4096, which is the maximum allowed number of output tokens for claude-3-haiku-20240307'}, 'request_id': 'req_011CSK6y4jTHNTq8pjcAh4zR'}
+[2025-08-20 10:16:22] Failed to generate questions for: DELE Spanish Proficiency
+[2025-08-20 10:16:22] Generated 0 questions for: DELE Spanish Proficiency
+[2025-08-20 10:16:24] Database error saving content for DELE Spanish Proficiency: {'code': 'PGRST204', 'details': None, 'hint': None, 'message': "Could not find the 'source_url' column of 'learning_content' in the schema cache"}
+[2025-08-20 10:16:24] Failed to save content for: DELE Spanish Proficiency
+[2025-08-20 10:23:09] Processing node: DELE Spanish Proficiency (Path: None)
+[2025-08-20 10:23:09] Generating learning content for: DELE Spanish Proficiency
+[2025-08-20 10:23:20] Generating questions for: DELE Spanish Proficiency
+[2025-08-20 10:23:46] Error parsing questions JSON for DELE Spanish Proficiency: Expecting ',' delimiter: line 180 column 152 (char 10345)
+[2025-08-20 10:23:46] Failed to generate questions for: DELE Spanish Proficiency
+[2025-08-20 10:23:46] Generated 0 questions for: DELE Spanish Proficiency
+[2025-08-20 10:23:49] Database error saving content for DELE Spanish Proficiency: {'code': '22P02', 'details': None, 'hint': None, 'message': 'invalid input syntax for type integer: "5a94245d-91d3-4a0c-ae16-8a1c83ada8a0"'}
+[2025-08-20 10:23:49] Failed to save content for: DELE Spanish Proficiency
+[2025-08-20 10:27:18] Error parsing questions JSON for DELE Spanish Proficiency: Expecting ',' delimiter: line 35 column 81 (char 2800)
+[2025-08-20 10:29:26] Processing node: DELE Spanish Proficiency (Path: None)
+[2025-08-20 10:29:26] Generating learning content for: DELE Spanish Proficiency
+[2025-08-20 10:29:37] Generating questions for: DELE Spanish Proficiency
+[2025-08-20 10:29:58] Generated 20 questions for: DELE Spanish Proficiency
+[2025-08-20 10:30:01] Database error saving content for DELE Spanish Proficiency: {'code': '22P02', 'details': None, 'hint': None, 'message': 'invalid input syntax for type integer: "2931f193-e8aa-4070-94d4-1e2ffffa5b7a"'}
+[2025-08-20 10:30:01] Failed to save content for: DELE Spanish Proficiency
+[2025-08-20 10:31:47] Processing node: DELE Spanish Proficiency (Path: None)
+[2025-08-20 10:31:47] Generating learning content for: DELE Spanish Proficiency
+[2025-08-20 10:32:01] Generating questions for: DELE Spanish Proficiency
+[2025-08-20 10:32:22] Error parsing questions JSON for DELE Spanish Proficiency: Expecting ',' delimiter: line 120 column 177 (char 7228)
+[2025-08-20 10:32:22] Failed to generate questions for: DELE Spanish Proficiency
+[2025-08-20 10:32:22] Generated 0 questions for: DELE Spanish Proficiency
+[2025-08-20 10:32:25] Database error saving content for DELE Spanish Proficiency: {'code': '42501', 'details': None, 'hint': None, 'message': 'new row violates row-level security policy for table "learning_content"'}
+[2025-08-20 10:32:25] Failed to save content for: DELE Spanish Proficiency
+[2025-08-20 10:42:27] Error parsing questions JSON for Spanish from Spain: Expecting ',' delimiter: line 14 column 52 (char 1155)
+[2025-08-20 10:42:46] Error parsing questions JSON for Argentinian Spanish: Expecting ',' delimiter: line 42 column 180 (char 3974)

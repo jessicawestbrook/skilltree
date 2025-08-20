@@ -1,0 +1,127 @@
+{
+  "topic_id": "415430a5-d98b-42bd-8612-0560e0bbddaf",
+  "topic_name": "Spanish Alphabet",
+  "questions": [
+    {
+      "question_text": "Which of the following is not a vowel in the Spanish alphabet?",
+      "options": [
+        "a",
+        "e",
+        "i",
+        "r"
+      ],
+      "correct_answer": 3,
+      "explanation": "The Spanish alphabet has 5 vowel letters: a, e, i, o, and u. The letter 'r' is a consonant, not a vowel.",
+      "difficulty": "easy"
+    },
+    {
+      "question_text": "How is the Spanish vowel 'e' pronounced?",
+      "options": [
+        "Like the 'a' in 'father'",
+        "Like the 'e' in 'bed'",
+        "Like the 'i' in 'feet'",
+        "Like the 'o' in 'boat'"
+      ],
+      "correct_answer": 1,
+      "explanation": "The Spanish vowel 'e' is pronounced like the 'e' in 'bed', which is different from the English 'a' in 'father', 'i' in 'feet', or 'o' in 'boat'.",
+      "difficulty": "medium"
+    },
+    {
+      "question_text": "Which of the following consonant sounds in Spanish is pronounced differently from English?",
+      "options": [
+        "b",
+        "d",
+        "f",
+        "j"
+      ],
+      "correct_answer": 3,
+      "explanation": "The Spanish letter 'j' has a unique pronunciation, different from the English 'j' sound. The other consonants ('b', 'd', and 'f') have similar pronunciations in both Spanish and English.",
+      "difficulty": "medium"
+    },
+    {
+      "question_text": "What is the total number of letters in the Spanish alphabet?",
+      "options": [
+        "24",
+        "25",
+        "26",
+        "27"
+      ],
+      "correct_answer": 2,
+      "explanation": "The Spanish alphabet consists of 26 letters, the same as the English alphabet.",
+      "difficulty": "easy"
+    },
+    {
+      "question_text": "How is the Spanish vowel 'u' pronounced?",
+      "options": [
+        "Like the 'a' in 'father'",
+        "Like the 'e' in 'bed'",
+        "Like the 'i' in 'feet'",
+        "Like the 'oo' in 'boot'"
+      ],
+      "correct_answer": 3,
+      "explanation": "The Spanish vowel 'u' is pronounced like the 'oo' sound in 'boot', which is different from the 'a' in 'father', 'e' in 'bed', or 'i' in 'feet'.",
+      "difficulty": "medium"
+    },
+    {
+      "question_text": "Which of the following consonant letter pairs in Spanish have the same pronunciation?",
+      "options": [
+        "b and v",
+        "c and z",
+        "ll and y",
+        "All of the above"
+      ],
+      "correct_answer": 3,
+      "explanation": "In Spanish, the consonant letter pairs 'b' and 'v', 'c' and 'z', and 'll' and 'y' all have the same pronunciation, unlike in English.",
+      "difficulty": "hard"
+    },
+    {
+      "question_text": "What is the pronunciation of the Spanish vowel 'o'?",
+      "options": [
+        "Like the 'a' in 'father'",
+        "Like the 'e' in 'bed'",
+        "Like the 'i' in 'feet'",
+        "Like the 'o' in 'boat'"
+      ],
+      "correct_answer": 3,
+      "explanation": "The Spanish vowel 'o' is pronounced like the 'o' sound in 'boat', which is different from the 'a' in 'father', 'e' in 'bed', or 'i' in 'feet'.",
+      "difficulty": "medium"
+    },
+    {
+      "question_text": "Which of the following is a unique consonant sound in the Spanish alphabet?",
+      "options": [
+        "b",
+        "d",
+        "f",
+        "ñ"
+      ],
+      "correct_answer": 3,
+      "explanation": "The Spanish letter 'ñ' has a unique consonant sound that is not present in the English alphabet. The other consonants ('b', 'd', and 'f') have similar pronunciations in both Spanish and English.",
+      "difficulty": "medium"
+    },
+    {
+      "question_text": "How many vowel letters are in the Spanish alphabet?",
+      "options": [
+        "3",
+        "4",
+        "5",
+        "6"
+      ],
+      "correct_answer": 2,
+      "explanation": "The Spanish alphabet has 5 vowel letters: a, e, i, o, and u.",
+      "difficulty": "easy"
+    },
+    {
+      "question_text": "Which of the following Spanish consonant letter pairs have the same pronunciation?",
+      "options": [
+        "b and v",
+        "c and z",
+        "ll and y",
+        "All of the above"
+      ],
+      "correct_answer": 3,
+      "explanation": "In Spanish, the consonant letter pairs 'll' and 'y' have the same pronunciation, as do 'b' and 'v', and 'c' and 'z'. This is different from the English alphabet.",
+      "difficulty": "hard"
+    }
+  ],
+  "generated_at": "2025-08-20T10:41:44.619000"
+}

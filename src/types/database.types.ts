@@ -49,6 +49,30 @@ export interface UserProfile {
   updated_at: string
 }
 
+export interface Notification {
+  id: string
+  user_id: string
+  type: 'achievement' | 'progress' | 'reminder' | 'system' | 'social'
+  title: string
+  message: string
+  data?: any
+  is_read: boolean
+  created_at: string
+  expires_at?: string
+}
+
+export interface NotificationPreferences {
+  user_id: string
+  email_notifications: boolean
+  push_notifications: boolean
+  achievement_notifications: boolean
+  progress_notifications: boolean
+  reminder_notifications: boolean
+  system_notifications: boolean
+  created_at: string
+  updated_at: string
+}
+
 export interface UserProgress {
   id: string
   user_id: string
@@ -147,4 +171,57 @@ export interface UserLanguageProgress {
   last_practiced: string
   created_at: string
   updated_at: string
+}
+
+export interface StudyList {
+  id: string
+  user_id: string
+  name: string
+  description?: string
+  color?: string
+  is_public: boolean
+  created_at: string
+  updated_at: string
+}
+
+export interface StarredItem {
+  id: string
+  user_id: string
+  item_type: 'spelling_word' | 'vocabulary_word' | 'language_question' | 'question' | 'skill_node'
+  item_id: string
+  item_data?: any
+  created_at: string
+}
+
+export interface StudyListItem {
+  id: string
+  study_list_id: string
+  item_type: 'spelling_word' | 'vocabulary_word' | 'language_question' | 'question' | 'skill_node' | 'custom_flashcard'
+  item_id: string
+  item_data?: any
+  notes?: string
+  added_at: string
+}
+
+export interface CustomFlashcard {
+  id: string
+  user_id: string
+  front: string
+  back: string
+  category?: string
+  tags?: string[]
+  difficulty_level?: number
+  created_at: string
+  updated_at: string
+}
+
+export interface StudySession {
+  id: string
+  user_id: string
+  study_list_id: string
+  started_at: string
+  ended_at?: string
+  items_studied: number
+  items_correct: number
+  total_time_seconds: number
 }

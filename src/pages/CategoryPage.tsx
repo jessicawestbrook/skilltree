@@ -13,6 +13,7 @@ import { StarIcon as StarIconSolid } from '@heroicons/react/24/solid'
 import { useAuth } from '../contexts/AuthContext'
 import { SkillTreeNode } from '../types/database.types'
 import LearningContentModal from '../components/LearningContentModal'
+import CompetencyAssessment from '../components/CompetencyAssessment'
 
 const CategoryPage: React.FC = () => {
   const { categoryId } = useParams()
@@ -270,6 +271,32 @@ const CategoryPage: React.FC = () => {
             </p>
           </div>
         </div>
+      </div>
+
+      {/* Competency Assessment */}
+      <div className="mb-6">
+        <CompetencyAssessment
+          categoryId={categoryId!}
+          categoryName={category.name}
+          onComplete={(score, passed) => {
+            // Update user progress when assessment is completed
+            if (user && passed) {
+              supabase
+                .from('user_progress')
+                .upsert({
+                  user_id: user.id,
+                  skill_node_id: categoryId,
+                  status: 'completed',
+                  rating: score,
+                  last_accessed: new Date().toISOString()
+                })
+                .then(() => {
+                  // Refresh category data to update progress
+                  fetchCategoryData()
+                })
+            }
+          }}
+        />
       </div>
 
       {/* Subcategories Grid */}
