@@ -145,8 +145,8 @@ const MegaMenu: React.FC = () => {
   }
 
   return (
-    <section className="bg-white dark:bg-neutral-900 rounded-xl shadow-lg p-4 mb-8">
-      <div className="grid lg:grid-cols-3 md:grid-cols-3 sm:grid-cols-2 gap-4">
+    <section className="bg-white dark:bg-neutral-900 rounded-xl shadow-lg p-6">
+      <div className="grid lg:grid-cols-3 md:grid-cols-3 sm:grid-cols-2 gap-6">
         {topCategories.map(category => (
           <div key={category.id} className="space-y-2">
             <Link

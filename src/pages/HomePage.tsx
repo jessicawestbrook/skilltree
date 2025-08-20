@@ -48,14 +48,14 @@ const HomePage: React.FC = () => {
   ]
 
   return (
-    <div className="space-y-2">
-      <section className="text-center py-6">
-        <h1 className="text-5xl font-bold mb-4">
+    <div className="space-y-16">
+      <section className="text-center py-3">
+        <h1 className="text-3xl font-bold mb-2">
           <span className="bg-gradient-to-r from-primary-600 to-gold-500 bg-clip-text text-transparent">
             Welcome to SkillTree
           </span>
         </h1>
-        <p className="text-xl text-neutral-600 dark:text-neutral-400 max-w-3xl mx-auto mb-4">
+        <p className="text-base text-neutral-600 dark:text-neutral-400 max-w-xl mx-auto">
           Your path to mastering everything you've ever dreamed of learning. 
           Navigate knowledge like a video game and level up your skills.
         </p>
@@ -63,11 +63,11 @@ const HomePage: React.FC = () => {
 
       <MegaMenu />
 
-      <section className="mt-12">
-        <h2 className="text-3xl font-bold text-center mb-8">
+      <section className="py-8">
+        <h2 className="text-3xl font-bold text-center mb-12">
           Learning That Feels Like Playing
         </h2>
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
           {features.map((feature, index) => (
             <div key={index} className="card hover:shadow-xl transition-shadow">
               <div className="text-primary-600 dark:text-primary-400 mb-4">
@@ -81,7 +81,6 @@ const HomePage: React.FC = () => {
           ))}
         </div>
       </section>
-
 
       <section className="bg-gradient-to-r from-primary-100 to-gold-100 dark:from-primary-900/20 dark:to-gold-900/20 rounded-2xl p-8">
         <div className="text-center">
