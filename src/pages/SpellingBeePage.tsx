@@ -9,8 +9,10 @@ import {
   XCircleIcon,
   InformationCircleIcon,
   AcademicCapIcon,
-  ClockIcon
+  ClockIcon,
+  FlagIcon
 } from '@heroicons/react/24/outline'
+import FlagContentModal from '../components/FlagContentModal'
 
 interface SpellingWord {
   id: string
@@ -52,6 +54,7 @@ const SpellingBeePage: React.FC = () => {
   const [currentIndex, setCurrentIndex] = useState(0)
   const [stats, setStats] = useState({ correct: 0, total: 0 })
   const [sessionStats, setSessionStats] = useState({ correct: 0, total: 0 })
+  const [showFlagModal, setShowFlagModal] = useState(false)
 
   const fetchWords = useCallback(async () => {
     try {
@@ -244,19 +247,30 @@ const SpellingBeePage: React.FC = () => {
       </div>
 
       {/* Combined Spelling Practice Card */}
-      <div className="bg-white dark:bg-neutral-900 rounded-lg sm:rounded-xl shadow-lg p-2 sm:p-6">
+      <div className="bg-white dark:bg-neutral-900 rounded-lg sm:rounded-xl shadow-lg p-2 sm:p-6 relative">
+        {/* Flag Button */}
+        {currentWord && (
+          <button
+            onClick={() => setShowFlagModal(true)}
+            className="absolute top-2 right-2 p-1.5 text-neutral-400 hover:text-red-500 hover:bg-red-50 dark:hover:bg-red-900/20 rounded-lg transition-colors z-10"
+            title="Report an issue with this question"
+          >
+            <FlagIcon className="h-4 w-4" />
+          </button>
+        )}
+        
         {/* Settings and Stats Row */}
-        <div className="flex justify-between items-start mb-1 sm:mb-4 pb-1 sm:pb-3 border-b border-neutral-200 dark:border-neutral-700">
+        <div className="flex justify-between items-start mb-1 sm:mb-2">
           {/* Practice Settings */}
-          <div className="flex flex-col lg:flex-row gap-2 sm:gap-3 items-start lg:items-center flex-1 mr-2 sm:mr-0">
+          <div className="flex flex-col lg:flex-row gap-1 sm:gap-2 items-start lg:items-center flex-1 mr-2 sm:mr-0">
             {/* Adaptive Testing Toggle */}
-            <div className="flex items-center gap-2">
-              <label className="flex items-center gap-1.5 cursor-pointer">
+            <div className="flex items-center gap-1">
+              <label className="flex items-center gap-1 cursor-pointer">
                 <input
                   type="checkbox"
                   checked={useAdaptiveTesting}
                   onChange={(e) => setUseAdaptiveTesting(e.target.checked)}
-                  className="rounded border-neutral-300 text-primary-600 focus:ring-primary-500 h-3.5 w-3.5"
+                  className="rounded border-neutral-300 text-primary-600 focus:ring-primary-500 h-3 w-3"
                 />
                 <span className="text-xs font-medium">Adaptive Testing</span>
               </label>
@@ -267,9 +281,9 @@ const SpellingBeePage: React.FC = () => {
 
             {/* Difficulty Selection */}
             {!useAdaptiveTesting && (
-              <div className="flex items-center gap-2 flex-wrap">
+              <div className="flex items-center gap-1 flex-wrap">
                 <span className="text-xs font-medium text-neutral-700 dark:text-neutral-300">Difficulty:</span>
-                <div className="flex flex-wrap gap-1">
+                <div className="flex flex-wrap gap-0.5">
                   {['Beginner', 'Elementary', 'Intermediate', 'Advanced', 'Expert'].map((level) => (
                     <label key={level} className="flex items-center gap-0.5 cursor-pointer">
                       <input
@@ -286,14 +300,14 @@ const SpellingBeePage: React.FC = () => {
                   <button
                     type="button"
                     onClick={() => setSelectedDifficulties(['Beginner', 'Elementary', 'Intermediate', 'Advanced', 'Expert'])}
-                    className="text-xs text-primary-600 hover:text-primary-700 font-medium px-1.5 py-0.5 rounded hover:bg-primary-50"
+                    className="text-xs text-primary-600 hover:text-primary-700 font-medium px-1 py-0.5 rounded hover:bg-primary-50"
                   >
                     All
                   </button>
                   <button
                     type="button"
                     onClick={() => setSelectedDifficulties(['Beginner'])}
-                    className="text-xs text-neutral-500 hover:text-neutral-700 px-1.5 py-0.5 rounded hover:bg-neutral-100"
+                    className="text-xs text-neutral-500 hover:text-neutral-700 px-1 py-0.5 rounded hover:bg-neutral-100"
                   >
                     Clear
                   </button>
@@ -302,58 +316,56 @@ const SpellingBeePage: React.FC = () => {
             )}
           </div>
 
-          {/* Today's Session Stats */}
+          {/* Unified Stats Section */}
           <div className="flex-shrink-0">
-            <h4 className="text-xs font-medium mb-1 sm:mb-1.5 flex items-center gap-1">
+            <h4 className="text-xs font-medium mb-1 flex items-center gap-0.5">
               <ClockIcon className="h-3 w-3 text-neutral-600" />
-              <span className="hidden sm:inline">Today's Session</span>
-              <span className="sm:hidden">Session</span>
+              Statistics
             </h4>
-            <div className="grid grid-cols-2 gap-1 sm:gap-1.5 text-xs">
-              <div className="bg-neutral-50 dark:bg-neutral-800 rounded px-1.5 sm:px-2 py-0.5 sm:py-1 text-center min-w-[45px] sm:min-w-[55px]">
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-1 text-xs">
+              {/* Session Words */}
+              <div className="bg-neutral-50 dark:bg-neutral-800 rounded px-1.5 py-0.5 text-center">
                 <span className="font-bold text-primary-600">{sessionStats.total}</span>
-                <span className="text-neutral-500 ml-0.5 sm:ml-1">words</span>
+                <span className="text-neutral-500 ml-0.5">words</span>
               </div>
-              <div className="bg-neutral-50 dark:bg-neutral-800 rounded px-1.5 sm:px-2 py-0.5 sm:py-1 text-center min-w-[50px] sm:min-w-[55px]">
+              
+              {/* Session Accuracy */}
+              <div className="bg-neutral-50 dark:bg-neutral-800 rounded px-1.5 py-0.5 text-center">
                 <span className="font-bold text-green-600">
                   {sessionStats.total > 0 ? Math.round((sessionStats.correct / sessionStats.total) * 100) : 0}%
                 </span>
-                <span className="text-neutral-500 ml-0.5 sm:ml-1">accuracy</span>
+                <span className="text-neutral-500 ml-0.5">today</span>
               </div>
+              
+              {/* Overall Correct */}
+              {user && stats.total > 0 && (
+                <>
+                  <div className="bg-neutral-50 dark:bg-neutral-800 rounded px-1.5 py-0.5 text-center">
+                    <span className="font-bold text-green-500">{stats.correct}</span>
+                    <span className="text-neutral-500 ml-0.5">✓</span>
+                  </div>
+                  
+                  {/* Overall Percentage */}
+                  <div className="bg-neutral-50 dark:bg-neutral-800 rounded px-1.5 py-0.5 text-center">
+                    <span className="font-bold text-primary-600">
+                      {Math.round((stats.correct / stats.total) * 100)}%
+                    </span>
+                    <span className="text-neutral-500 ml-0.5">total</span>
+                  </div>
+                </>
+              )}
             </div>
           </div>
         </div>
-
-        {/* Stats Header */}
-        {user && stats.total > 0 && (
-          <div className="flex justify-between items-center mb-6 pb-3 border-b border-neutral-200 dark:border-neutral-700">
-            <span className="text-sm text-neutral-600 dark:text-neutral-400 font-medium">
-              Word {currentIndex + 1} of {wordBank.length}
-            </span>
-            <div className="flex items-center gap-4 text-sm">
-              <span className="flex items-center gap-1">
-                <CheckCircleIcon className="h-4 w-4 text-green-500" />
-                {stats.correct}
-              </span>
-              <span className="flex items-center gap-1">
-                <XCircleIcon className="h-4 w-4 text-red-500" />
-                {stats.total - stats.correct}
-              </span>
-              <span className="font-semibold text-primary-600">
-                {Math.round((stats.correct / stats.total) * 100)}%
-              </span>
-            </div>
-          </div>
-        )}
         {!showResult ? (
           <>
             {/* Audio Controls */}
             <div className="text-center mb-2 sm:mb-4">
               <button
                 onClick={playAudio}
-                className="inline-flex items-center gap-2 px-4 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition-colors text-sm"
+                className="inline-flex items-center gap-3 px-6 py-3 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition-colors text-lg font-medium"
               >
-                <SpeakerWaveIcon className="h-5 w-5" />
+                <SpeakerWaveIcon className="h-6 w-6" />
                 Play Word
               </button>
             </div>
@@ -518,6 +530,17 @@ const SpellingBeePage: React.FC = () => {
           </>
         )}
       </div>
+
+      {/* Flag Content Modal */}
+      {showFlagModal && currentWord && (
+        <FlagContentModal
+          isOpen={showFlagModal}
+          onClose={() => setShowFlagModal(false)}
+          contentType="question"
+          contentId={currentWord.id}
+          contentTitle={`Spelling: ${currentWord.word}`}
+        />
+      )}
     </div>
   )
 }

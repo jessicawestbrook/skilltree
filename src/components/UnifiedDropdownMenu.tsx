@@ -17,12 +17,13 @@ import {
   ShieldCheckIcon,
   LanguageIcon,
   BookOpenIcon,
-  SparklesIcon
+  SparklesIcon,
+  Bars3Icon
 } from '@heroicons/react/24/outline'
 
 const UnifiedDropdownMenu: React.FC = () => {
   const { user, signOut } = useAuth()
-  const { darkMode, toggleDarkMode } = useTheme()
+  const { darkMode, toggleDarkMode, menuPinned, toggleMenuPinned } = useTheme()
   const navigate = useNavigate()
   const [dropdownOpen, setDropdownOpen] = useState(false)
   const dropdownRef = useRef<HTMLDivElement>(null)
@@ -47,13 +48,10 @@ const UnifiedDropdownMenu: React.FC = () => {
   const navigationItems = [
     { to: '/', label: 'Home', icon: HomeIcon },
     { to: '/skill-tree', label: 'Skill Tree', icon: AcademicCapIcon },
-    { to: '/unified-tree', label: 'Unified Tree', icon: AcademicCapIcon },
     { to: '/text-tree', label: 'Text-Only View', icon: AcademicCapIcon },
     { to: '/learning-paths', label: 'Learning Paths', icon: BookOpenIcon },
     { to: '/intro-assessment', label: 'Skill Assessment', icon: SparklesIcon },
     { to: '/spelling-bee', label: 'Spelling Bee', icon: LanguageIcon },
-    { to: '/reading-comprehension', label: 'Reading Comprehension', icon: BookOpenIcon },
-    { to: '/documentation', label: 'Educational Theory', icon: AcademicCapIcon },
     { to: '/feedback', label: 'Feedback', icon: ChatBubbleBottomCenterTextIcon },
   ]
 
@@ -74,7 +72,6 @@ const UnifiedDropdownMenu: React.FC = () => {
         >
           <UserCircleIcon className="h-5 w-5" />
           <span className="hidden sm:inline">{user.email?.split('@')[0]}</span>
-          <span className="sm:hidden">Menu</span>
           <ChevronDownIcon className={`h-4 w-4 transition-transform ${dropdownOpen ? 'rotate-180' : ''}`} />
         </button>
       ) : (
@@ -142,26 +139,45 @@ const UnifiedDropdownMenu: React.FC = () => {
               </Link>
             ))}
             
-            {/* Dark Mode Toggle for non-logged in users - in same section */}
+            {/* Settings for non-logged in users */}
             {!user && (
-              <button
-                onClick={() => {
-                  toggleDarkMode()
-                }}
-                className="flex items-center justify-between w-full px-4 py-2 text-sm text-neutral-700 dark:text-neutral-300 hover:bg-neutral-100 dark:hover:bg-neutral-700 transition-colors"
-              >
-                <span className="flex items-center">
-                  {darkMode ? (
-                    <SunIcon className="h-4 w-4 mr-3 text-neutral-500" />
-                  ) : (
-                    <MoonIcon className="h-4 w-4 mr-3 text-neutral-500" />
-                  )}
-                  {darkMode ? 'Light Mode' : 'Dark Mode'}
-                </span>
-                <span className="text-xs text-neutral-400">
-                  {darkMode ? 'On' : 'Off'}
-                </span>
-              </button>
+              <>
+                {/* Menu Pin Toggle */}
+                <button
+                  onClick={() => {
+                    toggleMenuPinned()
+                  }}
+                  className="flex items-center justify-between w-full px-4 py-2 text-sm text-neutral-700 dark:text-neutral-300 hover:bg-neutral-100 dark:hover:bg-neutral-700 transition-colors"
+                >
+                  <span className="flex items-center">
+                    <Bars3Icon className="h-4 w-4 mr-3 text-neutral-500" />
+                    Pin Menu
+                  </span>
+                  <span className="text-xs text-neutral-400">
+                    {menuPinned ? 'On' : 'Off'}
+                  </span>
+                </button>
+
+                {/* Dark Mode Toggle */}
+                <button
+                  onClick={() => {
+                    toggleDarkMode()
+                  }}
+                  className="flex items-center justify-between w-full px-4 py-2 text-sm text-neutral-700 dark:text-neutral-300 hover:bg-neutral-100 dark:hover:bg-neutral-700 transition-colors"
+                >
+                  <span className="flex items-center">
+                    {darkMode ? (
+                      <SunIcon className="h-4 w-4 mr-3 text-neutral-500" />
+                    ) : (
+                      <MoonIcon className="h-4 w-4 mr-3 text-neutral-500" />
+                    )}
+                    {darkMode ? 'Light Mode' : 'Dark Mode'}
+                  </span>
+                  <span className="text-xs text-neutral-400">
+                    {darkMode ? 'On' : 'Off'}
+                  </span>
+                </button>
+              </>
             )}
           </div>
 
@@ -200,6 +216,22 @@ const UnifiedDropdownMenu: React.FC = () => {
                 </Link>
               )}
               
+              {/* Menu Pin Toggle */}
+              <button
+                onClick={() => {
+                  toggleMenuPinned()
+                }}
+                className="flex items-center justify-between w-full px-4 py-2 text-sm text-neutral-700 dark:text-neutral-300 hover:bg-neutral-100 dark:hover:bg-neutral-700 transition-colors"
+              >
+                <span className="flex items-center">
+                  <Bars3Icon className="h-4 w-4 mr-3 text-neutral-500" />
+                  Pin Menu
+                </span>
+                <span className="text-xs text-neutral-400">
+                  {menuPinned ? 'On' : 'Off'}
+                </span>
+              </button>
+
               {/* Dark Mode Toggle */}
               <button
                 onClick={() => {

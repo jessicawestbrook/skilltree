@@ -1,0 +1,81 @@
+2025-08-19 18:34:46,819 - INFO - Initialized processor: PDF folder=C:\Users\jessi\Projects\skilltree2\src\data\spelling_bee\input, Output=C:\Users\jessi\Projects\skilltree2\scripts\spelling_bee\output
+2025-08-19 18:34:46,819 - INFO - === STARTING TEST RUN ===
+2025-08-19 18:34:46,819 - INFO - PDF folder: C:\Users\jessi\Projects\skilltree2\src\data\spelling_bee\input
+2025-08-19 18:34:46,819 - INFO - Output folder: C:\Users\jessi\Projects\skilltree2\scripts\spelling_bee\output
+2025-08-19 18:34:46,819 - INFO - Starting test batch processing (max 50 words)
+2025-08-19 18:34:46,819 - INFO - Extracting words from 2020 Words_of_the_Champions.pdf
+2025-08-19 18:34:46,819 - INFO - Processing PDF: 2020 Words_of_the_Champions.pdf (Year: 2020)
+2025-08-19 18:34:48,367 - INFO - Processed 5/30 pages, found 436 words so far
+2025-08-19 18:34:48,600 - INFO - Processed 10/30 pages, found 1204 words so far
+2025-08-19 18:34:48,768 - INFO - Processed 15/30 pages, found 2175 words so far
+2025-08-19 18:34:48,991 - INFO - Processed 20/30 pages, found 3280 words so far
+2025-08-19 18:34:49,218 - INFO - Processed 25/30 pages, found 3955 words so far
+2025-08-19 18:34:49,850 - INFO - Processed 30/30 pages, found 4940 words so far
+2025-08-19 18:34:49,850 - INFO - Extracted 4940 total words from 2020 Words_of_the_Champions.pdf
+2025-08-19 18:34:49,882 - INFO - Cleaned to 4324 unique valid words
+2025-08-19 18:34:49,882 - INFO - Testing with 50 words
+2025-08-19 18:34:54,201 - INFO - Successfully processed: champions (Level: Elementary)
+2025-08-19 18:34:56,980 - INFO - Successfully processed: words (Level: Elementary)
+2025-08-19 18:34:59,761 - INFO - Successfully processed: greetings (Level: Elementary)
+2025-08-19 18:35:05,807 - INFO - Successfully processed: this (Level: Elementary)
+2025-08-19 18:35:08,702 - INFO - Successfully processed: study (Level: Elementary)
+2025-08-19 18:35:11,494 - INFO - Successfully processed: guide (Level: Elementary)
+2025-08-19 18:35:14,370 - INFO - Successfully processed: dream (Level: Elementary)
+2025-08-19 18:35:17,582 - INFO - Successfully processed: winning (Level: Elementary)
+2025-08-19 18:35:20,431 - INFO - Successfully processed: school (Level: Elementary)
+2025-08-19 18:35:23,277 - INFO - Successfully processed: spelling (Level: Elementary)
+2025-08-19 18:35:23,283 - INFO - Checkpoint saved: 10 words processed
+2025-08-19 18:35:26,214 - INFO - Successfully processed: bee (Level: Elementary)
+2025-08-19 18:35:29,004 - INFO - Successfully processed: even (Level: Elementary)
+2025-08-19 18:35:31,826 - INFO - Successfully processed: attending (Level: Elementary)
+2025-08-19 18:35:33,208 - WARNING - No definition found for 'scripps', adding to review list
+2025-08-19 18:35:36,986 - INFO - Successfully processed: national (Level: Elementary)
+2025-08-19 18:35:39,898 - INFO - Successfully processed: official (Level: Elementary)
+2025-08-19 18:35:42,705 - INFO - Successfully processed: resource (Level: Elementary)
+2025-08-19 18:35:45,784 - INFO - Successfully processed: found (Level: Elementary)
+2025-08-19 18:35:48,813 - INFO - Successfully processed: perfect (Level: Elementary)
+2025-08-19 18:35:51,832 - INFO - Successfully processed: place (Level: Beginner)
+2025-08-19 18:35:54,668 - INFO - Successfully processed: start (Level: Beginner)
+2025-08-19 18:35:54,668 - INFO - Checkpoint saved: 20 words processed
+2025-08-19 18:35:57,694 - INFO - Successfully processed: prepare (Level: Elementary)
+2025-08-19 18:36:01,112 - INFO - Successfully processed: classroom (Level: Elementary)
+2025-08-19 18:36:03,990 - INFO - Successfully processed: grade (Level: Beginner)
+2025-08-19 18:36:06,811 - INFO - Successfully processed: level (Level: Elementary)
+2025-08-19 18:36:09,641 - INFO - Successfully processed: district (Level: Elementary)
+2025-08-19 18:36:13,651 - INFO - Successfully processed: county (Level: Elementary)
+2025-08-19 18:36:16,520 - INFO - Successfully processed: regional (Level: Elementary)
+2025-08-19 18:36:19,341 - INFO - Successfully processed: with (Level: Beginner)
+2025-08-19 18:36:22,302 - INFO - Successfully processed: list (Level: Beginner)
+2025-08-19 18:36:27,589 - INFO - Successfully processed: book (Level: Elementary)
+2025-08-19 18:36:27,589 - INFO - Checkpoint saved: 30 words processed
+2025-08-19 18:36:30,444 - INFO - Successfully processed: have (Level: Elementary)
+2025-08-19 18:36:33,313 - INFO - Successfully processed: been (Level: Elementary)
+2025-08-19 18:36:36,360 - INFO - Successfully processed: selected (Level: Elementary)
+2025-08-19 18:36:40,789 - INFO - Successfully processed: from (Level: Beginner)
+2025-08-19 18:36:44,705 - INFO - Successfully processed: dictionary (Level: Elementary)
+2025-08-19 18:37:07,519 - INFO - Loaded checkpoint: 30 words processed
+2025-08-19 18:37:07,519 - INFO - Initialized processor: PDF folder=C:\Users\jessi\Projects\skilltree2\src\data\spelling_bee\input, Output=C:\Users\jessi\Projects\skilltree2\scripts\spelling_bee\output
+2025-08-19 18:37:07,519 - INFO - === STARTING TEST RUN ===
+2025-08-19 18:37:07,519 - INFO - PDF folder: C:\Users\jessi\Projects\skilltree2\src\data\spelling_bee\input
+2025-08-19 18:37:07,519 - INFO - Output folder: C:\Users\jessi\Projects\skilltree2\scripts\spelling_bee\output
+2025-08-19 18:37:07,519 - INFO - Starting test batch processing (max 50 words)
+2025-08-19 18:37:07,519 - INFO - Extracting words from 2020 Words_of_the_Champions.pdf
+2025-08-19 18:37:07,521 - INFO - Processing PDF: 2020 Words_of_the_Champions.pdf (Year: 2020)
+2025-08-19 18:37:08,704 - INFO - Processed 5/30 pages, found 436 words so far
+2025-08-19 18:37:08,837 - INFO - Processed 10/30 pages, found 1204 words so far
+2025-08-19 18:37:08,983 - INFO - Processed 15/30 pages, found 2175 words so far
+2025-08-19 18:37:09,141 - INFO - Processed 20/30 pages, found 3280 words so far
+2025-08-19 18:37:09,263 - INFO - Processed 25/30 pages, found 3955 words so far
+2025-08-19 18:37:09,549 - INFO - Processed 30/30 pages, found 4940 words so far
+2025-08-19 18:37:09,549 - INFO - Extracted 4940 total words from 2020 Words_of_the_Champions.pdf
+2025-08-19 18:37:09,569 - INFO - Cleaned to 4324 unique valid words
+2025-08-19 18:37:09,570 - INFO - Testing with 50 words
+2025-08-19 18:37:12,345 - INFO - Successfully processed: champions (Level: Elementary)
+2025-08-19 18:37:15,212 - INFO - Successfully processed: words (Level: Elementary)
+2025-08-19 18:37:18,325 - INFO - Successfully processed: greetings (Level: Elementary)
+2025-08-19 18:37:21,171 - INFO - Successfully processed: this (Level: Elementary)
+2025-08-19 18:37:23,978 - INFO - Successfully processed: study (Level: Elementary)
+2025-08-19 18:37:26,809 - INFO - Successfully processed: guide (Level: Elementary)
+2025-08-19 18:37:29,620 - INFO - Successfully processed: dream (Level: Elementary)
+2025-08-19 18:37:32,446 - INFO - Successfully processed: winning (Level: Elementary)
+2025-08-19 18:37:35,365 - INFO - Successfully processed: school (Level: Elementary)

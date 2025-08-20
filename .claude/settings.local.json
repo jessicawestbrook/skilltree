@@ -25,7 +25,18 @@
       "Bash(dir:*)",
       "Bash(ren \"src\\App.test.tsx\" \"src\\App.test.tsx.skip\")",
       "Bash(mv:*)",
-      "Bash(git add:*)"
+      "Bash(git add:*)",
+      "Bash(git push:*)",
+      "Bash(git remote add:*)",
+      "Bash(git fetch:*)",
+      "Bash(git checkout:*)",
+      "Bash(git stash:*)",
+      "Bash(git commit:*)",
+      "Bash(npx eslint:*)",
+      "Bash(TASKKILL /F /PID 21628)",
+      "Bash(PORT=3001 npm start)",
+      "Bash(npx kill-port:*)",
+      "Bash(grep:*)"
     ],
     "deny": [],
     "ask": []

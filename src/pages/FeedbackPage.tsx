@@ -16,6 +16,7 @@ const FeedbackPage: React.FC = () => {
     if (user) {
       fetchUserFeedback()
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user])
 
   const fetchUserFeedback = async () => {

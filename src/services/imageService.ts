@@ -277,5 +277,5 @@ class ImageService {
 
 export const imageService = new ImageService()
 
-// Initialize bucket on service load
-imageService.initializeBucket()
+// Initialize bucket on service load (commented out - bucket created via SQL)
+// imageService.initializeBucket()

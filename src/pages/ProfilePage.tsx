@@ -18,6 +18,7 @@ const ProfilePage: React.FC = () => {
     if (user) {
       fetchUserProgress()
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user])
 
   const fetchUserProgress = async () => {

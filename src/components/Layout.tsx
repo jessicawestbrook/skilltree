@@ -3,6 +3,7 @@ import { Outlet, Link } from 'react-router-dom'
 import { AcademicCapIcon, Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline'
 import { useTheme } from '../contexts/ThemeContext'
 import UnifiedDropdownMenu from './UnifiedDropdownMenu'
+import SearchBar from './SearchBar'
 
 const Layout: React.FC = () => {
   const { menuPinned, toggleMenuPinned } = useTheme()
@@ -49,7 +50,7 @@ const Layout: React.FC = () => {
               </div>
 
               {/* Main Navigation - Hidden on mobile */}
-              <div className="hidden md:flex items-center space-x-1 ml-8">
+              <div className="hidden lg:flex items-center space-x-1 ml-8">
                 <Link 
                   to="/skill-tree" 
                   className="px-3 py-2 text-sm font-medium text-neutral-700 dark:text-neutral-300 hover:text-primary-600 dark:hover:text-primary-400 hover:bg-neutral-50 dark:hover:bg-neutral-700 rounded-lg transition-colors"
@@ -63,6 +64,12 @@ const Layout: React.FC = () => {
                   Spelling Bee
                 </Link>
                 <Link 
+                  to="/vocabulary-trainer" 
+                  className="px-3 py-2 text-sm font-medium text-neutral-700 dark:text-neutral-300 hover:text-primary-600 dark:hover:text-primary-400 hover:bg-neutral-50 dark:hover:bg-neutral-700 rounded-lg transition-colors"
+                >
+                  Vocabulary
+                </Link>
+                <Link 
                   to="/iq-test" 
                   className="px-3 py-2 text-sm font-medium text-neutral-700 dark:text-neutral-300 hover:text-primary-600 dark:hover:text-primary-400 hover:bg-neutral-50 dark:hover:bg-neutral-700 rounded-lg transition-colors"
                 >
@@ -73,12 +80,6 @@ const Layout: React.FC = () => {
                   className="px-3 py-2 text-sm font-medium text-neutral-700 dark:text-neutral-300 hover:text-primary-600 dark:hover:text-primary-400 hover:bg-neutral-50 dark:hover:bg-neutral-700 rounded-lg transition-colors"
                 >
                   Standardized Tests
-                </Link>
-                <Link 
-                  to="/reading-comprehension" 
-                  className="px-3 py-2 text-sm font-medium text-neutral-700 dark:text-neutral-300 hover:text-primary-600 dark:hover:text-primary-400 hover:bg-neutral-50 dark:hover:bg-neutral-700 rounded-lg transition-colors"
-                >
-                  Reading
                 </Link>
                 <Link 
                   to="/career-advancement" 
@@ -94,8 +95,13 @@ const Layout: React.FC = () => {
                 </Link>
               </div>
 
-              {/* Spacer to push everything to the right */}
+              {/* Spacer to push search bar to the right */}
               <div className="flex-1"></div>
+
+              {/* Search Bar */}
+              <div className="flex items-center mx-2 lg:mx-4">
+                <SearchBar placeholder="Search..." className="w-full max-w-48 lg:max-w-64" />
+              </div>
 
               {/* Login */}
               <div className="flex items-center mr-2">

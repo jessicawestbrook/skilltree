@@ -1,0 +1,66 @@
+2025-08-19 19:02:02,097 - INFO - Initialized extractor: PDF folder=C:\Users\jessi\Projects\skilltree2\src\data\spelling_bee\input, Output=C:\Users\jessi\Projects\skilltree2\scripts\spelling_bee\output
+2025-08-19 19:02:02,097 - INFO - === STARTING WORD EXTRACTION ===
+2025-08-19 19:02:02,097 - INFO - Found 6 PDF files to process
+2025-08-19 19:02:02,097 - INFO - Processing 2020 Words_of_the_Champions.pdf
+2025-08-19 19:02:04,269 - INFO - Extracted 4284 potential words from 2020 Words_of_the_Champions.pdf (Year: 2020)
+2025-08-19 19:02:04,270 - INFO - Processing 2021_Printable_Words of the Champions.pdf
+2025-08-19 19:02:05,413 - INFO - Extracted 4204 potential words from 2021_Printable_Words of the Champions.pdf (Year: 2021)
+2025-08-19 19:02:05,414 - INFO - Processing 2022 Words of the Champions_low_ink_printable.pdf
+2025-08-19 19:02:07,666 - INFO - Extracted 4246 potential words from 2022 Words of the Champions_low_ink_printable.pdf (Year: 2022)
+2025-08-19 19:02:07,666 - INFO - Processing 2023_Words_of_the_Champions.pdf
+2025-08-19 19:02:08,376 - INFO - Extracted 4239 potential words from 2023_Words_of_the_Champions.pdf (Year: 2023)
+2025-08-19 19:02:08,376 - INFO - Processing 2024 Words of the Champions.pdf
+2025-08-19 19:02:10,084 - INFO - Extracted 4914 potential words from 2024 Words of the Champions.pdf (Year: 2024)
+2025-08-19 19:02:10,086 - INFO - Processing 2025 Words of Champion _1_.pdf
+2025-08-19 19:02:11,376 - INFO - Extracted 5188 potential words from 2025 Words of Champion _1_.pdf (Year: 2025)
+2025-08-19 19:02:11,422 - INFO - Saved 9859 unique words to C:\Users\jessi\Projects\skilltree2\scripts\spelling_bee\output\extracted_words_for_review.csv
+2025-08-19 19:02:11,424 - INFO - === EXTRACTION COMPLETED ===
+2025-08-19 19:02:11,425 - INFO - Total words extracted: 27075
+2025-08-19 19:02:11,425 - INFO - Unique words: 9859
+2025-08-19 19:02:11,425 - INFO - Word list saved to: C:\Users\jessi\Projects\skilltree2\scripts\spelling_bee\output\extracted_words_for_review.csv
+2025-08-19 19:02:11,425 - INFO - Statistics saved to: C:\Users\jessi\Projects\skilltree2\scripts\spelling_bee\output\extraction_stats.txt
+2025-08-19 19:02:11,425 - ERROR - Fatal error during extraction: 'charmap' codec can't encode character '\u2705' in position 2: character maps to <undefined>
+2025-08-19 19:12:19,562 - INFO - Initialized extractor: PDF folder=C:\Users\jessi\Projects\skilltree2\src\data\spelling_bee\input, Output=C:\Users\jessi\Projects\skilltree2\scripts\spelling_bee\output
+2025-08-19 19:12:19,562 - INFO - === STARTING WORD EXTRACTION ===
+2025-08-19 19:12:19,562 - INFO - Found 6 PDF files to process
+2025-08-19 19:12:19,562 - INFO - Processing 2020 Words_of_the_Champions.pdf
+2025-08-19 19:12:21,591 - INFO - Extracted 4284 potential words from 2020 Words_of_the_Champions.pdf (Year: 2020)
+2025-08-19 19:12:21,593 - INFO - Processing 2021_Printable_Words of the Champions.pdf
+2025-08-19 19:12:22,707 - INFO - Extracted 4204 potential words from 2021_Printable_Words of the Champions.pdf (Year: 2021)
+2025-08-19 19:12:22,708 - INFO - Processing 2022 Words of the Champions_low_ink_printable.pdf
+2025-08-19 19:12:24,563 - INFO - Extracted 4246 potential words from 2022 Words of the Champions_low_ink_printable.pdf (Year: 2022)
+2025-08-19 19:12:24,563 - INFO - Processing 2023_Words_of_the_Champions.pdf
+2025-08-19 19:12:25,254 - INFO - Extracted 4239 potential words from 2023_Words_of_the_Champions.pdf (Year: 2023)
+2025-08-19 19:12:25,255 - INFO - Processing 2024 Words of the Champions.pdf
+2025-08-19 19:12:26,830 - INFO - Extracted 4914 potential words from 2024 Words of the Champions.pdf (Year: 2024)
+2025-08-19 19:12:26,830 - INFO - Processing 2025 Words of Champion _1_.pdf
+2025-08-19 19:12:27,983 - INFO - Extracted 5188 potential words from 2025 Words of Champion _1_.pdf (Year: 2025)
+2025-08-19 19:12:28,013 - INFO - Saved 9859 unique words to C:\Users\jessi\Projects\skilltree2\scripts\spelling_bee\output\extracted_words_for_review.csv
+2025-08-19 19:12:28,013 - INFO - === EXTRACTION COMPLETED ===
+2025-08-19 19:12:28,013 - INFO - Total words extracted: 27075
+2025-08-19 19:12:28,013 - INFO - Unique words: 9859
+2025-08-19 19:12:28,013 - INFO - Word list saved to: C:\Users\jessi\Projects\skilltree2\scripts\spelling_bee\output\extracted_words_for_review.csv
+2025-08-19 19:12:28,013 - INFO - Statistics saved to: C:\Users\jessi\Projects\skilltree2\scripts\spelling_bee\output\extraction_stats.txt
+2025-08-19 19:12:28,013 - ERROR - Fatal error during extraction: 'charmap' codec can't encode character '\u2705' in position 2: character maps to <undefined>
+2025-08-19 19:14:54,022 - INFO - Initialized extractor: PDF folder=C:\Users\jessi\Projects\skilltree2\src\data\spelling_bee\input, Output=C:\Users\jessi\Projects\skilltree2\scripts\spelling_bee\output
+2025-08-19 19:14:54,022 - INFO - === STARTING WORD EXTRACTION ===
+2025-08-19 19:14:54,022 - INFO - Found 6 PDF files to process
+2025-08-19 19:14:54,022 - INFO - Processing 2020 Words_of_the_Champions.pdf
+2025-08-19 19:14:56,000 - INFO - Extracted 4284 potential words from 2020 Words_of_the_Champions.pdf (Year: 2020)
+2025-08-19 19:14:56,001 - INFO - Processing 2021_Printable_Words of the Champions.pdf
+2025-08-19 19:14:57,138 - INFO - Extracted 4204 potential words from 2021_Printable_Words of the Champions.pdf (Year: 2021)
+2025-08-19 19:14:57,138 - INFO - Processing 2022 Words of the Champions_low_ink_printable.pdf
+2025-08-19 19:14:58,952 - INFO - Extracted 4246 potential words from 2022 Words of the Champions_low_ink_printable.pdf (Year: 2022)
+2025-08-19 19:14:58,954 - INFO - Processing 2023_Words_of_the_Champions.pdf
+2025-08-19 19:14:59,642 - INFO - Extracted 4239 potential words from 2023_Words_of_the_Champions.pdf (Year: 2023)
+2025-08-19 19:14:59,644 - INFO - Processing 2024 Words of the Champions.pdf
+2025-08-19 19:15:01,247 - INFO - Extracted 4914 potential words from 2024 Words of the Champions.pdf (Year: 2024)
+2025-08-19 19:15:01,249 - INFO - Processing 2025 Words of Champion _1_.pdf
+2025-08-19 19:15:02,468 - INFO - Extracted 5188 potential words from 2025 Words of Champion _1_.pdf (Year: 2025)
+2025-08-19 19:15:02,542 - INFO - Saved 9859 unique words to C:\Users\jessi\Projects\skilltree2\scripts\spelling_bee\output\extracted_words_for_review.csv
+2025-08-19 19:15:02,543 - INFO - === EXTRACTION COMPLETED ===
+2025-08-19 19:15:02,543 - INFO - Total words extracted: 27075
+2025-08-19 19:15:02,543 - INFO - Unique words: 9859
+2025-08-19 19:15:02,543 - INFO - Word list saved to: C:\Users\jessi\Projects\skilltree2\scripts\spelling_bee\output\extracted_words_for_review.csv
+2025-08-19 19:15:02,544 - INFO - Statistics saved to: C:\Users\jessi\Projects\skilltree2\scripts\spelling_bee\output\extraction_stats.txt
+2025-08-19 19:15:02,544 - ERROR - Fatal error during extraction: 'charmap' codec can't encode character '\u2705' in position 2: character maps to <undefined>

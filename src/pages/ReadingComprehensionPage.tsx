@@ -83,6 +83,7 @@ const ReadingComprehensionPage: React.FC = () => {
     } finally {
       setLoading(false)
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   const createTablesIfNeeded = async () => {

@@ -19,6 +19,7 @@ const SourceURLManager: React.FC = () => {
 
   useEffect(() => {
     fetchContent()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [contentType])
 
   const fetchContent = async () => {

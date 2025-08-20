@@ -2,10 +2,10 @@ import React from 'react'
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import { AuthProvider } from './contexts/AuthContext'
 import { ThemeProvider } from './contexts/ThemeContext'
+import { SpellingBeeProvider } from './contexts/SpellingBeeContext'
 import Layout from './components/Layout'
 import HomePage from './pages/HomePage'
 import SkillTreePage from './pages/SkillTreePage'
-import UnifiedSkillTreePage from './pages/UnifiedSkillTreePage'
 import TextOnlySkillTreePage from './pages/TextOnlySkillTreePage'
 import SimpleLearningPage from './pages/SimpleLearningPage'
 import ProfilePage from './pages/ProfilePage'
@@ -23,20 +23,23 @@ import SearchPage from './pages/SearchPage'
 import ContentManagementPage from './pages/ContentManagementPage'
 import SpellingBeePage from './pages/SpellingBeePage'
 import ReadingComprehensionPage from './pages/ReadingComprehensionPage'
-import DocumentationPage from './pages/DocumentationPage'
 import IntroAssessmentPage from './pages/IntroAssessmentPage'
 import IQTestPage from './pages/IQTestPage'
 import StandardizedTestsPage from './pages/StandardizedTestsPage'
 import CareerAdvancementPage from './pages/CareerAdvancementPage'
 import LearningPathsPage from './pages/LearningPathsPage'
+import AdminSpellingBeePage from './pages/AdminSpellingBeePage'
+import SpellingBeeSetupPage from './pages/SpellingBeeSetupPage'
+import VocabularyTrainerPage from './pages/VocabularyTrainerPage'
 import ProtectedRoute from './components/ProtectedRoute'
 
 function App() {
   return (
     <ThemeProvider>
       <AuthProvider>
-        <Router>
-          <Routes>
+        <SpellingBeeProvider>
+          <Router>
+            <Routes>
             <Route path="/login" element={<LoginPage />} />
             <Route path="/signup" element={<SignUpPage />} />
             <Route path="/password-reset" element={<PasswordResetPage />} />
@@ -45,7 +48,6 @@ function App() {
             <Route path="/" element={<Layout />}>
               <Route index element={<HomePage />} />
               <Route path="skill-tree" element={<SkillTreePage />} />
-              <Route path="unified-tree" element={<UnifiedSkillTreePage />} />
               <Route path="text-tree" element={<TextOnlySkillTreePage />} />
               <Route path="category/:categoryId" element={<CategoryPage />} />
               <Route
@@ -76,8 +78,9 @@ function App() {
               <Route path="settings" element={<SettingsPage />} />
               <Route path="search" element={<SearchPage />} />
               <Route path="spelling-bee" element={<SpellingBeePage />} />
+              <Route path="spelling-bee-setup" element={<SpellingBeeSetupPage />} />
+              <Route path="vocabulary-trainer" element={<VocabularyTrainerPage />} />
               <Route path="reading-comprehension" element={<ReadingComprehensionPage />} />
-              <Route path="documentation" element={<DocumentationPage />} />
               <Route path="intro-assessment" element={<IntroAssessmentPage />} />
               <Route path="iq-test" element={<IQTestPage />} />
               <Route path="standardized-tests" element={<StandardizedTestsPage />} />
@@ -92,6 +95,14 @@ function App() {
                 }
               />
               <Route
+                path="admin/spelling-bee"
+                element={
+                  <ProtectedRoute>
+                    <AdminSpellingBeePage />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
                 path="content-management"
                 element={
                   <ProtectedRoute>
@@ -102,6 +113,7 @@ function App() {
             </Route>
           </Routes>
         </Router>
+        </SpellingBeeProvider>
       </AuthProvider>
     </ThemeProvider>
   )

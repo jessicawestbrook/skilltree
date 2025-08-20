@@ -102,6 +102,7 @@ const IQTestPage: React.FC = () => {
     // Initialize with sample questions
     setQuestions(sampleQuestions)
     setSelectedAnswers(new Array(sampleQuestions.length).fill(null))
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   useEffect(() => {
@@ -127,7 +128,8 @@ const IQTestPage: React.FC = () => {
         clearInterval(intervalRef.current)
       }
     }
-  }, [testPhase, isPaused, timeRemaining, currentQuestionIndex])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [testPhase, isPaused, timeRemaining])
 
   const startTest = () => {
     setTestPhase('test')

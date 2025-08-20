@@ -1,0 +1,35 @@
+Spelling Bee Word Extraction Statistics
+==================================================
+
+File: 2020 Words_of_the_Champions.pdf
+Year: 2020
+Words extracted: 4284
+Sample words: abandon, abated, abattoir, aberration, abeyance, abhenry, abhijay, abhorrence, ablaut, abnegation
+------------------------------
+File: 2021_Printable_Words of the Champions.pdf
+Year: 2021
+Words extracted: 4204
+Sample words: aachen, aardvark, abandon, abattoir, aberration, abeyance, abhenry, abhorrence, ablaut, abnegationbeguile
+------------------------------
+File: 2022 Words of the Champions_low_ink_printable.pdf
+Year: 2022
+Words extracted: 4246
+Sample words: aardvark, abaculus, abaft, abalones, abandon, abdomen, aberration, abeyance, abhorrence, ablaut
+------------------------------
+File: 2023_Words_of_the_Champions.pdf
+Year: 2023
+Words extracted: 4239
+Sample words: aardvark, abaculus, abaft, abandon, aberration, abeyance, abhorrence, ablaut, abnegationbeguile, abodes
+------------------------------
+File: 2024 Words of the Champions.pdf
+Year: 2024
+Words extracted: 4914
+Sample words: aardvark, abaculus, abaft, abandon, abashed, aberration, abject, ablation, ablaut, able
+------------------------------
+File: 2025 Words of Champion _1_.pdf
+Year: 2025
+Words extracted: 5188
+Sample words: abaculus, abaft, abandoned, abashed, abbreviations, aberration, abject, ablation, ablaut, ablaze
+------------------------------
+
+Total unique words across all files: 27075

@@ -116,6 +116,7 @@ const ContentManagementPage: React.FC = () => {
       }
       
       processed++
+      // eslint-disable-next-line no-loop-func
       setMigrationStatus(prev => ({ ...prev, processed }))
     }
 

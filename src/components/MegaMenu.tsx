@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom'
 import { supabase } from '../services/supabase'
 import { SkillTreeNode } from '../types/database.types'
 import { ChevronRightIcon } from '@heroicons/react/24/outline'
-import { cacheService } from '../services/cache'
 
 interface CategoryChildren {
   directChildren: SkillTreeNode[]
@@ -21,70 +20,102 @@ const MegaMenu: React.FC = () => {
 
   const fetchTopCategories = async () => {
     try {
-      const cachedNodes = cacheService.get<SkillTreeNode[]>('skill_tree_nodes')
-      let allNodes: SkillTreeNode[]
-      
-      if (cachedNodes) {
-        allNodes = cachedNodes
-      } else {
-        // Fetch all nodes with pagination
-        allNodes = []
-        const pageSize = 1000
-        let offset = 0
-        let hasMore = true
-        
-        while (hasMore) {
-          const { data, error } = await supabase
-            .from('skill_tree_nodes')
-            .select('*')
-            .range(offset, offset + pageSize - 1)
-            .order('name')
-          
-          if (error) throw error
-          
-          if (data && data.length > 0) {
-            allNodes.push(...data)
-            offset += pageSize
-            hasMore = data.length === pageSize
-          } else {
-            hasMore = false
-          }
-        }
-        
-        console.log('MegaMenu - Fetched nodes:', allNodes.length)
-        cacheService.set('skill_tree_nodes', allNodes)
+      // Step 1: Find root nodes efficiently
+      const { data: rootNodes, error: rootError } = await supabase
+        .from('skill_tree_nodes')
+        .select('id, name')
+        .is('parent_id', null)
+        .eq('type', 'category')
+        .limit(5)
+
+      if (rootError) throw rootError
+      if (!rootNodes || rootNodes.length === 0) {
+        setTopCategories([])
+        setLoading(false)
+        return
       }
 
-      const nodeIds = new Set(allNodes.map(n => n.id))
-      const rootNodes = allNodes.filter(node => !node.parent_id || !nodeIds.has(node.parent_id))
-      
-      const topLevelCategories = rootNodes.length > 0 
-        ? allNodes.filter(n => rootNodes.some(r => r.id === n.parent_id))
-            .filter(n => n.type === 'category')
-            .slice(0, 3)
-        : []
+      // Step 2: Get 2nd level categories (children of root)
+      const { data: secondLevel, error: secondError } = await supabase
+        .from('skill_tree_nodes')
+        .select('id, name, parent_id')
+        .in('parent_id', rootNodes.map(r => r.id))
+        .eq('type', 'category')
+        .order('name')
+
+      if (secondError) throw secondError
+      if (!secondLevel || secondLevel.length === 0) {
+        setTopCategories([])
+        setLoading(false)
+        return
+      }
+
+      // Step 3: Get 3rd level categories (our main display categories)
+      const { data: thirdLevel, error: thirdError } = await supabase
+        .from('skill_tree_nodes')
+        .select('*')
+        .in('parent_id', secondLevel.map(s => s.id))
+        .eq('type', 'category')
+        .order('name')
+        .limit(9)
+
+      if (thirdError) throw thirdError
+      const topLevelCategories = thirdLevel || []
 
       setTopCategories(topLevelCategories)
+      console.log('MegaMenu - Fetched 3rd level nodes:', topLevelCategories.length)
 
-      const childMap: Record<string, CategoryChildren> = {}
-      topLevelCategories.forEach(category => {
-        // Get all direct children of each top category
-        const directChildren = allNodes
-          .filter(n => n.parent_id === category.id)
+      // Step 4: Get children and grandchildren for each top category
+      if (topLevelCategories.length > 0) {
+        const categoryIds = topLevelCategories.map(c => c.id)
         
-        // For each direct child that is a category, also get its children (grandchildren)
-        const grandchildMap: Record<string, SkillTreeNode[]> = {}
-        directChildren.forEach(child => {
-          if (child.type === 'category') {
-            grandchildMap[child.id] = allNodes
-              .filter(n => n.parent_id === child.id)
-              .slice(0, 5) // Limit grandchildren to keep it manageable
+        // Get direct children (4th level)
+        const { data: children, error: childrenError } = await supabase
+          .from('skill_tree_nodes')
+          .select('*')
+          .in('parent_id', categoryIds)
+          .order('name')
+
+        if (childrenError) throw childrenError
+
+        // Get grandchildren (5th level) for categories that are children
+        const categoryChildren = (children || []).filter(c => c.type === 'category')
+        let grandchildren: SkillTreeNode[] = []
+        
+        if (categoryChildren.length > 0) {
+          const { data: grandchildrenData, error: grandchildrenError } = await supabase
+            .from('skill_tree_nodes')
+            .select('*')
+            .in('parent_id', categoryChildren.map(c => c.id))
+            .order('name')
+
+          if (grandchildrenError) throw grandchildrenError
+          grandchildren = grandchildrenData || []
+        }
+
+        // Organize the data structure
+        const childMap: Record<string, CategoryChildren> = {}
+        topLevelCategories.forEach(category => {
+          const directChildren = (children || []).filter(n => n.parent_id === category.id)
+          
+          const grandchildMap: Record<string, SkillTreeNode[]> = {}
+          directChildren.forEach(child => {
+            if (child.type === 'category') {
+              grandchildMap[child.id] = grandchildren
+                .filter(n => n.parent_id === child.id)
+                .slice(0, 5) // Limit grandchildren
+            }
+          })
+          
+          childMap[category.id] = { 
+            directChildren: directChildren.slice(0, 10), // Limit direct children
+            grandchildMap 
           }
         })
         
-        childMap[category.id] = { directChildren, grandchildMap }
-      })
-      setChildNodes(childMap)
+        setChildNodes(childMap)
+        console.log('MegaMenu - Total nodes fetched:', topLevelCategories.length + (children?.length || 0) + grandchildren.length)
+      }
     } catch (error) {
       console.error('Error fetching categories:', error)
     } finally {
@@ -115,40 +146,31 @@ const MegaMenu: React.FC = () => {
   }
 
   return (
-    <section className="bg-white dark:bg-neutral-900 rounded-xl shadow-lg p-8">
-      <h2 className="text-3xl font-bold text-center mb-8">
-        Explore Learning Categories
-      </h2>
-      
-      <div className="grid lg:grid-cols-3 md:grid-cols-2 gap-8">
+    <section className="bg-white dark:bg-neutral-900 rounded-xl shadow-lg p-4 mb-8">
+      <div className="grid lg:grid-cols-3 md:grid-cols-2 gap-4">
         {topCategories.map(category => (
-          <div key={category.id} className="space-y-4">
+          <div key={category.id} className="space-y-2">
             <Link
               to={`/category/${category.id}`}
               className="block group"
             >
-              <div className="flex items-center justify-between p-4 bg-gradient-to-r from-primary-50 to-gold-50 dark:from-primary-900/20 dark:to-gold-900/20 rounded-lg hover:shadow-md transition-all">
+              <div className="flex items-center justify-between p-2 bg-gradient-to-r from-primary-50 to-gold-50 dark:from-primary-900/20 dark:to-gold-900/20 rounded-lg hover:shadow-md transition-all">
                 <div>
-                  <h3 className="text-xl font-semibold text-primary-700 dark:text-primary-400 group-hover:text-primary-800 dark:group-hover:text-primary-300">
+                  <h3 className="text-lg font-semibold text-primary-700 dark:text-primary-400 group-hover:text-primary-800 dark:group-hover:text-primary-300">
                     {category.name}
                   </h3>
-                  {category.learning_area && (
-                    <p className="text-sm text-neutral-600 dark:text-neutral-400 mt-1">
-                      {category.learning_area}
-                    </p>
-                  )}
                 </div>
-                <ChevronRightIcon className="h-5 w-5 text-primary-600 dark:text-primary-400 group-hover:translate-x-1 transition-transform" />
+                <ChevronRightIcon className="h-4 w-4 text-primary-600 dark:text-primary-400 group-hover:translate-x-1 transition-transform" />
               </div>
             </Link>
             
             {childNodes[category.id] && childNodes[category.id].directChildren.length > 0 && (
-              <div className="space-y-2 max-h-96 overflow-y-auto custom-scrollbar">
-                {childNodes[category.id].directChildren.slice(0, 15).map(child => (
-                  <div key={child.id} className="border-l-2 border-neutral-200 dark:border-neutral-700 pl-3 ml-2">
+              <div className="space-y-1 max-h-64 overflow-y-auto custom-scrollbar">
+                {childNodes[category.id].directChildren.slice(0, 10).map(child => (
+                  <div key={child.id} className="border-l border-neutral-200 dark:border-neutral-700 pl-2 ml-1">
                     <Link
                       to={`/skill-tree?node=${child.id}`}
-                      className="block py-1 px-2 text-sm font-medium text-neutral-700 dark:text-neutral-300 hover:bg-neutral-50 dark:hover:bg-neutral-800 rounded transition-colors hover:text-primary-600 dark:hover:text-primary-400"
+                      className="block py-0.5 px-1 text-xs font-medium text-neutral-700 dark:text-neutral-300 hover:bg-neutral-50 dark:hover:bg-neutral-800 rounded transition-colors hover:text-primary-600 dark:hover:text-primary-400"
                     >
                       <div className="flex items-center gap-2">
                         <span className={`inline-block w-2 h-2 rounded-full flex-shrink-0 ${
@@ -164,30 +186,30 @@ const MegaMenu: React.FC = () => {
                     {/* Show grandchildren if this is a category */}
                     {child.type === 'category' && childNodes[category.id].grandchildMap[child.id] && 
                      childNodes[category.id].grandchildMap[child.id].length > 0 && (
-                      <div className="pl-4 mt-1 space-y-0.5 border-l border-neutral-100 dark:border-neutral-800 ml-1">
-                        {childNodes[category.id].grandchildMap[child.id].slice(0, 3).map(grandchild => (
+                      <div className="pl-2 mt-0.5 space-y-0 border-l border-neutral-100 dark:border-neutral-800 ml-1">
+                        {childNodes[category.id].grandchildMap[child.id].slice(0, 2).map(grandchild => (
                           <Link
                             key={grandchild.id}
                             to={`/skill-tree?node=${grandchild.id}`}
-                            className="block py-0.5 px-2 text-xs text-neutral-500 dark:text-neutral-400 hover:text-primary-600 dark:hover:text-primary-400 transition-colors truncate"
+                            className="block py-0 px-1 text-xs text-neutral-500 dark:text-neutral-400 hover:text-primary-600 dark:hover:text-primary-400 transition-colors truncate"
                           >
                             {grandchild.name}
                           </Link>
                         ))}
-                        {childNodes[category.id].grandchildMap[child.id].length > 3 && (
-                          <span className="block py-0.5 px-2 text-xs text-neutral-400 dark:text-neutral-500">
-                            +{childNodes[category.id].grandchildMap[child.id].length - 3} more...
+                        {childNodes[category.id].grandchildMap[child.id].length > 2 && (
+                          <span className="block py-0 px-1 text-xs text-neutral-400 dark:text-neutral-500">
+                            +{childNodes[category.id].grandchildMap[child.id].length - 2} more...
                           </span>
                         )}
                       </div>
                     )}
                   </div>
                 ))}
-                {childNodes[category.id].directChildren.length > 15 && (
-                  <div className="pt-2 mt-2 border-t border-neutral-200 dark:border-neutral-700">
+                {childNodes[category.id].directChildren.length > 10 && (
+                  <div className="pt-1 mt-1 border-t border-neutral-200 dark:border-neutral-700">
                     <Link
                       to={`/category/${category.id}`}
-                      className="block py-2 px-3 text-sm font-medium text-primary-600 hover:text-primary-700 dark:text-primary-400 dark:hover:text-primary-300 text-center"
+                      className="block py-1 px-2 text-xs font-medium text-primary-600 hover:text-primary-700 dark:text-primary-400 dark:hover:text-primary-300 text-center"
                     >
                       View all {childNodes[category.id].directChildren.length} subcategories →
                     </Link>
@@ -199,13 +221,13 @@ const MegaMenu: React.FC = () => {
         ))}
       </div>
 
-      <div className="mt-8 text-center">
+      <div className="mt-4 text-center">
         <Link 
           to="/skill-tree" 
-          className="inline-flex items-center gap-2 text-primary-600 hover:text-primary-700 dark:text-primary-400 dark:hover:text-primary-300 font-medium"
+          className="inline-flex items-center gap-1 text-sm text-primary-600 hover:text-primary-700 dark:text-primary-400 dark:hover:text-primary-300 font-medium"
         >
           View Complete Skill Tree
-          <ChevronRightIcon className="h-5 w-5" />
+          <ChevronRightIcon className="h-4 w-4" />
         </Link>
       </div>
     </section>

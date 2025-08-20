@@ -6,10 +6,8 @@ import {
   ChartBarIcon,
   UserGroupIcon,
   BookOpenIcon,
-  TrophyIcon,
-  MagnifyingGlassIcon
+  TrophyIcon
 } from '@heroicons/react/24/outline'
-import SearchBar from '../components/SearchBar'
 import MegaMenu from '../components/MegaMenu'
 import { useAuth } from '../contexts/AuthContext'
 
@@ -50,45 +48,22 @@ const HomePage: React.FC = () => {
   ]
 
   return (
-    <div className="space-y-12">
-      <section className="text-center py-12">
+    <div className="space-y-2">
+      <section className="text-center py-6">
         <h1 className="text-5xl font-bold mb-4">
           <span className="bg-gradient-to-r from-primary-600 to-gold-500 bg-clip-text text-transparent">
             Welcome to SkillTree
           </span>
         </h1>
-        <p className="text-xl text-neutral-600 dark:text-neutral-400 max-w-3xl mx-auto mb-8">
+        <p className="text-xl text-neutral-600 dark:text-neutral-400 max-w-3xl mx-auto mb-4">
           Your path to mastering everything you've ever dreamed of learning. 
           Navigate knowledge like a video game and level up your skills.
         </p>
-        <div className="flex gap-4 justify-center mb-8">
-          <Link to="/skill-tree" className="btn-primary text-lg px-8 py-3">
-            Explore Skill Tree
-          </Link>
-          <Link to="/signup" className="btn-secondary text-lg px-8 py-3">
-            Get Started Free
-          </Link>
-        </div>
-        
-        {/* Search Bar */}
-        <div className="max-w-2xl mx-auto">
-          <SearchBar placeholder="Search for any topic you want to learn..." />
-          <div className="mt-3 text-center">
-            <Link 
-              to="/search" 
-              className="text-sm text-primary-600 hover:text-primary-700 dark:text-primary-400 flex items-center justify-center gap-1"
-            >
-              <MagnifyingGlassIcon className="h-4 w-4" />
-              Advanced Search
-            </Link>
-          </div>
-        </div>
       </section>
 
-      {/* Mega Menu - Top 3 Skill Tree Categories */}
       <MegaMenu />
 
-      <section>
+      <section className="mt-12">
         <h2 className="text-3xl font-bold text-center mb-8">
           Learning That Feels Like Playing
         </h2>

@@ -1,0 +1,15 @@
+Actual Combined Words Found in Spelling Bee Data
+===============================================
+
+These are clearly combined words that need to be separated:
+
+1. abnegationbeguile → abnegation + beguile
+2. beatificbeguile → beatific + beguile  
+3. spellingingot → spelling + ingot
+
+RECOMMENDATION:
+- Remove these combined words from the word list
+- Add the individual component words separately if they don't already exist
+- Review the PDF extraction logic to prevent word concatenation during processing
+
+Note: Words like "bringing", "distinguishing", "ringing", "singing" are legitimate single words and should NOT be split.

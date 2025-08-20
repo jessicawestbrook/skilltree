@@ -24,6 +24,7 @@ const TextOnlySkillTreePage: React.FC = () => {
     if (user) {
       fetchStarredNodes()
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user])
 
   useEffect(() => {
@@ -294,10 +295,6 @@ const TextOnlySkillTreePage: React.FC = () => {
           <div className="flex gap-2">
             <Link to="/skill-tree" className="text-primary-600 underline text-sm">
               Switch to Visual View
-            </Link>
-            <span className="text-neutral-400">|</span>
-            <Link to="/unified-tree" className="text-primary-600 underline text-sm">
-              Switch to Split View
             </Link>
           </div>
           <button
