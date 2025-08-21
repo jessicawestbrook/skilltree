@@ -5,6 +5,7 @@ export interface SkillTreeNode {
   type: string
   path: string
   learning_area: string
+  description?: string
   metadata: any
   display_order: number
   created_at: string

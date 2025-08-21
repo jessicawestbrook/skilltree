@@ -6,14 +6,16 @@ import {
   ChartBarIcon, 
   BookOpenIcon,
   StarIcon,
-  UserGroupIcon,
-  ClockIcon
+  ClockIcon,
+  TrophyIcon,
+  BoltIcon
 } from '@heroicons/react/24/outline'
 import { StarIcon as StarIconSolid } from '@heroicons/react/24/solid'
 import { useAuth } from '../contexts/AuthContext'
 import { SkillTreeNode } from '../types/database.types'
 import LearningContentModal from '../components/LearningContentModal'
-import CompetencyAssessment from '../components/CompetencyAssessment'
+import AdaptiveAssessment from '../components/AdaptiveAssessment'
+import { AssessmentSession } from '../services/adaptiveAssessmentService'
 
 const CategoryPage: React.FC = () => {
   const { categoryId } = useParams()
@@ -21,6 +23,7 @@ const CategoryPage: React.FC = () => {
   const navigate = useNavigate()
   const [category, setCategory] = useState<SkillTreeNode | null>(null)
   const [subcategories, setSubcategories] = useState<SkillTreeNode[]>([])
+  const [subcategoryChildren, setSubcategoryChildren] = useState<Record<string, SkillTreeNode[]>>({})
   const [loading, setLoading] = useState(true)
   const [isStarred, setIsStarred] = useState(false)
   const [stats, setStats] = useState({
@@ -31,6 +34,7 @@ const CategoryPage: React.FC = () => {
   })
   const [selectedNode, setSelectedNode] = useState<SkillTreeNode | null>(null)
   const [showLearningModal, setShowLearningModal] = useState(false)
+  const [showAdaptiveAssessment, setShowAdaptiveAssessment] = useState(false)
 
   useEffect(() => {
     if (categoryId) {
@@ -61,6 +65,25 @@ const CategoryPage: React.FC = () => {
 
       if (subcategoriesError) throw subcategoriesError
       setSubcategories(subcategoriesData || [])
+
+      // Fetch children for each subcategory
+      const childrenData: Record<string, SkillTreeNode[]> = {}
+      if (subcategoriesData) {
+        for (const subcat of subcategoriesData) {
+          const { data: children, error: childrenError } = await supabase
+            .from('skill_tree_nodes')
+            .select('*')
+            .eq('parent_id', subcat.id)
+            .order('display_order', { nullsFirst: false })
+            .order('name')
+            .limit(5) // Limit to first 5 children to avoid clutter
+
+          if (!childrenError && children) {
+            childrenData[subcat.id] = children
+          }
+        }
+      }
+      setSubcategoryChildren(childrenData)
 
       // Calculate stats
       const allDescendants = await fetchAllDescendants(categoryId!)
@@ -290,72 +313,122 @@ const CategoryPage: React.FC = () => {
         </div>
       </div>
 
-      {/* Competency Assessment */}
-      <div className="mb-6">
-        <CompetencyAssessment
-          categoryId={categoryId!}
-          categoryName={category.name}
-          onComplete={(score, passed) => {
-            // Update user progress when assessment is completed
-            if (user && passed) {
-              supabase
-                .from('user_progress')
-                .upsert({
-                  user_id: user.id,
-                  skill_node_id: categoryId,
-                  status: 'completed',
-                  rating: score,
-                  last_accessed: new Date().toISOString()
-                })
-                .then(() => {
-                  // Refresh category data to update progress
-                  fetchCategoryData()
-                })
-            }
-          }}
-        />
+      {/* Adaptive Assessment */}
+      <div className="bg-white dark:bg-neutral-800 rounded-xl shadow-lg p-6 mb-6">
+        <div className="flex items-center justify-between">
+          <div className="flex items-center gap-4">
+            <div className="p-3 bg-gold-100 dark:bg-gold-900/30 rounded-lg">
+              <TrophyIcon className="h-8 w-8 text-gold-600 dark:text-gold-400" />
+            </div>
+            <div>
+              <h2 className="text-xl font-bold text-neutral-900 dark:text-white">
+                Rate Your Knowledge
+              </h2>
+              <p className="text-neutral-600 dark:text-neutral-400">
+                Take an adaptive assessment to earn points and demonstrate your skills in {category.name}
+              </p>
+            </div>
+          </div>
+          <button
+            onClick={() => setShowAdaptiveAssessment(true)}
+            className="px-6 py-3 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition-colors flex items-center gap-2 font-medium"
+          >
+            <BoltIcon className="h-5 w-5" />
+            Start Assessment
+          </button>
+        </div>
+        
+        <div className="mt-4 grid grid-cols-1 md:grid-cols-3 gap-4">
+          <div className="bg-neutral-50 dark:bg-neutral-900 rounded-lg p-4">
+            <div className="flex items-center gap-2 text-gold-600 dark:text-gold-400 mb-2">
+              <BoltIcon className="h-5 w-5" />
+              <span className="font-medium">Computer Adaptive</span>
+            </div>
+            <p className="text-sm text-neutral-600 dark:text-neutral-400">
+              Questions adapt to your skill level in real-time
+            </p>
+          </div>
+          
+          <div className="bg-neutral-50 dark:bg-neutral-900 rounded-lg p-4">
+            <div className="flex items-center gap-2 text-primary-600 dark:text-primary-400 mb-2">
+              <TrophyIcon className="h-5 w-5" />
+              <span className="font-medium">Point-Based Scoring</span>
+            </div>
+            <p className="text-sm text-neutral-600 dark:text-neutral-400">
+              Earn more points for harder questions
+            </p>
+          </div>
+          
+          <div className="bg-neutral-50 dark:bg-neutral-900 rounded-lg p-4">
+            <div className="flex items-center gap-2 text-green-600 dark:text-green-400 mb-2">
+              <ClockIcon className="h-5 w-5" />
+              <span className="font-medium">Flexible Length</span>
+            </div>
+            <p className="text-sm text-neutral-600 dark:text-neutral-400">
+              Stop anytime or continue for higher scores
+            </p>
+          </div>
+        </div>
       </div>
 
       {/* Subcategories Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-        {subcategories.map(subcat => (
-          <div
-            key={subcat.id}
-            onClick={() => handleNodeClick(subcat)}
-            className="bg-white dark:bg-neutral-800 rounded-lg shadow hover:shadow-lg transition-all cursor-pointer p-4"
-          >
-            <div className="flex items-start justify-between mb-2">
-              <h3 className="font-semibold text-neutral-900 dark:text-white">
-                {subcat.name}
-              </h3>
-              {(subcat.type as string) === 'category' && (
-                <span className="text-xs bg-primary-100 dark:bg-primary-900/30 text-primary-700 dark:text-primary-400 px-2 py-1 rounded">
-                  Category
-                </span>
+        {subcategories.map(subcat => {
+          const children = subcategoryChildren[subcat.id] || []
+          return (
+            <div
+              key={subcat.id}
+              className="bg-white dark:bg-neutral-800 rounded-lg shadow hover:shadow-lg transition-all p-4"
+            >
+              <div className="flex items-start justify-between mb-3">
+                <h3 
+                  className="font-semibold text-neutral-900 dark:text-white cursor-pointer hover:text-primary-600"
+                  onClick={() => handleNodeClick(subcat)}
+                >
+                  {subcat.name}
+                </h3>
+                {(subcat.type as string) === 'category' && (
+                  <span className="text-xs bg-primary-100 dark:bg-primary-900/30 text-primary-700 dark:text-primary-400 px-2 py-1 rounded">
+                    Category
+                  </span>
+                )}
+              </div>
+              
+              {subcat.description && (
+                <p className="text-sm text-neutral-600 dark:text-neutral-400 mb-3 line-clamp-2">
+                  {subcat.description}
+                </p>
+              )}
+              
+              {children.length > 0 && (
+                <div className="space-y-2">
+                  {children.map(child => (
+                    <div
+                      key={child.id}
+                      onClick={() => handleNodeClick(child)}
+                      className="flex items-center gap-2 text-sm text-neutral-600 dark:text-neutral-400 hover:text-primary-600 cursor-pointer py-1 px-2 rounded hover:bg-neutral-50 dark:hover:bg-neutral-700 transition-colors"
+                    >
+                      {child.has_learning_content ? (
+                        <BookOpenIcon className="h-3 w-3 text-green-500 flex-shrink-0" />
+                      ) : (
+                        <div className="h-3 w-3 border border-neutral-300 dark:border-neutral-600 rounded-full flex-shrink-0"></div>
+                      )}
+                      <span className="truncate">{child.name}</span>
+                    </div>
+                  ))}
+                  {children.length === 5 && (
+                    <div
+                      onClick={() => handleNodeClick(subcat)}
+                      className="text-xs text-primary-600 dark:text-primary-400 cursor-pointer hover:underline py-1 px-2"
+                    >
+                      View all...
+                    </div>
+                  )}
+                </div>
               )}
             </div>
-            
-            {subcat.learning_area && (
-              <p className="text-sm text-neutral-600 dark:text-neutral-400 mb-3 line-clamp-2">
-                {subcat.learning_area}
-              </p>
-            )}
-            
-            <div className="flex items-center justify-between text-xs text-neutral-500">
-              {subcat.has_learning_content ? (
-                <span className="flex items-center gap-1">
-                  <BookOpenIcon className="h-3 w-3" />
-                  Has content
-                </span>
-              ) : (
-                <span className="flex items-center gap-1">
-                  <UserGroupIcon className="h-3 w-3" />
-                  {(subcat.type as string) === 'category' ? 'Explore' : 'No content yet'}
-                </span>
-              )}
-            </div>
-          </div>
-        ))}
+          )
+        })}
       </div>
 
       {subcategories.length === 0 && (
@@ -376,6 +449,39 @@ const CategoryPage: React.FC = () => {
             setSelectedNode(null)
           }}
         />
+      )}
+
+      {/* Adaptive Assessment Modal */}
+      {showAdaptiveAssessment && (
+        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
+          <div className="bg-white dark:bg-neutral-900 rounded-xl shadow-xl max-w-6xl w-full max-h-[90vh] overflow-y-auto">
+            <AdaptiveAssessment
+              categoryId={categoryId!}
+              categoryName={category.name}
+              sessionType="assessment"
+              onComplete={(session: AssessmentSession) => {
+                // Update user progress when assessment is completed
+                if (user) {
+                  supabase
+                    .from('user_progress')
+                    .upsert({
+                      user_id: user.id,
+                      skill_node_id: categoryId,
+                      status: 'completed',
+                      rating: session.total_points,
+                      last_accessed: new Date().toISOString()
+                    })
+                    .then(() => {
+                      // Refresh category data to update progress
+                      fetchCategoryData()
+                    })
+                }
+                setShowAdaptiveAssessment(false)
+              }}
+              onExit={() => setShowAdaptiveAssessment(false)}
+            />
+          </div>
+        </div>
       )}
     </div>
   )
