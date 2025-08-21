@@ -56,6 +56,7 @@ const CategoryPage: React.FC = () => {
         .from('skill_tree_nodes')
         .select('*')
         .eq('parent_id', categoryId)
+        .order('display_order', { nullsFirst: false })
         .order('name')
 
       if (subcategoriesError) throw subcategoriesError

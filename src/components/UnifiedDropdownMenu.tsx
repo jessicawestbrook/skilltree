@@ -55,6 +55,7 @@ const UnifiedDropdownMenu: React.FC = () => {
         .select('id, name, parent_id')
         .in('parent_id', rootNodes.map(r => r.id))
         .eq('type', 'category')
+        .order('display_order', { nullsFirst: false })
         .order('name')
 
       if (secondError) throw secondError
@@ -65,6 +66,7 @@ const UnifiedDropdownMenu: React.FC = () => {
         .select('*')
         .in('parent_id', secondLevel.map(s => s.id))
         .eq('type', 'category')
+        .order('display_order', { nullsFirst: false })
         .order('name')
         .limit(9)
 

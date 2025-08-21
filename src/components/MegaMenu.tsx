@@ -26,6 +26,7 @@ const MegaMenu: React.FC = () => {
         .select('*')
         .is('parent_id', null)
         .eq('type', 'category')
+        .order('display_order', { nullsFirst: false })
         .order('name')
 
       if (topError) throw topError
@@ -46,6 +47,7 @@ const MegaMenu: React.FC = () => {
           .from('skill_tree_nodes')
           .select('*')
           .in('parent_id', categoryIds)
+          .order('display_order', { nullsFirst: false })
           .order('name')
 
         if (level2Error) throw level2Error
@@ -59,6 +61,7 @@ const MegaMenu: React.FC = () => {
             .from('skill_tree_nodes')
             .select('*')
             .in('parent_id', level2CategoryIds)
+            .order('display_order', { nullsFirst: false })
             .order('name')
 
           if (level3Error) throw level3Error

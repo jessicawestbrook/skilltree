@@ -27,6 +27,7 @@ const Layout: React.FC = () => {
         .select('*')
         .is('parent_id', null)
         .eq('type', 'category')
+        .order('display_order', { nullsFirst: false })
         .order('name')
 
       if (rootError) throw rootError
