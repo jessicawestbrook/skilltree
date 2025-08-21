@@ -58,9 +58,9 @@ export class StudyListService {
         .eq('user_id', userId)
         .eq('item_type', itemType)
         .eq('item_id', itemId)
-        .single()
+        .limit(1)
 
-      return !error && !!data
+      return !error && data && data.length > 0
     } catch (error) {
       return false
     }
@@ -238,9 +238,9 @@ export class StudyListService {
         .eq('study_list_id', studyListId)
         .eq('item_type', itemType)
         .eq('item_id', itemId)
-        .single()
+        .limit(1)
 
-      return !error && !!data
+      return !error && data && data.length > 0
     } catch (error) {
       return false
     }

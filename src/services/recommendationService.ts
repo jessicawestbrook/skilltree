@@ -439,11 +439,11 @@ class RecommendationService {
       // Get user's completed nodes
       const { data: progress } = await supabase
         .from('user_progress')
-        .select('skill_node_id')
+        .select('skill_tree_node_id')
         .eq('user_id', userId)
         .eq('status', 'completed')
 
-      const completedSet = new Set(progress?.map(p => p.skill_node_id) || [])
+      const completedSet = new Set(progress?.map(p => p.skill_tree_node_id) || [])
 
       // Get goal node and its ancestors
       const { data: goalNode } = await supabase

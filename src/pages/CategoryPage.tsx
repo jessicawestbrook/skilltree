@@ -45,53 +45,64 @@ const CategoryPage: React.FC = () => {
 
   const fetchCategoryData = async () => {
     try {
-      // Fetch category details
-      const { data: categoryData, error: categoryError } = await supabase
-        .from('skill_tree_nodes')
-        .select('*')
-        .eq('id', categoryId)
-        .single()
+      // Fetch category details and all descendants in parallel
+      const [categoryResult, subcategoriesResult, allDescendantsResult] = await Promise.all([
+        supabase
+          .from('skill_tree_nodes')
+          .select('*')
+          .eq('id', categoryId)
+          .single(),
+        supabase
+          .from('skill_tree_nodes')
+          .select('*')
+          .eq('parent_id', categoryId)
+          .order('display_order', { nullsFirst: false })
+          .order('name'),
+        // For now, just get direct descendants for basic stats
+        supabase
+          .from('skill_tree_nodes')
+          .select('id, learning_content_ids')
+          .eq('parent_id', categoryId)
+      ])
 
-      if (categoryError) throw categoryError
-      setCategory(categoryData)
+      if (categoryResult.error) throw categoryResult.error
+      setCategory(categoryResult.data)
 
-      // Fetch subcategories
-      const { data: subcategoriesData, error: subcategoriesError } = await supabase
-        .from('skill_tree_nodes')
-        .select('*')
-        .eq('parent_id', categoryId)
-        .order('display_order', { nullsFirst: false })
-        .order('name')
+      if (subcategoriesResult.error) throw subcategoriesResult.error
+      const subcategoriesData = subcategoriesResult.data || []
+      setSubcategories(subcategoriesData)
 
-      if (subcategoriesError) throw subcategoriesError
-      setSubcategories(subcategoriesData || [])
+      // Get direct children for basic stats calculation
+      const directChildren = allDescendantsResult.data || []
 
-      // Fetch children for each subcategory
+      // Fetch children for each subcategory in parallel (only if we have subcategories)
       const childrenData: Record<string, SkillTreeNode[]> = {}
-      if (subcategoriesData) {
-        for (const subcat of subcategoriesData) {
+      if (subcategoriesData.length > 0 && subcategoriesData.length <= 20) { // Only load children if reasonable number
+        const childrenPromises = subcategoriesData.map(async (subcat) => {
           const { data: children, error: childrenError } = await supabase
             .from('skill_tree_nodes')
             .select('*')
             .eq('parent_id', subcat.id)
             .order('display_order', { nullsFirst: false })
             .order('name')
-            .limit(5) // Limit to first 5 children to avoid clutter
+            .limit(5)
 
-          if (!childrenError && children) {
-            childrenData[subcat.id] = children
-          }
-        }
+          return { subcatId: subcat.id, children: childrenError ? [] : (children || []) }
+        })
+
+        const childrenResults = await Promise.all(childrenPromises)
+        childrenResults.forEach(({ subcatId, children }) => {
+          childrenData[subcatId] = children
+        })
       }
       setSubcategoryChildren(childrenData)
 
-      // Calculate stats
-      const allDescendants = await fetchAllDescendants(categoryId!)
-      const withContent = allDescendants.filter(n => n.learning_content_ids && n.learning_content_ids.length > 0).length
+      // Calculate simplified stats using only direct children
+      const withContent = directChildren.filter(n => n.learning_content_ids && n.learning_content_ids.length > 0).length
       
       setStats({
-        totalSubcategories: subcategoriesData?.filter(n => (n.type as string) === 'category').length || 0,
-        totalModules: allDescendants.length,
+        totalSubcategories: subcategoriesData.filter(n => !n.learning_content_ids || n.learning_content_ids.length === 0).length,
+        totalModules: directChildren.length,
         withContent,
         userProgress: 0 // Will be calculated based on user progress
       })
@@ -118,16 +129,18 @@ const CategoryPage: React.FC = () => {
           setIsStarred(false)
         }
 
-        // Calculate user progress
-        const { data: progressData } = await supabase
-          .from('user_progress')
-          .select('*')
-          .eq('user_id', user.id)
-          .in('skill_node_id', allDescendants.map(n => n.id))
+        // Calculate user progress (simplified to direct children only)
+        if (directChildren.length > 0) {
+          const { data: progressData } = await supabase
+            .from('user_progress')
+            .select('*')
+            .eq('user_id', user.id)
+            .in('skill_node_id', directChildren.map(n => n.id))
 
-        const completed = progressData?.filter(p => p.status === 'completed' && p.rating >= 70).length || 0
-        const progress = withContent > 0 ? Math.round((completed / withContent) * 100) : 0
-        setStats(prev => ({ ...prev, userProgress: progress }))
+          const completed = progressData?.filter(p => p.status === 'completed' && p.rating >= 70).length || 0
+          const progress = withContent > 0 ? Math.round((completed / withContent) * 100) : 0
+          setStats(prev => ({ ...prev, userProgress: progress }))
+        }
       }
     } catch (error) {
       console.error('Error fetching category:', error)
@@ -136,24 +149,6 @@ const CategoryPage: React.FC = () => {
     }
   }
 
-  const fetchAllDescendants = async (nodeId: string): Promise<SkillTreeNode[]> => {
-    const descendants: SkillTreeNode[] = []
-    
-    const { data: children } = await supabase
-      .from('skill_tree_nodes')
-      .select('*')
-      .eq('parent_id', nodeId)
-
-    if (children) {
-      for (const child of children) {
-        descendants.push(child)
-        const childDescendants = await fetchAllDescendants(child.id)
-        descendants.push(...childDescendants)
-      }
-    }
-
-    return descendants
-  }
 
   const toggleStar = async () => {
     if (!user) {
@@ -193,11 +188,13 @@ const CategoryPage: React.FC = () => {
   }
 
   const handleNodeClick = (node: SkillTreeNode) => {
-    if ((node.type as string) === 'category') {
-      navigate(`/category/${node.id}`)
-    } else if (node.learning_content_ids && node.learning_content_ids.length > 0) {
+    if (node.learning_content_ids && node.learning_content_ids.length > 0) {
+      // This node has learning content - prioritize showing the learning modal
       setSelectedNode(node)
       setShowLearningModal(true)
+    } else {
+      // This is a category node with no learning content - navigate to category page
+      navigate(`/category/${node.id}`)
     }
   }
 
@@ -386,13 +383,13 @@ const CategoryPage: React.FC = () => {
               className="bg-white dark:bg-neutral-800 rounded-lg shadow hover:shadow-lg transition-all p-4"
             >
               <div className="flex items-start justify-between mb-3">
-                <h3 
-                  className="font-semibold text-neutral-900 dark:text-white cursor-pointer hover:text-primary-600"
-                  onClick={() => handleNodeClick(subcat)}
+                <Link
+                  to={`/category/${subcat.id}`}
+                  className="font-semibold text-neutral-900 dark:text-white hover:text-primary-600 transition-colors"
                 >
                   {subcat.name}
-                </h3>
-                {(subcat.type as string) === 'category' && (
+                </Link>
+                {(!subcat.learning_content_ids || subcat.learning_content_ids.length === 0) && (
                   <span className="text-xs bg-primary-100 dark:bg-primary-900/30 text-primary-700 dark:text-primary-400 px-2 py-1 rounded">
                     Category
                   </span>
@@ -407,27 +404,50 @@ const CategoryPage: React.FC = () => {
               
               {children.length > 0 && (
                 <div className="space-y-2">
-                  {children.map(child => (
-                    <div
-                      key={child.id}
-                      onClick={() => handleNodeClick(child)}
-                      className="flex items-center gap-2 text-sm text-neutral-600 dark:text-neutral-400 hover:text-primary-600 cursor-pointer py-1 px-2 rounded hover:bg-neutral-50 dark:hover:bg-neutral-700 transition-colors"
-                    >
-                      {(child.learning_content_ids && child.learning_content_ids.length > 0) ? (
-                        <BookOpenIcon className="h-3 w-3 text-green-500 flex-shrink-0" />
-                      ) : (
-                        <div className="h-3 w-3 border border-neutral-300 dark:border-neutral-600 rounded-full flex-shrink-0"></div>
-                      )}
-                      <span className="truncate">{child.name}</span>
-                    </div>
-                  ))}
+                  {children.map(child => {
+                    const isCategory = !child.learning_content_ids || child.learning_content_ids.length === 0
+                    const hasContent = child.learning_content_ids && child.learning_content_ids.length > 0
+                    
+                    const content = (
+                      <>
+                        {hasContent ? (
+                          <BookOpenIcon className="h-3 w-3 text-green-500 flex-shrink-0" />
+                        ) : (
+                          <div className="h-3 w-3 border border-neutral-300 dark:border-neutral-600 rounded-full flex-shrink-0"></div>
+                        )}
+                        <span className="truncate">{child.name}</span>
+                      </>
+                    )
+                    
+                    if (isCategory) {
+                      return (
+                        <Link
+                          key={child.id}
+                          to={`/category/${child.id}`}
+                          className="flex items-center gap-2 text-sm text-neutral-600 dark:text-neutral-400 hover:text-primary-600 py-1 px-2 rounded hover:bg-neutral-50 dark:hover:bg-neutral-700 transition-colors"
+                        >
+                          {content}
+                        </Link>
+                      )
+                    } else {
+                      return (
+                        <div
+                          key={child.id}
+                          onClick={() => handleNodeClick(child)}
+                          className="flex items-center gap-2 text-sm text-neutral-600 dark:text-neutral-400 hover:text-primary-600 cursor-pointer py-1 px-2 rounded hover:bg-neutral-50 dark:hover:bg-neutral-700 transition-colors"
+                        >
+                          {content}
+                        </div>
+                      )
+                    }
+                  })}
                   {children.length === 5 && (
-                    <div
-                      onClick={() => handleNodeClick(subcat)}
-                      className="text-xs text-primary-600 dark:text-primary-400 cursor-pointer hover:underline py-1 px-2"
+                    <Link
+                      to={`/category/${subcat.id}`}
+                      className="text-xs text-primary-600 dark:text-primary-400 hover:underline py-1 px-2 block"
                     >
                       View all...
-                    </div>
+                    </Link>
                   )}
                 </div>
               )}
