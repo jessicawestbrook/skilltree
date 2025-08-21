@@ -270,7 +270,7 @@ class RecommendationService {
       const [profileResult, progressResult, starredResult, activityResult] = await Promise.allSettled([
         supabase.from('profiles').select('*').eq('id', userId).single(),
         supabase.from('user_progress').select('*').eq('user_id', userId),
-        supabase.from('user_starred_nodes').select('skill_node_id').eq('user_id', userId),
+        supabase.from('starred_items').select('item_id').eq('user_id', userId).eq('item_type', 'skill_node'),
         supabase.from('user_progress')
           .select('skill_node_id, last_accessed')
           .eq('user_id', userId)
@@ -281,7 +281,7 @@ class RecommendationService {
       const userProfile: UserProfile = {
         id: userId,
         overall_rating: (profileResult.status === 'fulfilled' && profileResult.value.data?.overall_rating) || 50,
-        starred_nodes: (starredResult.status === 'fulfilled' && starredResult.value.data?.map((s: any) => s.skill_node_id)) || [],
+        starred_nodes: (starredResult.status === 'fulfilled' && starredResult.value.data?.map((s: any) => s.item_id)) || [],
         completed_nodes: (progressResult.status === 'fulfilled' && progressResult.value.data
           ?.filter((p: any) => p.status === 'completed')
           .map((p: any) => p.skill_node_id)) || [],
@@ -298,7 +298,7 @@ class RecommendationService {
       let nodesQuery = supabase
         .from('skill_tree_nodes')
         .select('*')
-        .eq('has_learning_content', true)
+        .not('learning_content_ids', 'eq', '{}')
 
       if (includeCategories.length > 0) {
         nodesQuery = nodesQuery.in('type', includeCategories)

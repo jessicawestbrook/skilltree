@@ -10,9 +10,7 @@ export interface SkillTreeNode {
   display_order: number
   created_at: string
   updated_at: string
-  has_learning_content: boolean
   learning_content_ids: string[] | null
-  is_menu_leaf: boolean
   source_url?: string
 }
 

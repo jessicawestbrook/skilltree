@@ -26,7 +26,7 @@ const Layout: React.FC = () => {
         .from('skill_tree_nodes')
         .select('*')
         .is('parent_id', null)
-        .eq('type', 'category')
+        .or('learning_content_ids.is.null,learning_content_ids.eq.{}')
         .order('display_order', { nullsFirst: false })
         .order('name')
 
@@ -301,7 +301,7 @@ const Layout: React.FC = () => {
 
       {/* Main Content */}
       <div className={`flex-1 ${menuPinned ? 'pt-0' : (!menuPinned && mobileMenuOpen) ? 'pt-16' : 'pt-0'}`}>
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-2 sm:py-8">
           <main>
             <Outlet />
           </main>

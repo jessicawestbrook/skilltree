@@ -246,14 +246,13 @@ const VocabularyTrainerPage: React.FC = () => {
   }
 
   return (
-    <div className="max-w-4xl mx-auto p-1 sm:p-4 space-y-2 sm:space-y-6">
-      {/* Page Title */}
-      <div className="text-center py-1 sm:py-0">
-        <h1 className="text-xl sm:text-3xl font-bold">Vocabulary Trainer</h1>
-      </div>
-
+    <div className="max-w-4xl mx-auto p-1 sm:p-2 pt-2 sm:pt-2 space-y-1 sm:space-y-2">
       {/* Combined Vocabulary Practice Card */}
-      <div className="bg-white dark:bg-neutral-900 rounded-lg sm:rounded-xl shadow-lg p-2 sm:p-6 relative">
+      <div className="bg-white dark:bg-neutral-900 rounded-lg sm:rounded-xl shadow-lg p-2 sm:p-3 pt-14 sm:pt-12 relative">
+        {/* Page Title */}
+        <div className="text-center mb-1 sm:mb-2">
+          <h1 className="text-lg sm:text-xl font-bold text-neutral-800 dark:text-neutral-200">Vocabulary Trainer</h1>
+        </div>
         {/* Action Buttons */}
         {currentQuestion && (
           <div className="absolute top-2 right-2 flex items-center gap-1 z-10">
@@ -275,7 +274,7 @@ const VocabularyTrainerPage: React.FC = () => {
         )}
         
         {/* Settings and Stats Row */}
-        <div className="flex justify-between items-start mb-1 sm:mb-2">
+        <div className="flex justify-between items-start mb-1">
           {/* Practice Settings */}
           <div className="flex flex-col lg:flex-row gap-1 sm:gap-2 items-start lg:items-center flex-1 mr-2 sm:mr-0">
             {/* Adaptive Testing Toggle */}
@@ -376,14 +375,14 @@ const VocabularyTrainerPage: React.FC = () => {
         {!showResult ? (
           <>
             {/* Question Content */}
-            <div className="space-y-3 mb-4">
-              <div className="bg-gradient-to-br from-primary-50 to-primary-100 dark:from-primary-900/30 dark:to-primary-800/20 rounded-xl p-4 sm:p-6 border-2 border-primary-200 dark:border-primary-700 shadow-lg">
-                <p className="text-lg sm:text-xl font-medium text-neutral-800 dark:text-neutral-200 leading-relaxed text-center">
+            <div className="space-y-2 mb-2">
+              <div className="bg-gradient-to-br from-primary-50 to-primary-100 dark:from-primary-900/30 dark:to-primary-800/20 rounded-lg p-3 sm:p-4 border-2 border-primary-200 dark:border-primary-700 shadow-lg">
+                <p className="text-base sm:text-lg font-medium text-neutral-800 dark:text-neutral-200 leading-snug text-center">
                   {replaceWordAndVariationsWithBlanks(currentQuestion.word.definition, currentQuestion.word.word)}
                 </p>
               </div>
 
-              <div className="bg-gold-50 dark:bg-gold-900/20 rounded-lg p-3 text-center border border-gold-200 dark:border-gold-800">
+              <div className="bg-gold-50 dark:bg-gold-900/20 rounded-lg p-2 text-center border border-gold-200 dark:border-gold-800">
                 <h3 className="font-semibold text-sm mb-2 text-gold-700 dark:text-gold-400">Example</h3>
                 <p className="text-sm text-neutral-700 dark:text-neutral-300 italic">
                   "{currentQuestion.word.example_sentence}"
@@ -391,7 +390,7 @@ const VocabularyTrainerPage: React.FC = () => {
               </div>
             </div>
 
-            <div className="text-center mb-4 space-y-1">
+            <div className="text-center mb-2 space-y-1">
               <div className="flex justify-center items-center gap-2 sm:gap-3 text-xs">
                 {currentQuestion.word.difficulty_name && (
                   <span className={`px-1 sm:px-2 py-0.5 sm:py-1 rounded text-xs font-medium ${
@@ -413,20 +412,20 @@ const VocabularyTrainerPage: React.FC = () => {
             </div>
 
             {/* Multiple Choice Options */}
-            <div className="space-y-2 mb-3">
+            <div className="space-y-1.5 mb-2">
               <h3 className="font-semibold text-sm">Which word matches the definition above?</h3>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-1.5">
                 {currentQuestion.options.map((option, index) => (
                   <button
                     key={index}
                     onClick={() => handleAnswerSelect(option)}
-                    className={`p-3 text-left border-2 rounded-lg transition-colors ${
+                    className={`p-1.5 text-left border-2 rounded-lg transition-colors ${
                       selectedAnswer === option
                         ? 'border-primary-600 bg-primary-50 dark:bg-primary-900/20'
                         : 'border-neutral-300 dark:border-neutral-600 hover:border-primary-400 hover:bg-primary-50 dark:hover:bg-primary-900/10 bg-white dark:bg-neutral-800'
                     }`}
                   >
-                    <span className="text-base">{option}</span>
+                    <span className="text-sm">{option}</span>
                   </button>
                 ))}
               </div>
@@ -435,7 +434,7 @@ const VocabularyTrainerPage: React.FC = () => {
             <button
               onClick={handleSubmit}
               disabled={!selectedAnswer}
-              className="w-full py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 active:bg-primary-800 disabled:bg-neutral-400 disabled:cursor-not-allowed transition-colors text-sm"
+              className="w-full py-1.5 bg-primary-600 text-white rounded-lg hover:bg-primary-700 active:bg-primary-800 disabled:bg-neutral-400 disabled:cursor-not-allowed transition-colors text-sm"
             >
               Submit
             </button>
@@ -443,7 +442,7 @@ const VocabularyTrainerPage: React.FC = () => {
         ) : (
           <>
             {/* Result Display */}
-            <div className={`mb-3 p-2 rounded-lg ${
+            <div className={`mb-2 p-2 rounded-lg ${
               isCorrect 
                 ? 'bg-green-50 dark:bg-green-900/20' 
                 : 'bg-red-50 dark:bg-red-900/20'
@@ -471,7 +470,7 @@ const VocabularyTrainerPage: React.FC = () => {
             </div>
 
             {/* Learning Information */}
-            <div className="space-y-2 mb-4">
+            <div className="space-y-1.5 mb-2">
               {(currentQuestion.word.memory_tips || currentQuestion.word.pronunciation_tips) && (
                 <div className="bg-primary-50 dark:bg-primary-900/20 rounded-lg p-3">
                   <h3 className="font-semibold text-xs mb-1 flex items-center gap-1">
@@ -503,7 +502,7 @@ const VocabularyTrainerPage: React.FC = () => {
 
             <button
               onClick={nextQuestion}
-              className="w-full py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 active:bg-primary-800 transition-colors text-sm"
+              className="w-full py-1.5 bg-primary-600 text-white rounded-lg hover:bg-primary-700 active:bg-primary-800 transition-colors text-sm"
             >
               Next Word →
             </button>

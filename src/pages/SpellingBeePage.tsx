@@ -242,14 +242,13 @@ const SpellingBeePage: React.FC = () => {
   }
 
   return (
-    <div className="max-w-4xl mx-auto p-1 sm:p-4 space-y-2 sm:space-y-6">
-      {/* Page Title */}
-      <div className="text-center py-1 sm:py-0">
-        <h1 className="text-xl sm:text-3xl font-bold">Spelling Bee Practice</h1>
-      </div>
-
+    <div className="max-w-4xl mx-auto p-1 sm:p-2 pt-2 sm:pt-2 space-y-1 sm:space-y-2">
       {/* Combined Spelling Practice Card */}
-      <div className="bg-white dark:bg-neutral-900 rounded-lg sm:rounded-xl shadow-lg p-2 sm:p-6 relative">
+      <div className="bg-white dark:bg-neutral-900 rounded-lg sm:rounded-xl shadow-lg p-2 sm:p-3 pt-14 sm:pt-12 relative">
+        {/* Page Title */}
+        <div className="text-center mb-1 sm:mb-2">
+          <h1 className="text-lg sm:text-xl font-bold text-neutral-800 dark:text-neutral-200">Spelling Bee Practice</h1>
+        </div>
         {/* Action Buttons */}
         {currentWord && (
           <div className="absolute top-2 right-2 flex items-center gap-1 z-10">
@@ -440,7 +439,7 @@ const SpellingBeePage: React.FC = () => {
               <button
                 type="submit"
                 disabled={!userInput.trim()}
-                className="w-full py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 disabled:bg-neutral-400 disabled:cursor-not-allowed transition-colors text-sm"
+                className="w-full py-1.5 bg-primary-600 text-white rounded-lg hover:bg-primary-700 disabled:bg-neutral-400 disabled:cursor-not-allowed transition-colors text-sm"
               >
                 Submit
               </button>
@@ -534,7 +533,7 @@ const SpellingBeePage: React.FC = () => {
 
             <button
               onClick={nextWord}
-              className="w-full py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition-colors text-sm"
+              className="w-full py-1.5 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition-colors text-sm"
             >
               Next Word →
             </button>

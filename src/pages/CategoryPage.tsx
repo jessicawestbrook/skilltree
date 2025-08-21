@@ -87,7 +87,7 @@ const CategoryPage: React.FC = () => {
 
       // Calculate stats
       const allDescendants = await fetchAllDescendants(categoryId!)
-      const withContent = allDescendants.filter(n => n.has_learning_content).length
+      const withContent = allDescendants.filter(n => n.learning_content_ids && n.learning_content_ids.length > 0).length
       
       setStats({
         totalSubcategories: subcategoriesData?.filter(n => (n.type as string) === 'category').length || 0,
@@ -100,17 +100,21 @@ const CategoryPage: React.FC = () => {
       if (user) {
         try {
           const { data: starData, error: starError } = await supabase
-            .from('user_starred_nodes')
+            .from('starred_items')
             .select('id')
             .eq('user_id', user.id)
-            .eq('skill_node_id', categoryId)
-            .single()
+            .eq('item_type', 'skill_node')
+            .eq('item_id', categoryId)
+            .limit(1)
 
-          // Only set starred if query was successful and data exists
-          setIsStarred(!starError && !!starData)
+          if (starError) {
+            console.warn('Could not check starred status:', starError)
+            setIsStarred(false)
+          } else {
+            setIsStarred(starData && starData.length > 0)
+          }
         } catch (error) {
-          // Silently handle starring errors - user can still use the page
-          console.warn('Could not check starred status:', error)
+          console.warn('Exception checking starred status:', error)
           setIsStarred(false)
         }
 
@@ -161,17 +165,19 @@ const CategoryPage: React.FC = () => {
       let success = false
       if (isStarred) {
         const { error } = await supabase
-          .from('user_starred_nodes')
+          .from('starred_items')
           .delete()
           .eq('user_id', user.id)
-          .eq('skill_node_id', categoryId)
+          .eq('item_type', 'skill_node')
+          .eq('item_id', categoryId)
         success = !error
       } else {
         const { error } = await supabase
-          .from('user_starred_nodes')
+          .from('starred_items')
           .insert({
             user_id: user.id,
-            skill_node_id: categoryId
+            item_type: 'skill_node',
+            item_id: categoryId
           })
         success = !error
       }
@@ -179,18 +185,17 @@ const CategoryPage: React.FC = () => {
       if (success) {
         setIsStarred(!isStarred)
       } else {
-        console.warn('Could not update starred status - table may not be properly configured')
+        console.warn('Could not update starred status')
       }
     } catch (error) {
       console.warn('Error toggling star:', error)
-      // Don't show error to user since starring is not critical functionality
     }
   }
 
   const handleNodeClick = (node: SkillTreeNode) => {
     if ((node.type as string) === 'category') {
       navigate(`/category/${node.id}`)
-    } else if (node.has_learning_content) {
+    } else if (node.learning_content_ids && node.learning_content_ids.length > 0) {
       setSelectedNode(node)
       setShowLearningModal(true)
     }
@@ -247,9 +252,9 @@ const CategoryPage: React.FC = () => {
                 <h1 className="text-3xl font-bold text-neutral-900 dark:text-white">
                   {category.name}
                 </h1>
-                {category.learning_area && (
-                  <p className="text-neutral-600 dark:text-neutral-400 mt-1">
-                    {category.learning_area}
+                {category.description && (
+                  <p className="text-neutral-600 dark:text-neutral-400 mt-2 text-lg">
+                    {category.description}
                   </p>
                 )}
               </div>
@@ -395,7 +400,7 @@ const CategoryPage: React.FC = () => {
               </div>
               
               {subcat.description && (
-                <p className="text-sm text-neutral-600 dark:text-neutral-400 mb-3 line-clamp-2">
+                <p className="text-xs text-neutral-600 dark:text-neutral-400 mb-2 leading-tight">
                   {subcat.description}
                 </p>
               )}
@@ -408,7 +413,7 @@ const CategoryPage: React.FC = () => {
                       onClick={() => handleNodeClick(child)}
                       className="flex items-center gap-2 text-sm text-neutral-600 dark:text-neutral-400 hover:text-primary-600 cursor-pointer py-1 px-2 rounded hover:bg-neutral-50 dark:hover:bg-neutral-700 transition-colors"
                     >
-                      {child.has_learning_content ? (
+                      {(child.learning_content_ids && child.learning_content_ids.length > 0) ? (
                         <BookOpenIcon className="h-3 w-3 text-green-500 flex-shrink-0" />
                       ) : (
                         <div className="h-3 w-3 border border-neutral-300 dark:border-neutral-600 rounded-full flex-shrink-0"></div>
