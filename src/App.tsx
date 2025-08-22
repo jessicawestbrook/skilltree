@@ -1,5 +1,6 @@
 import React from 'react'
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
+import { HelmetProvider } from 'react-helmet-async'
 import { AuthProvider } from './contexts/AuthContext'
 import { ThemeProvider } from './contexts/ThemeContext'
 import { SpellingBeeProvider } from './contexts/SpellingBeeContext'
@@ -24,6 +25,8 @@ import SpellingBeePage from './pages/SpellingBeePage'
 import ReadingComprehensionPage from './pages/ReadingComprehensionPage'
 import IntroAssessmentPage from './pages/IntroAssessmentPage'
 import IQTestPage from './pages/IQTestPage'
+import VisualMatrixDemoPage from './pages/VisualMatrixDemoPage'
+import VisualMatrixTestPage from './pages/VisualMatrixTestPage'
 import StandardizedTestsPage from './pages/StandardizedTestsPage'
 import LearningPathsPage from './pages/LearningPathsPage'
 import AdminSpellingBeePage from './pages/AdminSpellingBeePage'
@@ -34,10 +37,12 @@ import StudyListsPage from './pages/StudyListsPage'
 import TestPage from './pages/TestPage'
 import NotificationsPage from './pages/NotificationsPage'
 import ProtectedRoute from './components/ProtectedRoute'
+import AdminRoute from './components/AdminRoute'
 
 function App() {
   return (
-    <ThemeProvider>
+    <HelmetProvider>
+      <ThemeProvider>
       <AuthProvider>
         <NotificationProvider>
           <SpellingBeeProvider>
@@ -101,31 +106,33 @@ function App() {
               <Route path="reading-comprehension" element={<ReadingComprehensionPage />} />
               <Route path="intro-assessment" element={<IntroAssessmentPage />} />
               <Route path="iq-test" element={<IQTestPage />} />
+              <Route path="visual-matrix-demo" element={<VisualMatrixDemoPage />} />
+              <Route path="visual-matrix-test" element={<VisualMatrixTestPage />} />
               <Route path="standardized-tests" element={<StandardizedTestsPage />} />
               <Route path="test/:testId" element={<TestPage />} />
               <Route path="learning-paths" element={<LearningPathsPage />} />
               <Route
                 path="admin"
                 element={
-                  <ProtectedRoute>
+                  <AdminRoute>
                     <AdminPage />
-                  </ProtectedRoute>
+                  </AdminRoute>
                 }
               />
               <Route
                 path="admin/spelling-bee"
                 element={
-                  <ProtectedRoute>
+                  <AdminRoute>
                     <AdminSpellingBeePage />
-                  </ProtectedRoute>
+                  </AdminRoute>
                 }
               />
               <Route
                 path="content-management"
                 element={
-                  <ProtectedRoute>
+                  <AdminRoute>
                     <ContentManagementPage />
-                  </ProtectedRoute>
+                  </AdminRoute>
                 }
               />
                 </Route>
@@ -135,6 +142,7 @@ function App() {
         </NotificationProvider>
       </AuthProvider>
     </ThemeProvider>
+    </HelmetProvider>
   )
 }
 

@@ -17,12 +17,14 @@
     "@types/react-dom": "^19.1.7",
     "@types/react-router-dom": "^5.3.3",
     "axios": "^1.11.0",
+    "csv-parser": "^3.2.0",
     "d3": "^7.9.0",
     "date-fns": "^4.1.0",
     "dotenv": "^17.2.1",
     "lodash": "^4.17.21",
     "react": "^19.1.1",
     "react-dom": "^19.1.1",
+    "react-helmet-async": "^2.0.5",
     "react-router-dom": "^7.8.1",
     "react-scripts": "5.0.1",
     "typescript": "^4.9.5",
@@ -37,7 +39,8 @@
     "lint": "eslint src/**/*.{ts,tsx} --max-warnings=0",
     "lint:fix": "eslint src/**/*.{ts,tsx} --fix",
     "typecheck": "tsc --noEmit",
-    "check-all": "npm run typecheck && npm run lint"
+    "check-all": "npm run typecheck && npm run lint",
+    "generate-sitemap": "node scripts/generate_sitemap.js"
   },
   "eslintConfig": {
     "extends": [

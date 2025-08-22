@@ -15,7 +15,10 @@ import { useAuth } from '../contexts/AuthContext'
 import { SkillTreeNode } from '../types/database.types'
 import LearningContentModal from '../components/LearningContentModal'
 import AdaptiveAssessment from '../components/AdaptiveAssessment'
+import SEO from '../components/SEO'
+import Breadcrumb from '../components/Breadcrumb'
 import { AssessmentSession } from '../services/adaptiveAssessmentService'
+import { createCourseStructuredData } from '../utils/structuredData'
 
 const CategoryPage: React.FC = () => {
   const { categoryId } = useParams()
@@ -24,6 +27,7 @@ const CategoryPage: React.FC = () => {
   const [category, setCategory] = useState<SkillTreeNode | null>(null)
   const [subcategories, setSubcategories] = useState<SkillTreeNode[]>([])
   const [subcategoryChildren, setSubcategoryChildren] = useState<Record<string, SkillTreeNode[]>>({})
+  const [ancestors, setAncestors] = useState<SkillTreeNode[]>([])
   const [loading, setLoading] = useState(true)
   const [isStarred, setIsStarred] = useState(false)
   const [stats, setStats] = useState({
@@ -42,6 +46,34 @@ const CategoryPage: React.FC = () => {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [categoryId, user])
+
+  const fetchAncestors = async (nodeId: string): Promise<SkillTreeNode[]> => {
+    const ancestors: SkillTreeNode[] = []
+    let currentId = nodeId
+
+    while (currentId) {
+      const { data: node, error } = await supabase
+        .from('skill_tree_nodes')
+        .select('*')
+        .eq('id', currentId)
+        .single()
+
+      if (error || !node) break
+
+      if (node.parent_id) {
+        ancestors.unshift(node) // Add to beginning to maintain order
+        currentId = node.parent_id
+      } else {
+        // This is the root node, add it and stop
+        if (node.name !== 'Knowledge') { // Don't include the root "Knowledge" node
+          ancestors.unshift(node)
+        }
+        break
+      }
+    }
+
+    return ancestors
+  }
 
   const fetchCategoryData = async () => {
     try {
@@ -67,6 +99,10 @@ const CategoryPage: React.FC = () => {
 
       if (categoryResult.error) throw categoryResult.error
       setCategory(categoryResult.data)
+
+      // Fetch ancestors for breadcrumb
+      const ancestorNodes = await fetchAncestors(categoryResult.data.parent_id || '')
+      setAncestors(ancestorNodes)
 
       if (subcategoriesResult.error) throw subcategoriesResult.error
       const subcategoriesData = subcategoriesResult.data || []
@@ -222,20 +258,39 @@ const CategoryPage: React.FC = () => {
     )
   }
 
+  // Create breadcrumb data from actual category hierarchy
+  const breadcrumbs = [
+    { name: 'Home', url: '/' },
+    ...ancestors.map(ancestor => ({
+      name: ancestor.name,
+      url: `/category/${ancestor.id}`
+    })),
+    { name: category.name, url: `/category/${category.id}`, current: true }
+  ]
+
+  // Generate SEO keywords based on category
+  const keywords = [
+    category.name.toLowerCase(),
+    `${category.name.toLowerCase()} learning`,
+    `${category.name.toLowerCase()} course`,
+    `${category.name.toLowerCase()} education`,
+    'online learning',
+    'skill development'
+  ]
+
   return (
-    <div className="max-w-7xl mx-auto px-4 py-8">
+    <>
+      <SEO
+        title={`${category.name} - Interactive Learning Course`}
+        description={category.description || `Master ${category.name} with interactive lessons, practice questions, and adaptive assessments. Learn at your own pace with gamified skill trees.`}
+        keywords={keywords}
+        url={`/category/${category.id}`}
+        type="course"
+        structuredData={createCourseStructuredData(category)}
+      />
+      <div className="max-w-7xl mx-auto px-4 py-8">
       {/* Breadcrumb */}
-      <nav className="mb-6">
-        <ol className="flex items-center space-x-2 text-sm">
-          <li>
-            <Link to="/learning-paths" className="text-primary-600 hover:text-primary-700">
-              Learning Paths
-            </Link>
-          </li>
-          <li className="text-neutral-400">/</li>
-          <li className="text-neutral-600 dark:text-neutral-400">{category.name}</li>
-        </ol>
-      </nav>
+      <Breadcrumb items={breadcrumbs} />
 
       {/* Header */}
       <div className="bg-white dark:bg-neutral-800 rounded-xl shadow-lg p-6 mb-6">
@@ -389,11 +444,6 @@ const CategoryPage: React.FC = () => {
                 >
                   {subcat.name}
                 </Link>
-                {(!subcat.learning_content_ids || subcat.learning_content_ids.length === 0) && (
-                  <span className="text-xs bg-primary-100 dark:bg-primary-900/30 text-primary-700 dark:text-primary-400 px-2 py-1 rounded">
-                    Category
-                  </span>
-                )}
               </div>
               
               {subcat.description && (
@@ -509,6 +559,7 @@ const CategoryPage: React.FC = () => {
         </div>
       )}
     </div>
+    </>
   )
 }
 
