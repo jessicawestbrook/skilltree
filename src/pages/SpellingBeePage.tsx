@@ -273,7 +273,7 @@ const SpellingBeePage: React.FC = () => {
         <div className="flex justify-between items-start mb-1 sm:mb-2">
           {/* Practice Settings */}
           <div className="flex flex-col lg:flex-row gap-1 sm:gap-2 items-start lg:items-center flex-1 mr-2 sm:mr-0">
-            {/* Adaptive Testing Toggle */}
+            {/* Adaptive Learning Toggle */}
             <div className="flex items-center gap-1">
               <label className="flex items-center gap-1 cursor-pointer">
                 <input
@@ -282,7 +282,7 @@ const SpellingBeePage: React.FC = () => {
                   onChange={(e) => setUseAdaptiveTesting(e.target.checked)}
                   className="rounded border-neutral-300 text-primary-600 focus:ring-primary-500 h-3 w-3"
                 />
-                <span className="text-xs font-medium">Adaptive Testing</span>
+                <span className="text-xs font-medium">Adaptive Learning</span>
               </label>
               {useAdaptiveTesting && (
                 <span className="text-xs text-neutral-500">Auto-adjusts</span>
@@ -447,47 +447,67 @@ const SpellingBeePage: React.FC = () => {
           </>
         ) : (
           <>
-            {/* Result Display - More Compact */}
-            <div className={`mb-3 p-2 rounded-lg ${
+            {/* Result Display - Eye-catching and Compact */}
+            <div className={`mb-3 p-3 rounded-lg border-2 ${
               isCorrect 
-                ? 'bg-green-50 dark:bg-green-900/20' 
-                : 'bg-red-50 dark:bg-red-900/20'
+                ? 'bg-green-50 dark:bg-green-900/20 border-green-200 dark:border-green-700' 
+                : 'bg-red-50 dark:bg-red-900/20 border-red-200 dark:border-red-700'
             }`}>
               {isCorrect ? (
-                <div className="flex items-center justify-center gap-2">
-                  <CheckCircleIcon className="h-5 w-5 text-green-500" />
-                  <span className="text-sm font-bold text-green-700 dark:text-green-400">
-                    Correct! "{currentWord.word}"
-                  </span>
+                <div className="text-center">
+                  <div className="flex items-center justify-center gap-2 mb-1">
+                    <CheckCircleIcon className="h-6 w-6 text-green-500" />
+                    <span className="text-xl font-bold text-green-700 dark:text-green-400">
+                      Excellent!
+                    </span>
+                  </div>
+                  <div className="text-base font-semibold text-green-600 dark:text-green-300">
+                    You spelled "{currentWord.word}" correctly!
+                  </div>
                 </div>
               ) : (
                 <div className="text-center">
-                  <div className="flex items-center justify-center gap-2 mb-1">
-                    <XCircleIcon className="h-5 w-5 text-red-500" />
-                    <span className="text-sm font-bold text-red-700 dark:text-red-400">Incorrect</span>
+                  <div className="flex items-center justify-center gap-2 mb-2">
+                    <XCircleIcon className="h-6 w-6 text-red-500" />
+                    <span className="text-xl font-bold text-red-700 dark:text-red-400">Almost there!</span>
                   </div>
-                  <div className="text-xs">
-                    <span className="text-red-600 dark:text-red-400">{userInput}</span>
-                    <span className="mx-2">→</span>
-                    <span className="font-mono text-green-600 dark:text-green-400 font-bold">{currentWord.word}</span>
+                  
+                  {/* Large, prominent correction display */}
+                  <div className="bg-white dark:bg-neutral-800 rounded-lg p-3 border border-neutral-200 dark:border-neutral-600">
+                    <div className="text-xs font-medium text-neutral-600 dark:text-neutral-400 mb-1">
+                      Your spelling vs. Correct spelling
+                    </div>
+                    <div className="flex items-center justify-center gap-3 text-xl font-mono">
+                      <span className="text-red-600 dark:text-red-400 line-through decoration-2 decoration-red-500">
+                        {userInput}
+                      </span>
+                      <span className="text-2xl">→</span>
+                      <span className="text-green-600 dark:text-green-400 font-bold text-2xl bg-green-100 dark:bg-green-900/30 px-3 py-1 rounded border border-green-300 dark:border-green-600">
+                        {currentWord.word}
+                      </span>
+                    </div>
                   </div>
                 </div>
               )}
+              
               {currentWord.pronunciation_guide && (
                 <div className="text-center mt-2 pt-2 border-t border-neutral-200 dark:border-neutral-700">
-                  <div className="text-xs text-neutral-600 dark:text-neutral-400">
-                    Pronunciation: <span className="font-mono">{currentWord.pronunciation_guide}</span>
+                  <div className="text-xs font-medium text-neutral-600 dark:text-neutral-400 mb-0.5">
+                    Pronunciation Guide
+                  </div>
+                  <div className="text-sm font-mono font-bold text-primary-600 dark:text-primary-400">
+                    {currentWord.pronunciation_guide}
                   </div>
                 </div>
               )}
             </div>
 
             {/* Learning Tips - Compact */}
-            <div className="space-y-2 mb-4">
+            <div className="space-y-1.5 mb-3">
               {(currentWord.memory_tips || currentWord.pronunciation_tips) && (
-                <div className="bg-primary-50 dark:bg-primary-900/20 rounded-lg p-3">
-                  <h3 className="font-semibold text-xs mb-1 flex items-center gap-1">
-                    <AcademicCapIcon className="h-4 w-4 text-primary-600 dark:text-primary-400" />
+                <div className="bg-primary-50 dark:bg-primary-900/20 rounded p-2">
+                  <h3 className="font-semibold text-xs mb-0.5 flex items-center gap-1">
+                    <AcademicCapIcon className="h-3 w-3 text-primary-600 dark:text-primary-400" />
                     Memory Tips
                   </h3>
                   <p className="text-xs text-neutral-700 dark:text-neutral-300">
@@ -498,14 +518,9 @@ const SpellingBeePage: React.FC = () => {
 
               {/* Etymology Section - Always Open */}
               {currentWord.etymology && (
-                <div className="bg-neutral-50 dark:bg-neutral-800 rounded-lg p-3">
-                  <h3 className="font-semibold text-xs mb-1">
+                <div className="bg-neutral-50 dark:bg-neutral-800 rounded p-2">
+                  <h3 className="font-semibold text-xs mb-0.5">
                     Word Origin & Etymology
-                    {currentWord.etymology_source && (
-                      <span className="ml-2 text-neutral-500 font-normal">
-                        (Source: {currentWord.etymology_source})
-                      </span>
-                    )}
                   </h3>
                   <p className="text-xs text-neutral-700 dark:text-neutral-300">
                     {currentWord.etymology}
@@ -513,10 +528,9 @@ const SpellingBeePage: React.FC = () => {
                 </div>
               )}
 
-
               {currentWord.common_misspellings && currentWord.common_misspellings.length > 0 && (
-                <div className="bg-yellow-50 dark:bg-yellow-900/20 rounded-lg p-3">
-                  <h3 className="font-semibold text-xs mb-1">Common Misspellings</h3>
+                <div className="bg-yellow-50 dark:bg-yellow-900/20 rounded p-2">
+                  <h3 className="font-semibold text-xs mb-0.5">Common Misspellings</h3>
                   <div className="flex flex-wrap gap-1">
                     {currentWord.common_misspellings.map((spelling, idx) => (
                       <span 

@@ -277,7 +277,7 @@ const VocabularyTrainerPage: React.FC = () => {
         <div className="flex justify-between items-start mb-1">
           {/* Practice Settings */}
           <div className="flex flex-col lg:flex-row gap-1 sm:gap-2 items-start lg:items-center flex-1 mr-2 sm:mr-0">
-            {/* Adaptive Testing Toggle */}
+            {/* Adaptive Learning Toggle */}
             <div className="flex items-center gap-1">
               <label className="flex items-center gap-1 cursor-pointer">
                 <input
@@ -286,7 +286,7 @@ const VocabularyTrainerPage: React.FC = () => {
                   onChange={(e) => setUseAdaptiveTesting(e.target.checked)}
                   className="rounded border-neutral-300 text-primary-600 focus:ring-primary-500 h-3 w-3"
                 />
-                <span className="text-xs font-medium">Adaptive Testing</span>
+                <span className="text-xs font-medium">Adaptive Learning</span>
               </label>
               {useAdaptiveTesting && (
                 <span className="text-xs text-neutral-500">Auto-adjusts</span>
@@ -487,11 +487,6 @@ const VocabularyTrainerPage: React.FC = () => {
                 <div className="bg-neutral-50 dark:bg-neutral-800 rounded-lg p-3">
                   <h3 className="font-semibold text-xs mb-1">
                     Word Origin & Etymology
-                    {currentQuestion.word.etymology_source && (
-                      <span className="ml-2 text-neutral-500 font-normal">
-                        (Source: {currentQuestion.word.etymology_source})
-                      </span>
-                    )}
                   </h3>
                   <p className="text-xs text-neutral-700 dark:text-neutral-300">
                     {currentQuestion.word.etymology}
