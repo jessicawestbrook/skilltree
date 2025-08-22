@@ -597,7 +597,7 @@ const LanguageTrainerPage: React.FC = () => {
             <button
               onClick={handleSubmit}
               disabled={selectedAnswer === null}
-              className="w-full py-1.5 bg-primary-600 text-white rounded-lg hover:bg-primary-700 active:bg-primary-800 disabled:bg-neutral-400 disabled:cursor-not-allowed transition-colors text-sm"
+              className="w-full py-2 bg-primary-700 text-white rounded-lg hover:bg-primary-800 active:bg-primary-900 disabled:bg-neutral-400 disabled:cursor-not-allowed transition-colors text-sm font-semibold shadow-md"
             >
               Submit
             </button>

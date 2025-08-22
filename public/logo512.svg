@@ -1,0 +1,39 @@
+
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <defs>
+    <radialGradient id="bgGrad" cx="50%" cy="30%" r="70%">
+      <stop offset="0%" style="stop-color:#34d399;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#059669;stop-opacity:1" />
+    </radialGradient>
+    <linearGradient id="trunkGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#92400e;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#a16207;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#92400e;stop-opacity:1" />
+    </linearGradient>
+    <radialGradient id="foliageGrad" cx="50%" cy="40%" r="60%">
+      <stop offset="0%" style="stop-color:#fbbf24;stop-opacity:1" />
+      <stop offset="70%" style="stop-color:#f59e0b;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#d97706;stop-opacity:1" />
+    </radialGradient>
+  </defs>
+  
+  <!-- Background circle -->
+  <circle cx="256" cy="256" r="251" fill="url(#bgGrad)" stroke="#047857" stroke-width="16"/>
+  
+  <!-- Tree trunk -->
+  <rect x="216" y="302.08" width="80" height="128" fill="url(#trunkGrad)" rx="8"/>
+  
+  <!-- Tree foliage -->
+  <path d="M 256 64 C 192 64 143.36 112.64 143.36 174.08 C 97.28 174.08 64 209.92 64 256 C 64 286.72 81.92 312.32 102.4 327.68 C 128 353.28 158.72 353.28 192 343.04 C 225.28 358.4 286.72 358.4 320 343.04 C 353.28 353.28 384 353.28 409.6 327.68 C 430.08 312.32 448 286.72 448 256 C 448 209.92 414.72 174.08 368.64 174.08 C 368.64 112.64 320 64 256 64 Z" fill="url(#foliageGrad)" stroke="#d97706" stroke-width="8"/>
+  
+  <!-- Skill tree lines -->
+  <path d="M 256 192 L 192 256 M 256 192 L 320 256 M 192 256 L 128 302.08 M 192 256 L 256 302.08 M 320 256 L 384 302.08" stroke="#ffffff" stroke-width="16" opacity="0.8"/>
+  
+  <!-- Skill nodes -->
+  <circle cx="256" cy="192" r="28.764044943820224" fill="#ffffff" stroke="#d97706" stroke-width="12.8"/>
+  <circle cx="192" cy="256" r="24.037558685446008" fill="#fbbf24" stroke="#ffffff" stroke-width="8"/>
+  <circle cx="320" cy="256" r="24.037558685446008" fill="#fbbf24" stroke="#ffffff" stroke-width="8"/>
+  <circle cx="128" cy="302.08" r="19.176029962546817" fill="#e5e7eb" stroke="#9ca3af" stroke-width="8"/>
+  <circle cx="384" cy="302.08" r="19.176029962546817" fill="#e5e7eb" stroke="#9ca3af" stroke-width="8"/>
+  <circle cx="256" cy="302.08" r="19.176029962546817" fill="#22c55e" stroke="#ffffff" stroke-width="8"/>
+</svg>

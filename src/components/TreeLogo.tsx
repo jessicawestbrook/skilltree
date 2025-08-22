@@ -10,70 +10,46 @@ const TreeLogo: React.FC<TreeLogoProps> = ({ className = '', size = 32 }) => {
     <svg
       width={size}
       height={size}
-      viewBox="0 0 100 100"
-      fill="none"
+      viewBox="0 0 32 32"
       xmlns="http://www.w3.org/2000/svg"
       className={className}
     >
-      {/* Tree trunk */}
-      <rect
-        x="42"
-        y="60"
-        width="16"
-        height="35"
-        fill="url(#trunk-gradient)"
-        rx="2"
-      />
-      
-      {/* Tree roots */}
-      <path
-        d="M50 90 L40 100 M50 90 L50 100 M50 90 L60 100"
-        stroke="url(#trunk-gradient)"
-        strokeWidth="3"
-        strokeLinecap="round"
-        fill="none"
-      />
-      
-      {/* Tree crown - layered circles for foliage */}
-      <circle cx="50" cy="25" r="20" fill="url(#leaves-gradient-1)" opacity="0.9" />
-      <circle cx="40" cy="35" r="18" fill="url(#leaves-gradient-2)" opacity="0.85" />
-      <circle cx="60" cy="35" r="18" fill="url(#leaves-gradient-2)" opacity="0.85" />
-      <circle cx="35" cy="45" r="15" fill="url(#leaves-gradient-3)" opacity="0.8" />
-      <circle cx="65" cy="45" r="15" fill="url(#leaves-gradient-3)" opacity="0.8" />
-      <circle cx="50" cy="48" r="16" fill="url(#leaves-gradient-1)" opacity="0.75" />
-      
-      {/* Small decorative leaves/fruits */}
-      <circle cx="45" cy="30" r="2" fill="#FFD700" opacity="0.9" />
-      <circle cx="55" cy="28" r="2" fill="#FFD700" opacity="0.9" />
-      <circle cx="38" cy="40" r="2" fill="#FFD700" opacity="0.9" />
-      <circle cx="62" cy="42" r="2" fill="#FFD700" opacity="0.9" />
-      <circle cx="50" cy="45" r="2" fill="#FFD700" opacity="0.9" />
-      
-      {/* Gradient definitions */}
       <defs>
-        {/* Trunk gradient - brown tones */}
-        <linearGradient id="trunk-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
-          <stop offset="0%" stopColor="#8B4513" />
-          <stop offset="50%" stopColor="#A0522D" />
-          <stop offset="100%" stopColor="#654321" />
+        <radialGradient id="bgGrad" cx="50%" cy="30%" r="70%">
+          <stop offset="0%" style={{stopColor:'#34d399', stopOpacity:1}} />
+          <stop offset="100%" style={{stopColor:'#059669', stopOpacity:1}} />
+        </radialGradient>
+        <linearGradient id="trunkGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+          <stop offset="0%" style={{stopColor:'#92400e', stopOpacity:1}} />
+          <stop offset="50%" style={{stopColor:'#a16207', stopOpacity:1}} />
+          <stop offset="100%" style={{stopColor:'#92400e', stopOpacity:1}} />
         </linearGradient>
-        
-        {/* Leaves gradients - green tones */}
-        <radialGradient id="leaves-gradient-1">
-          <stop offset="0%" stopColor="#22C55E" />
-          <stop offset="100%" stopColor="#16A34A" />
-        </radialGradient>
-        
-        <radialGradient id="leaves-gradient-2">
-          <stop offset="0%" stopColor="#16A34A" />
-          <stop offset="100%" stopColor="#15803D" />
-        </radialGradient>
-        
-        <radialGradient id="leaves-gradient-3">
-          <stop offset="0%" stopColor="#15803D" />
-          <stop offset="100%" stopColor="#166534" />
+        <radialGradient id="foliageGrad" cx="50%" cy="40%" r="60%">
+          <stop offset="0%" style={{stopColor:'#fbbf24', stopOpacity:1}} />
+          <stop offset="70%" style={{stopColor:'#f59e0b', stopOpacity:1}} />
+          <stop offset="100%" style={{stopColor:'#d97706', stopOpacity:1}} />
         </radialGradient>
       </defs>
+      
+      {/* Background circle */}
+      <circle cx="16" cy="16" r="15" fill="url(#bgGrad)" stroke="#047857" strokeWidth="1"/>
+      
+      {/* Tree trunk with gradient */}
+      <rect x="13.5" y="19" width="5" height="8" fill="url(#trunkGrad)" rx="0.5"/>
+      
+      {/* Main tree foliage - organic cloud shape */}
+      <path d="M 16 4 C 12 4 9 7 9 11 C 6 11 4 13 4 16 C 4 18 5 19.5 6.5 20.5 C 8 22 10 22 12 21.5 C 14 22.5 18 22.5 20 21.5 C 22 22 24 22 25.5 20.5 C 27 19.5 28 18 28 16 C 28 13 26 11 23 11 C 23 7 20 4 16 4 Z" fill="url(#foliageGrad)" stroke="#d97706" strokeWidth="0.5"/>
+      
+      {/* Skill tree connection lines */}
+      <path d="M 16 12 L 12 16 M 16 12 L 20 16 M 12 16 L 8 19 M 12 16 L 16 19 M 20 16 L 24 19" stroke="#ffffff" strokeWidth="1" opacity="0.8"/>
+      
+      {/* Skill nodes - representing learning progression */}
+      <circle cx="16" cy="12" r="1.8" fill="#ffffff" stroke="#d97706" strokeWidth="0.8"/>
+      <circle cx="12" cy="16" r="1.5" fill="#fbbf24" stroke="#ffffff" strokeWidth="0.5"/>
+      <circle cx="20" cy="16" r="1.5" fill="#fbbf24" stroke="#ffffff" strokeWidth="0.5"/>
+      <circle cx="8" cy="19" r="1.2" fill="#e5e7eb" stroke="#9ca3af" strokeWidth="0.5"/>
+      <circle cx="24" cy="19" r="1.2" fill="#e5e7eb" stroke="#9ca3af" strokeWidth="0.5"/>
+      <circle cx="16" cy="19" r="1.2" fill="#22c55e" stroke="#ffffff" strokeWidth="0.5"/>
     </svg>
   )
 }

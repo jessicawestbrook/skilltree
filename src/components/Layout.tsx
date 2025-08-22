@@ -1,10 +1,11 @@
 import React, { useState, useEffect, useRef } from 'react'
 import { Outlet, Link } from 'react-router-dom'
-import { AcademicCapIcon, Bars3Icon, XMarkIcon, ChevronDownIcon } from '@heroicons/react/24/outline'
+import { Bars3Icon, XMarkIcon, ChevronDownIcon } from '@heroicons/react/24/outline'
 import { useTheme } from '../contexts/ThemeContext'
 import UnifiedDropdownMenu from './UnifiedDropdownMenu'
 import SearchBar from './SearchBar'
 import NotificationBell from './NotificationBell'
+import TreeLogo from './TreeLogo'
 import { supabase } from '../services/supabase'
 import { SkillTreeNode } from '../types/database.types'
 
@@ -92,7 +93,7 @@ const Layout: React.FC = () => {
               {/* Logo/Brand */}
               <div className="flex items-center">
                 <Link to="/" className="flex items-center space-x-2">
-                  <AcademicCapIcon className="h-8 w-8 text-primary-600" />
+                  <TreeLogo size={32} className="text-primary-600" />
                   <span className="font-game text-2xl text-primary-600 dark:text-primary-400">
                     SkillTree
                   </span>

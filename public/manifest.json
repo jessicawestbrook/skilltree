@@ -3,17 +3,22 @@
   "name": "SkillTree - Learn Like a Game",
   "icons": [
     {
-      "src": "favicon.ico",
-      "sizes": "64x64 32x32 24x24 16x16",
-      "type": "image/x-icon"
+      "src": "favicon.svg?v=4",
+      "type": "image/svg+xml",
+      "sizes": "any"
     },
     {
-      "src": "logo192.png",
+      "src": "favicon.ico?v=4",
+      "type": "image/x-icon",
+      "sizes": "16x16 32x32"
+    },
+    {
+      "src": "logo192.png?v=4",
       "type": "image/png",
       "sizes": "192x192"
     },
     {
-      "src": "logo512.png",
+      "src": "logo512.png?v=4",
       "type": "image/png",
       "sizes": "512x512"
     }

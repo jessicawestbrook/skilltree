@@ -348,7 +348,6 @@ async function createRavensMatricesNode() {
         difficulty_levels: ['easy', 'medium', 'hard']
       },
       display_order: 2,
-      has_learning_content: false,
       learning_content_ids: null,
       is_menu_leaf: true,
       source_url: 'Original questions inspired by Raven\'s Progressive Matrices format'

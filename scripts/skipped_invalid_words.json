@@ -1,0 +1,62 @@
+[
+  {
+    "id": "7425a7c0-9e57-42ba-8f1f-aec1b358ddbd",
+    "word": "nostrilsthe",
+    "reason": "combined-word"
+  },
+  {
+    "id": "a6e67a13-8a07-4dad-9544-53ab521612ef",
+    "word": "nulliusnoun",
+    "reason": "combined-word"
+  },
+  {
+    "id": "c3761508-1abd-445d-b7ef-6787211f474e",
+    "word": "ogivalnoun",
+    "reason": "combined-word"
+  },
+  {
+    "id": "2a389e98-69ea-41c7-b0b7-e726a4d71cf6",
+    "word": "pâtissier",
+    "reason": "invalid-characters"
+  },
+  {
+    "id": "ea924108-f751-4472-b097-01b6501083cd",
+    "word": "regnalattaché",
+    "reason": "invalid-characters"
+  },
+  {
+    "id": "f258ddb4-1ef3-4223-a869-15613bb6e100",
+    "word": "renvoinoun",
+    "reason": "combined-word"
+  },
+  {
+    "id": "935eda52-4e85-4d97-8a48-3c9c33d57498",
+    "word": "résumé",
+    "reason": "invalid-characters"
+  },
+  {
+    "id": "ad2d29eb-9a37-4de9-90ca-16b58b909f4f",
+    "word": "reykjavík",
+    "reason": "invalid-characters"
+  },
+  {
+    "id": "16b9a227-8d40-4cbf-8de0-9a953084acaa",
+    "word": "ryeland",
+    "reason": "combined-word"
+  },
+  {
+    "id": "935eac5e-bceb-4651-83ce-50241f26c689",
+    "word": "soirée",
+    "reason": "invalid-characters"
+  },
+  {
+    "id": "5caa9026-a375-458d-acd1-46a737c7e7cb",
+    "word": "soupçon",
+    "reason": "invalid-characters"
+  },
+  {
+    "id": "ddbd51f6-ed54-438e-8a51-36c9ead7013b",
+    "word": "velouté",
+    "reason": "invalid-characters"
+  }
+]

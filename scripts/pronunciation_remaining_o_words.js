@@ -1,0 +1,436 @@
+const { createClient } = require('@supabase/supabase-js');
+require('dotenv').config({ path: '.env.local' });
+
+const supabase = createClient(
+  process.env.REACT_APP_SUPABASE_URL,
+  process.env.SUPABASE_SERVICE_ROLE_KEY
+);
+
+// Remaining O-words pronunciations
+const pronunciations = {
+  'odin': 'OH-din',
+  'onomatopoeia': 'on-uh-mat-uh-PEE-uh',
+  'oaxaca': 'wah-HAH-kah',
+  'obdurate': 'OB-dur-it',
+  'obediential': 'oh-bee-dee-EN-shul',
+  'obeisant': 'oh-BAY-sunt',
+  'obeisantoeuvre': 'oh-BAY-sunt-UR-vruh',
+  'obfuscate': 'OB-fus-kayt',
+  'objet': 'ob-ZHAY',
+  'oblast': 'OH-blast',
+  'oblate': 'oh-BLAYT',
+  'obligatory': 'uh-BLIG-uh-tor-ee',
+  'oblique': 'oh-BLEEK',
+  'obliterate': 'uh-BLIT-uh-rayt',
+  'oblivion': 'uh-BLIV-ee-un',
+  'oblong': 'OB-long',
+  'obnoxious': 'ub-NOK-shus',
+  'obscene': 'ub-SEEN',
+  'obscure': 'ub-SKYOOR',
+  'obsequious': 'ub-SEE-kwee-us',
+  'observant': 'ub-ZER-vunt',
+  'observatory': 'ub-ZER-vuh-tor-ee',
+  'obsolete': 'ob-suh-LEET',
+  'obstacle': 'OB-stih-kul',
+  'obstetric': 'ub-STET-rik',
+  'obstinate': 'OB-stih-nit',
+  'obstreperous': 'ub-STREP-er-us',
+  'obstruct': 'ub-STRUKT',
+  'obtain': 'ub-TAYN',
+  'obtrusive': 'ub-TROO-siv',
+  'obtuse': 'ub-TOOS',
+  'obverse': 'OB-vers',
+  'obviate': 'OB-vee-ayt',
+  'obvious': 'OB-vee-us',
+  'ocarina': 'ok-uh-REE-nuh',
+  'occasion': 'uh-KAY-zhun',
+  'occidental': 'ok-sih-DEN-tul',
+  'occlude': 'uh-KLOOD',
+  'occult': 'uh-KULT',
+  'occupant': 'OK-yuh-punt',
+  'occupy': 'OK-yuh-py',
+  'occur': 'uh-KER',
+  'occurrence': 'uh-KER-uns',
+  'ocean': 'OH-shun',
+  'oceanic': 'oh-see-AN-ik',
+  'ocelot': 'OS-uh-lot',
+  'ochre': 'OH-ker',
+  'octagon': 'OK-tuh-gon',
+  'octane': 'OK-tayn',
+  'octave': 'OK-tiv',
+  'october': 'ok-TOH-ber',
+  'octogenarian': 'ok-toh-juh-NAIR-ee-un',
+  'octopus': 'OK-tuh-pus',
+  'ocular': 'OK-yuh-ler',
+  'oculist': 'OK-yuh-list',
+  'odd': 'OD',
+  'oddity': 'OD-ih-tee',
+  'ode': 'OHD',
+  'odious': 'OH-dee-us',
+  'odometer': 'oh-DOM-ih-ter',
+  'odor': 'OH-der',
+  'odorous': 'OH-der-us',
+  'odyssey': 'OD-ih-see',
+  'oedipal': 'EE-dih-pul',
+  'oesophagus': 'ih-SOF-uh-gus',
+  'oeuvre': 'UR-vruh',
+  'offal': 'AW-ful',
+  'offbeat': 'AWF-beet',
+  'offend': 'uh-FEND',
+  'offense': 'uh-FENS',
+  'offensive': 'uh-FEN-siv',
+  'offer': 'AW-fer',
+  'offering': 'AW-fer-ing',
+  'offhand': 'AWF-hand',
+  'office': 'AW-fis',
+  'officer': 'AW-fih-ser',
+  'official': 'uh-FISH-ul',
+  'officiate': 'uh-FISH-ee-ayt',
+  'officious': 'uh-FISH-us',
+  'offshoot': 'AWF-shoot',
+  'offshore': 'AWF-shor',
+  'offspring': 'AWF-spring',
+  'often': 'AW-fun',
+  'ogre': 'OH-ger',
+  'ohm': 'OHM',
+  'oil': 'OYL',
+  'oily': 'OY-lee',
+  'ointment': 'OYNT-munt',
+  'okay': 'oh-KAY',
+  'okra': 'OH-kruh',
+  'old': 'OHLD',
+  'older': 'OHL-der',
+  'oldest': 'OHL-dist',
+  'oleander': 'oh-lee-AN-der',
+  'oleomargarine': 'oh-lee-oh-MAR-jer-een',
+  'olfactory': 'ol-FAK-ter-ee',
+  'oligarchy': 'OL-ih-gar-kee',
+  'olive': 'OL-iv',
+  'ombudsman': 'OM-budz-mun',
+  'omega': 'oh-MEE-guh',
+  'omelet': 'OM-uh-lit',
+  'omen': 'OH-mun',
+  'ominous': 'OM-ih-nus',
+  'omission': 'oh-MISH-un',
+  'omit': 'oh-MIT',
+  'omnibus': 'OM-nih-bus',
+  'omnipotent': 'om-NIP-uh-tunt',
+  'omniscient': 'om-NISH-unt',
+  'omnivorous': 'om-NIV-er-us',
+  'once': 'WUNS',
+  'oncoming': 'ON-kum-ing',
+  'one': 'WUN',
+  'onerous': 'ON-er-us',
+  'oneself': 'wun-SELF',
+  'ongoing': 'ON-goh-ing',
+  'onion': 'UN-yun',
+  'online': 'ON-lyn',
+  'onlooker': 'ON-look-er',
+  'only': 'OHN-lee',
+  'onset': 'ON-set',
+  'onslaught': 'ON-slawt',
+  'onto': 'ON-too',
+  'onus': 'OH-nus',
+  'onward': 'ON-werd',
+  'onyx': 'ON-iks',
+  'ooze': 'OOZ',
+  'opal': 'OH-pul',
+  'opaque': 'oh-PAYK',
+  'open': 'OH-pun',
+  'opener': 'OH-puh-ner',
+  'opening': 'OH-puh-ning',
+  'opera': 'OP-er-uh',
+  'operate': 'OP-er-ayt',
+  'operation': 'op-er-AY-shun',
+  'operative': 'OP-er-uh-tiv',
+  'operator': 'OP-er-ay-ter',
+  'operetta': 'op-er-ET-uh',
+  'ophthalmology': 'of-thul-MOL-uh-jee',
+  'opiate': 'OH-pee-it',
+  'opine': 'oh-PYN',
+  'opinion': 'uh-PIN-yun',
+  'opium': 'OH-pee-um',
+  'opossum': 'uh-POS-um',
+  'opponent': 'uh-POH-nunt',
+  'opportune': 'op-er-TOON',
+  'opportunity': 'op-er-TOO-nih-tee',
+  'oppose': 'uh-POHZ',
+  'opposite': 'OP-uh-zit',
+  'opposition': 'op-uh-ZISH-un',
+  'oppress': 'uh-PRES',
+  'oppression': 'uh-PRESH-un',
+  'oppressive': 'uh-PRES-iv',
+  'opprobrium': 'uh-PROH-bree-um',
+  'opt': 'OPT',
+  'optical': 'OP-tih-kul',
+  'optician': 'op-TISH-un',
+  'optics': 'OP-tiks',
+  'optimal': 'OP-tih-mul',
+  'optimism': 'OP-tih-mizm',
+  'optimist': 'OP-tih-mist',
+  'optimistic': 'op-tih-MIS-tik',
+  'optimize': 'OP-tih-myz',
+  'optimum': 'OP-tih-mum',
+  'option': 'OP-shun',
+  'optional': 'OP-shuh-nul',
+  'optometrist': 'op-TOM-ih-trist',
+  'opulent': 'OP-yuh-lunt',
+  'opus': 'OH-pus',
+  'or': 'OR',
+  'oracle': 'OR-uh-kul',
+  'oral': 'OR-ul',
+  'orange': 'OR-inj',
+  'orangutan': 'uh-RANG-oo-tan',
+  'oration': 'or-AY-shun',
+  'orator': 'OR-uh-ter',
+  'oratorio': 'or-uh-TOR-ee-oh',
+  'oratory': 'OR-uh-tor-ee',
+  'orb': 'ORB',
+  'orbit': 'OR-bit',
+  'orbital': 'OR-bih-tul',
+  'orchard': 'OR-cherd',
+  'orchestra': 'OR-kih-struh',
+  'orchestral': 'or-KES-trul',
+  'orchestrate': 'OR-kih-strayt',
+  'orchid': 'OR-kid',
+  'ordain': 'or-DAYN',
+  'ordeal': 'or-DEEL',
+  'order': 'OR-der',
+  'orderly': 'OR-der-lee',
+  'ordinal': 'OR-dih-nul',
+  'ordinance': 'OR-dih-nuns',
+  'ordinary': 'OR-dih-nair-ee',
+  'ordinate': 'OR-dih-nit',
+  'ordination': 'or-dih-NAY-shun',
+  'ordnance': 'ORD-nuns',
+  'ore': 'OR',
+  'oregano': 'uh-REG-uh-noh',
+  'organ': 'OR-gun',
+  'organic': 'or-GAN-ik',
+  'organism': 'OR-gun-izm',
+  'organist': 'OR-gun-ist',
+  'organization': 'or-gun-ih-ZAY-shun',
+  'organize': 'OR-gun-yz',
+  'orgasm': 'OR-gazm',
+  'orgiastic': 'or-jee-AS-tik',
+  'orgy': 'OR-jee',
+  'orient': 'OR-ee-unt',
+  'oriental': 'or-ee-EN-tul',
+  'orientation': 'or-ee-un-TAY-shun',
+  'orifice': 'OR-ih-fis',
+  'origami': 'or-ih-GAH-mee',
+  'origin': 'OR-ih-jin',
+  'original': 'uh-RIJ-ih-nul',
+  'originality': 'uh-rij-ih-NAL-ih-tee',
+  'originate': 'uh-RIJ-ih-nayt',
+  'oriole': 'OR-ee-ohl',
+  'orison': 'OR-ih-zun',
+  'ornament': 'OR-nuh-munt',
+  'ornamental': 'or-nuh-MEN-tul',
+  'ornate': 'or-NAYT',
+  'ornery': 'OR-ner-ee',
+  'ornithology': 'or-nih-THOL-uh-jee',
+  'orotund': 'OR-uh-tund',
+  'orphan': 'OR-fun',
+  'orphanage': 'OR-fun-ij',
+  'orthodontics': 'or-thuh-DON-tiks',
+  'orthodox': 'OR-thuh-doks',
+  'orthodoxy': 'OR-thuh-dok-see',
+  'orthography': 'or-THOG-ruh-fee',
+  'orthopedic': 'or-thuh-PEE-dik',
+  'oscillate': 'OS-uh-layt',
+  'oscilloscope': 'uh-SIL-uh-skohp',
+  'osier': 'OH-zher',
+  'osmosis': 'oz-MOH-sis',
+  'osprey': 'OS-pray',
+  'ossify': 'OS-uh-fy',
+  'ostensible': 'o-STEN-suh-bul',
+  'ostentation': 'os-ten-TAY-shun',
+  'ostentatious': 'os-ten-TAY-shus',
+  'osteopath': 'OS-tee-oh-path',
+  'ostler': 'OS-ler',
+  'ostracism': 'OS-truh-sizm',
+  'ostracize': 'OS-truh-syz',
+  'ostrich': 'OS-trich',
+  'other': 'UTH-er',
+  'otherwise': 'UTH-er-wyz',
+  'otiose': 'OH-tee-ohs',
+  'ottoman': 'OT-uh-mun',
+  'oubliette': 'oo-blee-ET',
+  'ought': 'AWT',
+  'ounce': 'OWNS',
+  'our': 'OWR',
+  'ours': 'OWRZ',
+  'ourselves': 'owr-SELVZ',
+  'oust': 'OWST',
+  'out': 'OWT',
+  'outboard': 'OWT-bord',
+  'outbreak': 'OWT-brayk',
+  'outburst': 'OWT-berst',
+  'outcast': 'OWT-kast',
+  'outcome': 'OWT-kum',
+  'outcry': 'OWT-kry',
+  'outdo': 'owt-DOO',
+  'outdoor': 'OWT-dor',
+  'outdoors': 'owt-DORZ',
+  'outer': 'OW-ter',
+  'outfield': 'OWT-feeld',
+  'outfit': 'OWT-fit',
+  'outgoing': 'OWT-goh-ing',
+  'outgrow': 'owt-GROH',
+  'outing': 'OW-ting',
+  'outlandish': 'owt-LAN-dish',
+  'outlast': 'owt-LAST',
+  'outlaw': 'OWT-law',
+  'outlay': 'OWT-lay',
+  'outlet': 'OWT-lit',
+  'outline': 'OWT-lyn',
+  'outlive': 'owt-LIV',
+  'outlook': 'OWT-look',
+  'outlying': 'OWT-ly-ing',
+  'outmoded': 'owt-MOH-did',
+  'outnumber': 'owt-NUM-ber',
+  'outpatient': 'OWT-pay-shunt',
+  'outpost': 'OWT-pohst',
+  'output': 'OWT-put',
+  'outrage': 'OWT-rayj',
+  'outrageous': 'owt-RAY-jus',
+  'outreach': 'OWT-reech',
+  'outright': 'OWT-ryt',
+  'outrun': 'owt-RUN',
+  'outset': 'OWT-set',
+  'outside': 'owt-SYD',
+  'outskirts': 'OWT-skerts',
+  'outspoken': 'owt-SPOH-kun',
+  'outstanding': 'owt-STAN-ding',
+  'outward': 'OWT-werd',
+  'outweigh': 'owt-WAY',
+  'outwit': 'owt-WIT',
+  'oval': 'OH-vul',
+  'ovarian': 'oh-VAIR-ee-un',
+  'ovary': 'OH-vuh-ree',
+  'ovation': 'oh-VAY-shun',
+  'oven': 'UV-un',
+  'over': 'OH-ver',
+  'overall': 'OH-ver-awl',
+  'overboard': 'OH-ver-bord',
+  'overcast': 'OH-ver-kast',
+  'overcome': 'oh-ver-KUM',
+  'overdo': 'oh-ver-DOO',
+  'overdose': 'OH-ver-dohs',
+  'overflow': 'oh-ver-FLOH',
+  'overgrown': 'oh-ver-GROHN',
+  'overhaul': 'oh-ver-HAWL',
+  'overhead': 'OH-ver-hed',
+  'overhear': 'oh-ver-HEER',
+  'overlap': 'oh-ver-LAP',
+  'overlay': 'oh-ver-LAY',
+  'overlook': 'oh-ver-LOOK',
+  'overnight': 'OH-ver-nyt',
+  'overpower': 'oh-ver-POW-er',
+  'overrule': 'oh-ver-ROOL',
+  'overseas': 'oh-ver-SEEZ',
+  'oversee': 'oh-ver-SEE',
+  'oversight': 'OH-ver-syt',
+  'overtake': 'oh-ver-TAYK',
+  'overthrow': 'oh-ver-THROH',
+  'overtime': 'OH-ver-tym',
+  'overtone': 'OH-ver-tohn',
+  'overture': 'OH-ver-chur',
+  'overturn': 'oh-ver-TERN',
+  'overwhelm': 'oh-ver-HWELM',
+  'oviduct': 'OH-vih-dukt',
+  'ovine': 'OH-vyn',
+  'ovoid': 'OH-voyd',
+  'ovulation': 'ov-yuh-LAY-shun',
+  'ovum': 'OH-vum',
+  'owe': 'OH',
+  'owl': 'OWL',
+  'own': 'OHN',
+  'owner': 'OH-ner',
+  'ownership': 'OH-ner-ship',
+  'ox': 'OKS',
+  'oxen': 'OK-sun',
+  'oxbow': 'OKS-boh',
+  'oxford': 'OKS-ferd',
+  'oxidize': 'OK-sih-dyz',
+  'oxygen': 'OK-sih-jun',
+  'oxymoron': 'ok-see-MOR-on',
+  'oyster': 'OY-ster',
+  'ozone': 'OH-zohn'
+};
+
+async function updateRemainingOWords() {
+  try {
+    console.log('Processing remaining O-words pronunciation batch...');
+    
+    // Get remaining O-words missing pronunciations
+    const { data: wordsToUpdate, error } = await supabase
+      .from('spelling_words')
+      .select('id, word')
+      .is('pronunciation_guide', null)
+      .ilike('word', 'o%')
+      .limit(150);
+      
+    if (error) {
+      console.error('Error fetching words:', error);
+      return;
+    }
+    
+    console.log(`Found ${wordsToUpdate.length} remaining O-words missing pronunciation`);
+    let updated = 0;
+    let notFound = [];
+    
+    for (const wordData of wordsToUpdate) {
+      const word = wordData.word;
+      const pronunciation = pronunciations[word] || pronunciations[word.toLowerCase()];
+      
+      if (pronunciation) {
+        const { error: updateError } = await supabase
+          .from('spelling_words')
+          .update({ pronunciation_guide: pronunciation })
+          .eq('id', wordData.id);
+          
+        if (updateError) {
+          console.error(`Failed to update ${word}:`, updateError);
+        } else {
+          console.log(`✓ Added pronunciation for ${word}: ${pronunciation}`);
+          updated++;
+        }
+        
+        // Small delay to avoid rate limits
+        await new Promise(resolve => setTimeout(resolve, 50));
+      } else {
+        notFound.push(word);
+      }
+    }
+    
+    console.log(`\nRemaining O-words batch completed: ${updated} pronunciations added`);
+    
+    if (notFound.length > 0) {
+      console.log(`O-words not found in our list: ${notFound.length}`);
+      if (notFound.length <= 30) {
+        console.log('Missing O-words:');
+        notFound.forEach(word => console.log(`- ${word}`));
+      }
+    }
+    
+    // Overall progress check
+    const { count: totalCount } = await supabase
+      .from('spelling_words')
+      .select('*', { count: 'exact', head: true });
+      
+    const { count: withPronunciation } = await supabase
+      .from('spelling_words')
+      .select('*', { count: 'exact', head: true })
+      .not('pronunciation_guide', 'is', null);
+      
+    const progress = ((withPronunciation/totalCount)*100).toFixed(1);
+    console.log(`\nOverall progress: ${withPronunciation}/${totalCount} (${progress}%)`);
+    
+  } catch (error) {
+    console.error('Remaining O-words batch failed:', error);
+  }
+}
+
+updateRemainingOWords();

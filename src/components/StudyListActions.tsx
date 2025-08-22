@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { 
   StarIcon, 
   BookmarkIcon 
@@ -27,6 +28,7 @@ const StudyListActions: React.FC<StudyListActionsProps> = ({
   showLabels = false
 }) => {
   const { user } = useAuth()
+  const navigate = useNavigate()
   const [isStarred, setIsStarred] = useState(false)
   const [showStudyListModal, setShowStudyListModal] = useState(false)
   const [userStudyLists, setUserStudyLists] = useState<StudyList[]>([])
@@ -52,7 +54,11 @@ const StudyListActions: React.FC<StudyListActionsProps> = ({
   }, [user, checkIfStarred, fetchUserStudyLists])
 
   const handleStarToggle = async () => {
-    if (!user) return
+    if (!user) {
+      // Navigate to login page
+      navigate('/login')
+      return
+    }
     
     setLoading(true)
     try {
@@ -75,12 +81,12 @@ const StudyListActions: React.FC<StudyListActionsProps> = ({
   }
 
   const handleAddToStudyList = () => {
-    if (!user) return
+    if (!user) {
+      // Navigate to login page
+      navigate('/login')
+      return
+    }
     setShowStudyListModal(true)
-  }
-
-  if (!user) {
-    return null
   }
 
   return (
@@ -91,16 +97,16 @@ const StudyListActions: React.FC<StudyListActionsProps> = ({
           onClick={handleStarToggle}
           disabled={loading}
           className="flex items-center gap-1 p-1.5 rounded-lg hover:bg-neutral-100 dark:hover:bg-neutral-700 transition-colors disabled:opacity-50"
-          title={isStarred ? 'Remove from starred' : 'Add to starred'}
+          title={user ? (isStarred ? 'Remove from starred' : 'Add to starred') : 'Log in to star items'}
         >
-          {isStarred ? (
+          {user && isStarred ? (
             <StarIconSolid className="h-4 w-4 text-yellow-500" />
           ) : (
             <StarIcon className="h-4 w-4 text-neutral-400 hover:text-yellow-500" />
           )}
           {showLabels && (
             <span className="text-xs font-medium">
-              {isStarred ? 'Starred' : 'Star'}
+              {user && isStarred ? 'Starred' : 'Star'}
             </span>
           )}
         </button>
@@ -109,7 +115,7 @@ const StudyListActions: React.FC<StudyListActionsProps> = ({
         <button
           onClick={handleAddToStudyList}
           className="flex items-center gap-1 p-1.5 rounded-lg hover:bg-neutral-100 dark:hover:bg-neutral-700 transition-colors"
-          title="Add to study list"
+          title={user ? 'Add to study list' : 'Log in to create study lists'}
         >
           <BookmarkIcon className="h-4 w-4 text-neutral-400 hover:text-primary-500" />
           {showLabels && (

@@ -21,11 +21,11 @@ interface SpellingWord {
   word: string
   definition: string
   example_sentence: string
-  difficulty_level: number
-  difficulty_name?: string
+  spelling_difficulty_level: number
+  spelling_difficulty_name?: string
   source_difficulty?: string
-  ai_difficulty_level?: number
-  ai_difficulty_name?: string
+  ai_spelling_difficulty_level?: number
+  ai_spelling_difficulty_name?: string
   etymology?: string
   etymology_source?: string
   pronunciation_guide?: string
@@ -63,11 +63,11 @@ const SpellingBeePage: React.FC = () => {
       let query = supabase
         .from('spelling_words')
         .select('*')
-        .order('difficulty_level')
+        .order('spelling_difficulty_level')
 
       // Apply difficulty filter from selected difficulties
       if (selectedDifficulties.length > 0 && selectedDifficulties.length < 5) {
-        query = query.in('difficulty_name', selectedDifficulties)
+        query = query.in('spelling_difficulty_name', selectedDifficulties)
       }
 
       const { data, error } = await query.limit(100)
@@ -402,15 +402,15 @@ const SpellingBeePage: React.FC = () => {
 
             <div className="text-center mb-1 sm:mb-4 space-y-1">
               <div className="flex justify-center items-center gap-2 sm:gap-3 text-xs">
-                {currentWord.difficulty_name && (
+                {currentWord.spelling_difficulty_name && (
                   <span className={`px-1 sm:px-2 py-0.5 sm:py-1 rounded text-xs font-medium ${
-                    currentWord.difficulty_name === 'Beginner' ? 'bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400' :
-                    currentWord.difficulty_name === 'Elementary' ? 'bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-400' :
-                    currentWord.difficulty_name === 'Intermediate' ? 'bg-yellow-100 text-yellow-700 dark:bg-yellow-900/30 dark:text-yellow-400' :
-                    currentWord.difficulty_name === 'Advanced' ? 'bg-orange-100 text-orange-700 dark:bg-orange-900/30 dark:text-orange-400' :
+                    currentWord.spelling_difficulty_name === 'Beginner' ? 'bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400' :
+                    currentWord.spelling_difficulty_name === 'Elementary' ? 'bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-400' :
+                    currentWord.spelling_difficulty_name === 'Intermediate' ? 'bg-yellow-100 text-yellow-700 dark:bg-yellow-900/30 dark:text-yellow-400' :
+                    currentWord.spelling_difficulty_name === 'Advanced' ? 'bg-orange-100 text-orange-700 dark:bg-orange-900/30 dark:text-orange-400' :
                     'bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400'
                   }`}>
-                    {currentWord.difficulty_name}
+                    {currentWord.spelling_difficulty_name}
                   </span>
                 )}
                 {currentWord.part_of_speech && (
@@ -439,7 +439,7 @@ const SpellingBeePage: React.FC = () => {
               <button
                 type="submit"
                 disabled={!userInput.trim()}
-                className="w-full py-1.5 bg-primary-600 text-white rounded-lg hover:bg-primary-700 disabled:bg-neutral-400 disabled:cursor-not-allowed transition-colors text-sm"
+                className="w-full py-2 bg-primary-700 text-white rounded-lg hover:bg-primary-800 disabled:bg-neutral-400 disabled:cursor-not-allowed transition-colors text-sm font-semibold shadow-md"
               >
                 Submit
               </button>
