@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import { Link, useNavigate, useSearchParams } from 'react-router-dom'
 import { useAuth } from '../contexts/AuthContext'
 import { AcademicCapIcon, EyeIcon, EyeSlashIcon } from '@heroicons/react/24/outline'
 
@@ -11,6 +11,7 @@ const LoginPage: React.FC = () => {
   const [loading, setLoading] = useState(false)
   const { signIn } = useAuth()
   const navigate = useNavigate()
+  const [searchParams] = useSearchParams()
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -33,7 +34,9 @@ const LoginPage: React.FC = () => {
       setError(errorMessage)
       setLoading(false)
     } else {
-      navigate('/profile')
+      // Get the redirect parameter from URL, fallback to profile page
+      const redirectTo = searchParams.get('redirect') || '/profile'
+      navigate(redirectTo)
     }
   }
 

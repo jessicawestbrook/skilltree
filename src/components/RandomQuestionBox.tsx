@@ -3,7 +3,7 @@ import { XMarkIcon, FlagIcon, SparklesIcon } from '@heroicons/react/24/outline'
 import { supabase } from '../services/supabase'
 import { Question } from '../types/database.types'
 import { useAuth } from '../contexts/AuthContext'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useLocation } from 'react-router-dom'
 import FlagContentModal from './FlagContentModal'
 import QuestionExplanation from './QuestionExplanation'
 import { siteConfig } from '../config/site.config'
@@ -15,6 +15,7 @@ interface RandomQuestionBoxProps {
 const RandomQuestionBox: React.FC<RandomQuestionBoxProps> = ({ onClose }) => {
   const { user } = useAuth()
   const navigate = useNavigate()
+  const location = useLocation()
   const [question, setQuestion] = useState<Question | null>(null)
   const [selectedOptionIndex, setSelectedOptionIndex] = useState<number | null>(null)
   const [showAnswer, setShowAnswer] = useState(false)
@@ -277,7 +278,10 @@ const RandomQuestionBox: React.FC<RandomQuestionBoxProps> = ({ onClose }) => {
           </p>
           <div className="flex gap-3">
             <button
-              onClick={() => navigate('/login')}
+              onClick={() => {
+                const redirectTo = location.pathname + location.search
+                navigate(`/login?redirect=${encodeURIComponent(redirectTo)}`)
+              }}
               className="btn-primary flex-1"
             >
               Sign In

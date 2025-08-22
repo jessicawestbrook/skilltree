@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useLocation } from 'react-router-dom'
 import { 
   StarIcon, 
   BookmarkIcon 
@@ -29,6 +29,7 @@ const StudyListActions: React.FC<StudyListActionsProps> = ({
 }) => {
   const { user } = useAuth()
   const navigate = useNavigate()
+  const location = useLocation()
   const [isStarred, setIsStarred] = useState(false)
   const [showStudyListModal, setShowStudyListModal] = useState(false)
   const [userStudyLists, setUserStudyLists] = useState<StudyList[]>([])
@@ -55,8 +56,9 @@ const StudyListActions: React.FC<StudyListActionsProps> = ({
 
   const handleStarToggle = async () => {
     if (!user) {
-      // Navigate to login page
-      navigate('/login')
+      // Navigate to login page with redirect
+      const redirectTo = location.pathname + location.search
+      navigate(`/login?redirect=${encodeURIComponent(redirectTo)}`)
       return
     }
     
@@ -82,8 +84,9 @@ const StudyListActions: React.FC<StudyListActionsProps> = ({
 
   const handleAddToStudyList = () => {
     if (!user) {
-      // Navigate to login page
-      navigate('/login')
+      // Navigate to login page with redirect
+      const redirectTo = location.pathname + location.search
+      navigate(`/login?redirect=${encodeURIComponent(redirectTo)}`)
       return
     }
     setShowStudyListModal(true)

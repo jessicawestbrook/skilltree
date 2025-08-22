@@ -70,7 +70,7 @@ function isValidSpellingWord(word) {
   
   // Length checks
   if (cleanWord.length < 3) return { valid: false, reason: 'too-short' };
-  if (cleanWord.length > 30) return { valid: false, reason: 'too-long' };
+  if (cleanWord.length > 25) return { valid: false, reason: 'too-long' };
   
   // Character checks
   if (/[^a-zA-Z'-]/.test(cleanWord)) return { valid: false, reason: 'invalid-characters' };
@@ -81,10 +81,15 @@ function isValidSpellingWord(word) {
     return { valid: false, reason: 'non-spelling-word' };
   }
   
-  // Check for obvious combined words
+  // Enhanced combined word detection
   const boundaries = findWordBoundaries(cleanWord);
   if (boundaries.some(b => b.confidence === 'high')) {
     return { valid: false, reason: 'combined-word', boundaries: boundaries };
+  }
+  
+  // Additional pattern checks for combined words
+  if (isLikelyCombinedWord(cleanWord)) {
+    return { valid: false, reason: 'likely-combined-word' };
   }
   
   // Check for proper nouns (shouldn't be in spelling bee typically)
@@ -92,7 +97,77 @@ function isValidSpellingWord(word) {
     return { valid: false, reason: 'proper-noun' };
   }
   
+  // Check for nonsense/invalid words
+  if (isNonsenseWord(cleanWord)) {
+    return { valid: false, reason: 'nonsense-word' };
+  }
+  
   return { valid: true };
+}
+
+function isLikelyCombinedWord(word) {
+  // Look for patterns that suggest word combination
+  
+  // Multiple capital letters in middle (camelCase remnants)
+  if (/[a-z][A-Z]/.test(word)) return true;
+  
+  // Very long words that look like combinations
+  if (word.length > 18) return true;
+  
+  // Specific known combined word patterns
+  const knownCombinations = [
+    'obligeviscount', 'obviouspulse', 'oceaniancharitable', 'sherifftarry',
+    'runesancestors', 'ryelanddomesticity', 'nostrilsthe', 'nulliusnoun',
+    'ogivalnoun', 'renvoinoun', 'rescissiblejungian', 'reiterateremorseful'
+  ];
+  
+  if (knownCombinations.includes(word)) return true;
+  
+  // Pattern-based detection for word combinations
+  const wordParts = [
+    'oblige', 'viscount', 'obvious', 'pulse', 'oceanian', 'charitable',
+    'sheriff', 'tarry', 'runes', 'ancestors', 'ryeland', 'domesticity',
+    'nostrils', 'nullius', 'noun', 'ogival', 'renvoi', 'rescissible',
+    'jungian', 'reiterate', 'remorseful', 'menial', 'aerials', 'reveille',
+    'difficulty', 'referral'
+  ];
+  
+  // Check if word contains multiple word parts
+  let foundParts = 0;
+  for (const part of wordParts) {
+    if (word.includes(part)) {
+      foundParts++;
+      if (foundParts >= 2) return true;
+    }
+  }
+  
+  // Words with multiple common endings
+  if (word.match(/(ing|ed|er|ly|tion|sion|ness|ment).*?(ing|ed|er|ly|tion|sion|ness|ment)/)) {
+    return true;
+  }
+  
+  // Check for unusual consonant/vowel patterns that suggest combination
+  if (word.length > 15) {
+    // Too many consonants in a row (suggests word boundaries)
+    if (/[bcdfghjklmnpqrstvwxyz]{4,}/.test(word)) return true;
+    
+    // Unusual patterns like multiple common prefixes/suffixes
+    if (word.match(/(re|pre|un|dis|over).*(re|pre|un|dis|over)/)) return true;
+  }
+  
+  return false;
+}
+
+function isNonsenseWord(word) {
+  // Words that are clearly not real words
+  const nonsensePatterns = [
+    /^shhh+$/,  // Just shushing sounds
+    /(.)\1{4,}/, // Same letter repeated 5+ times
+    /^[bcdfghjklmnpqrstvwxyz]{8,}$/, // All consonants, too long
+    /^[aeiou]{5,}$/ // All vowels, too long
+  ];
+  
+  return nonsensePatterns.some(pattern => pattern.test(word));
 }
 
 async function analyzeMalformedWords() {

@@ -1,2919 +1,399 @@
 {
   "valid": [
     {
-      "id": "8c3de609-06ec-4fb3-b993-aa18054dfb36",
-      "word": "nares",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "e43bc142-875d-42c9-b691-9d63762351bd",
-      "word": "naricorn",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "63a3d3bf-0501-4b75-8d6f-e8376132bee5",
-      "word": "newfangled",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "35fdb8db-18e0-4b32-9a38-8fbcc57c2fe7",
-      "word": "nihilism",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "644f40d0-6144-4c12-a2a9-8aea390d37bb",
-      "word": "obligeviscount",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "7ef7dbd6-30bc-4278-b34b-c7b760df032a",
-      "word": "obviouspulse",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "699f2645-2051-4ca4-af12-4aaaf1367cbb",
-      "word": "oceaniancharitable",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "59f61524-cef8-4772-b565-37734ff821f9",
-      "word": "ocelotonyx",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "1b0063fd-804b-4e35-9615-b47261440689",
-      "word": "odiferous",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "c3713c98-f46d-433f-878e-a9ea458680ba",
-      "word": "ostriches",
-      "pronunciation_guide": null
-    },
-    {
       "id": "2c74b391-a610-4160-bba9-585be5382a1f",
       "word": "ouagadougou",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "262e3e6c-380e-40e0-b6f7-b89d306d9eec",
-      "word": "ouster",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "63dff47a-03a7-43bf-8f2d-bb787ef197a6",
-      "word": "overweening",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "ed2ce807-f19a-477c-9c48-341d4f665bf2",
-      "word": "oviparous",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "cc074061-1376-438c-9bf4-20d61e088698",
-      "word": "owlishly",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "c50b86f4-dd24-4871-8717-fa680451853a",
-      "word": "oxalis",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "c47aa721-b9aa-437a-abc3-fdef99190659",
-      "word": "oxon",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "e92effb1-a695-4512-8d9b-036286e9cf34",
-      "word": "oxyacetylene",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "5b61e193-fe3b-4841-b2b4-1cd3c6003c5d",
-      "word": "oxygenate",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "af3962b5-8d24-4afc-af51-3de8f58dbe41",
-      "word": "oyez",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "a329adc4-8f26-42b9-a4aa-423420088868",
-      "word": "papeterie",
-      "pronunciation_guide": null
+      "pronunciation_guide": ""
     },
     {
       "id": "cc5354e5-dbf4-4656-a28b-f98e2b9504fa",
       "word": "pappardelle",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "cd32eab8-8f59-41c2-be21-39cef0b2d450",
-      "word": "patissier",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "cee1faf8-e601-4536-9d94-449b3c5733dd",
-      "word": "peacenik",
-      "pronunciation_guide": null
+      "pronunciation_guide": ""
     },
     {
       "id": "5bebd10f-bd8d-4c45-a4e3-db3e80625540",
       "word": "pearlescent",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "deb8a3a7-60a1-417e-bd78-48196658858e",
-      "word": "pebbles",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "205b47e8-c0c0-45f7-8f28-d903b4e263be",
-      "word": "peculiarities",
-      "pronunciation_guide": null
+      "pronunciation_guide": ""
     },
     {
       "id": "72e5181b-2224-4dfe-8286-0a2e97a10021",
       "word": "pedestals",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "90364d0d-1d9f-4020-87f6-2317be268148",
-      "word": "peekaboo",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "fab801e5-f08a-4f84-b4d8-def5188e5022",
-      "word": "pejerrey",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "d576825a-0a99-465d-8cce-8f08ad968d28",
-      "word": "pejorate",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "ceda4bbf-d027-4339-bda4-127ff3e40953",
-      "word": "pelagial",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "2f696db7-d1c7-4026-9f41-1ad07868e162",
-      "word": "pelerine",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "b1c3ce7b-11ef-49a2-ac25-38e151377959",
-      "word": "pelisse",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "49ace443-b3d4-4165-9459-92c5059642b4",
-      "word": "pell",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "67bb1647-045d-45a4-99cb-68fa2b6e216d",
-      "word": "pembroke",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "b1ceb1d3-d2ba-4a01-8a11-1a085a88cace",
-      "word": "pendeloque",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "f5f4f10f-11ea-47e2-b974-da2f3329ff21",
-      "word": "pendentive",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "e654b9cc-cd3e-40c7-b4a6-66f817a8c4de",
-      "word": "penelope",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "98a18171-12b6-42a6-96cc-daf1f6bc36da",
-      "word": "penurious",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "b8a7c316-c661-46c4-993f-9e90793330c2",
-      "word": "pepita",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "ba19eabd-5948-4f79-a471-f17daf4165ae",
-      "word": "peplos",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "0fd8475d-4e7c-4d72-8cfd-64de8911897d",
-      "word": "peplus",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "b47b82de-7ba6-49a1-b797-197a20edf720",
-      "word": "pepysian",
-      "pronunciation_guide": null
+      "pronunciation_guide": ""
     },
     {
       "id": "3cb21dd7-50cf-4422-9f55-658c832504e9",
       "word": "perciatelli",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "998c6352-16e7-47be-bdc8-2d17fd63ff20",
-      "word": "perdue",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "1183e240-2c90-4fd1-960a-1e15cd67df1c",
-      "word": "peregrination",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "6493ab99-f8ba-4a84-9417-8292c19b590a",
-      "word": "periodontist",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "d5cb3b8a-f822-4076-9297-0bd3859f98b4",
-      "word": "permafrost",
-      "pronunciation_guide": null
+      "pronunciation_guide": ""
     },
     {
       "id": "af195396-e237-4655-a9c7-fd15a6f9038e",
       "word": "perorate",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "07ef915a-0a94-4f4d-892f-8794d23b689d",
-      "word": "pomato",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "4e9366b6-8e20-4d84-a528-f22e38b76adb",
-      "word": "pomeranian",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "49a43450-be62-4033-96a7-82b4320d7446",
-      "word": "pomology",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "1d096e64-dc06-4ae7-b318-ca880bf62c5e",
-      "word": "pompeii",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "95ab8a58-fc5d-42ee-82ec-f8c7eddce51e",
-      "word": "pompey",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "6891da3d-0194-4786-b39e-82f307d572e6",
-      "word": "pomposity",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "8ac67456-1e12-440c-80fc-13880e3adba9",
-      "word": "ponzi",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "a8008c22-fdca-415d-8c90-ce42a597353a",
-      "word": "popovers",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "0131d27b-08ee-4c7d-8642-4a532862ec90",
-      "word": "porosity",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "d1061e10-d783-42c7-a6a6-853eaa1cb778",
-      "word": "portugais",
-      "pronunciation_guide": null
+      "pronunciation_guide": ""
     },
     {
       "id": "fdde0100-8c81-431e-b387-b5170b3c7cf9",
       "word": "porwigle",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "b76350db-4a30-45af-8dbc-9c796cc4debb",
-      "word": "posada",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "62cd5a8a-fcbe-42f8-803e-553ed2079b54",
-      "word": "postdiction",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "c6c6c58c-647f-4667-a51b-b5af876234be",
-      "word": "posteriori",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "b967158d-0998-4010-bdda-5e4c42408ca0",
-      "word": "postural",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "7de9b14c-5cb0-4f3c-8633-4f5ff332eada",
-      "word": "pothos",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "c9c7457c-ac83-44f0-b46a-b72440f7fb2c",
-      "word": "potoroo",
-      "pronunciation_guide": null
+      "pronunciation_guide": ""
     },
     {
       "id": "85172185-06f8-48cc-8041-c8be97b52a24",
       "word": "pouched",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "8ffb8b5d-b190-430d-a378-0e78fc63019a",
-      "word": "poudre",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "4b6fd912-6efd-4ffb-bae4-d26ad1e807bd",
-      "word": "powers",
-      "pronunciation_guide": null
+      "pronunciation_guide": ""
     },
     {
       "id": "bad828f8-59c8-42bf-be00-8672cd9fd480",
       "word": "pranks",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "09626980-ff43-4c71-ad18-25910568967f",
-      "word": "prepares",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "c1d8a193-e5fa-4205-aacc-4682b28c0d54",
-      "word": "preprandial",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "662fa4a0-8ad1-49e5-9dfa-cfb1ac0a8677",
-      "word": "presentient",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "c1171f65-e103-445f-ae25-e908e50b85e6",
-      "word": "preserving",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "71ab132d-8db7-4279-ab89-30d06c04000e",
-      "word": "presidio",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "782a616b-c541-4c32-ad29-c60bc4719249",
-      "word": "prespinous",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "d7d9ee4b-ef93-4adc-a15c-386b827bed8e",
-      "word": "pressed",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "6a76fa84-f28e-4a7a-a1af-892f205b998b",
-      "word": "preternaturally",
-      "pronunciation_guide": null
+      "pronunciation_guide": ""
     },
     {
       "id": "04bcde2a-d9ab-4bdd-9dbb-d0eaa9c90d65",
       "word": "prevenient",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "32a248b3-0c1c-475c-a142-281b93f6bf28",
-      "word": "prima",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "05cbe0d8-ac1e-473a-83af-d1564cdd06f2",
-      "word": "primaeval",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "ab27f6a2-ab4d-4dae-ac85-c06fe19c3ad4",
-      "word": "primarily",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "f6d386ab-037b-4845-a9ae-23b7b9b024ef",
-      "word": "princeps",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "ce141781-6f31-4929-95bc-814fb8aeeb7a",
-      "word": "prion",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "7a630bc9-c91a-4c68-9c6d-0217b319e30b",
-      "word": "pris",
-      "pronunciation_guide": null
+      "pronunciation_guide": ""
     },
     {
       "id": "cdd6f70d-2ed5-4fe0-b853-a74309a4acb5",
       "word": "privatim",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "1965b029-01a0-48af-8d4d-cc02f54db1a8",
-      "word": "probative",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "76879555-1d0d-45ce-a62e-7e494f4a8326",
-      "word": "proctors",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "0467b6c7-e1d8-4b6c-ac5b-43c36859be0f",
-      "word": "produced",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "15a5d047-edf4-447c-bfb9-bb4bc6ac350f",
-      "word": "professes",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "4dddeaeb-3a91-4918-a160-4b3b1c6f7737",
-      "word": "professing",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "e912b48d-58ad-4b2c-bbcc-d4758c791811",
-      "word": "professionally",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "4019f80a-32fe-4999-94c2-3259b849bbca",
-      "word": "proffered",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "fe7a49b8-629b-4254-9c6b-20ba8750f0f8",
-      "word": "profiterole",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "d42dff0c-e505-40cc-93a6-0cf9afab87c5",
-      "word": "projects",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "ce1c53ab-effe-48a7-882f-f2591c3512ee",
-      "word": "prolusory",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "2c8d65d9-c2f2-4766-b21d-bcee36fc712f",
-      "word": "promethean",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "83cfdde8-8367-4eb4-86d9-d682db5f6047",
-      "word": "promyshlennik",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "43dd655e-f743-44b5-a110-dfc1f4af0ff7",
-      "word": "pronouncer",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "4e18282a-5d0a-495f-abf5-0e485b6e05d0",
-      "word": "pronunciations",
-      "pronunciation_guide": null
+      "pronunciation_guide": ""
     },
     {
       "id": "792a595e-59dd-4235-9cf5-f8ef8ec920ff",
       "word": "properties",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "45e2242d-98a4-4776-884e-9cc9ae8196c6",
-      "word": "prophecies",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "15793625-b96a-49ac-9520-d3ec1d3eae00",
-      "word": "prophetically",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "6f9dc061-e2c8-40e0-a67a-1d71a49e2f4c",
-      "word": "propre",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "ecdd1225-11ee-44f8-8c3c-3f114cff49de",
-      "word": "proprioceptive",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "f10920b0-4b59-4e57-920e-4e93cd09ec9d",
-      "word": "proscribed",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "e8d973e2-a514-4710-87ac-62613cc80b41",
-      "word": "proselytiser",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "07f90aa2-720b-4481-bebe-e4c54a364b57",
-      "word": "proselytizer",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "e7bf335a-7198-4030-ac60-1c80aa0e3b1e",
-      "word": "proteron",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "deaf397b-b652-42de-a08a-e5da34bc99d0",
-      "word": "protruding",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "fcd09d67-ed1e-4b59-8ead-b5bb3b59194d",
-      "word": "proviant",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "400fbe58-2124-460d-93a2-03cfc9aad53d",
-      "word": "proximo",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "6aa8e24b-ea48-4dd3-a8cc-bc891ecff8fe",
-      "word": "pruritus",
-      "pronunciation_guide": null
+      "pronunciation_guide": ""
     },
     {
       "id": "6f9b98c1-948d-4c5c-8eef-0393df35eb6e",
       "word": "psalmody",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "1fc8c719-183e-4f79-9b99-cd87831c9dbc",
-      "word": "psamm",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "73024882-b64e-4153-b751-d2d9d0a208be",
-      "word": "psammophile",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "67a6a74c-5251-4a93-b249-52484dade1d7",
-      "word": "pschent",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "9b9856a2-888f-4412-83a0-a684f91c8d8c",
-      "word": "pseudonymous",
-      "pronunciation_guide": null
+      "pronunciation_guide": ""
     },
     {
       "id": "197b0aac-bdec-4968-bec1-243e8864cc0a",
       "word": "psychometry",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "d8ceb512-5485-44a3-baf0-4bd9ca911b13",
-      "word": "ptosis",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "dfdc0166-cea1-49c1-9689-258226c36db3",
-      "word": "ptyxis",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "985d161f-bbed-44d4-9cbe-0120f082e381",
-      "word": "published",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "79599a28-4d02-47f3-a55a-34de50fd0dd7",
-      "word": "publishes",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "8d15631d-c02a-4eec-a1a9-aa0ff7ad511c",
-      "word": "puchero",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "4f1a03fd-07cf-42ed-8a08-038b9794c3f6",
-      "word": "pudibund",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "4e0b9955-70e1-4009-878d-005fc2b85df3",
-      "word": "puerilely",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "730aa767-3df8-4550-b8ac-502d15475989",
-      "word": "puerto",
-      "pronunciation_guide": null
+      "pronunciation_guide": ""
     },
     {
       "id": "405efc5d-cb69-4d4f-a0c2-4f9435a0fc8b",
       "word": "pulitzer",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "328e80cb-ad23-49a2-85e2-3e64220e75b8",
-      "word": "pullets",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "504e7f4f-60e9-4b48-92c1-a9a18cca3214",
-      "word": "pulverised",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "9980f76d-9701-43f3-a741-08c00c89cf72",
-      "word": "pulverized",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "125aa6f6-272d-4ba6-ae93-474cd7c74c50",
-      "word": "pulvillus",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "c9c792d3-82cc-4471-b48a-30b015436c26",
-      "word": "punctually",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "8fedeaf9-aa61-4f52-8830-2b9f61868efc",
-      "word": "punily",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "f751faac-4095-49bc-9ffe-a073282640a1",
-      "word": "puniness",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "bfba4362-2136-41e8-b635-7350ee40c581",
-      "word": "punting",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "518d0620-ed8c-48d3-9ac1-54462fa817f7",
-      "word": "puppets",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "d1e00ae8-79b5-424f-8d58-9556d4861eb5",
-      "word": "purposes",
-      "pronunciation_guide": null
+      "pronunciation_guide": ""
     },
     {
       "id": "e1ebf799-c4d0-45bc-a22d-385b2126c0ec",
       "word": "putsch",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "f5934025-bf7b-44be-8dcf-f7c92b680b9e",
-      "word": "puttering",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "5b56dbc9-eaa4-4ca5-a2a2-2ee292cff2a5",
-      "word": "puzzles",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "2a3ff676-1fc3-4992-ad96-13ccce57ec8f",
-      "word": "pylorus",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "fda251e3-7976-409b-ab39-a44a7071c8a7",
-      "word": "pyramid",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "d289ced8-74d1-4dd9-b782-4edbf39d8e15",
-      "word": "pyrite",
-      "pronunciation_guide": null
+      "pronunciation_guide": ""
     },
     {
       "id": "078e188b-ced3-452f-b7b8-6b9a1d9060d7",
       "word": "pyrotechnics",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "ada33931-3e91-4a40-9f64-a055679faf5b",
-      "word": "pythagorean",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "a4ae6995-d3b0-46bd-ba23-00a015188434",
-      "word": "python",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "3bc66c5c-5d94-4c01-901b-edb3a9b5df3d",
-      "word": "pyxis",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "1113a451-edd5-4817-8148-c92a90257b94",
-      "word": "qiyas",
-      "pronunciation_guide": null
+      "pronunciation_guide": ""
     },
     {
       "id": "e7c9afd0-8a83-4452-9740-a6c843b6d047",
       "word": "quack",
-      "pronunciation_guide": null
+      "pronunciation_guide": ""
     },
     {
       "id": "a5a798f3-c9ba-48e0-9c09-b697bde30eb3",
       "word": "quadriceps",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "90be69c6-7714-4281-bbd4-e6bb991eece8",
-      "word": "quadrilateral",
-      "pronunciation_guide": null
+      "pronunciation_guide": ""
     },
     {
       "id": "5e219345-032c-4b3d-9cb6-6112b8b17537",
       "word": "quadrillion",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "8977f05f-afd2-4f28-b6e2-8999018b3e83",
-      "word": "quagmire",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "21bbd0cd-d524-432f-b345-db0d6881dee8",
-      "word": "qualifying",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "fffe083c-ba85-4105-9f95-7e12d38c7168",
-      "word": "qualitative",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "f1459e23-8025-46d8-9503-e7eea8dd764d",
-      "word": "quality",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "bdf8f68c-d5ea-42c4-981a-fdbdbd9a1bc0",
-      "word": "qualms",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "17329f39-8a7b-4bba-9a85-60b5583324d4",
-      "word": "quandary",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "23cb88d1-4d48-4c54-a7c0-065fc1c99eeb",
-      "word": "quantify",
-      "pronunciation_guide": null
+      "pronunciation_guide": ""
     },
     {
       "id": "c06f8a33-77e3-4784-8cc7-391fc8aa3326",
       "word": "quaoar",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "6bbfd013-c9f7-44f2-a7e3-819efb85b5a8",
-      "word": "quarantine",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "d60d32af-74ca-49ad-a9cb-4250457d708d",
-      "word": "quarry",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "b1836210-b0e8-473c-aa0f-c05a25333e65",
-      "word": "quart",
-      "pronunciation_guide": null
+      "pronunciation_guide": ""
     },
     {
       "id": "0d6ba912-41ad-4a72-b37f-8a78a664613e",
       "word": "quasar",
-      "pronunciation_guide": null
+      "pronunciation_guide": ""
     },
     {
       "id": "4a53e4d6-7e5a-434a-ad94-6273e1ae542a",
       "word": "quasimodo",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "34e17f15-5416-425e-b1cb-97bb4d5dfa52",
-      "word": "quatrains",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "31aff11c-4a53-4949-874e-6fbb30ac69af",
-      "word": "quatrefoil",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "e2dc5d7d-492a-468c-beb9-9f35e3d8da5f",
-      "word": "quattrocento",
-      "pronunciation_guide": null
+      "pronunciation_guide": ""
     },
     {
       "id": "bc217939-cc37-45b1-923e-09123a806efe",
       "word": "quaver",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "ced9848f-296f-41eb-947c-3d3c48a05733",
-      "word": "querulous",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "6d78afed-f1d9-4b66-ba16-e68c7ce8a345",
-      "word": "questionaire",
-      "pronunciation_guide": null
+      "pronunciation_guide": ""
     },
     {
       "id": "8b6c727c-b26a-4c48-b46a-ab67b84b07f0",
       "word": "questionnaire",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "8b548b2b-8608-4d0a-8a9d-f97568cc3d8e",
-      "word": "questions",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "2c603efa-e212-4bc7-bd73-09b9d1a82dff",
-      "word": "queue",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "e192bc70-c7dd-4478-830a-9640893e5330",
-      "word": "quicken",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "8838a08e-ca21-4569-822d-b884c62f460b",
-      "word": "quid",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "0d2f8ef3-6f31-4eb4-b400-796fe300e8f8",
-      "word": "quiddity",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "9343d561-4562-466c-8bc5-b9f0cc812423",
-      "word": "quidnunc",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "73d264b4-9cb8-4527-931d-fa02bac2746f",
-      "word": "quiet",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "c11427c6-cbd1-41e6-9022-5299cd4a83c0",
-      "word": "quill",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "2c6e0487-df93-42eb-9a83-e63b2640290a",
-      "word": "quinary",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "da7a82f8-c458-4ad8-87b8-7d065d052b76",
-      "word": "quince",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "fa1e954f-e0eb-489e-a51c-14918c32548a",
-      "word": "quintessential",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "7c176021-f38f-4b09-aca1-cedeb2de5229",
-      "word": "quip",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "a6cb93c0-debe-4112-8439-e6f8cb77eb71",
-      "word": "quirky",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "e09bab9e-fa92-4373-966a-69f529da099b",
-      "word": "quirt",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "27168e37-e086-40be-86cf-498ed236932e",
-      "word": "quito",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "4296cd68-febb-4ec3-8318-205812b4bebb",
-      "word": "quittance",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "013be517-0c14-4c4e-880d-0f67afb9b923",
-      "word": "quixotic",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "f2017598-bee7-47e5-9ea3-e466783c4dfb",
-      "word": "quiz",
-      "pronunciation_guide": null
+      "pronunciation_guide": ""
     },
     {
       "id": "c9eb642d-8f08-48d0-ac09-408bd14f9564",
       "word": "quizzical",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "c587b92a-bc02-40ee-a09b-2187c7ea0bb7",
-      "word": "quoi",
-      "pronunciation_guide": null
+      "pronunciation_guide": ""
     },
     {
       "id": "e8c0ae28-7592-4fac-b20f-62dafef84c01",
       "word": "quokka",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "5439d533-dca1-4757-b0c8-b57915ed3d69",
-      "word": "quonk",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "c3482f8a-d516-4c54-b91b-90adf600eceb",
-      "word": "quonset",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "0f584dc8-af53-409b-915d-40e6ab8c48b5",
-      "word": "quorum",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "bc65a1b6-8c8b-4fb3-8636-1aad4cbb1bdf",
-      "word": "quota",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "2f8f8348-ab1b-4d27-8596-4b2dae737bd9",
-      "word": "quotation",
-      "pronunciation_guide": null
+      "pronunciation_guide": ""
     },
     {
       "id": "665fa88c-8756-4c81-aa40-e701e17f09ff",
       "word": "quotidian",
-      "pronunciation_guide": null
+      "pronunciation_guide": ""
     },
     {
       "id": "1f15305d-b88f-40f0-b5c2-1c896c383899",
       "word": "quotient",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "5a6b52be-380d-4f78-b48c-725a23776d14",
-      "word": "quoties",
-      "pronunciation_guide": null
+      "pronunciation_guide": ""
     },
     {
       "id": "97c5dad3-36d6-4a9e-b99d-a053c8606707",
       "word": "reboation",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "e95e3280-c5e9-40cb-ad66-642b570cd735",
-      "word": "recamier",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "f33f9d02-f346-4127-920d-4e4022337156",
-      "word": "recanted",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "58ec8520-f8dd-49f3-a127-46f456168ea7",
-      "word": "receives",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "7c017aff-8aac-4674-bc7a-334b45c0a7b5",
-      "word": "recently",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "089d5bbb-cc00-4f0b-a63c-bd3f13977812",
-      "word": "reconcilable",
-      "pronunciation_guide": null
+      "pronunciation_guide": ""
     },
     {
       "id": "bd2e81e1-0732-4a1a-a5f5-a8cb958fc917",
       "word": "reconnoitre",
-      "pronunciation_guide": null
+      "pronunciation_guide": ""
     },
     {
       "id": "7d0658fa-95d1-40f6-a664-8c4cc2d910a1",
       "word": "recriminatory",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "43c131e8-78a6-4073-b41d-06c7bfba3477",
-      "word": "recrudescent",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "932ddf8b-a408-45f5-9720-70b91edec946",
-      "word": "recruittableau",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "0de412d1-a7b1-4b80-a822-a4fcc8e6c3f2",
-      "word": "recusancy",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "998cefb1-6518-492b-acc4-9b611f8e558a",
-      "word": "recyclable",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "b60e4dee-16e6-4c86-ba25-b90bc296c6c5",
-      "word": "redingote",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "9a624331-0dd9-4dba-b255-7835538b49a0",
-      "word": "redux",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "0eb3f66e-81b4-4589-a2e7-d40330b3ac13",
-      "word": "reeds",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "f46d889c-927c-440f-8d33-e420d7385ef2",
-      "word": "reenactment",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "aef810f0-5cd8-4bdb-a172-00db4ab315b9",
-      "word": "referralaerials",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "2d715009-fa04-44ab-a635-8006db8df464",
-      "word": "referred",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "4443e94f-7262-4c2d-9f84-e556edeb1b8f",
-      "word": "reflects",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "5c1ceb75-f89f-4675-b190-f21f4f612b26",
-      "word": "reflexology",
-      "pronunciation_guide": null
+      "pronunciation_guide": ""
     },
     {
       "id": "81a98eff-056f-4c0b-8b09-ae1e716c098e",
       "word": "refrigerant",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "c6a6be33-4ddf-4fa7-a4c2-cb1d29f70742",
-      "word": "refrigerated",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "ac452d6e-21bc-43c4-afc0-1a1d483bb689",
-      "word": "refugium",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "c857ed5a-6030-459c-b8a0-73999254b08e",
-      "word": "refugiumremuda",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "64fd1636-c1aa-4788-a2eb-f488a3b623e5",
-      "word": "regales",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "de36438e-ead5-4bac-b57e-c428a14045d2",
-      "word": "regnal",
-      "pronunciation_guide": null
+      "pronunciation_guide": ""
     },
     {
       "id": "c0fafd39-cf74-4786-b7f5-bd56c4f89224",
       "word": "reigndifficulty",
-      "pronunciation_guide": null
+      "pronunciation_guide": ""
     },
     {
       "id": "0050bb4d-3408-4982-961e-7705d066afce",
       "word": "reimbursable",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "12a2c749-5727-40ca-8dd6-1c684d4b3b9e",
-      "word": "reiterateremorseful",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "097e81d5-c918-48b7-8496-2ef9e701aad1",
-      "word": "relating",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "61e6069a-ba9d-454a-9e19-06479d215a31",
-      "word": "relegated",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "a4dd9633-668a-4695-bc33-c0e08f19078a",
-      "word": "relentlessly",
-      "pronunciation_guide": null
+      "pronunciation_guide": ""
     },
     {
       "id": "6937a0ab-8de9-45f6-b5dd-ec0967b937e5",
       "word": "rembrandt",
-      "pronunciation_guide": null
+      "pronunciation_guide": ""
     },
     {
       "id": "742fca2a-da81-47ad-83c5-5aaa144f96c1",
       "word": "reminiscentmenial",
-      "pronunciation_guide": null
+      "pronunciation_guide": ""
     },
     {
       "id": "42834a9f-8767-4c1c-94cc-f94af76dd865",
       "word": "remnants",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "792cd78e-f045-4c39-ad25-06e1d5c78b00",
-      "word": "remuda",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "79dc00c1-fa92-4852-87f1-28e985453dc0",
-      "word": "renitency",
-      "pronunciation_guide": null
+      "pronunciation_guide": ""
     },
     {
       "id": "d3e2553c-162c-44f5-bae2-ad90be5129a6",
       "word": "renminbi",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "e6325487-8d40-46ab-ac2d-5e76095b3e7d",
-      "word": "renvoi",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "34039974-b969-49a5-957e-0d83511c16cd",
-      "word": "reparations",
-      "pronunciation_guide": null
+      "pronunciation_guide": ""
     },
     {
       "id": "c8251147-9123-4abf-850f-26210d26b01f",
       "word": "replaced",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "c4f78bf2-c356-45e3-894d-3bdcdc3a4d24",
-      "word": "reporting",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "63c90ac6-b1dd-4285-b3f5-7936ee1088d8",
-      "word": "repoussage",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "14f99efb-1b87-4913-9d9c-9318304f6acd",
-      "word": "requires",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "2cfd9d98-d36a-44ba-82b5-82d63534efbe",
-      "word": "rescissible",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "fb2d8404-0822-4de2-9c4e-0f40c39f30f4",
-      "word": "rescissiblejungian",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "ceed2694-11bd-4f32-b485-f25d088a216a",
-      "word": "rescissiblereveille",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "8c4f8209-9a8d-49f4-a27b-0b55cceedf52",
-      "word": "rescuedifficulty",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "34ae306d-ea65-45f4-acc0-f88bafc94e20",
-      "word": "reseau",
-      "pronunciation_guide": null
+      "pronunciation_guide": ""
     },
     {
       "id": "2b57d78e-68e8-4186-b863-b6d9f83fb1e6",
       "word": "resembled",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "5de97f22-639f-412b-bbd9-ea729ce74378",
-      "word": "resembles",
-      "pronunciation_guide": null
+      "pronunciation_guide": ""
     },
     {
       "id": "20ceb3fd-9e41-4f88-8787-1ac12df23e5d",
       "word": "resplendence",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "27eae39d-d6c7-41d7-9526-41c84019daf4",
-      "word": "restitutory",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "40667eff-ceb1-4cf3-b551-fff27772e366",
-      "word": "results",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "3f25e235-221b-4eec-94b5-b61dfaa749ea",
-      "word": "resuscitateretina",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "48a86b92-993a-430f-8c73-18ffb3ac21a6",
-      "word": "reticulated",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "60415431-7ed4-42d1-9c50-0b02e3211f43",
-      "word": "reticule",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "d7141eaa-f73b-4b8a-9d38-535ce626b9e8",
-      "word": "retinitis",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "add3acb2-ebb6-41dc-8d9c-66496347a53f",
-      "word": "retinol",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "6a4efd97-28a2-44ff-90af-1dd095339b76",
-      "word": "retinoscopy",
-      "pronunciation_guide": null
+      "pronunciation_guide": ""
     },
     {
       "id": "c176df80-e4ec-4928-b541-e8332cfe6b8f",
       "word": "retorts",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "a68b6de5-c495-4a58-abba-dca79917c1e6",
-      "word": "retrocedence",
-      "pronunciation_guide": null
+      "pronunciation_guide": ""
     },
     {
       "id": "27f6bc67-bdae-43b3-9ff3-5991a1b10212",
       "word": "retrodict",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "a757c996-6f8e-4963-994e-96461d67b1e6",
-      "word": "revanche",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "a0ce9847-3007-4945-a94d-ff3b4953f993",
-      "word": "revelationarithmetic",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "fd838be9-101e-4603-8fd9-6104b87fc37f",
-      "word": "revenant",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "a287ba2a-4b5a-40d7-9221-827a9aaedd84",
-      "word": "revendicate",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "c048f1c0-4603-4041-84b7-9574f393e978",
-      "word": "reverberant",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "803e0efa-d8db-4844-9511-c2bfb71bf2ca",
-      "word": "revoir",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "a410e536-1cb9-44d5-a8ab-be811de60c14",
-      "word": "revulsive",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "16ec5cf3-8edb-4123-aacd-63f066d249b8",
-      "word": "revved",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "c6247c29-acd6-4d51-aa18-f7cfcfff7d9f",
-      "word": "reynard",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "beba8965-e407-4b86-8bbd-c0f70774caac",
-      "word": "rhabdoid",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "874f452a-e361-401f-abf9-cf3f75fc54ec",
-      "word": "rhinorrhagia",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "10068945-cb95-4fc7-8b78-9ce7ec147cbb",
-      "word": "rhythmically",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "3429b3a6-956b-48f9-957f-0926276bffd4",
-      "word": "rhyton",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "504d599e-a7c4-4662-849f-2f394db06d25",
-      "word": "rialto",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "e7190c20-9e88-4d0d-8a4c-d0eaa10e48a6",
-      "word": "ribs",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "51e6b022-1226-45a3-b687-c8d2eb13ba57",
-      "word": "richter",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "a3827da0-305b-4f02-bccc-38684a04b64e",
-      "word": "rico",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "8071f289-c5fe-4745-8ad6-8a6865ab4ae6",
-      "word": "rictus",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "443dbb78-5d1f-45da-a2aa-4a694d6f98d7",
-      "word": "ridiculously",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "dcb9ef5e-31e8-42d5-8d93-dc1f824616aa",
-      "word": "riffled",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "ae62cfac-da26-495f-8fff-180cf86f47a0",
-      "word": "riffraffrestive",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "2c9541fe-0b25-4211-88f2-60aa3bd02bd9",
-      "word": "rigatoni",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "198b6b56-3ba5-4aac-bf17-c8742b2400a8",
-      "word": "rigourous",
-      "pronunciation_guide": null
+      "pronunciation_guide": ""
     },
     {
       "id": "d52bb583-3551-4e70-9f62-0fc24bdb0fbd",
       "word": "rigueur",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "8cb1aa08-2462-441f-bfbd-63efcc538184",
-      "word": "rinceau",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "65a11725-d60a-463c-89dd-6f4884746d83",
-      "word": "ringing",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "72fd1413-1258-4896-a4b5-c45270479d47",
-      "word": "rishik",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "a1c3dc4f-ec31-4a85-bf46-22b508ca6d51",
-      "word": "risibility",
-      "pronunciation_guide": null
+      "pronunciation_guide": ""
     },
     {
       "id": "83c52701-a707-4584-aa70-aa2137f260bd",
       "word": "risorgimento",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "2badc298-e154-44c9-ab1c-58a714712e77",
-      "word": "risposta",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "5a50b8b6-fe16-44f1-834c-7ce508726a19",
-      "word": "ritenuto",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "d200577a-6787-459d-840e-eabd42806f3b",
-      "word": "rituals",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "7e7dcecd-89d2-46df-b197-438135d67d1a",
-      "word": "ritziness",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "4ddc109c-78b2-4b3a-a672-db1481dce6bd",
-      "word": "riviera",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "5ae8e56b-86a8-45e0-a92e-4f8da9ed899c",
-      "word": "roads",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "4d08ec21-88d3-4033-b647-ca2164f94360",
-      "word": "robigalia",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "87c4e1e9-7153-47d3-8f5c-ed587a9dfa52",
-      "word": "rocaille",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "a3224676-dee7-4c4b-9915-f95f5e708bbf",
-      "word": "roger",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "7dfdc87c-a5de-413e-bc3a-0623d4f706f8",
-      "word": "rohan",
-      "pronunciation_guide": null
+      "pronunciation_guide": ""
     },
     {
       "id": "1fe316aa-982b-47ad-9ceb-0532e08b2768",
       "word": "roiling",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "8829cd8a-01fe-4bc3-a372-3ab45f2bc723",
-      "word": "romaine",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "3bd02c6d-c08a-473f-a8db-888e4b732258",
-      "word": "romainemigraine",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "6e1a02ca-a551-4e86-83d2-e359e0f70333",
-      "word": "romano",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "419a5e9f-b564-4d28-bdc8-e9bb76914467",
-      "word": "rome",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "e82058e8-5b61-4e2b-88de-4de55032b36e",
-      "word": "romeo",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "82652cdf-d1eb-4fd2-a2f2-3105887490b0",
-      "word": "rongeur",
-      "pronunciation_guide": null
+      "pronunciation_guide": ""
     },
     {
       "id": "23ebd604-d823-4e95-8655-35a456556683",
       "word": "ronin",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "381e508d-31f2-4b79-b1e6-e1204f9e6c6a",
-      "word": "rooibos",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "cf914d5a-38ea-4117-9d6e-6da1d2b3c90b",
-      "word": "rookery",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "7a5aea43-d55f-4d4a-986f-392ad7edeb3c",
-      "word": "rooseveltite",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "1f9e79be-0782-4a19-8f1d-8ff8d25b6f3f",
-      "word": "roots",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "ac7d649b-d7be-436f-8a35-fdd2fb0a8937",
-      "word": "rorschach",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "ce9aa14d-df00-49e1-90e1-ac548a9170ec",
-      "word": "rosemaling",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "482c5467-8a2a-4515-9311-2d3ef9e70040",
-      "word": "roseola",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "8d86aeaa-a03b-4cea-8a42-36479193fdef",
-      "word": "rotisserie",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "c6ed4caf-5043-4633-a3b9-47f1fceb6c28",
-      "word": "rotulet",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "4272f83a-0096-4433-bc1e-0d515581141e",
-      "word": "rouille",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "8c6c65d7-f317-47ab-8d97-91b79f0c2e31",
-      "word": "rounded",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "c7f9b5d4-cf5e-4945-acdb-21e29186e37a",
-      "word": "rounds",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "82055f1d-5620-47a3-9daa-a8e475078e5b",
-      "word": "rouser",
-      "pronunciation_guide": null
+      "pronunciation_guide": ""
     },
     {
       "id": "baa9a955-919c-46fe-9b82-9202b201e3b8",
       "word": "rowan",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "6f8eef51-da84-49a7-a5ca-c3eb39e1c29b",
-      "word": "royale",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "934f56d6-cfff-4eeb-b7bd-e80f9206ba20",
-      "word": "rubato",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "89aedbfa-00d2-42c4-940c-6b71e5dd3cc5",
-      "word": "rubefacient",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "5b8342ba-e354-4651-9763-e1107c35c044",
-      "word": "rubeus",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "f430a3b4-ba05-472f-91d7-8504ea825795",
-      "word": "rubicon",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "acc18455-84a3-4728-8056-8e4f8c7bc294",
-      "word": "rudiments",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "e7243067-70e2-425a-8ae9-1ab817ef5ca7",
-      "word": "ruelle",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "3260b177-d059-466c-984a-e1a238f49c9c",
-      "word": "rugose",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "6182cf3f-65d2-4081-b4b1-85b6a064c686",
-      "word": "ruins",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "12242cd0-58fc-434b-ae3b-50667b93039b",
-      "word": "ruled",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "fa3bf51f-716a-446a-9038-385464106c17",
-      "word": "rumour",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "a82d5715-536e-4a44-ac7a-48e41a7764be",
-      "word": "runcible",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "79eecfb0-778d-438b-ae71-3d46c7f54ec1",
-      "word": "runesancestors",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "f18496b7-3318-4f11-afeb-a92eb7eb59ce",
-      "word": "runs",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "88dedfb6-d280-4470-9031-9326112a1df9",
-      "word": "rupicolous",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "9e9d0fea-5f59-4984-a6d4-fefbc5deda34",
-      "word": "ruscus",
-      "pronunciation_guide": null
+      "pronunciation_guide": ""
     },
     {
       "id": "175a5fe7-b89f-412b-86cd-a452e944356a",
       "word": "rustication",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "2d3efc93-5a17-4078-8017-6d2c72707b80",
-      "word": "ryas",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "20063a3f-ac19-4254-8083-3b1b70c75974",
-      "word": "ryelanddomesticity",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "dd5a9af8-dfa8-473b-8b2a-cbbc3f118eef",
-      "word": "ryukyu",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "b36f2ce9-4f2f-4e2e-ad57-117a2e369566",
-      "word": "saeta",
-      "pronunciation_guide": null
+      "pronunciation_guide": ""
     },
     {
       "id": "4d12c678-5c32-4da4-b54a-5c9043423d79",
       "word": "sagittarius",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "7526ab05-c578-4e95-a867-aa8d0f43f779",
-      "word": "sahel",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "6a7dd7d3-b0f7-4567-8eb6-633fdaf8406e",
-      "word": "sailage",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "38787876-24f6-4e7d-92ec-2a8cefafa336",
-      "word": "samosas",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "20da2a9f-5357-4ee5-a009-4adce633d4e1",
-      "word": "sandwich",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "984798d0-62dd-4e81-b381-3fdf365d67f6",
-      "word": "sharp",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "7cd811bc-f736-45cb-b408-bad8475bc372",
-      "word": "shawl",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "ff8f2df9-2ea6-43d0-bc21-c4e95d623da1",
-      "word": "shazam",
-      "pronunciation_guide": null
+      "pronunciation_guide": ""
     },
     {
       "id": "f3d2af22-6310-42c5-9199-dc0278d80a3e",
       "word": "sheathed",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "90e59b36-dd81-4007-b149-74768acc9cfe",
-      "word": "sheldrake",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "e51bb519-c379-4d94-92de-14fc4fd10b14",
-      "word": "shenandoah",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "bcbdf9f3-dc95-43e4-b676-814df30fe391",
-      "word": "sherifftarry",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "88fe2a64-5b4f-4dfa-92bf-47ebcde5ebdd",
-      "word": "shhh",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "8235d8c7-9af1-4bda-96a2-6ee6e26a2c99",
-      "word": "shiba",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "56e29cbb-b0b9-4008-91e3-b9e084ee6db2",
-      "word": "shieldtiger",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "98f7bf3a-600e-4c8d-953a-b02441795050",
-      "word": "shimmery",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "c9e01ed9-6dac-42b5-8c7b-d54e670b581a",
-      "word": "ships",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "9c209bb6-6f36-4184-869d-643c9bba86c6",
-      "word": "shoji",
-      "pronunciation_guide": null
+      "pronunciation_guide": ""
     },
     {
       "id": "703059d7-7fea-4223-bfdb-f98ba21379ef",
       "word": "shopaholic",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "2760137f-319f-4811-b82b-6a67b7bc6460",
-      "word": "shops",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "d1def8e1-b59d-4881-be08-e0eef82c6569",
-      "word": "shouldn",
-      "pronunciation_guide": null
+      "pronunciation_guide": ""
     },
     {
       "id": "a7f7c1fc-ec4e-4e9f-a1ec-1e6c7254bcb4",
       "word": "showed",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "cc917c85-c68d-48ca-ba3e-471da94634ab",
-      "word": "shrapnel",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "1b6b44df-bfc3-4a6c-bc41-70b1309e0523",
-      "word": "shrike",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "ad373832-dffe-4d90-bad1-25f0c6239490",
-      "word": "shrimp",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "88db87f2-5431-45bf-a134-9660c281e0c2",
-      "word": "shrine",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "e2b319e8-7a1c-4f40-a573-a91d1965b3c9",
-      "word": "shrivellimbering",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "a1a7f303-9f57-4c57-8e70-81fdec7745ac",
-      "word": "shrugged",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "a045ed58-0198-4296-b0f6-b030c2a6ad23",
-      "word": "shruthika",
-      "pronunciation_guide": null
+      "pronunciation_guide": ""
     },
     {
       "id": "e18996d4-0155-4030-9d69-c2e0c6dd5aac",
       "word": "shubunkin",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "43f8b428-4336-4be4-8670-6abdaaca2707",
-      "word": "shuffle",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "48568c93-f3fc-4e5b-b462-a13a85f792f0",
-      "word": "shui",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "0690042a-2ef3-456a-8cc2-9ddf5ee2fe03",
-      "word": "shute",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "9ae8c42b-7892-4a96-b434-23d51a47ad13",
-      "word": "shutterscorner",
-      "pronunciation_guide": null
+      "pronunciation_guide": ""
     },
     {
       "id": "c0c6b8ad-fdc6-45cb-8a19-ffd955f0471c",
       "word": "siblings",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "71299491-fa37-481f-bedc-bc6a7e145d51",
-      "word": "sifting",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "6ba02179-6364-4c32-8cf1-f4f4070fdcd7",
-      "word": "sighed",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "441b8d83-85a2-4bb5-90e3-999909785fe7",
-      "word": "sights",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "feb2a19d-0423-48bb-a55c-fd615c22d6ee",
-      "word": "sikhism",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "b12de8d7-bacc-4a70-a2b6-8c6d0556439b",
-      "word": "silico",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "cfbc050e-1b57-43f8-9f24-ba9d4b41c544",
-      "word": "silique",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "afc0cad3-42db-45e4-b606-3d8bc370cb70",
-      "word": "simpatico",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "0ec7e175-8894-4954-ad00-5b0186d646c1",
-      "word": "simplicity",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "372b9680-1ac7-4ea9-a81a-73a6ded51b56",
-      "word": "simulacrum",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "ce7258f4-ccf0-4e62-9695-36735e85a53d",
-      "word": "simultaneity",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "b1072bc1-d36a-4737-8279-c2e384a75058",
-      "word": "simultaneously",
-      "pronunciation_guide": null
+      "pronunciation_guide": ""
     },
     {
       "id": "6bd44586-defd-46b2-b6b3-e1f4d6ab5053",
       "word": "sinai",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "55809f5a-c4cc-4732-b2ad-85d01390f978",
-      "word": "sinciput",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "491b1178-46c9-44c9-b42c-a56d8f8f5f31",
-      "word": "singapore",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "b3bc2222-70b9-4419-bcfa-5df8333901a3",
-      "word": "singing",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "facd3a07-86a0-4c18-965f-5b4e1992dd38",
-      "word": "singultus",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "c60f1a9b-536e-419f-9542-d2fcfb2ee128",
-      "word": "sinuously",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "98dedf41-c664-420c-a0d9-4b64b2e40f6c",
-      "word": "sioux",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "18a15ffa-d29e-412b-920a-20915e871098",
-      "word": "sips",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "f65ddbf1-f0fd-418f-b872-1ac2f2c1ad35",
-      "word": "sirenian",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "24cb20f7-5dba-433f-b2cc-8a9fd0f25d9e",
-      "word": "sirius",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "10a077b3-6bc8-4e68-8395-54a87ac72d08",
-      "word": "sirjana",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "4501ec31-1572-409b-8aeb-3a091f3f3320",
-      "word": "sirloindeodorant",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "1c533fea-22d8-4eb8-a3c3-5f9366328abb",
-      "word": "sitcom",
-      "pronunciation_guide": null
+      "pronunciation_guide": ""
     },
     {
       "id": "d61dc1bc-4d85-4219-abf0-965967af4702",
       "word": "sized",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "2d3eb9d2-2e01-4845-bc2d-e1a332e195ab",
-      "word": "skaamoogs",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "ef4e00f0-42d6-4bb1-bd7d-a61ea7650e0a",
-      "word": "skateboard",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "54c044fd-763e-439d-8a5d-dc823015f07e",
-      "word": "skedaddle",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "1681a719-9b87-46fc-9421-c022f355d2a1",
-      "word": "skeltonic",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "a97e6fdb-ac20-4df8-bdf6-af95ef959ec4",
-      "word": "skerrick",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "7709e4a8-51bc-4e0b-81ed-d028f3375a9c",
-      "word": "skerricksmriti",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "f842f64d-e775-4630-a382-e3de48b08b9e",
-      "word": "skeuomorph",
-      "pronunciation_guide": null
+      "pronunciation_guide": ""
     },
     {
       "id": "8688e69a-bdf7-4d74-bce1-9f461df38976",
       "word": "skidded",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "7b363b8f-ef36-4edf-bec3-5b6337ffb930",
-      "word": "skiing",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "030f49cc-dde3-46ba-acfc-ec1285a40bd1",
-      "word": "skimmed",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "6f08cbf9-565f-4a46-86a6-238d07334a8c",
-      "word": "skipped",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "0da0f755-08eb-4927-b058-3d2c5c166108",
-      "word": "skydiving",
-      "pronunciation_guide": null
+      "pronunciation_guide": ""
     },
     {
       "id": "eab88b8a-5c53-4557-9f54-b2be478a38d2",
       "word": "slabs",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "96d6633c-275d-4a46-bf7d-d3a0187c0fd6",
-      "word": "slakes",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "35b86d72-65f0-4d2c-86bd-40dd60ccaeda",
-      "word": "slalom",
-      "pronunciation_guide": null
+      "pronunciation_guide": ""
     },
     {
       "id": "4719314b-5123-4ff7-91d0-484c7ffc5fda",
       "word": "sliced",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "87dde1f4-8604-41eb-a548-2918699eeaa5",
-      "word": "slipshod",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "fa4bed85-4f16-493d-965b-0fc0e42e29cd",
-      "word": "slivers",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "8da56bf9-1692-454d-a5ec-e81987525b79",
-      "word": "sluggardbedlam",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "4b1c4d92-66cb-4126-ad3e-b9ab0905b7fe",
-      "word": "slumgullion",
-      "pronunciation_guide": null
+      "pronunciation_guide": ""
     },
     {
       "id": "c3a50fe5-a3eb-4775-8f01-759080daebb6",
       "word": "slumped",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "4e3a4a03-6153-420a-a6bd-7712c04547d0",
-      "word": "slurry",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "602e79f7-6e9e-4cad-8f0c-63fc8832a64e",
-      "word": "smellfungus",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "3d12a61e-4b41-4071-bee2-15504aa76af8",
-      "word": "smelters",
-      "pronunciation_guide": null
+      "pronunciation_guide": ""
     },
     {
       "id": "20672f57-7014-4b53-9a38-c8ccf6fb95ed",
       "word": "smiled",
-      "pronunciation_guide": null
+      "pronunciation_guide": ""
     },
     {
       "id": "7a681f2c-7679-4672-b025-9bd0bcf1dc96",
       "word": "smithereenscurator",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "ea177093-8298-441d-bf7c-2fa5d081ea63",
-      "word": "smoldering",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "4d6adc16-8808-4aa7-afe4-33a35ce18c86",
-      "word": "smooshed",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "00305897-56da-40e9-b43c-4df5fce25e52",
-      "word": "smoother",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "945c984e-5c85-44d2-b499-800e008368c0",
-      "word": "smorgasbord",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "7ae3f88e-c963-4af2-b3dd-150fe22187e2",
-      "word": "smouldering",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "1d2e5565-ee72-46e5-956e-0feb4c2fa85a",
-      "word": "smriti",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "1c53dbe3-e19d-43c0-ac4b-ba1f709176fa",
-      "word": "smrti",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "6d43bdcc-ffbe-4f5c-9250-384361f90ae4",
-      "word": "snell",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "f598958d-0eba-44e1-ba01-b87a04b31fc1",
-      "word": "snooty",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "4dcf4a4d-8ac8-404a-85fe-772557e298d9",
-      "word": "snorkels",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "4eb537ba-f19f-4523-9cf4-e9356bc2dd5e",
-      "word": "sobersides",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "8ace25ec-b5ea-4273-9fb1-d68f59c09a1b",
-      "word": "societal",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "b7a9bd51-c940-4b7f-b6ac-cdbbbecbea01",
-      "word": "sockets",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "ae5b5917-f64d-4923-8ac1-4c08c05303dd",
-      "word": "sodaseal",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "806418ed-15a6-4fd4-a2c5-61e4c69b12a3",
-      "word": "softly",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "ede7ae3f-1dc8-42d5-984c-0af9f07a840e",
-      "word": "sohum",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "bbff84d7-0a76-4834-927f-680a5840534e",
-      "word": "soiree",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "6e79feba-d7dc-4aa8-ae4c-f25189725362",
-      "word": "sojourner",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "e928f9a7-a797-494c-9aeb-cbbe81f50b48",
-      "word": "solderinterim",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "3e891ef6-a056-42b3-a364-7d4ff4ecc710",
-      "word": "soldiers",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "65f87d61-d407-421d-bdb2-114dd188b00a",
-      "word": "solecism",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "52ad2ffe-8519-4016-9e06-dcfaf125c9c4",
-      "word": "soleil",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "acc32754-6e4b-404d-bd79-56a487f25bfb",
-      "word": "solemnzealous",
-      "pronunciation_guide": null
+      "pronunciation_guide": ""
     },
     {
       "id": "b0a90b41-2d04-452b-883a-b78f21483f25",
       "word": "solenoid",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "4631711d-a3c0-4be8-baa1-df0b2d91c3e2",
-      "word": "solicitsolidity",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "83219af8-a615-41e3-b46e-d405f7523e76",
-      "word": "solidity",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "a19b317a-8c0e-4da0-a401-10d9b4d79453",
-      "word": "solipsist",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "9127397d-72ef-4060-ac81-cef8d157b46d",
-      "word": "solitairedishevel",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "0bbe5d2e-f27b-419f-9fb8-0968058bc4cf",
-      "word": "solitudeoptician",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "06f90762-e735-42c6-9b79-763f7d07228c",
-      "word": "solomon",
-      "pronunciation_guide": null
+      "pronunciation_guide": ""
     },
     {
       "id": "3caee83a-fdaa-40d7-b319-49491df2b0ae",
       "word": "solon",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "b9533d67-e229-4d4c-8079-79cc5502aea2",
-      "word": "solvency",
-      "pronunciation_guide": null
+      "pronunciation_guide": ""
     },
     {
       "id": "3cdee2a8-b166-43f9-ae3c-6feefba5575e",
       "word": "solvencysoprano",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "42bcff4b-3827-4895-9111-0c89b8347f51",
-      "word": "somatotype",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "d3b0e112-4a70-46e9-8bc3-c8e86fe9b8d0",
-      "word": "sombre",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "0428cf58-3008-403d-a28f-686153301059",
-      "word": "sommelier",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "a551400d-4e82-4450-9824-ae285c759b70",
-      "word": "somniloquy",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "0b0326aa-b11e-4102-aaa9-45de7f0b97d4",
-      "word": "sopapilla",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "afefb0a8-643d-4cc2-91dc-264d0bf8a855",
-      "word": "soppiness",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "962492d4-96ca-4478-87e1-2155f09fc194",
-      "word": "soppinesssousaphone",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "2d6ecfd7-eb4b-436a-b07c-c7e82b622c3e",
-      "word": "sorghum",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "0b2a378b-a8d5-4873-ae51-48cc92e01bb2",
-      "word": "sororal",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "0bde72cb-4bcc-4fc7-b234-0cf6dee9c0fc",
-      "word": "sororalepideictic",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "5831b4eb-c03b-4e1b-858c-8b4a28ce97b9",
-      "word": "sorrel",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "7621d682-2d24-4299-b199-4d6ea2ad27e1",
-      "word": "sortition",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "5320ea54-44cb-472a-8e50-930ea1b061fa",
-      "word": "sostenuto",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "706e4d4b-a28b-4bec-8384-bf826152a989",
-      "word": "souchong",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "c4e81e18-a2ee-484f-98bd-d6e4596019bd",
-      "word": "soundboard",
-      "pronunciation_guide": null
+      "pronunciation_guide": ""
     },
     {
       "id": "8c83dabe-2847-4323-8b30-eb6f08e7a179",
       "word": "sounded",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "db483619-7b7a-4294-a08b-bf2861f73d90",
-      "word": "sounds",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "9319660d-7d61-4590-b623-df91e38a601e",
-      "word": "sourcrout",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "1f52867f-98b5-4603-a408-ba938279af2c",
-      "word": "souris",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "e9284394-530b-4f8f-8c5f-2d8d4e7c36e0",
-      "word": "sourisadjective",
-      "pronunciation_guide": null
+      "pronunciation_guide": ""
     },
     {
       "id": "c638fd06-f251-4a7f-9709-638a430f0f60",
       "word": "sourkrout",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "b090c46f-e5a3-4ac3-baea-c2589327821d",
-      "word": "sourly",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "22222032-beed-4883-967a-0ae58348a983",
-      "word": "sous",
-      "pronunciation_guide": null
+      "pronunciation_guide": ""
     },
     {
       "id": "dc117cca-08d6-4813-aad7-98b1e414e1d1",
       "word": "sousaphone",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "fe0273d3-46e6-43ff-b23d-1e0e1781f5bb",
-      "word": "souterrain",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "390333fc-ffdf-43e8-9e22-6575e6b99ba4",
-      "word": "southwest",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "84e969c1-1277-421d-b248-9748fd65639f",
-      "word": "southwestern",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "ddcf25b8-b8b6-43cf-b7ae-1e95b00d9de8",
-      "word": "spaces",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "03541ec9-de25-40f9-85c4-686f7c952920",
-      "word": "spading",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "43cd1f9c-425f-4ad9-9855-8dada1a50a22",
-      "word": "spandau",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "5d5d2334-90df-4b11-8347-c2ec4cbf5b26",
-      "word": "spangled",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "1ecfc718-82a9-43d6-abfd-891de48529ed",
-      "word": "ubiquinone",
-      "pronunciation_guide": null
+      "pronunciation_guide": ""
     },
     {
       "id": "9dd2d33e-78c8-46fd-8549-a474b210edd1",
       "word": "ubiquity",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "e612d724-373b-4beb-872a-0ab3058de904",
-      "word": "udon",
-      "pronunciation_guide": null
+      "pronunciation_guide": ""
     },
     {
       "id": "a7b2e0ad-d3ef-4230-85f2-bf61c646ba16",
       "word": "ufology",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "f9bdafd6-19dd-46fe-8a8d-300664e00c73",
-      "word": "ultradian",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "9c5ff12d-9edf-4135-a131-51e5e6985d2c",
-      "word": "ululate",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "9dbacc8e-eed2-4952-8356-b188d56201e2",
-      "word": "umami",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "61aa3d22-ba6f-4b0e-b788-dfae94dfa7d3",
-      "word": "umbelliferous",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "aea24e78-aedf-49b4-acde-332ebe387879",
-      "word": "umpirage",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "59a2d392-6bff-4078-996a-e9f4766107dd",
-      "word": "unabridged",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "2cd78579-1270-45dd-9dd8-43f3c7ef62c0",
-      "word": "unacknowledged",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "b1300d83-2b45-4bb1-872b-dddd280ad9a7",
-      "word": "unakite",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "eb9c8647-33e1-4b7a-bae6-3fa0899a0e43",
-      "word": "unbeknownst",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "95270a5d-302c-48af-95bc-fe04960cdc33",
-      "word": "unchristened",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "7a93bc36-2f3e-4039-896d-0bad0fe58678",
-      "word": "unconscionable",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "81fa7da5-3ec3-461f-a6cd-0a57c661da17",
-      "word": "uncouth",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "8fee6536-0403-4943-a465-b0f6450e41fa",
-      "word": "undaunted",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "b5cb50ad-fd20-4a29-8f5a-5fde938276b1",
-      "word": "undercroft",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "a9583b45-e8b0-4ced-836f-9a38bf592b3c",
-      "word": "undergird",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "597b087b-beb8-4688-a36e-ea6ac338848c",
-      "word": "understanding",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "fb26df58-2e1b-4712-9d84-dc4ef594b677",
-      "word": "undertaken",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "c480d6df-61db-423a-8fa6-32aee86887b4",
-      "word": "undine",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "418ecc3d-a3ed-4f1d-8cca-afde46ee62ab",
-      "word": "undulating",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "ecc228f2-7386-4e42-9bdc-8e03f885b795",
-      "word": "unexpectedly",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "7bc321e4-1244-405b-970c-b2475024c1f5",
-      "word": "unfazed",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "a845db81-0bb5-40fd-9d95-2c3a80423277",
-      "word": "ungetatable",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "f26b84f1-edd6-496f-9983-9ef99f5e63eb",
-      "word": "unguiculate",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "1fbf0191-048e-4060-a6bf-88aad5049813",
-      "word": "unilaterally",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "563251c0-44cb-4d5f-93e6-75ef5c830bbc",
-      "word": "united",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "ee8be179-d898-4d6f-bfd8-8658a9f2d901",
-      "word": "univocal",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "a341259b-e1be-4c92-b3b5-3e1c44aab6c5",
-      "word": "unmoored",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "5aff56c2-adb2-4eb5-9745-b5e7ca630352",
-      "word": "unremitting",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "94b8d4be-0b16-4d7b-ab2d-da31a883cdac",
-      "word": "unscathed",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "3cc6110a-23b2-4fe2-b686-b5ff9d5af322",
-      "word": "unscramble",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "38ca49cc-95d3-4291-856b-72f92760f365",
-      "word": "unsportsmanlike",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "3b45f1c5-2d9c-4693-9cc7-e6176ec1c290",
-      "word": "untenable",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "1b73f373-3f86-4c07-bcb0-1a866f4b6e9f",
-      "word": "untoward",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "30a39ae1-050c-435a-a867-499a66512127",
-      "word": "unwonted",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "0421d26b-e35c-4b66-ac74-f3be62fac670",
-      "word": "upanisads",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "3fc54718-cd5f-4761-bc8a-6eedc6fb456a",
-      "word": "upanishads",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "6328bb24-6dd4-4e8a-bfdd-2370b443f77c",
-      "word": "upbeat",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "de62285e-2f1f-4f30-b6ff-b3c280d72cf1",
-      "word": "updo",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "9e5e0d96-342f-46a3-8627-55b7a6be4589",
-      "word": "upholstery",
-      "pronunciation_guide": null
+      "pronunciation_guide": ""
     },
     {
       "id": "6be9f21f-c463-4bb1-b6b1-bfd73757d829",
       "word": "uplift",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "fdde262a-7c8a-4f97-83f0-dee4034697dd",
-      "word": "uppercut",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "a19584e6-3e87-4763-99d5-a4f375f35aa2",
-      "word": "upsilon",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "cd7547ed-eac7-44d0-a9a2-4df1facb840d",
-      "word": "urad",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "6b5cc5f1-05d6-410f-978b-8745c5cfcef9",
-      "word": "uraeus",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "f3e788c7-3afd-4ab9-b95b-3fe99f12a785",
-      "word": "urbanely",
-      "pronunciation_guide": null
+      "pronunciation_guide": ""
     },
     {
       "id": "cc12c819-a766-40d4-85f2-93ef96bf8289",
       "word": "urchins",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "07a6fd60-8d89-4858-80b0-6b3d51d5e10c",
-      "word": "urgency",
-      "pronunciation_guide": null
+      "pronunciation_guide": ""
     },
     {
       "id": "7712009e-50b3-4b7e-ac86-ad625cfeef46",
       "word": "ursine",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "55411ff5-ed7d-4b06-8027-9b1e92fa68e7",
-      "word": "urticaria",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "e4a1048b-ba8a-430d-a00d-79b0c3da8b03",
-      "word": "urushiol",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "f0dd31ed-b506-4b3e-b0a1-d04769eda610",
-      "word": "ushabti",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "018a5502-d925-40fa-aa27-dec4ae0a412d",
-      "word": "ushuaia",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "eb9e4667-852e-4f3a-89bf-62f1c45c25ab",
-      "word": "ustion",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "3184a8e0-fcce-487f-8a93-71beabc39b24",
-      "word": "usufruct",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "a22cf07c-9d4e-40f6-9ed5-eef3b57559b2",
-      "word": "usurper",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "23318585-c20a-4202-9174-3999de75f2f2",
-      "word": "utterable",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "6f646a54-7f3b-42e4-84bb-ad6b651e212f",
-      "word": "uveal",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "4454b9ba-6de5-4941-b279-b27acfd21cea",
-      "word": "vaccary",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "1bea8f3e-3a71-4c24-ba93-5f952e02cc2c",
-      "word": "vacuousness",
-      "pronunciation_guide": null
+      "pronunciation_guide": ""
     },
     {
       "id": "2a5f2ecc-965c-40b2-8706-b7e886b3aa97",
       "word": "vagabonds",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "54e88af5-e4ef-4a89-9247-eb7c77a0d313",
-      "word": "vainglorious",
-      "pronunciation_guide": null
+      "pronunciation_guide": ""
     },
     {
       "id": "63e4c40d-2bd2-4932-a068-9df50bc35392",
       "word": "valedictorian",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "7067c6f0-d08b-45a0-89b1-d7939b1ab68f",
-      "word": "valerian",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "5851e3a6-e9ab-4d15-bba7-9f2fc7c2894b",
-      "word": "valetudinary",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "86aafb9a-94cb-44ef-9825-cc7fbc71b573",
-      "word": "valkyrian",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "8f602f86-4c87-426c-94c5-d6c43757074b",
-      "word": "valorous",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "b027e01e-ac18-4530-bfd7-a1518fa2de57",
-      "word": "valourous",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "7ea8243c-6dce-4112-9f35-d87ebe06c268",
-      "word": "valuator",
-      "pronunciation_guide": null
+      "pronunciation_guide": ""
     },
     {
       "id": "26834b16-487e-4afe-9ce9-d82f26052899",
       "word": "valvata",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "1836cbc9-f76e-4f5a-a9a3-fa178ac68ae0",
-      "word": "vambrace",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "e9b3bd21-eaae-493a-9539-d2c0647f1766",
-      "word": "vancouver",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "f412e66d-e66e-4af7-8e85-a99e657b5564",
-      "word": "vandalize",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "fd8cc235-79d8-4dca-9404-760c8b0030e8",
-      "word": "vantage",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "1d8b2365-1059-4397-a5ed-dc9bbe152e57",
-      "word": "vanuatu",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "932a196c-89fa-486d-968a-99710321b71c",
-      "word": "vaporetto",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "7475530c-4f3a-4b4a-b7e8-4dbc21f6abbc",
-      "word": "varicella",
-      "pronunciation_guide": null
+      "pronunciation_guide": ""
     },
     {
       "id": "eee7404b-2626-4762-b9e9-353991c1d335",
       "word": "variegated",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "48666485-b01a-46a0-96cd-51654857fa48",
-      "word": "varieties",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "f2a71411-f966-40a1-8321-fa7817f43755",
-      "word": "vases",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "7dffa56f-f092-4557-bc0a-1b168f64ba56",
-      "word": "vatican",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "27ebaf07-bd79-41c6-9c3a-b6e086d4d611",
-      "word": "veered",
-      "pronunciation_guide": null
+      "pronunciation_guide": ""
     },
     {
       "id": "f6b3f238-4b37-454f-bacf-42e46a1d4d1e",
@@ -2926,329 +406,69 @@
       "pronunciation_guide": null
     },
     {
-      "id": "0fdc90ef-1320-4d07-908b-25097b5164ae",
-      "word": "vehemence",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "2efb98d2-d977-4bb1-be37-97ad54504b1d",
-      "word": "vehicular",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "fbdabdc3-223a-43d9-8dc6-61fb1ec2b57a",
-      "word": "velamen",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "3bb7a0bc-7c3b-4903-b8bd-4d0169460169",
-      "word": "velcro",
-      "pronunciation_guide": null
-    },
-    {
       "id": "99a475bc-a115-4835-81bf-d50c08eeaab5",
       "word": "vellum",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "93d71f17-325b-4f91-9aaa-96deab292a04",
-      "word": "velociraptor",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "0811ce72-6996-4da7-8007-3b7c5c051937",
-      "word": "vendage",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "c8847854-a70e-45ba-9945-dfe8e8f3ba34",
-      "word": "vendetta",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "138794a6-f2d5-4a22-be5a-d5a9fa7fe200",
-      "word": "vendors",
-      "pronunciation_guide": null
+      "pronunciation_guide": ""
     },
     {
       "id": "0f752dbc-6b71-46e7-b22e-1150df6a2603",
       "word": "venenate",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "2fe3f2fa-4ad1-45bf-9ac7-769147c13472",
-      "word": "venezuela",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "2809ee9b-b6a9-43cb-a8a5-50c8d8d5e470",
-      "word": "venial",
-      "pronunciation_guide": null
+      "pronunciation_guide": ""
     },
     {
       "id": "52bf74f3-6a40-496e-b1b9-5676b4afd097",
       "word": "ventail",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "f982ca26-bc01-42cd-b0f6-a0c46a42264e",
-      "word": "ventriloquy",
-      "pronunciation_guide": null
+      "pronunciation_guide": ""
     },
     {
       "id": "393e80c6-ac66-4f67-acee-dda3e43de4f9",
       "word": "ventured",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "17195089-b69e-4a9a-a25b-24eb6d014277",
-      "word": "verandahs",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "2feec24a-6ec4-40b4-a87f-328d76e42697",
-      "word": "verandas",
-      "pronunciation_guide": null
+      "pronunciation_guide": ""
     },
     {
       "id": "8601a39d-e6a9-49d5-a6ae-3bcb72f01f4b",
       "word": "verbena",
-      "pronunciation_guide": null
+      "pronunciation_guide": ""
     },
     {
       "id": "971bdfd8-106a-4037-9c64-0b4573f9d43c",
       "word": "verbiage",
-      "pronunciation_guide": null
+      "pronunciation_guide": ""
     },
     {
       "id": "ec573ad9-4e93-49f8-b981-49b3400dd044",
       "word": "verdure",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "eb5239d8-808a-4fcd-bccb-6dd3195aeee5",
-      "word": "veridical",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "63be965c-0652-42e3-a7be-9c118bf5d6bc",
-      "word": "vermicelli",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "07662b98-21c1-4c22-8d45-f76543ccfc84",
-      "word": "vermicide",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "4031f246-1c5b-4163-a220-4711ffe95ae2",
-      "word": "veronique",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "81acd157-3cb7-4e86-9d27-0c61f0b183a5",
-      "word": "versa",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "fe244593-3825-4204-ab28-705890c22fb8",
-      "word": "versailles",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "0b3f3f5f-cfa0-40d2-bace-97592cfd97e1",
-      "word": "versiera",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "92971938-abfd-4575-a0f6-515163dc898d",
-      "word": "vertebral",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "d7468499-4d9d-4d07-b391-6b203f40a001",
-      "word": "vertebrates",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "5d0c4a61-8c12-4253-9555-54c0e1c44d09",
-      "word": "vertere",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "079f07f1-e1f7-4ca7-bfc3-d2c63b37c195",
-      "word": "vervain",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "d2d1481b-68c1-49d6-b81c-227055463a78",
-      "word": "vespertine",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "7445afd1-91a9-4a74-96f4-5fd5afa22a95",
-      "word": "vestments",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "c9352d57-976b-4e5a-8b72-a78be6b3e0bb",
-      "word": "vesuvian",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "6ce8eaed-2cee-4d6e-b9a9-ac733eb9d10e",
-      "word": "vetiver",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "05ce9007-e9dc-4581-9615-f56ef772bea0",
-      "word": "vetoed",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "b8cbaba5-3fcd-4c6a-b88f-d788ce8d501c",
-      "word": "vexatious",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "453e6501-a00d-4db5-a176-c4756e3b71bc",
-      "word": "vexillologist",
-      "pronunciation_guide": null
+      "pronunciation_guide": ""
     },
     {
       "id": "77dca4fd-df2c-485d-9fc4-4924c0f2647a",
       "word": "viaticum",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "dcb41c0e-64dd-4cb1-9ddb-4a2c9802a88b",
-      "word": "vicenary",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "fceeff8f-7e25-4529-80be-b054db3c54b5",
-      "word": "vicissitudes",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "8f4c11fe-6e88-447f-bf20-7ea49e422d80",
-      "word": "victimology",
-      "pronunciation_guide": null
+      "pronunciation_guide": ""
     },
     {
       "id": "7126fbb1-1f0a-46d6-83eb-325517495cf2",
       "word": "victorian",
-      "pronunciation_guide": null
+      "pronunciation_guide": ""
     },
     {
       "id": "37b8a005-5052-4b18-b0e0-c6e43aa6a9c6",
       "word": "vide",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "6b684f0c-8082-4b4b-a49b-fb2c62810e9d",
-      "word": "vigneron",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "1a73fcde-2ba2-4738-846a-c2d527bccb07",
-      "word": "vilipend",
-      "pronunciation_guide": null
+      "pronunciation_guide": ""
     },
     {
       "id": "c9c948d3-c8fa-44fa-af38-456d3d63ee56",
       "word": "villanelle",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "47cd8b8b-80e3-4dd2-bbcc-c251065fa023",
-      "word": "villi",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "3d377e1a-d92b-4bfe-913e-3e42567c50c4",
-      "word": "vinaceous",
-      "pronunciation_guide": null
+      "pronunciation_guide": ""
     },
     {
       "id": "5ea8e628-d22b-43e2-9ecb-7ab96ad0c97d",
       "word": "vincible",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "bc90bc50-ace1-435e-b2ab-76eef4555bfa",
-      "word": "vindictive",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "25a8677a-d68d-4a89-83de-0e6cdab7e38d",
-      "word": "violaceous",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "677020d0-1e86-40c9-9ecd-d66d37e8981f",
-      "word": "violating",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "66422142-587a-47db-8972-2f2e1a60298a",
-      "word": "vireo",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "864c86d4-8bbe-4185-a6be-024a4a506ba0",
-      "word": "virga",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "bab8018b-1bee-4bad-8576-625c7942fd65",
-      "word": "virtually",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "9a5aebc8-93b4-4746-8323-7d72091699c3",
-      "word": "virulence",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "27b38676-a070-402e-aa73-04e9d44a2066",
-      "word": "viscidity",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "bd21835c-3f78-4e24-bfa7-a7277a71e222",
-      "word": "visite",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "8c79ccdd-f477-4b72-a2d6-db3bc7e9fc33",
-      "word": "vitae",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "8b7d9ad1-79bd-4f13-8257-6be9e72dfc51",
-      "word": "vituline",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "54f0ad0c-8f0c-43a0-b6cf-c0329d137c80",
-      "word": "vituperative",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "63146e88-230d-4ee6-9b9e-0376c3d42bd9",
-      "word": "vividly",
-      "pronunciation_guide": null
-    },
-    {
-      "id": "2677f47d-e0c4-47d4-96ca-c5393942561f",
-      "word": "vivre",
-      "pronunciation_guide": null
+      "pronunciation_guide": ""
     },
     {
       "id": "56e0c283-96bd-4a77-851e-4bafe88e609e",
       "word": "vizierial",
-      "pronunciation_guide": null
+      "pronunciation_guide": ""
     }
   ],
   "invalid": [
@@ -3290,6 +510,24 @@
       ]
     },
     {
+      "id": "644f40d0-6144-4c12-a2a9-8aea390d37bb",
+      "word": "obligeviscount",
+      "pronunciation_guide": null,
+      "reason": "likely-combined-word"
+    },
+    {
+      "id": "7ef7dbd6-30bc-4278-b34b-c7b760df032a",
+      "word": "obviouspulse",
+      "pronunciation_guide": null,
+      "reason": "likely-combined-word"
+    },
+    {
+      "id": "699f2645-2051-4ca4-af12-4aaaf1367cbb",
+      "word": "oceaniancharitable",
+      "pronunciation_guide": null,
+      "reason": "likely-combined-word"
+    },
+    {
       "id": "c3761508-1abd-445d-b7ef-6787211f474e",
       "word": "ogivalnoun",
       "pronunciation_guide": null,
@@ -3305,16 +543,118 @@
       ]
     },
     {
+      "id": "63dff47a-03a7-43bf-8f2d-bb787ef197a6",
+      "word": "overweening",
+      "pronunciation_guide": null,
+      "reason": "likely-combined-word"
+    },
+    {
       "id": "2a389e98-69ea-41c7-b0b7-e726a4d71cf6",
       "word": "pâtissier",
       "pronunciation_guide": null,
       "reason": "invalid-characters"
     },
     {
+      "id": "1183e240-2c90-4fd1-960a-1e15cd67df1c",
+      "word": "peregrination",
+      "pronunciation_guide": null,
+      "reason": "likely-combined-word"
+    },
+    {
+      "id": "c1171f65-e103-445f-ae25-e908e50b85e6",
+      "word": "preserving",
+      "pronunciation_guide": null,
+      "reason": "likely-combined-word"
+    },
+    {
+      "id": "6a76fa84-f28e-4a7a-a1af-892f205b998b",
+      "word": "preternaturally",
+      "pronunciation_guide": null,
+      "reason": "likely-combined-word"
+    },
+    {
+      "id": "e912b48d-58ad-4b2c-bbcc-d4758c791811",
+      "word": "professionally",
+      "pronunciation_guide": null,
+      "reason": "likely-combined-word"
+    },
+    {
+      "id": "4019f80a-32fe-4999-94c2-3259b849bbca",
+      "word": "proffered",
+      "pronunciation_guide": null,
+      "reason": "likely-combined-word"
+    },
+    {
+      "id": "e8d973e2-a514-4710-87ac-62613cc80b41",
+      "word": "proselytiser",
+      "pronunciation_guide": null,
+      "reason": "likely-combined-word"
+    },
+    {
+      "id": "07f90aa2-720b-4481-bebe-e4c54a364b57",
+      "word": "proselytizer",
+      "pronunciation_guide": null,
+      "reason": "likely-combined-word"
+    },
+    {
+      "id": "4e0b9955-70e1-4009-878d-005fc2b85df3",
+      "word": "puerilely",
+      "pronunciation_guide": null,
+      "reason": "likely-combined-word"
+    },
+    {
+      "id": "504e7f4f-60e9-4b48-92c1-a9a18cca3214",
+      "word": "pulverised",
+      "pronunciation_guide": null,
+      "reason": "likely-combined-word"
+    },
+    {
+      "id": "9980f76d-9701-43f3-a741-08c00c89cf72",
+      "word": "pulverized",
+      "pronunciation_guide": null,
+      "reason": "likely-combined-word"
+    },
+    {
+      "id": "f5934025-bf7b-44be-8dcf-f7c92b680b9e",
+      "word": "puttering",
+      "pronunciation_guide": null,
+      "reason": "likely-combined-word"
+    },
+    {
+      "id": "b60e4dee-16e6-4c86-ba25-b90bc296c6c5",
+      "word": "redingote",
+      "pronunciation_guide": null,
+      "reason": "likely-combined-word"
+    },
+    {
+      "id": "aef810f0-5cd8-4bdb-a172-00db4ab315b9",
+      "word": "referralaerials",
+      "pronunciation_guide": null,
+      "reason": "likely-combined-word"
+    },
+    {
+      "id": "2d715009-fa04-44ab-a635-8006db8df464",
+      "word": "referred",
+      "pronunciation_guide": null,
+      "reason": "likely-combined-word"
+    },
+    {
+      "id": "c6a6be33-4ddf-4fa7-a4c2-cb1d29f70742",
+      "word": "refrigerated",
+      "pronunciation_guide": null,
+      "reason": "likely-combined-word"
+    },
+    {
       "id": "ea924108-f751-4472-b097-01b6501083cd",
       "word": "regnalattaché",
       "pronunciation_guide": null,
       "reason": "invalid-characters"
+    },
+    {
+      "id": "12a2c749-5727-40ca-8dd6-1c684d4b3b9e",
+      "word": "reiterateremorseful",
+      "pronunciation_guide": null,
+      "reason": "likely-combined-word"
     },
     {
       "id": "f258ddb4-1ef3-4223-a869-15613bb6e100",
@@ -3332,16 +672,58 @@
       ]
     },
     {
+      "id": "fb2d8404-0822-4de2-9c4e-0f40c39f30f4",
+      "word": "rescissiblejungian",
+      "pronunciation_guide": null,
+      "reason": "likely-combined-word"
+    },
+    {
+      "id": "ceed2694-11bd-4f32-b485-f25d088a216a",
+      "word": "rescissiblereveille",
+      "pronunciation_guide": null,
+      "reason": "likely-combined-word"
+    },
+    {
       "id": "935eda52-4e85-4d97-8a48-3c9c33d57498",
       "word": "résumé",
       "pronunciation_guide": null,
       "reason": "invalid-characters"
     },
     {
+      "id": "3f25e235-221b-4eec-94b5-b61dfaa749ea",
+      "word": "resuscitateretina",
+      "pronunciation_guide": null,
+      "reason": "likely-combined-word"
+    },
+    {
+      "id": "a0ce9847-3007-4945-a94d-ff3b4953f993",
+      "word": "revelationarithmetic",
+      "pronunciation_guide": null,
+      "reason": "likely-combined-word"
+    },
+    {
+      "id": "c048f1c0-4603-4041-84b7-9574f393e978",
+      "word": "reverberant",
+      "pronunciation_guide": null,
+      "reason": "likely-combined-word"
+    },
+    {
       "id": "ad2d29eb-9a37-4de9-90ca-16b58b909f4f",
       "word": "reykjavík",
       "pronunciation_guide": null,
       "reason": "invalid-characters"
+    },
+    {
+      "id": "65a11725-d60a-463c-89dd-6f4884746d83",
+      "word": "ringing",
+      "pronunciation_guide": null,
+      "reason": "likely-combined-word"
+    },
+    {
+      "id": "79eecfb0-778d-438b-ae71-3d46c7f54ec1",
+      "word": "runesancestors",
+      "pronunciation_guide": null,
+      "reason": "likely-combined-word"
     },
     {
       "id": "16b9a227-8d40-4cbf-8de0-9a953084acaa",
@@ -3359,10 +741,76 @@
       ]
     },
     {
+      "id": "20063a3f-ac19-4254-8083-3b1b70c75974",
+      "word": "ryelanddomesticity",
+      "pronunciation_guide": null,
+      "reason": "likely-combined-word"
+    },
+    {
+      "id": "bcbdf9f3-dc95-43e4-b676-814df30fe391",
+      "word": "sherifftarry",
+      "pronunciation_guide": null,
+      "reason": "likely-combined-word"
+    },
+    {
+      "id": "88fe2a64-5b4f-4dfa-92bf-47ebcde5ebdd",
+      "word": "shhh",
+      "pronunciation_guide": null,
+      "reason": "nonsense-word"
+    },
+    {
+      "id": "e2b319e8-7a1c-4f40-a573-a91d1965b3c9",
+      "word": "shrivellimbering",
+      "pronunciation_guide": null,
+      "reason": "likely-combined-word"
+    },
+    {
+      "id": "9ae8c42b-7892-4a96-b434-23d51a47ad13",
+      "word": "shutterscorner",
+      "pronunciation_guide": null,
+      "reason": "likely-combined-word"
+    },
+    {
+      "id": "b3bc2222-70b9-4419-bcfa-5df8333901a3",
+      "word": "singing",
+      "pronunciation_guide": null,
+      "reason": "likely-combined-word"
+    },
+    {
+      "id": "ea177093-8298-441d-bf7c-2fa5d081ea63",
+      "word": "smoldering",
+      "pronunciation_guide": null,
+      "reason": "likely-combined-word"
+    },
+    {
+      "id": "7ae3f88e-c963-4af2-b3dd-150fe22187e2",
+      "word": "smouldering",
+      "pronunciation_guide": null,
+      "reason": "likely-combined-word"
+    },
+    {
       "id": "935eac5e-bceb-4651-83ce-50241f26c689",
       "word": "soirée",
       "pronunciation_guide": null,
       "reason": "invalid-characters"
+    },
+    {
+      "id": "e928f9a7-a797-494c-9aeb-cbbe81f50b48",
+      "word": "solderinterim",
+      "pronunciation_guide": null,
+      "reason": "likely-combined-word"
+    },
+    {
+      "id": "9127397d-72ef-4060-ac81-cef8d157b46d",
+      "word": "solitairedishevel",
+      "pronunciation_guide": null,
+      "reason": "likely-combined-word"
+    },
+    {
+      "id": "962492d4-96ca-4478-87e1-2155f09fc194",
+      "word": "soppinesssousaphone",
+      "pronunciation_guide": null,
+      "reason": "likely-combined-word"
     },
     {
       "id": "5caa9026-a375-458d-acd1-46a737c7e7cb",
@@ -3371,10 +819,52 @@
       "reason": "invalid-characters"
     },
     {
+      "id": "2cd78579-1270-45dd-9dd8-43f3c7ef62c0",
+      "word": "unacknowledged",
+      "pronunciation_guide": null,
+      "reason": "likely-combined-word"
+    },
+    {
+      "id": "597b087b-beb8-4688-a36e-ea6ac338848c",
+      "word": "understanding",
+      "pronunciation_guide": null,
+      "reason": "likely-combined-word"
+    },
+    {
+      "id": "ecc228f2-7386-4e42-9bdc-8e03f885b795",
+      "word": "unexpectedly",
+      "pronunciation_guide": null,
+      "reason": "likely-combined-word"
+    },
+    {
+      "id": "1fbf0191-048e-4060-a6bf-88aad5049813",
+      "word": "unilaterally",
+      "pronunciation_guide": null,
+      "reason": "likely-combined-word"
+    },
+    {
+      "id": "27ebaf07-bd79-41c6-9c3a-b6e086d4d611",
+      "word": "veered",
+      "pronunciation_guide": null,
+      "reason": "likely-combined-word"
+    },
+    {
       "id": "ddbd51f6-ed54-438e-8a51-36c9ead7013b",
       "word": "velouté",
       "pronunciation_guide": null,
       "reason": "invalid-characters"
+    },
+    {
+      "id": "0b3f3f5f-cfa0-40d2-bace-97592cfd97e1",
+      "word": "versiera",
+      "pronunciation_guide": null,
+      "reason": "likely-combined-word"
+    },
+    {
+      "id": "5d0c4a61-8c12-4253-9555-54c0e1c44d09",
+      "word": "vertere",
+      "pronunciation_guide": null,
+      "reason": "likely-combined-word"
     }
   ],
   "combinedWords": [

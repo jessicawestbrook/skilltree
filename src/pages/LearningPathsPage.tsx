@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import { useAuth } from '../contexts/AuthContext'
 import { supabase } from '../services/supabase'
 import { SkillTreeNode } from '../types/database.types'
+import { buildCategoryPath } from '../utils/categoryPaths'
 import {
   AcademicCapIcon,
   ArrowRightIcon,
@@ -218,17 +219,19 @@ const LearningPathsPage: React.FC = () => {
     ).join(' ')
   }
 
-  const handleStartPath = (path: LearningPath) => {
+  const handleStartPath = async (path: LearningPath) => {
     const progress = pathProgress.get(path.id)
     if (progress?.currentNode) {
       const node = nodes.get(progress.currentNode)
       if (node) {
-        navigate(`/category/${node.id}`)
+        const categoryPath = await buildCategoryPath(node.id)
+        navigate(categoryPath)
       }
     } else if (path.nodes.length > 0) {
       const firstNode = nodes.get(path.nodes[0])
       if (firstNode) {
-        navigate(`/category/${firstNode.id}`)
+        const categoryPath = await buildCategoryPath(firstNode.id)
+        navigate(categoryPath)
       }
     }
   }
@@ -431,10 +434,11 @@ const LearningPathsPage: React.FC = () => {
                       </div>
                       {(isCompleted || isCurrent) && (
                         <button
-                          onClick={() => {
+                          onClick={async () => {
                             const node = nodes.get(nodeId)
                             if (node) {
-                              navigate(`/category/${node.id}`)
+                              const categoryPath = await buildCategoryPath(node.id)
+                              navigate(categoryPath)
                             }
                           }}
                           className="text-primary-600 hover:text-primary-700 dark:text-primary-400 dark:hover:text-primary-300"

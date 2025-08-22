@@ -22,10 +22,23 @@ async function getPhoneticFromClaude(word) {
       },
       body: JSON.stringify({
         model: 'claude-3-haiku-20240307',
-        max_tokens: 100,
+        max_tokens: 50,
         messages: [{
           role: 'user',
-          content: `Create a phonetic respelling for the word "${word}" using simple syllable-based pronunciation guide format like "RIHTH-uhm" for rhythm or "KAS-uhl" for castle. Use capital letters for stressed syllables and lowercase for unstressed. Separate syllables with hyphens. Return ONLY the pronunciation, no explanation.`
+          content: `Create a phonetic respelling for the spelling bee word "${word}" using this exact format:
+- Use capital letters for STRESSED syllables
+- Use lowercase for unstressed syllables  
+- Separate syllables with hyphens
+- Use simple letter combinations like: AY (say), EE (see), OO (book), UR (her), AW (saw)
+
+Examples:
+- "rhythm" → "RITH-uhm"
+- "castle" → "KAS-uhl" 
+- "necessary" → "NES-uh-ser-ee"
+- "beautiful" → "BYOO-tuh-fuhl"
+
+Word: "${word}"
+Pronunciation:`
         }]
       })
     });
@@ -36,7 +49,26 @@ async function getPhoneticFromClaude(word) {
 
     const data = await response.json();
     if (data.content && data.content[0] && data.content[0].text) {
-      return data.content[0].text.trim();
+      let pronunciation = data.content[0].text.trim();
+      
+      // Clean up the response to extract just the pronunciation
+      // Remove common prefixes that Claude might add
+      pronunciation = pronunciation.replace(/^.*?(?:for the spelling bee word|the phonetic respelling|pronunciation|word|answer).*?(?:is|using|format)?:?\s*/i, '');
+      pronunciation = pronunciation.replace(/^.*?→\s*/, ''); // Remove "word → " pattern  
+      pronunciation = pronunciation.replace(/^.*?spelling bee word.*?(?:is|using).*?:\s*/i, '');
+      pronunciation = pronunciation.split('\n')[0]; // Take only first line
+      pronunciation = pronunciation.replace(/["""'']/g, ''); // Remove quotes
+      pronunciation = pronunciation.trim();
+      
+      // If it's still not clean, just take the last part after colon or dash
+      if (pronunciation.includes(':')) {
+        pronunciation = pronunciation.split(':').pop().trim();
+      }
+      if (pronunciation.includes(' - ')) {
+        pronunciation = pronunciation.split(' - ').pop().trim();
+      }
+      
+      return pronunciation;
     }
   } catch (error) {
     console.log(`Claude API failed for ${word}: ${error.message}`);
