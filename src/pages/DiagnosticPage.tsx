@@ -46,7 +46,7 @@ const DiagnosticPage: React.FC = () => {
     
     // Test authentication
     try {
-      const { data: { user } } = await supabase.auth.getUser()
+      const { data: { user } } = await (supabase.auth as any).getUser()
       results.auth = {
         authenticated: !!user,
         user: user?.email

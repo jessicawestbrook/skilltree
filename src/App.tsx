@@ -46,7 +46,7 @@ function App() {
       <AuthProvider>
         <NotificationProvider>
           <SpellingBeeProvider>
-            <Router>
+            <Router future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
               <Routes>
                 <Route path="/login" element={<LoginPage />} />
                 <Route path="/signup" element={<SignUpPage />} />

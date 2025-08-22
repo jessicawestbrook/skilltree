@@ -16,7 +16,7 @@ class ImageService {
     try {
       const { data: buckets } = await supabase.storage.listBuckets()
       
-      const bucketExists = buckets?.some(bucket => bucket.name === this.bucketName)
+      const bucketExists = buckets?.some((bucket: any) => bucket.name === this.bucketName)
       
       if (!bucketExists) {
         const { error } = await supabase.storage.createBucket(this.bucketName, {
@@ -158,7 +158,7 @@ class ImageService {
         return []
       }
 
-      return data?.map(file => {
+      return data?.map((file: any) => {
         const { data: urlData } = supabase.storage
           .from(this.bucketName)
           .getPublicUrl(`${folder}/${file.name}`)

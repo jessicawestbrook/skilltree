@@ -92,7 +92,7 @@ const MegaMenu: React.FC = () => {
         })
         
         setChildNodes(childMap)
-        console.log('MegaMenu - Total nodes fetched:', topLevelCategories.length + (children?.length || 0) + grandchildren.length)
+        // console.log('MegaMenu - Total nodes fetched:', topLevelCategories.length + (children?.length || 0) + grandchildren.length)
       }
     } catch (error) {
       console.error('Error fetching categories:', error)

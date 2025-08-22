@@ -46,7 +46,7 @@ const UpdatePasswordPage: React.FC = () => {
     setMessage(null)
 
     try {
-      const { error } = await supabase.auth.updateUser({
+      const { error } = await (supabase.auth as any).updateUser({
         password: newPassword
       })
 
@@ -59,7 +59,7 @@ const UpdatePasswordPage: React.FC = () => {
       
       // Sign out and redirect to login
       setTimeout(async () => {
-        await supabase.auth.signOut()
+        await (supabase.auth as any).signOut()
         navigate('/login')
       }, 2000)
     } catch (error: any) {

@@ -38,7 +38,7 @@ const EmailVerificationPage: React.FC = () => {
     setError(null)
 
     try {
-      const { error } = await supabase.auth.resend({
+      const { error } = await (supabase.auth as any).resend({
         type: 'signup',
         email: user.email,
         options: {

@@ -1,10 +1,9 @@
 import React, { createContext, useContext, useEffect, useState } from 'react'
-import { User, Session } from '@supabase/supabase-js'
 import { supabase } from '../services/supabase'
 
 interface AuthContextType {
-  user: User | null
-  session: Session | null
+  user: any | null
+  session: any | null
   loading: boolean
   signUp: (email: string, password: string, username?: string) => Promise<any>
   signIn: (email: string, password: string) => Promise<any>
@@ -23,23 +22,23 @@ export const useAuth = () => {
 }
 
 export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const [user, setUser] = useState<User | null>(null)
-  const [session, setSession] = useState<Session | null>(null)
+  const [user, setUser] = useState<any | null>(null)
+  const [session, setSession] = useState<any | null>(null)
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    supabase.auth.getSession().then(({ data: { session } }) => {
+    (supabase.auth as any).getSession().then(({ data: { session } }: any) => {
       setSession(session)
       setUser(session?.user ?? null)
       setLoading(false)
     })
 
-    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
+    const { data } = (supabase.auth as any).onAuthStateChange((_event: any, session: any) => {
       setSession(session)
       setUser(session?.user ?? null)
     })
 
-    return () => subscription.unsubscribe()
+    return () => data.subscription.unsubscribe()
   }, [])
 
   const signUp = async (email: string, password: string, username?: string) => {
@@ -57,7 +56,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         }
       }
 
-      const { data, error } = await supabase.auth.signUp({
+      const { data, error } = await (supabase.auth as any).signUp({
         email,
         password,
         options: {
@@ -98,7 +97,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
   const signIn = async (email: string, password: string) => {
     try {
-      const { data, error } = await supabase.auth.signInWithPassword({
+      const { data, error } = await (supabase.auth as any).signInWithPassword({
         email,
         password,
       })
@@ -118,12 +117,12 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   }
 
   const signOut = async () => {
-    const { error } = await supabase.auth.signOut()
+    const { error } = await (supabase.auth as any).signOut()
     return { error }
   }
 
   const resetPassword = async (email: string) => {
-    const { data, error } = await supabase.auth.resetPasswordForEmail(email)
+    const { data, error } = await (supabase.auth as any).resetPasswordForEmail(email)
     return { data, error }
   }
 
