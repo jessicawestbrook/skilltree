@@ -1,6 +1,6 @@
 # SkillTree - Interactive Learning Platform
 
-An engaging, gamified learning platform designed for homeschooling, supplemental learning, and lifelong education. Built with React, TypeScript, and Supabase.
+An engaging, gamified learning platform designed for homeschooling, supplemental learning, and lifelong education. Built with React 18.3.1, TypeScript, and Supabase.
 
 ## 🎮 Features
 
