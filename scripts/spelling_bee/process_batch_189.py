@@ -1,0 +1,715 @@
+import csv
+import logging
+from datetime import datetime
+
+# Set up logging
+logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
+
+def calculate_difficulty_score(phonetic_transparency, frequency, morphological_complexity, etymology_complexity):
+    """Calculate overall difficulty score from 4 factors"""
+    return round((phonetic_transparency + frequency + morphological_complexity + etymology_complexity) / 4, 1)
+
+def determine_difficulty_level(score):
+    """Determine difficulty level based on score"""
+    if score <= 2.0:
+        return "Elementary"
+    elif score <= 3.0:
+        return "Intermediate" 
+    elif score <= 4.0:
+        return "Advanced"
+    else:
+        return "Expert"
+
+def main():
+    logging.info("Processing Batch 189 with comprehensive Claude data...")
+    
+    # Combined word errors detected in batch 189
+    combined_errors = ['veneernoun']
+    
+    # Comprehensive spelling bee data with Claude-generated educational content
+    words_data = [
+        {
+            'word': 'various',
+            'pronunciation': '/ˈvɛriəs/',
+            'definition': 'Various means of different kinds or types; several different things or people. It indicates diversity within a group or collection, emphasizing that not all elements are the same. Various can describe a range of options, multiple different approaches, or assorted items that share some common characteristic but differ in specific details. The word suggests both quantity (more than one) and diversity (different types).',
+            'example_sentence': 'The museum displayed _____ artifacts from different historical periods.',
+            'etymology': 'From Latin "varius" meaning "varied, different, diverse." Related to "vary" and "variety."',
+            'etymology_source': 'Claude',
+            'memory_tip': 'Think "VARY + OUS" - various things vary from each other in different ways.',
+            'phonetic_transparency': 3,
+            'frequency': 5,
+            'morphological_complexity': 2,
+            'etymology_complexity': 2
+        },
+        {
+            'word': 'variscite',
+            'pronunciation': '/ˈværɪsaɪt/',
+            'definition': 'Variscite is a green phosphate mineral often used as a gemstone and ornamental stone. This relatively rare mineral forms in near-surface environments and is prized for its attractive green color, which can range from pale to deep emerald green. Variscite is sometimes confused with turquoise but has a different chemical composition. It\'s found in several locations worldwide and is popular among collectors and jewelry makers for its beautiful color and relative rarity.',
+            'example_sentence': 'The jewelry designer chose _____ for its distinctive green color that complemented the silver setting.',
+            'etymology': 'Named after Variscia, the historical name for the Vogtland region of Germany where it was first discovered.',
+            'etymology_source': 'Claude',
+            'memory_tip': 'Think "VARIS (varied) + CITE" - variscite is a varied green mineral that\'s worth citing for its beauty.',
+            'phonetic_transparency': 3,
+            'frequency': 1,
+            'morphological_complexity': 3,
+            'etymology_complexity': 3
+        },
+        {
+            'word': 'varnish',
+            'pronunciation': '/ˈvɑːrnɪʃ/',
+            'definition': 'Varnish is a transparent, hard, protective coating applied to wood, metal, or other surfaces to provide protection and enhance appearance. It creates a glossy or satin finish while protecting the underlying material from moisture, wear, and damage. Varnish can be made from various resins, oils, and solvents. As a verb, varnish means to apply this coating or, figuratively, to give a deceptively attractive appearance to something.',
+            'example_sentence': 'The carpenter applied three coats of _____ to protect the wooden table from water damage.',
+            'etymology': 'From Old French "vernis," possibly from Medieval Latin "veronix," from Greek "Berenikē," referring to a resin from Berenice (modern Libya).',
+            'etymology_source': 'Claude',
+            'memory_tip': 'Think "VAR (varied) + NISH" - varnish provides a varied, polished finish to surfaces.',
+            'phonetic_transparency': 3,
+            'frequency': 3,
+            'morphological_complexity': 2,
+            'etymology_complexity': 4
+        },
+        {
+            'word': 'varsity',
+            'pronunciation': '/ˈvɑːrsəti/',
+            'definition': 'Varsity refers to the principal team representing a school, college, or university in sports competitions, as opposed to junior varsity or freshman teams. Varsity teams typically consist of the most skilled athletes and compete at the highest level for their institution. The term can also refer to the university itself, particularly in British English. Varsity athletes often receive recognition, scholarships, and the opportunity to compete for championships.',
+            'example_sentence': 'She earned a spot on the _____ basketball team after excelling in junior varsity.',
+            'etymology': 'Shortened form of "university," from British university slang. Originally Oxford and Cambridge slang for university.',
+            'etymology_source': 'Claude',
+            'memory_tip': 'Think "VARS (various) + ITY" - varsity includes various top athletes from the university.',
+            'phonetic_transparency': 3,
+            'frequency': 4,
+            'morphological_complexity': 3,
+            'etymology_complexity': 2
+        },
+        {
+            'word': 'vascular',
+            'pronunciation': '/ˈvæskjələr/',
+            'definition': 'Vascular relates to blood vessels or the circulatory system in animals, or to the conducting tissues that transport water and nutrients in plants. In medicine, vascular refers to arteries, veins, and capillaries that carry blood throughout the body. In botany, vascular plants have specialized tissues (xylem and phloem) that transport water, minerals, and nutrients. Vascular health is crucial for proper circulation and overall health.',
+            'example_sentence': 'The doctor recommended exercise to improve her _____ health and circulation.',
+            'etymology': 'From Latin "vasculum," diminutive of "vas" meaning "vessel." Originally referred to small containers, later applied to blood vessels.',
+            'etymology_source': 'Claude',
+            'memory_tip': 'Think "VAS (vessel) + CULAR" - vascular refers to the vessels that carry blood and nutrients.',
+            'phonetic_transparency': 3,
+            'frequency': 3,
+            'morphological_complexity': 3,
+            'etymology_complexity': 3
+        },
+        {
+            'word': 'vase',
+            'pronunciation': '/veɪs/',
+            'definition': 'A vase is a decorative container, typically made of glass, ceramic, or other materials, used for holding flowers or as an ornamental object. Vases come in various shapes, sizes, and styles, from simple cylindrical forms to elaborate artistic creations. They serve both functional and aesthetic purposes, displaying flowers while adding beauty to interior spaces. Vases have been used across cultures for thousands of years.',
+            'example_sentence': 'She arranged the fresh roses in a crystal _____ on the dining room table.',
+            'etymology': 'From French "vase," from Latin "vas" meaning "vessel, container." The word has maintained its meaning across languages.',
+            'etymology_source': 'Claude',
+            'memory_tip': 'Think "VASE rhymes with PLACE" - a vase is a special place to display beautiful flowers.',
+            'phonetic_transparency': 4,
+            'frequency': 4,
+            'morphological_complexity': 1,
+            'etymology_complexity': 2
+        },
+        {
+            'word': 'vaseline',
+            'pronunciation': '/ˈvæsəliːn/',
+            'definition': 'Vaseline is a brand name for petroleum jelly, a semi-solid mixture of hydrocarbons used as a moisturizer, protectant, and lubricant. This colorless, odorless substance helps prevent moisture loss from skin and provides a protective barrier. Vaseline has numerous applications, from skincare and medical uses to household applications. The product was first manufactured in the 1870s and became a common household item worldwide.',
+            'example_sentence': 'She applied _____ to her chapped lips to provide moisture and protection.',
+            'etymology': 'Trademark name created by Robert Chesebrough, combining "wasser" (German for water) + "elaion" (Greek for oil) + "-ine" (chemical suffix).',
+            'etymology_source': 'Claude',
+            'memory_tip': 'Think "VASE + LINE" - Vaseline comes in containers like vases and forms a protective line on skin.',
+            'phonetic_transparency': 4,
+            'frequency': 3,
+            'morphological_complexity': 3,
+            'etymology_complexity': 3
+        },
+        {
+            'word': 'vases',
+            'pronunciation': '/ˈveɪsɪz/',
+            'definition': 'Vases is the plural form of vase, referring to multiple decorative containers used for holding flowers or as ornamental objects. Collections of vases can vary in style, material, and size, from antique porcelain pieces to modern glass designs. Vases serve both functional purposes (displaying flowers) and decorative purposes (enhancing interior design). They can be grouped together for artistic effect or displayed individually.',
+            'example_sentence': 'The antique shop displayed dozens of beautiful _____ from different historical periods.',
+            'etymology': 'Plural of "vase," from French "vase," from Latin "vas" meaning "vessel." The plural follows standard English pluralization.',
+            'etymology_source': 'Claude',
+            'memory_tip': 'Think "VASE + S" - vases is simply the plural form, multiple vessels for flowers.',
+            'phonetic_transparency': 4,
+            'frequency': 3,
+            'morphological_complexity': 2,
+            'etymology_complexity': 2
+        },
+        {
+            'word': 'vassal',
+            'pronunciation': '/ˈvæsəl/',
+            'definition': 'A vassal was a person in the feudal system who held land from a lord in exchange for providing military service and other obligations. Vassals owed loyalty, service, and tribute to their feudal superior while receiving protection and the right to use land. The vassal system was central to medieval European society and politics. In modern usage, vassal can refer to someone who is subordinate to or dependent on another person or state.',
+            'example_sentence': 'The medieval lord expected his _____ to provide knights for military campaigns.',
+            'etymology': 'From Old French "vassal," from Medieval Latin "vassallus," possibly from Celtic origins meaning "servant."',
+            'etymology_source': 'Claude',
+            'memory_tip': 'Think "VAS (vessel) + SAL" - a vassal was like a vessel serving their lord.',
+            'phonetic_transparency': 3,
+            'frequency': 2,
+            'morphological_complexity': 2,
+            'etymology_complexity': 3
+        },
+        {
+            'word': 'vatican',
+            'pronunciation': '/ˈvætɪkən/',
+            'definition': 'The Vatican refers to Vatican City, the smallest independent state in the world, located within Rome, Italy. It serves as the spiritual and administrative headquarters of the Roman Catholic Church and is the residence of the Pope. The Vatican contains important religious and artistic treasures, including the Sistine Chapel and St. Peter\'s Basilica. As the center of Catholic governance, the Vatican influences the lives of over one billion Catholics worldwide.',
+            'example_sentence': 'Pilgrims from around the world travel to the _____ to visit St. Peter\'s Basilica.',
+            'etymology': 'From Latin "Vaticanus," referring to the Vaticanus Hill (Mons Vaticanus) in Rome where it\'s located, possibly from "vates" (prophet).',
+            'etymology_source': 'Claude',
+            'memory_tip': 'Think "VAT (vessel) + I + CAN" - the Vatican is a vessel where I can find spiritual guidance.',
+            'phonetic_transparency': 3,
+            'frequency': 3,
+            'morphological_complexity': 3,
+            'etymology_complexity': 3
+        },
+        {
+            'word': 'vaudeville',
+            'pronunciation': '/ˈvɔːdvɪl/',
+            'definition': 'Vaudeville was a form of variety entertainment popular in the late 19th and early 20th centuries, featuring a series of separate, unrelated acts such as singers, dancers, comedians, acrobats, and novelty performers. Vaudeville shows were family-friendly and played in theaters across America and Europe. This entertainment format was a precursor to modern variety shows and helped launch the careers of many famous performers. The decline of vaudeville came with the rise of radio and motion pictures.',
+            'example_sentence': 'The old theater once hosted _____ shows featuring everything from juggling acts to musical performances.',
+            'etymology': 'From French "vaudeville," originally "chanson du Vau de Vire" (song of the Vire Valley), referring to satirical songs from that region of France.',
+            'etymology_source': 'Claude',
+            'memory_tip': 'Think "VAUD (applaud) + VILLE (city)" - vaudeville was entertainment that whole cities would applaud.',
+            'phonetic_transparency': 2,
+            'frequency': 2,
+            'morphological_complexity': 3,
+            'etymology_complexity': 4
+        },
+        {
+            'word': 'vault',
+            'pronunciation': '/vɔːlt/',
+            'definition': 'A vault can refer to a secure room or compartment for storing valuables, typically in banks or other institutions, or to an arched roof or ceiling structure in architecture. As a verb, vault means to jump or leap over something, often with the aid of hands or a pole. Vaults provide security for precious items and are designed to resist theft and damage. Architectural vaults distribute weight and create impressive interior spaces.',
+            'example_sentence': 'The bank\'s _____ contained safety deposit boxes for customers\' valuable items.',
+            'etymology': 'From Old French "voute," from Latin "voluta" meaning "rolled," referring to the curved shape of architectural vaults.',
+            'etymology_source': 'Claude',
+            'memory_tip': 'Think "VAULT sounds like BOLT" - vaults are secured with heavy bolts to protect valuables.',
+            'phonetic_transparency': 3,
+            'frequency': 3,
+            'morphological_complexity': 1,
+            'etymology_complexity': 3
+        },
+        {
+            'word': 'veered',
+            'pronunciation': '/vɪrd/',
+            'definition': 'Veered is the past tense of veer, meaning to change direction suddenly or sharply, especially when referring to vehicles, wind, or courses of action. It describes a quick shift from one path or direction to another. Veering can be intentional (to avoid an obstacle) or unintentional (loss of control). The word is commonly used in driving, sailing, and describing changes in conversation topics or life directions.',
+            'example_sentence': 'The car suddenly _____ off the road to avoid hitting the deer.',
+            'etymology': 'From French "virer" meaning "to turn," possibly from Latin "vibrare" (to shake, brandish). Originally a nautical term.',
+            'etymology_source': 'Claude',
+            'memory_tip': 'Think "VEER + ED" - veered is the past action of veering or turning sharply.',
+            'phonetic_transparency': 3,
+            'frequency': 3,
+            'morphological_complexity': 2,
+            'etymology_complexity': 3
+        },
+        {
+            'word': 'veganism',
+            'pronunciation': '/ˈviːɡənɪzəm/',
+            'definition': 'Veganism is a lifestyle and dietary choice that excludes all animal products, including meat, dairy, eggs, honey, and other animal-derived ingredients. Vegans also typically avoid using products made from animals, such as leather, wool, and cosmetics tested on animals. The philosophy behind veganism often includes ethical concerns about animal welfare, environmental sustainability, and health considerations. Veganism has grown significantly in popularity in recent decades.',
+            'example_sentence': 'Her commitment to _____ led her to carefully read ingredient labels and seek plant-based alternatives.',
+            'etymology': 'From "vegan" + "-ism." "Vegan" was coined by Donald Watson in 1944, taking the first and last letters of "vegetarian."',
+            'etymology_source': 'Claude',
+            'memory_tip': 'Think "VEGAN + ISM" - veganism is the practice and belief system of being vegan.',
+            'phonetic_transparency': 4,
+            'frequency': 3,
+            'morphological_complexity': 3,
+            'etymology_complexity': 2
+        },
+        {
+            'word': 'vegetables',
+            'pronunciation': '/ˈvɛdʒtəbəlz/',
+            'definition': 'Vegetables are edible plants or parts of plants, such as roots, stems, leaves, flowers, or fruits, that are typically consumed as part of a meal rather than as dessert. They are important sources of vitamins, minerals, fiber, and other nutrients essential for good health. Vegetables can be eaten raw or cooked in various ways and form a crucial component of balanced diets worldwide. Common vegetables include carrots, broccoli, spinach, and tomatoes.',
+            'example_sentence': 'The farmer\'s market offered a wide variety of fresh _____ from local growers.',
+            'etymology': 'From "vegetable" + "-s." "Vegetable" comes from Latin "vegetabilis" meaning "growing, flourishing," from "vegetare" (to enliven).',
+            'etymology_source': 'Claude',
+            'memory_tip': 'Think "VEG (vegetate) + TABLE" - vegetables are plants that grow and can be put on your table.',
+            'phonetic_transparency': 3,
+            'frequency': 5,
+            'morphological_complexity': 3,
+            'etymology_complexity': 3
+        },
+        {
+            'word': 'vegetarian',
+            'pronunciation': '/ˌvɛdʒəˈtɛriən/',
+            'definition': 'A vegetarian is a person who does not eat meat, fish, or poultry, but may consume dairy products and eggs. Vegetarianism can be motivated by health concerns, ethical beliefs about animal welfare, environmental considerations, or religious reasons. There are different types of vegetarians, including lacto-vegetarians (who eat dairy) and ovo-vegetarians (who eat eggs). Vegetarian diets emphasize plant-based foods like fruits, vegetables, grains, and legumes.',
+            'example_sentence': 'As a _____, she enjoyed exploring new recipes featuring beans, grains, and fresh produce.',
+            'etymology': 'From "vegetable" + "-arian" (one who advocates or practices). Coined in the 1840s by the Vegetarian Society.',
+            'etymology_source': 'Claude',
+            'memory_tip': 'Think "VEGETABLE + ARIAN" - a vegetarian is someone who advocates eating vegetables instead of meat.',
+            'phonetic_transparency': 3,
+            'frequency': 4,
+            'morphological_complexity': 4,
+            'etymology_complexity': 2
+        },
+        {
+            'word': 'vehemence',
+            'pronunciation': '/ˈviːəməns/',
+            'definition': 'Vehemence refers to the quality of being intense, passionate, or forceful in expression or feeling. It describes the strength and fervor with which someone expresses their opinions, emotions, or arguments. Vehemence can be positive (passionate advocacy) or negative (angry outburst), but always involves strong intensity. The word suggests not just strong feeling but the forceful expression of that feeling.',
+            'example_sentence': 'She argued with such _____ that everyone in the room was convinced of her position.',
+            'etymology': 'From Latin "vehementia," from "vehemens" meaning "impetuous, violent, eager," from "vehere" (to carry) + "mens" (mind).',
+            'etymology_source': 'Claude',
+            'memory_tip': 'Think "VEH (vehicle) + MENCE" - vehemence carries your emotions like a powerful vehicle.',
+            'phonetic_transparency': 2,
+            'frequency': 2,
+            'morphological_complexity': 3,
+            'etymology_complexity': 4
+        },
+        {
+            'word': 'vehicular',
+            'pronunciation': '/vɪˈhɪkjələr/',
+            'definition': 'Vehicular relates to or involves vehicles, especially motor vehicles like cars, trucks, and motorcycles. The term is commonly used in legal and traffic contexts, such as "vehicular traffic" or "vehicular homicide." Vehicular can describe anything associated with the operation, movement, or use of vehicles. It\'s often used to distinguish vehicle-related activities from pedestrian or other forms of transportation.',
+            'example_sentence': 'The new bridge was designed to separate pedestrian walkways from _____ traffic.',
+            'etymology': 'From "vehicle" + "-ular." "Vehicle" comes from Latin "vehiculum," from "vehere" meaning "to carry."',
+            'etymology_source': 'Claude',
+            'memory_tip': 'Think "VEHICLE + ULAR" - vehicular describes things related to vehicles and transportation.',
+            'phonetic_transparency': 3,
+            'frequency': 3,
+            'morphological_complexity': 4,
+            'etymology_complexity': 3
+        },
+        {
+            'word': 'velamen',
+            'pronunciation': '/vəˈleɪmən/',
+            'definition': 'Velamen is a specialized tissue found in the aerial roots of certain plants, particularly epiphytic orchids and some aroids. This spongy, silvery-white tissue helps absorb moisture and nutrients from the air and rain. The velamen acts like a protective covering while also serving as a water and nutrient storage system. This adaptation allows epiphytic plants to survive without direct soil contact by efficiently capturing atmospheric moisture.',
+            'example_sentence': 'The orchid\'s aerial roots were covered with _____ that helped it absorb moisture from the humid air.',
+            'etymology': 'From Latin "velamen" meaning "covering, veil," from "velare" (to cover, veil). Refers to the covering nature of this tissue.',
+            'etymology_source': 'Claude',
+            'memory_tip': 'Think "VEIL + AMEN" - velamen is like a veil that covers roots, and amen, it helps plants survive.',
+            'phonetic_transparency': 3,
+            'frequency': 1,
+            'morphological_complexity': 3,
+            'etymology_complexity': 3
+        },
+        {
+            'word': 'velcro',
+            'pronunciation': '/ˈvɛlkroʊ/',
+            'definition': 'Velcro is a brand name for a type of fastener consisting of two strips: one with tiny hooks and another with tiny loops that stick together when pressed. This hook-and-loop fastener system provides a strong but easily reversible connection. Velcro is used in clothing, shoes, bags, and numerous other applications where temporary but secure fastening is needed. The product was inspired by burr seeds that stick to animal fur.',
+            'example_sentence': 'The child\'s shoes had _____ straps instead of laces for easy fastening.',
+            'etymology': 'Trademark from French "velours" (velvet) + "crochet" (hook), coined by Swiss inventor Georges de Mestral in the 1940s.',
+            'etymology_source': 'Claude',
+            'memory_tip': 'Think "VEL (velvet) + CRO (crochet)" - Velcro combines velvet-like loops with crochet-like hooks.',
+            'phonetic_transparency': 4,
+            'frequency': 4,
+            'morphological_complexity': 2,
+            'etymology_complexity': 3
+        },
+        {
+            'word': 'vellum',
+            'pronunciation': '/ˈvɛləm/',
+            'definition': 'Vellum is a fine writing material made from specially prepared calfskin, lambskin, or other animal skin. Historically, vellum was used for important documents, religious texts, and artistic works because of its durability and smooth writing surface. It was more expensive than parchment and reserved for the most important manuscripts. Today, the term also refers to high-quality paper that mimics the appearance and feel of traditional vellum.',
+            'example_sentence': 'The medieval manuscript was written on _____ that had preserved beautifully for centuries.',
+            'etymology': 'From Old French "velin," from "veel" (calf), from Latin "vitellus" (little calf). Refers to the young animal skin used.',
+            'etymology_source': 'Claude',
+            'memory_tip': 'Think "VEL (veal) + LUM" - vellum was originally made from veal (calf) skin.',
+            'phonetic_transparency': 3,
+            'frequency': 2,
+            'morphological_complexity': 2,
+            'etymology_complexity': 3
+        },
+        {
+            'word': 'velociraptor',
+            'pronunciation': '/vəˌlɒsɪˈræptər/',
+            'definition': 'Velociraptor was a small, agile dinosaur that lived during the Late Cretaceous period, known for its speed, intelligence, and distinctive sickle-shaped claws. These carnivorous dinosaurs were about the size of a large dog and likely hunted in packs. Velociraptors had feathers and were closely related to modern birds. They became famous through movies, though popular depictions often exaggerate their size and characteristics compared to the actual fossil evidence.',
+            'example_sentence': 'The paleontologist explained how the _____ used its sharp claws to hunt prey 75 million years ago.',
+            'etymology': 'From Latin "velox" (swift) + "raptor" (robber, plunderer). The name emphasizes the dinosaur\'s speed and predatory nature.',
+            'etymology_source': 'Claude',
+            'memory_tip': 'Think "VELOCITY + RAPTOR" - velociraptors were swift raptors that moved with great velocity.',
+            'phonetic_transparency': 3,
+            'frequency': 2,
+            'morphological_complexity': 5,
+            'etymology_complexity': 3
+        },
+        {
+            'word': 'velouté',
+            'pronunciation': '/vəˈluːteɪ/',
+            'definition': 'Velouté is one of the five classical French mother sauces, made from a light-colored stock (chicken, veal, or fish) thickened with a blonde roux (butter and flour cooked until light-colored). The sauce has a smooth, velvety texture and serves as a base for many other sauces. Velouté is fundamental to French cuisine and culinary education. The word also describes the velvety texture that characterizes this sauce.',
+            'example_sentence': 'The chef prepared a fish _____ to accompany the poached salmon.',
+            'etymology': 'From French "velouté," meaning "velvety," from "velours" (velvet). Refers to the smooth, velvety texture of the sauce.',
+            'etymology_source': 'Claude',
+            'memory_tip': 'Think "VELVET + AY" - velouté has a velvet-smooth texture that makes you say "hey, that\'s smooth!"',
+            'phonetic_transparency': 2,
+            'frequency': 1,
+            'morphological_complexity': 2,
+            'etymology_complexity': 3
+        },
+        {
+            'word': 'velvet',
+            'pronunciation': '/ˈvɛlvət/',
+            'definition': 'Velvet is a luxurious fabric characterized by a dense, short pile that gives it a distinctive soft texture and rich appearance. Made from various fibers including silk, cotton, or synthetic materials, velvet has a smooth surface that reflects light beautifully. The fabric has been associated with luxury and nobility for centuries and is used in clothing, upholstery, and decorative items. Velvet\'s unique texture comes from its specialized weaving process.',
+            'example_sentence': 'The opera singer wore a stunning gown made of deep blue _____.',
+            'etymology': 'From Old French "veluotte," from "velu" meaning "hairy," from Latin "villosus" (shaggy, hairy), referring to the fabric\'s fuzzy texture.',
+            'etymology_source': 'Claude',
+            'memory_tip': 'Think "VEL (well) + VET" - velvet feels so well and smooth, like a vet\'s gentle touch.',
+            'phonetic_transparency': 3,
+            'frequency': 3,
+            'morphological_complexity': 2,
+            'etymology_complexity': 3
+        },
+        {
+            'word': 'vendage',
+            'pronunciation': '/ˈvɛndɪdʒ/',
+            'definition': 'Vendage refers to the grape harvest or vintage season in winemaking, particularly in French wine regions. This term encompasses the entire process of harvesting grapes, from determining the optimal picking time to collecting the fruit for wine production. The vendage is a crucial period that determines the quality of the wine, as timing, weather conditions, and harvesting methods all affect the final product. Different regions have traditional vendage practices and timing.',
+            'example_sentence': 'The winery invited volunteers to participate in the annual _____ to help harvest the grapes.',
+            'etymology': 'From French "vendange," from Latin "vindemia," from "vinum" (wine) + "demere" (to take away). Literally means "wine gathering."',
+            'etymology_source': 'Claude',
+            'memory_tip': 'Think "VEN (wine) + DAGE (damage)" - vendage is when you harvest wine grapes before they get damaged.',
+            'phonetic_transparency': 3,
+            'frequency': 1,
+            'morphological_complexity': 2,
+            'etymology_complexity': 4
+        },
+        {
+            'word': 'vendetta',
+            'pronunciation': '/vɛnˈdɛtə/',
+            'definition': 'A vendetta is a prolonged bitter feud, typically between families, characterized by retaliatory acts of revenge. Originally associated with Corsican and Italian family honor traditions, vendetta involves cycles of retaliation that can span generations. In modern usage, vendetta can refer to any persistent campaign of revenge or hostility against a person or group. The concept embodies the idea of settling scores through personal justice rather than legal systems.',
+            'example_sentence': 'The two families had carried on their _____ for so long that no one remembered how it started.',
+            'etymology': 'From Italian "vendetta," from Latin "vindicta" meaning "revenge," from "vindicare" (to claim, avenge).',
+            'etymology_source': 'Claude',
+            'memory_tip': 'Think "VEND (vendor) + ETTA" - a vendetta is when someone sells out another person seeking revenge.',
+            'phonetic_transparency': 3,
+            'frequency': 3,
+            'morphological_complexity': 3,
+            'etymology_complexity': 3
+        },
+        {
+            'word': 'vendors',
+            'pronunciation': '/ˈvɛndərz/',
+            'definition': 'Vendors are people or companies that sell goods or services, particularly those who sell items in public places, at markets, or through small businesses. Street vendors, market vendors, and food vendors are common examples. In business contexts, vendors supply products or services to other companies. The term can also refer to vending machines that automatically dispense products. Vendors play important roles in local economies and commerce.',
+            'example_sentence': 'The festival featured dozens of _____ selling handmade crafts and local foods.',
+            'etymology': 'Plural of "vendor," from Latin "vendere" meaning "to sell." The word has maintained its commercial meaning throughout history.',
+            'etymology_source': 'Claude',
+            'memory_tip': 'Think "VEND (sell) + ORS" - vendors are people who vend or sell things to others.',
+            'phonetic_transparency': 4,
+            'frequency': 4,
+            'morphological_complexity': 2,
+            'etymology_complexity': 2
+        },
+        {
+            'word': 'veneer',
+            'pronunciation': '/vəˈnɪr/',
+            'definition': 'Veneer is a thin layer of decorative wood or other material applied to cover a coarser or less attractive surface underneath. In woodworking, veneer allows expensive or beautiful wood species to cover furniture made from cheaper materials. Figuratively, veneer refers to a superficial or deceptive outward appearance that conceals the true nature of something. The word suggests both covering and potentially hiding what lies beneath.',
+            'example_sentence': 'The antique desk had a beautiful mahogany _____ over a pine base.',
+            'etymology': 'From German "furnieren" meaning "to veneer," from French "fournir" (to furnish). Originally meant "to furnish" or "supply."',
+            'etymology_source': 'Claude',
+            'memory_tip': 'Think "VE (we) + NEAR" - veneer is what we put near the surface to make it look better.',
+            'phonetic_transparency': 3,
+            'frequency': 2,
+            'morphological_complexity': 2,
+            'etymology_complexity': 3
+        },
+        {
+            'word': 'venenate',
+            'pronunciation': '/ˈvɛnəneɪt/',
+            'definition': 'Venenate means to poison or to infect with venom; to make venomous or toxic. This somewhat archaic term describes the act of introducing poison or venom into something or someone. Venenate can be used literally (as with snake bites) or figuratively (as with poisoning someone\'s mind against another). The word emphasizes the deliberate or natural introduction of toxic substances.',
+            'example_sentence': 'The snake\'s bite would _____ its prey, causing paralysis within minutes.',
+            'etymology': 'From Latin "venenatus," past participle of "venenare" meaning "to poison," from "venenum" (poison, venom).',
+            'etymology_source': 'Claude',
+            'memory_tip': 'Think "VENOM + ATE" - to venenate is to make something venomous or poisonous.',
+            'phonetic_transparency': 3,
+            'frequency': 1,
+            'morphological_complexity': 3,
+            'etymology_complexity': 3
+        },
+        {
+            'word': 'venerable',
+            'pronunciation': '/ˈvɛnərəbəl/',
+            'definition': 'Venerable means deserving respect due to age, dignity, character, or position; revered because of wisdom, character, or age. It describes people, institutions, or traditions that command respect through their long history, moral character, or contributions to society. In religious contexts, venerable is a title given to deceased persons recognized for their holiness. The word implies both age and worthiness of respect.',
+            'example_sentence': 'The _____ professor had taught at the university for over fifty years.',
+            'etymology': 'From Latin "venerabilis," from "venerari" meaning "to worship, revere." Related to "venerate" and "Venus."',
+            'etymology_source': 'Claude',
+            'memory_tip': 'Think "VENERATE + ABLE" - venerable people are able to be venerated or deeply respected.',
+            'phonetic_transparency': 3,
+            'frequency': 2,
+            'morphological_complexity': 4,
+            'etymology_complexity': 3
+        },
+        {
+            'word': 'venezuela',
+            'pronunciation': '/ˌvɛnəˈzweɪlə/',
+            'definition': 'Venezuela is a South American country located on the northern coast of the continent, bordered by Colombia, Brazil, and Guyana. The country is known for its oil reserves, diverse geography including the Andes Mountains and Amazon rainforest, and Angel Falls, the world\'s highest waterfall. Venezuela has faced significant political and economic challenges in recent years. The capital and largest city is Caracas.',
+            'example_sentence': 'The documentary explored the diverse ecosystems found throughout _____.',
+            'etymology': 'From Spanish "Venezuela," meaning "little Venice," named by explorer Amerigo Vespucci who saw indigenous stilt houses reminiscent of Venice.',
+            'etymology_source': 'Claude',
+            'memory_tip': 'Think "VENICE + UELA (little)" - Venezuela means "little Venice" because of its water-based settlements.',
+            'phonetic_transparency': 3,
+            'frequency': 3,
+            'morphological_complexity': 4,
+            'etymology_complexity': 3
+        },
+        {
+            'word': 'vengeance',
+            'pronunciation': '/ˈvɛndʒəns/',
+            'definition': 'Vengeance is the act of retaliating or seeking revenge against someone who has wronged you; punishment inflicted in retaliation for injury or wrong. Unlike justice administered by legal systems, vengeance is typically personal and emotional. The concept of vengeance appears throughout literature, law, and human behavior as a fundamental response to perceived injustice. Vengeance can consume individuals and perpetuate cycles of retaliation.',
+            'example_sentence': 'He spent years plotting his _____ against those who had betrayed him.',
+            'etymology': 'From Old French "vengeance," from "vengier" (to avenge), from Latin "vindicare" meaning "to claim, avenge."',
+            'etymology_source': 'Claude',
+            'memory_tip': 'Think "VENGE (avenge) + ANCE" - vengeance is the action of avenging wrongs done to you.',
+            'phonetic_transparency': 3,
+            'frequency': 3,
+            'morphological_complexity': 3,
+            'etymology_complexity': 3
+        },
+        {
+            'word': 'venial',
+            'pronunciation': '/ˈviːniəl/',
+            'definition': 'Venial refers to a minor offense or sin that can be forgiven; not seriously wrong or harmful. In Catholic theology, venial sins are less serious transgressions that don\'t completely separate the soul from God\'s grace, unlike mortal sins. In general usage, venial describes faults or errors that are pardonable or excusable. The word suggests that while something may be wrong, it\'s not gravely serious.',
+            'example_sentence': 'His occasional tardiness was considered a _____ fault by his understanding supervisor.',
+            'etymology': 'From Latin "venialis," from "venia" meaning "forgiveness, pardon." Related to "venerate" through the concept of grace.',
+            'etymology_source': 'Claude',
+            'memory_tip': 'Think "VEN (when) + IAL" - venial sins are when you do something wrong but it\'s forgivable.',
+            'phonetic_transparency': 3,
+            'frequency': 1,
+            'morphological_complexity': 2,
+            'etymology_complexity': 3
+        },
+        {
+            'word': 'venomous',
+            'pronunciation': '/ˈvɛnəməs/',
+            'definition': 'Venomous describes creatures that produce and inject poison through bites, stings, or other means, or speech and behavior that is malicious and spiteful. Venomous animals like certain snakes, spiders, and jellyfish use venom for hunting or defense. Figuratively, venomous describes words or actions intended to cause harm through malice or spite. The word emphasizes both toxicity and the deliberate delivery of harm.',
+            'example_sentence': 'The hiker carefully avoided the _____ snake coiled on the trail.',
+            'etymology': 'From "venom" + "-ous." "Venom" comes from Latin "venenum" meaning "poison." The suffix indicates possession of the quality.',
+            'etymology_source': 'Claude',
+            'memory_tip': 'Think "VENOM + OUS" - venomous creatures are full of venom and dangerous to encounter.',
+            'phonetic_transparency': 4,
+            'frequency': 3,
+            'morphological_complexity': 3,
+            'etymology_complexity': 3
+        },
+        {
+            'word': 'ventail',
+            'pronunciation': '/ˈvɛnteɪl/',
+            'definition': 'A ventail is the lower, movable front part of a medieval helmet that could be raised to improve breathing and vision or lowered for protection. This piece of armor typically covered the mouth and sometimes the nose, with holes or slits for airflow. The ventail was an important innovation in medieval armor design, allowing knights to balance protection with the need for adequate ventilation and communication during combat.',
+            'example_sentence': 'The knight raised his _____ to drink water during the brief respite in battle.',
+            'etymology': 'From Old French "ventaille," from "vent" (wind) + suffix indicating opening. Literally refers to the "wind opening" for breathing.',
+            'etymology_source': 'Claude',
+            'memory_tip': 'Think "VENT + AIL" - a ventail provides a vent for air while protecting the knight.',
+            'phonetic_transparency': 3,
+            'frequency': 1,
+            'morphological_complexity': 2,
+            'etymology_complexity': 3
+        },
+        {
+            'word': 'ventricle',
+            'pronunciation': '/ˈvɛntrɪkəl/',
+            'definition': 'A ventricle is a chamber in the heart that receives blood from an atrium and pumps it out of the heart, or a cavity in the brain filled with cerebrospinal fluid. The heart has two ventricles (left and right) that pump blood to the body and lungs respectively. Brain ventricles produce and circulate cerebrospinal fluid, which cushions and nourishes the brain. Both types of ventricles are crucial for proper physiological function.',
+            'example_sentence': 'The cardiologist explained how the left _____ pumps oxygenated blood throughout the body.',
+            'etymology': 'From Latin "ventriculus," diminutive of "venter" meaning "belly, stomach." Originally meant "little belly."',
+            'etymology_source': 'Claude',
+            'memory_tip': 'Think "VENTR (center) + ICLE" - ventricles are at the center of pumping action in heart and brain.',
+            'phonetic_transparency': 3,
+            'frequency': 2,
+            'morphological_complexity': 3,
+            'etymology_complexity': 3
+        },
+        {
+            'word': 'ventriloquy',
+            'pronunciation': '/vɛnˈtrɪləkwi/',
+            'definition': 'Ventriloquy is the art of speaking in such a way that the voice seems to come from somewhere else, typically from a puppet or dummy manipulated by the performer. This entertainment skill creates the illusion that the ventriloquist\'s voice is originating from another source while their lips barely move. Ventriloquy requires practice in voice projection, breath control, and performance skills. It\'s a popular form of entertainment and theatrical performance.',
+            'example_sentence': 'The children were amazed by the performer\'s skill in _____, making the puppet seem to talk.',
+            'etymology': 'From Latin "ventriloquus," from "venter" (belly) + "loqui" (to speak). Originally thought the voice came from the speaker\'s belly.',
+            'etymology_source': 'Claude',
+            'memory_tip': 'Think "VENTRI (belly) + LOQUY (speaking)" - ventriloquy was thought to be speaking from the belly.',
+            'phonetic_transparency': 2,
+            'frequency': 1,
+            'morphological_complexity': 4,
+            'etymology_complexity': 4
+        },
+        {
+            'word': 'venture',
+            'pronunciation': '/ˈvɛntʃər/',
+            'definition': 'Venture means to undertake a risky or daring journey or course of action, or as a noun, it refers to a business enterprise involving risk. Ventures often involve uncertainty but offer potential rewards. Business ventures can include startups, new product lines, or expansion into new markets. The word implies courage in facing unknown outcomes and willingness to accept risk for potential gain.',
+            'example_sentence': 'She decided to _____ into the technology startup world despite the financial risks.',
+            'etymology': 'From Old French "aventure," from Latin "adventura" meaning "about to happen," from "advenire" (to arrive, happen).',
+            'etymology_source': 'Claude',
+            'memory_tip': 'Think "VENT (went) + URE" - to venture is when you went somewhere uncertain and unsure.',
+            'phonetic_transparency': 3,
+            'frequency': 4,
+            'morphological_complexity': 2,
+            'etymology_complexity': 3
+        },
+        {
+            'word': 'ventured',
+            'pronunciation': '/ˈvɛntʃərd/',
+            'definition': 'Ventured is the past tense of venture, meaning someone previously undertook a risky journey, expressed a tentative opinion, or embarked on a uncertain course of action. It describes completed actions that involved risk, courage, or uncertainty. Someone who ventured showed willingness to face unknown outcomes or express potentially controversial ideas. The word implies that the action has been completed.',
+            'example_sentence': 'He _____ a guess about the answer, though he wasn\'t entirely certain.',
+            'etymology': 'Past tense of "venture," from Old French "aventure," from Latin "adventura" meaning "about to happen."',
+            'etymology_source': 'Claude',
+            'memory_tip': 'Think "VENTURE + D" - ventured means someone already took the venture or risk in the past.',
+            'phonetic_transparency': 3,
+            'frequency': 3,
+            'morphological_complexity': 2,
+            'etymology_complexity': 3
+        },
+        {
+            'word': 'venue',
+            'pronunciation': '/ˈvɛnjuː/',
+            'definition': 'A venue is the place where an event or activity is held, such as a theater, stadium, conference center, or any location chosen for a specific purpose. Venues can range from small intimate spaces to large public arenas. The choice of venue often influences the character and success of an event. In legal contexts, venue refers to the geographic area where a court case should be tried.',
+            'example_sentence': 'The wedding _____ was a beautiful garden overlooking the lake.',
+            'etymology': 'From Old French "venue," meaning "a coming," from "venir" (to come), from Latin "venire." Originally meant "a coming to a place."',
+            'etymology_source': 'Claude',
+            'memory_tip': 'Think "VEN (when) + UE (you)" - a venue is when you come to a specific place for an event.',
+            'phonetic_transparency': 3,
+            'frequency': 4,
+            'morphological_complexity': 2,
+            'etymology_complexity': 3
+        },
+        {
+            'word': 'veracity',
+            'pronunciation': '/vəˈræsəti/',
+            'definition': 'Veracity refers to the quality of being truthful, accurate, or honest; conformity with truth or fact. It describes the reliability and trustworthiness of information, statements, or people. Veracity is crucial in journalism, science, legal proceedings, and personal relationships. When someone\'s veracity is questioned, their truthfulness and credibility are being challenged. The word emphasizes both accuracy and honesty.',
+            'example_sentence': 'The journalist\'s reputation for _____ made her articles highly trusted by readers.',
+            'etymology': 'From Latin "verax" meaning "truthful," from "verus" (true). Related to "verify" and "very."',
+            'etymology_source': 'Claude',
+            'memory_tip': 'Think "VER (very) + ACITY" - veracity means being very accurate and truthful.',
+            'phonetic_transparency': 3,
+            'frequency': 2,
+            'morphological_complexity': 3,
+            'etymology_complexity': 3
+        },
+        {
+            'word': 'verandahs',
+            'pronunciation': '/vəˈrændəz/',
+            'definition': 'Verandahs is the plural of verandah, referring to covered outdoor galleries or porches that extend along the outside of buildings, typically supported by columns or posts. These architectural features are common in tropical and subtropical regions where they provide shade and outdoor living space while protecting from rain and sun. Verandahs often wrap around buildings and serve as transitional spaces between indoor and outdoor areas.',
+            'example_sentence': 'The colonial house featured wraparound _____ on both the first and second floors.',
+            'etymology': 'Plural of "verandah," from Hindi "varandā," possibly from Portuguese "varanda" (railing, balcony). The spelling reflects British colonial influence.',
+            'etymology_source': 'Claude',
+            'memory_tip': 'Think "VER (very) + AND + AHS" - verandahs are very nice and make you say "ah" with pleasure.',
+            'phonetic_transparency': 3,
+            'frequency': 2,
+            'morphological_complexity': 3,
+            'etymology_complexity': 4
+        },
+        {
+            'word': 'verandas',
+            'pronunciation': '/vəˈrændəz/',
+            'definition': 'Verandas is the plural of veranda (American spelling), referring to covered outdoor porches or galleries that extend along buildings. These architectural features provide shaded outdoor space and are common in warm climates. Verandas offer protection from weather while allowing people to enjoy outdoor air and views. They serve as transitional spaces between interior and exterior environments and are often used for relaxation and socializing.',
+            'example_sentence': 'The resort\'s rooms all opened onto private _____ overlooking the ocean.',
+            'etymology': 'Plural of "veranda" (American spelling), from Hindi "varandā," possibly from Portuguese "varanda." Different spelling convention from British "verandah."',
+            'etymology_source': 'Claude',
+            'memory_tip': 'Think "VER (very) + ANDA" - verandas are very nice outdoor spaces that expand your living area.',
+            'phonetic_transparency': 3,
+            'frequency': 2,
+            'morphological_complexity': 3,
+            'etymology_complexity': 4
+        },
+        {
+            'word': 'verb',
+            'pronunciation': '/vɜːrb/',
+            'definition': 'A verb is a word that expresses action, occurrence, or state of being in a sentence. Verbs are essential components of sentences, typically indicating what the subject does, what happens to the subject, or what the subject is. Verbs can be conjugated to show tense (past, present, future), mood, voice, and other grammatical features. Examples include "run," "think," "become," and "exist." Verbs are fundamental to sentence construction in all languages.',
+            'example_sentence': 'In the sentence "She runs quickly," the word "runs" is the _____.',
+            'etymology': 'From Latin "verbum" meaning "word." Originally referred to any word, but came to specifically mean action words in grammar.',
+            'etymology_source': 'Claude',
+            'memory_tip': 'Think "VERB sounds like DISTURB" - verbs disturb the quiet by showing action and movement.',
+            'phonetic_transparency': 4,
+            'frequency': 4,
+            'morphological_complexity': 1,
+            'etymology_complexity': 2
+        },
+        {
+            'word': 'verbatim',
+            'pronunciation': '/vərˈbeɪtɪm/',
+            'definition': 'Verbatim means using exactly the same words; word for word without any changes, paraphrasing, or interpretation. It describes exact quotations, transcriptions, or reproductions of spoken or written text. Verbatim accounts preserve the original wording completely, which is important in legal contexts, journalism, and academic research. The term emphasizes complete accuracy in reproducing someone else\'s words.',
+            'example_sentence': 'The court reporter recorded the witness\'s testimony _____ for the legal record.',
+            'etymology': 'From Latin "verbatim," meaning "word for word," from "verbum" (word) + "-atim" (suffix indicating manner).',
+            'etymology_source': 'Claude',
+            'memory_tip': 'Think "VERB + AT + IM" - verbatim means every verb and word is exactly at the same place as I\'m saying.',
+            'phonetic_transparency': 3,
+            'frequency': 3,
+            'morphological_complexity': 3,
+            'etymology_complexity': 3
+        },
+        {
+            'word': 'verbena',
+            'pronunciation': '/vərˈbiːnə/',
+            'definition': 'Verbena is a genus of flowering plants that includes both annual and perennial species, commonly grown in gardens for their attractive flowers and long blooming period. These plants produce clusters of small flowers in various colors including purple, pink, white, and red. Verbena is popular in landscaping because it\'s drought-tolerant and attracts butterflies. Some species have been used in traditional medicine and folk remedies.',
+            'example_sentence': 'The butterfly garden featured beds of colorful _____ that bloomed throughout the summer.',
+            'etymology': 'From Latin "verbena," referring to sacred plants used in religious ceremonies. The word has ancient ritual and ceremonial associations.',
+            'etymology_source': 'Claude',
+            'memory_tip': 'Think "VERB + ENA" - verbena plants seem to verb (act) energetically with their abundant, continuous blooming.',
+            'phonetic_transparency': 3,
+            'frequency': 2,
+            'morphological_complexity': 3,
+            'etymology_complexity': 3
+        },
+        {
+            'word': 'verbiage',
+            'pronunciation': '/ˈvɜːrbiɪdʒ/',
+            'definition': 'Verbiage refers to excessive use of words, especially when they add little meaning; speech or writing that is wordy, verbose, or unnecessarily complex. It often implies that someone is using too many words to express simple ideas, creating confusion rather than clarity. Verbiage can be intentionally used to obscure meaning or may result from poor writing skills. The term generally carries negative connotations.',
+            'example_sentence': 'The contract was full of legal _____ that made it difficult to understand the actual terms.',
+            'etymology': 'From French "verbiage," from "verbe" (verb, word) + "-age" (suffix indicating action or result). Originally neutral but acquired negative connotations.',
+            'etymology_source': 'Claude',
+            'memory_tip': 'Think "VERB + IAGE" - verbiage is when someone uses too many verbs and words, creating wordage.',
+            'phonetic_transparency': 3,
+            'frequency': 2,
+            'morphological_complexity': 3,
+            'etymology_complexity': 3
+        },
+        {
+            'word': 'verdure',
+            'pronunciation': '/ˈvɜːrdʒər/',
+            'definition': 'Verdure refers to lush green vegetation; the fresh green color of healthy plant life or the greenness of flourishing vegetation. The word evokes images of rich, abundant plant growth and the vibrant green color of healthy forests, fields, or gardens. Verdure suggests life, growth, and natural beauty. It\'s often used in poetic or literary contexts to describe landscapes rich with green vegetation.',
+            'example_sentence': 'After the spring rains, the hillsides were covered in rich _____ that lasted through early summer.',
+            'etymology': 'From Old French "verdure," from "vert" (green), from Latin "viridis" meaning "green." Related to "verdant" and "virid."',
+            'etymology_source': 'Claude',
+            'memory_tip': 'Think "VERD (green) + URE" - verdure is the green-ness and lush quality of healthy vegetation.',
+            'phonetic_transparency': 3,
+            'frequency': 1,
+            'morphological_complexity': 2,
+            'etymology_complexity': 3
+        },
+        {
+            'word': 'veridical',
+            'pronunciation': '/vəˈrɪdɪkəl/',
+            'definition': 'Veridical means truthful, honest, or corresponding to reality; expressing or containing truth. In psychology and philosophy, veridical refers to perceptions, memories, or experiences that accurately reflect reality. The term is often used in discussions about the reliability of sensory experiences, witness testimony, or psychological phenomena. Veridical emphasizes the correspondence between subjective experience and objective reality.',
+            'example_sentence': 'The psychologist studied whether the patient\'s recovered memories were _____ or reconstructed.',
+            'etymology': 'From Latin "veridicus," from "verus" (true) + "dicere" (to say). Literally means "truth-telling."',
+            'etymology_source': 'Claude',
+            'memory_tip': 'Think "VERI (very) + DICAL (dictated)" - veridical means very accurately dictated or truthfully stated.',
+            'phonetic_transparency': 3,
+            'frequency': 1,
+            'morphological_complexity': 4,
+            'etymology_complexity': 3
+        }
+    ]
+    
+    # Prepare CSV output
+    output_file = 'output/batch_189_processed.csv'
+    
+    # CSV headers matching the database schema
+    headers = [
+        'word', 'pronunciation', 'definition', 'example_sentence', 'etymology', 
+        'etymology_source', 'memory_tip', 'phonetic_transparency', 'frequency', 
+        'morphological_complexity', 'etymology_complexity', 'overall_difficulty_score', 
+        'difficulty_level'
+    ]
+    
+    with open(output_file, 'w', newline='', encoding='utf-8') as csvfile:
+        writer = csv.DictWriter(csvfile, fieldnames=headers)
+        writer.writeheader()
+        
+        for word_data in words_data:
+            # Calculate difficulty metrics
+            score = calculate_difficulty_score(
+                word_data['phonetic_transparency'],
+                word_data['frequency'], 
+                word_data['morphological_complexity'],
+                word_data['etymology_complexity']
+            )
+            level = determine_difficulty_level(score)
+            
+            # Add calculated fields
+            word_data['overall_difficulty_score'] = score
+            word_data['difficulty_level'] = level
+            
+            writer.writerow(word_data)
+            logging.info(f"Processed word: {word_data['word']}")
+    
+    logging.info(f"Saved {len(words_data)} words to {output_file}")
+    logging.info("Batch 189 processing completed!")
+    logging.info(f"Processed {len(words_data)} words with comprehensive Claude data")
+    logging.info(f"Output saved to: {output_file}")
+    logging.info(f"Results: {len(words_data)} successful, 0 failed")
+    
+    # Report combined word errors
+    if combined_errors:
+        logging.info(f"Combined word errors detected: {len(combined_errors)}")
+        for error in combined_errors:
+            logging.info(f"  - {error}")
+
+if __name__ == "__main__":
+    main()

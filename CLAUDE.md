@@ -130,6 +130,9 @@ User can create custom flashcard lists that can combine flashcards from the site
 ### Feedback
 Add a feedback system, with different categories of feedback the user can select from, such as bug reports or learning content requests. Create an admin page for responding to the requests as well as a messaging history so users can see admin responses. Link the feedback system in the top menu. Add ability for user to flag content or questions that have issues.
 
+### Admin
+Make it so only admin users can see the admin dashboard.
+
 ### Random question box
 Sidebar which gives a randomly selected question from content areas the user has starred or worked on in the past. For new users it can display a simple random question. After a question is submitted, the answer explanation pops up, and the user can choose to move on to the next question. Display the knowledge hierarchy path so the user knows where the question is coming from. Don't show the random question box on mobile.
 
@@ -142,7 +145,7 @@ You pass the test for a topic if you get 100% of the questions correct. Save the
 ### Question bank
 See documentation/CONTENT_GENERATION_SYSTEM.md.
 
-It's important to organize the learning content areas and hierarchy of knowledge well before writing questions in the question bank so that you don't have to move questions to different categories as the categorization system evolves. For that reason, writing the question banks should come as a final task in the project. Also, it will take a long time to run and require my input for each learning category, so we should estimate costs and validate with me before you start a question bank creation task. You will need to write a question bank for each content area to draw from for these questions and tests. Each content area should generally have at least 20 questions to draw from, but more is generally better if you're able to create good questions that make sense. These questions will be stored in the db. Always stop and show me what questions you're planning to add to the db before adding them. 
+It's important to organize the learning content areas and hierarchy of knowledge well before writing questions in the question bank so that you don't have to move questions to different categories as the categorization system evolves. For that reason, writing the question banks should come as a final task in the project. Also, it will take a long time to run and require my input for each learning category, so we should estimate costs and validate with me before you start a question bank creation task. You will need to write a question bank for each content area to draw from for these questions and tests. Each content area should generally have at least 20 questions to draw from, but more is generally better if you're able to create good questions that make sense and aren't too similar to each other. These questions will be stored in the db. Always stop and show me what questions you're planning to add to the db before adding them. 
 
 These questions should usually be multiple choice but can also be in other formats. Questions should usually be answerable without doing a lot of calculating--they should usually be conceptual questions rather than cranking out calculations (for example, calculus questions can become very involved, but try to make most questions answerable just by thinking about the concept). Try to make questions test the content being taught, and not other unrelated content. For example, "Which article is correct: ___ nieto?" this question is not good for the Spanish Family section because it's testing about articles and word gender rather than about the family relationships themselves. Each question should only have one correct answer.  Questions should work as standalone content with answer explanations that teach the users more whether they got the question right or wrong.  Avoid vague/simplified questions like "How did the Catholic church impact the economy during the Gilded Age?" since these sorts of questions are too general, and it could be argued many different ways. Try to make questions more specific to actual events and problem types rather than summarizing events in such a simplistic manner. Make questions work as standalone questions rather than being what are presumably meant to be reading comprehension questions of some summary textbook-type content. Create a detailed answer to the question so that the user can learn from the answer, whether they got the question right or wrong. Try to provide an explanation for not only the correct answer but also an explanation about the incorrect answers and why they're incorrect. Also try to add a relevant picture to each one in order to make the content more memorable. It may be difficult to do this with a lot of the math problems, but where possible try to turn the math problems into story problems with a relevant picture to help explain the content. The picture can be either a good quality, fair use one found online that doesn't have any watermarks on it, an icon/graphic, or it can be AI generated. Ensure that if the question specifically talks about an image then the relevant image exists for it, such as for questions where it asks the number of objects in the picture.  
 
@@ -152,7 +155,7 @@ Keep track of which questions the user has seen before and whether they got it r
 
 Preferentially show questions in quizzes which have been previously viewed the least number of times by that user in that question bank. For example, if someone has taken a quiz multiple times and some questions have already been viewed or viewed multiple times, when they take it again show them questions which they have not seen as many times previously. Don't show a question in the content area test that was just shown in the intro quiz.
 
-Create an initial set of 10 questions per topic for immediate use, then generate more questions on-demand or during low-usag
+Create an initial set of 15 questions per topic for immediate use, then generate more questions on-demand or during low-usag
 e periods. If a user gets a question recommended to them which they have already got correct within the past few days or past use then it is time to generate more questions for that topic.
 
 #### Question explanations
@@ -165,11 +168,14 @@ For batch processing, write a script which goes through each learning category's
 
 ## Specs
 
+### Home page
+Add research-based learning facts to home page like years of schooling increases IQ. Use facts that will encourage users to want to use the site.  Make the sources clickable, link to outside pages which have high credibility and back up the claims.
+
 ### Learning category pages
 Clicking on a learning category takes you to a standard category overview page that includes a category overview, a menu of child categories, and a link to a "Rate Your Knowledge" where you answer questions to earn points. Questions follow computer adaptive difficulty. Create point system that assigns points based on how many questions you've answered correctly of each difficulty level. That way you can compare points of different category types, and if the question bank changes over time, the points are still meaningful. It shows which items have been completed and allows the user to star/bookmark the category or child categories. Clicking on child categories opens the category page for that category. Clicking on child nodes takes you to the learning content modal for that content area. 
 
 ### Menu bar
-Put key site components on the upper menu bar. A menu dropdown should be combined with the profile button so the dropdown is on the right side of the button. It should say sign up/login, or if the user is already logged in it should display the user name that takes the user to their profile when clicked.
+Put key site components on the upper menu bar. A menu dropdown should be combined with the profile button so the dropdown is on the right side of the button. It should say sign up/login, or if the user is already logged in it should display "My Learning" which takes the user to their profile when clicked. The right side of the button is a dropdown that displays the dropdown menu.
 
 ### Mega menu
 Home page should have a mega menu to view the first 3 nodes in the skills tree and be able to click them to go to a page dedicated to that learning category. Menu should automatically update if the skill tree updates in the db. Within a hierarchical level, categories should be sorted by their typical order in academic programs or by difficulty, or otherwise by their popularity. For example, the Spanish language should come before Ancient Greek and Elementary Algebra should come before Abstract Algebra.
@@ -190,8 +196,11 @@ User should be able to reduce the top header to a hamburger button. X button sho
 ## Knowledge tree
 The knowledge tree is very important, so we should always be looking to improve it for an organized structure, completeness, and alignment with most existing learning material and learning standards. We want to be aligned with educational standards for learning each individual topic.
 
+### Category descriptions
+Use the Claude API to generate descriptions for all the 2nd and 3rd level categories. The descriptions should make the content seem interesting, but they should also be specific enough to differentiate the categories and give detail about what people are likely to learn without using jargon. Make sure the descriptons don't make false assumptions like hands-on learning (this is an online platform) or that you'll become a professional as a result of learning the content (you can't become a medical doctor as a result of learning things on this site). Text should be targeted at a specific audience. For example, early math would be targeted at younger children, and physics would be targeted at teens, and business would be targeted toward adults. Foreign languages are usually targeted toward teens and adults.
+
 ### Ratings
-Users earn ratings based on how well they do on tests, and ratings are at the content area level but can be aggregated up to content area categories. 
+Users earn ratings based on how well they do on tests, and ratings are at the content area level but can be aggregated up to content area categories. Make content assessments computer adaptive. Create point system that assigns points based on how many questions you've answered correctly of each difficulty level. That way you can compare points of different category types, and if the question bank changes over time, the points are still meaningful. Also you can quit the assessment after any number of questions, you just get more points if you answer more questions and more difficult questions. No points for answering repeat questions right. Reference documentation/adaptive_assessment_system.md.
 
 ## Development
 Be sure to write tests to validate any code changes and run linting and so on when it makes sense, to keep the code clean. Keep refreshing the development server so I can see the progress, but try to only keep one dev server running at a time so it doesn't use too much memory on my laptop. 

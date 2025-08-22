@@ -44,7 +44,7 @@ const UnifiedDropdownMenu: React.FC = () => {
         .from('skill_tree_nodes')
         .select('id, name')
         .is('parent_id', null)
-        .eq('type', 'category')
+        .or('learning_content_ids.is.null,learning_content_ids.eq.{}')
         .limit(5)
 
       if (rootError) throw rootError
@@ -54,7 +54,7 @@ const UnifiedDropdownMenu: React.FC = () => {
         .from('skill_tree_nodes')
         .select('id, name, parent_id')
         .in('parent_id', rootNodes.map(r => r.id))
-        .eq('type', 'category')
+        .or('learning_content_ids.is.null,learning_content_ids.eq.{}')
         .order('display_order', { nullsFirst: false })
         .order('name')
 
@@ -65,7 +65,7 @@ const UnifiedDropdownMenu: React.FC = () => {
         .from('skill_tree_nodes')
         .select('*')
         .in('parent_id', secondLevel.map(s => s.id))
-        .eq('type', 'category')
+        .or('learning_content_ids.is.null,learning_content_ids.eq.{}')
         .order('display_order', { nullsFirst: false })
         .order('name')
         .limit(9)
@@ -132,20 +132,27 @@ const UnifiedDropdownMenu: React.FC = () => {
   return (
     <div className="relative" ref={dropdownRef}>
       {user ? (
-        // Logged in: Show username button with dropdown
-        <button
-          onClick={() => setDropdownOpen(!dropdownOpen)}
-          className="flex items-center gap-2 px-4 py-2 rounded-lg font-medium bg-primary-100 dark:bg-primary-900/30 text-primary-700 dark:text-primary-400 hover:bg-primary-200 dark:hover:bg-primary-900/50 transition-all"
-        >
-          <UserCircleIcon className="h-5 w-5" />
-          <span className="hidden sm:inline">{user.email?.split('@')[0]}</span>
-          <ChevronDownIcon className={`h-4 w-4 transition-transform ${dropdownOpen ? 'rotate-180' : ''}`} />
-        </button>
+        // Logged in: Show "My Learning" link + dropdown button
+        <div className="flex items-center rounded-lg overflow-hidden bg-primary-100 dark:bg-primary-900/30">
+          <Link
+            to="/profile"
+            className="flex items-center gap-2 px-4 py-2 font-medium text-primary-700 dark:text-primary-400 hover:bg-primary-200 dark:hover:bg-primary-900/50 transition-all"
+          >
+            <UserCircleIcon className="h-5 w-5" />
+            <span>My Learning</span>
+          </Link>
+          <button
+            onClick={() => setDropdownOpen(!dropdownOpen)}
+            className="px-2 py-2 text-primary-700 dark:text-primary-400 hover:bg-primary-200 dark:hover:bg-primary-900/50 transition-all border-l border-primary-200 dark:border-primary-800"
+          >
+            <ChevronDownIcon className={`h-4 w-4 transition-transform ${dropdownOpen ? 'rotate-180' : ''}`} />
+          </button>
+        </div>
       ) : (
         // Not logged in: Show Sign Up/Login button
         <button
           onClick={() => setDropdownOpen(!dropdownOpen)}
-          className="flex items-center gap-2 px-4 py-2 rounded-lg font-medium bg-primary-600 text-white hover:bg-primary-700 transition-all"
+          className="flex items-center gap-2 px-4 py-2 rounded-lg font-medium bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-300 dark:hover:bg-gray-600 transition-all"
         >
           <span>Sign Up / Login</span>
           <ChevronDownIcon className={`h-4 w-4 transition-transform ${dropdownOpen ? 'rotate-180' : ''}`} />
@@ -154,20 +161,17 @@ const UnifiedDropdownMenu: React.FC = () => {
 
       {dropdownOpen && (
         <div className="absolute right-0 z-50 mt-2 w-56 rounded-lg shadow-xl bg-white dark:bg-neutral-800 ring-1 ring-black ring-opacity-5">
-          {/* User Info Section (if logged in) - Clickable to go to profile */}
+          {/* Sign Out Section (if logged in) */}
           {user && (
-            <Link
-              to="/profile"
-              onClick={() => setDropdownOpen(false)}
-              className="block px-3 py-2 hover:bg-neutral-50 dark:hover:bg-neutral-700 transition-colors cursor-pointer"
+            <button
+              onClick={handleSignOut}
+              className="flex items-center justify-between w-full px-3 py-2 text-xs font-medium text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/20 transition-colors"
             >
-              <p className="text-xs font-medium text-neutral-900 dark:text-white truncate">
-                {user.email}
-              </p>
-              <p className="text-xs text-neutral-500 dark:text-neutral-400">
-                Signed in • Click to view profile
-              </p>
-            </Link>
+              <span className="flex items-center">
+                <ArrowRightOnRectangleIcon className="h-3 w-3 mr-1.5" />
+                Sign Out
+              </span>
+            </button>
           )}
 
           {/* Auth Section (if not logged in) */}
@@ -176,7 +180,7 @@ const UnifiedDropdownMenu: React.FC = () => {
               <Link
                 to="/login"
                 onClick={() => setDropdownOpen(false)}
-                className="flex items-center justify-between w-full px-2 py-1.5 text-xs font-medium text-white bg-primary-600 hover:bg-primary-700 rounded-md transition-colors"
+                className="flex items-center justify-between w-full px-2 py-1.5 text-xs font-medium text-gray-700 dark:text-gray-300 bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600 rounded-md transition-colors"
               >
                 <span className="flex items-center">
                   <ArrowRightIcon className="h-3 w-3 mr-1.5" />
@@ -386,16 +390,6 @@ const UnifiedDropdownMenu: React.FC = () => {
             
           </div>
 
-          {/* Sign Out Section */}
-          {user && (
-            <button
-              onClick={handleSignOut}
-              className="flex items-center px-3 py-1.5 text-xs text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/20 transition-colors w-full"
-            >
-              <ArrowRightOnRectangleIcon className="h-3 w-3 mr-2 text-red-500" />
-              Sign Out
-            </button>
-          )}
         </div>
       )}
     </div>

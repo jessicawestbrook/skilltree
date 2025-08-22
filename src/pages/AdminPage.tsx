@@ -1,7 +1,5 @@
 import React, { useState, useEffect } from 'react'
 import { supabase } from '../services/supabase'
-import { useAuth } from '../contexts/AuthContext'
-import { useNavigate } from 'react-router-dom'
 import { 
   FlagIcon, 
   ChatBubbleBottomCenterTextIcon,
@@ -10,10 +8,12 @@ import {
   ClockIcon,
   FunnelIcon,
   LinkIcon,
-  DocumentTextIcon
+  DocumentTextIcon,
+  UsersIcon
 } from '@heroicons/react/24/outline'
 import { Link } from 'react-router-dom'
 import SourceURLManager from '../components/SourceURLManager'
+import AdminUserManager from '../components/AdminUserManager'
 
 interface FeedbackItem {
   id: string
@@ -40,11 +40,7 @@ interface ContentFlag {
 }
 
 const AdminPage: React.FC = () => {
-  const { user } = useAuth()
-  const navigate = useNavigate()
-  const [isAdmin, setIsAdmin] = useState(false)
-  const [loading, setLoading] = useState(true)
-  const [activeTab, setActiveTab] = useState<'feedback' | 'flags' | 'sources'>('feedback')
+  const [activeTab, setActiveTab] = useState<'feedback' | 'flags' | 'sources' | 'users'>('feedback')
   const [feedbackItems, setFeedbackItems] = useState<FeedbackItem[]>([])
   const [contentFlags, setContentFlags] = useState<ContentFlag[]>([])
   const [filterStatus, setFilterStatus] = useState<string>('all')
@@ -53,54 +49,10 @@ const AdminPage: React.FC = () => {
   const [updating, setUpdating] = useState(false)
 
   useEffect(() => {
-    checkAdminStatus()
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [user])
-
-  const checkAdminStatus = async () => {
-    if (!user) {
-      navigate('/login')
-      return
-    }
-
-    try {
-      // Check if user is admin (you can modify this logic based on your admin criteria)
-      const { data, error } = await supabase
-        .from('profiles')
-        .select('is_admin')
-        .eq('id', user.id)
-        .single()
-
-      if (!error && data?.is_admin) {
-        setIsAdmin(true)
-        fetchFeedback()
-        fetchContentFlags()
-      } else {
-        // For demo purposes, allow specific email domains or user IDs
-        const adminEmails = ['admin@example.com', user.email] // Include current user for demo
-        if (adminEmails.includes(user.email || '')) {
-          setIsAdmin(true)
-          fetchFeedback()
-          fetchContentFlags()
-        } else {
-          navigate('/')
-        }
-      }
-    } catch (error) {
-      console.error('Error checking admin status:', error)
-      // If profiles table doesn't exist, use fallback logic
-      const adminEmails = ['admin@example.com', user.email] // Include current user for demo
-      if (adminEmails.includes(user.email || '')) {
-        setIsAdmin(true)
-        fetchFeedback()
-        fetchContentFlags()
-      } else {
-        navigate('/')
-      }
-    } finally {
-      setLoading(false)
-    }
-  }
+    // Admin access is already verified by AdminRoute, so we can directly fetch data
+    fetchFeedback()
+    fetchContentFlags()
+  }, [])
 
   const fetchFeedback = async () => {
     try {
@@ -221,22 +173,6 @@ const AdminPage: React.FC = () => {
     }
   }
 
-  if (loading) {
-    return (
-      <div className="flex items-center justify-center min-h-screen">
-        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary-600"></div>
-      </div>
-    )
-  }
-
-  if (!isAdmin) {
-    return (
-      <div className="text-center py-12">
-        <h2 className="text-2xl font-bold mb-4">Access Denied</h2>
-        <p className="text-neutral-600 dark:text-neutral-400">You don't have permission to access this page.</p>
-      </div>
-    )
-  }
 
   return (
     <div className="max-w-7xl mx-auto px-4 py-8">
@@ -286,10 +222,21 @@ const AdminPage: React.FC = () => {
           <LinkIcon className="h-5 w-5 inline mr-2" />
           Source URLs
         </button>
+        <button
+          onClick={() => setActiveTab('users')}
+          className={`pb-2 px-1 font-medium transition-colors ${
+            activeTab === 'users'
+              ? 'text-primary-600 border-b-2 border-primary-600'
+              : 'text-neutral-600 dark:text-neutral-400 hover:text-primary-600'
+          }`}
+        >
+          <UsersIcon className="h-5 w-5 inline mr-2" />
+          User Management
+        </button>
       </div>
 
       {/* Filter */}
-      {activeTab !== 'sources' && (
+      {activeTab !== 'sources' && activeTab !== 'users' && (
         <div className="flex items-center gap-4 mb-6">
           <FunnelIcon className="h-5 w-5 text-neutral-500" />
           <select
@@ -308,6 +255,8 @@ const AdminPage: React.FC = () => {
       {/* Content */}
       {activeTab === 'sources' ? (
         <SourceURLManager />
+      ) : activeTab === 'users' ? (
+        <AdminUserManager />
       ) : (
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* List */}

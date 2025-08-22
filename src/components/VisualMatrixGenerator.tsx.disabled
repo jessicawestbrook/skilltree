@@ -1,0 +1,396 @@
+import React from 'react'
+
+// Visual Matrix Generator for Raven's-style Progressive Matrices
+// Creates actual visual patterns instead of text descriptions
+
+interface MatrixCell {
+  shapes: Shape[]
+  transformations?: Transformation[]
+}
+
+// Empty cell for missing pieces
+const createEmptyCell = (): MatrixCell => ({
+  shapes: []
+})
+
+// Helper function to create shapes with proper typing
+const createShape = (
+  type: 'circle' | 'square' | 'triangle' | 'diamond' | 'star' | 'cross',
+  size: 'small' | 'medium' | 'large',
+  fill: 'empty' | 'filled' | 'striped' | 'dotted',
+  color: 'black' | 'white' | 'gray',
+  position: { x: number; y: number },
+  rotation?: number
+): Shape => ({
+  type,
+  size,
+  fill,
+  color,
+  position,
+  rotation
+})
+
+interface Shape {
+  type: 'circle' | 'square' | 'triangle' | 'diamond' | 'star' | 'cross'
+  size: 'small' | 'medium' | 'large'
+  fill: 'empty' | 'filled' | 'striped' | 'dotted'
+  color: 'black' | 'white' | 'gray'
+  position: { x: number; y: number }
+  rotation?: number
+}
+
+interface Transformation {
+  type: 'rotate' | 'scale' | 'translate' | 'flip' | 'invert'
+  value: number | string
+}
+
+interface VisualMatrixProps {
+  patternType: string
+  difficulty: 'very_easy' | 'easy' | 'medium' | 'hard' | 'very_hard'
+  setName: 'A' | 'B' | 'C' | 'D' | 'E'
+  questionNumber: number
+  onAnswer?: (selectedOption: number) => void
+}
+
+const VisualMatrixGenerator: React.FC<VisualMatrixProps> = ({
+  patternType,
+  difficulty,
+  setName,
+  questionNumber,
+  onAnswer
+}) => {
+  
+  // Generate matrix based on pattern type and difficulty
+  const generateMatrix = (): { matrix: MatrixCell[][], options: MatrixCell[], correctAnswer: number } => {
+    switch (setName) {
+      case 'A':
+        return generateSetA(patternType, questionNumber)
+      case 'B':
+        return generateSetB(patternType, questionNumber)
+      case 'C':
+        return generateSetC(patternType, questionNumber)
+      case 'D':
+        return generateSetD(patternType, questionNumber)
+      case 'E':
+        return generateSetE(patternType, questionNumber)
+      default:
+        return generateSetA(patternType, questionNumber)
+    }
+  }
+
+  // SET A: Simple pattern completion
+  const generateSetA = (pattern: string, qNum: number): { matrix: MatrixCell[][], options: MatrixCell[], correctAnswer: number } => {
+    switch (pattern) {
+      case 'simple_counting':
+        return generateCountingPattern()
+      case 'simple_alternation':
+        return generateAlternationPattern()
+      case 'size_progression':
+        return generateSizePattern()
+      default:
+        return generateCountingPattern()
+    }
+  }
+
+  // SET B: Simple analogies
+  const generateSetB = (pattern: string, qNum: number): { matrix: MatrixCell[][], options: MatrixCell[], correctAnswer: number } => {
+    switch (pattern) {
+      case 'analogical_reasoning':
+        return generateAnalogyPattern()
+      case 'simple_rotation':
+        return generateRotationPattern()
+      default:
+        return generateAnalogyPattern()
+    }
+  }
+
+  // SET C: Complex progressions
+  const generateSetC = (pattern: string, qNum: number): { matrix: MatrixCell[][], options: MatrixCell[], correctAnswer: number } => {
+    switch (pattern) {
+      case 'nested_cycling':
+        return generateNestedPattern()
+      case 'mathematical_progression':
+        return generateMathPattern()
+      default:
+        return generateNestedPattern()
+    }
+  }
+
+  // SET D: Multiple rule systems
+  const generateSetD = (pattern: string, qNum: number): { matrix: MatrixCell[][], options: MatrixCell[], correctAnswer: number } => {
+    return generateMultiRulePattern()
+  }
+
+  // SET E: Abstract reasoning
+  const generateSetE = (pattern: string, qNum: number): { matrix: MatrixCell[][], options: MatrixCell[], correctAnswer: number } => {
+    return generateAbstractPattern()
+  }
+
+  // Pattern generators
+  const generateCountingPattern = (): { matrix: MatrixCell[][], options: MatrixCell[], correctAnswer: number } => {
+    const matrix: MatrixCell[][] = [
+      [
+        { shapes: [createShape('circle', 'medium', 'filled', 'black', { x: 50, y: 50 })] },
+        { shapes: Array(2).fill(null).map((_, i) => createShape('circle', 'medium', 'filled', 'black', { x: 30 + i * 40, y: 50 })) },
+        { shapes: Array(3).fill(null).map((_, i) => createShape('circle', 'medium', 'filled', 'black', { x: 20 + i * 30, y: 50 })) }
+      ],
+      [
+        { shapes: Array(4).fill(null).map((_, i) => createShape('circle', 'medium', 'filled', 'black', { x: 15 + i * 23, y: 50 })) },
+        { shapes: Array(5).fill(null).map((_, i) => createShape('circle', 'small', 'filled', 'black', { x: 10 + i * 20, y: 50 })) },
+        createEmptyCell() // Missing piece
+      ]
+    ]
+
+    const correctAnswer = { shapes: Array(6).fill(null).map((_, i) => createShape('circle', 'small', 'filled', 'black', { x: 8 + i * 17, y: 50 })) }
+
+    const options = [
+      correctAnswer,
+      { shapes: Array(5).fill(null).map((_, i) => createShape('circle', 'small', 'filled', 'black', { x: 10 + i * 20, y: 50 })) },
+      { shapes: Array(4).fill(null).map((_, i) => createShape('circle', 'medium', 'filled', 'black', { x: 15 + i * 23, y: 50 })) },
+      { shapes: Array(7).fill(null).map((_, i) => createShape('circle', 'small', 'filled', 'black', { x: 5 + i * 15, y: 50 })) }
+    ]
+
+    return { matrix, options, correctAnswer: 0 }
+  }
+
+  const generateAlternationPattern = (): { matrix: MatrixCell[][], options: MatrixCell[], correctAnswer: number } => {
+    const matrix: MatrixCell[][] = [
+      [
+        { shapes: [{ type: 'circle', size: 'medium', fill: 'filled', color: 'black', position: { x: 50, y: 50 } }] },
+        { shapes: [{ type: 'circle', size: 'medium', fill: 'empty', color: 'black', position: { x: 50, y: 50 } }] }
+      ],
+      [
+        { shapes: [{ type: 'circle', size: 'medium', fill: 'empty', color: 'black', position: { x: 50, y: 50 } }] },
+        createEmptyCell() // Missing piece
+      ]
+    ]
+
+    const correctAnswer = { shapes: [{ type: 'circle', size: 'medium', fill: 'filled', color: 'black', position: { x: 50, y: 50 } }] }
+
+    const options = [
+      correctAnswer,
+      { shapes: [{ type: 'circle', size: 'medium', fill: 'empty', color: 'black', position: { x: 50, y: 50 } }] },
+      { shapes: [{ type: 'square', size: 'medium', fill: 'filled', color: 'black', position: { x: 50, y: 50 } }] },
+      { shapes: [{ type: 'triangle', size: 'medium', fill: 'filled', color: 'black', position: { x: 50, y: 50 } }] }
+    ]
+
+    return { matrix, options, correctAnswer: 0 }
+  }
+
+  const generateSizePattern = (): { matrix: MatrixCell[][], options: MatrixCell[], correctAnswer: number } => {
+    const matrix: MatrixCell[][] = [
+      [
+        { shapes: [{ type: 'circle', size: 'small', fill: 'filled', color: 'black', position: { x: 50, y: 50 } }] },
+        { shapes: [{ type: 'circle', size: 'medium', fill: 'filled', color: 'black', position: { x: 50, y: 50 } }] },
+        { shapes: [{ type: 'circle', size: 'large', fill: 'filled', color: 'black', position: { x: 50, y: 50 } }] }
+      ]
+    ]
+
+    const correctAnswer = { shapes: [{ type: 'circle', size: 'large', fill: 'filled', color: 'black', position: { x: 50, y: 50 } }] }
+
+    const options = [
+      correctAnswer,
+      { shapes: [{ type: 'circle', size: 'small', fill: 'filled', color: 'black', position: { x: 50, y: 50 } }] },
+      { shapes: [{ type: 'circle', size: 'medium', fill: 'filled', color: 'black', position: { x: 50, y: 50 } }] },
+      { shapes: [{ type: 'square', size: 'large', fill: 'filled', color: 'black', position: { x: 50, y: 50 } }] }
+    ]
+
+    return { matrix, options, correctAnswer: 0 }
+  }
+
+  const generateAnalogyPattern = (): { matrix: MatrixCell[][], options: MatrixCell[], correctAnswer: number } => {
+    // More complex patterns for Set B
+    const matrix: MatrixCell[][] = [
+      [
+        { shapes: [{ type: 'triangle', size: 'medium', fill: 'filled', color: 'black', position: { x: 50, y: 50 } }] },
+        { shapes: [{ type: 'triangle', size: 'small', fill: 'filled', color: 'black', position: { x: 50, y: 50 } }] }
+      ],
+      [
+        { shapes: [{ type: 'square', size: 'medium', fill: 'filled', color: 'black', position: { x: 50, y: 50 } }] },
+        createEmptyCell() // Missing piece
+      ]
+    ]
+
+    const correctAnswer = { shapes: [{ type: 'square', size: 'small', fill: 'filled', color: 'black', position: { x: 50, y: 50 } }] }
+
+    const options = [
+      correctAnswer,
+      { shapes: [{ type: 'square', size: 'medium', fill: 'filled', color: 'black', position: { x: 50, y: 50 } }] },
+      { shapes: [{ type: 'triangle', size: 'small', fill: 'filled', color: 'black', position: { x: 50, y: 50 } }] },
+      { shapes: [{ type: 'circle', size: 'small', fill: 'filled', color: 'black', position: { x: 50, y: 50 } }] }
+    ]
+
+    return { matrix, options, correctAnswer: 0 }
+  }
+
+  const generateRotationPattern = (): { matrix: MatrixCell[][], options: MatrixCell[], correctAnswer: number } => {
+    const matrix: MatrixCell[][] = [
+      [
+        { shapes: [{ type: 'triangle', size: 'medium', fill: 'filled', color: 'black', position: { x: 50, y: 50 }, rotation: 0 }] },
+        { shapes: [{ type: 'triangle', size: 'medium', fill: 'filled', color: 'black', position: { x: 50, y: 50 }, rotation: 90 }] },
+        { shapes: [{ type: 'triangle', size: 'medium', fill: 'filled', color: 'black', position: { x: 50, y: 50 }, rotation: 180 }] }
+      ],
+      [
+        { shapes: [{ type: 'square', size: 'medium', fill: 'filled', color: 'black', position: { x: 50, y: 50 }, rotation: 0 }] },
+        { shapes: [{ type: 'square', size: 'medium', fill: 'filled', color: 'black', position: { x: 50, y: 50 }, rotation: 45 }] },
+        createEmptyCell() // Missing piece
+      ]
+    ]
+
+    const correctAnswer = { shapes: [{ type: 'square', size: 'medium', fill: 'filled', color: 'black', position: { x: 50, y: 50 }, rotation: 90 }] }
+
+    const options = [
+      correctAnswer,
+      { shapes: [{ type: 'square', size: 'medium', fill: 'filled', color: 'black', position: { x: 50, y: 50 }, rotation: 0 }] },
+      { shapes: [{ type: 'square', size: 'medium', fill: 'filled', color: 'black', position: { x: 50, y: 50 }, rotation: 45 }] },
+      { shapes: [{ type: 'triangle', size: 'medium', fill: 'filled', color: 'black', position: { x: 50, y: 50 }, rotation: 270 }] }
+    ]
+
+    return { matrix, options, correctAnswer: 0 }
+  }
+
+  // Placeholder implementations for more complex patterns
+  const generateNestedPattern = () => generateCountingPattern()
+  const generateMathPattern = () => generateCountingPattern()
+  const generateMultiRulePattern = () => generateCountingPattern()
+  const generateAbstractPattern = () => generateCountingPattern()
+
+  // Render SVG shape
+  const renderShape = (shape: Shape, cellSize: number = 100): React.ReactElement => {
+    const { type, size, fill, color, position, rotation = 0 } = shape
+    
+    const sizeMap = {
+      small: cellSize * 0.2,
+      medium: cellSize * 0.35,
+      large: cellSize * 0.5
+    }
+    
+    const actualSize = sizeMap[size]
+    const x = (position.x / 100) * cellSize
+    const y = (position.y / 100) * cellSize
+    
+    const fillStyle = fill === 'filled' ? color : 'none'
+    const strokeStyle = color
+    const strokeWidth = fill === 'empty' ? 2 : 0
+
+    const commonProps = {
+      fill: fillStyle,
+      stroke: strokeStyle,
+      strokeWidth,
+      transform: `rotate(${rotation} ${x} ${y})`
+    }
+
+    switch (type) {
+      case 'circle':
+        return <circle cx={x} cy={y} r={actualSize / 2} {...commonProps} />
+      
+      case 'square':
+        return (
+          <rect 
+            x={x - actualSize / 2} 
+            y={y - actualSize / 2} 
+            width={actualSize} 
+            height={actualSize} 
+            {...commonProps} 
+          />
+        )
+      
+      case 'triangle':
+        const points = [
+          [x, y - actualSize / 2],
+          [x - actualSize / 2, y + actualSize / 2],
+          [x + actualSize / 2, y + actualSize / 2]
+        ].map(p => p.join(',')).join(' ')
+        return <polygon points={points} {...commonProps} />
+      
+      case 'diamond':
+        const diamondPoints = [
+          [x, y - actualSize / 2],
+          [x + actualSize / 2, y],
+          [x, y + actualSize / 2],
+          [x - actualSize / 2, y]
+        ].map(p => p.join(',')).join(' ')
+        return <polygon points={diamondPoints} {...commonProps} />
+      
+      default:
+        return <circle cx={x} cy={y} r={actualSize / 2} {...commonProps} />
+    }
+  }
+
+  // Render matrix cell
+  const renderCell = (cell: MatrixCell | null, cellSize: number = 100): React.ReactElement => {
+    if (!cell) {
+      return (
+        <svg width={cellSize} height={cellSize} className="border-2 border-gray-400 bg-gray-100">
+          <text x="50%" y="50%" textAnchor="middle" dy="0.3em" className="text-4xl text-gray-500">?</text>
+        </svg>
+      )
+    }
+
+    return (
+      <svg width={cellSize} height={cellSize} className="border border-gray-300">
+        {cell.shapes.map((shape, index) => (
+          <g key={index}>
+            {renderShape(shape, cellSize)}
+          </g>
+        ))}
+      </svg>
+    )
+  }
+
+  const { matrix, options, correctAnswer } = generateMatrix()
+
+  return (
+    <div className="space-y-6">
+      {/* Matrix Display */}
+      <div className="space-y-2">
+        <h3 className="text-lg font-semibold">Complete the pattern:</h3>
+        <div className="inline-block border-2 border-gray-600 p-2 bg-white">
+          {matrix.map((row, rowIndex) => (
+            <div key={rowIndex} className="flex">
+              {row.map((cell, colIndex) => (
+                <div key={colIndex} className="m-1">
+                  {renderCell(cell, 120)}
+                </div>
+              ))}
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* Options Display */}
+      <div className="space-y-2">
+        <h3 className="text-lg font-semibold">Choose the missing piece:</h3>
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+          {options.map((option, index) => (
+            <button
+              key={index}
+              className="p-2 border-2 border-gray-300 hover:border-primary-500 hover:bg-primary-50 transition-colors"
+              onClick={() => {
+                if (onAnswer) {
+                  onAnswer(index)
+                } else {
+                  console.log(`Selected option ${index}, correct answer is ${correctAnswer}`)
+                }
+              }}
+            >
+              <div className="flex justify-center">
+                {renderCell(option, 100)}
+              </div>
+              <div className="text-sm mt-2 text-center font-medium">
+                {String.fromCharCode(65 + index)}
+              </div>
+            </button>
+          ))}
+        </div>
+      </div>
+
+      {/* Debug Info */}
+      <div className="text-xs text-gray-500 mt-4">
+        Set {setName} • {difficulty} • Pattern: {patternType} • Correct: {String.fromCharCode(65 + correctAnswer)}
+      </div>
+    </div>
+  )
+}
+
+export default VisualMatrixGenerator

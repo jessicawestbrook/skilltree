@@ -25,7 +25,7 @@ const MegaMenu: React.FC = () => {
         .from('skill_tree_nodes')
         .select('*')
         .is('parent_id', null)
-        .eq('type', 'category')
+        .or('learning_content_ids.is.null,learning_content_ids.eq.{}')
         .order('display_order', { nullsFirst: false })
         .order('name')
 
@@ -53,7 +53,7 @@ const MegaMenu: React.FC = () => {
         if (level2Error) throw level2Error
 
         // Get all level 3 nodes (children of level 2 categories)
-        const level2CategoryIds = (level2Nodes || []).filter(n => n.type === 'category').map(c => c.id)
+        const level2CategoryIds = (level2Nodes || []).filter(n => !n.learning_content_ids || n.learning_content_ids.length === 0).map(c => c.id)
         let level3Nodes: SkillTreeNode[] = []
         
         if (level2CategoryIds.length > 0) {
@@ -79,7 +79,7 @@ const MegaMenu: React.FC = () => {
           
           const grandchildMap: Record<string, SkillTreeNode[]> = {}
           directChildren.forEach(child => {
-            if (child.type === 'category') {
+            if (!child.learning_content_ids || child.learning_content_ids.length === 0) {
               grandchildMap[child.id] = grandchildren
                 .filter(n => n.parent_id === child.id) // Show all grandchildren
             }
@@ -152,7 +152,7 @@ const MegaMenu: React.FC = () => {
               to={`/category/${category.id}`}
               className="block group mb-3"
             >
-              <div className="flex items-center justify-between p-3 bg-gradient-to-r from-primary-100 to-gold-100 dark:from-primary-800/30 dark:to-gold-800/30 rounded-lg hover:shadow-lg transition-all border border-primary-200 dark:border-primary-700 hover:border-primary-300 dark:hover:border-primary-600">
+              <div className="flex items-center justify-between p-3 bg-neutral-100 dark:bg-neutral-800 rounded-lg hover:shadow-lg transition-all border border-neutral-200 dark:border-neutral-700 hover:border-neutral-300 dark:hover:border-neutral-600">
                 <div>
                   <h3 className="text-lg font-bold text-primary-800 dark:text-primary-300 group-hover:text-primary-900 dark:group-hover:text-primary-200">
                     {category.name}
@@ -177,7 +177,7 @@ const MegaMenu: React.FC = () => {
                           // - bg-yellow-500 (yellow): in progress  
                           // - bg-green-500 (green): passed test
                           // - bg-white border (white with gray outline): no content yet
-                          !child.has_learning_content 
+                          (!child.learning_content_ids || child.learning_content_ids.length === 0) 
                             ? 'bg-white border border-neutral-400 dark:border-neutral-500' // No content yet
                             : 'bg-neutral-400 dark:bg-neutral-500' // Not started (default for now)
                         }`}></span>
@@ -185,7 +185,7 @@ const MegaMenu: React.FC = () => {
                       </div>
                     </Link>
                     {/* Show grandchildren if this is a category */}
-                    {child.type === 'category' && childNodes[category.id].grandchildMap[child.id] && 
+                    {(!child.learning_content_ids || child.learning_content_ids.length === 0) && childNodes[category.id].grandchildMap[child.id] && 
                      childNodes[category.id].grandchildMap[child.id].length > 0 && (
                       <div className="pl-2 mt-0.5 space-y-0 border-l border-neutral-100 dark:border-neutral-800 ml-1">
                         {childNodes[category.id].grandchildMap[child.id].map(grandchild => (

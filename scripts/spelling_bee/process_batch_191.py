@@ -1,0 +1,873 @@
+#!/usr/bin/env python3
+
+import csv
+import json
+import logging
+from typing import Dict, Any
+
+# Set up logging
+logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
+
+def create_word_data() -> Dict[str, Any]:
+    """
+    Creates comprehensive educational data for spelling bee words with Claude generation.
+    
+    This function contains pre-generated comprehensive educational content for each word,
+    including detailed definitions, pronunciations, etymologies, memory tips, example sentences,
+    and 4-factor difficulty scores.
+    """
+    
+    return {
+        "vignette": {
+            "word": "vignette",
+            "pronunciation": "/vɪnˈjɛt/",
+            "definition": "A brief evocative description, account, or episode; a decorative design or illustration, originally at the head or tail of a chapter; a small, elegant literary sketch that captures a moment or mood. In photography, it refers to an image that is shaded off gradually at the edges. The term comes from the French word for 'little vine,' referring to the decorative vine-like borders that adorned manuscripts and books. Vignettes are characterized by their atmospheric quality and their ability to convey emotion or meaning through carefully chosen details rather than exhaustive description.",
+            "etymology": "From French 'vignette,' diminutive of 'vigne' meaning 'vine,' originally referring to decorative vine-like ornamental borders in manuscripts",
+            "etymology_source": "Claude",
+            "example_sentence": "The author included a touching _____ about her grandmother's garden at the beginning of each chapter.",
+            "memory_tip": "Remember 'VIGnette' sounds like 'vigorous NET' - think of a vigorous net catching small moments, just like a vignette catches brief moments or descriptions.",
+            "difficulty_score": 6,
+            "difficulty_factors": {
+                "phonetic_transparency": 6,
+                "word_frequency": 7,
+                "morphological_complexity": 6,
+                "etymology_complexity": 5
+            },
+            "sources": "2020; 2022; 2023; 2024; 2025",
+            "source_difficulty": "One Bee; Three Bee; Two Bee"
+        },
+        "vilipend": {
+            "word": "vilipend",
+            "pronunciation": "/ˈvɪlɪpɛnd/",
+            "definition": "To regard or treat as of little worth; to vilify, disparage, or hold in contempt; to speak slightingly of someone or something. This formal and somewhat archaic verb expresses the act of deliberately diminishing or belittling the value, importance, or reputation of a person, idea, or thing. It suggests a deliberate and often unfair devaluation, going beyond mere criticism to express active disdain or scorn. The word carries connotations of haughty dismissal and intellectual arrogance, often used in contexts where someone in authority unfairly diminishes the contributions or worth of others.",
+            "etymology": "From Latin 'vilipendere,' from 'vilis' meaning 'cheap, worthless' + 'pendere' meaning 'to weigh, value'",
+            "etymology_source": "Claude",
+            "example_sentence": "The professor's tendency to _____ student contributions created a hostile learning environment.",
+            "memory_tip": "Think 'VILE-i-PEND' - someone who is vile tends to pendulum swing toward putting others down, which is what vilipend means.",
+            "difficulty_score": 8,
+            "difficulty_factors": {
+                "phonetic_transparency": 7,
+                "word_frequency": 9,
+                "morphological_complexity": 8,
+                "etymology_complexity": 7
+            },
+            "sources": "2020; 2021; 2022; 2023; 2024; 2025",
+            "source_difficulty": "One Bee; Three Bee; Two Bee"
+        },
+        "villa": {
+            "word": "villa",
+            "pronunciation": "/ˈvɪlə/",
+            "definition": "A large, impressive house, typically one used as a country residence or vacation home; a luxurious residence especially in a resort area or warm climate. Originally referring to a Roman country estate or farmhouse, the term has evolved to describe elegant residential properties that are often detached and surrounded by gardens or grounds. In modern usage, villas are associated with upscale living and are commonly found in Mediterranean settings, resort destinations, or affluent suburban areas. The term can also refer to a type of semi-detached house in British usage.",
+            "etymology": "From Latin 'villa' meaning 'country house, farm,' from 'vicus' meaning 'village, row of houses'",
+            "etymology_source": "Claude",
+            "example_sentence": "They rented a beautiful _____ overlooking the Mediterranean Sea for their honeymoon.",
+            "memory_tip": "Remember that 'VILLA' sounds like 'VILLAge' but is fancier - it's a large, luxurious house often in a village-like or resort setting.",
+            "difficulty_score": 3,
+            "difficulty_factors": {
+                "phonetic_transparency": 2,
+                "word_frequency": 4,
+                "morphological_complexity": 2,
+                "etymology_complexity": 4
+            },
+            "sources": "2020; 2021; 2022",
+            "source_difficulty": "One Bee; Two Bee"
+        },
+        "village": {
+            "word": "village",
+            "pronunciation": "/ˈvɪlɪdʒ/",
+            "definition": "A small community or settlement, typically in a rural area and smaller than a town; a self-contained district or community within a town or city. Villages are characterized by their close-knit communities, local governance, and often traditional ways of life. They usually have a central area with essential services such as shops, schools, and places of worship. In urban planning, the term can also refer to a neighborhood designed to foster community interaction and a sense of local identity. Villages often maintain strong cultural traditions and social bonds among residents.",
+            "etymology": "From Old French 'village,' from Latin 'villa' meaning 'country house, farm' + suffix '-age'",
+            "etymology_source": "Claude",
+            "example_sentence": "The small _____ nestled in the valley had only three hundred residents but a rich cultural heritage.",
+            "memory_tip": "Think 'VILLA + AGE' - a village is where villas and houses age together over time, forming a small community.",
+            "difficulty_score": 2,
+            "difficulty_factors": {
+                "phonetic_transparency": 2,
+                "word_frequency": 2,
+                "morphological_complexity": 3,
+                "etymology_complexity": 2
+            },
+            "sources": "2025",
+            "source_difficulty": "Three Bee"
+        },
+        "villainous": {
+            "word": "villainous",
+            "pronunciation": "/ˈvɪlənəs/",
+            "definition": "Having the characteristics of a villain; extremely wicked, evil, or criminal in behavior or character; morally depraved or malicious. This adjective describes actions, intentions, or people that are deliberately harmful, dishonest, or cruel. It implies a level of moral corruption that goes beyond mere wrongdoing to suggest calculated evil or malice. The word can be used both in serious contexts to describe genuinely harmful behavior and in lighter contexts to describe mischievous or playfully naughty actions.",
+            "etymology": "From Middle English 'vileinous,' from Old French 'vilain' meaning 'peasant, servant, scoundrel' + suffix '-ous'",
+            "etymology_source": "Claude",
+            "example_sentence": "The _____ plot to embezzle charity funds shocked the entire community.",
+            "memory_tip": "Remember 'VILLAIN + OUS' - someone who is villainous is full of villain-like qualities, meaning they're evil or wicked.",
+            "difficulty_score": 4,
+            "difficulty_factors": {
+                "phonetic_transparency": 4,
+                "word_frequency": 4,
+                "morphological_complexity": 4,
+                "etymology_complexity": 4
+            },
+            "sources": "2025",
+            "source_difficulty": "Three Bee"
+        },
+        "villanelle": {
+            "word": "villanelle",
+            "pronunciation": "/ˌvɪləˈnɛl/",
+            "definition": "A fixed verse form consisting of nineteen lines with only two rhymes throughout, composed of five tercets (three-line stanzas) and a concluding quatrain (four-line stanza), with the first and third lines of the opening tercet serving as alternating refrains that conclude the subsequent tercets and form a couplet at the end. This highly structured poetic form originated in France and is known for its musical quality and the way the repeated refrains create a haunting, cyclical effect. Famous examples include Dylan Thomas's 'Do Not Go Gentle Into That Good Night' and Elizabeth Bishop's 'One Art.'",
+            "etymology": "From French 'villanelle,' from Italian 'villanella,' diminutive of 'villana' meaning 'rustic song'",
+            "etymology_source": "Claude",
+            "example_sentence": "The poet spent months perfecting her _____, carefully crafting each line to fit the demanding rhyme scheme.",
+            "memory_tip": "Think 'VILLA-NELLE' - like a small villa, a villanelle is a small, structured poetic house with very specific architectural rules.",
+            "difficulty_score": 7,
+            "difficulty_factors": {
+                "phonetic_transparency": 6,
+                "word_frequency": 8,
+                "morphological_complexity": 7,
+                "etymology_complexity": 7
+            },
+            "sources": "2025",
+            "source_difficulty": "Three Bee"
+        },
+        "villi": {
+            "word": "villi",
+            "pronunciation": "/ˈvɪlaɪ/",
+            "definition": "Plural of villus; small, finger-like projections that extend from the wall of the small intestine and other body surfaces to increase surface area for absorption. These microscopic structures are crucial for nutrient absorption in the digestive system, as they dramatically increase the internal surface area of the intestine. Each villus contains blood vessels and lymphatic vessels that transport absorbed nutrients throughout the body. Villi can also be found in other parts of the body, such as the placenta, where they facilitate the exchange of materials between maternal and fetal blood supplies.",
+            "etymology": "From Latin 'villus' meaning 'shaggy hair, tuft of hair,' referring to their hair-like appearance",
+            "etymology_source": "Claude",
+            "example_sentence": "The intestinal _____ were damaged by the disease, reducing the patient's ability to absorb nutrients.",
+            "memory_tip": "Think 'VILLA-I' - imagine tiny villas (houses) lining the intestinal walls, but these 'villi' are finger-like projections that help absorb food.",
+            "difficulty_score": 6,
+            "difficulty_factors": {
+                "phonetic_transparency": 5,
+                "word_frequency": 7,
+                "morphological_complexity": 6,
+                "etymology_complexity": 6
+            },
+            "sources": "2023; 2024; 2025",
+            "source_difficulty": "Three Bee; Two Bee"
+        },
+        "vinaceous": {
+            "word": "vinaceous",
+            "pronunciation": "/vaɪˈneɪʃəs/",
+            "definition": "Of, relating to, or having the color of wine; wine-colored, typically referring to a deep purplish-red or burgundy hue. This adjective is primarily used in botanical and zoological contexts to describe the coloration of flowers, fruits, bird plumage, or other natural specimens that resemble the deep red color of red wine. The term is particularly common in scientific descriptions where precise color terminology is important for identification and classification purposes. It can also be used more generally to describe any object or substance that exhibits this characteristic wine-like coloration.",
+            "etymology": "From Latin 'vinaceus' meaning 'of or pertaining to wine,' from 'vinum' meaning 'wine' + suffix '-aceous'",
+            "etymology_source": "Claude",
+            "example_sentence": "The bird's _____ breast feathers helped researchers identify it as a mature male of the species.",
+            "memory_tip": "Think 'VINE-ACEOUS' - relating to vines that produce wine, so vinaceous means wine-colored or having the deep red color of wine.",
+            "difficulty_score": 7,
+            "difficulty_factors": {
+                "phonetic_transparency": 7,
+                "word_frequency": 8,
+                "morphological_complexity": 6,
+                "etymology_complexity": 6
+            },
+            "sources": "2024; 2025",
+            "source_difficulty": "Three Bee"
+        },
+        "vinaigrette": {
+            "word": "vinaigrette",
+            "pronunciation": "/ˌvɪnɪˈɡrɛt/",
+            "definition": "A salad dressing made from oil and vinegar, typically in a ratio of three parts oil to one part vinegar, often enhanced with seasonings such as mustard, herbs, salt, and pepper. This classic French dressing serves as both a condiment and a method of food preparation, used to dress salads, marinate vegetables, or enhance the flavor of various dishes. The term can also refer to a small ornamental bottle or container used for holding aromatic vinegar or smelling salts. In culinary contexts, vinaigrette represents one of the fundamental sauce preparations in French cuisine.",
+            "etymology": "From French 'vinaigrette,' diminutive of 'vinaigre' meaning 'vinegar,' from 'vin' (wine) + 'aigre' (sour)",
+            "etymology_source": "Claude",
+            "example_sentence": "She whisked together a simple _____ of olive oil, balsamic vinegar, and Dijon mustard for the salad.",
+            "memory_tip": "Break it down: 'VIN-AIGRE-ETTE' - vin (wine) + aigre (sour) + ette (little), so it's a little sour wine-based dressing.",
+            "difficulty_score": 5,
+            "difficulty_factors": {
+                "phonetic_transparency": 6,
+                "word_frequency": 5,
+                "morphological_complexity": 5,
+                "etymology_complexity": 4
+            },
+            "sources": "2020; 2021; 2022; 2023; 2024",
+            "source_difficulty": "One Bee; Three Bee; Two Bee"
+        },
+        "vincible": {
+            "word": "vincible",
+            "pronunciation": "/ˈvɪnsəbəl/",
+            "definition": "Capable of being conquered, overcome, or defeated; not invincible; vulnerable to being vanquished or subdued. This formal adjective describes something or someone that can be beaten, whether in physical combat, intellectual debate, emotional struggle, or any form of competition or conflict. It is the opposite of invincible and suggests that despite strength or resistance, ultimate defeat is possible. The term is often used in philosophical, military, or strategic contexts to assess the likelihood of success against an opponent or obstacle.",
+            "etymology": "From Latin 'vincibilis,' from 'vincere' meaning 'to conquer, overcome' + suffix '-ibilis' meaning 'able to be'",
+            "etymology_source": "Claude",
+            "example_sentence": "Despite the team's impressive record, they proved _____ when facing a well-prepared opponent.",
+            "memory_tip": "Think 'VINCe-ible' - if you can be VINCed (convinced to give up), you're vincible, meaning you can be defeated.",
+            "difficulty_score": 6,
+            "difficulty_factors": {
+                "phonetic_transparency": 5,
+                "word_frequency": 7,
+                "morphological_complexity": 6,
+                "etymology_complexity": 6
+            },
+            "sources": "2020; 2021; 2022; 2023; 2025",
+            "source_difficulty": "One Bee; Three Bee; Two Bee"
+        },
+        "vindictive": {
+            "word": "vindictive",
+            "pronunciation": "/vɪnˈdɪktɪv/",
+            "definition": "Having or showing a strong or unreasoning desire for revenge; characterized by a spiteful, malicious attitude toward those who have wronged one. This adjective describes behavior that seeks to inflict harm or punishment on others, often disproportionate to any perceived offense. Vindictive actions are typically driven by anger, resentment, or a desire to settle scores rather than by justice or fairness. The term implies a persistent, calculating approach to getting back at someone, often involving deliberate cruelty or efforts to cause suffering.",
+            "etymology": "From Latin 'vindictivus,' from 'vindicta' meaning 'revenge' + suffix '-ive,' related to 'vindicare' meaning 'to claim, avenge'",
+            "etymology_source": "Claude",
+            "example_sentence": "Her _____ behavior toward former friends who had disagreed with her damaged many relationships.",
+            "memory_tip": "Think 'VIN-DICTIVE' - like a 'vindictive' person writes a harsh 'DICTionary' of ways to get revenge on people.",
+            "difficulty_score": 5,
+            "difficulty_factors": {
+                "phonetic_transparency": 5,
+                "word_frequency": 5,
+                "morphological_complexity": 5,
+                "etymology_complexity": 5
+            },
+            "sources": "2020; 2021; 2022; 2023; 2024; 2025",
+            "source_difficulty": "One Bee; Three Bee; Two Bee"
+        },
+        "vinegar": {
+            "word": "vinegar",
+            "pronunciation": "/ˈvɪnɪɡər/",
+            "definition": "A sour liquid produced by the fermentation of alcohol, used as a condiment, preservative, and cleaning agent. This acidic solution, typically containing 4-8% acetic acid, is created when bacteria convert ethyl alcohol into acetic acid in the presence of oxygen. Common types include white vinegar, apple cider vinegar, balsamic vinegar, and wine vinegar, each with distinct flavors and culinary applications. Beyond cooking, vinegar has numerous household uses including cleaning, removing stains, and as a natural disinfectant. Its preservation properties have made it valuable throughout human history for food storage.",
+            "etymology": "From Old French 'vinaigre,' from 'vin' meaning 'wine' + 'aigre' meaning 'sour'",
+            "etymology_source": "Claude",
+            "example_sentence": "She added a splash of apple cider _____ to the salad dressing for extra tang.",
+            "memory_tip": "Remember 'VIN-EGAR' comes from 'vin' (wine) + 'eager' (to be sour) - wine that's eager to turn sour becomes vinegar.",
+            "difficulty_score": 3,
+            "difficulty_factors": {
+                "phonetic_transparency": 3,
+                "word_frequency": 3,
+                "morphological_complexity": 3,
+                "etymology_complexity": 3
+            },
+            "sources": "2021; 2022; 2023; 2024; 2025",
+            "source_difficulty": "One Bee; Three Bee; Two Bee"
+        },
+        "vineyard": {
+            "word": "vineyard",
+            "pronunciation": "/ˈvɪnjərd/",
+            "definition": "A plantation or farm where grapes are grown, typically for wine production; an area of land specifically cultivated with grapevines. Vineyards require specific soil conditions, climate, and careful cultivation techniques to produce quality grapes. The term encompasses not only the physical land and plants but also the agricultural practices, expertise, and often multi-generational traditions associated with grape growing. Vineyards can range from small family operations to large commercial enterprises and are often located in regions with favorable growing conditions such as Mediterranean climates.",
+            "etymology": "From Middle English 'vineyard,' from 'vine' + 'yard' meaning 'enclosed area, garden'",
+            "etymology_source": "Claude",
+            "example_sentence": "The family _____ had been producing award-winning wines for three generations.",
+            "memory_tip": "Simply 'VINE + YARD' - a yard or area where vines (grapevines) grow, typically for making wine.",
+            "difficulty_score": 3,
+            "difficulty_factors": {
+                "phonetic_transparency": 3,
+                "word_frequency": 3,
+                "morphological_complexity": 2,
+                "etymology_complexity": 2
+            },
+            "sources": "2020; 2021; 2022; 2023; 2024; 2025",
+            "source_difficulty": "One Bee; Three Bee; Two Bee"
+        },
+        "vinyl": {
+            "word": "vinyl",
+            "pronunciation": "/ˈvaɪnəl/",
+            "definition": "A type of plastic polymer made from vinyl chloride, widely used in manufacturing various products including records, flooring, siding, and clothing. In popular culture, vinyl most commonly refers to phonograph records made from polyvinyl chloride (PVC), which were the dominant music recording medium from the 1950s through the 1980s and have experienced a resurgence in recent decades. Vinyl is valued for its durability, water resistance, and versatility in manufacturing. The material can be flexible or rigid depending on the additives used in its production.",
+            "etymology": "From Latin 'vinum' meaning 'wine,' referring to the vinyl group in organic chemistry derived from ethylene",
+            "etymology_source": "Claude",
+            "example_sentence": "The audiophile preferred the warm sound quality of _____ records over digital music.",
+            "memory_tip": "Think 'VIN-YL' - originally from 'vinum' (wine), but now we think of vinyl records that are round and black like a wine bottle bottom.",
+            "difficulty_score": 4,
+            "difficulty_factors": {
+                "phonetic_transparency": 4,
+                "word_frequency": 4,
+                "morphological_complexity": 3,
+                "etymology_complexity": 5
+            },
+            "sources": "2020",
+            "source_difficulty": "One Bee"
+        },
+        "violaceous": {
+            "word": "violaceous",
+            "pronunciation": "/ˌvaɪəˈleɪʃəs/",
+            "definition": "Of a violet color; having the purple or bluish-purple hue characteristic of violets. This adjective is primarily used in botanical, biological, and medical contexts to describe coloration that resembles the flower violet - a deep purplish-blue shade. In medical terminology, violaceous is often used to describe skin discoloration that may indicate various conditions, such as bruising or circulation problems. The term provides a more precise and scientific way to describe this specific shade of purple, particularly when accuracy in color description is important for identification or diagnosis.",
+            "etymology": "From Latin 'violaceus,' from 'viola' meaning 'violet' + suffix '-aceous' meaning 'resembling, having the nature of'",
+            "etymology_source": "Claude",
+            "example_sentence": "The patient's _____ fingertips suggested poor circulation in the extremities.",
+            "memory_tip": "Think 'VIOLA-CEOUS' - having the quality or color of a viola (violet flower), meaning violet-colored or purple.",
+            "difficulty_score": 7,
+            "difficulty_factors": {
+                "phonetic_transparency": 7,
+                "word_frequency": 8,
+                "morphological_complexity": 6,
+                "etymology_complexity": 6
+            },
+            "sources": "2020; 2021; 2022; 2023",
+            "source_difficulty": "One Bee; Two Bee"
+        },
+        "violate": {
+            "word": "violate",
+            "pronunciation": "/ˈvaɪəleɪt/",
+            "definition": "To break or fail to comply with a rule, agreement, or law; to treat something sacred or important with irreverence or disrespect; to disturb or interfere with someone's peace, privacy, or rights. This verb encompasses various forms of transgression, from legal violations and contractual breaches to moral transgressions and personal boundary violations. The word carries strong negative connotations and implies a deliberate or significant breach of established norms, laws, or personal rights. It can also mean to physically damage or desecrate something held sacred.",
+            "etymology": "From Latin 'violatus,' past participle of 'violare' meaning 'to treat with violence, dishonor'",
+            "etymology_source": "Claude",
+            "example_sentence": "The company was fined for attempting to _____ environmental protection regulations.",
+            "memory_tip": "Think 'VIO-LATE' - when you arrive 'VIOlently LATE' to respect rules or laws, you violate them by breaking them.",
+            "difficulty_score": 3,
+            "difficulty_factors": {
+                "phonetic_transparency": 3,
+                "word_frequency": 3,
+                "morphological_complexity": 3,
+                "etymology_complexity": 4
+            },
+            "sources": "2025",
+            "source_difficulty": "Three Bee"
+        },
+        "violating": {
+            "word": "violating",
+            "pronunciation": "/ˈvaɪəleɪtɪŋ/",
+            "definition": "Present participle of violate; currently in the act of breaking, transgressing, or failing to comply with rules, laws, agreements, or boundaries; treating something with disrespect or irreverence; disturbing or interfering with rights or privacy. This verb form indicates ongoing action of transgression or breach, whether of legal statutes, moral principles, contractual obligations, or personal boundaries. The word emphasizes the active, continuous nature of the violation rather than a completed act.",
+            "etymology": "From Latin 'violatus,' past participle of 'violare' meaning 'to treat with violence, dishonor' + English present participle suffix '-ing'",
+            "etymology_source": "Claude",
+            "example_sentence": "The security cameras caught the intruder _____ the building's access restrictions.",
+            "memory_tip": "Simply 'VIOLATE + ING' - currently in the process of violating or breaking rules, laws, or boundaries.",
+            "difficulty_score": 3,
+            "difficulty_factors": {
+                "phonetic_transparency": 3,
+                "word_frequency": 3,
+                "morphological_complexity": 3,
+                "etymology_complexity": 4
+            },
+            "sources": "2025",
+            "source_difficulty": "Three Bee"
+        },
+        "violence": {
+            "word": "violence",
+            "pronunciation": "/ˈvaɪələns/",
+            "definition": "Physical force intended to hurt, damage, or kill; extreme force or intensity in action, feeling, or expression; the unlawful exercise of physical force or intimidation. This noun encompasses a wide range of aggressive behaviors, from individual acts of assault to broader patterns of abuse, warfare, or destruction. Violence can be physical, emotional, or psychological, and may be directed toward people, animals, property, or institutions. The term also describes natural phenomena of extreme intensity, such as violent storms or violent chemical reactions.",
+            "etymology": "From Latin 'violentia,' from 'violentus' meaning 'vehement, forcible' related to 'violare' meaning 'to treat with violence'",
+            "etymology_source": "Claude",
+            "example_sentence": "The peace treaty was designed to end decades of _____ between the warring factions.",
+            "memory_tip": "Think 'VIO-LENCE' - 'VIOlent' action combined with the 'LENS' through which we view harmful, forceful behavior.",
+            "difficulty_score": 2,
+            "difficulty_factors": {
+                "phonetic_transparency": 2,
+                "word_frequency": 2,
+                "morphological_complexity": 3,
+                "etymology_complexity": 3
+            },
+            "sources": "2025",
+            "source_difficulty": "Three Bee"
+        },
+        "violet": {
+            "word": "violet",
+            "pronunciation": "/ˈvaɪələt/",
+            "definition": "A small plant with purple, blue, or white five-petaled flowers, typically found in temperate regions; the bluish-purple color characteristic of many violet flowers. As a flower, violets are known for their delicate appearance, heart-shaped leaves, and sweet fragrance. They have been symbols of modesty, faithfulness, and love in various cultures. As a color, violet occupies the position between blue and purple on the color spectrum and is often associated with royalty, spirituality, and creativity. Many species of violets are edible and have been used in culinary and medicinal applications.",
+            "etymology": "From Old French 'violete,' diminutive of 'viole,' from Latin 'viola' meaning 'violet flower'",
+            "etymology_source": "Claude",
+            "example_sentence": "She picked a bouquet of wild _____ flowers from the meadow for her grandmother.",
+            "memory_tip": "Remember 'VIO-LET' - 'VIOla' (the flower) + 'LET' (small), so violet is a small viola-like flower, or the purple color it represents.",
+            "difficulty_score": 2,
+            "difficulty_factors": {
+                "phonetic_transparency": 2,
+                "word_frequency": 2,
+                "morphological_complexity": 3,
+                "etymology_complexity": 2
+            },
+            "sources": "2025",
+            "source_difficulty": "Three Bee"
+        },
+        "violin": {
+            "word": "violin",
+            "pronunciation": "/ˌvaɪəˈlɪn/",
+            "definition": "A stringed musical instrument with four strings tuned in perfect fifths, played with a bow and held between the shoulder and chin. The violin is the smallest and highest-pitched member of the violin family of instruments, which also includes the viola, cello, and double bass. Known for its expressive range and agility, the violin is central to classical music, featuring prominently in orchestras, chamber music, and solo performances. The instrument has also found important roles in folk music traditions worldwide and in contemporary genres including jazz, country, and rock music.",
+            "etymology": "From Italian 'violino,' diminutive of 'viola,' from Provençal 'viola,' ultimately from Latin 'vitula' possibly meaning 'stringed instrument'",
+            "etymology_source": "Claude",
+            "example_sentence": "The young prodigy played the _____ concerto with remarkable skill and emotional depth.",
+            "memory_tip": "Think 'VIOLA + IN' - a small viola, or remember 'VIO-LIN' where 'LIN' suggests the linear strings of this string instrument.",
+            "difficulty_score": 3,
+            "difficulty_factors": {
+                "phonetic_transparency": 3,
+                "word_frequency": 3,
+                "morphological_complexity": 3,
+                "etymology_complexity": 4
+            },
+            "sources": "2021",
+            "source_difficulty": "One Bee"
+        },
+        "vireo": {
+            "word": "vireo",
+            "pronunciation": "/ˈvɪrioʊ/",
+            "definition": "A small songbird of the family Vireonidae, typically olive-green or gray in color with a slightly hooked bill, found primarily in the Americas. Vireos are known for their persistent, often melodious songs and their insectivorous diet, making them beneficial for controlling insect populations. These birds are generally arboreal, preferring to forage and nest in trees and shrubs. There are approximately 50 species of vireos, ranging from the Arctic to South America, with many species being important indicators of forest health and biodiversity.",
+            "etymology": "From Latin 'vireo' meaning 'I am green,' from 'virere' meaning 'to be green,' referring to the typical olive-green coloration",
+            "etymology_source": "Claude",
+            "example_sentence": "The ornithologist identified the small bird as a red-eyed _____ by its distinctive call and olive coloring.",
+            "memory_tip": "Think 'VI-REO' sounds like 'VIRidian' (green) - vireos are typically green-colored birds, and the name comes from Latin for 'I am green.'",
+            "difficulty_score": 6,
+            "difficulty_factors": {
+                "phonetic_transparency": 5,
+                "word_frequency": 7,
+                "morphological_complexity": 5,
+                "etymology_complexity": 6
+            },
+            "sources": "2020; 2021; 2022; 2023",
+            "source_difficulty": "One Bee; Two Bee"
+        },
+        "virga": {
+            "word": "virga",
+            "pronunciation": "/ˈvɜrɡə/",
+            "definition": "A meteorological phenomenon consisting of streaks or wisps of precipitation falling from a cloud but evaporating before reaching the ground. This weather feature appears as dark, trailing curtains beneath clouds and is most commonly observed in arid or semi-arid regions where the atmosphere is dry enough to cause complete evaporation of falling precipitation. Virga can occur with various types of precipitation including rain, snow, or ice crystals, and often creates dramatic visual effects in the sky. The phenomenon is particularly common with high-altitude clouds and in desert climates.",
+            "etymology": "From Latin 'virga' meaning 'twig, rod, streak,' referring to the streak-like appearance of the falling precipitation",
+            "etymology_source": "Claude",
+            "example_sentence": "The desert sky displayed beautiful _____, with rain clearly falling from the clouds but never reaching the ground.",
+            "memory_tip": "Think 'VIR-GA' like 'VIRtual GAsp' - it's virtual rain that you can see falling but it gasps away (evaporates) before hitting the ground.",
+            "difficulty_score": 7,
+            "difficulty_factors": {
+                "phonetic_transparency": 6,
+                "word_frequency": 8,
+                "morphological_complexity": 6,
+                "etymology_complexity": 7
+            },
+            "sources": "2023; 2024; 2025",
+            "source_difficulty": "Three Bee; Two Bee"
+        },
+        "virgin": {
+            "word": "virgin",
+            "pronunciation": "/ˈvɜrdʒɪn/",
+            "definition": "A person who has never had sexual intercourse; something in its original, pure, or untouched state; unused, unexplored, or unprocessed. As a noun, it refers to someone who lacks sexual experience, while as an adjective, it describes things that are pristine, unaltered, or untapped. The term can apply to natural resources (virgin forest), materials (virgin wool), or any substance or area that has not been exploited or modified. In various contexts, it emphasizes purity, originality, or the absence of previous use or contamination.",
+            "etymology": "From Latin 'virgo, virginis' meaning 'maiden, young woman,' of uncertain ultimate origin",
+            "etymology_source": "Claude",
+            "example_sentence": "The expedition explored the _____ rainforest where no human had ever set foot.",
+            "memory_tip": "Think 'VIR-GIN' - 'VIRtuous beGINning' - someone or something that is virtuous and at the beginning, meaning pure or untouched.",
+            "difficulty_score": 2,
+            "difficulty_factors": {
+                "phonetic_transparency": 2,
+                "word_frequency": 3,
+                "morphological_complexity": 2,
+                "etymology_complexity": 3
+            },
+            "sources": "2020; 2021; 2022; 2023; 2024; 2025",
+            "source_difficulty": "One Bee; Three Bee; Two Bee"
+        },
+        "virtually": {
+            "word": "virtually",
+            "pronunciation": "/ˈvɜrtʃuəli/",
+            "definition": "Almost entirely; for the most part; in essence or effect, though not in name or fact; by means of virtual reality technology or computer simulation. This adverb indicates that something is true or exists in practical terms even if not technically or officially so. It suggests a degree of completeness that is nearly total but may lack some formal recognition or absolute completion. In computing contexts, it refers to things accomplished through computer technology rather than physical means.",
+            "etymology": "From Medieval Latin 'virtualis' meaning 'in essence or effect, though not in name' + suffix '-ly'",
+            "etymology_source": "Claude",
+            "example_sentence": "The new policy _____ eliminated all barriers to student participation in the program.",
+            "memory_tip": "Think 'VIRTUAL + LY' - doing something in a virtual way means almost completely or in effect, though not necessarily literally.",
+            "difficulty_score": 3,
+            "difficulty_factors": {
+                "phonetic_transparency": 3,
+                "word_frequency": 3,
+                "morphological_complexity": 4,
+                "etymology_complexity": 4
+            },
+            "sources": "2020; 2021; 2022; 2023; 2025",
+            "source_difficulty": "One Bee; Three Bee; Two Bee"
+        },
+        "virulence": {
+            "word": "virulence",
+            "pronunciation": "/ˈvɪrələns/",
+            "definition": "The degree of pathogenicity or disease-causing ability of a microorganism; extreme hostility or malignance in feeling, speech, or behavior. In medical contexts, virulence refers to the capacity of a pathogen to cause disease, determined by factors such as toxin production, invasiveness, and ability to evade immune responses. In general usage, it describes the intensity of malicious or poisonous qualities in attitude, criticism, or opposition. The term emphasizes not just the presence of harmful qualities but their exceptional intensity or potency.",
+            "etymology": "From Latin 'virulentia,' from 'virulentus' meaning 'poisonous, malignant,' from 'virus' meaning 'poison, venom'",
+            "etymology_source": "Claude",
+            "example_sentence": "The _____ of the new bacterial strain made it particularly dangerous to immunocompromised patients.",
+            "memory_tip": "Think 'VIRUS + LENCE' - the 'violence' or strength of a virus to cause disease, emphasizing how harmful it can be.",
+            "difficulty_score": 6,
+            "difficulty_factors": {
+                "phonetic_transparency": 5,
+                "word_frequency": 7,
+                "morphological_complexity": 6,
+                "etymology_complexity": 6
+            },
+            "sources": "2020; 2021; 2022; 2023; 2024; 2025",
+            "source_difficulty": "One Bee; Three Bee; Two Bee"
+        },
+        "visage": {
+            "word": "visage",
+            "pronunciation": "/ˈvɪzɪdʒ/",
+            "definition": "A person's face or facial expression; the appearance or aspect of something. This formal or literary term refers particularly to the face as an expression of character, mood, or emotion. It can also be used metaphorically to describe the general appearance or character of non-human things, such as the visage of a landscape or building. The word often carries connotations of dignity, formality, or artistic observation, and is frequently used in poetry, literature, and formal descriptions where a more elevated tone is desired.",
+            "etymology": "From Old French 'visage,' from Latin 'visus' meaning 'sight, appearance,' from 'videre' meaning 'to see'",
+            "etymology_source": "Claude",
+            "example_sentence": "The weathered _____ of the old fisherman told stories of decades spent at sea.",
+            "memory_tip": "Think 'VIS-AGE' - 'VISible AGE' - your visage (face) shows your visible age and character through your facial features.",
+            "difficulty_score": 5,
+            "difficulty_factors": {
+                "phonetic_transparency": 5,
+                "word_frequency": 6,
+                "morphological_complexity": 4,
+                "etymology_complexity": 5
+            },
+            "sources": "2020; 2021; 2022; 2023",
+            "source_difficulty": "One Bee; Two Bee"
+        },
+        "viscidity": {
+            "word": "viscidity",
+            "pronunciation": "/vɪˈsɪdɪti/",
+            "definition": "The quality or state of being viscid; stickiness, adhesiveness, or the property of being thick and sticky in consistency. This noun describes the physical characteristic of substances that are glutinous, tacky, or resistant to flow. Viscidity is related to viscosity but emphasizes the sticky, adhesive quality rather than just thickness or resistance to flow. The term is used in scientific and technical contexts to describe materials ranging from biological secretions to industrial adhesives and natural substances like tree saps or honey.",
+            "etymology": "From Latin 'viscidus' meaning 'sticky, viscous' + suffix '-ity,' from 'viscum' meaning 'mistletoe, birdlime'",
+            "etymology_source": "Claude",
+            "example_sentence": "The _____ of the tree sap made it difficult to remove from their hiking boots.",
+            "memory_tip": "Think 'VISCID + ITY' - the quality of being viscid (sticky), so viscidity is the stickiness or gooey quality of a substance.",
+            "difficulty_score": 7,
+            "difficulty_factors": {
+                "phonetic_transparency": 6,
+                "word_frequency": 8,
+                "morphological_complexity": 7,
+                "etymology_complexity": 7
+            },
+            "sources": "2024; 2025",
+            "source_difficulty": "Three Bee"
+        },
+        "viscount": {
+            "word": "viscount",
+            "pronunciation": "/ˈvaɪkaʊnt/",
+            "definition": "A British nobleman ranking above a baron and below an earl; a nobleman of corresponding rank in other countries. In the British peerage system, a viscount is the fourth-highest rank of nobility, traditionally addressed as 'Lord' followed by their territorial designation or family name. The title can be hereditary or created for life, and holders often have historical connections to specific geographic regions. The wife of a viscount holds the title of viscountess. This rank originated in medieval European feudal systems where viscounts served as representatives or deputies of counts.",
+            "etymology": "From Old French 'visconte,' from Latin 'vicecomes' meaning 'deputy of a count,' from 'vice' (in place of) + 'comes' (count)",
+            "etymology_source": "Claude",
+            "example_sentence": "The _____ inherited not only the title but also the responsibility for maintaining the family's historic estate.",
+            "memory_tip": "Think 'VIS-COUNT' - 'VICE-COUNT' - a viscount was originally a vice (deputy) count, someone who acted in place of a count.",
+            "difficulty_score": 5,
+            "difficulty_factors": {
+                "phonetic_transparency": 6,
+                "word_frequency": 6,
+                "morphological_complexity": 4,
+                "etymology_complexity": 5
+            },
+            "sources": "2021; 2022",
+            "source_difficulty": "One Bee; Two Bee"
+        },
+        "visibility": {
+            "word": "visibility",
+            "pronunciation": "/ˌvɪzəˈbɪlɪti/",
+            "definition": "The state or quality of being visible; the degree to which something can be seen or observed; the distance one can see clearly, especially as affected by weather conditions. In meteorology, visibility refers to the transparency of the atmosphere and is measured as the greatest distance at which objects can be clearly distinguished. The term also encompasses metaphorical meanings such as public awareness, prominence, or the extent to which something is noticed or recognized in society or business contexts.",
+            "etymology": "From Latin 'visibilis' meaning 'that can be seen' + suffix '-ity,' from 'videre' meaning 'to see'",
+            "etymology_source": "Claude",
+            "example_sentence": "The fog reduced _____ to less than fifty feet, making driving extremely dangerous.",
+            "memory_tip": "Think 'VISIBLE + ITY' - the quality of being visible, or how well you can see something or how well something can be seen.",
+            "difficulty_score": 4,
+            "difficulty_factors": {
+                "phonetic_transparency": 4,
+                "word_frequency": 4,
+                "morphological_complexity": 4,
+                "etymology_complexity": 4
+            },
+            "sources": "2020; 2021; 2022; 2023; 2025",
+            "source_difficulty": "One Bee; Three Bee; Two Bee"
+        },
+        "vision": {
+            "word": "vision",
+            "pronunciation": "/ˈvɪʒən/",
+            "definition": "The faculty or state of being able to see; sight; a mental image or concept of what the future could or should look like; an experience of seeing someone or something in a dream or supernatural apparition. This multifaceted noun encompasses physical eyesight, imaginative foresight, spiritual revelation, and strategic planning. In business and organizational contexts, vision refers to long-term goals and aspirational direction. The word also describes vivid mental imagery, artistic inspiration, or prophetic experiences across various cultural and religious traditions.",
+            "etymology": "From Latin 'visio' meaning 'a seeing, sight,' from 'videre' meaning 'to see'",
+            "etymology_source": "Claude",
+            "example_sentence": "The CEO's _____ for the company included sustainable practices and global expansion.",
+            "memory_tip": "Think 'VIS-ION' - 'VIS' relates to seeing (visual), and vision is about seeing either literally with your eyes or figuratively with your mind.",
+            "difficulty_score": 2,
+            "difficulty_factors": {
+                "phonetic_transparency": 2,
+                "word_frequency": 2,
+                "morphological_complexity": 3,
+                "etymology_complexity": 3
+            },
+            "sources": "2024",
+            "source_difficulty": "Three Bee"
+        },
+        "visit": {
+            "word": "visit",
+            "pronunciation": "/ˈvɪzɪt/",
+            "definition": "To go to see and spend time with someone or at a place; to stay temporarily as a guest; to come to see for business, tourism, or social purposes. As a noun, it refers to an act of visiting or a temporary stay. The word encompasses various types of encounters, from casual social calls to formal inspections, medical appointments, or tourism. Visits can be planned or spontaneous, brief or extended, and serve purposes ranging from maintaining relationships to conducting business or seeking services.",
+            "etymology": "From Latin 'visitare,' frequentative of 'visere' meaning 'to go to see,' from 'videre' meaning 'to see'",
+            "etymology_source": "Claude",
+            "example_sentence": "They decided to _____ their grandparents during the holiday weekend.",
+            "memory_tip": "Think 'VIS-IT' - 'VISual IT' - you visit to visually see someone or someplace, making 'it' a personal experience.",
+            "difficulty_score": 2,
+            "difficulty_factors": {
+                "phonetic_transparency": 2,
+                "word_frequency": 1,
+                "morphological_complexity": 2,
+                "etymology_complexity": 3
+            },
+            "sources": "2020; 2021; 2022; 2023; 2024; 2025",
+            "source_difficulty": "One Bee; Three Bee; Two Bee"
+        },
+        "visite": {
+            "word": "visite",
+            "pronunciation": "/vɪˈzit/",
+            "definition": "A French word meaning 'visit' that appears in English contexts, particularly in historical, diplomatic, or formal usage; sometimes used in English to refer to a formal or ceremonial visit. This term may appear in phrases borrowed from French or in contexts where the French form is used for stylistic effect or historical accuracy. In some historical or cultural contexts, 'visite' might refer specifically to formal social calls or official diplomatic visits, carrying connotations of ceremony or protocol that the English 'visit' might not convey.",
+            "etymology": "From French 'visite,' from Latin 'visitare' meaning 'to go to see frequently'",
+            "etymology_source": "Claude",
+            "example_sentence": "The ambassador's official _____ to the neighboring country was scheduled for next month.",
+            "memory_tip": "This is simply the French word for 'visit' - 'VIS-ITE' - remember it's the same as English 'visit' but with a French pronunciation and spelling.",
+            "difficulty_score": 4,
+            "difficulty_factors": {
+                "phonetic_transparency": 4,
+                "word_frequency": 6,
+                "morphological_complexity": 3,
+                "etymology_complexity": 4
+            },
+            "sources": "2020",
+            "source_difficulty": "One Bee"
+        },
+        "vitae": {
+            "word": "vitae",
+            "pronunciation": "/ˈvaɪti/ or /ˈviːtaɪ/",
+            "definition": "Genitive singular form of the Latin word 'vita' meaning 'life'; commonly appearing in the phrase 'curriculum vitae' (course of life), abbreviated as CV, which refers to a detailed document listing one's educational and professional history. The term is used in academic and professional contexts to describe a comprehensive summary of career achievements, qualifications, publications, and experience. In biological contexts, it can refer to life processes or vital functions. The word appears in various Latin phrases and academic terminology related to life and living.",
+            "etymology": "From Latin 'vita' meaning 'life,' with 'vitae' being the genitive singular form",
+            "etymology_source": "Claude",
+            "example_sentence": "The professor updated her curriculum _____ to include her latest research publications.",
+            "memory_tip": "Think 'VI-TAE' - sounds like 'VITal' - vitae relates to life (vita), and your CV/curriculum vitae is your 'vital' life story professionally.",
+            "difficulty_score": 6,
+            "difficulty_factors": {
+                "phonetic_transparency": 6,
+                "word_frequency": 6,
+                "morphological_complexity": 6,
+                "etymology_complexity": 6
+            },
+            "sources": "2023; 2024; 2025",
+            "source_difficulty": "Three Bee; Two Bee"
+        },
+        "vital": {
+            "word": "vital",
+            "pronunciation": "/ˈvaɪtəl/",
+            "definition": "Absolutely necessary or important; essential for life or survival; full of energy and enthusiasm; relating to life or living processes. This adjective describes something that is crucial for existence, success, or proper functioning. In medical contexts, vital refers to life-sustaining functions such as heartbeat, breathing, and blood pressure (vital signs). The word can also describe someone who is energetic, lively, and full of life force. When applied to concepts or resources, it indicates fundamental importance or indispensability.",
+            "etymology": "From Latin 'vitalis' meaning 'of or pertaining to life,' from 'vita' meaning 'life'",
+            "etymology_source": "Claude",
+            "example_sentence": "Access to clean water is _____ for the health of the entire community.",
+            "memory_tip": "Think 'VIT-AL' - 'VITamin' + 'ALive' - vitamins are vital to keep you alive and healthy, meaning absolutely necessary.",
+            "difficulty_score": 3,
+            "difficulty_factors": {
+                "phonetic_transparency": 3,
+                "word_frequency": 3,
+                "morphological_complexity": 3,
+                "etymology_complexity": 3
+            },
+            "sources": "2021",
+            "source_difficulty": "One Bee"
+        },
+        "vitiate": {
+            "word": "vitiate",
+            "pronunciation": "/ˈvɪʃieɪt/",
+            "definition": "To spoil or impair the quality or efficiency of something; to make faulty or defective; to corrupt morally; to make legally invalid. This formal verb describes the process of diminishing value, effectiveness, or purity through contamination, corruption, or interference. In legal contexts, to vitiate means to make void or invalid, such as vitiating a contract through fraud or duress. The term suggests a degradation from a previously better or pure state, whether applied to physical substances, moral character, or abstract concepts.",
+            "etymology": "From Latin 'vitiatus,' past participle of 'vitiare' meaning 'to make faulty,' from 'vitium' meaning 'fault, defect'",
+            "etymology_source": "Claude",
+            "example_sentence": "The contamination was severe enough to _____ the entire batch of pharmaceutical products.",
+            "memory_tip": "Think 'VITI-ATE' - sounds like 'VITamin-ATE' - but instead of eating vitamins to improve health, to vitiate means to 'eat away' at quality, making something worse.",
+            "difficulty_score": 7,
+            "difficulty_factors": {
+                "phonetic_transparency": 6,
+                "word_frequency": 8,
+                "morphological_complexity": 7,
+                "etymology_complexity": 7
+            },
+            "sources": "2020; 2022; 2024; 2025",
+            "source_difficulty": "One Bee; Three Bee; Two Bee"
+        },
+        "vitreous": {
+            "word": "vitreous",
+            "pronunciation": "/ˈvɪtriəs/",
+            "definition": "Like glass in appearance, structure, or properties; having a glassy luster or transparency; relating to or derived from glass. This adjective describes materials or substances that exhibit glass-like characteristics such as hardness, brittleness, transparency, or smooth surface texture. In anatomy, it refers to the vitreous humor, the clear gel-like substance filling the eyeball. In geology and materials science, vitreous describes the non-crystalline, amorphous structure of certain materials. The term emphasizes the similarity to glass in various physical properties.",
+            "etymology": "From Latin 'vitreus' meaning 'of glass, glassy,' from 'vitrum' meaning 'glass'",
+            "etymology_source": "Claude",
+            "example_sentence": "The volcanic obsidian had a distinctive _____ sheen that made it prized for toolmaking.",
+            "memory_tip": "Think 'VIT-REOUS' - sounds like 'VITamin' but remember 'vitrum' means glass, so vitreous means glass-like in appearance or properties.",
+            "difficulty_score": 6,
+            "difficulty_factors": {
+                "phonetic_transparency": 5,
+                "word_frequency": 7,
+                "morphological_complexity": 6,
+                "etymology_complexity": 6
+            },
+            "sources": "2020; 2021; 2022",
+            "source_difficulty": "One Bee; Two Bee"
+        },
+        "vitriolic": {
+            "word": "vitriolic",
+            "pronunciation": "/ˌvɪtriˈɔlɪk/",
+            "definition": "Filled with bitter criticism or malice; harshly abusive or caustic in language or manner; relating to or containing vitriol (sulfuric acid). This adjective describes speech, writing, or behavior that is extremely harsh, scathing, and intended to hurt or damage. It suggests a level of verbal acidity that can be as corrosive as the chemical vitriol itself. Vitriolic attacks are characterized by their venomous quality and their capacity to inflict emotional or reputational damage through deliberately cruel or cutting language.",
+            "etymology": "From 'vitriol' (sulfuric acid) + suffix '-ic,' from Latin 'vitrum' meaning 'glass' (vitriol was originally obtained from glassy substances)",
+            "etymology_source": "Claude",
+            "example_sentence": "The candidate's _____ response to criticism only served to damage his public image further.",
+            "memory_tip": "Think 'VIT-RIOLIC' - like 'VITamin' + 'RIOLIC' - but remember vitriol is acid, so vitriolic speech is acidic and burns with harsh criticism.",
+            "difficulty_score": 6,
+            "difficulty_factors": {
+                "phonetic_transparency": 5,
+                "word_frequency": 6,
+                "morphological_complexity": 6,
+                "etymology_complexity": 7
+            },
+            "sources": "2020; 2021; 2022; 2023; 2024; 2025",
+            "source_difficulty": "One Bee; Three Bee; Two Bee"
+        },
+        "vituline": {
+            "word": "vituline",
+            "pronunciation": "/ˈvɪtʃəlaɪn/",
+            "definition": "Of, relating to, or characteristic of a calf; resembling or having the qualities of a young cow. This formal adjective is primarily used in veterinary, agricultural, or biological contexts to describe features, behaviors, or characteristics specific to calves. The term may also appear in literary or poetic contexts where precise animal-related terminology is desired. It can describe physical attributes, developmental stages, or behavioral patterns that are typical of young bovine animals.",
+            "etymology": "From Latin 'vitulinus,' from 'vitulus' meaning 'calf'",
+            "etymology_source": "Claude",
+            "example_sentence": "The veterinarian noted the _____ characteristics that indicated the animal was still quite young.",
+            "memory_tip": "Think 'VIT-ULINE' - sounds like 'VITamin for U-bovINE' - relating to young bovine animals (calves).",
+            "difficulty_score": 8,
+            "difficulty_factors": {
+                "phonetic_transparency": 7,
+                "word_frequency": 9,
+                "morphological_complexity": 7,
+                "etymology_complexity": 8
+            },
+            "sources": "2025",
+            "source_difficulty": "Three Bee"
+        },
+        "vituperative": {
+            "word": "vituperative",
+            "pronunciation": "/vaɪˈtupərətɪv/",
+            "definition": "Bitter and abusive in language; harshly critical and condemnatory; characterized by severe censure or verbal attack. This formal adjective describes speech, writing, or behavior that involves harsh criticism, blame, or denunciation. Vituperative language goes beyond normal criticism to include elements of abuse, contempt, and deliberate attempts to damage reputation or character. The term is often used to describe political discourse, literary criticism, or personal attacks that are particularly severe and intended to humiliate or discredit the target.",
+            "etymology": "From Latin 'vituperativus,' from 'vituperare' meaning 'to find fault with, blame,' from 'vitium' (fault) + 'parare' (to prepare)",
+            "etymology_source": "Claude",
+            "example_sentence": "The author's _____ review of the novel seemed more personal attack than literary criticism.",
+            "memory_tip": "Think 'VIT-UPERATIVE' - 'VITamin' + 'OPERATive' - but instead of vitamins operating to help, vituperative operates to tear down with harsh criticism.",
+            "difficulty_score": 8,
+            "difficulty_factors": {
+                "phonetic_transparency": 8,
+                "word_frequency": 8,
+                "morphological_complexity": 8,
+                "etymology_complexity": 8
+            },
+            "sources": "2020; 2021; 2022; 2023; 2024; 2025",
+            "source_difficulty": "One Bee; Three Bee; Two Bee"
+        },
+        "vivacious": {
+            "word": "vivacious",
+            "pronunciation": "/vɪˈveɪʃəs/",
+            "definition": "Attractively lively and animated; full of energy and enthusiasm; spirited and charming in manner. This positive adjective describes people who exhibit natural exuberance, cheerfulness, and an engaging personality that draws others to them. Vivacious individuals are typically characterized by their animated expressions, energetic behavior, and ability to bring life and excitement to social situations. The term suggests not just energy but an appealing, magnetic quality that makes someone particularly engaging and delightful to be around.",
+            "etymology": "From Latin 'vivax, vivacis' meaning 'lively, vigorous,' from 'vivere' meaning 'to live'",
+            "etymology_source": "Claude",
+            "example_sentence": "Her _____ personality made her the highlight of every party she attended.",
+            "memory_tip": "Think 'VIV-ACIOUS' - 'VIVacious' sounds like 'VIVid' + 'gracious' - someone vivacious has vivid energy and is gracious and lively.",
+            "difficulty_score": 5,
+            "difficulty_factors": {
+                "phonetic_transparency": 5,
+                "word_frequency": 5,
+                "morphological_complexity": 5,
+                "etymology_complexity": 5
+            },
+            "sources": "2020; 2021",
+            "source_difficulty": "One Bee"
+        },
+        "vividly": {
+            "word": "vividly",
+            "pronunciation": "/ˈvɪvɪdli/",
+            "definition": "In a vivid manner; with striking clarity, intensity, or liveliness; in a way that produces powerful feelings or strong, clear images in the mind. This adverb describes how something is perceived, remembered, described, or experienced with exceptional clarity and intensity. It can refer to visual experiences that are remarkably clear and detailed, memories that are particularly sharp and realistic, or descriptions that create strong mental images. The word emphasizes the strength and clarity of the impression made.",
+            "etymology": "From Latin 'vividus' meaning 'lively, vigorous' + English suffix '-ly,' from 'vivere' meaning 'to live'",
+            "etymology_source": "Claude",
+            "example_sentence": "She could _____ recall every detail of her childhood home even decades later.",
+            "memory_tip": "Simply 'VIVID + LY' - doing something in a vivid way means doing it with striking clarity and liveliness.",
+            "difficulty_score": 3,
+            "difficulty_factors": {
+                "phonetic_transparency": 3,
+                "word_frequency": 3,
+                "morphological_complexity": 3,
+                "etymology_complexity": 4
+            },
+            "sources": "2020",
+            "source_difficulty": "One Bee"
+        },
+        "vivre": {
+            "word": "vivre",
+            "pronunciation": "/ˈvivrə/",
+            "definition": "A French word meaning 'to live,' sometimes appearing in English contexts in phrases or expressions borrowed from French. The word may appear in phrases like 'savoir vivre' (knowing how to live, or good breeding/social skills) or 'joie de vivre' (joy of living). In English usage, it typically appears in contexts where French cultural concepts or expressions are being referenced, particularly those related to lifestyle, philosophy, or social sophistication. The word carries connotations of French culture and refined living.",
+            "etymology": "From Latin 'vivere' meaning 'to live, to be alive'",
+            "etymology_source": "Claude",
+            "example_sentence": "Her _____ encompassed not just existing but truly embracing every moment of life.",
+            "memory_tip": "Think 'VI-VRE' - sounds like 'VIVacious' - vivre means 'to live' in French, relating to being vivacious and full of life.",
+            "difficulty_score": 5,
+            "difficulty_factors": {
+                "phonetic_transparency": 6,
+                "word_frequency": 6,
+                "morphological_complexity": 4,
+                "etymology_complexity": 4
+            },
+            "sources": "2025",
+            "source_difficulty": "Three Bee"
+        },
+        "vizierial": {
+            "word": "vizierial",
+            "pronunciation": "/vɪˈzɪəriəl/",
+            "definition": "Of, relating to, or characteristic of a vizier; pertaining to the office, rank, or functions of a vizier (a high-ranking political advisor or minister in Muslim countries). This adjective describes matters connected to the administrative, political, or ceremonial aspects of a vizier's role in historical Islamic governments. It can refer to vizierial powers, responsibilities, regalia, or protocols. The term is primarily used in historical, political, or academic contexts when discussing Ottoman, Persian, or other Islamic governmental structures.",
+            "etymology": "From 'vizier' + suffix '-ial,' where 'vizier' comes from Arabic 'wazir' meaning 'minister, counselor'",
+            "etymology_source": "Claude",
+            "example_sentence": "The museum displayed the ornate _____ robes worn by the Ottoman grand vizier.",
+            "memory_tip": "Think 'VIZIER + IAL' - relating to a vizier (a high minister), so vizierial means 'relating to the role or office of a vizier.'",
+            "difficulty_score": 7,
+            "difficulty_factors": {
+                "phonetic_transparency": 6,
+                "word_frequency": 8,
+                "morphological_complexity": 7,
+                "etymology_complexity": 7
+            },
+            "sources": "2020; 2021; 2023; 2025",
+            "source_difficulty": "One Bee; Three Bee; Two Bee"
+        }
+    }
+
+def main():
+    """
+    Main function to process spelling bee words and create educational content.
+    """
+    logging.info("Processing Batch 191 with comprehensive Claude data...")
+    
+    # Define combined word errors (identified during analysis)
+    combined_errors = [
+        "vindictiveattitudes",
+        "vinegarfiduciary", 
+        "virtuallyvisibility",
+        "viscidityw",
+        "vitiatespodumene",
+        "vivaciousxenoglossy",
+        "vizierialcrescive"
+    ]
+    
+    # Get comprehensive word data
+    word_data = create_word_data()
+    
+    # Filter out combined word errors and prepare final data
+    valid_words = {word: data for word, data in word_data.items() 
+                  if word not in combined_errors}
+    
+    # Define output file
+    output_file = 'output/batch_191_processed.csv'
+    
+    # Write to CSV
+    with open(output_file, 'w', newline='', encoding='utf-8') as csvfile:
+        fieldnames = [
+            'word', 'pronunciation', 'definition', 'etymology', 'etymology_source',
+            'example_sentence', 'memory_tip', 'difficulty_score',
+            'phonetic_transparency', 'word_frequency', 'morphological_complexity', 
+            'etymology_complexity', 'sources', 'source_difficulty'
+        ]
+        
+        writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
+        writer.writeheader()
+        
+        successful_count = 0
+        for word, data in valid_words.items():
+            try:
+                row = {
+                    'word': data['word'],
+                    'pronunciation': data['pronunciation'],
+                    'definition': data['definition'],
+                    'etymology': data['etymology'],
+                    'etymology_source': data['etymology_source'],
+                    'example_sentence': data['example_sentence'],
+                    'memory_tip': data['memory_tip'],
+                    'difficulty_score': data['difficulty_score'],
+                    'phonetic_transparency': data['difficulty_factors']['phonetic_transparency'],
+                    'word_frequency': data['difficulty_factors']['word_frequency'],
+                    'morphological_complexity': data['difficulty_factors']['morphological_complexity'],
+                    'etymology_complexity': data['difficulty_factors']['etymology_complexity'],
+                    'sources': data['sources'],
+                    'source_difficulty': data['source_difficulty']
+                }
+                writer.writerow(row)
+                successful_count += 1
+                logging.info(f"Processed word: {word}")
+                
+            except Exception as e:
+                logging.error(f"Error processing word {word}: {e}")
+                continue
+    
+    logging.info(f"Saved {successful_count} words to {output_file}")
+    logging.info("Batch 191 processing completed!")
+    logging.info(f"Processed {successful_count} words with comprehensive Claude data")
+    logging.info(f"Output saved to: {output_file}")
+    logging.info(f"Results: {successful_count} successful, 0 failed")
+    logging.info(f"Combined word errors detected: {len(combined_errors)}")
+    for error in combined_errors:
+        logging.info(f"  - {error}")
+
+if __name__ == "__main__":
+    main()

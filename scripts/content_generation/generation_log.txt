@@ -1,0 +1,282 @@
+ALL Level 2 & 3 Description Generator (OVERWRITE MODE)
+============================================================
+Batch size: 20
+Resume mode: False
+Dry run: False
+Mode: OVERWRITE existing descriptions
+Limit: 20 nodes
+
+[PLAN] PROCESSING PLAN:
+   Level 2 nodes: 20
+   Level 3 nodes: 0
+   Total to process: 20
+   Mode: OVERWRITE existing descriptions
+
+[ESTIMATES] ESTIMATES:
+   Time: 10.0 minutes (0.2 hours)
+   Cost: $0.40
+
+[QUESTION] Process 20 nodes with improved descriptions? (y/N): 
+[START] Starting description generation...
+[NOTE] Note: 25-second delays between API calls for rate limiting
+
+
+[1/20] Level 2: Business Fundamentals
+[PROCESSING] [Level 2] Processing: Business Fundamentals
+   Path: Applied Sciences > Business and Economics
+[2025-08-20 23:57:28] 
+Processing node: Business Fundamentals (Type: category, Path: ['Applied Sciences', 'Business and Economics'])
+[2025-08-20 23:57:28] Generating description for category: Business Fundamentals
+[2025-08-20 23:57:28] Generating description for category: Business Fundamentals
+[2025-08-20 23:57:30] Saved description for Business Fundamentals
+[2025-08-20 23:57:55] Successfully processed: Business Fundamentals
+   [SUCCESS] Successfully generated description
+
+[2/20] Level 2: Marketing
+[PROCESSING] [Level 2] Processing: Marketing
+   Path: Applied Sciences > Business and Economics
+[2025-08-20 23:57:55] 
+Processing node: Marketing (Type: category, Path: ['Applied Sciences', 'Business and Economics'])
+[2025-08-20 23:57:55] Generating description for category: Marketing
+[2025-08-20 23:57:55] Generating description for category: Marketing
+[2025-08-20 23:57:57] Saved description for Marketing
+[2025-08-20 23:58:22] Successfully processed: Marketing
+   [SUCCESS] Successfully generated description
+
+[3/20] Level 2: Entrepreneurship
+[PROCESSING] [Level 2] Processing: Entrepreneurship
+   Path: Applied Sciences > Business and Economics
+[2025-08-20 23:58:22] 
+Processing node: Entrepreneurship (Type: category, Path: ['Applied Sciences', 'Business and Economics'])
+[2025-08-20 23:58:22] Generating description for category: Entrepreneurship
+[2025-08-20 23:58:22] Generating description for category: Entrepreneurship
+[2025-08-20 23:58:24] Saved description for Entrepreneurship
+[2025-08-20 23:58:49] Successfully processed: Entrepreneurship
+   [SUCCESS] Successfully generated description
+
+[4/20] Level 2: Finance
+[PROCESSING] [Level 2] Processing: Finance
+   Path: Applied Sciences > Business and Economics
+[2025-08-20 23:58:49] 
+Processing node: Finance (Type: category, Path: ['Applied Sciences', 'Business and Economics'])
+[2025-08-20 23:58:49] Generating description for category: Finance
+[2025-08-20 23:58:49] Generating description for category: Finance
+[2025-08-20 23:58:51] Saved description for Finance
+[2025-08-20 23:59:17] Successfully processed: Finance
+   [SUCCESS] Successfully generated description
+
+[5/20] Level 2: Operations Management
+[PROCESSING] [Level 2] Processing: Operations Management
+   Path: Applied Sciences > Business and Economics
+[2025-08-20 23:59:17] 
+Processing node: Operations Management (Type: category, Path: ['Applied Sciences', 'Business and Economics'])
+[2025-08-20 23:59:17] Generating description for category: Operations Management
+[2025-08-20 23:59:17] Generating description for category: Operations Management
+[2025-08-20 23:59:18] Saved description for Operations Management
+[2025-08-20 23:59:44] Successfully processed: Operations Management
+   [SUCCESS] Successfully generated description
+
+[6/20] Level 2: Basic Cooking Techniques
+[PROCESSING] [Level 2] Processing: Basic Cooking Techniques
+   Path: Applied Sciences > Culinary Arts and Nutrition
+[2025-08-20 23:59:44] 
+Processing node: Basic Cooking Techniques (Type: category, Path: ['Applied Sciences', 'Culinary Arts and Nutrition'])
+[2025-08-20 23:59:44] Generating description for category: Basic Cooking Techniques
+[2025-08-20 23:59:44] Generating description for category: Basic Cooking Techniques
+[2025-08-20 23:59:45] Saved description for Basic Cooking Techniques
+[2025-08-21 00:00:11] Successfully processed: Basic Cooking Techniques
+   [SUCCESS] Successfully generated description
+
+[7/20] Level 2: Professional Kitchen Skills
+[PROCESSING] [Level 2] Processing: Professional Kitchen Skills
+   Path: Applied Sciences > Culinary Arts and Nutrition
+[2025-08-21 00:00:11] 
+Processing node: Professional Kitchen Skills (Type: category, Path: ['Applied Sciences', 'Culinary Arts and Nutrition'])
+[2025-08-21 00:00:11] Generating description for category: Professional Kitchen Skills
+[2025-08-21 00:00:11] Generating description for category: Professional Kitchen Skills
+[2025-08-21 00:00:13] Saved description for Professional Kitchen Skills
+[2025-08-21 00:00:38] Successfully processed: Professional Kitchen Skills
+   [SUCCESS] Successfully generated description
+
+[8/20] Level 2: Nutrition Science
+[PROCESSING] [Level 2] Processing: Nutrition Science
+   Path: Applied Sciences > Culinary Arts and Nutrition
+[2025-08-21 00:00:38] 
+Processing node: Nutrition Science (Type: category, Path: ['Applied Sciences', 'Culinary Arts and Nutrition'])
+[2025-08-21 00:00:38] Generating description for category: Nutrition Science
+[2025-08-21 00:00:38] Generating description for category: Nutrition Science
+[2025-08-21 00:00:40] Saved description for Nutrition Science
+[2025-08-21 00:01:05] Successfully processed: Nutrition Science
+   [SUCCESS] Successfully generated description
+
+[9/20] Level 2: Food Science
+[PROCESSING] [Level 2] Processing: Food Science
+   Path: Applied Sciences > Culinary Arts and Nutrition
+[2025-08-21 00:01:05] 
+Processing node: Food Science (Type: category, Path: ['Applied Sciences', 'Culinary Arts and Nutrition'])
+[2025-08-21 00:01:05] Generating description for category: Food Science
+[2025-08-21 00:01:05] Generating description for category: Food Science
+[2025-08-21 00:01:07] Saved description for Food Science
+[2025-08-21 00:01:32] Successfully processed: Food Science
+   [SUCCESS] Successfully generated description
+
+[10/20] Level 2: Baking and Pastry
+[PROCESSING] [Level 2] Processing: Baking and Pastry
+   Path: Applied Sciences > Culinary Arts and Nutrition
+[2025-08-21 00:01:32] 
+Processing node: Baking and Pastry (Type: category, Path: ['Applied Sciences', 'Culinary Arts and Nutrition'])
+[2025-08-21 00:01:32] Generating description for category: Baking and Pastry
+[2025-08-21 00:01:32] Generating description for category: Baking and Pastry
+[2025-08-21 00:01:34] Saved description for Baking and Pastry
+[2025-08-21 00:01:59] Successfully processed: Baking and Pastry
+   [SUCCESS] Successfully generated description
+
+[PROGRESS] PROGRESS REPORT
+==================
+Overall: 10/20 (50.0%)
+Level 2: 10 processed (10 successful)
+Level 3: 0 processed (0 successful)
+Success rate: 100.0%
+Processing rate: 2.2 nodes/minute
+Session time: 0:04:31.755397
+Total time: 0:04:31.755397
+ETA: 00:06:31
+Estimated cost so far: $0.20
+
+
+[11/20] Level 2: World Cuisines
+[PROCESSING] [Level 2] Processing: World Cuisines
+   Path: Applied Sciences > Culinary Arts and Nutrition
+[2025-08-21 00:01:59] 
+Processing node: World Cuisines (Type: category, Path: ['Applied Sciences', 'Culinary Arts and Nutrition'])
+[2025-08-21 00:01:59] Generating description for category: World Cuisines
+[2025-08-21 00:01:59] Generating description for category: World Cuisines
+[2025-08-21 00:02:01] Saved description for World Cuisines
+[2025-08-21 00:02:27] Successfully processed: World Cuisines
+   [SUCCESS] Successfully generated description
+
+[12/20] Level 2: Beverages
+[PROCESSING] [Level 2] Processing: Beverages
+   Path: Applied Sciences > Culinary Arts and Nutrition
+[2025-08-21 00:02:27] 
+Processing node: Beverages (Type: category, Path: ['Applied Sciences', 'Culinary Arts and Nutrition'])
+[2025-08-21 00:02:27] Generating description for category: Beverages
+[2025-08-21 00:02:27] Generating description for category: Beverages
+[2025-08-21 00:02:29] Saved description for Beverages
+[2025-08-21 00:02:54] Successfully processed: Beverages
+   [SUCCESS] Successfully generated description
+
+[13/20] Level 2: Aerospace Engineering
+[PROCESSING] [Level 2] Processing: Aerospace Engineering
+   Path: Applied Sciences > Engineering
+[2025-08-21 00:02:54] 
+Processing node: Aerospace Engineering (Type: category, Path: ['Applied Sciences', 'Engineering'])
+[2025-08-21 00:02:54] Generating description for category: Aerospace Engineering
+[2025-08-21 00:02:54] Generating description for category: Aerospace Engineering
+[2025-08-21 00:02:55] Saved description for Aerospace Engineering
+[2025-08-21 00:03:21] Successfully processed: Aerospace Engineering
+   [SUCCESS] Successfully generated description
+
+[14/20] Level 2: Robotics
+[PROCESSING] [Level 2] Processing: Robotics
+   Path: Applied Sciences > Engineering
+[2025-08-21 00:03:21] 
+Processing node: Robotics (Type: category, Path: ['Applied Sciences', 'Engineering'])
+[2025-08-21 00:03:21] Generating description for category: Robotics
+[2025-08-21 00:03:21] Generating description for category: Robotics
+[2025-08-21 00:03:23] Saved description for Robotics
+[2025-08-21 00:03:49] Successfully processed: Robotics
+   [SUCCESS] Successfully generated description
+
+[15/20] Level 2: Biomedical Engineering
+[PROCESSING] [Level 2] Processing: Biomedical Engineering
+   Path: Applied Sciences > Engineering
+[2025-08-21 00:03:49] 
+Processing node: Biomedical Engineering (Type: category, Path: ['Applied Sciences', 'Engineering'])
+[2025-08-21 00:03:49] Generating description for category: Biomedical Engineering
+[2025-08-21 00:03:49] Generating description for category: Biomedical Engineering
+[2025-08-21 00:03:51] Saved description for Biomedical Engineering
+[2025-08-21 00:04:17] Successfully processed: Biomedical Engineering
+   [SUCCESS] Successfully generated description
+
+[16/20] Level 2: Electrical Engineering
+[PROCESSING] [Level 2] Processing: Electrical Engineering
+   Path: Applied Sciences > Engineering
+[2025-08-21 00:04:17] 
+Processing node: Electrical Engineering (Type: category, Path: ['Applied Sciences', 'Engineering'])
+[2025-08-21 00:04:17] Generating description for category: Electrical Engineering
+[2025-08-21 00:04:17] Generating description for category: Electrical Engineering
+[2025-08-21 00:04:19] Saved description for Electrical Engineering
+[2025-08-21 00:04:44] Successfully processed: Electrical Engineering
+   [SUCCESS] Successfully generated description
+
+[17/20] Level 2: Civil Engineering
+[PROCESSING] [Level 2] Processing: Civil Engineering
+   Path: Applied Sciences > Engineering
+[2025-08-21 00:04:44] 
+Processing node: Civil Engineering (Type: category, Path: ['Applied Sciences', 'Engineering'])
+[2025-08-21 00:04:44] Generating description for category: Civil Engineering
+[2025-08-21 00:04:44] Generating description for category: Civil Engineering
+[2025-08-21 00:04:46] Saved description for Civil Engineering
+[2025-08-21 00:05:11] Successfully processed: Civil Engineering
+   [SUCCESS] Successfully generated description
+
+[18/20] Level 2: Mechanical Engineering
+[PROCESSING] [Level 2] Processing: Mechanical Engineering
+   Path: Applied Sciences > Engineering
+[2025-08-21 00:05:11] 
+Processing node: Mechanical Engineering (Type: category, Path: ['Applied Sciences', 'Engineering'])
+[2025-08-21 00:05:11] Generating description for category: Mechanical Engineering
+[2025-08-21 00:05:11] Generating description for category: Mechanical Engineering
+[2025-08-21 00:05:14] Saved description for Mechanical Engineering
+[2025-08-21 00:05:39] Successfully processed: Mechanical Engineering
+   [SUCCESS] Successfully generated description
+
+[19/20] Level 2: Software Engineering
+[PROCESSING] [Level 2] Processing: Software Engineering
+   Path: Applied Sciences > Engineering
+[2025-08-21 00:05:39] 
+Processing node: Software Engineering (Type: category, Path: ['Applied Sciences', 'Engineering'])
+[2025-08-21 00:05:39] Generating description for category: Software Engineering
+[2025-08-21 00:05:39] Generating description for category: Software Engineering
+[2025-08-21 00:05:41] Saved description for Software Engineering
+[2025-08-21 00:06:07] Successfully processed: Software Engineering
+   [SUCCESS] Successfully generated description
+
+[20/20] Level 2: Health Education
+[PROCESSING] [Level 2] Processing: Health Education
+   Path: Applied Sciences > Health and Physical Education
+[2025-08-21 00:06:07] 
+Processing node: Health Education (Type: category, Path: ['Applied Sciences', 'Health and Physical Education'])
+[2025-08-21 00:06:07] Generating description for category: Health Education
+[2025-08-21 00:06:07] Generating description for category: Health Education
+[2025-08-21 00:06:09] Saved description for Health Education
+[2025-08-21 00:06:34] Successfully processed: Health Education
+   [SUCCESS] Successfully generated description
+
+[PROGRESS] PROGRESS REPORT
+==================
+Overall: 20/20 (100.0%)
+Level 2: 20 processed (20 successful)
+Level 3: 0 processed (0 successful)
+Success rate: 100.0%
+Processing rate: 2.2 nodes/minute
+Session time: 0:09:06.113302
+Total time: 0:09:06.113302
+ETA: 00:06:34
+Estimated cost so far: $0.40
+
+
+[COMPLETE] GENERATION COMPLETE!
+==================================================
+[PROGRESS] FINAL STATS:
+   Total processed: 20
+   Successful: 20
+   Failed: 0
+   Success rate: 100.0%
+   Level 2 success: 20/20
+   Level 3 success: 0/0
+   Total time: 0:09:06.113302
+   Final cost: $0.40
+
+[SAVED] All descriptions saved to database!

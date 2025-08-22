@@ -1,0 +1,27 @@
+{
+  "total_processed": 3,
+  "level2_processed": 3,
+  "level3_processed": 0,
+  "successful": 3,
+  "failed": 0,
+  "processed_ids": [
+    "923b4db6-e909-46d7-90b8-8d875c1ac284",
+    "258667b7-3b23-45df-8ee8-2f709d23629c",
+    "8a1fb94e-e618-4373-8756-f1e9cdef010f"
+  ],
+  "failed_nodes": [],
+  "level2_stats": {
+    "total": 7,
+    "processed": 3,
+    "successful": 3
+  },
+  "level3_stats": {
+    "total": 370,
+    "processed": 0,
+    "successful": 0
+  },
+  "api_calls": 3,
+  "estimated_cost": 0.06,
+  "start_time": "2025-08-20T23:36:53.458641",
+  "last_save": "2025-08-20T23:38:17.074690"
+}

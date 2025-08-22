@@ -107,8 +107,7 @@ const ProfilePage: React.FC = () => {
       const { data, error } = await supabase
         .from('skill_tree_nodes')
         .select('*')
-        .eq('type', 'category')
-        .eq('has_learning_content', true)
+        .not('learning_content_ids', 'eq', '{}')
         .limit(6)
         .order('updated_at', { ascending: false })
 

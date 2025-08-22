@@ -37,7 +37,9 @@
       "Bash(PORT=3001 npm start)",
       "Bash(npx kill-port:*)",
       "Bash(grep:*)",
-      "Bash(cp:*)"
+      "Bash(cp:*)",
+      "WebSearch",
+      "WebFetch(domain:psychometric-success.com)"
     ],
     "deny": [],
     "ask": [],

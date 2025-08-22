@@ -1,0 +1,689 @@
+import csv
+import logging
+from datetime import datetime
+
+# Set up logging
+logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
+
+def calculate_difficulty_score(phonetic_transparency, frequency, morphological_complexity, etymology_complexity):
+    """Calculate overall difficulty score from 4 factors"""
+    return round((phonetic_transparency + frequency + morphological_complexity + etymology_complexity) / 4, 1)
+
+def determine_difficulty_level(score):
+    """Determine difficulty level based on score"""
+    if score <= 2.0:
+        return "Elementary"
+    elif score <= 3.0:
+        return "Intermediate" 
+    elif score <= 4.0:
+        return "Advanced"
+    else:
+        return "Expert"
+
+def main():
+    logging.info("Processing Batch 190 with comprehensive Claude data...")
+    
+    # Combined word errors detected in batch 190
+    combined_errors = ['vernalaardvark', 'verylast', 'vigilvincible']
+    
+    # Comprehensive spelling bee data with Claude-generated educational content
+    words_data = [
+        {
+            'word': 'verisimilitude',
+            'pronunciation': '/ˌverəsəˈmɪlətud/',
+            'definition': 'Verisimilitude is the appearance of being true or real; the quality of having the likeness of truth. In literature and art, verisimilitude refers to the believability or plausibility of a narrative, character, or situation. It describes how convincingly a fictional work represents reality, even if the events themselves are imaginary. Verisimilitude is crucial for audience engagement, as it helps suspend disbelief and makes stories feel authentic and credible.',
+            'example_sentence': 'The novel\'s _____ made readers feel as though they were experiencing real historical events.',
+            'etymology': 'From Latin "verisimilitudo," from "verisimilis" meaning "likely, probable," from "verus" (true) + "similis" (similar).',
+            'etymology_source': 'Claude',
+            'memory_tip': 'Think "VERY + SIMILAR + TUDE" - verisimilitude is when something has the attitude of being very similar to truth.',
+            'phonetic_transparency': 1,
+            'frequency': 1,
+            'morphological_complexity': 5,
+            'etymology_complexity': 4
+        },
+        {
+            'word': 'verism',
+            'pronunciation': '/ˈverɪzəm/',
+            'definition': 'Verism is an artistic and literary movement that emphasizes extreme realism and truth to life, often including unpleasant or harsh details that idealized art might omit. In sculpture and painting, verism seeks to represent subjects with unflinching accuracy, including physical flaws and aging. Roman portrait sculpture exemplified verism by showing realistic rather than idealized features. The movement values authenticity and factual representation over beauty or flattery.',
+            'example_sentence': 'The sculptor\'s commitment to _____ resulted in portraits that captured every wrinkle and imperfection.',
+            'etymology': 'From Latin "verus" meaning "true" + "-ism" (doctrine or practice). Emphasizes the pursuit of truth in artistic representation.',
+            'etymology_source': 'Claude',
+            'memory_tip': 'Think "VER (very) + ISM" - verism is the ism (belief) of showing things very truthfully and realistically.',
+            'phonetic_transparency': 3,
+            'frequency': 1,
+            'morphological_complexity': 2,
+            'etymology_complexity': 3
+        },
+        {
+            'word': 'veritable',
+            'pronunciation': '/ˈverətəbəl/',
+            'definition': 'Veritable means genuine, actual, or real; used to emphasize that something truly is what it appears to be or is claimed to be. The word is often used for emphasis, to stress that something is not just apparently true but genuinely so. Veritable can describe both concrete things (a veritable feast) and abstract concepts (veritable chaos). It adds emphasis and authenticity to descriptions.',
+            'example_sentence': 'The library contained a _____ treasure trove of rare manuscripts and first editions.',
+            'etymology': 'From Old French "veritable," from "verité" (truth), from Latin "veritas" meaning "truth." Related to "verify" and "very."',
+            'etymology_source': 'Claude',
+            'memory_tip': 'Think "VERIFY + TABLE" - something veritable can be verified and put on the table as genuine truth.',
+            'phonetic_transparency': 3,
+            'frequency': 2,
+            'morphological_complexity': 4,
+            'etymology_complexity': 3
+        },
+        {
+            'word': 'vermeil',
+            'pronunciation': '/ˈvɜːrmeɪl/',
+            'definition': 'Vermeil is silver that has been plated or covered with gold, creating jewelry or decorative objects that have the appearance of gold but at a lower cost. The gold layer must be at least 10 karats and have a minimum thickness to qualify as vermeil. This technique combines the affordability of silver with the luxury appearance of gold. Vermeil has been used in jewelry making and decorative arts for centuries.',
+            'example_sentence': 'The antique _____ chalice gleamed with its golden surface over the silver base.',
+            'etymology': 'From Old French "vermeil," from Latin "vermiculus" meaning "little worm," referring to the crimson dye made from cochineal insects, later applied to gold-like colors.',
+            'etymology_source': 'Claude',
+            'memory_tip': 'Think "VER (very) + MAIL" - vermeil is like very fancy mail (chain mail) made of gold over silver.',
+            'phonetic_transparency': 2,
+            'frequency': 1,
+            'morphological_complexity': 2,
+            'etymology_complexity': 4
+        },
+        {
+            'word': 'vermicelli',
+            'pronunciation': '/ˌvɜːrmɪˈtʃeli/',
+            'definition': 'Vermicelli is a type of thin pasta that resembles long, slender threads or worms. Traditionally made from wheat, vermicelli can also be made from rice or other grains. The pasta is used in various cuisines worldwide, from Italian dishes to Asian stir-fries and soups. Vermicelli cooks quickly due to its thinness and has a delicate texture that pairs well with light sauces and broths.',
+            'example_sentence': 'The chef prepared a delicate soup with _____ noodles and fresh herbs.',
+            'etymology': 'From Italian "vermicelli," plural of "vermicello," diminutive of "verme" (worm), from Latin "vermis." Named for its worm-like appearance.',
+            'etymology_source': 'Claude',
+            'memory_tip': 'Think "VERMI (worm) + CELLI" - vermicelli pasta looks like tiny worms or thin threads.',
+            'phonetic_transparency': 3,
+            'frequency': 2,
+            'morphological_complexity': 4,
+            'etymology_complexity': 3
+        },
+        {
+            'word': 'vermicide',
+            'pronunciation': '/ˈvɜːrmɪˌsaɪd/',
+            'definition': 'Vermicide is a substance used to kill worms, particularly parasitic worms that infect humans, animals, or plants. These compounds are important in medicine for treating intestinal parasites and in agriculture for protecting crops from harmful nematodes. Vermicides can be chemical or natural substances and must be used carefully to avoid toxicity to the host. The term encompasses both medical antiparasitic drugs and agricultural pesticides.',
+            'example_sentence': 'The veterinarian prescribed a _____ to eliminate the intestinal worms in the dog.',
+            'etymology': 'From Latin "vermis" (worm) + "-cide" (killer). Literally means "worm killer."',
+            'etymology_source': 'Claude',
+            'memory_tip': 'Think "VERMI (worm) + CIDE (suicide)" - vermicide commits suicide on worms by killing them.',
+            'phonetic_transparency': 3,
+            'frequency': 1,
+            'morphological_complexity': 3,
+            'etymology_complexity': 3
+        },
+        {
+            'word': 'vermin',
+            'pronunciation': '/ˈvɜːrmɪn/',
+            'definition': 'Vermin refers to small animals or insects that are harmful or annoying to humans, typically including rats, mice, cockroaches, and other pests. These creatures often damage property, contaminate food, or spread disease. The term can also be used metaphorically to describe people considered undesirable or objectionable. Vermin control is an important aspect of public health and property maintenance.',
+            'example_sentence': 'The old warehouse was infested with _____ that had to be eliminated before renovation.',
+            'etymology': 'From Old French "vermine," from Latin "vermis" meaning "worm." Originally referred to worms, later extended to other pests.',
+            'etymology_source': 'Claude',
+            'memory_tip': 'Think "VER (very) + MIN (mini)" - vermin are very mini creatures that cause big problems.',
+            'phonetic_transparency': 3,
+            'frequency': 2,
+            'morphological_complexity': 2,
+            'etymology_complexity': 3
+        },
+        {
+            'word': 'vernal',
+            'pronunciation': '/ˈvɜːrnəl/',
+            'definition': 'Vernal means relating to spring; characteristic of or occurring in spring. It describes phenomena, activities, or characteristics associated with the spring season, such as vernal flowers, vernal equinox, or vernal renewal. Vernal suggests freshness, new growth, and the awakening of nature after winter. The word is often used in scientific, literary, and poetic contexts to describe springtime phenomena.',
+            'example_sentence': 'The _____ equinox marks the beginning of spring when day and night are equal length.',
+            'etymology': 'From Latin "vernalis," from "vernus" meaning "of spring," from "ver" (spring). Related to "vernation" and "vernacular."',
+            'etymology_source': 'Claude',
+            'memory_tip': 'Think "VER (very) + NAL" - vernal is when nature becomes very new and alive in spring.',
+            'phonetic_transparency': 3,
+            'frequency': 2,
+            'morphological_complexity': 2,
+            'etymology_complexity': 3
+        },
+        {
+            'word': 'veronique',
+            'pronunciation': '/vəˈrɒnɪk/',
+            'definition': 'Veronique is a culinary term referring to a classic French preparation, typically fish or chicken, served with a sauce containing white grapes. The dish often includes white wine, cream, and sometimes almonds, creating a delicate, elegant flavor profile. Sole Veronique is one of the most famous preparations. The name comes from Saint Veronica, and the grapes represent the abundance of French gastronomy.',
+            'example_sentence': 'The restaurant\'s signature dish was sole _____, featuring delicate fish in a creamy grape sauce.',
+            'etymology': 'From French "Véronique," the name Saint Veronica. The culinary term honors the saint while incorporating grapes, a symbol of abundance.',
+            'etymology_source': 'Claude',
+            'memory_tip': 'Think "VERO (very) + NIQUE (unique)" - Veronique is a very unique French dish with grapes.',
+            'phonetic_transparency': 2,
+            'frequency': 1,
+            'morphological_complexity': 3,
+            'etymology_complexity': 3
+        },
+        {
+            'word': 'versa',
+            'pronunciation': '/ˈvɜːrsə/',
+            'definition': 'Versa appears most commonly in the phrase "vice versa," meaning "the other way around" or "conversely." The word indicates a reversal of order or relationship between two things. When something applies in both directions or the positions can be switched, versa expresses this reciprocal relationship. It\'s used to show that a statement works equally well when the elements are reversed.',
+            'example_sentence': 'Students learn from teachers, and vice _____, teachers learn from students.',
+            'etymology': 'From Latin "versa," feminine ablative of "versus," past participle of "vertere" meaning "to turn." Part of "vice versa" meaning "with position turned."',
+            'etymology_source': 'Claude',
+            'memory_tip': 'Think "VERSE + A" - versa is like a verse that can be read in reverse, turning around the meaning.',
+            'phonetic_transparency': 3,
+            'frequency': 3,
+            'morphological_complexity': 2,
+            'etymology_complexity': 3
+        },
+        {
+            'word': 'versailles',
+            'pronunciation': '/vərˈsaɪ/',
+            'definition': 'Versailles refers to the magnificent palace and gardens located near Paris, France, which served as the principal residence of French royalty from Louis XIV until the French Revolution. The Palace of Versailles is renowned for its opulent architecture, extensive gardens, and historical significance. It was the center of political power in France for over a century and is now a UNESCO World Heritage site and major tourist attraction.',
+            'example_sentence': 'The splendor of _____ with its Hall of Mirrors and elaborate gardens amazed visitors from around the world.',
+            'etymology': 'From French "Versailles," possibly from Latin "versare" meaning "to turn, till," referring to the agricultural land that was turned into the palace grounds.',
+            'etymology_source': 'Claude',
+            'memory_tip': 'Think "VERSE + AILLES" - Versailles is where royal verse and poetry were recited in magnificent halls.',
+            'phonetic_transparency': 2,
+            'frequency': 3,
+            'morphological_complexity': 2,
+            'etymology_complexity': 3
+        },
+        {
+            'word': 'versatile',
+            'pronunciation': '/ˈvɜːrsətaɪl/',
+            'definition': 'Versatile means able to adapt or be adapted to many different functions or activities; having many different skills or abilities. A versatile person can handle various tasks effectively, while a versatile tool can be used for multiple purposes. The word suggests flexibility, adaptability, and broad competence. Versatility is valued in both people and objects for its practical benefits and efficiency.',
+            'example_sentence': 'The _____ actor could perform equally well in comedy, drama, and musical theater.',
+            'etymology': 'From Latin "versatilis," from "vertere" meaning "to turn." Originally meant "able to turn," later "able to turn to various tasks."',
+            'etymology_source': 'Claude',
+            'memory_tip': 'Think "VERSE + TILE" - a versatile person can turn like a tile to face any direction or challenge.',
+            'phonetic_transparency': 3,
+            'frequency': 4,
+            'morphological_complexity': 3,
+            'etymology_complexity': 3
+        },
+        {
+            'word': 'versiera',
+            'pronunciation': '/vərˈsɪərə/',
+            'definition': 'Versiera, also known as the "Witch of Agnesi," is a mathematical curve studied in calculus and analytical geometry. Named after Maria Gaetana Agnesi, an 18th-century Italian mathematician, this cubic curve has important applications in physics and engineering. The curve resembles a bell shape and appears in various mathematical contexts, including probability distributions and signal processing. The name "versiera" comes from an Italian word meaning "to turn."',
+            'example_sentence': 'The calculus student learned to derive the equation for the _____ curve in her advanced mathematics course.',
+            'etymology': 'From Italian "versiera," from Latin "vertere" meaning "to turn." Later associated with "avversiera" (she who turns away), mistranslated as "witch."',
+            'etymology_source': 'Claude',
+            'memory_tip': 'Think "VERSE + ERA" - the versiera curve represents an era of mathematical verse and poetry in curves.',
+            'phonetic_transparency': 3,
+            'frequency': 1,
+            'morphological_complexity': 3,
+            'etymology_complexity': 4
+        },
+        {
+            'word': 'version',
+            'pronunciation': '/ˈvɜːrʒən/',
+            'definition': 'Version refers to a particular form or variant of something that differs in certain respects from other forms of the same thing. It can describe different editions of books, software releases, interpretations of events, or adaptations of stories. Versions allow for modifications, improvements, or different perspectives while maintaining a connection to the original. The word implies both similarity to and difference from other iterations.',
+            'example_sentence': 'Each witness gave a different _____ of what happened during the accident.',
+            'etymology': 'From Latin "versio," from "vertere" meaning "to turn." Originally meant "a turning," later "a translation or adaptation."',
+            'etymology_source': 'Claude',
+            'memory_tip': 'Think "VERSE + ION" - a version is like a verse with an ion of change that makes it different from the original.',
+            'phonetic_transparency': 3,
+            'frequency': 5,
+            'morphological_complexity': 2,
+            'etymology_complexity': 3
+        },
+        {
+            'word': 'vertebral',
+            'pronunciation': '/ˈvɜːrtəbrəl/',
+            'definition': 'Vertebral relates to or affecting the vertebrae, the individual bones that make up the spinal column. This anatomical term describes structures, conditions, or procedures involving the spine. Vertebral health is crucial for posture, movement, and protection of the spinal cord. Medical conditions like vertebral fractures or disc problems can significantly impact mobility and quality of life.',
+            'example_sentence': 'The MRI showed a _____ compression fracture that was causing the patient\'s back pain.',
+            'etymology': 'From "vertebra" + "-al." "Vertebra" comes from Latin "vertebra," from "vertere" meaning "to turn," referring to the joints that allow turning.',
+            'etymology_source': 'Claude',
+            'memory_tip': 'Think "VERT (vertical) + BRAL" - vertebral relates to the vertical backbone that keeps you upright.',
+            'phonetic_transparency': 3,
+            'frequency': 2,
+            'morphological_complexity': 3,
+            'etymology_complexity': 3
+        },
+        {
+            'word': 'vertebrates',
+            'pronunciation': '/ˈvɜːrtəbrəts/',
+            'definition': 'Vertebrates are animals that possess a backbone or spinal column, including mammals, birds, reptiles, amphibians, and fish. This major group of animals is characterized by having a segmented vertebral column that protects the spinal cord and provides structural support. Vertebrates also typically have a well-developed brain, paired sense organs, and an internal skeleton. This classification distinguishes them from invertebrates, which lack a backbone.',
+            'example_sentence': 'The biology class studied various _____, from tiny fish to large mammals like elephants.',
+            'etymology': 'Plural of "vertebrate," from Latin "vertebratus," from "vertebra" (joint), from "vertere" (to turn). Refers to animals with jointed backbones.',
+            'etymology_source': 'Claude',
+            'memory_tip': 'Think "VERT (vertical) + BRATES" - vertebrates are animals that celebrate having vertical backbones.',
+            'phonetic_transparency': 3,
+            'frequency': 3,
+            'morphological_complexity': 3,
+            'etymology_complexity': 3
+        },
+        {
+            'word': 'vertere',
+            'pronunciation': '/ˈvɜːrtəri/',
+            'definition': 'Vertere is a Latin verb meaning "to turn" or "to change direction." This root word appears in many English derivatives including "convert," "revert," "invert," and "versatile." In Latin grammar and classical studies, vertere represents the concept of turning or transformation. Understanding this root helps decode the meanings of numerous English words that incorporate the idea of turning or changing.',
+            'example_sentence': 'Students of Latin learned that _____ is the root of many English words related to turning and changing.',
+            'etymology': 'From Latin "vertere" meaning "to turn, rotate, change." This is the original Latin infinitive form of the verb.',
+            'etymology_source': 'Claude',
+            'memory_tip': 'Think "VERT (vertical) + ERE (era)" - vertere represents an era of vertical turning and rotation.',
+            'phonetic_transparency': 3,
+            'frequency': 1,
+            'morphological_complexity': 2,
+            'etymology_complexity': 4
+        },
+        {
+            'word': 'vertical',
+            'pronunciation': '/ˈvɜːrtɪkəl/',
+            'definition': 'Vertical means perpendicular to the horizontal plane; standing upright or extending straight up and down. In geometry and physics, vertical lines or planes are at right angles to the ground or horizon. The term can describe physical orientation, organizational structures (vertical integration), or abstract concepts (vertical thinking). Vertical positioning is fundamental to architecture, engineering, and spatial relationships.',
+            'example_sentence': 'The architect designed the building with strong _____ lines that emphasized its height.',
+            'etymology': 'From Latin "verticalis," from "vertex" meaning "top, summit," from "vertere" (to turn). Refers to the highest turning point.',
+            'etymology_source': 'Claude',
+            'memory_tip': 'Think "VERT (turn) + ICAL" - vertical is the turning point from horizontal to upright position.',
+            'phonetic_transparency': 3,
+            'frequency': 4,
+            'morphological_complexity': 3,
+            'etymology_complexity': 3
+        },
+        {
+            'word': 'vertigo',
+            'pronunciation': '/ˈvɜːrtɪɡoʊ/',
+            'definition': 'Vertigo is a sensation of spinning or dizziness, often accompanied by nausea and loss of balance. This condition can result from inner ear problems, neurological issues, or other medical causes. Vertigo makes people feel as though they or their surroundings are rotating when they\'re actually stationary. The condition can range from mild discomfort to severe disability and may require medical treatment.',
+            'example_sentence': 'The patient experienced severe _____ that made it difficult to walk or stand without falling.',
+            'etymology': 'From Latin "vertigo," from "vertere" meaning "to turn." Literally refers to the turning sensation experienced during dizziness.',
+            'etymology_source': 'Claude',
+            'memory_tip': 'Think "VERT (turn) + IGO" - vertigo makes you feel like everything is turning and you want to go (escape) the spinning.',
+            'phonetic_transparency': 3,
+            'frequency': 3,
+            'morphological_complexity': 3,
+            'etymology_complexity': 3
+        },
+        {
+            'word': 'vervain',
+            'pronunciation': '/ˈvɜːrveɪn/',
+            'definition': 'Vervain is a plant genus that includes many species of flowering herbs, some of which have been used in traditional medicine and folk magic. These plants typically have small flowers arranged in spikes and are found worldwide. Historically, vervain was considered sacred by various cultures and was used in religious ceremonies and herbal remedies. Some species are still used in modern herbal medicine for their purported calming properties.',
+            'example_sentence': 'The herbalist recommended _____ tea for its traditional use in promoting relaxation and sleep.',
+            'etymology': 'From Old French "verveine," from Latin "verbena," referring to sacred plants used in religious ceremonies. Related to "verbum" (word).',
+            'etymology_source': 'Claude',
+            'memory_tip': 'Think "VER (very) + VAIN" - vervain was considered very powerful, not vain or useless, in ancient ceremonies.',
+            'phonetic_transparency': 3,
+            'frequency': 1,
+            'morphological_complexity': 2,
+            'etymology_complexity': 3
+        },
+        {
+            'word': 'verve',
+            'pronunciation': '/vɜːrv/',
+            'definition': 'Verve refers to vigor, enthusiasm, and liveliness, especially in artistic expression or performance. It describes the spirited energy and passion that someone brings to their work or activities. Verve suggests not just energy but a particular style and flair that makes performance compelling and engaging. The word is often used to describe artistic, musical, or literary work that displays exceptional vitality and enthusiasm.',
+            'example_sentence': 'The jazz musician played with such _____ that the entire audience was captivated by his performance.',
+            'etymology': 'From French "verve," originally meaning "fantasy, caprice," possibly from Latin "verbum" (word), referring to inspired speech or expression.',
+            'etymology_source': 'Claude',
+            'memory_tip': 'Think "VER (very) + VE (vivacious)" - verve is being very vivacious and full of spirited energy.',
+            'phonetic_transparency': 4,
+            'frequency': 2,
+            'morphological_complexity': 1,
+            'etymology_complexity': 3
+        },
+        {
+            'word': 'vespertine',
+            'pronunciation': '/ˈvɛspərˌtaɪn/',
+            'definition': 'Vespertine means relating to, occurring in, or active during the evening. This term is used in biology to describe animals that are most active at dusk, and in botany for flowers that open or are most fragrant in the evening. Vespertine can also describe human activities or atmospheric conditions associated with evening time. The word evokes the transitional period between day and night.',
+            'example_sentence': 'The garden was planted with _____ flowers that released their fragrance as the sun set.',
+            'etymology': 'From Latin "vespertinus," from "vesper" meaning "evening star, evening." Related to "vespers" (evening prayers).',
+            'etymology_source': 'Claude',
+            'memory_tip': 'Think "VESPER (evening) + TINE" - vespertine is when evening time arrives and things become active.',
+            'phonetic_transparency': 2,
+            'frequency': 1,
+            'morphological_complexity': 3,
+            'etymology_complexity': 3
+        },
+        {
+            'word': 'vestibule',
+            'pronunciation': '/ˈvɛstəˌbjul/',
+            'definition': 'A vestibule is an entrance hall or lobby of a building, serving as a transitional space between the exterior and interior. Vestibules often provide a buffer zone that helps with climate control and security. In anatomy, vestibule refers to various cavity-like structures in the body, such as in the inner ear or female reproductive system. The architectural term emphasizes the function of welcoming and transition.',
+            'example_sentence': 'Guests waited in the elegant _____ before being escorted into the main reception hall.',
+            'etymology': 'From Latin "vestibulum," possibly from "vestis" (clothing) + a suffix, originally referring to a place where outer garments were left.',
+            'etymology_source': 'Claude',
+            'memory_tip': 'Think "VEST + BULE" - a vestibule is where you remove your vest (outer clothing) before entering.',
+            'phonetic_transparency': 3,
+            'frequency': 2,
+            'morphological_complexity': 3,
+            'etymology_complexity': 3
+        },
+        {
+            'word': 'vestigial',
+            'pronunciation': '/vɛˈstɪdʒiəl/',
+            'definition': 'Vestigial describes something that exists as a remnant or trace of something that was once more fully developed or important. In biology, vestigial organs are structures that have lost their original function through evolution, such as the human appendix or tailbone. The term can also apply to customs, institutions, or practices that persist despite having lost their original purpose or relevance.',
+            'example_sentence': 'The whale\'s _____ hind limb bones provide evidence of its evolutionary transition from land to sea.',
+            'etymology': 'From Latin "vestigium" meaning "footprint, trace" + "-al." Refers to traces or remnants of what once existed.',
+            'etymology_source': 'Claude',
+            'memory_tip': 'Think "VESTIGE + IAL" - vestigial things are vestiges (traces) of what they once were.',
+            'phonetic_transparency': 3,
+            'frequency': 2,
+            'morphological_complexity': 4,
+            'etymology_complexity': 3
+        },
+        {
+            'word': 'vestments',
+            'pronunciation': '/ˈvɛstmənts/',
+            'definition': 'Vestments are ceremonial robes or clothing worn by clergy during religious services, particularly in Christian churches. These garments often have symbolic meanings and are specific to different ranks, seasons, or types of services. Vestments can include items like chasubles, stoles, albs, and mitres. The tradition of special religious clothing dates back centuries and varies among different denominations and liturgical traditions.',
+            'example_sentence': 'The priest donned his elaborate _____ before conducting the Easter Sunday service.',
+            'etymology': 'From Latin "vestimentum," from "vestire" meaning "to clothe." Related to "vest" and "vestiture."',
+            'etymology_source': 'Claude',
+            'memory_tip': 'Think "VEST + MENTS" - vestments are special vests and garments worn for religious ceremonies.',
+            'phonetic_transparency': 3,
+            'frequency': 2,
+            'morphological_complexity': 3,
+            'etymology_complexity': 3
+        },
+        {
+            'word': 'vesuvian',
+            'pronunciation': '/vəˈsuviən/',
+            'definition': 'Vesuvian refers to anything related to Mount Vesuvius, the famous volcano near Naples, Italy, known for its devastating eruption in 79 AD that destroyed Pompeii and Herculaneum. The term can describe volcanic rocks, minerals, or phenomena associated with this particular volcano. Vesuvian can also refer to the mineral vesuvianite, which was first found in the volcanic rocks of Mount Vesuvius.',
+            'example_sentence': 'The geologist studied _____ rock samples to understand the volcano\'s eruptive history.',
+            'etymology': 'From "Vesuvius" + "-an." Named after Mount Vesuvius, the Italian volcano famous for its historical eruptions.',
+            'etymology_source': 'Claude',
+            'memory_tip': 'Think "VESUVIUS + AN" - vesuvian relates to Mount Vesuvius, an explosive volcano.',
+            'phonetic_transparency': 3,
+            'frequency': 1,
+            'morphological_complexity': 3,
+            'etymology_complexity': 3
+        },
+        {
+            'word': 'veteran',
+            'pronunciation': '/ˈvɛtərən/',
+            'definition': 'A veteran is someone who has long experience in a particular field or activity, especially a former member of the armed forces. Veterans have gained expertise and wisdom through extensive practice or service. In military contexts, veterans are those who have served in active duty and may have combat experience. The term can also apply to anyone with extensive experience in their profession or area of expertise.',
+            'example_sentence': 'The _____ teacher shared her decades of classroom experience with the new faculty members.',
+            'etymology': 'From Latin "veteranus," from "vetus" meaning "old." Originally referred to old, experienced soldiers.',
+            'etymology_source': 'Claude',
+            'memory_tip': 'Think "VET (animal doctor) + ERAN (era)" - a veteran has been through many eras and has veterinary-like care for their expertise.',
+            'phonetic_transparency': 3,
+            'frequency': 4,
+            'morphological_complexity': 3,
+            'etymology_complexity': 3
+        },
+        {
+            'word': 'veterinarian',
+            'pronunciation': '/ˌvɛtərəˈnɛriən/',
+            'definition': 'A veterinarian is a medical professional who diagnoses, treats, and prevents diseases and injuries in animals. Veterinarians care for pets, livestock, zoo animals, and wildlife, providing services from routine checkups to complex surgeries. They must complete extensive education in animal anatomy, physiology, pharmacology, and medical procedures. Veterinarians play crucial roles in animal welfare, public health, and food safety.',
+            'example_sentence': 'The _____ performed emergency surgery to save the injured dog\'s life.',
+            'etymology': 'From Latin "veterinarius," from "veterinae" (beasts of burden), from "vetus" (old). Originally meant "one who treats old animals."',
+            'etymology_source': 'Claude',
+            'memory_tip': 'Think "VETERAN + ARIAN" - a veterinarian is a veteran professional who advocates for animal health.',
+            'phonetic_transparency': 3,
+            'frequency': 4,
+            'morphological_complexity': 5,
+            'etymology_complexity': 3
+        },
+        {
+            'word': 'vetiver',
+            'pronunciation': '/ˈvɛtɪvər/',
+            'definition': 'Vetiver is a tropical grass known for its fragrant roots, which are used to produce essential oil for perfumes, aromatherapy, and traditional medicine. The plant is also valued for soil conservation because its deep root system prevents erosion and improves soil structure. Vetiver oil has a distinctive earthy, woody scent and is considered a base note in perfumery. The grass is cultivated in many tropical and subtropical regions.',
+            'example_sentence': 'The perfumer used _____ oil to create a sophisticated, earthy fragrance with lasting power.',
+            'etymology': 'From Tamil "vettiver," the plant\'s name in its native region. The word entered English through colonial botanical terminology.',
+            'etymology_source': 'Claude',
+            'memory_tip': 'Think "VET (veteran) + IVER" - vetiver is a veteran plant that\'s been used for centuries across many cultures.',
+            'phonetic_transparency': 3,
+            'frequency': 1,
+            'morphological_complexity': 3,
+            'etymology_complexity': 3
+        },
+        {
+            'word': 'vetoed',
+            'pronunciation': '/ˈviːtoʊd/',
+            'definition': 'Vetoed is the past tense of veto, meaning to reject or prohibit a proposal, decision, or law. In government, a veto is the power of an executive to reject legislation passed by a legislature. Someone who vetoed something used their authority to prevent it from being implemented or approved. The action represents the exercise of power to block or refuse something.',
+            'example_sentence': 'The governor _____ the controversial bill, preventing it from becoming law.',
+            'etymology': 'Past tense of "veto," from Latin "veto" meaning "I forbid," from "vetare" (to forbid). Originally used by Roman tribunes.',
+            'etymology_source': 'Claude',
+            'memory_tip': 'Think "VET (veterinarian) + OED" - like a vet might refuse to treat a dangerous animal, someone vetoed a dangerous proposal.',
+            'phonetic_transparency': 3,
+            'frequency': 3,
+            'morphological_complexity': 2,
+            'etymology_complexity': 3
+        },
+        {
+            'word': 'vexatious',
+            'pronunciation': '/vɛkˈseɪʃəs/',
+            'definition': 'Vexatious means causing or tending to cause annoyance, frustration, or worry; deliberately troublesome or harassing. In legal contexts, vexatious litigation refers to lawsuits filed primarily to harass or annoy the defendant rather than to resolve legitimate disputes. Something vexatious creates difficulty or distress through persistent irritation. The word suggests deliberate or repeated troublemaking.',
+            'example_sentence': 'The _____ neighbor repeatedly filed frivolous complaints with the homeowners association.',
+            'etymology': 'From Latin "vexatiosus," from "vexare" meaning "to shake, disturb, harass." Related to "vex" and "vexation."',
+            'etymology_source': 'Claude',
+            'memory_tip': 'Think "VEX + IOUS" - vexatious behavior is full of vexing (annoying) actions that cause irritation.',
+            'phonetic_transparency': 3,
+            'frequency': 2,
+            'morphological_complexity': 4,
+            'etymology_complexity': 3
+        },
+        {
+            'word': 'vexillologist',
+            'pronunciation': '/ˌvɛksɪˈlɒlədʒɪst/',
+            'definition': 'A vexillologist is someone who studies flags, including their history, symbolism, design, and usage. This field of study encompasses national flags, military colors, maritime signals, and other banner-like symbols. Vexillologists examine the cultural, political, and artistic significance of flags throughout history. They may work in museums, academic institutions, or as independent researchers contributing to our understanding of symbolic representation.',
+            'example_sentence': 'The _____ could identify the historical significance and proper protocol for displaying dozens of different national flags.',
+            'etymology': 'From Latin "vexillum" (flag, banner) + Greek "-logos" (study) + "-ist" (one who practices). Literally means "one who studies flags."',
+            'etymology_source': 'Claude',
+            'memory_tip': 'Think "VEX (annoy) + ILLOLOGIST" - a vexillologist never gets vexed when studying the detailed history of flags.',
+            'phonetic_transparency': 2,
+            'frequency': 1,
+            'morphological_complexity': 5,
+            'etymology_complexity': 4
+        },
+        {
+            'word': 'vial',
+            'pronunciation': '/ˈvaɪəl/',
+            'definition': 'A vial is a small container, typically made of glass, used for holding liquids, especially medicines, perfumes, or scientific samples. Vials are designed to safely store and preserve their contents, often with tight-fitting caps or stoppers. They come in various sizes and are commonly used in laboratories, pharmacies, and medical settings. The small size makes vials convenient for precise measurements and storage of valuable substances.',
+            'example_sentence': 'The chemist carefully measured the precious solution into a small glass _____.',
+            'etymology': 'From Old French "fiole," from Latin "phiala," from Greek "phialē" meaning "shallow bowl." The meaning evolved to small containers.',
+            'etymology_source': 'Claude',
+            'memory_tip': 'Think "V (very) + IAL (small)" - a vial is a very small container for liquids.',
+            'phonetic_transparency': 3,
+            'frequency': 2,
+            'morphological_complexity': 1,
+            'etymology_complexity': 3
+        },
+        {
+            'word': 'viaticum',
+            'pronunciation': '/vaɪˈætɪkəm/',
+            'definition': 'Viaticum originally referred to provisions or money for a journey, but in Christian contexts, it specifically means the Eucharist given to someone who is dying or in danger of death. This sacrament provides spiritual nourishment for the final journey from life to death. Viaticum is considered one of the last rites in Catholic tradition. The word emphasizes the concept of spiritual preparation for the ultimate journey.',
+            'example_sentence': 'The priest administered _____ to the dying patient, offering comfort and spiritual strength.',
+            'etymology': 'From Latin "viaticum," from "viaticus" meaning "of a journey," from "via" (way, road). Originally meant travel provisions.',
+            'etymology_source': 'Claude',
+            'memory_tip': 'Think "VIA (way) + TICUM" - viaticum provides the way for the spiritual journey from life to death.',
+            'phonetic_transparency': 2,
+            'frequency': 1,
+            'morphological_complexity': 3,
+            'etymology_complexity': 4
+        },
+        {
+            'word': 'vibrant',
+            'pronunciation': '/ˈvaɪbrənt/',
+            'definition': 'Vibrant means full of energy and life; bright, striking, and vivid in appearance or character. It can describe colors that are intense and eye-catching, personalities that are energetic and enthusiastic, or communities that are active and thriving. Vibrant suggests dynamic movement, vitality, and the ability to capture attention through intensity and liveliness. The word conveys both visual and emotional impact.',
+            'example_sentence': 'The festival filled the streets with _____ colors, music, and dancing that lasted until dawn.',
+            'etymology': 'From Latin "vibrans," present participle of "vibrare" meaning "to shake, vibrate." The sense of liveliness comes from energetic movement.',
+            'etymology_source': 'Claude',
+            'memory_tip': 'Think "VIBRATE + ANT" - vibrant things vibrate with energy like busy ants full of life.',
+            'phonetic_transparency': 3,
+            'frequency': 4,
+            'morphological_complexity': 2,
+            'etymology_complexity': 3
+        },
+        {
+            'word': 'vicarious',
+            'pronunciation': '/vaɪˈkɛriəs/',
+            'definition': 'Vicarious means experienced or felt by watching, hearing about, or reading about someone else rather than by doing something yourself. It describes indirect participation in experiences through another person\'s actions or feelings. Vicarious experiences allow people to enjoy adventures, emotions, or achievements without direct involvement. The concept is important in psychology, literature, and understanding how people relate to others\' experiences.',
+            'example_sentence': 'She lived _____ through her daughter\'s travels, eagerly reading every email and photo from abroad.',
+            'etymology': 'From Latin "vicarius" meaning "substitute, deputy," from "vicis" (change, turn, place). Originally meant "taking the place of another."',
+            'etymology_source': 'Claude',
+            'memory_tip': 'Think "VICE (substitute) + ARIOUS" - vicarious experiences are substitute experiences through someone else.',
+            'phonetic_transparency': 3,
+            'frequency': 3,
+            'morphological_complexity': 4,
+            'etymology_complexity': 3
+        },
+        {
+            'word': 'vice',
+            'pronunciation': '/vaɪs/',
+            'definition': 'Vice refers to immoral or evil behavior, particularly habits or practices considered morally wrong or degrading. It can also mean a mechanical device with jaws for holding objects firmly while work is done on them. In organizational contexts, vice indicates a deputy or substitute position, as in "vice president." The word suggests either moral failing or secondary status.',
+            'example_sentence': 'Gambling became his destructive _____ that eventually led to financial ruin.',
+            'etymology': 'From Latin "vitium" meaning "fault, defect, blemish." The mechanical meaning comes from "vis" (force). The "deputy" sense comes from "vice" (in place of).',
+            'etymology_source': 'Claude',
+            'memory_tip': 'Think "VICE sounds like VISE" - both grip you tightly, one morally and one mechanically.',
+            'phonetic_transparency': 4,
+            'frequency': 3,
+            'morphological_complexity': 1,
+            'etymology_complexity': 3
+        },
+        {
+            'word': 'vicenary',
+            'pronunciation': '/ˈvaɪsəˌnɛri/',
+            'definition': 'Vicenary means relating to or consisting of twenty; based on the number twenty. This term is used in mathematical, historical, or technical contexts where the number twenty has significance. Some ancient counting systems were vicenary, using twenty as a base rather than ten. The word appears in scholarly discussions about numerical systems, historical mathematics, and certain cultural practices involving groups of twenty.',
+            'example_sentence': 'The ancient civilization used a _____ counting system that grouped numbers by twenties rather than tens.',
+            'etymology': 'From Latin "vicenarius," from "viceni" meaning "twenty each," from "viginti" (twenty). Related to "vigesimal."',
+            'etymology_source': 'Claude',
+            'memory_tip': 'Think "VICE (twenty) + NARY" - vicenary relates to the number twenty, like a binary system but with twenty.',
+            'phonetic_transparency': 3,
+            'frequency': 1,
+            'morphological_complexity': 4,
+            'etymology_complexity': 4
+        },
+        {
+            'word': 'viceroy',
+            'pronunciation': '/ˈvaɪsrɔɪ/',
+            'definition': 'A viceroy is a ruler who governs a country, province, or colony as the representative of a sovereign or supreme ruler. Viceroys wielded significant power but acted on behalf of a higher authority, typically a monarch. This position was common in colonial empires, where viceroys administered distant territories. The role combined administrative, military, and diplomatic responsibilities while maintaining loyalty to the distant sovereign.',
+            'example_sentence': 'The _____ governed the vast colonial territory with near-absolute power, answering only to the distant emperor.',
+            'etymology': 'From French "vice-roi," literally "vice-king," from "vice" (in place of) + "roi" (king). Indicates a substitute or deputy king.',
+            'etymology_source': 'Claude',
+            'memory_tip': 'Think "VICE (substitute) + ROY (royal)" - a viceroy is a substitute royal ruler in distant lands.',
+            'phonetic_transparency': 3,
+            'frequency': 2,
+            'morphological_complexity': 2,
+            'etymology_complexity': 3
+        },
+        {
+            'word': 'vicinity',
+            'pronunciation': '/vəˈsɪnəti/',
+            'definition': 'Vicinity refers to the area near or surrounding a particular place; the neighborhood or immediate surroundings of a location. It indicates proximity without specifying exact distance, suggesting a general area rather than precise boundaries. Vicinity is commonly used in directions, real estate, and describing the location of events or services. The word implies accessibility and reasonable closeness.',
+            'example_sentence': 'Several restaurants and shops were located in the _____ of the hotel.',
+            'etymology': 'From Latin "vicinitas," from "vicinus" meaning "neighboring," from "vicus" (village, district). Related to "vicinal" and "neighbor."',
+            'etymology_source': 'Claude',
+            'memory_tip': 'Think "VICINITY sounds like VISIT CITY" - when you visit a city, you explore its vicinity or surrounding areas.',
+            'phonetic_transparency': 3,
+            'frequency': 3,
+            'morphological_complexity': 4,
+            'etymology_complexity': 3
+        },
+        {
+            'word': 'vicissitudes',
+            'pronunciation': '/vɪˈsɪsəˌtudz/',
+            'definition': 'Vicissitudes are the natural changes and variations that occur in life or in any process; alternating changes between opposite or contrasting conditions. The word often refers to the ups and downs of fortune, success and failure, joy and sorrow that characterize human experience. Vicissitudes suggest that change is inevitable and that both good and bad times are temporary. The term implies acceptance of life\'s inherent variability.',
+            'example_sentence': 'Despite the _____ of business cycles, the company maintained steady growth over two decades.',
+            'etymology': 'From Latin "vicissitudo," from "vicissim" meaning "in turn," from "vicis" (change, turn). Emphasizes alternating changes.',
+            'etymology_source': 'Claude',
+            'memory_tip': 'Think "VICE (change) + ATTITUDES" - vicissitudes are the changing attitudes and circumstances of life.',
+            'phonetic_transparency': 2,
+            'frequency': 2,
+            'morphological_complexity': 5,
+            'etymology_complexity': 4
+        },
+        {
+            'word': 'victimology',
+            'pronunciation': '/ˌvɪktɪˈmɒlədʒi/',
+            'definition': 'Victimology is the study of victims of crime and the psychological effects of being victimized. This field examines patterns of victimization, victim-offender relationships, and the impact of crime on individuals and communities. Victimologists study risk factors, recovery processes, and methods to prevent victimization. The discipline contributes to criminal justice policy, victim services, and understanding of criminal behavior.',
+            'example_sentence': 'The professor\'s research in _____ helped improve support services for crime victims.',
+            'etymology': 'From "victim" + Greek "-logia" (study of). "Victim" comes from Latin "victima" (sacrificial animal). Literally means "study of victims."',
+            'etymology_source': 'Claude',
+            'memory_tip': 'Think "VICTIM + OLOGY" - victimology is the -ology (study) of victims and their experiences.',
+            'phonetic_transparency': 4,
+            'frequency': 1,
+            'morphological_complexity': 5,
+            'etymology_complexity': 3
+        },
+        {
+            'word': 'victorian',
+            'pronunciation': '/vɪkˈtɔːriən/',
+            'definition': 'Victorian refers to the period of Queen Victoria\'s reign (1837-1901) or the distinctive characteristics of that era, including its social attitudes, architecture, literature, and design styles. Victorian culture emphasized moral propriety, family values, and social hierarchies. The term can describe ornate architectural styles, conservative social attitudes, or the literature and arts of the period. Victorian implies both elegance and strict social conventions.',
+            'example_sentence': 'The _____ house featured elaborate woodwork and the formal parlor typical of 19th-century middle-class homes.',
+            'etymology': 'From "Victoria" + "-an," referring to Queen Victoria of Great Britain who ruled from 1837 to 1901.',
+            'etymology_source': 'Claude',
+            'memory_tip': 'Think "VICTORY + AN" - Victorian relates to Queen Victoria\'s era of British victory and prosperity.',
+            'phonetic_transparency': 3,
+            'frequency': 3,
+            'morphological_complexity': 3,
+            'etymology_complexity': 2
+        },
+        {
+            'word': 'vide',
+            'pronunciation': '/ˈvaɪdi/',
+            'definition': 'Vide is a Latin term meaning "see" or "refer to," commonly used in academic and legal writing to direct readers to another source, page, or section for additional information. It\'s often abbreviated as "v." or appears in phrases like "vide infra" (see below) or "vide supra" (see above). The term serves as a cross-reference tool in scholarly writing and formal documents.',
+            'example_sentence': 'For more detailed analysis of this phenomenon, _____ Chapter 3, pages 45-52.',
+            'etymology': 'From Latin "vide," imperative form of "videre" meaning "to see." Used in academic Latin as a direction to look elsewhere.',
+            'etymology_source': 'Claude',
+            'memory_tip': 'Think "VIDE sounds like VIDEO" - both involve seeing, one directs you to see another source.',
+            'phonetic_transparency': 3,
+            'frequency': 1,
+            'morphological_complexity': 1,
+            'etymology_complexity': 3
+        },
+        {
+            'word': 'video',
+            'pronunciation': '/ˈvɪdioʊ/',
+            'definition': 'Video refers to the recording, reproduction, or transmission of moving visual images, typically with accompanying sound. It encompasses various technologies from analog tape to digital formats and streaming. Video can be used for entertainment, education, communication, surveillance, and artistic expression. The medium has revolutionized how information is shared and consumed, becoming integral to modern communication and media.',
+            'example_sentence': 'The marketing team created a promotional _____ to showcase the new product features.',
+            'etymology': 'From Latin "video" meaning "I see," from "videre" (to see). The term was adopted for television and recording technology.',
+            'etymology_source': 'Claude',
+            'memory_tip': 'Think "VID (see) + EO" - video lets you see moving images and sounds together.',
+            'phonetic_transparency': 4,
+            'frequency': 5,
+            'morphological_complexity': 2,
+            'etymology_complexity': 2
+        },
+        {
+            'word': 'vigil',
+            'pronunciation': '/ˈvɪdʒəl/',
+            'definition': 'A vigil is a period of staying awake during normal sleeping hours, typically for prayer, mourning, protest, or keeping watch. Religious vigils often involve prayer and meditation, while secular vigils may commemorate tragic events or support causes. Vigils can be solitary or communal activities and often carry deep emotional or spiritual significance. The practice emphasizes dedication, remembrance, and sustained attention.',
+            'example_sentence': 'The community held a candlelight _____ to honor the victims of the tragedy.',
+            'etymology': 'From Latin "vigilia" meaning "wakefulness, watch," from "vigil" (awake, watchful), from "vigere" (to be lively).',
+            'etymology_source': 'Claude',
+            'memory_tip': 'Think "VIG (very) + IL (ill)" - a vigil is when you stay very awake even if you feel ill from tiredness.',
+            'phonetic_transparency': 3,
+            'frequency': 3,
+            'morphological_complexity': 2,
+            'etymology_complexity': 3
+        },
+        {
+            'word': 'vigneron',
+            'pronunciation': '/ˌvinjəˈrɔːn/',
+            'definition': 'A vigneron is a person who cultivates grapes for winemaking; a winegrower who is involved in the entire process from growing grapes to producing wine. Unlike vineyard workers who may only harvest, vignerons take responsibility for the complete viticultural process, including planting, pruning, harvesting, and often winemaking. The term emphasizes the craftsman-like approach to wine production and the close relationship between grower and product.',
+            'example_sentence': 'The experienced _____ knew exactly when to harvest each variety of grape for optimal wine quality.',
+            'etymology': 'From French "vigneron," from "vigne" (vine), from Latin "vinea" (vineyard), from "vinum" (wine).',
+            'etymology_source': 'Claude',
+            'memory_tip': 'Think "VINE +ERON" - a vigneron is a person (like "baron") who works with vines to make wine.',
+            'phonetic_transparency': 2,
+            'frequency': 1,
+            'morphological_complexity': 3,
+            'etymology_complexity': 3
+        }
+    ]
+    
+    # Prepare CSV output
+    output_file = 'output/batch_190_processed.csv'
+    
+    # CSV headers matching the database schema
+    headers = [
+        'word', 'pronunciation', 'definition', 'example_sentence', 'etymology', 
+        'etymology_source', 'memory_tip', 'phonetic_transparency', 'frequency', 
+        'morphological_complexity', 'etymology_complexity', 'overall_difficulty_score', 
+        'difficulty_level'
+    ]
+    
+    with open(output_file, 'w', newline='', encoding='utf-8') as csvfile:
+        writer = csv.DictWriter(csvfile, fieldnames=headers)
+        writer.writeheader()
+        
+        for word_data in words_data:
+            # Calculate difficulty metrics
+            score = calculate_difficulty_score(
+                word_data['phonetic_transparency'],
+                word_data['frequency'], 
+                word_data['morphological_complexity'],
+                word_data['etymology_complexity']
+            )
+            level = determine_difficulty_level(score)
+            
+            # Add calculated fields
+            word_data['overall_difficulty_score'] = score
+            word_data['difficulty_level'] = level
+            
+            writer.writerow(word_data)
+            logging.info(f"Processed word: {word_data['word']}")
+    
+    logging.info(f"Saved {len(words_data)} words to {output_file}")
+    logging.info("Batch 190 processing completed!")
+    logging.info(f"Processed {len(words_data)} words with comprehensive Claude data")
+    logging.info(f"Output saved to: {output_file}")
+    logging.info(f"Results: {len(words_data)} successful, 0 failed")
+    
+    # Report combined word errors
+    if combined_errors:
+        logging.info(f"Combined word errors detected: {len(combined_errors)}")
+        for error in combined_errors:
+            logging.info(f"  - {error}")
+
+if __name__ == "__main__":
+    main()

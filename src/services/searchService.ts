@@ -374,7 +374,7 @@ class SearchService {
       const { data: nodeResults, error: nodeError } = await supabase
         .from('skill_tree_nodes')
         .select('*, learning_content(*)')
-        .eq('has_learning_content', true)
+        .not('learning_content_ids', 'eq', '{}')
         .or(`name.ilike.%${query}%,learning_area.ilike.%${query}%`)
         .limit(limit)
       
