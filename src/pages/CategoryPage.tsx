@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react'
-import { useParams, useNavigate, Link } from 'react-router-dom'
+import React, { useState, useEffect, useCallback } from 'react'
+import { useParams, useNavigate, useLocation, Link } from 'react-router-dom'
 import { supabase } from '../services/supabase'
 import { 
   AcademicCapIcon, 
@@ -17,19 +17,29 @@ import LearningContentModal from '../components/LearningContentModal'
 import AdaptiveAssessment from '../components/AdaptiveAssessment'
 import SEO from '../components/SEO'
 import Breadcrumb from '../components/Breadcrumb'
+import CategoryLink from '../components/CategoryLink'
 import { AssessmentSession } from '../services/adaptiveAssessmentService'
 import { createCourseStructuredData } from '../utils/structuredData'
+import { resolveCategoryPath, buildCategoryPath } from '../utils/categoryPaths'
 
 const CategoryPage: React.FC = () => {
-  const { categoryId } = useParams()
+  const params = useParams()
   const { user } = useAuth()
   const navigate = useNavigate()
+  const location = useLocation()
+  
+  // Handle path-based routes only - reconstruct from segments
+  const { segment1, segment2, segment3, segment4 } = params
+  const pathSegments = [segment1, segment2, segment3, segment4].filter(Boolean)
+  const categoryPath = pathSegments.join('/')
+  const [resolvedCategoryId, setResolvedCategoryId] = useState<string | null>(null)
   const [category, setCategory] = useState<SkillTreeNode | null>(null)
   const [subcategories, setSubcategories] = useState<SkillTreeNode[]>([])
   const [subcategoryChildren, setSubcategoryChildren] = useState<Record<string, SkillTreeNode[]>>({})
   const [ancestors, setAncestors] = useState<SkillTreeNode[]>([])
   const [loading, setLoading] = useState(true)
   const [isStarred, setIsStarred] = useState(false)
+  const [starredSubcategories, setStarredSubcategories] = useState<Set<string>>(new Set())
   const [stats, setStats] = useState({
     totalSubcategories: 0,
     totalModules: 0,
@@ -40,12 +50,29 @@ const CategoryPage: React.FC = () => {
   const [showLearningModal, setShowLearningModal] = useState(false)
   const [showAdaptiveAssessment, setShowAdaptiveAssessment] = useState(false)
 
+  // Resolve category path to ID
   useEffect(() => {
-    if (categoryId) {
+    const resolvePath = async () => {
+      if (categoryPath) {
+        const resolvedId = await resolveCategoryPath(location.pathname)
+        if (resolvedId) {
+          setResolvedCategoryId(resolvedId)
+        } else {
+          // Category not found
+          setLoading(false)
+        }
+      }
+    }
+    
+    resolvePath()
+  }, [categoryPath, location.pathname])
+
+  useEffect(() => {
+    if (resolvedCategoryId) {
       fetchCategoryData()
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [categoryId, user])
+  }, [resolvedCategoryId, user])
 
   const fetchAncestors = async (nodeId: string): Promise<SkillTreeNode[]> => {
     const ancestors: SkillTreeNode[] = []
@@ -76,25 +103,27 @@ const CategoryPage: React.FC = () => {
   }
 
   const fetchCategoryData = async () => {
+    if (!resolvedCategoryId) return
+    
     try {
       // Fetch category details and all descendants in parallel
       const [categoryResult, subcategoriesResult, allDescendantsResult] = await Promise.all([
         supabase
           .from('skill_tree_nodes')
           .select('*')
-          .eq('id', categoryId)
+          .eq('id', resolvedCategoryId)
           .single(),
         supabase
           .from('skill_tree_nodes')
           .select('*')
-          .eq('parent_id', categoryId)
+          .eq('parent_id', resolvedCategoryId)
           .order('display_order', { nullsFirst: false })
           .order('name'),
         // For now, just get direct descendants for basic stats
         supabase
           .from('skill_tree_nodes')
           .select('id, learning_content_ids')
-          .eq('parent_id', categoryId)
+          .eq('parent_id', resolvedCategoryId)
       ])
 
       if (categoryResult.error) throw categoryResult.error
@@ -151,7 +180,7 @@ const CategoryPage: React.FC = () => {
             .select('id')
             .eq('user_id', user.id)
             .eq('item_type', 'skill_node')
-            .eq('item_id', categoryId)
+            .eq('item_id', resolvedCategoryId)
             .limit(1)
 
           if (starError) {
@@ -188,7 +217,8 @@ const CategoryPage: React.FC = () => {
 
   const toggleStar = async () => {
     if (!user) {
-      navigate('/login')
+      const redirectTo = location.pathname + location.search
+      navigate(`/login?redirect=${encodeURIComponent(redirectTo)}`)
       return
     }
 
@@ -200,7 +230,7 @@ const CategoryPage: React.FC = () => {
           .delete()
           .eq('user_id', user.id)
           .eq('item_type', 'skill_node')
-          .eq('item_id', categoryId)
+          .eq('item_id', resolvedCategoryId)
         success = !error
       } else {
         const { error } = await supabase
@@ -208,7 +238,7 @@ const CategoryPage: React.FC = () => {
           .insert({
             user_id: user.id,
             item_type: 'skill_node',
-            item_id: categoryId
+            item_id: resolvedCategoryId
           })
         success = !error
       }
@@ -223,14 +253,91 @@ const CategoryPage: React.FC = () => {
     }
   }
 
-  const handleNodeClick = (node: SkillTreeNode) => {
+  const fetchStarredSubcategories = useCallback(async () => {
+    if (!user || subcategories.length === 0) return
+
+    try {
+      const { data: starData, error } = await supabase
+        .from('starred_items')
+        .select('item_id')
+        .eq('user_id', user.id)
+        .eq('item_type', 'skill_node')
+        .in('item_id', subcategories.map(sub => sub.id))
+
+      if (error) {
+        console.warn('Could not fetch starred subcategories:', error)
+        return
+      }
+
+      const starredIds = new Set(starData?.map(item => item.item_id) || [])
+      setStarredSubcategories(starredIds)
+    } catch (error) {
+      console.warn('Exception fetching starred subcategories:', error)
+    }
+  }, [user, subcategories])
+
+  const toggleSubcategoryStar = async (subcategoryId: string) => {
+    if (!user) {
+      const redirectTo = location.pathname + location.search
+      navigate(`/login?redirect=${encodeURIComponent(redirectTo)}`)
+      return
+    }
+
+    try {
+      const isCurrentlyStarred = starredSubcategories.has(subcategoryId)
+      let success = false
+
+      if (isCurrentlyStarred) {
+        const { error } = await supabase
+          .from('starred_items')
+          .delete()
+          .eq('user_id', user.id)
+          .eq('item_type', 'skill_node')
+          .eq('item_id', subcategoryId)
+        success = !error
+      } else {
+        const { error } = await supabase
+          .from('starred_items')
+          .insert({
+            user_id: user.id,
+            item_type: 'skill_node',
+            item_id: subcategoryId
+          })
+        success = !error
+      }
+
+      if (success) {
+        const newStarredSubcategories = new Set(starredSubcategories)
+        if (isCurrentlyStarred) {
+          newStarredSubcategories.delete(subcategoryId)
+        } else {
+          newStarredSubcategories.add(subcategoryId)
+        }
+        setStarredSubcategories(newStarredSubcategories)
+      }
+    } catch (error) {
+      console.error('Error toggling subcategory star:', error)
+    }
+  }
+
+  // Fetch starred subcategories when subcategories or user changes
+  useEffect(() => {
+    fetchStarredSubcategories()
+  }, [fetchStarredSubcategories])
+
+  const handleNodeClick = async (node: SkillTreeNode) => {
     if (node.learning_content_ids && node.learning_content_ids.length > 0) {
       // This node has learning content - prioritize showing the learning modal
       setSelectedNode(node)
       setShowLearningModal(true)
     } else {
-      // This is a category node with no learning content - navigate to category page
-      navigate(`/category/${node.id}`)
+      // This is a category node with no learning content - navigate using hierarchical path
+      try {
+        const categoryPath = await buildCategoryPath(node.id)
+        navigate(categoryPath)
+      } catch (error) {
+        console.warn('Failed to navigate to category:', error)
+      }
     }
   }
 
@@ -259,13 +366,15 @@ const CategoryPage: React.FC = () => {
   }
 
   // Create breadcrumb data from actual category hierarchy
+  // Note: We'll build these URLs properly using CategoryLink within Breadcrumb component
   const breadcrumbs = [
     { name: 'Home', url: '/' },
     ...ancestors.map(ancestor => ({
       name: ancestor.name,
-      url: `/category/${ancestor.id}`
+      url: ``, // Will be handled by Breadcrumb component using CategoryLink
+      categoryId: ancestor.id
     })),
-    { name: category.name, url: `/category/${category.id}`, current: true }
+    { name: category.name, url: location.pathname, current: true }
   ]
 
   // Generate SEO keywords based on category
@@ -284,7 +393,7 @@ const CategoryPage: React.FC = () => {
         title={`${category.name} - Interactive Learning Course`}
         description={category.description || `Master ${category.name} with interactive lessons, practice questions, and adaptive assessments. Learn at your own pace with gamified skill trees.`}
         keywords={keywords}
-        url={`/category/${category.id}`}
+        url={location.pathname}
         type="course"
         structuredData={createCourseStructuredData(category)}
       />
@@ -313,17 +422,34 @@ const CategoryPage: React.FC = () => {
             </div>
           </div>
           
-          <button
-            onClick={toggleStar}
-            className="p-2 hover:bg-neutral-100 dark:hover:bg-neutral-700 rounded-lg transition-colors"
-            title={isStarred ? 'Unstar' : 'Star'}
-          >
-            {isStarred ? (
-              <StarIconSolid className="h-6 w-6 text-yellow-500" />
-            ) : (
-              <StarIcon className="h-6 w-6 text-neutral-400" />
+          <div className="flex items-center gap-2">
+            {/* Start Learning Button */}
+            {category.learning_content_ids && category.learning_content_ids.length > 0 && (
+              <button
+                onClick={() => {
+                  setSelectedNode(category)
+                  setShowLearningModal(true)
+                }}
+                className="inline-flex items-center gap-2 px-4 py-2 bg-primary-600 hover:bg-primary-700 text-white rounded-lg transition-colors font-medium"
+                title="Start learning this content"
+              >
+                <BookOpenIcon className="h-5 w-5" />
+                Start Learning
+              </button>
             )}
-          </button>
+            
+            <button
+              onClick={toggleStar}
+              className="p-2 hover:bg-neutral-100 dark:hover:bg-neutral-700 rounded-lg transition-colors"
+              title={isStarred ? 'Unstar' : 'Star'}
+            >
+              {isStarred ? (
+                <StarIconSolid className="h-6 w-6 text-yellow-500" />
+              ) : (
+                <StarIcon className="h-6 w-6 text-neutral-400" />
+              )}
+            </button>
+          </div>
         </div>
 
         {/* Stats */}
@@ -369,6 +495,34 @@ const CategoryPage: React.FC = () => {
           </div>
         </div>
       </div>
+
+      {/* Learning Flow Section */}
+      {stats.withContent > 0 && (
+        <div className="bg-white dark:bg-neutral-800 rounded-xl shadow-lg p-6 mb-6">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-4">
+              <div className="p-3 bg-primary-100 dark:bg-primary-900/30 rounded-lg">
+                <BookOpenIcon className="h-8 w-8 text-primary-600 dark:text-primary-400" />
+              </div>
+              <div>
+                <h2 className="text-xl font-bold text-neutral-900 dark:text-white">
+                  Study Content First
+                </h2>
+                <p className="text-neutral-600 dark:text-neutral-400">
+                  Learn {category.name} through interactive content before testing your knowledge
+                </p>
+              </div>
+            </div>
+            <Link
+              to={`/learning/${resolvedCategoryId}`}
+              className="px-6 py-3 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition-colors flex items-center gap-2 font-medium"
+            >
+              <BookOpenIcon className="h-5 w-5" />
+              Start Learning Flow
+            </Link>
+          </div>
+        </div>
+      )}
 
       {/* Adaptive Assessment */}
       <div className="bg-white dark:bg-neutral-800 rounded-xl shadow-lg p-6 mb-6">
@@ -438,12 +592,26 @@ const CategoryPage: React.FC = () => {
               className="bg-white dark:bg-neutral-800 rounded-lg shadow hover:shadow-lg transition-all p-4"
             >
               <div className="flex items-start justify-between mb-3">
-                <Link
-                  to={`/category/${subcat.id}`}
-                  className="font-semibold text-neutral-900 dark:text-white hover:text-primary-600 transition-colors"
+                <CategoryLink
+                  categoryId={subcat.id}
+                  className="font-semibold text-neutral-900 dark:text-white hover:text-primary-600 transition-colors flex-1"
                 >
                   {subcat.name}
-                </Link>
+                </CategoryLink>
+                <button
+                  onClick={(e) => {
+                    e.preventDefault()
+                    toggleSubcategoryStar(subcat.id)
+                  }}
+                  className="p-1 hover:bg-neutral-100 dark:hover:bg-neutral-700 rounded transition-colors ml-2 flex-shrink-0"
+                  title={starredSubcategories.has(subcat.id) ? 'Unstar' : 'Star'}
+                >
+                  {starredSubcategories.has(subcat.id) ? (
+                    <StarIconSolid className="h-4 w-4 text-yellow-500" />
+                  ) : (
+                    <StarIcon className="h-4 w-4 text-neutral-400 hover:text-yellow-500" />
+                  )}
+                </button>
               </div>
               
               {subcat.description && (
@@ -471,13 +639,13 @@ const CategoryPage: React.FC = () => {
                     
                     if (isCategory) {
                       return (
-                        <Link
+                        <CategoryLink
                           key={child.id}
-                          to={`/category/${child.id}`}
+                          categoryId={child.id}
                           className="flex items-center gap-2 text-sm text-neutral-600 dark:text-neutral-400 hover:text-primary-600 py-1 px-2 rounded hover:bg-neutral-50 dark:hover:bg-neutral-700 transition-colors"
                         >
                           {content}
-                        </Link>
+                        </CategoryLink>
                       )
                     } else {
                       return (
@@ -492,12 +660,12 @@ const CategoryPage: React.FC = () => {
                     }
                   })}
                   {children.length === 5 && (
-                    <Link
-                      to={`/category/${subcat.id}`}
+                    <CategoryLink
+                      categoryId={subcat.id}
                       className="text-xs text-primary-600 dark:text-primary-400 hover:underline py-1 px-2 block"
                     >
                       View all...
-                    </Link>
+                    </CategoryLink>
                   )}
                 </div>
               )}
@@ -531,7 +699,7 @@ const CategoryPage: React.FC = () => {
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
           <div className="bg-white dark:bg-neutral-900 rounded-xl shadow-xl max-w-6xl w-full max-h-[90vh] overflow-y-auto">
             <AdaptiveAssessment
-              categoryId={categoryId!}
+              categoryId={resolvedCategoryId!}
               categoryName={category.name}
               sessionType="assessment"
               onComplete={(session: AssessmentSession) => {
@@ -541,7 +709,7 @@ const CategoryPage: React.FC = () => {
                     .from('user_progress')
                     .upsert({
                       user_id: user.id,
-                      skill_node_id: categoryId,
+                      skill_node_id: resolvedCategoryId,
                       status: 'completed',
                       rating: session.total_points,
                       last_accessed: new Date().toISOString()

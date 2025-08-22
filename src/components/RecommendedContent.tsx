@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useAuth } from '../contexts/AuthContext'
+import CategoryLink from './CategoryLink'
 import { recommendationService, RecommendationScore } from '../services/recommendationService'
 import { 
   SparklesIcon, 
@@ -104,7 +105,8 @@ const RecommendedContent: React.FC = () => {
   }
 
   const handleNodeClick = (nodeId: string) => {
-    navigate(`/category/${nodeId}`)
+    // Navigation will be handled by CategoryLink component
+    // This function can be removed or used for analytics
   }
 
   if (!user) {
@@ -230,10 +232,10 @@ const RecommendedContent: React.FC = () => {
       ) : (
         <div className="space-y-3">
           {recommendations.slice(0, 6).map((rec) => (
-            <div
+            <CategoryLink
               key={rec.node.id}
-              onClick={() => handleNodeClick(rec.node.id)}
-              className="group cursor-pointer bg-neutral-50 dark:bg-neutral-900 rounded-lg p-4 hover:shadow-md transition-all"
+              categoryId={rec.node.id}
+              className="group cursor-pointer bg-neutral-50 dark:bg-neutral-900 rounded-lg p-4 hover:shadow-md transition-all block"
             >
               <div className="flex items-start justify-between">
                 <div className="flex-1">
@@ -284,7 +286,7 @@ const RecommendedContent: React.FC = () => {
                 
                 <ArrowRightIcon className="h-5 w-5 text-neutral-400 group-hover:text-primary-600 transition-colors ml-4 mt-4" />
               </div>
-            </div>
+            </CategoryLink>
           ))}
         </div>
       )}

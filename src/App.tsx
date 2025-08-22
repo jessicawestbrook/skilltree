@@ -55,7 +55,6 @@ function App() {
                 <Route path="/verify-email" element={<EmailVerificationPage />} />
                 <Route path="/" element={<Layout />}>
               <Route index element={<HomePage />} />
-              <Route path="category/:categoryId" element={<CategoryPage />} />
               <Route
                 path="learning/:contentId?"
                 element={
@@ -135,7 +134,9 @@ function App() {
                   </AdminRoute>
                 }
               />
-                </Route>
+              {/* Hierarchical category paths */}
+              <Route path=":segment1/:segment2?/:segment3?/:segment4?" element={<CategoryPage />} />
+              </Route>
               </Routes>
             </Router>
           </SpellingBeeProvider>

@@ -2,12 +2,14 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import { ChevronRightIcon } from '@heroicons/react/24/outline'
 import { Helmet } from 'react-helmet-async'
+import CategoryLink from './CategoryLink'
 import { createBreadcrumbStructuredData } from '../utils/structuredData'
 
 interface BreadcrumbItem {
   name: string
   url: string
   current?: boolean
+  categoryId?: string // Optional category ID for hierarchical navigation
 }
 
 interface BreadcrumbProps {
@@ -41,12 +43,21 @@ const Breadcrumb: React.FC<BreadcrumbProps> = ({ items, className = '' }) => {
                   {item.name}
                 </span>
               ) : (
-                <Link
-                  to={item.url}
-                  className="text-primary-600 hover:text-primary-700 dark:text-primary-400 dark:hover:text-primary-300 transition-colors"
-                >
-                  {item.name}
-                </Link>
+                item.categoryId ? (
+                  <CategoryLink
+                    categoryId={item.categoryId}
+                    className="text-primary-600 hover:text-primary-700 dark:text-primary-400 dark:hover:text-primary-300 transition-colors"
+                  >
+                    {item.name}
+                  </CategoryLink>
+                ) : (
+                  <Link
+                    to={item.url}
+                    className="text-primary-600 hover:text-primary-700 dark:text-primary-400 dark:hover:text-primary-300 transition-colors"
+                  >
+                    {item.name}
+                  </Link>
+                )
               )}
             </li>
           ))}

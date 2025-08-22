@@ -395,7 +395,7 @@ const SpellingBeePage: React.FC = () => {
               <div className="bg-gold-50 dark:bg-gold-900/20 rounded p-1.5 sm:p-3">
                 <h3 className="font-semibold text-xs mb-0.5 sm:mb-1">Example</h3>
                 <p className="text-xs text-neutral-700 dark:text-neutral-300 italic">
-                  "{currentWord.example_sentence}"
+                  "{replaceWordAndVariationsWithBlanks(currentWord.example_sentence, currentWord.word)}"
                 </p>
               </div>
             </div>

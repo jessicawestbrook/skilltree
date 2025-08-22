@@ -9,7 +9,8 @@ import {
   XCircleIcon,
   AcademicCapIcon,
   ClockIcon,
-  FlagIcon
+  FlagIcon,
+  SpeakerWaveIcon
 } from '@heroicons/react/24/outline'
 import FlagContentModal from '../components/FlagContentModal'
 import StudyListActions from '../components/StudyListActions'
@@ -61,6 +62,44 @@ const VocabularyTrainerPage: React.FC = () => {
   const [sessionStats, setSessionStats] = useState({ correct: 0, total: 0 })
   const [showFlagModal, setShowFlagModal] = useState(false)
 
+  // Session storage keys
+  const VOCAB_SESSION_KEY = 'vocabularyTrainerSession'
+
+  // Save session state
+  const saveSessionState = useCallback((question: VocabularyQuestion, index: number, selectedAnswer: string, showResult: boolean, isCorrect: boolean) => {
+    const sessionState = {
+      currentQuestion: question,
+      currentIndex: index,
+      selectedAnswer,
+      showResult,
+      isCorrect,
+      timestamp: Date.now()
+    }
+    sessionStorage.setItem(VOCAB_SESSION_KEY, JSON.stringify(sessionState))
+  }, [VOCAB_SESSION_KEY])
+
+  // Load session state
+  const loadSessionState = useCallback(() => {
+    try {
+      const saved = sessionStorage.getItem(VOCAB_SESSION_KEY)
+      if (saved) {
+        const sessionState = JSON.parse(saved)
+        // Only restore if saved within last 30 minutes
+        if (Date.now() - sessionState.timestamp < 30 * 60 * 1000) {
+          return sessionState
+        }
+      }
+    } catch (error) {
+      console.error('Error loading session state:', error)
+    }
+    return null
+  }, [VOCAB_SESSION_KEY])
+
+  // Clear session state
+  const clearSessionState = useCallback(() => {
+    sessionStorage.removeItem(VOCAB_SESSION_KEY)
+  }, [VOCAB_SESSION_KEY])
+
   const fetchWords = useCallback(async () => {
     try {
       let query = supabase
@@ -85,8 +124,28 @@ const VocabularyTrainerPage: React.FC = () => {
         // Shuffle words for variety
         const shuffled = [...data].sort(() => Math.random() - 0.5)
         setWordBank(shuffled)
-        generateQuestion(shuffled, 0)
-        setCurrentIndex(0)
+        
+        // Check for saved session state first
+        const savedSession = loadSessionState()
+        if (savedSession && savedSession.currentQuestion) {
+          // Restore saved session
+          setCurrentQuestion(savedSession.currentQuestion)
+          setCurrentIndex(savedSession.currentIndex)
+          setSelectedAnswer(savedSession.selectedAnswer)
+          setShowResult(savedSession.showResult)
+          setIsCorrect(savedSession.isCorrect)
+          
+          // Auto-play audio if restoring a result state
+          if (savedSession.showResult) {
+            setTimeout(() => {
+              speakWord(savedSession.currentQuestion.word.word)
+            }, 1000) // Longer delay for page restoration
+          }
+        } else {
+          // Start fresh
+          generateQuestion(shuffled, 0)
+          setCurrentIndex(0)
+        }
       }
     } catch (error) {
       console.error('Error fetching words:', error)
@@ -95,23 +154,89 @@ const VocabularyTrainerPage: React.FC = () => {
     }
   }, [selectedDifficulties])
 
+  // Helper function to extract primary language origin from etymology
+  const getLanguageOrigin = (etymology: string | undefined): string => {
+    if (!etymology) return 'unknown'
+    
+    const lowerEtymology = etymology.toLowerCase()
+    
+    // Common language patterns in etymology
+    const languagePatterns = [
+      { pattern: /\b(japanese|japan)\b/, origin: 'japanese' },
+      { pattern: /\b(chinese|china|mandarin|cantonese)\b/, origin: 'chinese' },
+      { pattern: /\b(french|france|old french|middle french)\b/, origin: 'french' },
+      { pattern: /\b(german|germanic|old german|middle german)\b/, origin: 'german' },
+      { pattern: /\b(spanish|spain|castilian)\b/, origin: 'spanish' },
+      { pattern: /\b(italian|italy)\b/, origin: 'italian' },
+      { pattern: /\b(greek|ancient greek|modern greek)\b/, origin: 'greek' },
+      { pattern: /\b(latin|roman)\b/, origin: 'latin' },
+      { pattern: /\b(arabic|arab)\b/, origin: 'arabic' },
+      { pattern: /\b(sanskrit|hindi|urdu|persian)\b/, origin: 'indo-iranian' },
+      { pattern: /\b(dutch|netherlands|flemish)\b/, origin: 'dutch' },
+      { pattern: /\b(russian|slavic|polish|czech)\b/, origin: 'slavic' },
+      { pattern: /\b(portuguese|portugal)\b/, origin: 'portuguese' },
+      { pattern: /\b(hebrew|yiddish)\b/, origin: 'hebrew' },
+      { pattern: /\b(turkish|ottoman)\b/, origin: 'turkish' },
+      { pattern: /\b(english|anglo|old english|middle english)\b/, origin: 'english' },
+      { pattern: /\b(norse|norwegian|swedish|danish|iceland)\b/, origin: 'norse' },
+    ]
+    
+    for (const { pattern, origin } of languagePatterns) {
+      if (pattern.test(lowerEtymology)) {
+        return origin
+      }
+    }
+    
+    return 'other'
+  }
+
   const generateQuestion = (words: SpellingWord[], index: number) => {
     if (!words || words.length === 0) return
 
     const targetWord = words[index]
+    const targetOrigin = getLanguageOrigin(targetWord.etymology)
     
-    // Generate plausible alternatives from same difficulty level
+    // First priority: words from same etymology/origin
+    const sameOrigin = words.filter(w => 
+      w.id !== targetWord.id && 
+      getLanguageOrigin(w.etymology) === targetOrigin &&
+      targetOrigin !== 'unknown' && targetOrigin !== 'other'
+    )
+    
+    // Second priority: words from same difficulty level
     const sameLevel = words.filter(w => 
       w.id !== targetWord.id && 
       w.vocabulary_difficulty_name === targetWord.vocabulary_difficulty_name
     )
     
-    // If not enough same level words, use all other words
-    const alternatives = sameLevel.length >= 3 ? sameLevel : words.filter(w => w.id !== targetWord.id)
+    // Third priority: all other words
+    const allOthers = words.filter(w => w.id !== targetWord.id)
     
-    // Randomly select 3 alternatives
-    const shuffledAlternatives = [...alternatives].sort(() => Math.random() - 0.5)
-    const wrongOptions = shuffledAlternatives.slice(0, 3).map(w => w.word)
+    let alternatives: SpellingWord[] = []
+    
+    // Try to get 3 alternatives from same origin first
+    if (sameOrigin.length >= 3) {
+      alternatives = [...sameOrigin].sort(() => Math.random() - 0.5).slice(0, 3)
+    } 
+    // If not enough same origin, mix same origin with same difficulty
+    else if (sameOrigin.length > 0) {
+      const remainingNeeded = 3 - sameOrigin.length
+      const additionalOptions = sameLevel
+        .filter(w => !sameOrigin.find(sw => sw.id === w.id))
+        .sort(() => Math.random() - 0.5)
+        .slice(0, remainingNeeded)
+      alternatives = [...sameOrigin, ...additionalOptions]
+    }
+    // Fall back to same difficulty level
+    else if (sameLevel.length >= 3) {
+      alternatives = [...sameLevel].sort(() => Math.random() - 0.5).slice(0, 3)
+    }
+    // Final fallback to any words
+    else {
+      alternatives = [...allOthers].sort(() => Math.random() - 0.5).slice(0, 3)
+    }
+    
+    const wrongOptions = alternatives.map(w => w.word)
     
     // Create options array with correct answer
     const allOptions = [targetWord.word, ...wrongOptions]
@@ -171,6 +296,10 @@ const VocabularyTrainerPage: React.FC = () => {
   const handleAnswerSelect = (answer: string) => {
     if (showResult) return
     setSelectedAnswer(answer)
+    // Save session state when answer is selected
+    if (currentQuestion) {
+      saveSessionState(currentQuestion, currentIndex, answer, showResult, isCorrect)
+    }
   }
 
   const handleSubmit = async () => {
@@ -179,6 +308,14 @@ const VocabularyTrainerPage: React.FC = () => {
     const correct = selectedAnswer === currentQuestion.correctAnswer
     setIsCorrect(correct)
     setShowResult(true)
+
+    // Save session state when result is shown
+    saveSessionState(currentQuestion, currentIndex, selectedAnswer, true, correct)
+
+    // Auto-play audio for the correct word when result is shown
+    setTimeout(() => {
+      speakWord(currentQuestion.word.word)
+    }, 500) // Small delay to let UI update first
 
     // Update session stats
     setSessionStats(prev => ({
@@ -220,11 +357,28 @@ const VocabularyTrainerPage: React.FC = () => {
   }
 
   const nextQuestion = () => {
+    // Clear session state when moving to next question
+    clearSessionState()
+    
     const nextIndex = (currentIndex + 1) % wordBank.length
     setCurrentIndex(nextIndex)
     generateQuestion(wordBank, nextIndex)
     setSelectedAnswer('')
     setShowResult(false)
+  }
+
+  const speakWord = (word: string) => {
+    if ('speechSynthesis' in window) {
+      // Cancel any previous speech
+      window.speechSynthesis.cancel()
+      
+      const utterance = new SpeechSynthesisUtterance(word)
+      utterance.rate = 0.8
+      utterance.volume = 0.8
+      utterance.pitch = 1.0
+      
+      window.speechSynthesis.speak(utterance)
+    }
   }
 
   if (loading) {
@@ -385,7 +539,7 @@ const VocabularyTrainerPage: React.FC = () => {
               <div className="bg-gold-50 dark:bg-gold-900/20 rounded-lg p-2 text-center border border-gold-200 dark:border-gold-800">
                 <h3 className="font-semibold text-sm mb-2 text-gold-700 dark:text-gold-400">Example</h3>
                 <p className="text-sm text-neutral-700 dark:text-neutral-300 italic">
-                  "{currentQuestion.word.example_sentence}"
+                  "{replaceWordAndVariationsWithBlanks(currentQuestion.word.example_sentence, currentQuestion.word.word)}"
                 </p>
               </div>
             </div>
@@ -448,22 +602,53 @@ const VocabularyTrainerPage: React.FC = () => {
                 : 'bg-red-50 dark:bg-red-900/20'
             }`}>
               {isCorrect ? (
-                <div className="flex items-center justify-center gap-2">
-                  <CheckCircleIcon className="h-5 w-5 text-green-500" />
-                  <span className="text-sm font-bold text-green-700 dark:text-green-400">
-                    Correct! "{currentQuestion.word.word}"
-                  </span>
+                <div className="flex flex-col items-center gap-3">
+                  <div className="flex items-center gap-2">
+                    <CheckCircleIcon className="h-5 w-5 text-green-500" />
+                    <span className="text-sm font-bold text-green-700 dark:text-green-400">
+                      Correct!
+                    </span>
+                  </div>
+                  <div className="text-center">
+                    <p className="text-sm text-neutral-600 dark:text-neutral-400 mb-2">
+                      {replaceWordAndVariationsWithBlanks(currentQuestion.word.definition, currentQuestion.word.word)}
+                    </p>
+                  </div>
+                  <div className="flex items-center justify-center gap-3">
+                    <span className="text-5xl font-bold text-green-700 dark:text-green-400">
+                      {currentQuestion.word.word}
+                    </span>
+                    <button
+                      onClick={() => speakWord(currentQuestion.word.word)}
+                      className="p-1 hover:bg-green-100 dark:hover:bg-green-800/20 rounded-md transition-colors"
+                      title="Hear pronunciation"
+                    >
+                      <SpeakerWaveIcon className="h-4 w-4 text-green-600 dark:text-green-400" />
+                    </button>
+                  </div>
                 </div>
               ) : (
                 <div className="text-center">
-                  <div className="flex items-center justify-center gap-2 mb-1">
+                  <div className="flex items-center justify-center gap-2 mb-2">
                     <XCircleIcon className="h-5 w-5 text-red-500" />
                     <span className="text-sm font-bold text-red-700 dark:text-red-400">Incorrect</span>
                   </div>
-                  <div className="text-xs">
-                    <span className="text-red-600 dark:text-red-400">{selectedAnswer}</span>
-                    <span className="mx-2">→</span>
-                    <span className="font-mono text-green-600 dark:text-green-400 font-bold">{currentQuestion.word.word}</span>
+                  <div className="text-center mb-2">
+                    <p className="text-sm text-neutral-600 dark:text-neutral-400">
+                      {replaceWordAndVariationsWithBlanks(currentQuestion.word.definition, currentQuestion.word.word)}
+                    </p>
+                  </div>
+                  <div className="flex items-center justify-center gap-3">
+                    <div className="text-xl text-red-600 dark:text-red-400">{selectedAnswer}</div>
+                    <div className="text-lg text-neutral-500">→</div>
+                    <div className="text-3xl font-mono text-green-600 dark:text-green-400 font-bold">{currentQuestion.word.word}</div>
+                    <button
+                      onClick={() => speakWord(currentQuestion.word.word)}
+                      className="p-1 hover:bg-green-100 dark:hover:bg-green-800/20 rounded-md transition-colors"
+                      title="Hear pronunciation"
+                    >
+                      <SpeakerWaveIcon className="h-4 w-4 text-green-600 dark:text-green-400" />
+                    </button>
                   </div>
                 </div>
               )}
@@ -497,7 +682,7 @@ const VocabularyTrainerPage: React.FC = () => {
 
             <button
               onClick={nextQuestion}
-              className="w-full py-1.5 bg-primary-600 text-white rounded-lg hover:bg-primary-700 active:bg-primary-800 transition-colors text-sm"
+              className="w-full py-2 bg-primary-700 text-white rounded-lg hover:bg-primary-800 active:bg-primary-900 transition-colors text-sm font-semibold shadow-md"
             >
               Next Word →
             </button>

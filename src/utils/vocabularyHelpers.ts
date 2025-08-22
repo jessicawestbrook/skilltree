@@ -38,16 +38,27 @@ export const replaceWordAndVariationsWithBlanks = (definition: string, word: str
     word.toLowerCase(),
     word.toUpperCase(), 
     word.charAt(0).toUpperCase() + word.slice(1).toLowerCase(),
-    // Add plural form if word doesn't end in s
+    // Plural forms
     word.endsWith('s') ? word : word + 's',
     word.endsWith('s') ? word : word + 'es',
-    // Add -ed form for verbs
+    word.endsWith('y') && !['a','e','i','o','u'].includes(word.charAt(word.length - 2)) ? word.slice(0, -1) + 'ies' : '',
+    // Past tense and participle forms
     word.endsWith('e') ? word + 'd' : word + 'ed',
-    // Add -ing form for verbs  
-    word.endsWith('e') ? word.slice(0, -1) + 'ing' : word + 'ing',
-    // Add -ly form for adverbs
+    word.endsWith('y') && !['a','e','i','o','u'].includes(word.charAt(word.length - 2)) ? word.slice(0, -1) + 'ied' : '',
+    // Present participle forms
+    word.endsWith('e') && word.length > 3 ? word.slice(0, -1) + 'ing' : word + 'ing',
+    // Adverb forms
     word.endsWith('e') ? word.slice(0, -1) + 'ly' : word + 'ly',
-    word + 'ly'
+    word + 'ly',
+    word.endsWith('y') && !['a','e','i','o','u'].includes(word.charAt(word.length - 2)) ? word.slice(0, -1) + 'ily' : '',
+    // Comparative and superlative forms
+    word.endsWith('e') ? word + 'r' : word + 'er',
+    word.endsWith('e') ? word + 'st' : word + 'est',
+    word.endsWith('y') && !['a','e','i','o','u'].includes(word.charAt(word.length - 2)) ? word.slice(0, -1) + 'ier' : '',
+    word.endsWith('y') && !['a','e','i','o','u'].includes(word.charAt(word.length - 2)) ? word.slice(0, -1) + 'iest' : '',
+    // Third person singular
+    word.endsWith('s') || word.endsWith('sh') || word.endsWith('ch') || word.endsWith('x') || word.endsWith('z') ? word + 'es' : word + 's',
+    word.endsWith('y') && !['a','e','i','o','u'].includes(word.charAt(word.length - 2)) ? word.slice(0, -1) + 'ies' : ''
   ]
 
   // Remove duplicates and filter out empty strings

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { supabase } from '../services/supabase'
 import { SkillTreeNode } from '../types/database.types'
+import CategoryLink from './CategoryLink'
 import { ChevronRightIcon } from '@heroicons/react/24/outline'
 
 interface CategoryChildren {
@@ -148,8 +149,8 @@ const MegaMenu: React.FC = () => {
       <div className="grid xl:grid-cols-4 lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 gap-6">
         {topCategories.map(category => (
           <div key={category.id} className="space-y-2">
-            <Link
-              to={`/category/${category.id}`}
+            <CategoryLink
+              categoryId={category.id}
               className="block group mb-3"
             >
               <div className="flex items-center justify-between p-3 bg-neutral-100 dark:bg-neutral-800 rounded-lg hover:shadow-lg transition-all border border-neutral-200 dark:border-neutral-700 hover:border-neutral-300 dark:hover:border-neutral-600">
@@ -160,14 +161,14 @@ const MegaMenu: React.FC = () => {
                 </div>
                 <ChevronRightIcon className="h-5 w-5 text-primary-700 dark:text-primary-400 group-hover:translate-x-1 transition-transform" />
               </div>
-            </Link>
+            </CategoryLink>
             
             {childNodes[category.id] && childNodes[category.id].directChildren.length > 0 && (
               <div className="space-y-1 max-h-64 overflow-y-auto custom-scrollbar">
                 {childNodes[category.id].directChildren.map(child => (
                   <div key={child.id} className="border-l border-neutral-200 dark:border-neutral-700 pl-2 ml-1">
-                    <Link
-                      to={`/category/${child.id}`}
+                    <CategoryLink
+                      categoryId={child.id}
                       className="block py-0.5 px-1 text-xs font-medium text-neutral-700 dark:text-neutral-300 hover:bg-neutral-50 dark:hover:bg-neutral-800 rounded transition-colors hover:text-primary-600 dark:hover:text-primary-400"
                     >
                       <div className="flex items-center gap-2">
@@ -183,19 +184,19 @@ const MegaMenu: React.FC = () => {
                         }`}></span>
                         <span className="truncate">{child.name}</span>
                       </div>
-                    </Link>
+                    </CategoryLink>
                     {/* Show grandchildren if this is a category */}
                     {(!child.learning_content_ids || child.learning_content_ids.length === 0) && childNodes[category.id].grandchildMap[child.id] && 
                      childNodes[category.id].grandchildMap[child.id].length > 0 && (
                       <div className="pl-2 mt-0.5 space-y-0 border-l border-neutral-100 dark:border-neutral-800 ml-1">
                         {childNodes[category.id].grandchildMap[child.id].map(grandchild => (
-                          <Link
+                          <CategoryLink
                             key={grandchild.id}
-                            to={`/category/${grandchild.id}`}
+                            categoryId={grandchild.id}
                             className="block py-0 px-1 text-xs text-neutral-500 dark:text-neutral-400 hover:text-primary-600 dark:hover:text-primary-400 transition-colors truncate"
                           >
                             {grandchild.name}
-                          </Link>
+                          </CategoryLink>
                         ))}
                       </div>
                     )}
@@ -203,12 +204,12 @@ const MegaMenu: React.FC = () => {
                 ))}
                 {childNodes[category.id].directChildren.length > 10 && (
                   <div className="pt-1 mt-1 border-t border-neutral-200 dark:border-neutral-700">
-                    <Link
-                      to={`/category/${category.id}`}
+                    <CategoryLink
+                      categoryId={category.id}
                       className="block py-1 px-2 text-xs font-medium text-primary-600 hover:text-primary-700 dark:text-primary-400 dark:hover:text-primary-300 text-center"
                     >
                       View all {childNodes[category.id].directChildren.length} subcategories →
-                    </Link>
+                    </CategoryLink>
                   </div>
                 )}
               </div>

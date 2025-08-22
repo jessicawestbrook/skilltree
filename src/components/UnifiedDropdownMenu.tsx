@@ -2,6 +2,7 @@ import React, { useState, useRef, useEffect } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { useAuth } from '../contexts/AuthContext'
 import SearchBar from './SearchBar'
+import CategoryLink from './CategoryLink'
 import { supabase } from '../services/supabase'
 import { SkillTreeNode } from '../types/database.types'
 import {
@@ -241,9 +242,9 @@ const UnifiedDropdownMenu: React.FC = () => {
                 >
                   {subjectCategories.length > 0 ? (
                     subjectCategories.map((category) => (
-                      <Link
+                      <CategoryLink
                         key={category.id}
-                        to={`/category/${category.id}`}
+                        categoryId={category.id}
                         onClick={() => {
                           setDropdownOpen(false)
                           setSubjectsHovered(false)
@@ -251,7 +252,7 @@ const UnifiedDropdownMenu: React.FC = () => {
                         className="block px-3 py-1.5 text-xs text-neutral-700 dark:text-neutral-300 hover:bg-neutral-100 dark:hover:bg-neutral-700 transition-colors"
                       >
                         {category.name}
-                      </Link>
+                      </CategoryLink>
                     ))
                   ) : (
                     <div className="px-3 py-1.5 text-xs text-neutral-500 dark:text-neutral-400">
