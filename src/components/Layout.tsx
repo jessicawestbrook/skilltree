@@ -190,7 +190,7 @@ const Layout: React.FC = () => {
                             >
                               <span>{category.name}</span>
                               {subcategories[category.id] && subcategories[category.id].length > 0 && (
-                                <ChevronDownIcon className="h-3 w-3 -rotate-90" />
+                                <ChevronDownIcon className="h-4 w-4 -rotate-90 text-neutral-500 dark:text-neutral-400 ml-auto" />
                               )}
                             </CategoryLink>
                           </div>
