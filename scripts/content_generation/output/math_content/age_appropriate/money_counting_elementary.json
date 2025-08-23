@@ -1,0 +1,16 @@
+{
+  "nodeId": "fea1ba27-904d-4a1c-85d3-7e708a80727c",
+  "nodeName": "Money Counting",
+  "content": {
+    "title": "Money Counting",
+    "content": "{\n  \"title\": \"Penny's Counting Adventure\",\n  \"content\": \"<h1>Penny's Counting Adventure</h1>\n\n<div class=\"story-intro\">\n  <h2>Let's Start Our Adventure!</h2>\n  <p>Penny the Puppy loves playing with her toys. One day, she wants to share her toys with her friends, but she's not sure how many she has. Can you help Penny count her toys?</p>\n</div>\n\n<div class=\"learn-together\">\n  <h2>Let's Learn Together!</h2>\n  <p>Counting money is a lot like counting your toys. You need to look at each coin or bill and keep track of how many you have. Let's start by learning about the different coins and bills we use.</p>\n  <p>The coins we use are pennies, nickels, dimes, and quarters. Pennies are the smallest and worth 1 cent. Nickels are worth 5 cents, dimes are worth 10 cents, and quarters are worth 25 cents.</p>\n</div>\n\n<div class=\"practice-time\">\n  <h2>Practice Time - Let's Play!</h2>\n  <h3>Game 1: Counting Coins</h3>\n  <p>Penny has a jar full of coins. Can you help her count them? Let's start with the pennies, then add the nickels, dimes, and quarters. How much money do you think Penny has?</p>\n  \n  <h3>Game 2: Buying Toys</h3>\n  <p>Penny wants to buy a new toy that costs 45 cents. She has some coins in her pocket. Can you help her figure out which coins she needs to buy the toy?</p>\n</div>\n\n<div class=\"why-cool\">\n  <h2>Why This Is Super Cool!</h2>\n  <p>Being able to count money is a really important skill. It helps you keep track of your money and make sure you have enough to buy the things you want. Plus, it's a lot of fun to play with coins and pretend to go shopping!</p>\n</div>\n\n<div class=\"remember\">\n  <h2>Things to Remember</h2>\n  <ul>\n    <li>Pennies are worth 1 cent, nickels are worth 5 cents, dimes are worth 10 cents, and quarters are worth 25 cents.</li>\n    <li>To count money, look at each coin or bill and keep track of how many you have.</li>\n    <li>Counting money can help you buy the things you want and make sure you have enough.</li>\n  </ul>\n</div>\",\n  \"estimated_time_minutes\": 10,\n  \"difficulty_level\": \"beginner\"\n}",
+    "estimated_time_minutes": 10,
+    "difficulty_level": "beginner",
+    "target_audience": {
+      "level": "elementary",
+      "age": "6-11 years old",
+      "grade": "1st-5th grade"
+    }
+  },
+  "questions": []
+}

@@ -18,6 +18,14 @@ export interface LearningContent {
   id: string
   title: string
   content: string
+  content_sections?: {
+    title?: string
+    content: string
+    image?: {
+      url: string
+      caption?: string
+    }
+  }[] | null
   images: (string | { url: string; caption?: string })[] | null
   estimated_time_minutes: number
   difficulty_level: string
@@ -223,4 +231,13 @@ export interface StudySession {
   items_studied: number
   items_correct: number
   total_time_seconds: number
+}
+
+export interface UserInterestLevel {
+  id: string
+  user_id: string
+  category: string
+  interest_level: number
+  updated_at: string
+  created_at: string
 }

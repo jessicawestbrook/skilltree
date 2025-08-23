@@ -6,6 +6,7 @@ import UnifiedDropdownMenu from './UnifiedDropdownMenu'
 import SearchBar from './SearchBar'
 import NotificationBell from './NotificationBell'
 import TreeLogo from './TreeLogo'
+import CategoryLink from './CategoryLink'
 import { supabase } from '../services/supabase'
 import { SkillTreeNode } from '../types/database.types'
 
@@ -16,9 +17,12 @@ const Layout: React.FC = () => {
   const [flashcardsOpen, setFlashcardsOpen] = useState(false)
   const [subjectsOpen, setSubjectsOpen] = useState(false)
   const [subjectCategories, setSubjectCategories] = useState<SkillTreeNode[]>([])
+  const [hoveredCategoryId, setHoveredCategoryId] = useState<string | null>(null)
+  const [subcategories, setSubcategories] = useState<Record<string, SkillTreeNode[]>>({})
   const standardizedTestsRef = useRef<HTMLDivElement>(null)
   const flashcardsRef = useRef<HTMLDivElement>(null)
   const subjectsRef = useRef<HTMLDivElement>(null)
+  const hoverTimeoutRef = useRef<NodeJS.Timeout | null>(null)
 
   const fetchSubjectCategories = async () => {
     try {
@@ -36,6 +40,56 @@ const Layout: React.FC = () => {
     } catch (error) {
       console.error('Error fetching subject categories:', error)
     }
+  }
+
+  const fetchSubcategories = async (categoryId: string) => {
+    // Return if we already have subcategories for this category
+    if (subcategories[categoryId]) return
+
+    try {
+      const { data: childNodes, error } = await supabase
+        .from('skill_tree_nodes')
+        .select('*')
+        .eq('parent_id', categoryId)
+        .order('display_order', { nullsFirst: false })
+        .order('name')
+
+      if (error) throw error
+      
+      setSubcategories(prev => ({
+        ...prev,
+        [categoryId]: childNodes || []
+      }))
+    } catch (error) {
+      console.error('Error fetching subcategories:', error)
+    }
+  }
+
+  const handleCategoryHover = (categoryId: string) => {
+    if (hoverTimeoutRef.current) {
+      clearTimeout(hoverTimeoutRef.current)
+    }
+    setHoveredCategoryId(categoryId)
+    fetchSubcategories(categoryId)
+  }
+
+  const handleCategoryLeave = () => {
+    hoverTimeoutRef.current = setTimeout(() => {
+      setHoveredCategoryId(null)
+    }, 200)
+  }
+
+  const handleSubmenuEnter = (categoryId: string) => {
+    if (hoverTimeoutRef.current) {
+      clearTimeout(hoverTimeoutRef.current)
+    }
+    setHoveredCategoryId(categoryId)
+  }
+
+  const handleSubmenuLeave = () => {
+    hoverTimeoutRef.current = setTimeout(() => {
+      setHoveredCategoryId(null)
+    }, 200)
   }
 
   // Fetch subject categories on component mount
@@ -61,10 +115,16 @@ const Layout: React.FC = () => {
       }
       if (subjectsRef.current && !subjectsRef.current.contains(event.target as Node)) {
         setSubjectsOpen(false)
+        setHoveredCategoryId(null)
       }
     }
     document.addEventListener('mousedown', handleClickOutside)
-    return () => document.removeEventListener('mousedown', handleClickOutside)
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside)
+      if (hoverTimeoutRef.current) {
+        clearTimeout(hoverTimeoutRef.current)
+      }
+    }
   }, [])
 
   const handleToggleMenuPinned = () => {
@@ -115,17 +175,49 @@ const Layout: React.FC = () => {
                   {subjectsOpen && (
                     <div className="absolute top-full left-0 mt-2 w-56 rounded-lg shadow-xl bg-white dark:bg-neutral-800 ring-1 ring-black ring-opacity-5 py-1 z-50">
                       {subjectCategories.map(category => (
-                        <Link
+                        <div 
                           key={category.id}
-                          to={`/category/${category.id}`}
-                          onClick={() => setSubjectsOpen(false)}
-                          className="flex items-center px-3 py-1.5 text-xs text-neutral-700 dark:text-neutral-300 hover:bg-neutral-100 dark:hover:bg-neutral-700 transition-colors"
+                          className="relative group"
                         >
-                          {category.name}
-                        </Link>
+                          <div
+                            onMouseEnter={() => handleCategoryHover(category.id)}
+                            onMouseLeave={handleCategoryLeave}
+                          >
+                            <CategoryLink
+                              categoryId={category.id}
+                              onClick={() => setSubjectsOpen(false)}
+                              className="flex items-center justify-between px-3 py-1.5 text-sm text-neutral-700 dark:text-neutral-300 hover:bg-neutral-100 dark:hover:bg-neutral-700 transition-colors"
+                            >
+                              <span>{category.name}</span>
+                              {subcategories[category.id] && subcategories[category.id].length > 0 && (
+                                <ChevronDownIcon className="h-3 w-3 -rotate-90" />
+                              )}
+                            </CategoryLink>
+                          </div>
+                          
+                          {/* Subcategory dropdown */}
+                          {hoveredCategoryId === category.id && subcategories[category.id] && subcategories[category.id].length > 0 && (
+                            <div 
+                              className="absolute left-full top-0 ml-1 w-48 rounded-lg shadow-xl bg-white dark:bg-neutral-800 ring-1 ring-black ring-opacity-5 py-1 z-50"
+                              onMouseEnter={() => handleSubmenuEnter(category.id)}
+                              onMouseLeave={handleSubmenuLeave}
+                            >
+                              {subcategories[category.id].map(subcategory => (
+                                <CategoryLink
+                                  key={subcategory.id}
+                                  categoryId={subcategory.id}
+                                  onClick={() => setSubjectsOpen(false)}
+                                  className="block px-3 py-1.5 text-sm text-neutral-700 dark:text-neutral-300 hover:bg-neutral-100 dark:hover:bg-neutral-700 transition-colors"
+                                >
+                                  {subcategory.name}
+                                </CategoryLink>
+                              ))}
+                            </div>
+                          )}
+                        </div>
                       ))}
                       {subjectCategories.length === 0 && (
-                        <div className="px-3 py-1.5 text-xs text-neutral-500 dark:text-neutral-400">
+                        <div className="px-3 py-1.5 text-sm text-neutral-500 dark:text-neutral-400">
                           Loading subjects...
                         </div>
                       )}
@@ -147,21 +239,21 @@ const Layout: React.FC = () => {
                       <Link
                         to="/spelling-bee"
                         onClick={() => setFlashcardsOpen(false)}
-                        className="flex items-center px-3 py-1.5 text-xs text-neutral-700 dark:text-neutral-300 hover:bg-neutral-100 dark:hover:bg-neutral-700 transition-colors"
+                        className="flex items-center px-3 py-1.5 text-sm text-neutral-700 dark:text-neutral-300 hover:bg-neutral-100 dark:hover:bg-neutral-700 transition-colors"
                       >
                         Spelling Bee
                       </Link>
                       <Link
                         to="/vocabulary-trainer"
                         onClick={() => setFlashcardsOpen(false)}
-                        className="flex items-center px-3 py-1.5 text-xs text-neutral-700 dark:text-neutral-300 hover:bg-neutral-100 dark:hover:bg-neutral-700 transition-colors"
+                        className="flex items-center px-3 py-1.5 text-sm text-neutral-700 dark:text-neutral-300 hover:bg-neutral-100 dark:hover:bg-neutral-700 transition-colors"
                       >
                         Vocabulary Trainer
                       </Link>
                       <Link
                         to="/language-trainer"
                         onClick={() => setFlashcardsOpen(false)}
-                        className="flex items-center px-3 py-1.5 text-xs text-neutral-700 dark:text-neutral-300 hover:bg-neutral-100 dark:hover:bg-neutral-700 transition-colors"
+                        className="flex items-center px-3 py-1.5 text-sm text-neutral-700 dark:text-neutral-300 hover:bg-neutral-100 dark:hover:bg-neutral-700 transition-colors"
                       >
                         Language Trainer
                       </Link>
@@ -169,7 +261,7 @@ const Layout: React.FC = () => {
                       <Link
                         to="/study-lists"
                         onClick={() => setFlashcardsOpen(false)}
-                        className="flex items-center px-3 py-1.5 text-xs text-neutral-700 dark:text-neutral-300 hover:bg-neutral-100 dark:hover:bg-neutral-700 transition-colors"
+                        className="flex items-center px-3 py-1.5 text-sm text-neutral-700 dark:text-neutral-300 hover:bg-neutral-100 dark:hover:bg-neutral-700 transition-colors"
                       >
                         Study Lists
                       </Link>
@@ -191,7 +283,7 @@ const Layout: React.FC = () => {
                       <Link
                         to="/standardized-tests"
                         onClick={() => setStandardizedTestsOpen(false)}
-                        className="flex items-center px-3 py-1.5 text-xs text-neutral-700 dark:text-neutral-300 hover:bg-neutral-100 dark:hover:bg-neutral-700 transition-colors"
+                        className="flex items-center px-3 py-1.5 text-sm text-neutral-700 dark:text-neutral-300 hover:bg-neutral-100 dark:hover:bg-neutral-700 transition-colors"
                       >
                         All Tests Overview
                       </Link>
@@ -199,42 +291,42 @@ const Layout: React.FC = () => {
                       <Link
                         to="/test/sat"
                         onClick={() => setStandardizedTestsOpen(false)}
-                        className="flex items-center px-3 py-1.5 text-xs text-neutral-700 dark:text-neutral-300 hover:bg-neutral-100 dark:hover:bg-neutral-700 transition-colors"
+                        className="flex items-center px-3 py-1.5 text-sm text-neutral-700 dark:text-neutral-300 hover:bg-neutral-100 dark:hover:bg-neutral-700 transition-colors"
                       >
                         SAT
                       </Link>
                       <Link
                         to="/test/act"
                         onClick={() => setStandardizedTestsOpen(false)}
-                        className="flex items-center px-3 py-1.5 text-xs text-neutral-700 dark:text-neutral-300 hover:bg-neutral-100 dark:hover:bg-neutral-700 transition-colors"
+                        className="flex items-center px-3 py-1.5 text-sm text-neutral-700 dark:text-neutral-300 hover:bg-neutral-100 dark:hover:bg-neutral-700 transition-colors"
                       >
                         ACT
                       </Link>
                       <Link
                         to="/test/lsat"
                         onClick={() => setStandardizedTestsOpen(false)}
-                        className="flex items-center px-3 py-1.5 text-xs text-neutral-700 dark:text-neutral-300 hover:bg-neutral-100 dark:hover:bg-neutral-700 transition-colors"
+                        className="flex items-center px-3 py-1.5 text-sm text-neutral-700 dark:text-neutral-300 hover:bg-neutral-100 dark:hover:bg-neutral-700 transition-colors"
                       >
                         LSAT
                       </Link>
                       <Link
                         to="/test/gre"
                         onClick={() => setStandardizedTestsOpen(false)}
-                        className="flex items-center px-3 py-1.5 text-xs text-neutral-700 dark:text-neutral-300 hover:bg-neutral-100 dark:hover:bg-neutral-700 transition-colors"
+                        className="flex items-center px-3 py-1.5 text-sm text-neutral-700 dark:text-neutral-300 hover:bg-neutral-100 dark:hover:bg-neutral-700 transition-colors"
                       >
                         GRE
                       </Link>
                       <Link
                         to="/test/gmat"
                         onClick={() => setStandardizedTestsOpen(false)}
-                        className="flex items-center px-3 py-1.5 text-xs text-neutral-700 dark:text-neutral-300 hover:bg-neutral-100 dark:hover:bg-neutral-700 transition-colors"
+                        className="flex items-center px-3 py-1.5 text-sm text-neutral-700 dark:text-neutral-300 hover:bg-neutral-100 dark:hover:bg-neutral-700 transition-colors"
                       >
                         GMAT
                       </Link>
                       <Link
                         to="/test/mcat"
                         onClick={() => setStandardizedTestsOpen(false)}
-                        className="flex items-center px-3 py-1.5 text-xs text-neutral-700 dark:text-neutral-300 hover:bg-neutral-100 dark:hover:bg-neutral-700 transition-colors"
+                        className="flex items-center px-3 py-1.5 text-sm text-neutral-700 dark:text-neutral-300 hover:bg-neutral-100 dark:hover:bg-neutral-700 transition-colors"
                       >
                         MCAT
                       </Link>
@@ -242,7 +334,7 @@ const Layout: React.FC = () => {
                       <Link
                         to="/iq-test"
                         onClick={() => setStandardizedTestsOpen(false)}
-                        className="flex items-center px-3 py-1.5 text-xs text-neutral-700 dark:text-neutral-300 hover:bg-neutral-100 dark:hover:bg-neutral-700 transition-colors"
+                        className="flex items-center px-3 py-1.5 text-sm text-neutral-700 dark:text-neutral-300 hover:bg-neutral-100 dark:hover:bg-neutral-700 transition-colors"
                       >
                         IQ Tests
                       </Link>

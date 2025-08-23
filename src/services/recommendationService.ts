@@ -1,5 +1,5 @@
 import { supabase } from './supabase'
-import { SkillTreeNode } from '../types/database.types'
+import { SkillTreeNode, UserInterestLevel } from '../types/database.types'
 
 export interface RecommendationScore {
   node: SkillTreeNode
@@ -28,6 +28,69 @@ export interface RecommendationSettings {
 }
 
 class RecommendationService {
+  /**
+   * Get user interest levels from intro assessment
+   */
+  private async getUserInterestLevels(userId: string): Promise<UserInterestLevel[]> {
+    const { data, error } = await supabase
+      .from('user_interest_levels')
+      .select('*')
+      .eq('user_id', userId)
+
+    if (error) {
+      console.error('Error fetching user interest levels:', error)
+      return []
+    }
+    return data || []
+  }
+
+  /**
+   * Calculate interest score based on quiz results
+   */
+  private async calculateInterestScore(
+    node: SkillTreeNode,
+    userId: string
+  ): Promise<number> {
+    const interestLevels = await this.getUserInterestLevels(userId)
+    
+    if (interestLevels.length === 0) {
+      return 0.5 // Neutral score if no interests set
+    }
+
+    // Map categories from quiz to learning areas
+    const categoryMappings: Record<string, string[]> = {
+      'Mathematics': ['math', 'mathematics', 'algebra', 'geometry', 'calculus', 'statistics', 'arithmetic', 'number'],
+      'Science': ['science', 'physics', 'chemistry', 'biology', 'astronomy', 'earth science', 'environmental'],
+      'English/Language Arts': ['english', 'language arts', 'reading', 'writing', 'literature', 'grammar', 'composition'],
+      'Social Studies': ['history', 'geography', 'civics', 'government', 'economics', 'social studies', 'world cultures'],
+      'Foreign Languages': ['spanish', 'french', 'german', 'chinese', 'japanese', 'foreign language', 'language learning'],
+      'Computer Science': ['programming', 'computer science', 'coding', 'technology', 'software', 'algorithms'],
+      'Arts': ['art', 'music', 'drama', 'creative arts', 'visual arts', 'performing arts', 'design'],
+      'Physical Education': ['physical education', 'sports', 'fitness', 'health', 'nutrition', 'wellness', 'exercise'],
+      'Career/Business Skills': ['career', 'business', 'entrepreneurship', 'professional skills', 'leadership', 'finance'],
+      'Life Skills': ['life skills', 'personal development', 'communication', 'psychology', 'self-help']
+    }
+
+    let maxScore = 0
+    const nodeName = node.name.toLowerCase()
+    const nodeLearningArea = node.learning_area?.toLowerCase() || ''
+    const nodeContent = `${nodeName} ${nodeLearningArea}`
+
+    // Check each user interest against the node
+    for (const interest of interestLevels) {
+      const categoryKeywords = categoryMappings[interest.category] || [interest.category.toLowerCase()]
+      
+      for (const keyword of categoryKeywords) {
+        if (nodeContent.includes(keyword)) {
+          const normalizedScore = interest.interest_level / 10 // Convert 1-10 to 0-1
+          maxScore = Math.max(maxScore, normalizedScore)
+        }
+      }
+    }
+
+    return maxScore
+  }
+
   /**
    * Calculate readiness score based on prerequisites
    */
@@ -187,7 +250,7 @@ class RecommendationService {
   }
 
   /**
-   * Main recommendation calculation based on Zone of Proximal Development
+   * Main recommendation calculation based on Zone of Proximal Development and user interests
    */
   async calculateRecommendationScore(
     node: SkillTreeNode,
@@ -195,20 +258,21 @@ class RecommendationService {
   ): Promise<number> {
     const completedSet = new Set(userProfile.completed_nodes)
     
-    // Calculate individual factors
-    const readiness = this.calculateReadiness(node, completedSet) * 0.35
-    const interest = await this.calculateInterestMatch(node, userProfile.starred_nodes) * 0.25
+    // Calculate individual factors with updated weightings to prioritize interests
+    const readiness = this.calculateReadiness(node, completedSet) * 0.25
+    const quizInterest = await this.calculateInterestScore(node, userProfile.id) * 0.35 // Prioritize quiz interests
+    const starredInterest = await this.calculateInterestMatch(node, userProfile.starred_nodes) * 0.15
     const difficultyFit = this.calculateDifficultyFit(
       node.display_order, // Using display_order as difficulty proxy
       userProfile.overall_rating
-    ) * 0.20
-    const recency = this.calculateRecency(node.id, userProfile.recent_activity) * 0.10
+    ) * 0.15
+    const recency = this.calculateRecency(node.id, userProfile.recent_activity) * 0.05
     const pathEfficiency = await this.calculatePathEfficiency(
       node, 
       userProfile.starred_nodes // Using starred as goals
-    ) * 0.10
+    ) * 0.05
 
-    return readiness + interest + difficultyFit + recency + pathEfficiency
+    return readiness + quizInterest + starredInterest + difficultyFit + recency + pathEfficiency
   }
 
   /**
@@ -327,8 +391,15 @@ class RecommendationService {
         const reasons: string[] = []
         
         // Determine reasons for recommendation
+        const interestScore = await this.calculateInterestScore(node, userProfile.id)
+        if (interestScore > 0.6) {
+          reasons.push('Matches your interests from the assessment')
+        } else if (interestScore > 0.3) {
+          reasons.push('Related to your learning preferences')
+        }
+        
         if (userProfile.starred_nodes.includes(node.parent_id || '')) {
-          reasons.push('Related to your interests')
+          reasons.push('Related to your bookmarked topics')
         }
         
         if (node.parent_id && userProfile.completed_nodes.includes(node.parent_id)) {

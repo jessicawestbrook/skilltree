@@ -1,0 +1,75 @@
+{
+  "node": {
+    "id": "57ea9cdf-7ff0-4a4b-bf00-70fd5167717e",
+    "name": "Counting 1-10"
+  },
+  "content": {
+    "title": "Counting from 1 to 10",
+    "content": "<h1>Counting from 1 to 10</h1><p>Have you ever wondered why counting is so important? Well, let me tell you a story that will make you appreciate the power of counting.</p><h2>The Concept</h2><p>Counting is the fundamental skill of recognizing and representing quantities. By learning to count from 1 to 10, you'll be able to understand how many objects are in a group, and keep track of quantities as they change. It's like having a secret language that helps you make sense of the world around you.</p><h2>Example</h2><p>Imagine you have a basket of apples. If you count them, you might find that there are 5 apples. Now, if someone takes one apple, you can count again and see that there are 4 apples left. Counting helps you keep track of the changes in the number of apples.</p><h2>Why It Matters</h2><p>Mastering counting from 1 to 10 is crucial for your future learning. It will help you with tasks like sorting, comparing, and even basic math operations. Counting is the building block for more advanced mathematical concepts, so it's an essential skill to have. Plus, it's a great way to impress your friends and family with your newfound counting abilities!</p>",
+    "estimated_time_minutes": 10,
+    "difficulty_level": "beginner"
+  },
+  "questions": [
+    {
+      "question_text": "How many numbers are in the range of 1 to 10?",
+      "options": [
+        "5",
+        "8",
+        "10",
+        "12"
+      ],
+      "correct_answer": 2,
+      "explanation": "The range of numbers from 1 to 10 includes 10 numbers: 1, 2, 3, 4, 5, 6, 7, 8, 9, and 10.",
+      "difficulty": "easy"
+    },
+    {
+      "question_text": "What is the number that comes after 7?",
+      "options": [
+        "5",
+        "6",
+        "8",
+        "9"
+      ],
+      "correct_answer": 3,
+      "explanation": "The number that comes after 7 in the sequence of counting from 1 to 10 is 8.",
+      "difficulty": "easy"
+    },
+    {
+      "question_text": "Which of the following is not a number between 1 and 10?",
+      "options": [
+        "3",
+        "6",
+        "11",
+        "9"
+      ],
+      "correct_answer": 2,
+      "explanation": "The numbers between 1 and 10 are 1, 2, 3, 4, 5, 6, 7, 8, 9, and 10. Therefore, 11 is not a number in this range.",
+      "difficulty": "easy"
+    },
+    {
+      "question_text": "What is the number that comes before 5?",
+      "options": [
+        "3",
+        "4",
+        "6",
+        "7"
+      ],
+      "correct_answer": 1,
+      "explanation": "The number that comes before 5 in the sequence of counting from 1 to 10 is 4.",
+      "difficulty": "easy"
+    },
+    {
+      "question_text": "Which of the following is the smallest number in the range of 1 to 10?",
+      "options": [
+        "1",
+        "3",
+        "5",
+        "7"
+      ],
+      "correct_answer": 0,
+      "explanation": "The smallest number in the range of 1 to 10 is 1.",
+      "difficulty": "easy"
+    }
+  ],
+  "timestamp": "2025-08-23T05:50:56.807Z"
+}

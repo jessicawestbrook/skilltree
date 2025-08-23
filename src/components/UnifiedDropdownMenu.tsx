@@ -40,39 +40,17 @@ const UnifiedDropdownMenu: React.FC = () => {
   // Fetch subject categories
   const fetchSubjectCategories = async () => {
     try {
-      // Replicate the same logic as Layout to get the third-level categories
+      // Get top-level categories (root nodes) - same as Layout component
       const { data: rootNodes, error: rootError } = await supabase
         .from('skill_tree_nodes')
-        .select('id, name')
+        .select('*')
         .is('parent_id', null)
         .or('learning_content_ids.is.null,learning_content_ids.eq.{}')
-        .limit(5)
+        .order('display_order', { nullsFirst: false })
+        .order('name')
 
       if (rootError) throw rootError
-      if (!rootNodes || rootNodes.length === 0) return
-
-      const { data: secondLevel, error: secondError } = await supabase
-        .from('skill_tree_nodes')
-        .select('id, name, parent_id')
-        .in('parent_id', rootNodes.map(r => r.id))
-        .or('learning_content_ids.is.null,learning_content_ids.eq.{}')
-        .order('display_order', { nullsFirst: false })
-        .order('name')
-
-      if (secondError) throw secondError
-      if (!secondLevel || secondLevel.length === 0) return
-
-      const { data: thirdLevel, error: thirdError } = await supabase
-        .from('skill_tree_nodes')
-        .select('*')
-        .in('parent_id', secondLevel.map(s => s.id))
-        .or('learning_content_ids.is.null,learning_content_ids.eq.{}')
-        .order('display_order', { nullsFirst: false })
-        .order('name')
-        .limit(9)
-
-      if (thirdError) throw thirdError
-      setSubjectCategories(thirdLevel || [])
+      setSubjectCategories(rootNodes || [])
     } catch (error) {
       console.error('Error fetching subject categories:', error)
     }
@@ -166,7 +144,7 @@ const UnifiedDropdownMenu: React.FC = () => {
           {user && (
             <button
               onClick={handleSignOut}
-              className="flex items-center justify-between w-full px-3 py-2 text-xs font-medium text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/20 transition-colors"
+              className="flex items-center justify-between w-full px-3 py-1.5 text-sm font-medium text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/20 transition-colors"
             >
               <span className="flex items-center">
                 <ArrowRightOnRectangleIcon className="h-3 w-3 mr-1.5" />
@@ -177,26 +155,22 @@ const UnifiedDropdownMenu: React.FC = () => {
 
           {/* Auth Section (if not logged in) */}
           {!user && (
-            <div className="p-2">
+            <div className="py-1">
               <Link
                 to="/login"
                 onClick={() => setDropdownOpen(false)}
-                className="flex items-center justify-between w-full px-2 py-1.5 text-xs font-medium text-gray-700 dark:text-gray-300 bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600 rounded-md transition-colors"
+                className="flex items-center px-3 py-1.5 text-sm text-neutral-700 dark:text-neutral-300 hover:bg-neutral-100 dark:hover:bg-neutral-700 transition-colors"
               >
-                <span className="flex items-center">
-                  <ArrowRightIcon className="h-3 w-3 mr-1.5" />
-                  Sign In
-                </span>
+                <ArrowRightIcon className="h-3 w-3 mr-2 text-neutral-500" />
+                Sign In
               </Link>
               <Link
                 to="/signup"
                 onClick={() => setDropdownOpen(false)}
-                className="flex items-center justify-between w-full px-2 py-1.5 mt-1.5 text-xs font-medium text-primary-600 dark:text-primary-400 bg-primary-50 dark:bg-primary-900/20 hover:bg-primary-100 dark:hover:bg-primary-900/30 rounded-md transition-colors"
+                className="flex items-center px-3 py-1.5 text-sm text-primary-600 dark:text-primary-400 hover:bg-neutral-100 dark:hover:bg-neutral-700 transition-colors"
               >
-                <span className="flex items-center">
-                  <UserPlusIcon className="h-3 w-3 mr-1.5" />
-                  Sign Up
-                </span>
+                <UserPlusIcon className="h-3 w-3 mr-2 text-primary-500" />
+                Sign Up
               </Link>
             </div>
           )}
@@ -214,7 +188,7 @@ const UnifiedDropdownMenu: React.FC = () => {
                 key={item.to}
                 to={item.to}
                 onClick={() => setDropdownOpen(false)}
-                className="flex items-center px-3 py-1.5 text-xs text-neutral-700 dark:text-neutral-300 hover:bg-neutral-100 dark:hover:bg-neutral-700 transition-colors"
+                className="flex items-center px-3 py-1.5 text-sm text-neutral-700 dark:text-neutral-300 hover:bg-neutral-100 dark:hover:bg-neutral-700 transition-colors"
               >
                 <item.icon className="h-3 w-3 mr-2 text-neutral-500" />
                 {item.label}
@@ -224,7 +198,7 @@ const UnifiedDropdownMenu: React.FC = () => {
             {/* Subjects Section with Submenu */}
             <div className="relative" ref={subjectsRef}>
               <div
-                className="flex items-center px-3 py-1.5 text-xs text-neutral-700 dark:text-neutral-300 hover:bg-neutral-100 dark:hover:bg-neutral-700 transition-colors cursor-pointer"
+                className="flex items-center px-3 py-1.5 text-sm text-neutral-700 dark:text-neutral-300 hover:bg-neutral-100 dark:hover:bg-neutral-700 transition-colors cursor-pointer"
                 onMouseEnter={() => setSubjectsHovered(true)}
                 onMouseLeave={() => setSubjectsHovered(false)}
               >
@@ -249,13 +223,13 @@ const UnifiedDropdownMenu: React.FC = () => {
                           setDropdownOpen(false)
                           setSubjectsHovered(false)
                         }}
-                        className="block px-3 py-1.5 text-xs text-neutral-700 dark:text-neutral-300 hover:bg-neutral-100 dark:hover:bg-neutral-700 transition-colors"
+                        className="block px-3 py-1.5 text-sm text-neutral-700 dark:text-neutral-300 hover:bg-neutral-100 dark:hover:bg-neutral-700 transition-colors"
                       >
                         {category.name}
                       </CategoryLink>
                     ))
                   ) : (
-                    <div className="px-3 py-1.5 text-xs text-neutral-500 dark:text-neutral-400">
+                    <div className="px-3 py-1.5 text-sm text-neutral-500 dark:text-neutral-400">
                       Loading subjects...
                     </div>
                   )}
@@ -266,7 +240,7 @@ const UnifiedDropdownMenu: React.FC = () => {
             {/* Flashcards Section with Submenu */}
             <div className="relative" ref={flashcardsRef}>
               <div
-                className="flex items-center px-3 py-1.5 text-xs text-neutral-700 dark:text-neutral-300 hover:bg-neutral-100 dark:hover:bg-neutral-700 transition-colors cursor-pointer"
+                className="flex items-center px-3 py-1.5 text-sm text-neutral-700 dark:text-neutral-300 hover:bg-neutral-100 dark:hover:bg-neutral-700 transition-colors cursor-pointer"
                 onMouseEnter={() => setFlashcardsHovered(true)}
                 onMouseLeave={() => setFlashcardsHovered(false)}
               >
@@ -290,7 +264,7 @@ const UnifiedDropdownMenu: React.FC = () => {
                         setDropdownOpen(false)
                         setFlashcardsHovered(false)
                       }}
-                      className="flex items-center px-3 py-1.5 text-xs text-neutral-700 dark:text-neutral-300 hover:bg-neutral-100 dark:hover:bg-neutral-700 transition-colors"
+                      className="flex items-center px-3 py-1.5 text-sm text-neutral-700 dark:text-neutral-300 hover:bg-neutral-100 dark:hover:bg-neutral-700 transition-colors"
                     >
                       <item.icon className="h-3 w-3 mr-2 text-neutral-500" />
                       {item.label}
@@ -303,7 +277,7 @@ const UnifiedDropdownMenu: React.FC = () => {
             {/* Tests Section with Submenu */}
             <div className="relative" ref={testsRef}>
               <div
-                className="flex items-center px-3 py-1.5 text-xs text-neutral-700 dark:text-neutral-300 hover:bg-neutral-100 dark:hover:bg-neutral-700 transition-colors cursor-pointer"
+                className="flex items-center px-3 py-1.5 text-sm text-neutral-700 dark:text-neutral-300 hover:bg-neutral-100 dark:hover:bg-neutral-700 transition-colors cursor-pointer"
                 onMouseEnter={() => setTestsHovered(true)}
                 onMouseLeave={() => setTestsHovered(false)}
               >
@@ -327,7 +301,7 @@ const UnifiedDropdownMenu: React.FC = () => {
                         setDropdownOpen(false)
                         setTestsHovered(false)
                       }}
-                      className="flex items-center px-3 py-1.5 text-xs text-neutral-700 dark:text-neutral-300 hover:bg-neutral-100 dark:hover:bg-neutral-700 transition-colors"
+                      className="flex items-center px-3 py-1.5 text-sm text-neutral-700 dark:text-neutral-300 hover:bg-neutral-100 dark:hover:bg-neutral-700 transition-colors"
                     >
                       <item.icon className="h-3 w-3 mr-2 text-neutral-500" />
                       {item.label}
@@ -341,7 +315,7 @@ const UnifiedDropdownMenu: React.FC = () => {
             <Link
               to="/learning-paths"
               onClick={() => setDropdownOpen(false)}
-              className="flex items-center px-3 py-1.5 text-xs text-neutral-700 dark:text-neutral-300 hover:bg-neutral-100 dark:hover:bg-neutral-700 transition-colors"
+              className="flex items-center px-3 py-1.5 text-sm text-neutral-700 dark:text-neutral-300 hover:bg-neutral-100 dark:hover:bg-neutral-700 transition-colors"
             >
               <BookOpenIcon className="h-3 w-3 mr-2 text-neutral-500" />
               Learning Paths
@@ -353,7 +327,7 @@ const UnifiedDropdownMenu: React.FC = () => {
                 key={item.to}
                 to={item.to}
                 onClick={() => setDropdownOpen(false)}
-                className="flex items-center px-3 py-1.5 text-xs text-neutral-700 dark:text-neutral-300 hover:bg-neutral-100 dark:hover:bg-neutral-700 transition-colors"
+                className="flex items-center px-3 py-1.5 text-sm text-neutral-700 dark:text-neutral-300 hover:bg-neutral-100 dark:hover:bg-neutral-700 transition-colors"
               >
                 <item.icon className="h-3 w-3 mr-2 text-neutral-500" />
                 {item.label}
@@ -368,7 +342,7 @@ const UnifiedDropdownMenu: React.FC = () => {
                     key={item.to}
                     to={item.to}
                     onClick={() => setDropdownOpen(false)}
-                    className="flex items-center px-3 py-1.5 text-xs text-neutral-700 dark:text-neutral-300 hover:bg-neutral-100 dark:hover:bg-neutral-700 transition-colors"
+                    className="flex items-center px-3 py-1.5 text-sm text-neutral-700 dark:text-neutral-300 hover:bg-neutral-100 dark:hover:bg-neutral-700 transition-colors"
                   >
                     <item.icon className="h-3 w-3 mr-2 text-neutral-500" />
                     {item.label}
@@ -380,7 +354,7 @@ const UnifiedDropdownMenu: React.FC = () => {
                   <Link
                     to="/admin"
                     onClick={() => setDropdownOpen(false)}
-                    className="flex items-center px-3 py-1.5 text-xs text-neutral-700 dark:text-neutral-300 hover:bg-neutral-100 dark:hover:bg-neutral-700 transition-colors"
+                    className="flex items-center px-3 py-1.5 text-sm text-neutral-700 dark:text-neutral-300 hover:bg-neutral-100 dark:hover:bg-neutral-700 transition-colors"
                   >
                     <ShieldCheckIcon className="h-3 w-3 mr-2 text-neutral-500" />
                     Admin Panel

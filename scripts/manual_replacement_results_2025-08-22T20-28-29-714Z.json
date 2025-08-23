@@ -1,0 +1,266 @@
+{
+  "summary": {
+    "definitionsReplaced": 0,
+    "examplesReplaced": 18,
+    "totalErrors": 64
+  },
+  "definitionErrors": [
+    {
+      "word": "western",
+      "error": "null value in column \"definition\" of relation \"spelling_words\" violates not-null constraint"
+    },
+    {
+      "word": "wharf",
+      "error": "null value in column \"definition\" of relation \"spelling_words\" violates not-null constraint"
+    },
+    {
+      "word": "weltschmerz",
+      "error": "null value in column \"definition\" of relation \"spelling_words\" violates not-null constraint"
+    },
+    {
+      "word": "wensleydale",
+      "error": "null value in column \"definition\" of relation \"spelling_words\" violates not-null constraint"
+    },
+    {
+      "word": "went",
+      "error": "null value in column \"definition\" of relation \"spelling_words\" violates not-null constraint"
+    },
+    {
+      "word": "wentletrap",
+      "error": "null value in column \"definition\" of relation \"spelling_words\" violates not-null constraint"
+    },
+    {
+      "word": "werf",
+      "error": "null value in column \"definition\" of relation \"spelling_words\" violates not-null constraint"
+    },
+    {
+      "word": "whakapapa",
+      "error": "null value in column \"definition\" of relation \"spelling_words\" violates not-null constraint"
+    },
+    {
+      "word": "whales",
+      "error": "null value in column \"definition\" of relation \"spelling_words\" violates not-null constraint"
+    },
+    {
+      "word": "whee",
+      "error": "null value in column \"definition\" of relation \"spelling_words\" violates not-null constraint"
+    },
+    {
+      "word": "wheedling",
+      "error": "null value in column \"definition\" of relation \"spelling_words\" violates not-null constraint"
+    },
+    {
+      "word": "wheezy",
+      "error": "null value in column \"definition\" of relation \"spelling_words\" violates not-null constraint"
+    },
+    {
+      "word": "whelp",
+      "error": "null value in column \"definition\" of relation \"spelling_words\" violates not-null constraint"
+    },
+    {
+      "word": "whenever",
+      "error": "null value in column \"definition\" of relation \"spelling_words\" violates not-null constraint"
+    },
+    {
+      "word": "whereas",
+      "error": "null value in column \"definition\" of relation \"spelling_words\" violates not-null constraint"
+    },
+    {
+      "word": "wherewithal",
+      "error": "null value in column \"definition\" of relation \"spelling_words\" violates not-null constraint"
+    },
+    {
+      "word": "flaxentriplicate",
+      "error": "null value in column \"definition\" of relation \"spelling_words\" violates not-null constraint"
+    },
+    {
+      "word": "whether",
+      "error": "null value in column \"definition\" of relation \"spelling_words\" violates not-null constraint"
+    },
+    {
+      "word": "whiff",
+      "error": "null value in column \"definition\" of relation \"spelling_words\" violates not-null constraint"
+    },
+    {
+      "word": "while",
+      "error": "null value in column \"definition\" of relation \"spelling_words\" violates not-null constraint"
+    },
+    {
+      "word": "whine",
+      "error": "null value in column \"definition\" of relation \"spelling_words\" violates not-null constraint"
+    },
+    {
+      "word": "whey",
+      "error": "null value in column \"definition\" of relation \"spelling_words\" violates not-null constraint"
+    },
+    {
+      "word": "whidah",
+      "error": "null value in column \"definition\" of relation \"spelling_words\" violates not-null constraint"
+    },
+    {
+      "word": "whipped",
+      "error": "null value in column \"definition\" of relation \"spelling_words\" violates not-null constraint"
+    },
+    {
+      "word": "whippoorwill",
+      "error": "null value in column \"definition\" of relation \"spelling_words\" violates not-null constraint"
+    },
+    {
+      "word": "whisper",
+      "error": "null value in column \"definition\" of relation \"spelling_words\" violates not-null constraint"
+    },
+    {
+      "word": "white",
+      "error": "null value in column \"definition\" of relation \"spelling_words\" violates not-null constraint"
+    },
+    {
+      "word": "whole",
+      "error": "null value in column \"definition\" of relation \"spelling_words\" violates not-null constraint"
+    },
+    {
+      "word": "whose",
+      "error": "null value in column \"definition\" of relation \"spelling_words\" violates not-null constraint"
+    },
+    {
+      "word": "wide",
+      "error": "null value in column \"definition\" of relation \"spelling_words\" violates not-null constraint"
+    },
+    {
+      "word": "whiskers",
+      "error": "null value in column \"definition\" of relation \"spelling_words\" violates not-null constraint"
+    },
+    {
+      "word": "whitefish",
+      "error": "null value in column \"definition\" of relation \"spelling_words\" violates not-null constraint"
+    },
+    {
+      "word": "whittle",
+      "error": "null value in column \"definition\" of relation \"spelling_words\" violates not-null constraint"
+    },
+    {
+      "word": "whizzed",
+      "error": "null value in column \"definition\" of relation \"spelling_words\" violates not-null constraint"
+    },
+    {
+      "word": "wholehearted",
+      "error": "null value in column \"definition\" of relation \"spelling_words\" violates not-null constraint"
+    },
+    {
+      "word": "whydah",
+      "error": "null value in column \"definition\" of relation \"spelling_words\" violates not-null constraint"
+    },
+    {
+      "word": "wickiup",
+      "error": "null value in column \"definition\" of relation \"spelling_words\" violates not-null constraint"
+    },
+    {
+      "word": "widdershins",
+      "error": "null value in column \"definition\" of relation \"spelling_words\" violates not-null constraint"
+    },
+    {
+      "word": "widget",
+      "error": "null value in column \"definition\" of relation \"spelling_words\" violates not-null constraint"
+    },
+    {
+      "word": "wield",
+      "error": "null value in column \"definition\" of relation \"spelling_words\" violates not-null constraint"
+    },
+    {
+      "word": "expatiatexerogel",
+      "error": "null value in column \"definition\" of relation \"spelling_words\" violates not-null constraint"
+    },
+    {
+      "word": "fensterfiat",
+      "error": "null value in column \"definition\" of relation \"spelling_words\" violates not-null constraint"
+    },
+    {
+      "word": "fineday",
+      "error": "null value in column \"definition\" of relation \"spelling_words\" violates not-null constraint"
+    },
+    {
+      "word": "extinctextinguish",
+      "error": "null value in column \"definition\" of relation \"spelling_words\" violates not-null constraint"
+    },
+    {
+      "word": "extrorsef",
+      "error": "null value in column \"definition\" of relation \"spelling_words\" violates not-null constraint"
+    },
+    {
+      "word": "fadeawayfallacy",
+      "error": "null value in column \"definition\" of relation \"spelling_words\" violates not-null constraint"
+    },
+    {
+      "word": "fairesbrinz",
+      "error": "null value in column \"definition\" of relation \"spelling_words\" violates not-null constraint"
+    },
+    {
+      "word": "faminelinoleum",
+      "error": "null value in column \"definition\" of relation \"spelling_words\" violates not-null constraint"
+    },
+    {
+      "word": "feintedhumus",
+      "error": "null value in column \"definition\" of relation \"spelling_words\" violates not-null constraint"
+    },
+    {
+      "word": "feldenkraisbailiwick",
+      "error": "null value in column \"definition\" of relation \"spelling_words\" violates not-null constraint"
+    },
+    {
+      "word": "ficusagelicism",
+      "error": "null value in column \"definition\" of relation \"spelling_words\" violates not-null constraint"
+    },
+    {
+      "word": "fiduciaryadjective",
+      "error": "null value in column \"definition\" of relation \"spelling_words\" violates not-null constraint"
+    },
+    {
+      "word": "flashbackquonk",
+      "error": "null value in column \"definition\" of relation \"spelling_words\" violates not-null constraint"
+    },
+    {
+      "word": "flexibleskeleton",
+      "error": "null value in column \"definition\" of relation \"spelling_words\" violates not-null constraint"
+    },
+    {
+      "word": "floruitbunyanesque",
+      "error": "null value in column \"definition\" of relation \"spelling_words\" violates not-null constraint"
+    },
+    {
+      "word": "flotusfluoride",
+      "error": "null value in column \"definition\" of relation \"spelling_words\" violates not-null constraint"
+    },
+    {
+      "word": "focacciapahoehoe",
+      "error": "null value in column \"definition\" of relation \"spelling_words\" violates not-null constraint"
+    },
+    {
+      "word": "whet",
+      "error": "null value in column \"definition\" of relation \"spelling_words\" violates not-null constraint"
+    },
+    {
+      "word": "whisk",
+      "error": "null value in column \"definition\" of relation \"spelling_words\" violates not-null constraint"
+    },
+    {
+      "word": "wheedle",
+      "error": "null value in column \"definition\" of relation \"spelling_words\" violates not-null constraint"
+    },
+    {
+      "word": "whimsical",
+      "error": "null value in column \"definition\" of relation \"spelling_words\" violates not-null constraint"
+    },
+    {
+      "word": "whirlybird",
+      "error": "null value in column \"definition\" of relation \"spelling_words\" violates not-null constraint"
+    },
+    {
+      "word": "widely",
+      "error": "null value in column \"definition\" of relation \"spelling_words\" violates not-null constraint"
+    },
+    {
+      "word": "permission",
+      "error": "null value in column \"definition\" of relation \"spelling_words\" violates not-null constraint"
+    }
+  ],
+  "exampleErrors": []
+}

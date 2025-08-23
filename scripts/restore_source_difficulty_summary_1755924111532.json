@@ -1,0 +1,6 @@
+{
+  "totalUpdates": 8873,
+  "backupTable": "spelling_words_bkp3",
+  "sqlFile": "scripts/restore_source_difficulty_1755924111532.sql",
+  "generatedAt": "2025-08-23T04:41:51.535Z"
+}

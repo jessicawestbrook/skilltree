@@ -1,0 +1,10 @@
+{
+  "processed": 3974,
+  "updated": 3973,
+  "errors": [
+    {
+      "word": "silence",
+      "error": "TypeError: fetch failed"
+    }
+  ]
+}

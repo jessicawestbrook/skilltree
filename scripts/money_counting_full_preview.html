@@ -1,0 +1,1782 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Money Counting - Full Preview</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: #f9fafb;
+        }
+        .header {
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            color: white;
+            padding: 2rem;
+            text-align: center;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        .header h1 {
+            margin: 0;
+            font-size: 2rem;
+        }
+        .header p {
+            margin: 0.5rem 0 0 0;
+            opacity: 0.9;
+        }
+        .content-wrapper {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 2rem;
+        }
+        .info-box {
+            background: white;
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            border-left: 4px solid #10b981;
+        }
+        .info-box h2 {
+            color: #059669;
+            margin-top: 0;
+        }
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+        .stat {
+            background: #f0fdf4;
+            padding: 1rem;
+            border-radius: 8px;
+            text-align: center;
+        }
+        .stat-value {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #059669;
+        }
+        .stat-label {
+            color: #6b7280;
+            font-size: 0.875rem;
+            margin-top: 0.25rem;
+        }
+        .learning-content-container {
+            background: white;
+            border-radius: 12px;
+            padding: 2rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>Money Counting Learning Module</h1>
+        <p>Interactive preview with embedded CSS styling</p>
+    </div>
+    
+    <div class="content-wrapper">
+        <div class="info-box">
+            <h2>Module Information</h2>
+            <div class="stats">
+                <div class="stat">
+                    <div class="stat-value">25</div>
+                    <div class="stat-label">Questions</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-value">✅</div>
+                    <div class="stat-label">CSS Embedded</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-value">🎨</div>
+                    <div class="stat-label">Interactive</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="learning-content-container">
+            
+<style>
+  /* Learning Content Styles */
+  .intro-section {
+    background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%);
+    border-radius: 12px;
+    padding: 1.5rem;
+    margin-bottom: 2rem;
+    border-left: 4px solid #22c55e;
+  }
+  
+  .intro-section h2 {
+    color: #166534;
+    margin-bottom: 0.5rem;
+    font-size: 1.5rem;
+  }
+  
+  .intro-section p {
+    color: #15803d;
+    font-size: 1.1rem;
+    margin: 0;
+  }
+  
+  /* Coin Guide Section */
+  .coin-guide {
+    margin: 2rem 0;
+  }
+  
+  .coin-guide h2 {
+    color: #059669;
+    font-size: 1.75rem;
+    margin-bottom: 1.5rem;
+    text-align: center;
+  }
+  
+  .coin-card {
+    background: white;
+    border: 2px solid #e5e7eb;
+    border-radius: 12px;
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  
+  .coin-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+  }
+  
+  .coin-card h3 {
+    color: #059669;
+    margin-bottom: 1rem;
+    font-size: 1.25rem;
+  }
+  
+  .coin-display {
+    display: flex;
+    justify-content: center;
+    margin: 1rem 0;
+  }
+  
+  .coin-svg {
+    filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2));
+  }
+  
+  .coin-card p {
+    color: #374151;
+    line-height: 1.6;
+    margin: 0.5rem 0;
+  }
+  
+  .coin-card strong {
+    color: #059669;
+    font-weight: 600;
+  }
+  
+  /* Skip Counting Section */
+  .skip-counting-section {
+    background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+    border-radius: 12px;
+    padding: 2rem;
+    margin: 2rem 0;
+  }
+  
+  .skip-counting-section h2 {
+    color: #92400e;
+    font-size: 1.75rem;
+    margin-bottom: 1rem;
+    text-align: center;
+  }
+  
+  .skip-counting-section .intro {
+    color: #78350f;
+    font-size: 1.1rem;
+    text-align: center;
+    margin-bottom: 2rem;
+  }
+  
+  .skip-count-card {
+    background: white;
+    border-radius: 12px;
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  }
+  
+  .skip-count-card h3 {
+    color: #92400e;
+    margin-bottom: 1rem;
+    font-size: 1.25rem;
+  }
+  
+  .coin-row {
+    display: flex;
+    justify-content: center;
+    gap: 0.5rem;
+    margin: 1rem 0;
+    flex-wrap: wrap;
+  }
+  
+  .counting-sequence {
+    background: #fef3c7;
+    border-radius: 8px;
+    padding: 1rem;
+    text-align: center;
+    font-size: 1.25rem;
+    color: #92400e;
+    margin: 1rem 0;
+    font-family: 'Courier New', monospace;
+  }
+  
+  .counting-sequence strong {
+    color: #dc2626;
+    font-size: 1.5rem;
+  }
+  
+  .tip {
+    background: #dbeafe;
+    border-left: 4px solid #3b82f6;
+    border-radius: 4px;
+    padding: 0.75rem;
+    margin-top: 0.5rem;
+    color: #1e40af;
+    font-style: italic;
+  }
+  
+  /* Practice Section */
+  .practice-section {
+    background: linear-gradient(135deg, #ede9fe 0%, #ddd6fe 100%);
+    border-radius: 12px;
+    padding: 2rem;
+    margin: 2rem 0;
+  }
+  
+  .practice-section h2 {
+    color: #6b21a8;
+    font-size: 1.75rem;
+    margin-bottom: 1.5rem;
+    text-align: center;
+  }
+  
+  .practice-problem {
+    background: white;
+    border-radius: 12px;
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  }
+  
+  .practice-problem h3 {
+    color: #6b21a8;
+    margin-bottom: 1rem;
+  }
+  
+  .problem-coins {
+    display: flex;
+    justify-content: center;
+    gap: 0.5rem;
+    margin: 1rem 0;
+    flex-wrap: wrap;
+  }
+  
+  .solution {
+    background: #f3e8ff;
+    border-radius: 8px;
+    padding: 1rem;
+    margin-top: 1rem;
+  }
+  
+  .solution strong {
+    color: #6b21a8;
+    font-size: 1.25rem;
+  }
+  
+  /* Money Facts Section */
+  .money-facts {
+    background: linear-gradient(135deg, #fee2e2 0%, #fecaca 100%);
+    border-radius: 12px;
+    padding: 2rem;
+    margin: 2rem 0;
+  }
+  
+  .money-facts h2 {
+    color: #991b1b;
+    font-size: 1.75rem;
+    margin-bottom: 1.5rem;
+    text-align: center;
+  }
+  
+  .fact-card {
+    background: white;
+    border-radius: 8px;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    border-left: 4px solid #dc2626;
+  }
+  
+  .fact-card h4 {
+    color: #991b1b;
+    margin-bottom: 0.5rem;
+  }
+  
+  .fact-card p {
+    color: #7f1d1d;
+    margin: 0;
+  }
+  
+  /* Summary Section */
+  .summary-section {
+    background: linear-gradient(135deg, #e0f2fe 0%, #bae6fd 100%);
+    border-radius: 12px;
+    padding: 2rem;
+    margin: 2rem 0;
+  }
+  
+  .summary-section h2 {
+    color: #075985;
+    font-size: 1.75rem;
+    margin-bottom: 1.5rem;
+    text-align: center;
+  }
+  
+  .summary-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+    margin-top: 1rem;
+  }
+  
+  .summary-card {
+    background: white;
+    border-radius: 8px;
+    padding: 1rem;
+    text-align: center;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  }
+  
+  .summary-card h4 {
+    color: #075985;
+    margin-bottom: 0.5rem;
+  }
+  
+  .summary-card p {
+    color: #0c4a6e;
+    font-size: 1.25rem;
+    font-weight: bold;
+    margin: 0;
+  }
+  
+  /* Dark mode support */
+  @media (prefers-color-scheme: dark) {
+    .coin-card,
+    .skip-count-card,
+    .practice-problem,
+    .fact-card,
+    .summary-card {
+      background: #1f2937;
+      border-color: #374151;
+      color: #e5e7eb;
+    }
+    
+    .coin-card p,
+    .fact-card p {
+      color: #d1d5db;
+    }
+    
+    .coin-card h3,
+    .skip-count-card h3,
+    .practice-problem h3 {
+      color: #34d399;
+    }
+    
+    .intro-section {
+      background: linear-gradient(135deg, #064e3b 0%, #065f46 100%);
+    }
+    
+    .intro-section h2 {
+      color: #34d399;
+    }
+    
+    .intro-section p {
+      color: #6ee7b7;
+    }
+    
+    .skip-counting-section {
+      background: linear-gradient(135deg, #78350f 0%, #92400e 100%);
+    }
+    
+    .skip-counting-section h2 {
+      color: #fbbf24;
+    }
+    
+    .skip-counting-section .intro {
+      color: #fde68a;
+    }
+    
+    .counting-sequence {
+      background: #451a03;
+      color: #fbbf24;
+    }
+    
+    .solution {
+      background: #4c1d95;
+      color: #e9d5ff;
+    }
+  }
+  
+  /* Responsive design */
+  @media (max-width: 640px) {
+    .coin-row,
+    .problem-coins {
+      gap: 0.25rem;
+    }
+    
+    .coin-svg {
+      width: 50px !important;
+      height: 50px !important;
+    }
+    
+    .summary-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
+
+<h1>Let's Learn to Count Money! 💰</h1>
+
+<div class="intro-section">
+  <h2>🎯 Today's Mission</h2>
+  <p>Today we're going to become money counting experts! We'll learn about different coins and bills, and the super cool trick of skip counting!</p>
+</div>
+
+<div class="coin-guide">
+  <h2>🪙 Meet the Coins!</h2>
+  
+  <div class="coin-card">
+    <h3>Penny - 1 cent (1¢)</h3>
+    <div class="coin-display">
+      <svg width="100" height="100" viewBox="0 0 100 100" class="coin-svg penny">
+      <defs>
+        <radialGradient id="pennyGradient">
+          <stop offset="0%" style="stop-color:#d4824b;stop-opacity:1" />
+          <stop offset="50%" style="stop-color:#b87333;stop-opacity:1" />
+          <stop offset="100%" style="stop-color:#8b4513;stop-opacity:1" />
+        </radialGradient>
+      </defs>
+      <circle cx="50" cy="50" r="48" fill="url(#pennyGradient)" stroke="#6b3410" stroke-width="1"/>
+      <circle cx="50" cy="50" r="44" fill="none" stroke="#8b4513" stroke-width="0.5"/>
+      <text x="50" y="40" text-anchor="middle" font-size="14" font-family="serif" fill="#4a2c17">LINCOLN</text>
+      <text x="50" y="55" text-anchor="middle" font-size="20" font-weight="bold" fill="#4a2c17">1¢</text>
+      <text x="50" y="70" text-anchor="middle" font-size="10" fill="#4a2c17">ONE CENT</text>
+    </svg>
+    </div>
+    <p>This is a penny! It's copper colored (brownish-orange) and worth 1 cent.</p>
+    <p><strong>Fun fact:</strong> President Abraham Lincoln is on the real penny!</p>
+  </div>
+  
+  <div class="coin-card">
+    <h3>Nickel - 5 cents (5¢)</h3>
+    <div class="coin-display">
+      <svg width="100" height="100" viewBox="0 0 100 100" class="coin-svg nickel">
+      <defs>
+        <radialGradient id="nickelGradient">
+          <stop offset="0%" style="stop-color:#e8e8e8;stop-opacity:1" />
+          <stop offset="50%" style="stop-color:#c0c0c0;stop-opacity:1" />
+          <stop offset="100%" style="stop-color:#999999;stop-opacity:1" />
+        </radialGradient>
+      </defs>
+      <circle cx="50" cy="50" r="48" fill="url(#nickelGradient)" stroke="#666666" stroke-width="1"/>
+      <circle cx="50" cy="50" r="44" fill="none" stroke="#808080" stroke-width="0.5"/>
+      <text x="50" y="40" text-anchor="middle" font-size="14" font-family="serif" fill="#333">JEFFERSON</text>
+      <text x="50" y="55" text-anchor="middle" font-size="20" font-weight="bold" fill="#333">5¢</text>
+      <text x="50" y="70" text-anchor="middle" font-size="10" fill="#333">FIVE CENTS</text>
+    </svg>
+    </div>
+    <p>This is a nickel! It's silver colored and bigger than a penny. It's worth 5 cents.</p>
+    <p><strong>That means:</strong> 1 nickel = 5 pennies!</p>
+  </div>
+  
+  <div class="coin-card">
+    <h3>Dime - 10 cents (10¢)</h3>
+    <div class="coin-display">
+      <svg width="100" height="100" viewBox="0 0 100 100" class="coin-svg dime">
+      <defs>
+        <radialGradient id="dimeGradient">
+          <stop offset="0%" style="stop-color:#f0f0f0;stop-opacity:1" />
+          <stop offset="50%" style="stop-color:#d0d0d0;stop-opacity:1" />
+          <stop offset="100%" style="stop-color:#a0a0a0;stop-opacity:1" />
+        </radialGradient>
+      </defs>
+      <circle cx="50" cy="50" r="40" fill="url(#dimeGradient)" stroke="#666666" stroke-width="1"/>
+      <circle cx="50" cy="50" r="36" fill="none" stroke="#808080" stroke-width="0.5"/>
+      <text x="50" y="40" text-anchor="middle" font-size="12" font-family="serif" fill="#333">ROOSEVELT</text>
+      <text x="50" y="55" text-anchor="middle" font-size="18" font-weight="bold" fill="#333">10¢</text>
+      <text x="50" y="68" text-anchor="middle" font-size="9" fill="#333">ONE DIME</text>
+    </svg>
+    </div>
+    <p>This is a dime! It's the smallest coin but worth 10 cents.</p>
+    <p><strong>That means:</strong> 1 dime = 10 pennies = 2 nickels!</p>
+  </div>
+  
+  <div class="coin-card">
+    <h3>Quarter - 25 cents (25¢)</h3>
+    <div class="coin-display">
+      <svg width="100" height="100" viewBox="0 0 100 100" class="coin-svg quarter">
+      <defs>
+        <radialGradient id="quarterGradient">
+          <stop offset="0%" style="stop-color:#e8e8e8;stop-opacity:1" />
+          <stop offset="50%" style="stop-color:#c0c0c0;stop-opacity:1" />
+          <stop offset="100%" style="stop-color:#999999;stop-opacity:1" />
+        </radialGradient>
+      </defs>
+      <circle cx="50" cy="50" r="48" fill="url(#quarterGradient)" stroke="#666666" stroke-width="1"/>
+      <circle cx="50" cy="50" r="44" fill="none" stroke="#808080" stroke-width="0.5"/>
+      <text x="50" y="40" text-anchor="middle" font-size="14" font-family="serif" fill="#333">WASHINGTON</text>
+      <text x="50" y="55" text-anchor="middle" font-size="20" font-weight="bold" fill="#333">25¢</text>
+      <text x="50" y="70" text-anchor="middle" font-size="10" fill="#333">QUARTER DOLLAR</text>
+    </svg>
+    </div>
+    <p>This is a quarter! It's the biggest everyday coin and worth 25 cents.</p>
+    <p><strong>That means:</strong> 1 quarter = 25 pennies = 5 nickels!</p>
+  </div>
+</div>
+
+<div class="skip-counting-section">
+  <h2>🎮 The Skip Counting Trick!</h2>
+  <p class="intro">Skip counting means counting by a number other than 1. It makes counting money MUCH faster!</p>
+  
+  <div class="skip-count-card">
+    <h3>Counting Pennies (by 1s)</h3>
+    <div class="coin-row">
+      <svg width="60" height="60" viewBox="0 0 100 100" class="coin-svg penny">
+      <defs>
+        <radialGradient id="pennyGradient">
+          <stop offset="0%" style="stop-color:#d4824b;stop-opacity:1" />
+          <stop offset="50%" style="stop-color:#b87333;stop-opacity:1" />
+          <stop offset="100%" style="stop-color:#8b4513;stop-opacity:1" />
+        </radialGradient>
+      </defs>
+      <circle cx="50" cy="50" r="48" fill="url(#pennyGradient)" stroke="#6b3410" stroke-width="1"/>
+      <circle cx="50" cy="50" r="44" fill="none" stroke="#8b4513" stroke-width="0.5"/>
+      <text x="50" y="40" text-anchor="middle" font-size="14" font-family="serif" fill="#4a2c17">LINCOLN</text>
+      <text x="50" y="55" text-anchor="middle" font-size="20" font-weight="bold" fill="#4a2c17">1¢</text>
+      <text x="50" y="70" text-anchor="middle" font-size="10" fill="#4a2c17">ONE CENT</text>
+    </svg>
+      <svg width="60" height="60" viewBox="0 0 100 100" class="coin-svg penny">
+      <defs>
+        <radialGradient id="pennyGradient">
+          <stop offset="0%" style="stop-color:#d4824b;stop-opacity:1" />
+          <stop offset="50%" style="stop-color:#b87333;stop-opacity:1" />
+          <stop offset="100%" style="stop-color:#8b4513;stop-opacity:1" />
+        </radialGradient>
+      </defs>
+      <circle cx="50" cy="50" r="48" fill="url(#pennyGradient)" stroke="#6b3410" stroke-width="1"/>
+      <circle cx="50" cy="50" r="44" fill="none" stroke="#8b4513" stroke-width="0.5"/>
+      <text x="50" y="40" text-anchor="middle" font-size="14" font-family="serif" fill="#4a2c17">LINCOLN</text>
+      <text x="50" y="55" text-anchor="middle" font-size="20" font-weight="bold" fill="#4a2c17">1¢</text>
+      <text x="50" y="70" text-anchor="middle" font-size="10" fill="#4a2c17">ONE CENT</text>
+    </svg>
+      <svg width="60" height="60" viewBox="0 0 100 100" class="coin-svg penny">
+      <defs>
+        <radialGradient id="pennyGradient">
+          <stop offset="0%" style="stop-color:#d4824b;stop-opacity:1" />
+          <stop offset="50%" style="stop-color:#b87333;stop-opacity:1" />
+          <stop offset="100%" style="stop-color:#8b4513;stop-opacity:1" />
+        </radialGradient>
+      </defs>
+      <circle cx="50" cy="50" r="48" fill="url(#pennyGradient)" stroke="#6b3410" stroke-width="1"/>
+      <circle cx="50" cy="50" r="44" fill="none" stroke="#8b4513" stroke-width="0.5"/>
+      <text x="50" y="40" text-anchor="middle" font-size="14" font-family="serif" fill="#4a2c17">LINCOLN</text>
+      <text x="50" y="55" text-anchor="middle" font-size="20" font-weight="bold" fill="#4a2c17">1¢</text>
+      <text x="50" y="70" text-anchor="middle" font-size="10" fill="#4a2c17">ONE CENT</text>
+    </svg>
+      <svg width="60" height="60" viewBox="0 0 100 100" class="coin-svg penny">
+      <defs>
+        <radialGradient id="pennyGradient">
+          <stop offset="0%" style="stop-color:#d4824b;stop-opacity:1" />
+          <stop offset="50%" style="stop-color:#b87333;stop-opacity:1" />
+          <stop offset="100%" style="stop-color:#8b4513;stop-opacity:1" />
+        </radialGradient>
+      </defs>
+      <circle cx="50" cy="50" r="48" fill="url(#pennyGradient)" stroke="#6b3410" stroke-width="1"/>
+      <circle cx="50" cy="50" r="44" fill="none" stroke="#8b4513" stroke-width="0.5"/>
+      <text x="50" y="40" text-anchor="middle" font-size="14" font-family="serif" fill="#4a2c17">LINCOLN</text>
+      <text x="50" y="55" text-anchor="middle" font-size="20" font-weight="bold" fill="#4a2c17">1¢</text>
+      <text x="50" y="70" text-anchor="middle" font-size="10" fill="#4a2c17">ONE CENT</text>
+    </svg>
+      <svg width="60" height="60" viewBox="0 0 100 100" class="coin-svg penny">
+      <defs>
+        <radialGradient id="pennyGradient">
+          <stop offset="0%" style="stop-color:#d4824b;stop-opacity:1" />
+          <stop offset="50%" style="stop-color:#b87333;stop-opacity:1" />
+          <stop offset="100%" style="stop-color:#8b4513;stop-opacity:1" />
+        </radialGradient>
+      </defs>
+      <circle cx="50" cy="50" r="48" fill="url(#pennyGradient)" stroke="#6b3410" stroke-width="1"/>
+      <circle cx="50" cy="50" r="44" fill="none" stroke="#8b4513" stroke-width="0.5"/>
+      <text x="50" y="40" text-anchor="middle" font-size="14" font-family="serif" fill="#4a2c17">LINCOLN</text>
+      <text x="50" y="55" text-anchor="middle" font-size="20" font-weight="bold" fill="#4a2c17">1¢</text>
+      <text x="50" y="70" text-anchor="middle" font-size="10" fill="#4a2c17">ONE CENT</text>
+    </svg>
+    </div>
+    <p class="counting-sequence">1 → 2 → 3 → 4 → 5 = <strong>5 cents</strong></p>
+  </div>
+  
+  <div class="skip-count-card">
+    <h3>Counting Nickels (by 5s)</h3>
+    <div class="coin-row">
+      <svg width="60" height="60" viewBox="0 0 100 100" class="coin-svg nickel">
+      <defs>
+        <radialGradient id="nickelGradient">
+          <stop offset="0%" style="stop-color:#e8e8e8;stop-opacity:1" />
+          <stop offset="50%" style="stop-color:#c0c0c0;stop-opacity:1" />
+          <stop offset="100%" style="stop-color:#999999;stop-opacity:1" />
+        </radialGradient>
+      </defs>
+      <circle cx="50" cy="50" r="48" fill="url(#nickelGradient)" stroke="#666666" stroke-width="1"/>
+      <circle cx="50" cy="50" r="44" fill="none" stroke="#808080" stroke-width="0.5"/>
+      <text x="50" y="40" text-anchor="middle" font-size="14" font-family="serif" fill="#333">JEFFERSON</text>
+      <text x="50" y="55" text-anchor="middle" font-size="20" font-weight="bold" fill="#333">5¢</text>
+      <text x="50" y="70" text-anchor="middle" font-size="10" fill="#333">FIVE CENTS</text>
+    </svg>
+      <svg width="60" height="60" viewBox="0 0 100 100" class="coin-svg nickel">
+      <defs>
+        <radialGradient id="nickelGradient">
+          <stop offset="0%" style="stop-color:#e8e8e8;stop-opacity:1" />
+          <stop offset="50%" style="stop-color:#c0c0c0;stop-opacity:1" />
+          <stop offset="100%" style="stop-color:#999999;stop-opacity:1" />
+        </radialGradient>
+      </defs>
+      <circle cx="50" cy="50" r="48" fill="url(#nickelGradient)" stroke="#666666" stroke-width="1"/>
+      <circle cx="50" cy="50" r="44" fill="none" stroke="#808080" stroke-width="0.5"/>
+      <text x="50" y="40" text-anchor="middle" font-size="14" font-family="serif" fill="#333">JEFFERSON</text>
+      <text x="50" y="55" text-anchor="middle" font-size="20" font-weight="bold" fill="#333">5¢</text>
+      <text x="50" y="70" text-anchor="middle" font-size="10" fill="#333">FIVE CENTS</text>
+    </svg>
+      <svg width="60" height="60" viewBox="0 0 100 100" class="coin-svg nickel">
+      <defs>
+        <radialGradient id="nickelGradient">
+          <stop offset="0%" style="stop-color:#e8e8e8;stop-opacity:1" />
+          <stop offset="50%" style="stop-color:#c0c0c0;stop-opacity:1" />
+          <stop offset="100%" style="stop-color:#999999;stop-opacity:1" />
+        </radialGradient>
+      </defs>
+      <circle cx="50" cy="50" r="48" fill="url(#nickelGradient)" stroke="#666666" stroke-width="1"/>
+      <circle cx="50" cy="50" r="44" fill="none" stroke="#808080" stroke-width="0.5"/>
+      <text x="50" y="40" text-anchor="middle" font-size="14" font-family="serif" fill="#333">JEFFERSON</text>
+      <text x="50" y="55" text-anchor="middle" font-size="20" font-weight="bold" fill="#333">5¢</text>
+      <text x="50" y="70" text-anchor="middle" font-size="10" fill="#333">FIVE CENTS</text>
+    </svg>
+      <svg width="60" height="60" viewBox="0 0 100 100" class="coin-svg nickel">
+      <defs>
+        <radialGradient id="nickelGradient">
+          <stop offset="0%" style="stop-color:#e8e8e8;stop-opacity:1" />
+          <stop offset="50%" style="stop-color:#c0c0c0;stop-opacity:1" />
+          <stop offset="100%" style="stop-color:#999999;stop-opacity:1" />
+        </radialGradient>
+      </defs>
+      <circle cx="50" cy="50" r="48" fill="url(#nickelGradient)" stroke="#666666" stroke-width="1"/>
+      <circle cx="50" cy="50" r="44" fill="none" stroke="#808080" stroke-width="0.5"/>
+      <text x="50" y="40" text-anchor="middle" font-size="14" font-family="serif" fill="#333">JEFFERSON</text>
+      <text x="50" y="55" text-anchor="middle" font-size="20" font-weight="bold" fill="#333">5¢</text>
+      <text x="50" y="70" text-anchor="middle" font-size="10" fill="#333">FIVE CENTS</text>
+    </svg>
+    </div>
+    <p class="counting-sequence">5 → 10 → 15 → 20 = <strong>20 cents</strong></p>
+    <p class="tip">💡 Count by 5s: five, ten, fifteen, twenty!</p>
+  </div>
+  
+  <div class="skip-count-card">
+    <h3>Counting Dimes (by 10s)</h3>
+    <div class="coin-row">
+      <svg width="60" height="60" viewBox="0 0 100 100" class="coin-svg dime">
+      <defs>
+        <radialGradient id="dimeGradient">
+          <stop offset="0%" style="stop-color:#f0f0f0;stop-opacity:1" />
+          <stop offset="50%" style="stop-color:#d0d0d0;stop-opacity:1" />
+          <stop offset="100%" style="stop-color:#a0a0a0;stop-opacity:1" />
+        </radialGradient>
+      </defs>
+      <circle cx="50" cy="50" r="40" fill="url(#dimeGradient)" stroke="#666666" stroke-width="1"/>
+      <circle cx="50" cy="50" r="36" fill="none" stroke="#808080" stroke-width="0.5"/>
+      <text x="50" y="40" text-anchor="middle" font-size="12" font-family="serif" fill="#333">ROOSEVELT</text>
+      <text x="50" y="55" text-anchor="middle" font-size="18" font-weight="bold" fill="#333">10¢</text>
+      <text x="50" y="68" text-anchor="middle" font-size="9" fill="#333">ONE DIME</text>
+    </svg>
+      <svg width="60" height="60" viewBox="0 0 100 100" class="coin-svg dime">
+      <defs>
+        <radialGradient id="dimeGradient">
+          <stop offset="0%" style="stop-color:#f0f0f0;stop-opacity:1" />
+          <stop offset="50%" style="stop-color:#d0d0d0;stop-opacity:1" />
+          <stop offset="100%" style="stop-color:#a0a0a0;stop-opacity:1" />
+        </radialGradient>
+      </defs>
+      <circle cx="50" cy="50" r="40" fill="url(#dimeGradient)" stroke="#666666" stroke-width="1"/>
+      <circle cx="50" cy="50" r="36" fill="none" stroke="#808080" stroke-width="0.5"/>
+      <text x="50" y="40" text-anchor="middle" font-size="12" font-family="serif" fill="#333">ROOSEVELT</text>
+      <text x="50" y="55" text-anchor="middle" font-size="18" font-weight="bold" fill="#333">10¢</text>
+      <text x="50" y="68" text-anchor="middle" font-size="9" fill="#333">ONE DIME</text>
+    </svg>
+      <svg width="60" height="60" viewBox="0 0 100 100" class="coin-svg dime">
+      <defs>
+        <radialGradient id="dimeGradient">
+          <stop offset="0%" style="stop-color:#f0f0f0;stop-opacity:1" />
+          <stop offset="50%" style="stop-color:#d0d0d0;stop-opacity:1" />
+          <stop offset="100%" style="stop-color:#a0a0a0;stop-opacity:1" />
+        </radialGradient>
+      </defs>
+      <circle cx="50" cy="50" r="40" fill="url(#dimeGradient)" stroke="#666666" stroke-width="1"/>
+      <circle cx="50" cy="50" r="36" fill="none" stroke="#808080" stroke-width="0.5"/>
+      <text x="50" y="40" text-anchor="middle" font-size="12" font-family="serif" fill="#333">ROOSEVELT</text>
+      <text x="50" y="55" text-anchor="middle" font-size="18" font-weight="bold" fill="#333">10¢</text>
+      <text x="50" y="68" text-anchor="middle" font-size="9" fill="#333">ONE DIME</text>
+    </svg>
+      <svg width="60" height="60" viewBox="0 0 100 100" class="coin-svg dime">
+      <defs>
+        <radialGradient id="dimeGradient">
+          <stop offset="0%" style="stop-color:#f0f0f0;stop-opacity:1" />
+          <stop offset="50%" style="stop-color:#d0d0d0;stop-opacity:1" />
+          <stop offset="100%" style="stop-color:#a0a0a0;stop-opacity:1" />
+        </radialGradient>
+      </defs>
+      <circle cx="50" cy="50" r="40" fill="url(#dimeGradient)" stroke="#666666" stroke-width="1"/>
+      <circle cx="50" cy="50" r="36" fill="none" stroke="#808080" stroke-width="0.5"/>
+      <text x="50" y="40" text-anchor="middle" font-size="12" font-family="serif" fill="#333">ROOSEVELT</text>
+      <text x="50" y="55" text-anchor="middle" font-size="18" font-weight="bold" fill="#333">10¢</text>
+      <text x="50" y="68" text-anchor="middle" font-size="9" fill="#333">ONE DIME</text>
+    </svg>
+    </div>
+    <p class="counting-sequence">10 → 20 → 30 → 40 = <strong>40 cents</strong></p>
+    <p class="tip">💡 Count by 10s: ten, twenty, thirty, forty!</p>
+  </div>
+  
+  <div class="skip-count-card">
+    <h3>Counting Quarters (by 25s)</h3>
+    <div class="coin-row">
+      <svg width="60" height="60" viewBox="0 0 100 100" class="coin-svg quarter">
+      <defs>
+        <radialGradient id="quarterGradient">
+          <stop offset="0%" style="stop-color:#e8e8e8;stop-opacity:1" />
+          <stop offset="50%" style="stop-color:#c0c0c0;stop-opacity:1" />
+          <stop offset="100%" style="stop-color:#999999;stop-opacity:1" />
+        </radialGradient>
+      </defs>
+      <circle cx="50" cy="50" r="48" fill="url(#quarterGradient)" stroke="#666666" stroke-width="1"/>
+      <circle cx="50" cy="50" r="44" fill="none" stroke="#808080" stroke-width="0.5"/>
+      <text x="50" y="40" text-anchor="middle" font-size="14" font-family="serif" fill="#333">WASHINGTON</text>
+      <text x="50" y="55" text-anchor="middle" font-size="20" font-weight="bold" fill="#333">25¢</text>
+      <text x="50" y="70" text-anchor="middle" font-size="10" fill="#333">QUARTER DOLLAR</text>
+    </svg>
+      <svg width="60" height="60" viewBox="0 0 100 100" class="coin-svg quarter">
+      <defs>
+        <radialGradient id="quarterGradient">
+          <stop offset="0%" style="stop-color:#e8e8e8;stop-opacity:1" />
+          <stop offset="50%" style="stop-color:#c0c0c0;stop-opacity:1" />
+          <stop offset="100%" style="stop-color:#999999;stop-opacity:1" />
+        </radialGradient>
+      </defs>
+      <circle cx="50" cy="50" r="48" fill="url(#quarterGradient)" stroke="#666666" stroke-width="1"/>
+      <circle cx="50" cy="50" r="44" fill="none" stroke="#808080" stroke-width="0.5"/>
+      <text x="50" y="40" text-anchor="middle" font-size="14" font-family="serif" fill="#333">WASHINGTON</text>
+      <text x="50" y="55" text-anchor="middle" font-size="20" font-weight="bold" fill="#333">25¢</text>
+      <text x="50" y="70" text-anchor="middle" font-size="10" fill="#333">QUARTER DOLLAR</text>
+    </svg>
+      <svg width="60" height="60" viewBox="0 0 100 100" class="coin-svg quarter">
+      <defs>
+        <radialGradient id="quarterGradient">
+          <stop offset="0%" style="stop-color:#e8e8e8;stop-opacity:1" />
+          <stop offset="50%" style="stop-color:#c0c0c0;stop-opacity:1" />
+          <stop offset="100%" style="stop-color:#999999;stop-opacity:1" />
+        </radialGradient>
+      </defs>
+      <circle cx="50" cy="50" r="48" fill="url(#quarterGradient)" stroke="#666666" stroke-width="1"/>
+      <circle cx="50" cy="50" r="44" fill="none" stroke="#808080" stroke-width="0.5"/>
+      <text x="50" y="40" text-anchor="middle" font-size="14" font-family="serif" fill="#333">WASHINGTON</text>
+      <text x="50" y="55" text-anchor="middle" font-size="20" font-weight="bold" fill="#333">25¢</text>
+      <text x="50" y="70" text-anchor="middle" font-size="10" fill="#333">QUARTER DOLLAR</text>
+    </svg>
+      <svg width="60" height="60" viewBox="0 0 100 100" class="coin-svg quarter">
+      <defs>
+        <radialGradient id="quarterGradient">
+          <stop offset="0%" style="stop-color:#e8e8e8;stop-opacity:1" />
+          <stop offset="50%" style="stop-color:#c0c0c0;stop-opacity:1" />
+          <stop offset="100%" style="stop-color:#999999;stop-opacity:1" />
+        </radialGradient>
+      </defs>
+      <circle cx="50" cy="50" r="48" fill="url(#quarterGradient)" stroke="#666666" stroke-width="1"/>
+      <circle cx="50" cy="50" r="44" fill="none" stroke="#808080" stroke-width="0.5"/>
+      <text x="50" y="40" text-anchor="middle" font-size="14" font-family="serif" fill="#333">WASHINGTON</text>
+      <text x="50" y="55" text-anchor="middle" font-size="20" font-weight="bold" fill="#333">25¢</text>
+      <text x="50" y="70" text-anchor="middle" font-size="10" fill="#333">QUARTER DOLLAR</text>
+    </svg>
+    </div>
+    <p class="counting-sequence">25 → 50 → 75 → 100 = <strong>$1.00</strong></p>
+    <p class="tip">💡 Count by 25s: twenty-five, fifty, seventy-five, one hundred (that's a dollar!)</p>
+  </div>
+</div>
+
+<div class="bill-guide">
+  <h2>💵 Meet the Bills!</h2>
+  
+  <div class="bill-card">
+    <h3>One Dollar Bill - $1.00</h3>
+    <svg width="250" height="108" viewBox="0 0 200 86" class="bill-svg dollar">
+      <defs>
+        <linearGradient id="dollarGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" style="stop-color:#93c47d;stop-opacity:1" />
+          <stop offset="50%" style="stop-color:#85bb65;stop-opacity:1" />
+          <stop offset="100%" style="stop-color:#6aa84f;stop-opacity:1" />
+        </linearGradient>
+      </defs>
+      <rect x="2" y="2" width="196" height="82" fill="url(#dollarGradient)" stroke="#2e7d32" stroke-width="2" rx="4"/>
+      <rect x="10" y="10" width="180" height="66" fill="none" stroke="#4a8c4e" stroke-width="1" rx="2"/>
+      <circle cx="100" cy="43" r="25" fill="none" stroke="#2e7d32" stroke-width="1"/>
+      <text x="100" y="35" text-anchor="middle" font-size="12" font-family="serif" fill="#1a5d1f">THE UNITED STATES OF AMERICA</text>
+      <text x="100" y="50" text-anchor="middle" font-size="28" font-weight="bold" fill="#0d3d10">$1</text>
+      <text x="100" y="65" text-anchor="middle" font-size="10" fill="#1a5d1f">ONE DOLLAR</text>
+      <text x="20" y="50" text-anchor="middle" font-size="16" fill="#2e7d32">1</text>
+      <text x="180" y="50" text-anchor="middle" font-size="16" fill="#2e7d32">1</text>
+    </svg>
+    <p>This is a one dollar bill! It's worth 100 cents.</p>
+    <p><strong>That means:</strong> $1 = 4 quarters = 10 dimes = 20 nickels = 100 pennies!</p>
+  </div>
+  
+  <div class="bill-card">
+    <h3>Five Dollar Bill - $5.00</h3>
+    <svg width="250" height="108" viewBox="0 0 200 86" class="bill-svg five">
+      <defs>
+        <linearGradient id="fiveGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" style="stop-color:#a3c293;stop-opacity:1" />
+          <stop offset="50%" style="stop-color:#85bb65;stop-opacity:1" />
+          <stop offset="100%" style="stop-color:#5a9c3f;stop-opacity:1" />
+        </linearGradient>
+      </defs>
+      <rect x="2" y="2" width="196" height="82" fill="url(#fiveGradient)" stroke="#2e7d32" stroke-width="2" rx="4"/>
+      <rect x="10" y="10" width="180" height="66" fill="none" stroke="#4a8c4e" stroke-width="1" rx="2"/>
+      <circle cx="100" cy="43" r="25" fill="none" stroke="#2e7d32" stroke-width="1"/>
+      <text x="100" y="35" text-anchor="middle" font-size="12" font-family="serif" fill="#1a5d1f">THE UNITED STATES OF AMERICA</text>
+      <text x="100" y="50" text-anchor="middle" font-size="28" font-weight="bold" fill="#0d3d10">$5</text>
+      <text x="100" y="65" text-anchor="middle" font-size="10" fill="#1a5d1f">FIVE DOLLARS</text>
+      <text x="20" y="50" text-anchor="middle" font-size="16" fill="#2e7d32">5</text>
+      <text x="180" y="50" text-anchor="middle" font-size="16" fill="#2e7d32">5</text>
+    </svg>
+    <p>This is a five dollar bill! It's worth 500 cents.</p>
+    <p><strong>That means:</strong> $5 = 5 one dollar bills = 20 quarters!</p>
+  </div>
+  
+  <div class="bill-card">
+    <h3>Ten Dollar Bill - $10.00</h3>
+    <svg width="250" height="108" viewBox="0 0 200 86" class="bill-svg ten">
+      <defs>
+        <linearGradient id="tenGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" style="stop-color:#b3d2a3;stop-opacity:1" />
+          <stop offset="50%" style="stop-color:#85bb65;stop-opacity:1" />
+          <stop offset="100%" style="stop-color:#4a8c2f;stop-opacity:1" />
+        </linearGradient>
+      </defs>
+      <rect x="2" y="2" width="196" height="82" fill="url(#tenGradient)" stroke="#2e7d32" stroke-width="2" rx="4"/>
+      <rect x="10" y="10" width="180" height="66" fill="none" stroke="#4a8c4e" stroke-width="1" rx="2"/>
+      <circle cx="100" cy="43" r="25" fill="none" stroke="#2e7d32" stroke-width="1"/>
+      <text x="100" y="35" text-anchor="middle" font-size="12" font-family="serif" fill="#1a5d1f">THE UNITED STATES OF AMERICA</text>
+      <text x="100" y="50" text-anchor="middle" font-size="28" font-weight="bold" fill="#0d3d10">$10</text>
+      <text x="100" y="65" text-anchor="middle" font-size="10" fill="#1a5d1f">TEN DOLLARS</text>
+      <text x="20" y="50" text-anchor="middle" font-size="14" fill="#2e7d32">10</text>
+      <text x="180" y="50" text-anchor="middle" font-size="14" fill="#2e7d32">10</text>
+    </svg>
+    <p>This is a ten dollar bill! It's worth 1,000 cents.</p>
+    <p><strong>That means:</strong> $10 = 10 one dollar bills = 2 five dollar bills!</p>
+  </div>
+  
+  <div class="bill-card">
+    <h3>Twenty Dollar Bill - $20.00</h3>
+    <svg width="250" height="108" viewBox="0 0 200 86" class="bill-svg twenty">
+      <defs>
+        <linearGradient id="twentyGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" style="stop-color:#c3e2b3;stop-opacity:1" />
+          <stop offset="50%" style="stop-color:#85bb65;stop-opacity:1" />
+          <stop offset="100%" style="stop-color:#3a7c1f;stop-opacity:1" />
+        </linearGradient>
+      </defs>
+      <rect x="2" y="2" width="196" height="82" fill="url(#twentyGradient)" stroke="#2e7d32" stroke-width="2" rx="4"/>
+      <rect x="10" y="10" width="180" height="66" fill="none" stroke="#4a8c4e" stroke-width="1" rx="2"/>
+      <circle cx="100" cy="43" r="25" fill="none" stroke="#2e7d32" stroke-width="1"/>
+      <text x="100" y="35" text-anchor="middle" font-size="12" font-family="serif" fill="#1a5d1f">THE UNITED STATES OF AMERICA</text>
+      <text x="100" y="50" text-anchor="middle" font-size="28" font-weight="bold" fill="#0d3d10">$20</text>
+      <text x="100" y="65" text-anchor="middle" font-size="10" fill="#1a5d1f">TWENTY DOLLARS</text>
+      <text x="20" y="50" text-anchor="middle" font-size="14" fill="#2e7d32">20</text>
+      <text x="180" y="50" text-anchor="middle" font-size="14" fill="#2e7d32">20</text>
+    </svg>
+    <p>This is a twenty dollar bill! It's worth 2,000 cents.</p>
+    <p><strong>That means:</strong> $20 = 20 one dollar bills = 4 five dollar bills = 2 ten dollar bills!</p>
+  </div>
+  
+</div>
+
+<div class="practice-section">
+  <h2>🎮 Practice Time! Let's Count Money Together</h2>
+  
+  <div class="example-problem">
+    <h3>Example 1: Count These Coins Using Skip Counting</h3>
+    <div class="coin-display">
+      <svg width="70" height="70" viewBox="0 0 100 100" class="coin-svg quarter">
+      <defs>
+        <radialGradient id="quarterGradient">
+          <stop offset="0%" style="stop-color:#e8e8e8;stop-opacity:1" />
+          <stop offset="50%" style="stop-color:#c0c0c0;stop-opacity:1" />
+          <stop offset="100%" style="stop-color:#999999;stop-opacity:1" />
+        </radialGradient>
+      </defs>
+      <circle cx="50" cy="50" r="48" fill="url(#quarterGradient)" stroke="#666666" stroke-width="1"/>
+      <circle cx="50" cy="50" r="44" fill="none" stroke="#808080" stroke-width="0.5"/>
+      <text x="50" y="40" text-anchor="middle" font-size="14" font-family="serif" fill="#333">WASHINGTON</text>
+      <text x="50" y="55" text-anchor="middle" font-size="20" font-weight="bold" fill="#333">25¢</text>
+      <text x="50" y="70" text-anchor="middle" font-size="10" fill="#333">QUARTER DOLLAR</text>
+    </svg>
+      <svg width="70" height="70" viewBox="0 0 100 100" class="coin-svg quarter">
+      <defs>
+        <radialGradient id="quarterGradient">
+          <stop offset="0%" style="stop-color:#e8e8e8;stop-opacity:1" />
+          <stop offset="50%" style="stop-color:#c0c0c0;stop-opacity:1" />
+          <stop offset="100%" style="stop-color:#999999;stop-opacity:1" />
+        </radialGradient>
+      </defs>
+      <circle cx="50" cy="50" r="48" fill="url(#quarterGradient)" stroke="#666666" stroke-width="1"/>
+      <circle cx="50" cy="50" r="44" fill="none" stroke="#808080" stroke-width="0.5"/>
+      <text x="50" y="40" text-anchor="middle" font-size="14" font-family="serif" fill="#333">WASHINGTON</text>
+      <text x="50" y="55" text-anchor="middle" font-size="20" font-weight="bold" fill="#333">25¢</text>
+      <text x="50" y="70" text-anchor="middle" font-size="10" fill="#333">QUARTER DOLLAR</text>
+    </svg>
+      <svg width="70" height="70" viewBox="0 0 100 100" class="coin-svg dime">
+      <defs>
+        <radialGradient id="dimeGradient">
+          <stop offset="0%" style="stop-color:#f0f0f0;stop-opacity:1" />
+          <stop offset="50%" style="stop-color:#d0d0d0;stop-opacity:1" />
+          <stop offset="100%" style="stop-color:#a0a0a0;stop-opacity:1" />
+        </radialGradient>
+      </defs>
+      <circle cx="50" cy="50" r="40" fill="url(#dimeGradient)" stroke="#666666" stroke-width="1"/>
+      <circle cx="50" cy="50" r="36" fill="none" stroke="#808080" stroke-width="0.5"/>
+      <text x="50" y="40" text-anchor="middle" font-size="12" font-family="serif" fill="#333">ROOSEVELT</text>
+      <text x="50" y="55" text-anchor="middle" font-size="18" font-weight="bold" fill="#333">10¢</text>
+      <text x="50" y="68" text-anchor="middle" font-size="9" fill="#333">ONE DIME</text>
+    </svg>
+      <svg width="70" height="70" viewBox="0 0 100 100" class="coin-svg nickel">
+      <defs>
+        <radialGradient id="nickelGradient">
+          <stop offset="0%" style="stop-color:#e8e8e8;stop-opacity:1" />
+          <stop offset="50%" style="stop-color:#c0c0c0;stop-opacity:1" />
+          <stop offset="100%" style="stop-color:#999999;stop-opacity:1" />
+        </radialGradient>
+      </defs>
+      <circle cx="50" cy="50" r="48" fill="url(#nickelGradient)" stroke="#666666" stroke-width="1"/>
+      <circle cx="50" cy="50" r="44" fill="none" stroke="#808080" stroke-width="0.5"/>
+      <text x="50" y="40" text-anchor="middle" font-size="14" font-family="serif" fill="#333">JEFFERSON</text>
+      <text x="50" y="55" text-anchor="middle" font-size="20" font-weight="bold" fill="#333">5¢</text>
+      <text x="50" y="70" text-anchor="middle" font-size="10" fill="#333">FIVE CENTS</text>
+    </svg>
+    </div>
+    <p><strong>Let's count together:</strong></p>
+    <ol>
+      <li>Start with quarters (count by 25s): <span class="highlight">25¢ → 50¢</span></li>
+      <li>Add the dime (add 10): <span class="highlight">50¢ + 10¢ = 60¢</span></li>
+      <li>Add the nickel (add 5): <span class="highlight">60¢ + 5¢ = 65¢</span></li>
+    </ol>
+    <p class="answer">Total: 65 cents! 🎉</p>
+  </div>
+  
+  <div class="example-problem">
+    <h3>Example 2: Skip Count These Dimes</h3>
+    <div class="coin-display">
+      <svg width="70" height="70" viewBox="0 0 100 100" class="coin-svg dime">
+      <defs>
+        <radialGradient id="dimeGradient">
+          <stop offset="0%" style="stop-color:#f0f0f0;stop-opacity:1" />
+          <stop offset="50%" style="stop-color:#d0d0d0;stop-opacity:1" />
+          <stop offset="100%" style="stop-color:#a0a0a0;stop-opacity:1" />
+        </radialGradient>
+      </defs>
+      <circle cx="50" cy="50" r="40" fill="url(#dimeGradient)" stroke="#666666" stroke-width="1"/>
+      <circle cx="50" cy="50" r="36" fill="none" stroke="#808080" stroke-width="0.5"/>
+      <text x="50" y="40" text-anchor="middle" font-size="12" font-family="serif" fill="#333">ROOSEVELT</text>
+      <text x="50" y="55" text-anchor="middle" font-size="18" font-weight="bold" fill="#333">10¢</text>
+      <text x="50" y="68" text-anchor="middle" font-size="9" fill="#333">ONE DIME</text>
+    </svg>
+      <svg width="70" height="70" viewBox="0 0 100 100" class="coin-svg dime">
+      <defs>
+        <radialGradient id="dimeGradient">
+          <stop offset="0%" style="stop-color:#f0f0f0;stop-opacity:1" />
+          <stop offset="50%" style="stop-color:#d0d0d0;stop-opacity:1" />
+          <stop offset="100%" style="stop-color:#a0a0a0;stop-opacity:1" />
+        </radialGradient>
+      </defs>
+      <circle cx="50" cy="50" r="40" fill="url(#dimeGradient)" stroke="#666666" stroke-width="1"/>
+      <circle cx="50" cy="50" r="36" fill="none" stroke="#808080" stroke-width="0.5"/>
+      <text x="50" y="40" text-anchor="middle" font-size="12" font-family="serif" fill="#333">ROOSEVELT</text>
+      <text x="50" y="55" text-anchor="middle" font-size="18" font-weight="bold" fill="#333">10¢</text>
+      <text x="50" y="68" text-anchor="middle" font-size="9" fill="#333">ONE DIME</text>
+    </svg>
+      <svg width="70" height="70" viewBox="0 0 100 100" class="coin-svg dime">
+      <defs>
+        <radialGradient id="dimeGradient">
+          <stop offset="0%" style="stop-color:#f0f0f0;stop-opacity:1" />
+          <stop offset="50%" style="stop-color:#d0d0d0;stop-opacity:1" />
+          <stop offset="100%" style="stop-color:#a0a0a0;stop-opacity:1" />
+        </radialGradient>
+      </defs>
+      <circle cx="50" cy="50" r="40" fill="url(#dimeGradient)" stroke="#666666" stroke-width="1"/>
+      <circle cx="50" cy="50" r="36" fill="none" stroke="#808080" stroke-width="0.5"/>
+      <text x="50" y="40" text-anchor="middle" font-size="12" font-family="serif" fill="#333">ROOSEVELT</text>
+      <text x="50" y="55" text-anchor="middle" font-size="18" font-weight="bold" fill="#333">10¢</text>
+      <text x="50" y="68" text-anchor="middle" font-size="9" fill="#333">ONE DIME</text>
+    </svg>
+      <svg width="70" height="70" viewBox="0 0 100 100" class="coin-svg dime">
+      <defs>
+        <radialGradient id="dimeGradient">
+          <stop offset="0%" style="stop-color:#f0f0f0;stop-opacity:1" />
+          <stop offset="50%" style="stop-color:#d0d0d0;stop-opacity:1" />
+          <stop offset="100%" style="stop-color:#a0a0a0;stop-opacity:1" />
+        </radialGradient>
+      </defs>
+      <circle cx="50" cy="50" r="40" fill="url(#dimeGradient)" stroke="#666666" stroke-width="1"/>
+      <circle cx="50" cy="50" r="36" fill="none" stroke="#808080" stroke-width="0.5"/>
+      <text x="50" y="40" text-anchor="middle" font-size="12" font-family="serif" fill="#333">ROOSEVELT</text>
+      <text x="50" y="55" text-anchor="middle" font-size="18" font-weight="bold" fill="#333">10¢</text>
+      <text x="50" y="68" text-anchor="middle" font-size="9" fill="#333">ONE DIME</text>
+    </svg>
+      <svg width="70" height="70" viewBox="0 0 100 100" class="coin-svg dime">
+      <defs>
+        <radialGradient id="dimeGradient">
+          <stop offset="0%" style="stop-color:#f0f0f0;stop-opacity:1" />
+          <stop offset="50%" style="stop-color:#d0d0d0;stop-opacity:1" />
+          <stop offset="100%" style="stop-color:#a0a0a0;stop-opacity:1" />
+        </radialGradient>
+      </defs>
+      <circle cx="50" cy="50" r="40" fill="url(#dimeGradient)" stroke="#666666" stroke-width="1"/>
+      <circle cx="50" cy="50" r="36" fill="none" stroke="#808080" stroke-width="0.5"/>
+      <text x="50" y="40" text-anchor="middle" font-size="12" font-family="serif" fill="#333">ROOSEVELT</text>
+      <text x="50" y="55" text-anchor="middle" font-size="18" font-weight="bold" fill="#333">10¢</text>
+      <text x="50" y="68" text-anchor="middle" font-size="9" fill="#333">ONE DIME</text>
+    </svg>
+    </div>
+    <p><strong>Let's skip count by 10s:</strong></p>
+    <p class="big-counting">10 → 20 → 30 → 40 → 50</p>
+    <p class="answer">Total: 50 cents! 🎉</p>
+  </div>
+  
+  <div class="example-problem">
+    <h3>Example 3: Mix of Bills and Coins</h3>
+    <div class="money-display">
+      <svg width="180" height="77" viewBox="0 0 200 86" class="bill-svg dollar">
+      <defs>
+        <linearGradient id="dollarGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" style="stop-color:#93c47d;stop-opacity:1" />
+          <stop offset="50%" style="stop-color:#85bb65;stop-opacity:1" />
+          <stop offset="100%" style="stop-color:#6aa84f;stop-opacity:1" />
+        </linearGradient>
+      </defs>
+      <rect x="2" y="2" width="196" height="82" fill="url(#dollarGradient)" stroke="#2e7d32" stroke-width="2" rx="4"/>
+      <rect x="10" y="10" width="180" height="66" fill="none" stroke="#4a8c4e" stroke-width="1" rx="2"/>
+      <circle cx="100" cy="43" r="25" fill="none" stroke="#2e7d32" stroke-width="1"/>
+      <text x="100" y="35" text-anchor="middle" font-size="12" font-family="serif" fill="#1a5d1f">THE UNITED STATES OF AMERICA</text>
+      <text x="100" y="50" text-anchor="middle" font-size="28" font-weight="bold" fill="#0d3d10">$1</text>
+      <text x="100" y="65" text-anchor="middle" font-size="10" fill="#1a5d1f">ONE DOLLAR</text>
+      <text x="20" y="50" text-anchor="middle" font-size="16" fill="#2e7d32">1</text>
+      <text x="180" y="50" text-anchor="middle" font-size="16" fill="#2e7d32">1</text>
+    </svg>
+      <svg width="70" height="70" viewBox="0 0 100 100" class="coin-svg quarter">
+      <defs>
+        <radialGradient id="quarterGradient">
+          <stop offset="0%" style="stop-color:#e8e8e8;stop-opacity:1" />
+          <stop offset="50%" style="stop-color:#c0c0c0;stop-opacity:1" />
+          <stop offset="100%" style="stop-color:#999999;stop-opacity:1" />
+        </radialGradient>
+      </defs>
+      <circle cx="50" cy="50" r="48" fill="url(#quarterGradient)" stroke="#666666" stroke-width="1"/>
+      <circle cx="50" cy="50" r="44" fill="none" stroke="#808080" stroke-width="0.5"/>
+      <text x="50" y="40" text-anchor="middle" font-size="14" font-family="serif" fill="#333">WASHINGTON</text>
+      <text x="50" y="55" text-anchor="middle" font-size="20" font-weight="bold" fill="#333">25¢</text>
+      <text x="50" y="70" text-anchor="middle" font-size="10" fill="#333">QUARTER DOLLAR</text>
+    </svg>
+      <svg width="70" height="70" viewBox="0 0 100 100" class="coin-svg quarter">
+      <defs>
+        <radialGradient id="quarterGradient">
+          <stop offset="0%" style="stop-color:#e8e8e8;stop-opacity:1" />
+          <stop offset="50%" style="stop-color:#c0c0c0;stop-opacity:1" />
+          <stop offset="100%" style="stop-color:#999999;stop-opacity:1" />
+        </radialGradient>
+      </defs>
+      <circle cx="50" cy="50" r="48" fill="url(#quarterGradient)" stroke="#666666" stroke-width="1"/>
+      <circle cx="50" cy="50" r="44" fill="none" stroke="#808080" stroke-width="0.5"/>
+      <text x="50" y="40" text-anchor="middle" font-size="14" font-family="serif" fill="#333">WASHINGTON</text>
+      <text x="50" y="55" text-anchor="middle" font-size="20" font-weight="bold" fill="#333">25¢</text>
+      <text x="50" y="70" text-anchor="middle" font-size="10" fill="#333">QUARTER DOLLAR</text>
+    </svg>
+      <svg width="70" height="70" viewBox="0 0 100 100" class="coin-svg quarter">
+      <defs>
+        <radialGradient id="quarterGradient">
+          <stop offset="0%" style="stop-color:#e8e8e8;stop-opacity:1" />
+          <stop offset="50%" style="stop-color:#c0c0c0;stop-opacity:1" />
+          <stop offset="100%" style="stop-color:#999999;stop-opacity:1" />
+        </radialGradient>
+      </defs>
+      <circle cx="50" cy="50" r="48" fill="url(#quarterGradient)" stroke="#666666" stroke-width="1"/>
+      <circle cx="50" cy="50" r="44" fill="none" stroke="#808080" stroke-width="0.5"/>
+      <text x="50" y="40" text-anchor="middle" font-size="14" font-family="serif" fill="#333">WASHINGTON</text>
+      <text x="50" y="55" text-anchor="middle" font-size="20" font-weight="bold" fill="#333">25¢</text>
+      <text x="50" y="70" text-anchor="middle" font-size="10" fill="#333">QUARTER DOLLAR</text>
+    </svg>
+    </div>
+    <p><strong>Let's count together:</strong></p>
+    <ol>
+      <li>Start with the dollar bill: <span class="highlight">$1.00</span></li>
+      <li>Skip count the quarters (by 25s): <span class="highlight">25¢ → 50¢ → 75¢</span></li>
+      <li>Add them together: <span class="highlight">$1.00 + 75¢ = $1.75</span></li>
+    </ol>
+    <p class="answer">Total: One dollar and seventy-five cents ($1.75)! 🎉</p>
+  </div>
+  
+  <div class="example-problem">
+    <h3>Example 4: Practice Skip Counting Nickels</h3>
+    <div class="coin-display">
+      <svg width="70" height="70" viewBox="0 0 100 100" class="coin-svg nickel">
+      <defs>
+        <radialGradient id="nickelGradient">
+          <stop offset="0%" style="stop-color:#e8e8e8;stop-opacity:1" />
+          <stop offset="50%" style="stop-color:#c0c0c0;stop-opacity:1" />
+          <stop offset="100%" style="stop-color:#999999;stop-opacity:1" />
+        </radialGradient>
+      </defs>
+      <circle cx="50" cy="50" r="48" fill="url(#nickelGradient)" stroke="#666666" stroke-width="1"/>
+      <circle cx="50" cy="50" r="44" fill="none" stroke="#808080" stroke-width="0.5"/>
+      <text x="50" y="40" text-anchor="middle" font-size="14" font-family="serif" fill="#333">JEFFERSON</text>
+      <text x="50" y="55" text-anchor="middle" font-size="20" font-weight="bold" fill="#333">5¢</text>
+      <text x="50" y="70" text-anchor="middle" font-size="10" fill="#333">FIVE CENTS</text>
+    </svg>
+      <svg width="70" height="70" viewBox="0 0 100 100" class="coin-svg nickel">
+      <defs>
+        <radialGradient id="nickelGradient">
+          <stop offset="0%" style="stop-color:#e8e8e8;stop-opacity:1" />
+          <stop offset="50%" style="stop-color:#c0c0c0;stop-opacity:1" />
+          <stop offset="100%" style="stop-color:#999999;stop-opacity:1" />
+        </radialGradient>
+      </defs>
+      <circle cx="50" cy="50" r="48" fill="url(#nickelGradient)" stroke="#666666" stroke-width="1"/>
+      <circle cx="50" cy="50" r="44" fill="none" stroke="#808080" stroke-width="0.5"/>
+      <text x="50" y="40" text-anchor="middle" font-size="14" font-family="serif" fill="#333">JEFFERSON</text>
+      <text x="50" y="55" text-anchor="middle" font-size="20" font-weight="bold" fill="#333">5¢</text>
+      <text x="50" y="70" text-anchor="middle" font-size="10" fill="#333">FIVE CENTS</text>
+    </svg>
+      <svg width="70" height="70" viewBox="0 0 100 100" class="coin-svg nickel">
+      <defs>
+        <radialGradient id="nickelGradient">
+          <stop offset="0%" style="stop-color:#e8e8e8;stop-opacity:1" />
+          <stop offset="50%" style="stop-color:#c0c0c0;stop-opacity:1" />
+          <stop offset="100%" style="stop-color:#999999;stop-opacity:1" />
+        </radialGradient>
+      </defs>
+      <circle cx="50" cy="50" r="48" fill="url(#nickelGradient)" stroke="#666666" stroke-width="1"/>
+      <circle cx="50" cy="50" r="44" fill="none" stroke="#808080" stroke-width="0.5"/>
+      <text x="50" y="40" text-anchor="middle" font-size="14" font-family="serif" fill="#333">JEFFERSON</text>
+      <text x="50" y="55" text-anchor="middle" font-size="20" font-weight="bold" fill="#333">5¢</text>
+      <text x="50" y="70" text-anchor="middle" font-size="10" fill="#333">FIVE CENTS</text>
+    </svg>
+      <svg width="70" height="70" viewBox="0 0 100 100" class="coin-svg nickel">
+      <defs>
+        <radialGradient id="nickelGradient">
+          <stop offset="0%" style="stop-color:#e8e8e8;stop-opacity:1" />
+          <stop offset="50%" style="stop-color:#c0c0c0;stop-opacity:1" />
+          <stop offset="100%" style="stop-color:#999999;stop-opacity:1" />
+        </radialGradient>
+      </defs>
+      <circle cx="50" cy="50" r="48" fill="url(#nickelGradient)" stroke="#666666" stroke-width="1"/>
+      <circle cx="50" cy="50" r="44" fill="none" stroke="#808080" stroke-width="0.5"/>
+      <text x="50" y="40" text-anchor="middle" font-size="14" font-family="serif" fill="#333">JEFFERSON</text>
+      <text x="50" y="55" text-anchor="middle" font-size="20" font-weight="bold" fill="#333">5¢</text>
+      <text x="50" y="70" text-anchor="middle" font-size="10" fill="#333">FIVE CENTS</text>
+    </svg>
+      <svg width="70" height="70" viewBox="0 0 100 100" class="coin-svg nickel">
+      <defs>
+        <radialGradient id="nickelGradient">
+          <stop offset="0%" style="stop-color:#e8e8e8;stop-opacity:1" />
+          <stop offset="50%" style="stop-color:#c0c0c0;stop-opacity:1" />
+          <stop offset="100%" style="stop-color:#999999;stop-opacity:1" />
+        </radialGradient>
+      </defs>
+      <circle cx="50" cy="50" r="48" fill="url(#nickelGradient)" stroke="#666666" stroke-width="1"/>
+      <circle cx="50" cy="50" r="44" fill="none" stroke="#808080" stroke-width="0.5"/>
+      <text x="50" y="40" text-anchor="middle" font-size="14" font-family="serif" fill="#333">JEFFERSON</text>
+      <text x="50" y="55" text-anchor="middle" font-size="20" font-weight="bold" fill="#333">5¢</text>
+      <text x="50" y="70" text-anchor="middle" font-size="10" fill="#333">FIVE CENTS</text>
+    </svg>
+      <svg width="70" height="70" viewBox="0 0 100 100" class="coin-svg nickel">
+      <defs>
+        <radialGradient id="nickelGradient">
+          <stop offset="0%" style="stop-color:#e8e8e8;stop-opacity:1" />
+          <stop offset="50%" style="stop-color:#c0c0c0;stop-opacity:1" />
+          <stop offset="100%" style="stop-color:#999999;stop-opacity:1" />
+        </radialGradient>
+      </defs>
+      <circle cx="50" cy="50" r="48" fill="url(#nickelGradient)" stroke="#666666" stroke-width="1"/>
+      <circle cx="50" cy="50" r="44" fill="none" stroke="#808080" stroke-width="0.5"/>
+      <text x="50" y="40" text-anchor="middle" font-size="14" font-family="serif" fill="#333">JEFFERSON</text>
+      <text x="50" y="55" text-anchor="middle" font-size="20" font-weight="bold" fill="#333">5¢</text>
+      <text x="50" y="70" text-anchor="middle" font-size="10" fill="#333">FIVE CENTS</text>
+    </svg>
+    </div>
+    <p><strong>Let's skip count by 5s:</strong></p>
+    <p class="big-counting">5 → 10 → 15 → 20 → 25 → 30</p>
+    <p class="answer">Total: 30 cents! 🎉</p>
+  </div>
+  
+  <div class="example-problem">
+    <h3>Example 5: All Coins Challenge!</h3>
+    <div class="coin-display">
+      <svg width="70" height="70" viewBox="0 0 100 100" class="coin-svg quarter">
+      <defs>
+        <radialGradient id="quarterGradient">
+          <stop offset="0%" style="stop-color:#e8e8e8;stop-opacity:1" />
+          <stop offset="50%" style="stop-color:#c0c0c0;stop-opacity:1" />
+          <stop offset="100%" style="stop-color:#999999;stop-opacity:1" />
+        </radialGradient>
+      </defs>
+      <circle cx="50" cy="50" r="48" fill="url(#quarterGradient)" stroke="#666666" stroke-width="1"/>
+      <circle cx="50" cy="50" r="44" fill="none" stroke="#808080" stroke-width="0.5"/>
+      <text x="50" y="40" text-anchor="middle" font-size="14" font-family="serif" fill="#333">WASHINGTON</text>
+      <text x="50" y="55" text-anchor="middle" font-size="20" font-weight="bold" fill="#333">25¢</text>
+      <text x="50" y="70" text-anchor="middle" font-size="10" fill="#333">QUARTER DOLLAR</text>
+    </svg>
+      <svg width="70" height="70" viewBox="0 0 100 100" class="coin-svg dime">
+      <defs>
+        <radialGradient id="dimeGradient">
+          <stop offset="0%" style="stop-color:#f0f0f0;stop-opacity:1" />
+          <stop offset="50%" style="stop-color:#d0d0d0;stop-opacity:1" />
+          <stop offset="100%" style="stop-color:#a0a0a0;stop-opacity:1" />
+        </radialGradient>
+      </defs>
+      <circle cx="50" cy="50" r="40" fill="url(#dimeGradient)" stroke="#666666" stroke-width="1"/>
+      <circle cx="50" cy="50" r="36" fill="none" stroke="#808080" stroke-width="0.5"/>
+      <text x="50" y="40" text-anchor="middle" font-size="12" font-family="serif" fill="#333">ROOSEVELT</text>
+      <text x="50" y="55" text-anchor="middle" font-size="18" font-weight="bold" fill="#333">10¢</text>
+      <text x="50" y="68" text-anchor="middle" font-size="9" fill="#333">ONE DIME</text>
+    </svg>
+      <svg width="70" height="70" viewBox="0 0 100 100" class="coin-svg dime">
+      <defs>
+        <radialGradient id="dimeGradient">
+          <stop offset="0%" style="stop-color:#f0f0f0;stop-opacity:1" />
+          <stop offset="50%" style="stop-color:#d0d0d0;stop-opacity:1" />
+          <stop offset="100%" style="stop-color:#a0a0a0;stop-opacity:1" />
+        </radialGradient>
+      </defs>
+      <circle cx="50" cy="50" r="40" fill="url(#dimeGradient)" stroke="#666666" stroke-width="1"/>
+      <circle cx="50" cy="50" r="36" fill="none" stroke="#808080" stroke-width="0.5"/>
+      <text x="50" y="40" text-anchor="middle" font-size="12" font-family="serif" fill="#333">ROOSEVELT</text>
+      <text x="50" y="55" text-anchor="middle" font-size="18" font-weight="bold" fill="#333">10¢</text>
+      <text x="50" y="68" text-anchor="middle" font-size="9" fill="#333">ONE DIME</text>
+    </svg>
+      <svg width="70" height="70" viewBox="0 0 100 100" class="coin-svg nickel">
+      <defs>
+        <radialGradient id="nickelGradient">
+          <stop offset="0%" style="stop-color:#e8e8e8;stop-opacity:1" />
+          <stop offset="50%" style="stop-color:#c0c0c0;stop-opacity:1" />
+          <stop offset="100%" style="stop-color:#999999;stop-opacity:1" />
+        </radialGradient>
+      </defs>
+      <circle cx="50" cy="50" r="48" fill="url(#nickelGradient)" stroke="#666666" stroke-width="1"/>
+      <circle cx="50" cy="50" r="44" fill="none" stroke="#808080" stroke-width="0.5"/>
+      <text x="50" y="40" text-anchor="middle" font-size="14" font-family="serif" fill="#333">JEFFERSON</text>
+      <text x="50" y="55" text-anchor="middle" font-size="20" font-weight="bold" fill="#333">5¢</text>
+      <text x="50" y="70" text-anchor="middle" font-size="10" fill="#333">FIVE CENTS</text>
+    </svg>
+      <svg width="70" height="70" viewBox="0 0 100 100" class="coin-svg penny">
+      <defs>
+        <radialGradient id="pennyGradient">
+          <stop offset="0%" style="stop-color:#d4824b;stop-opacity:1" />
+          <stop offset="50%" style="stop-color:#b87333;stop-opacity:1" />
+          <stop offset="100%" style="stop-color:#8b4513;stop-opacity:1" />
+        </radialGradient>
+      </defs>
+      <circle cx="50" cy="50" r="48" fill="url(#pennyGradient)" stroke="#6b3410" stroke-width="1"/>
+      <circle cx="50" cy="50" r="44" fill="none" stroke="#8b4513" stroke-width="0.5"/>
+      <text x="50" y="40" text-anchor="middle" font-size="14" font-family="serif" fill="#4a2c17">LINCOLN</text>
+      <text x="50" y="55" text-anchor="middle" font-size="20" font-weight="bold" fill="#4a2c17">1¢</text>
+      <text x="50" y="70" text-anchor="middle" font-size="10" fill="#4a2c17">ONE CENT</text>
+    </svg>
+      <svg width="70" height="70" viewBox="0 0 100 100" class="coin-svg penny">
+      <defs>
+        <radialGradient id="pennyGradient">
+          <stop offset="0%" style="stop-color:#d4824b;stop-opacity:1" />
+          <stop offset="50%" style="stop-color:#b87333;stop-opacity:1" />
+          <stop offset="100%" style="stop-color:#8b4513;stop-opacity:1" />
+        </radialGradient>
+      </defs>
+      <circle cx="50" cy="50" r="48" fill="url(#pennyGradient)" stroke="#6b3410" stroke-width="1"/>
+      <circle cx="50" cy="50" r="44" fill="none" stroke="#8b4513" stroke-width="0.5"/>
+      <text x="50" y="40" text-anchor="middle" font-size="14" font-family="serif" fill="#4a2c17">LINCOLN</text>
+      <text x="50" y="55" text-anchor="middle" font-size="20" font-weight="bold" fill="#4a2c17">1¢</text>
+      <text x="50" y="70" text-anchor="middle" font-size="10" fill="#4a2c17">ONE CENT</text>
+    </svg>
+      <svg width="70" height="70" viewBox="0 0 100 100" class="coin-svg penny">
+      <defs>
+        <radialGradient id="pennyGradient">
+          <stop offset="0%" style="stop-color:#d4824b;stop-opacity:1" />
+          <stop offset="50%" style="stop-color:#b87333;stop-opacity:1" />
+          <stop offset="100%" style="stop-color:#8b4513;stop-opacity:1" />
+        </radialGradient>
+      </defs>
+      <circle cx="50" cy="50" r="48" fill="url(#pennyGradient)" stroke="#6b3410" stroke-width="1"/>
+      <circle cx="50" cy="50" r="44" fill="none" stroke="#8b4513" stroke-width="0.5"/>
+      <text x="50" y="40" text-anchor="middle" font-size="14" font-family="serif" fill="#4a2c17">LINCOLN</text>
+      <text x="50" y="55" text-anchor="middle" font-size="20" font-weight="bold" fill="#4a2c17">1¢</text>
+      <text x="50" y="70" text-anchor="middle" font-size="10" fill="#4a2c17">ONE CENT</text>
+    </svg>
+    </div>
+    <p><strong>Let's count from biggest to smallest:</strong></p>
+    <ol>
+      <li>Quarter: <span class="highlight">25¢</span></li>
+      <li>Two dimes (count by 10s): <span class="highlight">25¢ + 10¢ = 35¢ → 35¢ + 10¢ = 45¢</span></li>
+      <li>Nickel: <span class="highlight">45¢ + 5¢ = 50¢</span></li>
+      <li>Three pennies: <span class="highlight">50¢ + 1¢ + 1¢ + 1¢ = 53¢</span></li>
+    </ol>
+    <p class="answer">Total: 53 cents! 🎉</p>
+  </div>
+  
+  <div class="example-problem">
+    <h3>Example 6: Counting All Bills (No Coins)</h3>
+    <div class="money-display">
+      <svg width="150" height="65" viewBox="0 0 200 86" class="bill-svg twenty">
+      <defs>
+        <linearGradient id="twentyGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" style="stop-color:#c3e2b3;stop-opacity:1" />
+          <stop offset="50%" style="stop-color:#85bb65;stop-opacity:1" />
+          <stop offset="100%" style="stop-color:#3a7c1f;stop-opacity:1" />
+        </linearGradient>
+      </defs>
+      <rect x="2" y="2" width="196" height="82" fill="url(#twentyGradient)" stroke="#2e7d32" stroke-width="2" rx="4"/>
+      <rect x="10" y="10" width="180" height="66" fill="none" stroke="#4a8c4e" stroke-width="1" rx="2"/>
+      <circle cx="100" cy="43" r="25" fill="none" stroke="#2e7d32" stroke-width="1"/>
+      <text x="100" y="35" text-anchor="middle" font-size="12" font-family="serif" fill="#1a5d1f">THE UNITED STATES OF AMERICA</text>
+      <text x="100" y="50" text-anchor="middle" font-size="28" font-weight="bold" fill="#0d3d10">$20</text>
+      <text x="100" y="65" text-anchor="middle" font-size="10" fill="#1a5d1f">TWENTY DOLLARS</text>
+      <text x="20" y="50" text-anchor="middle" font-size="14" fill="#2e7d32">20</text>
+      <text x="180" y="50" text-anchor="middle" font-size="14" fill="#2e7d32">20</text>
+    </svg>
+      <svg width="150" height="65" viewBox="0 0 200 86" class="bill-svg ten">
+      <defs>
+        <linearGradient id="tenGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" style="stop-color:#b3d2a3;stop-opacity:1" />
+          <stop offset="50%" style="stop-color:#85bb65;stop-opacity:1" />
+          <stop offset="100%" style="stop-color:#4a8c2f;stop-opacity:1" />
+        </linearGradient>
+      </defs>
+      <rect x="2" y="2" width="196" height="82" fill="url(#tenGradient)" stroke="#2e7d32" stroke-width="2" rx="4"/>
+      <rect x="10" y="10" width="180" height="66" fill="none" stroke="#4a8c4e" stroke-width="1" rx="2"/>
+      <circle cx="100" cy="43" r="25" fill="none" stroke="#2e7d32" stroke-width="1"/>
+      <text x="100" y="35" text-anchor="middle" font-size="12" font-family="serif" fill="#1a5d1f">THE UNITED STATES OF AMERICA</text>
+      <text x="100" y="50" text-anchor="middle" font-size="28" font-weight="bold" fill="#0d3d10">$10</text>
+      <text x="100" y="65" text-anchor="middle" font-size="10" fill="#1a5d1f">TEN DOLLARS</text>
+      <text x="20" y="50" text-anchor="middle" font-size="14" fill="#2e7d32">10</text>
+      <text x="180" y="50" text-anchor="middle" font-size="14" fill="#2e7d32">10</text>
+    </svg>
+      <svg width="150" height="65" viewBox="0 0 200 86" class="bill-svg five">
+      <defs>
+        <linearGradient id="fiveGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" style="stop-color:#a3c293;stop-opacity:1" />
+          <stop offset="50%" style="stop-color:#85bb65;stop-opacity:1" />
+          <stop offset="100%" style="stop-color:#5a9c3f;stop-opacity:1" />
+        </linearGradient>
+      </defs>
+      <rect x="2" y="2" width="196" height="82" fill="url(#fiveGradient)" stroke="#2e7d32" stroke-width="2" rx="4"/>
+      <rect x="10" y="10" width="180" height="66" fill="none" stroke="#4a8c4e" stroke-width="1" rx="2"/>
+      <circle cx="100" cy="43" r="25" fill="none" stroke="#2e7d32" stroke-width="1"/>
+      <text x="100" y="35" text-anchor="middle" font-size="12" font-family="serif" fill="#1a5d1f">THE UNITED STATES OF AMERICA</text>
+      <text x="100" y="50" text-anchor="middle" font-size="28" font-weight="bold" fill="#0d3d10">$5</text>
+      <text x="100" y="65" text-anchor="middle" font-size="10" fill="#1a5d1f">FIVE DOLLARS</text>
+      <text x="20" y="50" text-anchor="middle" font-size="16" fill="#2e7d32">5</text>
+      <text x="180" y="50" text-anchor="middle" font-size="16" fill="#2e7d32">5</text>
+    </svg>
+      <svg width="150" height="65" viewBox="0 0 200 86" class="bill-svg dollar">
+      <defs>
+        <linearGradient id="dollarGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" style="stop-color:#93c47d;stop-opacity:1" />
+          <stop offset="50%" style="stop-color:#85bb65;stop-opacity:1" />
+          <stop offset="100%" style="stop-color:#6aa84f;stop-opacity:1" />
+        </linearGradient>
+      </defs>
+      <rect x="2" y="2" width="196" height="82" fill="url(#dollarGradient)" stroke="#2e7d32" stroke-width="2" rx="4"/>
+      <rect x="10" y="10" width="180" height="66" fill="none" stroke="#4a8c4e" stroke-width="1" rx="2"/>
+      <circle cx="100" cy="43" r="25" fill="none" stroke="#2e7d32" stroke-width="1"/>
+      <text x="100" y="35" text-anchor="middle" font-size="12" font-family="serif" fill="#1a5d1f">THE UNITED STATES OF AMERICA</text>
+      <text x="100" y="50" text-anchor="middle" font-size="28" font-weight="bold" fill="#0d3d10">$1</text>
+      <text x="100" y="65" text-anchor="middle" font-size="10" fill="#1a5d1f">ONE DOLLAR</text>
+      <text x="20" y="50" text-anchor="middle" font-size="16" fill="#2e7d32">1</text>
+      <text x="180" y="50" text-anchor="middle" font-size="16" fill="#2e7d32">1</text>
+    </svg>
+      <svg width="150" height="65" viewBox="0 0 200 86" class="bill-svg dollar">
+      <defs>
+        <linearGradient id="dollarGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" style="stop-color:#93c47d;stop-opacity:1" />
+          <stop offset="50%" style="stop-color:#85bb65;stop-opacity:1" />
+          <stop offset="100%" style="stop-color:#6aa84f;stop-opacity:1" />
+        </linearGradient>
+      </defs>
+      <rect x="2" y="2" width="196" height="82" fill="url(#dollarGradient)" stroke="#2e7d32" stroke-width="2" rx="4"/>
+      <rect x="10" y="10" width="180" height="66" fill="none" stroke="#4a8c4e" stroke-width="1" rx="2"/>
+      <circle cx="100" cy="43" r="25" fill="none" stroke="#2e7d32" stroke-width="1"/>
+      <text x="100" y="35" text-anchor="middle" font-size="12" font-family="serif" fill="#1a5d1f">THE UNITED STATES OF AMERICA</text>
+      <text x="100" y="50" text-anchor="middle" font-size="28" font-weight="bold" fill="#0d3d10">$1</text>
+      <text x="100" y="65" text-anchor="middle" font-size="10" fill="#1a5d1f">ONE DOLLAR</text>
+      <text x="20" y="50" text-anchor="middle" font-size="16" fill="#2e7d32">1</text>
+      <text x="180" y="50" text-anchor="middle" font-size="16" fill="#2e7d32">1</text>
+    </svg>
+    </div>
+    <p><strong>Let's count from biggest to smallest:</strong></p>
+    <ol>
+      <li>Twenty dollar bill: <span class="highlight">$20.00</span></li>
+      <li>Ten dollar bill: <span class="highlight">$20 + $10 = $30</span></li>
+      <li>Five dollar bill: <span class="highlight">$30 + $5 = $35</span></li>
+      <li>Two one dollar bills: <span class="highlight">$35 + $1 + $1 = $37</span></li>
+    </ol>
+    <p class="answer">Total: Thirty-seven dollars ($37.00)! 🎉</p>
+  </div>
+  
+  <div class="example-problem">
+    <h3>Example 7: Making Change - Store Practice</h3>
+    <div class="scenario-box">
+      <p>🛍️ <strong>Scenario:</strong> You buy a toy that costs $3.75. You pay with a $5 bill.</p>
+    </div>
+    <p><strong>How much change do you get?</strong></p>
+    <ol>
+      <li>Money given: <span class="highlight">$5.00</span></li>
+      <li>Cost of toy: <span class="highlight">$3.75</span></li>
+      <li>Change: <span class="highlight">$5.00 - $3.75 = $1.25</span></li>
+    </ol>
+    <p><strong>Your change would be:</strong></p>
+    <div class="coin-display">
+      <svg width="120" height="52" viewBox="0 0 200 86" class="bill-svg dollar">
+      <defs>
+        <linearGradient id="dollarGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" style="stop-color:#93c47d;stop-opacity:1" />
+          <stop offset="50%" style="stop-color:#85bb65;stop-opacity:1" />
+          <stop offset="100%" style="stop-color:#6aa84f;stop-opacity:1" />
+        </linearGradient>
+      </defs>
+      <rect x="2" y="2" width="196" height="82" fill="url(#dollarGradient)" stroke="#2e7d32" stroke-width="2" rx="4"/>
+      <rect x="10" y="10" width="180" height="66" fill="none" stroke="#4a8c4e" stroke-width="1" rx="2"/>
+      <circle cx="100" cy="43" r="25" fill="none" stroke="#2e7d32" stroke-width="1"/>
+      <text x="100" y="35" text-anchor="middle" font-size="12" font-family="serif" fill="#1a5d1f">THE UNITED STATES OF AMERICA</text>
+      <text x="100" y="50" text-anchor="middle" font-size="28" font-weight="bold" fill="#0d3d10">$1</text>
+      <text x="100" y="65" text-anchor="middle" font-size="10" fill="#1a5d1f">ONE DOLLAR</text>
+      <text x="20" y="50" text-anchor="middle" font-size="16" fill="#2e7d32">1</text>
+      <text x="180" y="50" text-anchor="middle" font-size="16" fill="#2e7d32">1</text>
+    </svg>
+      <svg width="70" height="70" viewBox="0 0 100 100" class="coin-svg quarter">
+      <defs>
+        <radialGradient id="quarterGradient">
+          <stop offset="0%" style="stop-color:#e8e8e8;stop-opacity:1" />
+          <stop offset="50%" style="stop-color:#c0c0c0;stop-opacity:1" />
+          <stop offset="100%" style="stop-color:#999999;stop-opacity:1" />
+        </radialGradient>
+      </defs>
+      <circle cx="50" cy="50" r="48" fill="url(#quarterGradient)" stroke="#666666" stroke-width="1"/>
+      <circle cx="50" cy="50" r="44" fill="none" stroke="#808080" stroke-width="0.5"/>
+      <text x="50" y="40" text-anchor="middle" font-size="14" font-family="serif" fill="#333">WASHINGTON</text>
+      <text x="50" y="55" text-anchor="middle" font-size="20" font-weight="bold" fill="#333">25¢</text>
+      <text x="50" y="70" text-anchor="middle" font-size="10" fill="#333">QUARTER DOLLAR</text>
+    </svg>
+    </div>
+    <p class="answer">Change: $1.25 (one dollar and one quarter)! 🎉</p>
+  </div>
+  
+  <div class="example-problem">
+    <h3>Example 8: Saving Money - Piggy Bank Count</h3>
+    <div class="scenario-box">
+      <p>🐷 <strong>Your piggy bank has:</strong></p>
+    </div>
+    <div class="coin-display">
+      <svg width="60" height="60" viewBox="0 0 100 100" class="coin-svg quarter">
+      <defs>
+        <radialGradient id="quarterGradient">
+          <stop offset="0%" style="stop-color:#e8e8e8;stop-opacity:1" />
+          <stop offset="50%" style="stop-color:#c0c0c0;stop-opacity:1" />
+          <stop offset="100%" style="stop-color:#999999;stop-opacity:1" />
+        </radialGradient>
+      </defs>
+      <circle cx="50" cy="50" r="48" fill="url(#quarterGradient)" stroke="#666666" stroke-width="1"/>
+      <circle cx="50" cy="50" r="44" fill="none" stroke="#808080" stroke-width="0.5"/>
+      <text x="50" y="40" text-anchor="middle" font-size="14" font-family="serif" fill="#333">WASHINGTON</text>
+      <text x="50" y="55" text-anchor="middle" font-size="20" font-weight="bold" fill="#333">25¢</text>
+      <text x="50" y="70" text-anchor="middle" font-size="10" fill="#333">QUARTER DOLLAR</text>
+    </svg>
+      <svg width="60" height="60" viewBox="0 0 100 100" class="coin-svg quarter">
+      <defs>
+        <radialGradient id="quarterGradient">
+          <stop offset="0%" style="stop-color:#e8e8e8;stop-opacity:1" />
+          <stop offset="50%" style="stop-color:#c0c0c0;stop-opacity:1" />
+          <stop offset="100%" style="stop-color:#999999;stop-opacity:1" />
+        </radialGradient>
+      </defs>
+      <circle cx="50" cy="50" r="48" fill="url(#quarterGradient)" stroke="#666666" stroke-width="1"/>
+      <circle cx="50" cy="50" r="44" fill="none" stroke="#808080" stroke-width="0.5"/>
+      <text x="50" y="40" text-anchor="middle" font-size="14" font-family="serif" fill="#333">WASHINGTON</text>
+      <text x="50" y="55" text-anchor="middle" font-size="20" font-weight="bold" fill="#333">25¢</text>
+      <text x="50" y="70" text-anchor="middle" font-size="10" fill="#333">QUARTER DOLLAR</text>
+    </svg>
+      <svg width="60" height="60" viewBox="0 0 100 100" class="coin-svg quarter">
+      <defs>
+        <radialGradient id="quarterGradient">
+          <stop offset="0%" style="stop-color:#e8e8e8;stop-opacity:1" />
+          <stop offset="50%" style="stop-color:#c0c0c0;stop-opacity:1" />
+          <stop offset="100%" style="stop-color:#999999;stop-opacity:1" />
+        </radialGradient>
+      </defs>
+      <circle cx="50" cy="50" r="48" fill="url(#quarterGradient)" stroke="#666666" stroke-width="1"/>
+      <circle cx="50" cy="50" r="44" fill="none" stroke="#808080" stroke-width="0.5"/>
+      <text x="50" y="40" text-anchor="middle" font-size="14" font-family="serif" fill="#333">WASHINGTON</text>
+      <text x="50" y="55" text-anchor="middle" font-size="20" font-weight="bold" fill="#333">25¢</text>
+      <text x="50" y="70" text-anchor="middle" font-size="10" fill="#333">QUARTER DOLLAR</text>
+    </svg>
+      <svg width="60" height="60" viewBox="0 0 100 100" class="coin-svg quarter">
+      <defs>
+        <radialGradient id="quarterGradient">
+          <stop offset="0%" style="stop-color:#e8e8e8;stop-opacity:1" />
+          <stop offset="50%" style="stop-color:#c0c0c0;stop-opacity:1" />
+          <stop offset="100%" style="stop-color:#999999;stop-opacity:1" />
+        </radialGradient>
+      </defs>
+      <circle cx="50" cy="50" r="48" fill="url(#quarterGradient)" stroke="#666666" stroke-width="1"/>
+      <circle cx="50" cy="50" r="44" fill="none" stroke="#808080" stroke-width="0.5"/>
+      <text x="50" y="40" text-anchor="middle" font-size="14" font-family="serif" fill="#333">WASHINGTON</text>
+      <text x="50" y="55" text-anchor="middle" font-size="20" font-weight="bold" fill="#333">25¢</text>
+      <text x="50" y="70" text-anchor="middle" font-size="10" fill="#333">QUARTER DOLLAR</text>
+    </svg>
+      <svg width="60" height="60" viewBox="0 0 100 100" class="coin-svg quarter">
+      <defs>
+        <radialGradient id="quarterGradient">
+          <stop offset="0%" style="stop-color:#e8e8e8;stop-opacity:1" />
+          <stop offset="50%" style="stop-color:#c0c0c0;stop-opacity:1" />
+          <stop offset="100%" style="stop-color:#999999;stop-opacity:1" />
+        </radialGradient>
+      </defs>
+      <circle cx="50" cy="50" r="48" fill="url(#quarterGradient)" stroke="#666666" stroke-width="1"/>
+      <circle cx="50" cy="50" r="44" fill="none" stroke="#808080" stroke-width="0.5"/>
+      <text x="50" y="40" text-anchor="middle" font-size="14" font-family="serif" fill="#333">WASHINGTON</text>
+      <text x="50" y="55" text-anchor="middle" font-size="20" font-weight="bold" fill="#333">25¢</text>
+      <text x="50" y="70" text-anchor="middle" font-size="10" fill="#333">QUARTER DOLLAR</text>
+    </svg>
+      <svg width="60" height="60" viewBox="0 0 100 100" class="coin-svg quarter">
+      <defs>
+        <radialGradient id="quarterGradient">
+          <stop offset="0%" style="stop-color:#e8e8e8;stop-opacity:1" />
+          <stop offset="50%" style="stop-color:#c0c0c0;stop-opacity:1" />
+          <stop offset="100%" style="stop-color:#999999;stop-opacity:1" />
+        </radialGradient>
+      </defs>
+      <circle cx="50" cy="50" r="48" fill="url(#quarterGradient)" stroke="#666666" stroke-width="1"/>
+      <circle cx="50" cy="50" r="44" fill="none" stroke="#808080" stroke-width="0.5"/>
+      <text x="50" y="40" text-anchor="middle" font-size="14" font-family="serif" fill="#333">WASHINGTON</text>
+      <text x="50" y="55" text-anchor="middle" font-size="20" font-weight="bold" fill="#333">25¢</text>
+      <text x="50" y="70" text-anchor="middle" font-size="10" fill="#333">QUARTER DOLLAR</text>
+    </svg>
+      <svg width="60" height="60" viewBox="0 0 100 100" class="coin-svg quarter">
+      <defs>
+        <radialGradient id="quarterGradient">
+          <stop offset="0%" style="stop-color:#e8e8e8;stop-opacity:1" />
+          <stop offset="50%" style="stop-color:#c0c0c0;stop-opacity:1" />
+          <stop offset="100%" style="stop-color:#999999;stop-opacity:1" />
+        </radialGradient>
+      </defs>
+      <circle cx="50" cy="50" r="48" fill="url(#quarterGradient)" stroke="#666666" stroke-width="1"/>
+      <circle cx="50" cy="50" r="44" fill="none" stroke="#808080" stroke-width="0.5"/>
+      <text x="50" y="40" text-anchor="middle" font-size="14" font-family="serif" fill="#333">WASHINGTON</text>
+      <text x="50" y="55" text-anchor="middle" font-size="20" font-weight="bold" fill="#333">25¢</text>
+      <text x="50" y="70" text-anchor="middle" font-size="10" fill="#333">QUARTER DOLLAR</text>
+    </svg>
+      <svg width="60" height="60" viewBox="0 0 100 100" class="coin-svg quarter">
+      <defs>
+        <radialGradient id="quarterGradient">
+          <stop offset="0%" style="stop-color:#e8e8e8;stop-opacity:1" />
+          <stop offset="50%" style="stop-color:#c0c0c0;stop-opacity:1" />
+          <stop offset="100%" style="stop-color:#999999;stop-opacity:1" />
+        </radialGradient>
+      </defs>
+      <circle cx="50" cy="50" r="48" fill="url(#quarterGradient)" stroke="#666666" stroke-width="1"/>
+      <circle cx="50" cy="50" r="44" fill="none" stroke="#808080" stroke-width="0.5"/>
+      <text x="50" y="40" text-anchor="middle" font-size="14" font-family="serif" fill="#333">WASHINGTON</text>
+      <text x="50" y="55" text-anchor="middle" font-size="20" font-weight="bold" fill="#333">25¢</text>
+      <text x="50" y="70" text-anchor="middle" font-size="10" fill="#333">QUARTER DOLLAR</text>
+    </svg>
+    </div>
+    <p><strong>Let's skip count these 8 quarters by 25s:</strong></p>
+    <p class="big-counting">25 → 50 → 75 → 100 → 125 → 150 → 175 → 200</p>
+    <p class="answer">Total: $2.00 (Two dollars)! 🎉</p>
+    <p class="tip">💡 Remember: 4 quarters = $1.00, so 8 quarters = $2.00!</p>
+  </div>
+  
+  <div class="example-problem">
+    <h3>Example 9: Mixed Bills and Coins</h3>
+    <div class="money-display">
+      <svg width="150" height="65" viewBox="0 0 200 86" class="bill-svg five">
+      <defs>
+        <linearGradient id="fiveGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" style="stop-color:#a3c293;stop-opacity:1" />
+          <stop offset="50%" style="stop-color:#85bb65;stop-opacity:1" />
+          <stop offset="100%" style="stop-color:#5a9c3f;stop-opacity:1" />
+        </linearGradient>
+      </defs>
+      <rect x="2" y="2" width="196" height="82" fill="url(#fiveGradient)" stroke="#2e7d32" stroke-width="2" rx="4"/>
+      <rect x="10" y="10" width="180" height="66" fill="none" stroke="#4a8c4e" stroke-width="1" rx="2"/>
+      <circle cx="100" cy="43" r="25" fill="none" stroke="#2e7d32" stroke-width="1"/>
+      <text x="100" y="35" text-anchor="middle" font-size="12" font-family="serif" fill="#1a5d1f">THE UNITED STATES OF AMERICA</text>
+      <text x="100" y="50" text-anchor="middle" font-size="28" font-weight="bold" fill="#0d3d10">$5</text>
+      <text x="100" y="65" text-anchor="middle" font-size="10" fill="#1a5d1f">FIVE DOLLARS</text>
+      <text x="20" y="50" text-anchor="middle" font-size="16" fill="#2e7d32">5</text>
+      <text x="180" y="50" text-anchor="middle" font-size="16" fill="#2e7d32">5</text>
+    </svg>
+      <svg width="150" height="65" viewBox="0 0 200 86" class="bill-svg dollar">
+      <defs>
+        <linearGradient id="dollarGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" style="stop-color:#93c47d;stop-opacity:1" />
+          <stop offset="50%" style="stop-color:#85bb65;stop-opacity:1" />
+          <stop offset="100%" style="stop-color:#6aa84f;stop-opacity:1" />
+        </linearGradient>
+      </defs>
+      <rect x="2" y="2" width="196" height="82" fill="url(#dollarGradient)" stroke="#2e7d32" stroke-width="2" rx="4"/>
+      <rect x="10" y="10" width="180" height="66" fill="none" stroke="#4a8c4e" stroke-width="1" rx="2"/>
+      <circle cx="100" cy="43" r="25" fill="none" stroke="#2e7d32" stroke-width="1"/>
+      <text x="100" y="35" text-anchor="middle" font-size="12" font-family="serif" fill="#1a5d1f">THE UNITED STATES OF AMERICA</text>
+      <text x="100" y="50" text-anchor="middle" font-size="28" font-weight="bold" fill="#0d3d10">$1</text>
+      <text x="100" y="65" text-anchor="middle" font-size="10" fill="#1a5d1f">ONE DOLLAR</text>
+      <text x="20" y="50" text-anchor="middle" font-size="16" fill="#2e7d32">1</text>
+      <text x="180" y="50" text-anchor="middle" font-size="16" fill="#2e7d32">1</text>
+    </svg>
+      <svg width="150" height="65" viewBox="0 0 200 86" class="bill-svg dollar">
+      <defs>
+        <linearGradient id="dollarGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" style="stop-color:#93c47d;stop-opacity:1" />
+          <stop offset="50%" style="stop-color:#85bb65;stop-opacity:1" />
+          <stop offset="100%" style="stop-color:#6aa84f;stop-opacity:1" />
+        </linearGradient>
+      </defs>
+      <rect x="2" y="2" width="196" height="82" fill="url(#dollarGradient)" stroke="#2e7d32" stroke-width="2" rx="4"/>
+      <rect x="10" y="10" width="180" height="66" fill="none" stroke="#4a8c4e" stroke-width="1" rx="2"/>
+      <circle cx="100" cy="43" r="25" fill="none" stroke="#2e7d32" stroke-width="1"/>
+      <text x="100" y="35" text-anchor="middle" font-size="12" font-family="serif" fill="#1a5d1f">THE UNITED STATES OF AMERICA</text>
+      <text x="100" y="50" text-anchor="middle" font-size="28" font-weight="bold" fill="#0d3d10">$1</text>
+      <text x="100" y="65" text-anchor="middle" font-size="10" fill="#1a5d1f">ONE DOLLAR</text>
+      <text x="20" y="50" text-anchor="middle" font-size="16" fill="#2e7d32">1</text>
+      <text x="180" y="50" text-anchor="middle" font-size="16" fill="#2e7d32">1</text>
+    </svg>
+      <svg width="70" height="70" viewBox="0 0 100 100" class="coin-svg quarter">
+      <defs>
+        <radialGradient id="quarterGradient">
+          <stop offset="0%" style="stop-color:#e8e8e8;stop-opacity:1" />
+          <stop offset="50%" style="stop-color:#c0c0c0;stop-opacity:1" />
+          <stop offset="100%" style="stop-color:#999999;stop-opacity:1" />
+        </radialGradient>
+      </defs>
+      <circle cx="50" cy="50" r="48" fill="url(#quarterGradient)" stroke="#666666" stroke-width="1"/>
+      <circle cx="50" cy="50" r="44" fill="none" stroke="#808080" stroke-width="0.5"/>
+      <text x="50" y="40" text-anchor="middle" font-size="14" font-family="serif" fill="#333">WASHINGTON</text>
+      <text x="50" y="55" text-anchor="middle" font-size="20" font-weight="bold" fill="#333">25¢</text>
+      <text x="50" y="70" text-anchor="middle" font-size="10" fill="#333">QUARTER DOLLAR</text>
+    </svg>
+      <svg width="70" height="70" viewBox="0 0 100 100" class="coin-svg dime">
+      <defs>
+        <radialGradient id="dimeGradient">
+          <stop offset="0%" style="stop-color:#f0f0f0;stop-opacity:1" />
+          <stop offset="50%" style="stop-color:#d0d0d0;stop-opacity:1" />
+          <stop offset="100%" style="stop-color:#a0a0a0;stop-opacity:1" />
+        </radialGradient>
+      </defs>
+      <circle cx="50" cy="50" r="40" fill="url(#dimeGradient)" stroke="#666666" stroke-width="1"/>
+      <circle cx="50" cy="50" r="36" fill="none" stroke="#808080" stroke-width="0.5"/>
+      <text x="50" y="40" text-anchor="middle" font-size="12" font-family="serif" fill="#333">ROOSEVELT</text>
+      <text x="50" y="55" text-anchor="middle" font-size="18" font-weight="bold" fill="#333">10¢</text>
+      <text x="50" y="68" text-anchor="middle" font-size="9" fill="#333">ONE DIME</text>
+    </svg>
+      <svg width="70" height="70" viewBox="0 0 100 100" class="coin-svg dime">
+      <defs>
+        <radialGradient id="dimeGradient">
+          <stop offset="0%" style="stop-color:#f0f0f0;stop-opacity:1" />
+          <stop offset="50%" style="stop-color:#d0d0d0;stop-opacity:1" />
+          <stop offset="100%" style="stop-color:#a0a0a0;stop-opacity:1" />
+        </radialGradient>
+      </defs>
+      <circle cx="50" cy="50" r="40" fill="url(#dimeGradient)" stroke="#666666" stroke-width="1"/>
+      <circle cx="50" cy="50" r="36" fill="none" stroke="#808080" stroke-width="0.5"/>
+      <text x="50" y="40" text-anchor="middle" font-size="12" font-family="serif" fill="#333">ROOSEVELT</text>
+      <text x="50" y="55" text-anchor="middle" font-size="18" font-weight="bold" fill="#333">10¢</text>
+      <text x="50" y="68" text-anchor="middle" font-size="9" fill="#333">ONE DIME</text>
+    </svg>
+      <svg width="70" height="70" viewBox="0 0 100 100" class="coin-svg nickel">
+      <defs>
+        <radialGradient id="nickelGradient">
+          <stop offset="0%" style="stop-color:#e8e8e8;stop-opacity:1" />
+          <stop offset="50%" style="stop-color:#c0c0c0;stop-opacity:1" />
+          <stop offset="100%" style="stop-color:#999999;stop-opacity:1" />
+        </radialGradient>
+      </defs>
+      <circle cx="50" cy="50" r="48" fill="url(#nickelGradient)" stroke="#666666" stroke-width="1"/>
+      <circle cx="50" cy="50" r="44" fill="none" stroke="#808080" stroke-width="0.5"/>
+      <text x="50" y="40" text-anchor="middle" font-size="14" font-family="serif" fill="#333">JEFFERSON</text>
+      <text x="50" y="55" text-anchor="middle" font-size="20" font-weight="bold" fill="#333">5¢</text>
+      <text x="50" y="70" text-anchor="middle" font-size="10" fill="#333">FIVE CENTS</text>
+    </svg>
+    </div>
+    <p><strong>Let's count everything:</strong></p>
+    <ol>
+      <li>Five dollar bill: <span class="highlight">$5.00</span></li>
+      <li>Two one dollar bills: <span class="highlight">$5 + $1 + $1 = $7</span></li>
+      <li>One quarter: <span class="highlight">$7.00 + 25¢ = $7.25</span></li>
+      <li>Two dimes: <span class="highlight">$7.25 + 10¢ + 10¢ = $7.45</span></li>
+      <li>One nickel: <span class="highlight">$7.45 + 5¢ = $7.50</span></li>
+    </ol>
+    <p class="answer">Total: Seven dollars and fifty cents ($7.50)! 🎉</p>
+  </div>
+  
+  <div class="example-problem">
+    <h3>Example 10: All Pennies Challenge!</h3>
+    <div class="scenario-box">
+      <p>🪙 <strong>Challenge:</strong> If you have 100 pennies, how much money do you have?</p>
+    </div>
+    <p><strong>Remember:</strong> 100 pennies = 100 cents = $1.00</p>
+    <p class="answer">Total: One dollar ($1.00)! 🎉</p>
+    <p class="tip">💡 Fun fact: That's why we call it a "cent" - there are 100 cents in a dollar, just like 100 years in a century!</p>
+  </div>
+</div>
+
+<div class="tips-section">
+  <h2>💡 Super Tips for Counting Money</h2>
+  <ul>
+    <li>🎯 <strong>Always start with the biggest coins or bills first</strong> - it makes counting easier!</li>
+    <li>🎯 <strong>Group the same coins together</strong> - put all quarters in one pile, all dimes in another</li>
+    <li>🎯 <strong>Use skip counting</strong>:
+      <ul>
+        <li>Pennies: count by 1s (1, 2, 3, 4...)</li>
+        <li>Nickels: count by 5s (5, 10, 15, 20...)</li>
+        <li>Dimes: count by 10s (10, 20, 30, 40...)</li>
+        <li>Quarters: count by 25s (25, 50, 75, 100...)</li>
+      </ul>
+    </li>
+    <li>🎯 <strong>Remember:</strong> 100 cents = 1 dollar</li>
+  </ul>
+</div>
+
+<div class="fun-facts">
+  <h2>🌟 Fun Money Facts!</h2>
+  <ul>
+    <li>🪙 The penny is the only copper-colored coin</li>
+    <li>🪙 The dime is the smallest coin but not the least valuable!</li>
+    <li>🪙 4 quarters make exactly $1.00</li>
+    <li>💵 You can fold a dollar bill about 4,000 times before it tears!</li>
+    <li>🎮 Arcade games often use quarters - that's why knowing 25¢ is important!</li>
+  </ul>
+</div>
+        </div>
+    </div>
+</body>
+</html>

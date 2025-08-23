@@ -3,7 +3,8 @@ import { Link } from 'react-router-dom'
 import { useAuth } from '../contexts/AuthContext'
 import { supabase } from '../services/supabase'
 import { studyListService } from '../services/studyListService'
-import { UserProgress, SkillTreeNode, StudyList } from '../types/database.types'
+import { UserProgress, StudyList } from '../types/database.types'
+import { recommendationService, RecommendationScore } from '../services/recommendationService'
 import { 
   TrophyIcon, 
   ClockIcon, 
@@ -28,7 +29,7 @@ interface DashboardStats {
 const ProfilePage: React.FC = () => {
   const { user } = useAuth()
   const [recentProgress, setRecentProgress] = useState<UserProgress[]>([])
-  const [recommendedNodes, setRecommendedNodes] = useState<SkillTreeNode[]>([])
+  const [recommendedNodes, setRecommendedNodes] = useState<RecommendationScore[]>([])
   const [studyLists, setStudyLists] = useState<StudyList[]>([])
   const [stats, setStats] = useState<DashboardStats>({
     completedLessons: 0,
@@ -103,20 +104,38 @@ const ProfilePage: React.FC = () => {
 
   const fetchRecommendedContent = async () => {
     try {
-      // Get recommended content based on learning areas the user hasn't explored much
-      const { data, error } = await supabase
-        .from('skill_tree_nodes')
-        .select('*')
-        .not('learning_content_ids', 'eq', '{}')
-        .limit(6)
-        .order('updated_at', { ascending: false })
-
-      if (error) throw error
-      if (data) {
-        setRecommendedNodes(data)
-      }
+      if (!user) return
+      
+      // Get personalized recommendations based on interest assessment and activity
+      const recommendations = await recommendationService.getRecommendations(user.id, {
+        maxRecommendations: 6,
+        excludeCompleted: true
+      })
+      
+      setRecommendedNodes(recommendations)
     } catch (error) {
       console.error('Error fetching recommendations:', error)
+      // Fallback to basic recommendations
+      try {
+        const { data, error: fallbackError } = await supabase
+          .from('skill_tree_nodes')
+          .select('*')
+          .not('learning_content_ids', 'eq', '{}')
+          .limit(6)
+          .order('updated_at', { ascending: false })
+
+        if (fallbackError) throw fallbackError
+        if (data) {
+          setRecommendedNodes(data.map(node => ({
+            node,
+            score: 0.5,
+            category: 'ready_to_learn' as const,
+            reasons: ['Explore this topic']
+          })))
+        }
+      } catch (fallbackError) {
+        console.error('Error fetching fallback recommendations:', fallbackError)
+      }
     }
   }
 
@@ -219,6 +238,61 @@ const ProfilePage: React.FC = () => {
           </div>
         </div>
       </div>
+
+      {/* Interest-Based Quick Recommendations */}
+      {recommendedNodes.length > 0 && (
+        <div className="bg-gradient-to-r from-purple-50 to-primary-50 dark:from-purple-900/20 dark:to-primary-900/20 rounded-xl p-6 border border-purple-200 dark:border-purple-800">
+          <div className="flex items-center justify-between mb-4">
+            <div>
+              <h2 className="text-xl font-semibold text-neutral-900 dark:text-white">Based on Your Interests</h2>
+              <p className="text-sm text-neutral-600 dark:text-neutral-400">Recommendations from your assessment results</p>
+            </div>
+            <div className="hidden md:block">
+              <HeartIcon className="h-8 w-8 text-purple-500 opacity-70" />
+            </div>
+          </div>
+          
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-3">
+            {recommendedNodes.slice(0, 3).map(recommendation => {
+              const { node, reasons } = recommendation
+              return (
+                <Link
+                  key={node.id}
+                  to={`/category/${node.id}`}
+                  className="p-3 rounded-lg bg-white/70 dark:bg-neutral-800/70 border border-white/50 dark:border-neutral-700/50 hover:bg-white dark:hover:bg-neutral-800 hover:shadow-md transition-all group"
+                >
+                  <h3 className="font-medium text-neutral-900 dark:text-white group-hover:text-primary-600 line-clamp-1 mb-1">
+                    {node.name}
+                  </h3>
+                  {reasons.length > 0 && (
+                    <p className="text-xs text-purple-600 dark:text-purple-400 mb-2">
+                      {reasons[0]}
+                    </p>
+                  )}
+                  <div className="flex items-center justify-between">
+                    <span className="text-xs text-neutral-500">
+                      {node.learning_area}
+                    </span>
+                    <ArrowRightIcon className="h-3 w-3 text-primary-500" />
+                  </div>
+                </Link>
+              )
+            })}
+          </div>
+          
+          {recommendedNodes.length > 3 && (
+            <div className="mt-4 text-center">
+              <Link 
+                to="/learning-paths" 
+                className="inline-flex items-center gap-2 px-4 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition-colors text-sm font-medium"
+              >
+                <RocketLaunchIcon className="h-4 w-4" />
+                See All Recommendations
+              </Link>
+            </div>
+          )}
+        </div>
+      )}
 
       {/* Main Content Grid */}
       <div className="grid lg:grid-cols-3 gap-6">
@@ -383,26 +457,49 @@ const ProfilePage: React.FC = () => {
           </div>
           
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
-            {recommendedNodes.map(node => (
-              <Link
-                key={node.id}
-                to={`/category/${node.id}`}
-                className="p-4 rounded-lg border border-neutral-200 dark:border-neutral-700 hover:border-primary-300 dark:hover:border-primary-600 hover:shadow-md transition-all group"
-              >
-                <div className="flex items-start justify-between mb-2">
-                  <h3 className="font-semibold text-neutral-900 dark:text-white group-hover:text-primary-600 line-clamp-2">
-                    {node.name}
-                  </h3>
-                  <ArrowRightIcon className="h-4 w-4 text-neutral-400 group-hover:text-primary-500 flex-shrink-0 ml-2" />
-                </div>
-                <p className="text-xs text-neutral-600 dark:text-neutral-400 mb-2">
-                  {node.learning_area || 'General'}
-                </p>
-                <div className="text-xs text-primary-600 font-medium">
-                  Start Learning →
-                </div>
-              </Link>
-            ))}
+            {recommendedNodes.map(recommendation => {
+              const { node, category, reasons } = recommendation
+              const getCategoryColor = (cat: string) => {
+                switch (cat) {
+                  case 'ready_to_learn': return 'text-green-600 bg-green-50 dark:bg-green-900/20'
+                  case 'challenge': return 'text-orange-600 bg-orange-50 dark:bg-orange-900/20'
+                  case 'review': return 'text-blue-600 bg-blue-50 dark:bg-blue-900/20'
+                  case 'interest': return 'text-purple-600 bg-purple-50 dark:bg-purple-900/20'
+                  default: return 'text-gray-600 bg-gray-50 dark:bg-gray-900/20'
+                }
+              }
+
+              return (
+                <Link
+                  key={node.id}
+                  to={`/category/${node.id}`}
+                  className="p-4 rounded-lg border border-neutral-200 dark:border-neutral-700 hover:border-primary-300 dark:hover:border-primary-600 hover:shadow-md transition-all group"
+                >
+                  <div className="flex items-start justify-between mb-2">
+                    <h3 className="font-semibold text-neutral-900 dark:text-white group-hover:text-primary-600 line-clamp-2">
+                      {node.name}
+                    </h3>
+                    <ArrowRightIcon className="h-4 w-4 text-neutral-400 group-hover:text-primary-500 flex-shrink-0 ml-2" />
+                  </div>
+                  <p className="text-xs text-neutral-600 dark:text-neutral-400 mb-2">
+                    {node.learning_area || 'General'}
+                  </p>
+                  {reasons.length > 0 && (
+                    <p className="text-xs text-neutral-500 dark:text-neutral-400 mb-2 line-clamp-1">
+                      {reasons[0]}
+                    </p>
+                  )}
+                  <div className="flex items-center justify-between">
+                    <span className={`inline-flex items-center px-2 py-1 rounded-full text-xs font-medium ${getCategoryColor(category)}`}>
+                      {category.replace('_', ' ')}
+                    </span>
+                    <div className="text-xs text-primary-600 font-medium">
+                      Start Learning →
+                    </div>
+                  </div>
+                </Link>
+              )
+            })}
           </div>
         </div>
       )}

@@ -4,43 +4,24 @@ import { useAuth } from '../contexts/AuthContext'
 import { useSpellingBee } from '../contexts/SpellingBeeContext'
 import { checkSpellingBeeTables, createSpellingBeeTables } from '../utils/createSpellingBeeTables'
 import { replaceWordAndVariationsWithBlanks } from '../utils/vocabularyHelpers'
+import { getVocabularyDifficultyLevels, getVocabularyDifficultyName } from '../services/difficultyLevels'
+import { SpellingWordWithDifficulties, VocabularyDifficultyLevel } from '../types/difficultyLevels'
 import { 
   CheckCircleIcon, 
   XCircleIcon,
   AcademicCapIcon,
   ClockIcon,
   FlagIcon,
-  SpeakerWaveIcon
+  SpeakerWaveIcon,
+  ChevronDownIcon
 } from '@heroicons/react/24/outline'
 import FlagContentModal from '../components/FlagContentModal'
 import StudyListActions from '../components/StudyListActions'
+import { studyListService } from '../services/studyListService'
+import { StudyList } from '../types/database.types'
 
-interface SpellingWord {
-  id: string
-  word: string
-  definition: string
-  example_sentence: string
-  vocabulary_difficulty_level: number
-  vocabulary_difficulty_name?: string
-  source_difficulty?: string
-  ai_vocabulary_difficulty_level?: number
-  ai_vocabulary_difficulty_name?: string
-  etymology?: string
-  etymology_source?: string
-  pronunciation_guide?: string
-  part_of_speech?: string
-  memory_tips?: string
-  pronunciation_tips?: string
-  common_misspellings?: string[]
-  phonetic_transparency_score?: number
-  word_frequency_score?: number
-  morphology_score?: number
-  etymology_score?: number
-  source_names?: string[]
-  source_difficulties?: string[]
-  original_source?: string
-  audio_url?: string
-}
+// Using the new type from difficultyLevels.ts
+type SpellingWord = SpellingWordWithDifficulties;
 
 interface VocabularyQuestion {
   word: SpellingWord
@@ -52,6 +33,8 @@ const VocabularyTrainerPage: React.FC = () => {
   const { user } = useAuth()
   const { selectedDifficulties, setSelectedDifficulties, toggleDifficulty, useAdaptiveTesting, setUseAdaptiveTesting } = useSpellingBee()
   const [currentQuestion, setCurrentQuestion] = useState<VocabularyQuestion | null>(null)
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const [difficultyLevels, setDifficultyLevels] = useState<VocabularyDifficultyLevel[]>([])
   const [selectedAnswer, setSelectedAnswer] = useState<string>('')
   const [showResult, setShowResult] = useState(false)
   const [isCorrect, setIsCorrect] = useState(false)
@@ -61,9 +44,67 @@ const VocabularyTrainerPage: React.FC = () => {
   const [stats, setStats] = useState({ correct: 0, total: 0 })
   const [sessionStats, setSessionStats] = useState({ correct: 0, total: 0 })
   const [showFlagModal, setShowFlagModal] = useState(false)
+  
+  // Study list functionality
+  const [studyLists, setStudyLists] = useState<StudyList[]>([])
+  const [selectedStudyList, setSelectedStudyList] = useState<StudyList | null>(null)
 
   // Session storage keys
   const VOCAB_SESSION_KEY = 'vocabularyTrainerSession'
+
+  // Helper function to organize and sort study lists
+  const organizeStudyLists = (lists: StudyList[]) => {
+    const vocabLists = lists.filter(list => list.name.includes('Vocab') && !list.name.includes('Grade'))
+    const gradeLists = lists.filter(list => list.name.includes('Grade') && list.name.includes('Vocabulary'))
+    
+    // Sort existing vocab lists by name
+    const sortedVocabLists = vocabLists.sort((a, b) => a.name.localeCompare(b.name))
+    
+    // Sort grade lists numerically (K, 1, 2, 3, etc.)
+    const sortedGradeLists = gradeLists.sort((a, b) => {
+      const extractGrade = (name: string) => {
+        const match = name.match(/Grade\s+([K\d]+)/)
+        if (!match) return 999
+        return match[1] === 'K' ? 0 : parseInt(match[1])
+      }
+      return extractGrade(a.name) - extractGrade(b.name)
+    })
+    
+    return { vocabLists: sortedVocabLists, gradeLists: sortedGradeLists }
+  }
+
+  // Load available study lists
+  const loadStudyLists = useCallback(async () => {
+    try {
+      // Get public study lists for vocabulary (existing Vocab + Grade Level Vocabulary)
+      const { data, error } = await supabase
+        .from('study_lists')
+        .select('*')
+        .eq('is_public', true)
+        .or('name.ilike.%Vocab%,name.ilike.%Vocabulary%')
+        .order('name')
+
+      if (error) {
+        console.error('Error loading study lists:', error)
+        return
+      }
+
+      // Also get user's personal study lists if logged in
+      let userLists: StudyList[] = []
+      if (user) {
+        const userListsData = await studyListService.getUserStudyLists(user.id)
+        userLists = userListsData.filter(list => 
+          list.name.toLowerCase().includes('vocabulary') || 
+          list.name.toLowerCase().includes('vocab')
+        )
+      }
+
+      const allLists = [...(data || []), ...userLists]
+      setStudyLists(allLists)
+    } catch (error) {
+      console.error('Error loading study lists:', error)
+    }
+  }, [user])
 
   // Save session state
   const saveSessionState = useCallback((question: VocabularyQuestion, index: number, selectedAnswer: string, showResult: boolean, isCorrect: boolean) => {
@@ -102,17 +143,86 @@ const VocabularyTrainerPage: React.FC = () => {
 
   const fetchWords = useCallback(async () => {
     try {
+      // If a study list is selected, get words from the study list
+      if (selectedStudyList) {
+        const { data: studyListItems, error: studyListError } = await supabase
+          .from('study_list_items')
+          .select(`
+            item_id,
+            item_data,
+            study_list:study_lists(name)
+          `)
+          .eq('study_list_id', selectedStudyList.id)
+          .eq('item_type', 'spelling_word')
+
+        if (studyListError) {
+          console.error('Error fetching study list items:', studyListError)
+          setLoading(false)
+          return
+        }
+
+        if (studyListItems && studyListItems.length > 0) {
+          const wordIds = studyListItems.map(item => item.item_id)
+          
+          const { data: words, error: wordsError } = await supabase
+            .from('spelling_words')
+            .select(`
+              *,
+              vocabulary_difficulty:vocabulary_difficulty_levels(id, name, description)
+            `)
+            .in('id', wordIds)
+
+          if (wordsError) {
+            console.error('Error fetching words from study list:', wordsError)
+            setLoading(false)
+            return
+          }
+
+          if (words && words.length > 0) {
+            setWordBank(words)
+            generateQuestion(words, 0)
+            setCurrentIndex(0)
+            setLoading(false)
+            return
+          }
+        }
+      }
+
+      // Regular word fetching (existing logic)
+      // Try to query with joins to the new difficulty tables first
       let query = supabase
         .from('spelling_words')
-        .select('*')
+        .select(`
+          *,
+          vocabulary_difficulty:vocabulary_difficulty_levels(id, name, description)
+        `)
         .order('vocabulary_difficulty_level')
 
       // Apply difficulty filter from selected difficulties
       if (selectedDifficulties.length > 0 && selectedDifficulties.length < 5) {
-        query = query.in('vocabulary_difficulty_name', selectedDifficulties)
+        // Try to filter by both new FK table and old name field for compatibility
+        query = query.or(`vocabulary_difficulty.name.in.(${selectedDifficulties.join(',')}),vocabulary_difficulty_name.in.(${selectedDifficulties.join(',')})`)
       }
 
-      const { data, error } = await query.limit(100)
+      let { data, error } = await query.limit(100)
+
+      // If the join fails (tables don't exist yet), fall back to old structure
+      if (error && error.message?.includes('vocabulary_difficulty_levels')) {
+        console.log('New difficulty tables not found, using legacy structure...')
+        
+        query = supabase
+          .from('spelling_words')
+          .select('*')
+          .order('vocabulary_difficulty_level')
+
+        if (selectedDifficulties.length > 0 && selectedDifficulties.length < 5) {
+          query = query.in('vocabulary_difficulty_name', selectedDifficulties)
+        }
+
+        const fallbackResult = await query.limit(100)
+        data = fallbackResult.data
+        error = fallbackResult.error
+      }
 
       if (error) {
         console.error('Error fetching words:', error)
@@ -121,8 +231,19 @@ const VocabularyTrainerPage: React.FC = () => {
       }
 
       if (data && data.length > 0) {
+        // For words that don't have difficulty names, try to get them from the service
+        const wordsWithNames = await Promise.all(
+          data.map(async (word) => {
+            if (!word.vocabulary_difficulty_name && word.vocabulary_difficulty_level) {
+              const difficultyName = await getVocabularyDifficultyName(word.vocabulary_difficulty_level)
+              return { ...word, vocabulary_difficulty_name: difficultyName }
+            }
+            return word
+          })
+        )
+
         // Shuffle words for variety
-        const shuffled = [...data].sort(() => Math.random() - 0.5)
+        const shuffled = [...wordsWithNames].sort(() => Math.random() - 0.5)
         setWordBank(shuffled)
         
         // Check for saved session state first
@@ -152,7 +273,8 @@ const VocabularyTrainerPage: React.FC = () => {
     } finally {
       setLoading(false)
     }
-  }, [selectedDifficulties])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [selectedDifficulties, selectedStudyList, loadSessionState])
 
   // Helper function to extract primary language origin from etymology
   const getLanguageOrigin = (etymology: string | undefined): string => {
@@ -286,12 +408,30 @@ const VocabularyTrainerPage: React.FC = () => {
     initializeVocabularyTrainer()
   }, [initializeVocabularyTrainer])
 
-  // Refetch words when selected difficulties change
+  // Load difficulty levels on component mount
+  useEffect(() => {
+    const loadDifficultyLevels = async () => {
+      try {
+        const levels = await getVocabularyDifficultyLevels()
+        setDifficultyLevels(levels)
+      } catch (error) {
+        console.error('Error loading vocabulary difficulty levels:', error)
+      }
+    }
+    loadDifficultyLevels()
+  }, [])
+
+  // Load study lists on mount and when user changes
+  useEffect(() => {
+    loadStudyLists()
+  }, [loadStudyLists])
+
+  // Refetch words when selected difficulties or study list change
   useEffect(() => {
     setLoading(true)
     fetchWords()
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [selectedDifficulties])
+  }, [selectedDifficulties, selectedStudyList])
 
   const handleAnswerSelect = (answer: string) => {
     if (showResult) return
@@ -447,8 +587,57 @@ const VocabularyTrainerPage: React.FC = () => {
               )}
             </div>
 
+            {/* Study List Selection */}
+            {studyLists.length > 0 && (
+              <div className="flex items-center gap-1">
+                <span className="text-xs font-medium text-neutral-700 dark:text-neutral-300">Study List:</span>
+                <div className="relative">
+                  <select
+                    value={selectedStudyList?.id || ''}
+                    onChange={(e) => {
+                      const list = studyLists.find(l => l.id === e.target.value) || null
+                      setSelectedStudyList(list)
+                      setCurrentIndex(0)
+                      setCurrentQuestion(null)
+                      setSelectedAnswer('')
+                      setShowResult(false)
+                    }}
+                    className="bg-neutral-100 dark:bg-neutral-800 text-neutral-700 dark:text-neutral-300 px-2 py-1 rounded text-xs border-0 focus:ring-1 focus:ring-neutral-500 appearance-none pr-6"
+                  >
+                    <option value="">All Words</option>
+                    {(() => {
+                      const { vocabLists, gradeLists } = organizeStudyLists(studyLists)
+                      return (
+                        <>
+                          {vocabLists.length > 0 && (
+                            <optgroup label="Vocabulary Lists">
+                              {vocabLists.map((list) => (
+                                <option key={list.id} value={list.id}>
+                                  {list.name}
+                                </option>
+                              ))}
+                            </optgroup>
+                          )}
+                          {gradeLists.length > 0 && (
+                            <optgroup label="Grade Level Lists">
+                              {gradeLists.map((list) => (
+                                <option key={list.id} value={list.id}>
+                                  {list.name}
+                                </option>
+                              ))}
+                            </optgroup>
+                          )}
+                        </>
+                      )
+                    })()}
+                  </select>
+                  <ChevronDownIcon className="absolute right-1 top-1/2 transform -translate-y-1/2 h-3 w-3 text-neutral-500 dark:text-neutral-400 pointer-events-none" />
+                </div>
+              </div>
+            )}
+
             {/* Difficulty Selection */}
-            {!useAdaptiveTesting && (
+            {!useAdaptiveTesting && !selectedStudyList && (
               <div className="flex items-center gap-1 flex-wrap">
                 <span className="text-xs font-medium text-neutral-700 dark:text-neutral-300">Difficulty:</span>
                 <div className="flex flex-wrap gap-0.5">

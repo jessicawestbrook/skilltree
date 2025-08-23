@@ -1,0 +1,10 @@
+{
+  "timestamp": "2025-08-22T19:39:47.009Z",
+  "batchIndex": 38,
+  "totalBatches": 61,
+  "processed": 380,
+  "total": 605,
+  "successful": 380,
+  "failed": 0,
+  "progress_percentage": 63
+}

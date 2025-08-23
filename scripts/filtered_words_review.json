@@ -1,0 +1,269 @@
+{
+  "summary": {
+    "totalFiltered": 57,
+    "legitimateToRestore": 26,
+    "properlyFiltered": 30,
+    "needsManualReview": 1
+  },
+  "legitimateWords": [
+    {
+      "word": "overweening",
+      "id": "63dff47a-03a7-43bf-8f2d-bb787ef197a6",
+      "originalReason": "likely-combined-word"
+    },
+    {
+      "word": "peregrination",
+      "id": "1183e240-2c90-4fd1-960a-1e15cd67df1c",
+      "originalReason": "likely-combined-word"
+    },
+    {
+      "word": "preserving",
+      "id": "c1171f65-e103-445f-ae25-e908e50b85e6",
+      "originalReason": "likely-combined-word"
+    },
+    {
+      "word": "professionally",
+      "id": "e912b48d-58ad-4b2c-bbcc-d4758c791811",
+      "originalReason": "likely-combined-word"
+    },
+    {
+      "word": "proffered",
+      "id": "4019f80a-32fe-4999-94c2-3259b849bbca",
+      "originalReason": "likely-combined-word"
+    },
+    {
+      "word": "proselytiser",
+      "id": "e8d973e2-a514-4710-87ac-62613cc80b41",
+      "originalReason": "likely-combined-word"
+    },
+    {
+      "word": "proselytizer",
+      "id": "07f90aa2-720b-4481-bebe-e4c54a364b57",
+      "originalReason": "likely-combined-word"
+    },
+    {
+      "word": "puerilely",
+      "id": "4e0b9955-70e1-4009-878d-005fc2b85df3",
+      "originalReason": "likely-combined-word"
+    },
+    {
+      "word": "pulverised",
+      "id": "504e7f4f-60e9-4b48-92c1-a9a18cca3214",
+      "originalReason": "likely-combined-word"
+    },
+    {
+      "word": "pulverized",
+      "id": "9980f76d-9701-43f3-a741-08c00c89cf72",
+      "originalReason": "likely-combined-word"
+    },
+    {
+      "word": "puttering",
+      "id": "f5934025-bf7b-44be-8dcf-f7c92b680b9e",
+      "originalReason": "likely-combined-word"
+    },
+    {
+      "word": "redingote",
+      "id": "b60e4dee-16e6-4c86-ba25-b90bc296c6c5",
+      "originalReason": "likely-combined-word"
+    },
+    {
+      "word": "referred",
+      "id": "2d715009-fa04-44ab-a635-8006db8df464",
+      "originalReason": "likely-combined-word"
+    },
+    {
+      "word": "refrigerated",
+      "id": "c6a6be33-4ddf-4fa7-a4c2-cb1d29f70742",
+      "originalReason": "likely-combined-word"
+    },
+    {
+      "word": "reverberant",
+      "id": "c048f1c0-4603-4041-84b7-9574f393e978",
+      "originalReason": "likely-combined-word"
+    },
+    {
+      "word": "ringing",
+      "id": "65a11725-d60a-463c-89dd-6f4884746d83",
+      "originalReason": "likely-combined-word"
+    },
+    {
+      "word": "singing",
+      "id": "b3bc2222-70b9-4419-bcfa-5df8333901a3",
+      "originalReason": "likely-combined-word"
+    },
+    {
+      "word": "smoldering",
+      "id": "ea177093-8298-441d-bf7c-2fa5d081ea63",
+      "originalReason": "likely-combined-word"
+    },
+    {
+      "word": "smouldering",
+      "id": "7ae3f88e-c963-4af2-b3dd-150fe22187e2",
+      "originalReason": "likely-combined-word"
+    },
+    {
+      "word": "unacknowledged",
+      "id": "2cd78579-1270-45dd-9dd8-43f3c7ef62c0",
+      "originalReason": "likely-combined-word"
+    },
+    {
+      "word": "understanding",
+      "id": "597b087b-beb8-4688-a36e-ea6ac338848c",
+      "originalReason": "likely-combined-word"
+    },
+    {
+      "word": "unexpectedly",
+      "id": "ecc228f2-7386-4e42-9bdc-8e03f885b795",
+      "originalReason": "likely-combined-word"
+    },
+    {
+      "word": "unilaterally",
+      "id": "1fbf0191-048e-4060-a6bf-88aad5049813",
+      "originalReason": "likely-combined-word"
+    },
+    {
+      "word": "veered",
+      "id": "27ebaf07-bd79-41c6-9c3a-b6e086d4d611",
+      "originalReason": "likely-combined-word"
+    },
+    {
+      "word": "versiera",
+      "id": "0b3f3f5f-cfa0-40d2-bace-97592cfd97e1",
+      "originalReason": "likely-combined-word"
+    },
+    {
+      "word": "vertere",
+      "id": "5d0c4a61-8c12-4253-9555-54c0e1c44d09",
+      "originalReason": "likely-combined-word"
+    }
+  ],
+  "properlyFiltered": [
+    {
+      "word": "nostrilsthe",
+      "reason": "combined-word"
+    },
+    {
+      "word": "nulliusnoun",
+      "reason": "combined-word"
+    },
+    {
+      "word": "obligeviscount",
+      "reason": "likely-combined-word"
+    },
+    {
+      "word": "obviouspulse",
+      "reason": "likely-combined-word"
+    },
+    {
+      "word": "oceaniancharitable",
+      "reason": "likely-combined-word"
+    },
+    {
+      "word": "ogivalnoun",
+      "reason": "combined-word"
+    },
+    {
+      "word": "pâtissier",
+      "reason": "invalid-characters"
+    },
+    {
+      "word": "referralaerials",
+      "reason": "likely-combined-word"
+    },
+    {
+      "word": "regnalattaché",
+      "reason": "invalid-characters"
+    },
+    {
+      "word": "reiterateremorseful",
+      "reason": "likely-combined-word"
+    },
+    {
+      "word": "renvoinoun",
+      "reason": "combined-word"
+    },
+    {
+      "word": "rescissiblejungian",
+      "reason": "likely-combined-word"
+    },
+    {
+      "word": "rescissiblereveille",
+      "reason": "likely-combined-word"
+    },
+    {
+      "word": "résumé",
+      "reason": "invalid-characters"
+    },
+    {
+      "word": "resuscitateretina",
+      "reason": "likely-combined-word"
+    },
+    {
+      "word": "revelationarithmetic",
+      "reason": "likely-combined-word"
+    },
+    {
+      "word": "reykjavík",
+      "reason": "invalid-characters"
+    },
+    {
+      "word": "runesancestors",
+      "reason": "likely-combined-word"
+    },
+    {
+      "word": "ryeland",
+      "reason": "combined-word"
+    },
+    {
+      "word": "ryelanddomesticity",
+      "reason": "likely-combined-word"
+    },
+    {
+      "word": "sherifftarry",
+      "reason": "likely-combined-word"
+    },
+    {
+      "word": "shhh",
+      "reason": "nonsense-word"
+    },
+    {
+      "word": "shrivellimbering",
+      "reason": "likely-combined-word"
+    },
+    {
+      "word": "shutterscorner",
+      "reason": "likely-combined-word"
+    },
+    {
+      "word": "soirée",
+      "reason": "invalid-characters"
+    },
+    {
+      "word": "solderinterim",
+      "reason": "likely-combined-word"
+    },
+    {
+      "word": "solitairedishevel",
+      "reason": "likely-combined-word"
+    },
+    {
+      "word": "soppinesssousaphone",
+      "reason": "likely-combined-word"
+    },
+    {
+      "word": "soupçon",
+      "reason": "invalid-characters"
+    },
+    {
+      "word": "velouté",
+      "reason": "invalid-characters"
+    }
+  ],
+  "needsManualReview": [
+    {
+      "word": "preternaturally",
+      "id": "6a76fa84-f28e-4a7a-a1af-892f205b998b",
+      "reason": "likely-combined-word"
+    }
+  ]
+}

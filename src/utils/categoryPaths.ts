@@ -111,7 +111,8 @@ export async function resolveCategoryPath(path: string): Promise<string | null> 
       }
       
       // Find the one with the correct parent
-      const matchingNode = broadNodes.find(node => node.parent_id === currentParentId)
+      const parentIdToMatch: string | null = currentParentId
+      const matchingNode: CategoryNode | undefined = broadNodes.find(node => node.parent_id === parentIdToMatch)
       if (!matchingNode) {
         return null
       }

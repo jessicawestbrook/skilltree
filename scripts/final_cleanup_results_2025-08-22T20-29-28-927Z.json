@@ -1,0 +1,20 @@
+{
+  "summary": {
+    "invalidWordsDeleted": 17,
+    "definitionsReplaced": 47,
+    "examplesReplaced": 0,
+    "totalErrors": 0
+  },
+  "deleteResults": {
+    "deleted": 17,
+    "errors": []
+  },
+  "defResults": {
+    "updated": 47,
+    "errors": []
+  },
+  "exampleResults": {
+    "updated": 0,
+    "errors": []
+  }
+}

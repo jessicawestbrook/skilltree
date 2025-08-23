@@ -39,7 +39,15 @@
       "Bash(grep:*)",
       "Bash(cp:*)",
       "WebSearch",
-      "WebFetch(domain:psychometric-success.com)"
+      "WebFetch(domain:psychometric-success.com)",
+      "Bash(start scripts/content_generation/output/math_content/age_appropriate/money_counting_preview.html)",
+      "Bash(start scripts/content_generation/output/math_content/visual_fixed/money_counting_preview.html)",
+      "Bash(npx supabase db reset:*)",
+      "Bash(for i in {1..5})",
+      "Bash(do echo \"=== Running batch $i ===\")",
+      "Bash(done)",
+      "Bash(for i in {1..10})",
+      "Bash(start scripts/money_counting_full_preview.html)"
     ],
     "deny": [],
     "ask": [],

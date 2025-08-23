@@ -1,0 +1,381 @@
+[
+  {
+    "id": "00c77c14-cb41-4fc2-b4d9-0adb3ea0b4ec",
+    "word": "constantbalm",
+    "definition": null,
+    "source_difficulty": "Two Bee",
+    "issues": []
+  },
+  {
+    "id": "0174496b-9f8a-474f-9744-5d78ea16c5bf",
+    "word": "propinquityepidermis",
+    "definition": null,
+    "source_difficulty": "Two Bee",
+    "issues": [
+      "Contains propinquity + more text"
+    ]
+  },
+  {
+    "id": "02cee441-4ac0-43a7-b14e-5a79e3d7d75e",
+    "word": "accordaturacavalletti",
+    "definition": null,
+    "source_difficulty": "Two Bee",
+    "issues": [
+      "Contains accordatura + more text"
+    ]
+  },
+  {
+    "id": "05206c78-23f3-4bf7-8cc1-7913c225e087",
+    "word": "abstrusenephrolith",
+    "definition": null,
+    "source_difficulty": "Two Bee",
+    "issues": []
+  },
+  {
+    "id": "07d5fc39-1381-4162-82f7-e8a0331ce16a",
+    "word": "laterigradehyssop",
+    "definition": null,
+    "source_difficulty": "Three Bee",
+    "issues": []
+  },
+  {
+    "id": "08d7dad8-3fd9-4f88-b54d-6743dd77cf06",
+    "word": "zygotenoun",
+    "definition": null,
+    "source_difficulty": "Two Bee",
+    "issues": [
+      "Ends with \"noun\""
+    ]
+  },
+  {
+    "id": "09b31628-1e39-4d81-8476-35b5f475fee3",
+    "word": "consecrateadjective",
+    "definition": null,
+    "source_difficulty": "Two Bee",
+    "issues": [
+      "Ends with \"adjective\""
+    ]
+  },
+  {
+    "id": "1c2eda5f-6360-4a21-a598-7909f0c5b61b",
+    "word": "chauve-sourisadjective",
+    "definition": null,
+    "source_difficulty": "Three Bee",
+    "issues": [
+      "Ends with \"adjective\""
+    ]
+  },
+  {
+    "id": "1d273287-1af3-4c9d-9fe7-e50bff9722ef",
+    "word": "antidisestablishmentarianism",
+    "definition": "Opposition to the withdrawal of state support or recognition from an established church.",
+    "source_difficulty": "Three Bee",
+    "issues": [
+      "Extremely long (>25 chars)"
+    ]
+  },
+  {
+    "id": "1da0a994-5f37-41d9-8dfb-bdf7b89d3ac3",
+    "word": "veneernoun",
+    "definition": null,
+    "source_difficulty": "Two Bee",
+    "issues": [
+      "Ends with \"noun\""
+    ]
+  },
+  {
+    "id": "20a9ad2e-ccdc-4cc4-8722-f2a0f2525acc",
+    "word": "fiduciaryadjective",
+    "definition": null,
+    "source_difficulty": "Two Bee",
+    "issues": [
+      "Ends with \"adjective\""
+    ]
+  },
+  {
+    "id": "293a2e6d-792e-4bcb-8991-7a410f4af97f",
+    "word": "shamanverb",
+    "definition": "[COMBINED WORD ERROR] This appears to be two words combined: \"shaman\" (a spiritual leader who communicates with spirits) and \"verb\" (a grammatical term for action words). This combination likely resulted from a data processing error where two separate dictionary entries were merged without proper spacing. The correct format should separate these as distinct words with their individual meanings and contexts.",
+    "source_difficulty": "One Bee",
+    "issues": [
+      "Ends with \"verb\""
+    ]
+  },
+  {
+    "id": "2b6ebe3f-dc00-44b3-b8c5-b8f62d386aa0",
+    "word": "perspicaciousadjective",
+    "definition": null,
+    "source_difficulty": "Two Bee",
+    "issues": [
+      "Ends with \"adjective\""
+    ]
+  },
+  {
+    "id": "3148c3ab-532c-4be9-89e3-4c1d90884b38",
+    "word": "proverb",
+    "definition": "A short saying that expresses a general truth or piece of advice; a traditional maxim or adage passed down through generations. Proverbs distill wisdom into memorable phrases that convey cultural values, practical knowledge, or moral guidance through metaphor and concise language.",
+    "source_difficulty": "Two Bee",
+    "issues": [
+      "Ends with \"verb\""
+    ]
+  },
+  {
+    "id": "34b943c7-b950-461c-a9be-c310269ea75a",
+    "word": "epicureanepidermis",
+    "definition": "This appears to be a combined word error from PDF parsing. It likely represents two separate words: \"epicurean\" (relating to the pursuit of pleasure, especially in food and drink) and \"epidermis\" (the outer layer of skin). This combination does not form a valid English word.",
+    "source_difficulty": "Two Bee",
+    "issues": []
+  },
+  {
+    "id": "36c7596f-f43f-481f-ae38-856356028d31",
+    "word": "undergirdnoun",
+    "definition": null,
+    "source_difficulty": "Three Bee",
+    "issues": [
+      "Ends with \"noun\""
+    ]
+  },
+  {
+    "id": "3929ded1-9023-4430-96d6-bb2bf8659ed9",
+    "word": "sennanoun",
+    "definition": "[COMBINED WORD ERROR] This appears to be two words combined: \"senna\" (a medicinal plant used as a laxative) and \"noun\" (a grammatical term for naming words). This combination likely resulted from a data processing error where two separate dictionary entries were merged without proper spacing. The correct format should separate these as distinct words with their individual meanings and contexts.",
+    "source_difficulty": "Two Bee",
+    "issues": [
+      "Ends with \"noun\""
+    ]
+  },
+  {
+    "id": "3d711c90-30ff-48cc-a252-dac99042771c",
+    "word": "fortificationnoun",
+    "definition": null,
+    "source_difficulty": "One Bee",
+    "issues": [
+      "Ends with \"noun\""
+    ]
+  },
+  {
+    "id": "3fae83dc-795c-4856-85c6-236ee394eee0",
+    "word": "adverb",
+    "definition": "A word that modifies a verb, adjective, or other adverb, typically ending in -ly and expressing manner, time, or degree.",
+    "source_difficulty": "Two Bee",
+    "issues": [
+      "Ends with \"verb\""
+    ]
+  },
+  {
+    "id": "43bad3ee-fe86-4bd1-9e22-603ec67e546c",
+    "word": "rambunctiousnoun",
+    "definition": null,
+    "source_difficulty": "Two Bee",
+    "issues": [
+      "Ends with \"noun\""
+    ]
+  },
+  {
+    "id": "5424a494-e66d-4ea5-b715-5ce0dece3e44",
+    "word": "ogivalnoun",
+    "definition": null,
+    "source_difficulty": "Three Bee",
+    "issues": [
+      "Ends with \"noun\""
+    ]
+  },
+  {
+    "id": "569a0e8c-3acd-457d-b483-672daca4ada6",
+    "word": "hydriotaphiahydrocortisone",
+    "definition": null,
+    "source_difficulty": "Two Bee",
+    "issues": [
+      "Extremely long (>25 chars)"
+    ]
+  },
+  {
+    "id": "57b3c05b-75a6-4bfd-b19e-71975e0b84e0",
+    "word": "theriatricsnoun",
+    "definition": "[COMBINED WORD ERROR] This appears to be two words incorrectly joined: \"theriatrics\" (veterinary medicine for wild animals) + \"noun\" (grammar term).",
+    "source_difficulty": "Two Bee",
+    "issues": [
+      "Ends with \"noun\""
+    ]
+  },
+  {
+    "id": "625b193f-91a0-4ae3-8552-5b935e9ebba0",
+    "word": "thoughtsverb",
+    "definition": "[COMBINED WORD ERROR] This appears to be two words incorrectly joined: \"thoughts\" (ideas) + \"verb\" (grammar term).",
+    "source_difficulty": "Three Bee",
+    "issues": [
+      "Ends with \"verb\""
+    ]
+  },
+  {
+    "id": "63293bb7-4253-4bf5-b803-0405925e0318",
+    "word": "neuropathynoun",
+    "definition": "This appears to be a combined word error from PDF parsing, likely meant to be \"neuropathy noun\" - combining the medical term with a grammatical designation.",
+    "source_difficulty": "Two Bee",
+    "issues": [
+      "Ends with \"noun\""
+    ]
+  },
+  {
+    "id": "69b5312e-3cbb-4044-b242-5f3a21289edd",
+    "word": "lambentlyadjective",
+    "definition": null,
+    "source_difficulty": "Two Bee",
+    "issues": [
+      "Ends with \"adjective\""
+    ]
+  },
+  {
+    "id": "76e5043c-acc0-4ea5-8397-10665960548a",
+    "word": "nulliusnoun",
+    "definition": null,
+    "source_difficulty": "Three Bee",
+    "issues": [
+      "Ends with \"noun\""
+    ]
+  },
+  {
+    "id": "7a789cff-f5ce-452c-aa11-9d19df6aabf2",
+    "word": "whetnoun",
+    "definition": null,
+    "source_difficulty": "Three Bee",
+    "issues": [
+      "Ends with \"noun\""
+    ]
+  },
+  {
+    "id": "835f00b7-5ad3-4d75-97fa-c0d0ffc54536",
+    "word": "breviloquencenoun",
+    "definition": null,
+    "source_difficulty": "Two Bee",
+    "issues": [
+      "Ends with \"noun\""
+    ]
+  },
+  {
+    "id": "84256519-4702-46a9-a6e7-54c5c8e56d33",
+    "word": "vizierialnoun",
+    "definition": null,
+    "source_difficulty": "Three Bee",
+    "issues": [
+      "Ends with \"noun\""
+    ]
+  },
+  {
+    "id": "9467e353-17ea-4809-b55e-f5db8e79ba61",
+    "word": "voraciousnoun",
+    "definition": null,
+    "source_difficulty": "Two Bee",
+    "issues": [
+      "Ends with \"noun\""
+    ]
+  },
+  {
+    "id": "96ffb3ad-913f-4f57-a997-36957195cc56",
+    "word": "holocaustnoun",
+    "definition": "This appears to be a combined word error from PDF parsing, incorrectly merging \"holocaust\" (the Nazi genocide during World War II) with \"noun\" (a grammatical term for people, places, things, or ideas). This type of parsing error occurs when PDF text extraction software fails to properly separate words from different parts of a document, such as when dictionary definitions or grammatical information becomes attached to the main word entry. The combination creates a nonsensical term that doesn't exist in standard dictionaries and highlights the importance of quality control in data processing from digitized sources. Such errors are common when processing large volumes of text from PDFs with complex formatting, multiple columns, or inconsistent typography. The original document likely contained the word \"holocaust\" with separate grammatical notation indicating it as a noun, which were erroneously combined during extraction. This demonstrates why careful validation and error detection are essential when working with automatically processed text data, especially for educational or reference purposes where accuracy is crucial.",
+    "source_difficulty": "Two Bee",
+    "issues": [
+      "Ends with \"noun\""
+    ]
+  },
+  {
+    "id": "97fb9497-1fa0-432c-81f4-40fbbd8264ee",
+    "word": "germanenoun",
+    "definition": "Germanenoun appears to be a combined word error where \"germane\" (relevant, pertinent) and \"noun\" (grammatical term) were incorrectly merged during PDF processing. This represents a data quality issue where an adjective meaning \"relevant\" was improperly joined with grammatical terminology. The intended content should be \"germane\" as an adjective with separate grammatical notation.",
+    "source_difficulty": "One Bee",
+    "issues": [
+      "Ends with \"noun\""
+    ]
+  },
+  {
+    "id": "989754a1-1991-4ff2-8cdd-4bb6535e5bc3",
+    "word": "busbyadjective",
+    "definition": null,
+    "source_difficulty": "Two Bee",
+    "issues": [
+      "Ends with \"adjective\""
+    ]
+  },
+  {
+    "id": "a1f65f22-dc07-4a15-82ec-6f713bede2ba",
+    "word": "scentverb",
+    "definition": "[COMBINED WORD ERROR] This appears to be two words combined: \"scent\" (a distinctive smell or fragrance) and \"verb\" (a word denoting action or state). This combination likely resulted from a data processing error where two separate dictionary entries were merged without proper spacing. The correct format should separate these as distinct words with their individual meanings and contexts.",
+    "source_difficulty": "One Bee",
+    "issues": [
+      "Ends with \"verb\""
+    ]
+  },
+  {
+    "id": "a4010aa3-227f-4e26-8fba-17425203a454",
+    "word": "renvoinoun",
+    "definition": null,
+    "source_difficulty": "Three Bee",
+    "issues": [
+      "Ends with \"noun\""
+    ]
+  },
+  {
+    "id": "b3666ffc-570b-443e-b90f-3aae88990380",
+    "word": "disasternoun",
+    "definition": null,
+    "source_difficulty": "One Bee",
+    "issues": [
+      "Ends with \"noun\""
+    ]
+  },
+  {
+    "id": "ba5d6f7a-5488-4fce-bcf8-9389501d198a",
+    "word": "colcannonnoun",
+    "definition": null,
+    "source_difficulty": "Three Bee",
+    "issues": [
+      "Ends with \"noun\""
+    ]
+  },
+  {
+    "id": "c7d9a753-9d55-4009-9c42-ae655fc9a9c5",
+    "word": "lorikeetnoun",
+    "definition": "COMBINED_WORD_ERROR: This appears to be two words combined: lorikeet + noun",
+    "source_difficulty": "Two Bee",
+    "issues": [
+      "Ends with \"noun\""
+    ]
+  },
+  {
+    "id": "d02334a8-1e97-40ad-b8e5-c9f62299957e",
+    "word": "zyzomysadjective",
+    "definition": null,
+    "source_difficulty": "Three Bee",
+    "issues": [
+      "Ends with \"adjective\""
+    ]
+  },
+  {
+    "id": "de09bc92-c774-4033-821b-480c1a1413c7",
+    "word": "shaanxinoun",
+    "definition": "[COMBINED WORD ERROR] This appears to be multiple words combined: \"shaanxi\" (a province in China) and \"noun\" (a grammatical term for naming words). This combination likely resulted from a data processing error where two separate dictionary entries were merged without proper spacing. The correct format should separate these as distinct words with their individual meanings and contexts.",
+    "source_difficulty": "Three Bee",
+    "issues": [
+      "Ends with \"noun\""
+    ]
+  },
+  {
+    "id": "de7ebc4c-4e0c-4567-8174-c0e23e31518c",
+    "word": "kenningnoun",
+    "definition": null,
+    "source_difficulty": "One Bee",
+    "issues": [
+      "Ends with \"noun\""
+    ]
+  },
+  {
+    "id": "e9284394-530b-4f8f-8c5f-2d8d4e7c36e0",
+    "word": "sourisadjective",
+    "definition": "[COMBINED WORD ERROR] This appears to be two words incorrectly combined: \"souris\" and \"adjective.\" Souris is French for \"mouse,\" referring to the small rodent. An adjective is a word that describes or modifies nouns and pronouns, providing additional information about qualities, characteristics, or attributes. These are completely unrelated concepts - one being a French noun for an animal and the other being a grammatical term. The error likely occurred during document scanning or data processing where spacing between words was lost.",
+    "source_difficulty": "One Bee",
+    "issues": [
+      "Ends with \"adjective\""
+    ]
+  }
+]

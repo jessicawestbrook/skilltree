@@ -1,0 +1,153 @@
+{
+  "timestamp": "2025-08-22T20:11:56.154Z",
+  "duration_seconds": 78,
+  "summary": {
+    "processed": 26,
+    "successful": 15,
+    "failed": 11,
+    "success_rate": 58
+  },
+  "results": [
+    {
+      "word": "overweening",
+      "pronunciation": null,
+      "status": "failed",
+      "error": "Claude API returned empty pronunciation"
+    },
+    {
+      "word": "peregrination",
+      "pronunciation": "pe-REG-ruh-NAY-shun",
+      "status": "success"
+    },
+    {
+      "word": "preserving",
+      "pronunciation": null,
+      "status": "failed",
+      "error": "Claude API returned empty pronunciation"
+    },
+    {
+      "word": "professionally",
+      "pronunciation": "pro-feh-SHUN-uhl-ee",
+      "status": "success"
+    },
+    {
+      "word": "proffered",
+      "pronunciation": null,
+      "status": "failed",
+      "error": "Claude API returned empty pronunciation"
+    },
+    {
+      "word": "proselytiser",
+      "pronunciation": "PROS-uh-LIT-ee-ZUR",
+      "status": "success"
+    },
+    {
+      "word": "proselytizer",
+      "pronunciation": null,
+      "status": "failed",
+      "error": "Claude API returned empty pronunciation"
+    },
+    {
+      "word": "puerilely",
+      "pronunciation": "pue-RIL-ee-lee",
+      "status": "success"
+    },
+    {
+      "word": "pulverised",
+      "pronunciation": null,
+      "status": "failed",
+      "error": "Claude API returned empty pronunciation"
+    },
+    {
+      "word": "pulverized",
+      "pronunciation": "pul-VER-ized",
+      "status": "success"
+    },
+    {
+      "word": "puttering",
+      "pronunciation": "puh-TUR-ing",
+      "status": "success"
+    },
+    {
+      "word": "redingote",
+      "pronunciation": null,
+      "status": "failed",
+      "error": "Claude API returned empty pronunciation"
+    },
+    {
+      "word": "referred",
+      "pronunciation": null,
+      "status": "failed",
+      "error": "Claude API returned empty pronunciation"
+    },
+    {
+      "word": "refrigerated",
+      "pronunciation": "re-FRIJ-uh-rayt-ed",
+      "status": "success"
+    },
+    {
+      "word": "reverberant",
+      "pronunciation": "re-VUR-buh-ruhnt",
+      "status": "success"
+    },
+    {
+      "word": "ringing",
+      "pronunciation": null,
+      "status": "failed",
+      "error": "Claude API returned empty pronunciation"
+    },
+    {
+      "word": "singing",
+      "pronunciation": "SING-ing",
+      "status": "success"
+    },
+    {
+      "word": "smoldering",
+      "pronunciation": "SMOHL-dur-ing",
+      "status": "success"
+    },
+    {
+      "word": "smouldering",
+      "pronunciation": null,
+      "status": "failed",
+      "error": "Claude API returned empty pronunciation"
+    },
+    {
+      "word": "unacknowledged",
+      "pronunciation": "un-uh-NOLL-ij-d",
+      "status": "success"
+    },
+    {
+      "word": "understanding",
+      "pronunciation": "un-der-STAND-ing",
+      "status": "success"
+    },
+    {
+      "word": "unexpectedly",
+      "pronunciation": "un-ik-SPEK-tid-lee",
+      "status": "success"
+    },
+    {
+      "word": "unilaterally",
+      "pronunciation": null,
+      "status": "failed",
+      "error": "Claude API returned empty pronunciation"
+    },
+    {
+      "word": "veered",
+      "pronunciation": "VEERD",
+      "status": "success"
+    },
+    {
+      "word": "versiera",
+      "pronunciation": "vur-SEE-ruh",
+      "status": "success"
+    },
+    {
+      "word": "vertere",
+      "pronunciation": null,
+      "status": "failed",
+      "error": "Claude API returned empty pronunciation"
+    }
+  ]
+}

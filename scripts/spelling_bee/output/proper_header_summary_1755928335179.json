@@ -1,0 +1,18 @@
+{
+  "total_words": 24129,
+  "files_processed": 6,
+  "difficulty_distribution": {
+    "One Bee": 5170,
+    "Two Bee": 11790,
+    "Three Bee": 7169
+  },
+  "year_distribution": {
+    "2020": 3916,
+    "2021": 3923,
+    "2022": 3927,
+    "2023": 3928,
+    "2024": 4270,
+    "2025": 4165
+  },
+  "extraction_timestamp": 1755928335179
+}

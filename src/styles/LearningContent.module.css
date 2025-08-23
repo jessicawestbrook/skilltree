@@ -1,0 +1,347 @@
+/* Learning Content HTML Styles */
+.htmlContent {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+  line-height: 1.7;
+  color: rgb(31 41 55);
+}
+
+/* Dark mode */
+:global(.dark) .htmlContent {
+  color: rgb(229 231 235);
+}
+
+/* Headings */
+.htmlContent h1 {
+  font-size: 2.5rem;
+  font-weight: 800;
+  margin: 2rem 0 1.5rem;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-align: center;
+}
+
+.htmlContent h2 {
+  font-size: 1.875rem;
+  font-weight: 700;
+  margin: 2rem 0 1rem;
+  color: rgb(79 70 229);
+  border-bottom: 2px solid rgb(79 70 229 / 0.2);
+  padding-bottom: 0.5rem;
+}
+
+:global(.dark) .htmlContent h2 {
+  color: rgb(129 140 248);
+  border-bottom-color: rgb(129 140 248 / 0.2);
+}
+
+.htmlContent h3 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin: 1.5rem 0 0.75rem;
+  color: rgb(99 102 241);
+}
+
+:global(.dark) .htmlContent h3 {
+  color: rgb(165 180 252);
+}
+
+/* Paragraphs */
+.htmlContent p {
+  margin: 1rem 0;
+  font-size: 1.0625rem;
+}
+
+/* Lists */
+.htmlContent ul,
+.htmlContent ol {
+  margin: 1rem 0;
+  padding-left: 2rem;
+}
+
+.htmlContent li {
+  margin: 0.5rem 0;
+  font-size: 1.0625rem;
+}
+
+.htmlContent ul li::marker {
+  color: rgb(79 70 229);
+}
+
+:global(.dark) .htmlContent ul li::marker {
+  color: rgb(129 140 248);
+}
+
+/* Links */
+.htmlContent a {
+  color: rgb(79 70 229);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  transition: all 0.2s;
+}
+
+.htmlContent a:hover {
+  color: rgb(99 102 241);
+  text-decoration-thickness: 2px;
+}
+
+:global(.dark) .htmlContent a {
+  color: rgb(129 140 248);
+}
+
+:global(.dark) .htmlContent a:hover {
+  color: rgb(165 180 252);
+}
+
+/* Special sections */
+.htmlContent .intro-section,
+.htmlContent .coin-guide,
+.htmlContent .skill-section,
+.htmlContent .practice-section {
+  background: linear-gradient(135deg, rgb(243 244 246) 0%, rgb(249 250 251) 100%);
+  border-radius: 1rem;
+  padding: 1.5rem;
+  margin: 2rem 0;
+  border: 1px solid rgb(229 231 235);
+}
+
+:global(.dark) .htmlContent .intro-section,
+:global(.dark) .htmlContent .coin-guide,
+:global(.dark) .htmlContent .skill-section,
+:global(.dark) .htmlContent .practice-section {
+  background: linear-gradient(135deg, rgb(31 41 55) 0%, rgb(17 24 39) 100%);
+  border-color: rgb(55 65 81);
+}
+
+/* Cards */
+.htmlContent .coin-card,
+.htmlContent .skill-card,
+.htmlContent .example-card {
+  background: white;
+  border-radius: 0.75rem;
+  padding: 1.25rem;
+  margin: 1rem 0;
+  box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+  border: 1px solid rgb(229 231 235);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.htmlContent .coin-card:hover,
+.htmlContent .skill-card:hover,
+.htmlContent .example-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1);
+}
+
+:global(.dark) .htmlContent .coin-card,
+:global(.dark) .htmlContent .skill-card,
+:global(.dark) .htmlContent .example-card {
+  background: rgb(31 41 55);
+  border-color: rgb(55 65 81);
+  box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.5);
+}
+
+/* SVG and images */
+.htmlContent svg {
+  max-width: 100%;
+  height: auto;
+  margin: 1rem auto;
+  display: block;
+}
+
+.htmlContent img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 0.5rem;
+  margin: 1rem 0;
+}
+
+/* Code blocks */
+.htmlContent pre {
+  background: rgb(31 41 55);
+  color: rgb(248 250 252);
+  padding: 1rem;
+  border-radius: 0.5rem;
+  overflow-x: auto;
+  margin: 1rem 0;
+  font-family: 'Fira Code', 'Consolas', 'Monaco', monospace;
+  font-size: 0.875rem;
+  line-height: 1.5;
+}
+
+:global(.dark) .htmlContent pre {
+  background: rgb(17 24 39);
+  border: 1px solid rgb(55 65 81);
+}
+
+.htmlContent code {
+  background: rgb(243 244 246);
+  color: rgb(220 38 127);
+  padding: 0.125rem 0.375rem;
+  border-radius: 0.25rem;
+  font-family: 'Fira Code', 'Consolas', 'Monaco', monospace;
+  font-size: 0.875em;
+}
+
+:global(.dark) .htmlContent code {
+  background: rgb(31 41 55);
+  color: rgb(251 146 60);
+}
+
+/* Tables */
+.htmlContent table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1.5rem 0;
+  border-radius: 0.5rem;
+  overflow: hidden;
+  box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1);
+}
+
+.htmlContent th {
+  background: rgb(79 70 229);
+  color: white;
+  font-weight: 600;
+  text-align: left;
+  padding: 0.75rem 1rem;
+}
+
+:global(.dark) .htmlContent th {
+  background: rgb(99 102 241);
+}
+
+.htmlContent td {
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid rgb(229 231 235);
+}
+
+:global(.dark) .htmlContent td {
+  border-bottom-color: rgb(55 65 81);
+}
+
+.htmlContent tr:nth-child(even) {
+  background: rgb(249 250 251);
+}
+
+:global(.dark) .htmlContent tr:nth-child(even) {
+  background: rgb(31 41 55);
+}
+
+/* Blockquotes */
+.htmlContent blockquote {
+  border-left: 4px solid rgb(79 70 229);
+  padding-left: 1.5rem;
+  margin: 1.5rem 0;
+  font-style: italic;
+  color: rgb(75 85 99);
+}
+
+:global(.dark) .htmlContent blockquote {
+  border-left-color: rgb(129 140 248);
+  color: rgb(156 163 175);
+}
+
+/* Horizontal rules */
+.htmlContent hr {
+  border: none;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, rgb(229 231 235), transparent);
+  margin: 2rem 0;
+}
+
+:global(.dark) .htmlContent hr {
+  background: linear-gradient(90deg, transparent, rgb(55 65 81), transparent);
+}
+
+/* Emphasis and strong */
+.htmlContent em {
+  font-style: italic;
+  color: rgb(99 102 241);
+}
+
+:global(.dark) .htmlContent em {
+  color: rgb(165 180 252);
+}
+
+.htmlContent strong {
+  font-weight: 700;
+  color: rgb(31 41 55);
+}
+
+:global(.dark) .htmlContent strong {
+  color: rgb(243 244 246);
+}
+
+/* Interactive elements */
+.htmlContent button {
+  background: linear-gradient(135deg, rgb(79 70 229) 0%, rgb(99 102 241) 100%);
+  color: white;
+  padding: 0.5rem 1.5rem;
+  border-radius: 0.5rem;
+  border: none;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+  margin: 0.5rem;
+}
+
+.htmlContent button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 15px -3px rgb(79 70 229 / 0.3);
+}
+
+/* Math and formulas */
+.htmlContent .math,
+.htmlContent .formula {
+  background: rgb(249 250 251);
+  padding: 1rem;
+  border-radius: 0.5rem;
+  margin: 1rem 0;
+  font-family: 'Cambria Math', 'Times New Roman', serif;
+  text-align: center;
+  font-size: 1.125rem;
+  border: 1px solid rgb(229 231 235);
+}
+
+:global(.dark) .htmlContent .math,
+:global(.dark) .htmlContent .formula {
+  background: rgb(31 41 55);
+  border-color: rgb(55 65 81);
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.htmlContent > * {
+  animation: fadeIn 0.3s ease-out;
+}
+
+/* Responsive design */
+@media (max-width: 640px) {
+  .htmlContent h1 {
+    font-size: 2rem;
+  }
+  
+  .htmlContent h2 {
+    font-size: 1.5rem;
+  }
+  
+  .htmlContent h3 {
+    font-size: 1.25rem;
+  }
+  
+  .htmlContent p,
+  .htmlContent li {
+    font-size: 1rem;
+  }
+}

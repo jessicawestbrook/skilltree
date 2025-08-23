@@ -54,7 +54,7 @@ Tests use Jest and React Testing Library. Place test files next to components wi
 - Service worker is configured for offline capabilities
 - Vercel deployment configuration present
 - Database has 5,703 skill tree nodes (learning modules)
-- Learning content IDs are stored directly in skill_tree_nodes table (learning_content_ids field)
+- Learning content IDs are stored directly in skill_tree_nodes table (has_learning_content and learning_content_ids fields)
 - Color scheme: Green (primary) and Gold (secondary/accent)
 
 ## Documents
@@ -104,16 +104,16 @@ There are recommended learning paths. Some topics, especially in math, have prer
 For Reading Comprehension, don't show the questions in the Quick Practice box, and make it so multiple questions can be associated with one reading. Try to get reading comprehension questions from online question banks, and save the url where the material and questions were sourced.
 
 ### Spelling Bee Trainer
-Add spelling bee practice where a word is said aloud, and the user is given an example sentence using the word (with the word replaced by a blank) as well as background information on the word, and then the user to type in the spelling. After the user submits their answer, provide the answer along with tips to remember how to spell it next time including history of the etymological roots.  Spelling bee audio should be based on a computer voice, there should be APIs available to do this, and the audio files should be saved to database. You can get the spelling bee questions based on the Scripps National Spelling Bee and other spelling bees, where available online. Make sure to save the name and url where the information was sourced from and assign a difficulty level for words based on how the Scripps National Spelling Bee would assign difficulty to a word.  Look at how scripps assigns word difficulty levels and make your approach comparable but use more user-friendly standard difficulty names. Also save the source's assigned difficulty to db. When inserting new words to the table make sure the word doesn't already exist there. Add options to the spelling bee interface for whether to use computer adaptive testing or a min/max filter so spelling bee users can set the difficulty of words they want to focus on.  Display percent accuracy by difficulty level to show the user how they're improving over time. Remove the maximum number of spelling words to be practiced in a session. Users can star flashcards/questions and save to custom study lists. Make word definitions and example sentences short and pithy but meaningful.
+Add spelling bee practice where a word is said aloud, and the user is given an example sentence using the word (with the word replaced by a blank) as well as background information on the word, and then the user to type in the spelling. After the user submits their answer, provide the answer along with tips to remember how to spell it next time including history of the etymological roots.  Spelling bee audio should be based on a computer voice, there should be APIs available to do this, and the audio files should be saved to database. You can get the spelling bee questions based on the Scripps National Spelling Bee and other spelling bees, where available online. Make sure to save the name and url where the information was sourced from and assign a difficulty level for words based on how the Scripps National Spelling Bee would assign difficulty to a word.  Look at how scripps assigns word difficulty levels and make your approach comparable but use more user-friendly standard difficulty names. Also save the source's assigned difficulty to db. When inserting new words to the table make sure the word doesn't already exist there. Add options to the spelling bee interface for whether to use computer adaptive testing or a min/max filter so spelling bee users can set the difficulty of words they want to focus on.  Display percent accuracy by difficulty level to show the user how they're improving over time. Remove the maximum number of spelling words to be practiced in a session. Users can star flashcards/questions and save to custom study lists. Add dropdowns to spelling bee and vocabulary pages which allow the user to select from study lists. The dropdown should be formatted similarly to the one one the language trainer page. Create spelling bee study lists for Scripps One Bee, Two Bee, and Three Bee. Add grade level lists. Make word definitions and example sentences short and pithy but meaningful. Make study list sections. One section can be Scripps, another for Grade Level. Sort study lists within these sections by the numeric level.
 
 ### Vocabulary Trainer
-Add vocabulary practice where an example sentence and word definition are displayed, and the user has to guess the word from a list of choices (multiple choice questions). It can use the same data set as the Spelling Bee trainer. The answer choices will be drawn randomly from the input table, and plausible alternatives are displayed, such as words in the same difficulty rating. Functionality is otherwise similar to the spelling bee trainer. Users can star flashcards/questions and save to custom study lists. Create different difficulty levels for vocabulary trainer than what was done for spelling trainer. Create a framework for how to evaluate vocabulary difficulty level, and add this plan to the documentation/THEORETICAL_FOUNDATIONS.md. Make word definitions and example sentences short and pithy but meaningful.
+Add vocabulary practice where an example sentence and word definition are displayed, and the user has to guess the word from a list of choices (multiple choice questions). It can use the same data set as the Spelling Bee trainer. The answer choices will be drawn randomly from the input table, and plausible alternatives are displayed, such as words in the same difficulty rating. Select answer choices that are of the same word origin as the answer. For example if the answer is a Japanese word, then all the answer options should be Japanese. Functionality is otherwise similar to the spelling bee trainer. Users can star flashcards/questions and save to custom study lists. Create different difficulty levels for vocabulary trainer than what was done for spelling trainer. Create a framework for how to evaluate vocabulary difficulty level, and add this plan to the documentation/THEORETICAL_FOUNDATIONS.md. Make word definitions and example sentences short and pithy but meaningful. On the flashcard answer/result view, add a button that says the word aloud. Add an audio button to the answer page that plays the word aloud. Vocabulary definitions and example sentences shouldn't show the word or similar versions of a word, such as the plural or singular version, just show blanks. Add a dropdown to the vocabulary pages which allow the user to select from study lists. The dropdown should be formatted similarly to the one one the language trainer page. Add grade level lists.
 
 ### Language Trainer
-Foreign language flashcards application where the user can pick from a dropdown which language to study. There is a menu for the user to select study categories by difficulty level, topic, etc. Questions are multiple choice and answer options are stored as an array. Questions could be sentence completion, vocabulary translation, reading comprehension, or matching a word to a picture. Similar page structure to the Vocabulary trainer. Users can star flashcards/questions and save to custom study lists. 
+Foreign language flashcards application where the user can pick from a dropdown which language to study. There is a menu for the user to select study categories by difficulty level, topic, etc. Questions are multiple choice and answer options are stored as an array. Questions could be sentence completion, vocabulary translation, reading comprehension, or matching a word to a picture. Similar page structure to the Vocabulary trainer. Users can star flashcards/questions and save to custom study lists. On the flashcard answer/result view, add a button that says the word aloud.
 
 ### User page
-After login user should be redirected to user/profile page. User can view their recommended content, saved content, and flashcards. Can create new study lists from this page. They can also update their settings such as interest level in various categories. Can also set info like career path and age group.
+User can view their recommended content, saved content, and flashcards. Can create new study lists from this page. They can also update their settings such as interest level in various categories. Can also set info like career path and age group.
 
 #### Starred flashcards
 Users can star/bookmark flashcards they want to keep working on.
@@ -137,10 +137,10 @@ Make it so only admin users can see the admin dashboard.
 Sidebar which gives a randomly selected question from content areas the user has starred or worked on in the past. For new users it can display a simple random question. After a question is submitted, the answer explanation pops up, and the user can choose to move on to the next question. Display the knowledge hierarchy path so the user knows where the question is coming from. Don't show the random question box on mobile.
 
 ### Intro interests assessment
-Assessment that gathers user information for the purpose of recommending learning content. Evaluates approximate skill level and interest level in various categories.
+Assessment that gathers user information for the purpose of recommending learning content. Evaluates approximate skill level and interest level in various categories. After user takes quiz, they must log in to see the results. The next step after seeing the results is to go to the User page and see what courses are recommended for them. Users can update their interests from that page. The data is stored in the db as a numeric interest level in various categories of learning. The categories of interest will change over time, so store them as rows in the db rather than columns.
 
 ### Node test
-You pass the test for a topic if you get 100% of the questions correct. Save the url where the IQ test, standardized test, reading comprehension content, etc. was sourced from. If any individual questions were sourced from a site online, save that to the database as well.
+You pass the test for a topic if you get 100% of the questions correct. Save the url where the IQ test, standardized test, reading comprehension content, etc. was sourced from. If any individual questions were sourced from a site online, save that to the database as well. Learning test should start with easy content and implement adaptive learning in order to progress toward more difficult content.
 
 ### Question bank
 See documentation/CONTENT_GENERATION_SYSTEM.md.
@@ -164,7 +164,9 @@ You will also need to write answer explanations for every question. Be complete 
 After each question answer is submitted, show an explanation for the answer before moving on to the next question.  You can draw a lot of examples for building these question banks from content already found on the internet.  There can be an infinite number of review questions because it will just keep drawing randomly from the question bank. 
 
 ### Learning content generator
-For batch processing, write a script which goes through each learning category's skill tree. For each learning content area, it calls the Claude API to create about 10-30 minutes of learning content, at least 50-100 quesions with multiple choice answers related to learning that content area, as well as the question explanations. Then it saves the results to the db. The learning content should be attractively formatted into sections and use visualizations when available. Would it make sense for the learning content to be stored in the db as html? Make sure to use engaging language with specific details without being overly academic. Storytelling is very important, with concrete details. It can also be useful to have a "so what" section--how did this change the future, or how does it change how we live today, or why is this important? I'm also considering adding a button that uses a computer to read the content aloud to you so you don't have to read it yourself.
+For batch processing, write a script which goes through each learning category's skill tree. For each learning content area, it calls the Claude API to create about 10-30 minutes of learning content, at least 20-50 quesions with multiple choice answers related to learning that content area, as well as the question explanations. Then it saves the results to the db. The learning content should be attractively formatted into sections and use visualizations when available, especially a timeline when it makes sense. Would it make sense for the learning content to be stored in the db as html? Make sure to use engaging language with specific details without being overly academic. Storytelling is very important, with concrete details. Even math can include a storytelling element about how the mathematical approach was discovered and what new scientific developments we were able to make as a result of the new way of thinking. It can also be useful to have a "so what" section--how did this change the future, or how does it change how we live today, or why is this important? It would also be useful to pose some philosophical thought questions at the end for the reader to think about, such as "was it right for this historical figure to do what they did?" Reference documentation/lost_tools_of_learning.md for commentary about how to approach the creation of learning content. The article references Kieran Egan's philosophy of teaching. After the generation of every batch of learning content, I will need to go through and read and validate the results. Let's start with math, starting with the easiest content and working toward the most difficult content.
+
+Add a button that uses a computer to read the content aloud to you so you don't have to read it yourself.  
 
 ## Specs
 
@@ -172,7 +174,7 @@ For batch processing, write a script which goes through each learning category's
 Add research-based learning facts to home page like years of schooling increases IQ. Use facts that will encourage users to want to use the site.  Make the sources clickable, link to outside pages which have high credibility and back up the claims.
 
 ### Learning category pages
-Clicking on a learning category takes you to a standard category overview page that includes a category overview, a menu of child categories, and a link to a "Rate Your Knowledge" where you answer questions to earn points. Questions follow computer adaptive difficulty. Create point system that assigns points based on how many questions you've answered correctly of each difficulty level. That way you can compare points of different category types, and if the question bank changes over time, the points are still meaningful. It shows which items have been completed and allows the user to star/bookmark the category or child categories. Clicking on child categories opens the category page for that category. Clicking on child nodes takes you to the learning content modal for that content area. 
+Clicking on a learning category takes you to a standard category overview page that includes a category overview, a menu of child categories, and a link to a "Rate Your Knowledge" where you answer questions to earn points. Questions follow computer adaptive difficulty. Create point system that assigns points based on how many questions you've answered correctly of each difficulty level. That way you can compare points of different category types, and if the question bank changes over time, the points are still meaningful. It shows which items have been completed and allows the user to star/bookmark the category or child categories. Clicking on child categories opens the category page for that category. Clicking on child nodes takes you to the learning content modal for that content area. The url for the page should be the breadcrumb trail of the learning category hierarchy, like languages/spanish/spanish_vocabulary.
 
 ### Menu bar
 Put key site components on the upper menu bar. A menu dropdown should be combined with the profile button so the dropdown is on the right side of the button. It should say sign up/login, or if the user is already logged in it should display "My Learning" which takes the user to their profile when clicked. The right side of the button is a dropdown that displays the dropdown menu.
@@ -193,11 +195,14 @@ On the page footer put a link to the site documentation.
 ### Header
 User should be able to reduce the top header to a hamburger button. X button should be on the far right in order to get rid of the top menu. User should be able to toggle back and forth between them.
 
+### Hero section
+In the hero section, prompt the user to take an interests quiz to get recommended relevant learning content. If you've already taken the interests quiz then the prompt to take the interest quiz should no longer display on the home page.           
+
 ## Knowledge tree
 The knowledge tree is very important, so we should always be looking to improve it for an organized structure, completeness, and alignment with most existing learning material and learning standards. We want to be aligned with educational standards for learning each individual topic.
 
 ### Category descriptions
-Use the Claude API to generate descriptions for all the 2nd and 3rd level categories. The descriptions should make the content seem interesting, but they should also be specific enough to differentiate the categories and give detail about what people are likely to learn without using jargon. Make sure the descriptons don't make false assumptions like hands-on learning (this is an online platform) or that you'll become a professional as a result of learning the content (you can't become a medical doctor as a result of learning things on this site). Text should be targeted at a specific audience. For example, early math would be targeted at younger children, and physics would be targeted at teens, and business would be targeted toward adults. Foreign languages are usually targeted toward teens and adults.
+Use the Claude API to generate descriptions for all the categories. The descriptions should make the content seem interesting, but they should also be specific enough to differentiate the categories and give detail about what people are likely to learn without using jargon. Make sure the descriptons don't make false assumptions like hands-on learning (this is an online platform) or that you'll become a professional as a result of learning the content (you can't become a medical doctor as a result of learning things on this site). Text should be targeted at a specific audience. For example, early math would be targeted at younger children, and physics would be targeted at teens, and business would be targeted toward adults. Foreign languages are usually targeted toward teens and adults.
 
 ### Ratings
 Users earn ratings based on how well they do on tests, and ratings are at the content area level but can be aggregated up to content area categories. Make content assessments computer adaptive. Create point system that assigns points based on how many questions you've answered correctly of each difficulty level. That way you can compare points of different category types, and if the question bank changes over time, the points are still meaningful. Also you can quit the assessment after any number of questions, you just get more points if you answer more questions and more difficult questions. No points for answering repeat questions right. Reference documentation/adaptive_assessment_system.md.
@@ -223,7 +228,7 @@ You must create a csv file to be uploaded into the spelling_words table, so the 
 Site should have dark mode option available in settings.
 
 ## Authentication
-Make it so that when a user tries to star a learning topic or start a learning module, they must be authenticated to continue. They should also be prompted to login after they have answered 10 random questions in the sidebar (the number of random questions should be a site settings stored in a config file). Authenticate user email when a user signs up, but having the email authenticated shouldn't be required to keep using the site.  Build out the authentication system to have full features such as password reset and password view. Users should create a username on signup, and the username should display in the login menu dropdown button after signing in. Users can change their username, and it will be shown when using social content on the site.
+Make it so that when a user tries to star a learning topic or start a learning module, they must be authenticated to continue. They should also be prompted to login after they have answered 10 random questions in the sidebar (the number of random questions should be a site settings stored in a config file). Authenticate user email when a user signs up, but having the email authenticated shouldn't be required to keep using the site.  Build out the authentication system to have full features such as password reset and password view. Users should create a username on signup, and the username should display in the login menu dropdown button after signing in. Users can change their username, and it will be shown when using social content on the site. After login user should go back to whatever page they were on before login.
 
 ## Security
 Implement full security features. Make sure no one can do a DOM attack or pull all the data from my database to try to copy my application idea. Limit the amount of data people can get from my database at once.
@@ -266,6 +271,10 @@ The task is only finished once the test passes green.
 If you loop or get lost, ask me a question so I can guide you.
 Before starting, ask the questions necessary for your understanding. Don't begin the task until it's clear.
 
+  "Never run scripts that insert or update database content without first showing me exactly what will be
+  inserted/updated and getting explicit approval. Always create sample output files or display planned changes for
+  review before executing any database modifications."
+
 Only once we agree on what should be done, I want you to run the code to make the changes.
 
 When you make mistakes, tell me how to update CLAUDE.md so you don't make them again.
@@ -292,6 +301,7 @@ As you're working, try to identify if features have already been implemented or 
 
 ## Database Schema Notes
 - skill_tree_nodes table contains:
+  - has_learning_content: boolean flag
   - learning_content_ids: array of content IDs
   - is_menu_leaf: boolean for tree navigation
 - Questions table uses embedded options array (not separate table)
@@ -303,3 +313,116 @@ As you're working, try to identify if features have already been implemented or 
 - Responsive design with touch/mouse pan and zoom
 - List view shows hierarchical structure with top 3 categories expanded by default
 - "learning modules" terminology instead of "nodes" in UI
+
+# To Do List
+Format the learning flow more attractively
+
+Fix the html view of learning content to be more attractive
+
+Evaluate spelling and vocabulary word difficulties, look at the distributions and what kinds of words are in each category to evaluate if our categorization methodology needs refinement. Use difficulty_analysis_report.md
+
+Reformat category page with learning button
+
+Base the site on the concept of a memory palace
+
+Expand spelling and vocabulary lists
+
+Fix icon and site title in tab bar
+
+New tagline in hero section
+
+Make learning content, formatted as html and stored to db?
+
+For each language trainer flashcard, identify the part of the question that is in the foreign language and play the audio for that rather than the answer specifically
+
+On the flashcard pages give a number of flashcards left to study (number you've gotten correct at least once vs. total number of flashcards with the given filters)
+
+Update text in hero section
+
+Test link to category page to start learning the learning content (only shows if there is learning content)
+
+Rename site
+
+Update intro skill assessment
+
+Put reusable scripts in a special folder
+
+Make special folder for one-off scripts like examining the db structure
+
+Implement timed IQ and standardized tests in the web code
+
+Generate timed IQ and standardized tests
+
+Fix the home page having two sets of 6 info cards
+
+Look at Anki again to see how it works and what I should replicate
+
+Sort items in megamenu
+
+Add a button that uses a computer to read the learning content aloud to you
+
+Add historical timelines to category pages
+
+Add ability for users to upload anki cards and/or csvs, etc.
+
+Change site formatting to be more attractive
+
+Go back and make sure all the combined spelling words were fixed
+
+Create different study strategy options, such as date you last saw the card
+
+Add ability to add comments to your saved flashcards
+
+Add photo for every learning category
+
+Try to shorten extra long word definitions in the spelling table when it makes sense to do so
+
+Format course content to be more attractive
+
+Create flashcard templates based on what kind of flashcard it is (vocab, spelling, etc.)
+
+Review vocabulary difficulty rating plan in THEORETICAL_FOUNDATIONS.md
+
+Clean up old db tables and make sure all needed tables are created
+
+Put tree image as main page background
+
+Fill in missing values in spelling table
+
+I have to find reputable links for the learning facts on the home page
+
+Add caching for megamenu
+
+Add learning paths
+
+Add flashcard completion statistics by difficulty level
+
+Review and update claude.md so claude doesn't start making regressions
+
+Evaluate knowledge tree table for too many/few learning categories in each learning category
+
+Convert Anki cards to questions in my db
+
+Test out automatic notifications and settings
+
+Improve tree viz
+
+Fill out more learning categories with learning content
+
+Review menu/questions with Ryan
+
+Improve site structure
+
+Evaluate database table security
+
+Evaluate site security
+
+Make my github private
+
+Implement one week free trial and then $10/mo, $80/year
+
+Generate additional question sets when needed rather than front loading everything
+
+After more users sign up, add user rankings by different categories, by age group, etc.
+
+Improve SEO

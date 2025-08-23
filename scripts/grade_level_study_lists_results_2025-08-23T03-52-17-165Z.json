@@ -1,0 +1,240 @@
+{
+  "created": [],
+  "insufficient": [
+    {
+      "grade": "K",
+      "name": "Kindergarten Spelling Words",
+      "description": "Basic sight words and simple phonetic patterns for beginning readers",
+      "isSpelling": true,
+      "available": 0,
+      "needed": 15,
+      "words": []
+    },
+    {
+      "grade": "K",
+      "name": "Kindergarten Vocabulary",
+      "description": "Essential everyday words for kindergarteners to build foundational vocabulary",
+      "isSpelling": false,
+      "available": 0,
+      "needed": 15,
+      "words": []
+    },
+    {
+      "grade": "1",
+      "name": "Grade 1 Spelling Words",
+      "description": "Phonetic words and common spelling patterns for first grade",
+      "isSpelling": true,
+      "available": 0,
+      "needed": 10,
+      "words": []
+    },
+    {
+      "grade": "1",
+      "name": "Grade 1 Vocabulary",
+      "description": "Core vocabulary words appropriate for first grade reading level",
+      "isSpelling": false,
+      "available": 0,
+      "needed": 10,
+      "words": []
+    },
+    {
+      "grade": "3",
+      "name": "Grade 3 Spelling Words",
+      "description": "Complex consonant clusters and compound words for third grade",
+      "isSpelling": true,
+      "available": 1,
+      "needed": 20,
+      "words": [
+        "aubergine"
+      ]
+    },
+    {
+      "grade": "3",
+      "name": "Grade 3 Vocabulary",
+      "description": "Academic vocabulary to support third grade subject learning",
+      "isSpelling": false,
+      "available": 1,
+      "needed": 20,
+      "words": [
+        "aubergine"
+      ]
+    },
+    {
+      "grade": "8",
+      "name": "Grade 8 Spelling Words",
+      "description": "Advanced academic vocabulary preparation for high school",
+      "isSpelling": true,
+      "available": 0,
+      "needed": 30,
+      "words": []
+    },
+    {
+      "grade": "8",
+      "name": "Grade 8 Vocabulary",
+      "description": "Sophisticated vocabulary for eighth grade and high school prep",
+      "isSpelling": false,
+      "available": 0,
+      "needed": 30,
+      "words": []
+    },
+    {
+      "grade": "10",
+      "name": "Grade 10 Spelling Words",
+      "description": "College-prep vocabulary for tenth grade students",
+      "isSpelling": true,
+      "available": 0,
+      "needed": 10,
+      "words": []
+    },
+    {
+      "grade": "10",
+      "name": "Grade 10 Vocabulary",
+      "description": "Sophisticated vocabulary for standardized test preparation",
+      "isSpelling": false,
+      "available": 0,
+      "needed": 10,
+      "words": []
+    },
+    {
+      "grade": "11",
+      "name": "Grade 11 Spelling Words",
+      "description": "SAT/ACT vocabulary and advanced concepts for eleventh grade",
+      "isSpelling": true,
+      "available": 0,
+      "needed": 10,
+      "words": []
+    },
+    {
+      "grade": "11",
+      "name": "Grade 11 Vocabulary",
+      "description": "College entrance exam vocabulary and academic terminology",
+      "isSpelling": false,
+      "available": 0,
+      "needed": 10,
+      "words": []
+    },
+    {
+      "grade": "12",
+      "name": "Grade 12 Spelling Words",
+      "description": "College-level vocabulary and specialized field terminology",
+      "isSpelling": true,
+      "available": 0,
+      "needed": 10,
+      "words": []
+    },
+    {
+      "grade": "12",
+      "name": "Grade 12 Vocabulary",
+      "description": "Advanced vocabulary for college readiness and career preparation",
+      "isSpelling": false,
+      "available": 0,
+      "needed": 10,
+      "words": []
+    }
+  ],
+  "wordDistribution": [
+    {
+      "grade": "2",
+      "count": 45,
+      "sampleWords": [
+        "able",
+        "afar",
+        "ague",
+        "ahoy",
+        "aiuy",
+        "alai",
+        "alas",
+        "alma",
+        "alms",
+        "amid"
+      ]
+    },
+    {
+      "grade": "3",
+      "count": 1,
+      "sampleWords": [
+        "aubergine"
+      ]
+    },
+    {
+      "grade": "4",
+      "count": 506,
+      "sampleWords": [
+        "aachen",
+        "aardvark",
+        "abaculus",
+        "abaft",
+        "abalones",
+        "abandon",
+        "abandoned",
+        "abashed",
+        "abated",
+        "abattoir"
+      ]
+    },
+    {
+      "grade": "5",
+      "count": 58,
+      "sampleWords": [
+        "accuse",
+        "affeer",
+        "atrocious",
+        "attached",
+        "attempt",
+        "auburn",
+        "audacious",
+        "austere",
+        "avarice",
+        "awesome"
+      ]
+    },
+    {
+      "grade": "6",
+      "count": 53,
+      "sampleWords": [
+        "ablation",
+        "ablaut",
+        "abolish",
+        "acharya",
+        "acicula",
+        "activity",
+        "adhesion",
+        "adiabatic",
+        "adulation",
+        "advection"
+      ]
+    },
+    {
+      "grade": "7",
+      "count": 140,
+      "sampleWords": [
+        "aberration",
+        "abhorrence",
+        "abnegation",
+        "abominable",
+        "aboriginal",
+        "abracadabra",
+        "absolution",
+        "absorptive",
+        "abstemious",
+        "accelerates"
+      ]
+    },
+    {
+      "grade": "9",
+      "count": 197,
+      "sampleWords": [
+        "abbreviations",
+        "abhenry",
+        "academese",
+        "accommodations",
+        "accomplished",
+        "accomplishments",
+        "accouterment",
+        "accoutrement",
+        "acetaminophen",
+        "acetone"
+      ]
+    }
+  ]
+}

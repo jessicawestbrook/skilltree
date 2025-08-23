@@ -3,6 +3,7 @@ import { XMarkIcon, FlagIcon, ClockIcon } from '@heroicons/react/24/outline'
 import { supabase } from '../services/supabase'
 import { useAuth } from '../contexts/AuthContext'
 import { questionTrackingService } from '../services/questionTrackingService'
+import { adaptiveLearningService } from '../services/adaptiveLearningService'
 import { SkillTreeNode, LearningContent, Question } from '../types/database.types'
 import FlagContentModal from './FlagContentModal'
 
@@ -81,31 +82,41 @@ const LearningContentModal: React.FC<LearningContentModalProps> = ({
 
         if (questionsError) throw questionsError
         
-        if (allQuestions && allQuestions.length > 0 && user) {
-          // Select optimal questions using tracking service
-          // Select 3 for pre-quiz
-          const preQuizQuestions = await questionTrackingService.selectOptimalQuestions(
-            user.id,
+        if (allQuestions && allQuestions.length > 0) {
+          // Use adaptive learning to select questions
+          const { preQuizQuestions, testQuestions } = adaptiveLearningService.selectAdaptiveQuestions(
             allQuestions,
             Math.min(3, allQuestions.length),
-            'pre-quiz'
+            Math.min(Math.max(5, allQuestions.length - 3), 20)
           )
           
-          // Select remaining for test (minimum 5, max 20)
-          const testCount = Math.min(Math.max(5, allQuestions.length - 3), 20)
-          const testQuestions = await questionTrackingService.selectOptimalQuestions(
-            user.id,
-            allQuestions.filter(q => !preQuizQuestions.find(pq => pq.id === q.id)),
-            testCount,
-            'test'
-          )
+          // Track question views if user is logged in
+          if (user) {
+            // Track all selected questions
+            const allSelectedQuestions = [...preQuizQuestions, ...testQuestions]
+            for (const question of allSelectedQuestions) {
+              await questionTrackingService.trackQuestionView(user.id, question.id)
+            }
+          }
           
-          // Combine questions (pre-quiz first, then test)
-          setQuestions([...preQuizQuestions, ...testQuestions])
+          // Sort test questions by difficulty (easy to hard) for adaptive progression
+          const sortedTestQuestions = adaptiveLearningService.sortQuestionsByDifficulty(testQuestions)
+          
+          // Combine questions (pre-quiz first, then sorted test questions)
+          setQuestions([...preQuizQuestions, ...sortedTestQuestions])
         } else {
-          // Fallback for no user or no questions
-          setQuestions(allQuestions || [])
+          // Fallback for no questions
+          setQuestions([])
         }
+      } else {
+        // No questions available - skip directly to content
+        setPhase('content')
+        setQuestions([])
+        
+        // Start content timer
+        timeRef.current = setInterval(() => {
+          setContentViewTime(prev => prev + 1)
+        }, 1000)
       }
     } catch (error) {
       console.error('Error fetching learning content:', error)
@@ -288,8 +299,8 @@ const LearningContentModal: React.FC<LearningContentModalProps> = ({
     : currentQuestionIndex - 2
 
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4">
-      <div className="bg-white dark:bg-neutral-800 rounded-xl shadow-2xl max-w-4xl w-full max-h-[90vh] overflow-y-auto">
+    <div className="fixed inset-0 bg-black bg-opacity-50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+      <div className="bg-white dark:bg-neutral-800 rounded-2xl shadow-2xl max-w-5xl w-full max-h-[90vh] overflow-y-auto border border-neutral-200 dark:border-neutral-700">
         <div className="sticky top-0 bg-white dark:bg-neutral-800 border-b border-neutral-200 dark:border-neutral-700 p-4 flex justify-between items-center">
           <h2 className="text-xl font-bold">{node.name}</h2>
           <div className="flex items-center gap-2">
@@ -374,20 +385,75 @@ const LearningContentModal: React.FC<LearningContentModalProps> = ({
               {/* Learning Content Phase */}
               {phase === 'content' && (
                 <div className="space-y-6">
-                  <div className="bg-gold-50 dark:bg-gold-900/20 p-4 rounded-lg">
-                    <p className="text-sm">
-                      Pre-Quiz Score: {preQuizScore} / 3 correct
-                    </p>
-                  </div>
+                  {questions.length > 0 && (
+                    <div className="bg-gradient-to-r from-gold-50 to-primary-50 dark:from-gold-900/20 dark:to-primary-900/20 p-4 rounded-xl border border-gold-200 dark:border-gold-800">
+                      <div className="flex items-center justify-between">
+                        <div>
+                          <p className="text-sm font-medium text-gold-700 dark:text-gold-300">Pre-Quiz Performance</p>
+                          <p className="text-2xl font-bold text-gold-900 dark:text-gold-100">
+                            {preQuizScore} / 3 correct
+                          </p>
+                        </div>
+                        <div className="text-4xl">
+                          {preQuizScore === 3 ? '🌟' : preQuizScore === 2 ? '⭐' : preQuizScore === 1 ? '✨' : '💫'}
+                        </div>
+                      </div>
+                    </div>
+                  )}
 
-                  <h3 className="text-2xl font-bold">{learningContent.title}</h3>
+                  <div className="text-center py-4">
+                    <h3 className="text-3xl font-bold bg-gradient-to-r from-primary-600 to-primary-700 dark:from-primary-400 dark:to-primary-500 bg-clip-text text-transparent">
+                      {learningContent.title}
+                    </h3>
+                  </div>
                   
-                  <div className="prose dark:prose-invert max-w-none">
-                    {learningContent.content.split('\n').map((paragraph, index) => (
-                      <p key={index} className="mb-4">{paragraph}</p>
-                    ))}
-                  </div>
+                  {/* Handle content_sections if available, otherwise use content field */}
+                  {learningContent.content_sections && learningContent.content_sections.length > 0 ? (
+                    // Modern format with content_sections
+                    learningContent.content_sections.map((section, index) => (
+                      <div key={index} className="space-y-4">
+                        {section.title && (
+                          <h4 className="text-xl font-semibold">{section.title}</h4>
+                        )}
+                        <div className="prose dark:prose-invert max-w-none">
+                          {section.content.split('\n').map((paragraph, pIndex) => (
+                            <p key={pIndex} className="mb-4">{paragraph}</p>
+                          ))}
+                        </div>
+                        {section.image && (
+                          <figure>
+                            <img src={section.image.url} alt="" className="rounded-lg max-w-full" />
+                            {section.image.caption && (
+                              <figcaption className="text-sm text-neutral-600 dark:text-neutral-400 mt-2">
+                                {section.image.caption}
+                              </figcaption>
+                            )}
+                          </figure>
+                        )}
+                      </div>
+                    ))
+                  ) : learningContent.content ? (
+                    // Legacy format with HTML content or plain text
+                    learningContent.content.includes('<') ? (
+                      // HTML content - render directly (CSS is embedded in the content)
+                      <div 
+                        className="learning-content-container"
+                        dangerouslySetInnerHTML={{ __html: learningContent.content }} 
+                      />
+                    ) : (
+                      // Plain text content - split into paragraphs
+                      <div className="prose dark:prose-invert max-w-none">
+                        {learningContent.content.split('\n').map((paragraph, index) => (
+                          <p key={index} className="mb-4">{paragraph}</p>
+                        ))}
+                      </div>
+                    )
+                  ) : (
+                    // No content available
+                    <p className="text-neutral-600 dark:text-neutral-400">No content available.</p>
+                  )}
 
+                  {/* Handle images array if present */}
                   {learningContent.images?.map((image, index) => (
                     <div key={index} className="my-4">
                       {typeof image === 'string' ? (
@@ -425,27 +491,36 @@ const LearningContentModal: React.FC<LearningContentModalProps> = ({
                       <p className="text-sm text-neutral-500">
                         Estimated time: {learningContent.estimated_time_minutes} minutes
                       </p>
-                      {contentViewTime < minContentViewTime && (
+                      {questions.length > 0 && contentViewTime < minContentViewTime && (
                         <p className="text-xs text-amber-600 dark:text-amber-400 mt-1">
                           <ClockIcon className="h-3 w-3 inline mr-1" />
                           Review content for {minContentViewTime - contentViewTime} more seconds to continue
                         </p>
                       )}
                     </div>
-                    <button 
-                      onClick={startTest} 
-                      disabled={contentViewTime < minContentViewTime}
-                      className={`btn-primary ${
-                        contentViewTime < minContentViewTime 
-                          ? 'opacity-50 cursor-not-allowed' 
-                          : ''
-                      }`}
-                      title={contentViewTime < minContentViewTime 
-                        ? `Please review content for ${minContentViewTime - contentViewTime} more seconds` 
-                        : 'Start the test'}
-                    >
-                      Take Test
-                    </button>
+                    {questions.length > 0 ? (
+                      <button 
+                        onClick={startTest} 
+                        disabled={contentViewTime < minContentViewTime}
+                        className={`btn-primary ${
+                          contentViewTime < minContentViewTime 
+                            ? 'opacity-50 cursor-not-allowed' 
+                            : ''
+                        }`}
+                        title={contentViewTime < minContentViewTime 
+                          ? `Please review content for ${minContentViewTime - contentViewTime} more seconds` 
+                          : 'Start the test'}
+                      >
+                        Take Test
+                      </button>
+                    ) : (
+                      <button 
+                        onClick={onClose} 
+                        className="btn-primary"
+                      >
+                        Finish Reading
+                      </button>
+                    )}
                   </div>
                 </div>
               )}
@@ -491,20 +566,47 @@ const LearningContentModal: React.FC<LearningContentModalProps> = ({
                   <h3 className="text-2xl font-bold">Test Complete!</h3>
                   
                   <div className="space-y-4">
-                    <div className="bg-neutral-100 dark:bg-neutral-700 p-4 rounded-lg">
-                      <p className="text-lg">Test Score: {testScore} / {questionsInPhase}</p>
-                      <p className="text-sm text-neutral-600 dark:text-neutral-400 mt-2">
-                        {testScore === questionsInPhase 
-                          ? '🎉 Perfect! You passed this module!' 
-                          : 'Keep practicing to achieve 100%'}
+                    <div className="bg-gradient-to-br from-neutral-100 to-neutral-50 dark:from-neutral-700 dark:to-neutral-800 p-6 rounded-xl">
+                      <p className="text-3xl font-bold mb-2">
+                        {testScore} / {questionsInPhase}
                       </p>
+                      <p className="text-lg text-neutral-600 dark:text-neutral-400">
+                        {testScore === questionsInPhase 
+                          ? '🎉 Perfect Score!' 
+                          : testScore >= questionsInPhase * 0.8
+                          ? '🌟 Great Job!'
+                          : testScore >= questionsInPhase * 0.6
+                          ? '⭐ Good Progress!'
+                          : '💪 Keep Practicing!'}
+                      </p>
+                      
+                      {testScore === questionsInPhase && (
+                        <div className="mt-4 p-3 bg-green-100 dark:bg-green-900/30 rounded-lg">
+                          <p className="text-green-700 dark:text-green-300 font-semibold">
+                            ✅ You passed this module with 100%!
+                          </p>
+                        </div>
+                      )}
                     </div>
 
                     {preQuizScore > 0 && (
-                      <div className="text-sm text-neutral-500">
-                        Pre-Quiz Score: {preQuizScore} / 3
+                      <div className="bg-gold-50 dark:bg-gold-900/20 p-3 rounded-lg">
+                        <p className="text-sm font-medium text-gold-700 dark:text-gold-300">
+                          Pre-Quiz Performance: {preQuizScore} / 3
+                        </p>
+                        <p className="text-xs text-neutral-600 dark:text-neutral-400 mt-1">
+                          {preQuizScore === 3 
+                            ? 'Excellent foundation knowledge!'
+                            : preQuizScore === 2
+                            ? 'Good starting point!'
+                            : 'You learned a lot from the content!'}
+                        </p>
                       </div>
                     )}
+                    
+                    <div className="text-xs text-neutral-500 dark:text-neutral-400">
+                      Questions were adaptively selected from easy to harder difficulties
+                    </div>
                   </div>
 
                   <button onClick={onClose} className="btn-primary">
@@ -530,6 +632,21 @@ const LearningContentModal: React.FC<LearningContentModalProps> = ({
   )
 }
 
+// Helper function to get difficulty color and label
+const getDifficultyDisplay = (difficulty: string) => {
+  const normalized = difficulty.toLowerCase()
+  
+  if (normalized.includes('easy') || normalized === '1') {
+    return { label: 'Easy', color: 'text-green-600 dark:text-green-400 bg-green-100 dark:bg-green-900/30' }
+  } else if (normalized.includes('hard') || normalized === '3') {
+    return { label: 'Hard', color: 'text-orange-600 dark:text-orange-400 bg-orange-100 dark:bg-orange-900/30' }
+  } else if (normalized.includes('expert') || normalized === '4') {
+    return { label: 'Expert', color: 'text-red-600 dark:text-red-400 bg-red-100 dark:bg-red-900/30' }
+  } else {
+    return { label: 'Medium', color: 'text-blue-600 dark:text-blue-400 bg-blue-100 dark:bg-blue-900/30' }
+  }
+}
+
 // Separate component for displaying questions
 const QuestionDisplay: React.FC<{
   question: Question
@@ -537,9 +654,16 @@ const QuestionDisplay: React.FC<{
   onAnswerSelect: (index: number) => void
   showExplanation: boolean
 }> = ({ question, selectedAnswer, onAnswerSelect, showExplanation }) => {
+  const difficulty = getDifficultyDisplay(question.difficulty)
+  
   return (
     <div className="space-y-4">
-      <p className="text-lg">{question.question_text}</p>
+      <div className="flex items-start justify-between gap-4">
+        <p className="text-lg flex-1">{question.question_text}</p>
+        <span className={`px-3 py-1 rounded-full text-xs font-semibold ${difficulty.color}`}>
+          {difficulty.label}
+        </span>
+      </div>
       
       {question.image_url && (
         <img src={question.image_url} alt="" className="rounded-lg max-w-full" />

@@ -104,10 +104,6 @@ const RecommendedContent: React.FC = () => {
     }
   }
 
-  const handleNodeClick = (nodeId: string) => {
-    // Navigation will be handled by CategoryLink component
-    // This function can be removed or used for analytics
-  }
 
   if (!user) {
     return (

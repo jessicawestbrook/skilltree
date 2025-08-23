@@ -1,0 +1,449 @@
+{
+  "summary": {
+    "totalFakeRecords": 48,
+    "issueTypes": {
+      "fakeDefinition": 0,
+      "fakeExample": 0,
+      "both": 48
+    },
+    "results": {
+      "updated": 0,
+      "deleted": 48,
+      "errors": []
+    }
+  },
+  "processedRecords": [
+    {
+      "word": "amused",
+      "issues": {
+        "fakeDefinition": true,
+        "fakeExample": true
+      },
+      "definition": "Definition for amused",
+      "example": "The word _____ is used in this context."
+    },
+    {
+      "word": "cinerarium",
+      "issues": {
+        "fakeDefinition": true,
+        "fakeExample": true
+      },
+      "definition": "Definition for cinerarium",
+      "example": "The word _____ is used in this context."
+    },
+    {
+      "word": "pouch",
+      "issues": {
+        "fakeDefinition": true,
+        "fakeExample": true
+      },
+      "definition": "Definition for pouch",
+      "example": "The word _____ is used in this context."
+    },
+    {
+      "word": "polemic",
+      "issues": {
+        "fakeDefinition": true,
+        "fakeExample": true
+      },
+      "definition": "Definition for polemic",
+      "example": "The word _____ is used in this context."
+    },
+    {
+      "word": "angola",
+      "issues": {
+        "fakeDefinition": true,
+        "fakeExample": true
+      },
+      "definition": "Definition for angola",
+      "example": "The word _____ is used in this context."
+    },
+    {
+      "word": "the",
+      "issues": {
+        "fakeDefinition": true,
+        "fakeExample": true
+      },
+      "definition": "Definition for the",
+      "example": "The word _____ is used in this context."
+    },
+    {
+      "word": "contours",
+      "issues": {
+        "fakeDefinition": true,
+        "fakeExample": true
+      },
+      "definition": "Definition for contours",
+      "example": "The word _____ is used in this context."
+    },
+    {
+      "word": "Acadians",
+      "issues": {
+        "fakeDefinition": true,
+        "fakeExample": true
+      },
+      "definition": "Definition for Acadians",
+      "example": "The word _____ is used in this context."
+    },
+    {
+      "word": "angular",
+      "issues": {
+        "fakeDefinition": true,
+        "fakeExample": true
+      },
+      "definition": "Definition for angular",
+      "example": "The word _____ is used in this context."
+    },
+    {
+      "word": "concomitant",
+      "issues": {
+        "fakeDefinition": true,
+        "fakeExample": true
+      },
+      "definition": "Definition for concomitant",
+      "example": "The word _____ is used in this context."
+    },
+    {
+      "word": "circumspectly",
+      "issues": {
+        "fakeDefinition": true,
+        "fakeExample": true
+      },
+      "definition": "Definition for circumspectly",
+      "example": "The word _____ is used in this context."
+    },
+    {
+      "word": "cirrhosis",
+      "issues": {
+        "fakeDefinition": true,
+        "fakeExample": true
+      },
+      "definition": "Definition for cirrhosis",
+      "example": "The word _____ is used in this context."
+    },
+    {
+      "word": "with",
+      "issues": {
+        "fakeDefinition": true,
+        "fakeExample": true
+      },
+      "definition": "Definition for with",
+      "example": "The word _____ is used in this context."
+    },
+    {
+      "word": "gargantuan",
+      "issues": {
+        "fakeDefinition": true,
+        "fakeExample": true
+      },
+      "definition": "Definition for gargantuan",
+      "example": "The word _____ is used in this context."
+    },
+    {
+      "word": "kitchen",
+      "issues": {
+        "fakeDefinition": true,
+        "fakeExample": true
+      },
+      "definition": "Definition for kitchen",
+      "example": "The word _____ is used in this context."
+    },
+    {
+      "word": "pneumonia",
+      "issues": {
+        "fakeDefinition": true,
+        "fakeExample": true
+      },
+      "definition": "Definition for pneumonia",
+      "example": "The word _____ is used in this context."
+    },
+    {
+      "word": "presence",
+      "issues": {
+        "fakeDefinition": true,
+        "fakeExample": true
+      },
+      "definition": "Definition for presence",
+      "example": "The word _____ is used in this context."
+    },
+    {
+      "word": "politesse",
+      "issues": {
+        "fakeDefinition": true,
+        "fakeExample": true
+      },
+      "definition": "Definition for politesse",
+      "example": "The word _____ is used in this context."
+    },
+    {
+      "word": "page",
+      "issues": {
+        "fakeDefinition": true,
+        "fakeExample": true
+      },
+      "definition": "Definition for page",
+      "example": "The word _____ is used in this context."
+    },
+    {
+      "word": "Bangalore",
+      "issues": {
+        "fakeDefinition": true,
+        "fakeExample": true
+      },
+      "definition": "Definition for Bangalore",
+      "example": "The word _____ is used in this context."
+    },
+    {
+      "word": "sizzle",
+      "issues": {
+        "fakeDefinition": true,
+        "fakeExample": true
+      },
+      "definition": "Definition for sizzle",
+      "example": "The word _____ is used in this context."
+    },
+    {
+      "word": "Ramadhan",
+      "issues": {
+        "fakeDefinition": true,
+        "fakeExample": true
+      },
+      "definition": "Definition for Ramadhan",
+      "example": "The word _____ is used in this context."
+    },
+    {
+      "word": "Yankee",
+      "issues": {
+        "fakeDefinition": true,
+        "fakeExample": true
+      },
+      "definition": "Definition for Yankee",
+      "example": "The word _____ is used in this context."
+    },
+    {
+      "word": "sparrow",
+      "issues": {
+        "fakeDefinition": true,
+        "fakeExample": true
+      },
+      "definition": "Definition for sparrow",
+      "example": "The word _____ is used in this context."
+    },
+    {
+      "word": "craquelure",
+      "issues": {
+        "fakeDefinition": true,
+        "fakeExample": true
+      },
+      "definition": "Definition for craquelure",
+      "example": "The word _____ is used in this context."
+    },
+    {
+      "word": "propitious",
+      "issues": {
+        "fakeDefinition": true,
+        "fakeExample": true
+      },
+      "definition": "Definition for propitious",
+      "example": "The word _____ is used in this context."
+    },
+    {
+      "word": "constant",
+      "issues": {
+        "fakeDefinition": true,
+        "fakeExample": true
+      },
+      "definition": "Definition for constant",
+      "example": "The word _____ is used in this context."
+    },
+    {
+      "word": "crockery",
+      "issues": {
+        "fakeDefinition": true,
+        "fakeExample": true
+      },
+      "definition": "Definition for crockery",
+      "example": "The word _____ is used in this context."
+    },
+    {
+      "word": "evo",
+      "issues": {
+        "fakeDefinition": true,
+        "fakeExample": true
+      },
+      "definition": "Definition for evo",
+      "example": "The word _____ is used in this context."
+    },
+    {
+      "word": "fondant",
+      "issues": {
+        "fakeDefinition": true,
+        "fakeExample": true
+      },
+      "definition": "Definition for fondant",
+      "example": "The word _____ is used in this context."
+    },
+    {
+      "word": "piper",
+      "issues": {
+        "fakeDefinition": true,
+        "fakeExample": true
+      },
+      "definition": "Definition for piper",
+      "example": "The word _____ is used in this context."
+    },
+    {
+      "word": "ellipsis",
+      "issues": {
+        "fakeDefinition": true,
+        "fakeExample": true
+      },
+      "definition": "Definition for ellipsis",
+      "example": "The word _____ is used in this context."
+    },
+    {
+      "word": "balm",
+      "issues": {
+        "fakeDefinition": true,
+        "fakeExample": true
+      },
+      "definition": "Definition for balm",
+      "example": "The word _____ is used in this context."
+    },
+    {
+      "word": "gauze",
+      "issues": {
+        "fakeDefinition": true,
+        "fakeExample": true
+      },
+      "definition": "Definition for gauze",
+      "example": "The word _____ is used in this context."
+    },
+    {
+      "word": "leeward",
+      "issues": {
+        "fakeDefinition": true,
+        "fakeExample": true
+      },
+      "definition": "Definition for leeward",
+      "example": "The word _____ is used in this context."
+    },
+    {
+      "word": "pinyon",
+      "issues": {
+        "fakeDefinition": true,
+        "fakeExample": true
+      },
+      "definition": "Definition for pinyon",
+      "example": "The word _____ is used in this context."
+    },
+    {
+      "word": "zazen",
+      "issues": {
+        "fakeDefinition": true,
+        "fakeExample": true
+      },
+      "definition": "Definition for zazen",
+      "example": "The word _____ is used in this context."
+    },
+    {
+      "word": "demolition",
+      "issues": {
+        "fakeDefinition": true,
+        "fakeExample": true
+      },
+      "definition": "Definition for demolition",
+      "example": "The word _____ is used in this context."
+    },
+    {
+      "word": "menorahs",
+      "issues": {
+        "fakeDefinition": true,
+        "fakeExample": true
+      },
+      "definition": "Definition for menorahs",
+      "example": "The word _____ is used in this context."
+    },
+    {
+      "word": "landline",
+      "issues": {
+        "fakeDefinition": true,
+        "fakeExample": true
+      },
+      "definition": "Definition for landline",
+      "example": "The word _____ is used in this context."
+    },
+    {
+      "word": "pronaos",
+      "issues": {
+        "fakeDefinition": true,
+        "fakeExample": true
+      },
+      "definition": "Definition for pronaos",
+      "example": "The word _____ is used in this context."
+    },
+    {
+      "word": "kimchee",
+      "issues": {
+        "fakeDefinition": true,
+        "fakeExample": true
+      },
+      "definition": "Definition for kimchee",
+      "example": "The word _____ is used in this context."
+    },
+    {
+      "word": "lantern",
+      "issues": {
+        "fakeDefinition": true,
+        "fakeExample": true
+      },
+      "definition": "Definition for lantern",
+      "example": "The word _____ is used in this context."
+    },
+    {
+      "word": "hurly",
+      "issues": {
+        "fakeDefinition": true,
+        "fakeExample": true
+      },
+      "definition": "Definition for hurly",
+      "example": "The word _____ is used in this context."
+    },
+    {
+      "word": "dysfunctional",
+      "issues": {
+        "fakeDefinition": true,
+        "fakeExample": true
+      },
+      "definition": "Definition for dysfunctional",
+      "example": "The word _____ is used in this context."
+    },
+    {
+      "word": "law",
+      "issues": {
+        "fakeDefinition": true,
+        "fakeExample": true
+      },
+      "definition": "Definition for law",
+      "example": "The word _____ is used in this context."
+    },
+    {
+      "word": "leander",
+      "issues": {
+        "fakeDefinition": true,
+        "fakeExample": true
+      },
+      "definition": "Definition for leander",
+      "example": "The word _____ is used in this context."
+    },
+    {
+      "word": "proscenium",
+      "issues": {
+        "fakeDefinition": true,
+        "fakeExample": true
+      },
+      "definition": "Definition for proscenium",
+      "example": "The word _____ is used in this context."
+    }
+  ]
+}

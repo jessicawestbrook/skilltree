@@ -1,0 +1,619 @@
+{
+  "summary": {
+    "totalProcessed": 8873,
+    "gradeDistribution": {
+      "2": 27,
+      "3": 784,
+      "4": 654,
+      "5": 310,
+      "6": 3313,
+      "7": 1375,
+      "8": 454,
+      "9": 1937,
+      "11": 19
+    },
+    "completedAt": "2025-08-23T04:24:15.722Z"
+  },
+  "sampleWords": [
+    {
+      "word": "gorgon",
+      "grade": "6",
+      "spelling_diff": 1,
+      "vocab_diff": 3
+    },
+    {
+      "word": "aegilops",
+      "grade": "6",
+      "spelling_diff": 1,
+      "vocab_diff": 3
+    },
+    {
+      "word": "tiki",
+      "grade": "3",
+      "spelling_diff": 1,
+      "vocab_diff": 3
+    },
+    {
+      "word": "albeit",
+      "grade": "6",
+      "spelling_diff": 1,
+      "vocab_diff": 3
+    },
+    {
+      "word": "krewe",
+      "grade": "6",
+      "spelling_diff": 1,
+      "vocab_diff": 4
+    },
+    {
+      "word": "enjoy",
+      "grade": "3",
+      "spelling_diff": 1,
+      "vocab_diff": 2
+    },
+    {
+      "word": "smoother",
+      "grade": "7",
+      "spelling_diff": 1,
+      "vocab_diff": 3
+    },
+    {
+      "word": "child",
+      "grade": "5",
+      "spelling_diff": 1,
+      "vocab_diff": 4
+    },
+    {
+      "word": "fribourg",
+      "grade": "6",
+      "spelling_diff": 1,
+      "vocab_diff": 3
+    },
+    {
+      "word": "langrage",
+      "grade": "3",
+      "spelling_diff": 1,
+      "vocab_diff": 2
+    },
+    {
+      "word": "morgana",
+      "grade": "6",
+      "spelling_diff": 1,
+      "vocab_diff": 3
+    },
+    {
+      "word": "budgereegah",
+      "grade": "7",
+      "spelling_diff": 3,
+      "vocab_diff": 2
+    },
+    {
+      "word": "reimbursable",
+      "grade": "8",
+      "spelling_diff": 1,
+      "vocab_diff": 3
+    },
+    {
+      "word": "aesthetic",
+      "grade": "6",
+      "spelling_diff": 1,
+      "vocab_diff": 3
+    },
+    {
+      "word": "translucent",
+      "grade": "7",
+      "spelling_diff": 1,
+      "vocab_diff": 2
+    },
+    {
+      "word": "help",
+      "grade": "7",
+      "spelling_diff": 1,
+      "vocab_diff": 3
+    },
+    {
+      "word": "mayonnaise",
+      "grade": "7",
+      "spelling_diff": 1,
+      "vocab_diff": 2
+    },
+    {
+      "word": "lebensraum",
+      "grade": "9",
+      "spelling_diff": 1,
+      "vocab_diff": 4
+    },
+    {
+      "word": "vineyard",
+      "grade": "7",
+      "spelling_diff": 1,
+      "vocab_diff": 3
+    },
+    {
+      "word": "realgar",
+      "grade": "6",
+      "spelling_diff": 1,
+      "vocab_diff": 3
+    },
+    {
+      "word": "boutade",
+      "grade": "6",
+      "spelling_diff": 1,
+      "vocab_diff": 3
+    },
+    {
+      "word": "around",
+      "grade": "4",
+      "spelling_diff": 1,
+      "vocab_diff": 3
+    },
+    {
+      "word": "senator",
+      "grade": "6",
+      "spelling_diff": 1,
+      "vocab_diff": 3
+    },
+    {
+      "word": "mystery",
+      "grade": "6",
+      "spelling_diff": 1,
+      "vocab_diff": 3
+    },
+    {
+      "word": "arpeggio",
+      "grade": "6",
+      "spelling_diff": 1,
+      "vocab_diff": 3
+    },
+    {
+      "word": "alimentation",
+      "grade": "4",
+      "spelling_diff": 1,
+      "vocab_diff": 2
+    },
+    {
+      "word": "overrun",
+      "grade": "6",
+      "spelling_diff": 1,
+      "vocab_diff": 3
+    },
+    {
+      "word": "substitute",
+      "grade": "7",
+      "spelling_diff": 1,
+      "vocab_diff": 3
+    },
+    {
+      "word": "added",
+      "grade": "3",
+      "spelling_diff": 1,
+      "vocab_diff": 2
+    },
+    {
+      "word": "demeanor",
+      "grade": "6",
+      "spelling_diff": 1,
+      "vocab_diff": 3
+    },
+    {
+      "word": "spiteful",
+      "grade": "6",
+      "spelling_diff": 1,
+      "vocab_diff": 3
+    },
+    {
+      "word": "mitigative",
+      "grade": "9",
+      "spelling_diff": 1,
+      "vocab_diff": 4
+    },
+    {
+      "word": "alpestrine",
+      "grade": "4",
+      "spelling_diff": 1,
+      "vocab_diff": 2
+    },
+    {
+      "word": "tegucigalpa",
+      "grade": "7",
+      "spelling_diff": 1,
+      "vocab_diff": 3
+    },
+    {
+      "word": "musings",
+      "grade": "9",
+      "spelling_diff": 1,
+      "vocab_diff": 3
+    },
+    {
+      "word": "insulation",
+      "grade": "7",
+      "spelling_diff": 1,
+      "vocab_diff": 2
+    },
+    {
+      "word": "mildew",
+      "grade": "6",
+      "spelling_diff": 1,
+      "vocab_diff": 3
+    },
+    {
+      "word": "insight",
+      "grade": "9",
+      "spelling_diff": 1,
+      "vocab_diff": 4
+    },
+    {
+      "word": "guffaw",
+      "grade": "6",
+      "spelling_diff": 1,
+      "vocab_diff": 3
+    },
+    {
+      "word": "cladogram",
+      "grade": "6",
+      "spelling_diff": 1,
+      "vocab_diff": 3
+    },
+    {
+      "word": "gliriform",
+      "grade": "9",
+      "spelling_diff": 1,
+      "vocab_diff": 3
+    },
+    {
+      "word": "compendium",
+      "grade": "9",
+      "spelling_diff": 1,
+      "vocab_diff": 4
+    },
+    {
+      "word": "bango",
+      "grade": "4",
+      "spelling_diff": 1,
+      "vocab_diff": 3
+    },
+    {
+      "word": "occultation",
+      "grade": "9",
+      "spelling_diff": 1,
+      "vocab_diff": 4
+    },
+    {
+      "word": "academy",
+      "grade": "6",
+      "spelling_diff": 1,
+      "vocab_diff": 3
+    },
+    {
+      "word": "strange",
+      "grade": "3",
+      "spelling_diff": 1,
+      "vocab_diff": 2
+    },
+    {
+      "word": "book",
+      "grade": "3",
+      "spelling_diff": 3,
+      "vocab_diff": 3
+    },
+    {
+      "word": "playground",
+      "grade": "7",
+      "spelling_diff": 1,
+      "vocab_diff": 3
+    },
+    {
+      "word": "numerical",
+      "grade": "9",
+      "spelling_diff": 1,
+      "vocab_diff": 4
+    },
+    {
+      "word": "mugs",
+      "grade": "6",
+      "spelling_diff": 1,
+      "vocab_diff": 3
+    },
+    {
+      "word": "porosity",
+      "grade": "6",
+      "spelling_diff": 1,
+      "vocab_diff": 3
+    },
+    {
+      "word": "quixotic",
+      "grade": "6",
+      "spelling_diff": 1,
+      "vocab_diff": 3
+    },
+    {
+      "word": "satellite",
+      "grade": "9",
+      "spelling_diff": 1,
+      "vocab_diff": 3
+    },
+    {
+      "word": "subliminal",
+      "grade": "7",
+      "spelling_diff": 1,
+      "vocab_diff": 3
+    },
+    {
+      "word": "hooligan",
+      "grade": "9",
+      "spelling_diff": 1,
+      "vocab_diff": 4
+    },
+    {
+      "word": "repudiate",
+      "grade": "6",
+      "spelling_diff": 1,
+      "vocab_diff": 3
+    },
+    {
+      "word": "amiably",
+      "grade": "3",
+      "spelling_diff": 1,
+      "vocab_diff": 2
+    },
+    {
+      "word": "british",
+      "grade": "4",
+      "spelling_diff": 3,
+      "vocab_diff": 2
+    },
+    {
+      "word": "tilleul",
+      "grade": "3",
+      "spelling_diff": 1,
+      "vocab_diff": 2
+    },
+    {
+      "word": "ushuaia",
+      "grade": "6",
+      "spelling_diff": 1,
+      "vocab_diff": 3
+    },
+    {
+      "word": "chernobyl",
+      "grade": "3",
+      "spelling_diff": 1,
+      "vocab_diff": 2
+    },
+    {
+      "word": "appreciation",
+      "grade": "8",
+      "spelling_diff": 1,
+      "vocab_diff": 2
+    },
+    {
+      "word": "severe",
+      "grade": "9",
+      "spelling_diff": 1,
+      "vocab_diff": 4
+    },
+    {
+      "word": "stenographer",
+      "grade": "9",
+      "spelling_diff": 1,
+      "vocab_diff": 4
+    },
+    {
+      "word": "phytophilous",
+      "grade": "8",
+      "spelling_diff": 1,
+      "vocab_diff": 3
+    },
+    {
+      "word": "matrimony",
+      "grade": "9",
+      "spelling_diff": 1,
+      "vocab_diff": 4
+    },
+    {
+      "word": "sepulchralsangfroid",
+      "grade": "8",
+      "spelling_diff": 1,
+      "vocab_diff": 3
+    },
+    {
+      "word": "likelier",
+      "grade": "9",
+      "spelling_diff": 1,
+      "vocab_diff": 4
+    },
+    {
+      "word": "aberration",
+      "grade": "7",
+      "spelling_diff": 1,
+      "vocab_diff": 3
+    },
+    {
+      "word": "maxwell",
+      "grade": "9",
+      "spelling_diff": 1,
+      "vocab_diff": 4
+    },
+    {
+      "word": "debilitate",
+      "grade": "7",
+      "spelling_diff": 1,
+      "vocab_diff": 3
+    },
+    {
+      "word": "arrayed",
+      "grade": "6",
+      "spelling_diff": 1,
+      "vocab_diff": 3
+    },
+    {
+      "word": "kwashiorkor",
+      "grade": "9",
+      "spelling_diff": 1,
+      "vocab_diff": 3
+    },
+    {
+      "word": "recognition",
+      "grade": "7",
+      "spelling_diff": 1,
+      "vocab_diff": 3
+    },
+    {
+      "word": "arbitrary",
+      "grade": "6",
+      "spelling_diff": 1,
+      "vocab_diff": 3
+    },
+    {
+      "word": "posterity",
+      "grade": "3",
+      "spelling_diff": 1,
+      "vocab_diff": 2
+    },
+    {
+      "word": "novelist",
+      "grade": "9",
+      "spelling_diff": 1,
+      "vocab_diff": 4
+    },
+    {
+      "word": "mazda",
+      "grade": "5",
+      "spelling_diff": 1,
+      "vocab_diff": 3
+    },
+    {
+      "word": "googly",
+      "grade": "6",
+      "spelling_diff": 1,
+      "vocab_diff": 3
+    },
+    {
+      "word": "cloture",
+      "grade": "6",
+      "spelling_diff": 1,
+      "vocab_diff": 3
+    },
+    {
+      "word": "collection",
+      "grade": "7",
+      "spelling_diff": 1,
+      "vocab_diff": 3
+    },
+    {
+      "word": "epideictic",
+      "grade": "9",
+      "spelling_diff": 1,
+      "vocab_diff": 4
+    },
+    {
+      "word": "bookshelf",
+      "grade": "4",
+      "spelling_diff": 3,
+      "vocab_diff": 2
+    },
+    {
+      "word": "laboratory",
+      "grade": "9",
+      "spelling_diff": 1,
+      "vocab_diff": 4
+    },
+    {
+      "word": "limousine",
+      "grade": "9",
+      "spelling_diff": 1,
+      "vocab_diff": 4
+    },
+    {
+      "word": "atlas",
+      "grade": "5",
+      "spelling_diff": 1,
+      "vocab_diff": 3
+    },
+    {
+      "word": "decumbiture",
+      "grade": "7",
+      "spelling_diff": 1,
+      "vocab_diff": 3
+    },
+    {
+      "word": "brevet",
+      "grade": "6",
+      "spelling_diff": 1,
+      "vocab_diff": 3
+    },
+    {
+      "word": "obnebulate",
+      "grade": "9",
+      "spelling_diff": 1,
+      "vocab_diff": 4
+    },
+    {
+      "word": "hostilehowler",
+      "grade": "8",
+      "spelling_diff": 1,
+      "vocab_diff": 3
+    },
+    {
+      "word": "attitude",
+      "grade": "3",
+      "spelling_diff": 1,
+      "vocab_diff": 2
+    },
+    {
+      "word": "davenport",
+      "grade": "4",
+      "spelling_diff": 1,
+      "vocab_diff": 3
+    },
+    {
+      "word": "trophic",
+      "grade": "9",
+      "spelling_diff": 1,
+      "vocab_diff": 3
+    },
+    {
+      "word": "marginalize",
+      "grade": "9",
+      "spelling_diff": 1,
+      "vocab_diff": 4
+    },
+    {
+      "word": "facebook",
+      "grade": "6",
+      "spelling_diff": 1,
+      "vocab_diff": 3
+    },
+    {
+      "word": "implicative",
+      "grade": "9",
+      "spelling_diff": 1,
+      "vocab_diff": 4
+    },
+    {
+      "word": "passage",
+      "grade": "7",
+      "spelling_diff": 1,
+      "vocab_diff": 3
+    },
+    {
+      "word": "definition",
+      "grade": "7",
+      "spelling_diff": 1,
+      "vocab_diff": 2
+    },
+    {
+      "word": "paddles",
+      "grade": "6",
+      "spelling_diff": 1,
+      "vocab_diff": 3
+    },
+    {
+      "word": "pathos",
+      "grade": "9",
+      "spelling_diff": 1,
+      "vocab_diff": 4
+    }
+  ]
+}

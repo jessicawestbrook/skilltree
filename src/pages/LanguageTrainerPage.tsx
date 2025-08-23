@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useCallback } from 'react'
-import { useLocation } from 'react-router-dom'
 import { supabase } from '../services/supabase'
 import { useAuth } from '../contexts/AuthContext'
 import { 
@@ -262,7 +261,8 @@ const LanguageTrainerPage: React.FC = () => {
       console.error('Error loading questions:', err)
       setError('Failed to load questions')
     }
-  }, [])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [hasLanguageVoice, loadSessionState, selectedCategory, selectedLanguage])
 
   // Load user progress
   const loadUserProgress = useCallback(async (languageId: string) => {

@@ -1,0 +1,530 @@
+2025-08-23 01:48:58,733 - INFO - Available PDF files:
+2025-08-23 01:48:58,733 - INFO -   1. 2020 Words_of_the_Champions.pdf
+2025-08-23 01:48:58,733 - INFO -   2. 2021_Printable_Words of the Champions.pdf
+2025-08-23 01:48:58,733 - INFO -   3. 2022 Words of the Champions_low_ink_printable.pdf
+2025-08-23 01:48:58,733 - INFO -   4. 2023_Words_of_the_Champions.pdf
+2025-08-23 01:48:58,733 - INFO -   5. 2024 Words of the Champions.pdf
+2025-08-23 01:48:58,733 - INFO -   6. 2025 Words of Champion _1_.pdf
+2025-08-23 01:48:58,733 - INFO - 
+Testing extraction with: 2020 Words_of_the_Champions.pdf
+2025-08-23 01:48:58,733 - INFO - Processing PDF: 2020 Words_of_the_Champions.pdf
+2025-08-23 01:49:00,070 - INFO -   Page 3: Found One Bee section
+2025-08-23 01:49:00,077 - INFO -   Page 4: Found One Bee section
+2025-08-23 01:49:00,127 - INFO -   Page 5: Found One Bee section
+2025-08-23 01:49:00,233 - INFO -   Page 6: Found One Bee section
+2025-08-23 01:49:00,294 - INFO -   Page 7: Found One Bee section
+2025-08-23 01:49:00,346 - INFO -   Page 8: Found One Bee section
+2025-08-23 01:49:00,398 - INFO -   Page 9: Found One Bee section
+2025-08-23 01:49:00,411 - INFO -   Page 10: Found Two Bee section
+2025-08-23 01:49:00,478 - INFO -   Page 11: Found Two Bee section
+2025-08-23 01:49:00,527 - INFO -   Page 12: Found Two Bee section
+2025-08-23 01:49:00,617 - INFO -   Page 13: Found Two Bee section
+2025-08-23 01:49:00,682 - INFO -   Page 14: Found Two Bee section
+2025-08-23 01:49:00,716 - INFO -   Page 15: Found Two Bee section
+2025-08-23 01:49:00,761 - INFO -   Page 16: Found Two Bee section
+2025-08-23 01:49:00,796 - INFO -   Page 17: Found Two Bee section
+2025-08-23 01:49:00,861 - INFO -   Page 18: Found Two Bee section
+2025-08-23 01:49:00,897 - INFO -   Page 19: Found Two Bee section
+2025-08-23 01:49:00,926 - INFO -   Page 20: Found Two Bee section
+2025-08-23 01:49:00,977 - INFO -   Page 21: Found Two Bee section
+2025-08-23 01:49:01,031 - INFO -   Page 22: Found Two Bee section
+2025-08-23 01:49:01,065 - INFO -   Page 23: Found Three Bee section
+2025-08-23 01:49:01,113 - INFO -   Page 24: Found Three Bee section
+2025-08-23 01:49:01,143 - INFO -   Page 25: Found Three Bee section
+2025-08-23 01:49:01,193 - INFO -   Page 26: Found Three Bee section
+2025-08-23 01:49:01,230 - INFO -   Page 27: Found Three Bee section
+2025-08-23 01:49:01,280 - INFO -   Page 28: Found Three Bee section
+2025-08-23 01:49:01,323 - INFO -   Page 29: Found Three Bee section
+2025-08-23 01:49:01,493 - INFO -   Extracted 4350 unique words from 2020 Words_of_the_Champions.pdf
+2025-08-23 01:49:01,531 - INFO - 
+Difficulty Distribution:
+2025-08-23 01:49:01,532 - INFO -   One Bee: 982 words
+2025-08-23 01:49:01,532 - INFO -   Three Bee: 1183 words
+2025-08-23 01:49:01,532 - INFO -   Two Bee: 2185 words
+2025-08-23 01:49:01,532 - INFO - 
+First 20 extracted words:
+2025-08-23 01:49:01,532 - INFO -   greetings -> One Bee (page 3)
+2025-08-23 01:49:01,532 - INFO -   champions -> One Bee (page 3)
+2025-08-23 01:49:01,532 - INFO -   about -> One Bee (page 3)
+2025-08-23 01:49:01,532 - INFO -   study -> One Bee (page 3)
+2025-08-23 01:49:01,532 - INFO -   guide -> One Bee (page 3)
+2025-08-23 01:49:01,532 - INFO -   do -> One Bee (page 3)
+2025-08-23 01:49:01,532 - INFO -   dream -> One Bee (page 3)
+2025-08-23 01:49:01,533 - INFO -   winning -> One Bee (page 3)
+2025-08-23 01:49:01,533 - INFO -   school -> One Bee (page 3)
+2025-08-23 01:49:01,533 - INFO -   even -> One Bee (page 3)
+2025-08-23 01:49:01,533 - INFO -   attending -> One Bee (page 3)
+2025-08-23 01:49:01,533 - INFO -   official -> One Bee (page 3)
+2025-08-23 01:49:01,533 - INFO -   resource -> One Bee (page 3)
+2025-08-23 01:49:01,533 - INFO -   so -> One Bee (page 3)
+2025-08-23 01:49:01,533 - INFO -   ve -> One Bee (page 3)
+2025-08-23 01:49:01,533 - INFO -   found -> One Bee (page 3)
+2025-08-23 01:49:01,533 - INFO -   perfect -> One Bee (page 3)
+2025-08-23 01:49:01,533 - INFO -   place -> One Bee (page 3)
+2025-08-23 01:49:01,533 - INFO -   start -> One Bee (page 3)
+2025-08-23 01:49:01,533 - INFO -   prepare -> One Bee (page 3)
+2025-08-23 01:49:01,534 - INFO - 
+Last 20 extracted words:
+2025-08-23 01:49:01,534 - INFO -   bounce -> Three Bee (page 30)
+2025-08-23 01:49:01,534 - INFO -   grit -> Three Bee (page 30)
+2025-08-23 01:49:01,534 - INFO -   escape -> Three Bee (page 30)
+2025-08-23 01:49:01,534 - INFO -   laff -> Three Bee (page 30)
+2025-08-23 01:49:01,534 - INFO -   court -> Three Bee (page 30)
+2025-08-23 01:49:01,534 - INFO -   triton -> Three Bee (page 30)
+2025-08-23 01:49:01,534 - INFO -   digital -> Three Bee (page 30)
+2025-08-23 01:49:01,534 - INFO -   technology -> Three Bee (page 30)
+2025-08-23 01:49:01,534 - INFO -   measurement -> Three Bee (page 30)
+2025-08-23 01:49:01,534 - INFO -   services -> Three Bee (page 30)
+2025-08-23 01:49:01,534 - INFO -   award-winning -> Three Bee (page 30)
+2025-08-23 01:49:01,534 - INFO -   investigative -> Three Bee (page 30)
+2025-08-23 01:49:01,534 - INFO -   reporting -> Three Bee (page 30)
+2025-08-23 01:49:01,534 - INFO -   newsroom -> Three Bee (page 30)
+2025-08-23 01:49:01,534 - INFO -   longtime -> Three Bee (page 30)
+2025-08-23 01:49:01,534 - INFO -   steward -> Three Bee (page 30)
+2025-08-23 01:49:01,535 - INFO -   founded -> Three Bee (page 30)
+2025-08-23 01:49:01,535 - INFO -   decades -> Three Bee (page 30)
+2025-08-23 01:49:01,535 - INFO -   give -> Three Bee (page 30)
+2025-08-23 01:49:01,535 - INFO -   light -> Three Bee (page 30)
+2025-08-23 01:50:27,126 - INFO - Available PDF files:
+2025-08-23 01:50:27,126 - INFO -   1. 2020 Words_of_the_Champions.pdf
+2025-08-23 01:50:27,126 - INFO -   2. 2021_Printable_Words of the Champions.pdf
+2025-08-23 01:50:27,126 - INFO -   3. 2022 Words of the Champions_low_ink_printable.pdf
+2025-08-23 01:50:27,126 - INFO -   4. 2023_Words_of_the_Champions.pdf
+2025-08-23 01:50:27,126 - INFO -   5. 2024 Words of the Champions.pdf
+2025-08-23 01:50:27,126 - INFO -   6. 2025 Words of Champion _1_.pdf
+2025-08-23 01:50:27,126 - INFO - 
+Testing extraction with: 2020 Words_of_the_Champions.pdf
+2025-08-23 01:50:27,126 - INFO - Processing PDF: 2020 Words_of_the_Champions.pdf
+2025-08-23 01:50:28,619 - INFO -   Page 3: Found One Bee section
+2025-08-23 01:50:28,644 - INFO -   Page 4: Found One Bee section
+2025-08-23 01:50:28,683 - INFO -   Page 5: Found One Bee section
+2025-08-23 01:50:28,734 - INFO -   Page 6: Found One Bee section
+2025-08-23 01:50:28,764 - INFO -   Page 7: Found One Bee section
+2025-08-23 01:50:28,861 - INFO -   Page 8: Found One Bee section
+2025-08-23 01:50:28,907 - INFO -   Page 9: Found One Bee section
+2025-08-23 01:50:28,926 - INFO -   Page 10: Found Two Bee section
+2025-08-23 01:50:28,957 - INFO -   Page 11: Found Two Bee section
+2025-08-23 01:50:28,974 - INFO -   Page 12: Found Two Bee section
+2025-08-23 01:50:29,047 - INFO -   Page 13: Found Two Bee section
+2025-08-23 01:50:29,080 - INFO -   Page 14: Found Two Bee section
+2025-08-23 01:50:29,116 - INFO -   Page 15: Found Two Bee section
+2025-08-23 01:50:29,157 - INFO -   Page 16: Found Two Bee section
+2025-08-23 01:50:29,190 - INFO -   Page 17: Found Two Bee section
+2025-08-23 01:50:29,223 - INFO -   Page 18: Found Two Bee section
+2025-08-23 01:50:29,258 - INFO -   Page 19: Found Two Bee section
+2025-08-23 01:50:29,289 - INFO -   Page 20: Found Two Bee section
+2025-08-23 01:50:29,338 - INFO -   Page 21: Found Two Bee section
+2025-08-23 01:50:29,407 - INFO -   Page 22: Found Two Bee section
+2025-08-23 01:50:29,422 - INFO -   Page 23: Found Three Bee section
+2025-08-23 01:50:29,540 - INFO -   Page 24: Found Three Bee section
+2025-08-23 01:50:29,576 - INFO -   Page 25: Found Three Bee section
+2025-08-23 01:50:29,638 - INFO -   Page 26: Found Three Bee section
+2025-08-23 01:50:29,772 - INFO -   Page 27: Found Three Bee section
+2025-08-23 01:50:29,913 - INFO -   Page 28: Found Three Bee section
+2025-08-23 01:50:29,981 - INFO -   Page 29: Found Three Bee section
+2025-08-23 01:50:30,321 - INFO -   Extracted 3916 unique words from 2020 Words_of_the_Champions.pdf
+2025-08-23 01:50:30,321 - INFO - 
+Difficulty Distribution:
+2025-08-23 01:50:30,321 - INFO -   One Bee: 775 words
+2025-08-23 01:50:30,321 - INFO -   Three Bee: 1079 words
+2025-08-23 01:50:30,321 - INFO -   Two Bee: 2062 words
+2025-08-23 01:50:30,321 - INFO - 
+First 20 extracted words:
+2025-08-23 01:50:30,321 - INFO -   difficulty -> One Bee (page 4)
+2025-08-23 01:50:30,321 - INFO -   crowd -> One Bee (page 5)
+2025-08-23 01:50:30,321 - INFO -   secret -> One Bee (page 5)
+2025-08-23 01:50:30,321 - INFO -   fumble -> One Bee (page 5)
+2025-08-23 01:50:30,321 - INFO -   pond -> One Bee (page 5)
+2025-08-23 01:50:30,321 - INFO -   health -> One Bee (page 5)
+2025-08-23 01:50:30,321 - INFO -   pardon -> One Bee (page 5)
+2025-08-23 01:50:30,321 - INFO -   shake -> One Bee (page 5)
+2025-08-23 01:50:30,321 - INFO -   kiddo -> One Bee (page 5)
+2025-08-23 01:50:30,321 - INFO -   proof -> One Bee (page 5)
+2025-08-23 01:50:30,321 - INFO -   gorp -> One Bee (page 5)
+2025-08-23 01:50:30,321 - INFO -   town -> One Bee (page 5)
+2025-08-23 01:50:30,321 - INFO -   bingo -> One Bee (page 5)
+2025-08-23 01:50:30,321 - INFO -   clever -> One Bee (page 5)
+2025-08-23 01:50:30,321 - INFO -   inside -> One Bee (page 5)
+2025-08-23 01:50:30,321 - INFO -   reply -> One Bee (page 5)
+2025-08-23 01:50:30,321 - INFO -   frozen -> One Bee (page 5)
+2025-08-23 01:50:30,321 - INFO -   special -> One Bee (page 5)
+2025-08-23 01:50:30,321 - INFO -   film -> One Bee (page 5)
+2025-08-23 01:50:30,321 - INFO -   results -> One Bee (page 5)
+2025-08-23 01:50:30,321 - INFO - 
+Last 20 extracted words:
+2025-08-23 01:50:30,321 - INFO -   sinophile -> Three Bee (page 29)
+2025-08-23 01:50:30,321 - INFO -   harmattan -> Three Bee (page 29)
+2025-08-23 01:50:30,321 - INFO -   incarnadine -> Three Bee (page 29)
+2025-08-23 01:50:30,321 - INFO -   encarnadinedulcinea -> Three Bee (page 29)
+2025-08-23 01:50:30,321 - INFO -   nainsook -> Three Bee (page 29)
+2025-08-23 01:50:30,321 - INFO -   querida -> Three Bee (page 29)
+2025-08-23 01:50:30,321 - INFO -   paillard -> Three Bee (page 29)
+2025-08-23 01:50:30,321 - INFO -   gazoz -> Three Bee (page 29)
+2025-08-23 01:50:30,321 - INFO -   glaswegian -> Three Bee (page 29)
+2025-08-23 01:50:30,321 - INFO -   stannum -> Three Bee (page 29)
+2025-08-23 01:50:30,321 - INFO -   putsch -> Three Bee (page 29)
+2025-08-23 01:50:30,321 - INFO -   tralatitious -> Three Bee (page 29)
+2025-08-23 01:50:30,321 - INFO -   denouement -> Three Bee (page 29)
+2025-08-23 01:50:30,321 - INFO -   hortatory -> Three Bee (page 29)
+2025-08-23 01:50:30,321 - INFO -   maquette -> Three Bee (page 29)
+2025-08-23 01:50:30,321 - INFO -   obliviscence -> Three Bee (page 29)
+2025-08-23 01:50:30,321 - INFO -   autophagy -> Three Bee (page 29)
+2025-08-23 01:50:30,321 - INFO -   airedale -> Three Bee (page 29)
+2025-08-23 01:50:30,321 - INFO -   potager -> Three Bee (page 29)
+2025-08-23 01:50:30,321 - INFO -   malleolus -> Three Bee (page 29)
+2025-08-23 01:50:44,353 - INFO - Starting proper header-based extraction from all PDFs...
+2025-08-23 01:50:44,353 - INFO - Found 6 PDF files to process
+2025-08-23 01:50:44,353 - INFO - Processing PDF: 2020 Words_of_the_Champions.pdf
+2025-08-23 01:50:45,476 - INFO -   Page 3: Found One Bee section
+2025-08-23 01:50:45,491 - INFO -   Page 4: Found One Bee section
+2025-08-23 01:50:45,517 - INFO -   Page 5: Found One Bee section
+2025-08-23 01:50:45,543 - INFO -   Page 6: Found One Bee section
+2025-08-23 01:50:45,573 - INFO -   Page 7: Found One Bee section
+2025-08-23 01:50:45,613 - INFO -   Page 8: Found One Bee section
+2025-08-23 01:50:45,648 - INFO -   Page 9: Found One Bee section
+2025-08-23 01:50:45,660 - INFO -   Page 10: Found Two Bee section
+2025-08-23 01:50:45,686 - INFO -   Page 11: Found Two Bee section
+2025-08-23 01:50:45,711 - INFO -   Page 12: Found Two Bee section
+2025-08-23 01:50:45,740 - INFO -   Page 13: Found Two Bee section
+2025-08-23 01:50:45,763 - INFO -   Page 14: Found Two Bee section
+2025-08-23 01:50:45,833 - INFO -   Page 15: Found Two Bee section
+2025-08-23 01:50:45,905 - INFO -   Page 16: Found Two Bee section
+2025-08-23 01:50:45,994 - INFO -   Page 17: Found Two Bee section
+2025-08-23 01:50:46,033 - INFO -   Page 18: Found Two Bee section
+2025-08-23 01:50:46,149 - INFO -   Page 19: Found Two Bee section
+2025-08-23 01:50:46,218 - INFO -   Page 20: Found Two Bee section
+2025-08-23 01:50:46,282 - INFO -   Page 21: Found Two Bee section
+2025-08-23 01:50:46,331 - INFO -   Page 22: Found Two Bee section
+2025-08-23 01:50:46,346 - INFO -   Page 23: Found Three Bee section
+2025-08-23 01:50:46,381 - INFO -   Page 24: Found Three Bee section
+2025-08-23 01:50:46,463 - INFO -   Page 25: Found Three Bee section
+2025-08-23 01:50:46,564 - INFO -   Page 26: Found Three Bee section
+2025-08-23 01:50:46,618 - INFO -   Page 27: Found Three Bee section
+2025-08-23 01:50:46,663 - INFO -   Page 28: Found Three Bee section
+2025-08-23 01:50:46,754 - INFO -   Page 29: Found Three Bee section
+2025-08-23 01:50:46,923 - INFO -   Extracted 3916 unique words from 2020 Words_of_the_Champions.pdf
+2025-08-23 01:50:46,924 - INFO -   2020 Words_of_the_Champions.pdf difficulty distribution:
+2025-08-23 01:50:46,925 - INFO -     One Bee: 775 words
+2025-08-23 01:50:46,925 - INFO -     Three Bee: 1079 words
+2025-08-23 01:50:46,925 - INFO -     Two Bee: 2062 words
+2025-08-23 01:50:46,925 - INFO - Processing PDF: 2021_Printable_Words of the Champions.pdf
+2025-08-23 01:50:47,325 - INFO -   Page 2: Found One Bee section
+2025-08-23 01:50:47,335 - INFO -   Page 3: Found One Bee section
+2025-08-23 01:50:47,361 - INFO -   Page 4: Found One Bee section
+2025-08-23 01:50:47,392 - INFO -   Page 5: Found One Bee section
+2025-08-23 01:50:47,484 - INFO -   Page 6: Found One Bee section
+2025-08-23 01:50:47,533 - INFO -   Page 7: Found One Bee section
+2025-08-23 01:50:47,562 - INFO -   Page 8: Found One Bee section
+2025-08-23 01:50:47,582 - INFO -   Page 9: Found Two Bee section
+2025-08-23 01:50:47,618 - INFO -   Page 10: Found Two Bee section
+2025-08-23 01:50:47,670 - INFO -   Page 11: Found Two Bee section
+2025-08-23 01:50:47,724 - INFO -   Page 12: Found Two Bee section
+2025-08-23 01:50:47,778 - INFO -   Page 13: Found Two Bee section
+2025-08-23 01:50:47,900 - INFO -   Page 14: Found Two Bee section
+2025-08-23 01:50:47,954 - INFO -   Page 15: Found Two Bee section
+2025-08-23 01:50:48,031 - INFO -   Page 16: Found Two Bee section
+2025-08-23 01:50:48,090 - INFO -   Page 17: Found Two Bee section
+2025-08-23 01:50:48,165 - INFO -   Page 18: Found Two Bee section
+2025-08-23 01:50:48,252 - INFO -   Page 19: Found Two Bee section
+2025-08-23 01:50:48,282 - INFO -   Page 20: Found Two Bee section
+2025-08-23 01:50:48,312 - INFO -   Page 21: Found Three Bee section
+2025-08-23 01:50:48,365 - INFO -   Page 22: Found Three Bee section
+2025-08-23 01:50:48,418 - INFO -   Page 23: Found Three Bee section
+2025-08-23 01:50:48,514 - INFO -   Page 24: Found Three Bee section
+2025-08-23 01:50:48,574 - INFO -   Page 25: Found Three Bee section
+2025-08-23 01:50:48,634 - INFO -   Page 26: Found Three Bee section
+2025-08-23 01:50:48,724 - INFO -   Page 27: Found Three Bee section
+2025-08-23 01:50:48,729 - INFO -   Extracted 3923 unique words from 2021_Printable_Words of the Champions.pdf
+2025-08-23 01:50:48,730 - INFO -   2021_Printable_Words of the Champions.pdf difficulty distribution:
+2025-08-23 01:50:48,730 - INFO -     One Bee: 798 words
+2025-08-23 01:50:48,730 - INFO -     Three Bee: 1137 words
+2025-08-23 01:50:48,730 - INFO -     Two Bee: 1988 words
+2025-08-23 01:50:48,730 - INFO - Processing PDF: 2022 Words of the Champions_low_ink_printable.pdf
+2025-08-23 01:50:50,216 - INFO -   Page 2: Found One Bee section
+2025-08-23 01:50:50,231 - INFO -   Page 3: Found One Bee section
+2025-08-23 01:50:50,247 - INFO -   Page 4: Found One Bee section
+2025-08-23 01:50:50,287 - INFO -   Page 5: Found One Bee section
+2025-08-23 01:50:50,321 - INFO -   Page 6: Found One Bee section
+2025-08-23 01:50:50,360 - INFO -   Page 7: Found One Bee section
+2025-08-23 01:50:50,394 - INFO -   Page 8: Found One Bee section
+2025-08-23 01:50:50,394 - INFO -   Page 9: Found Two Bee section
+2025-08-23 01:50:50,454 - INFO -   Page 10: Found Two Bee section
+2025-08-23 01:50:50,519 - INFO -   Page 11: Found Two Bee section
+2025-08-23 01:50:50,567 - INFO -   Page 12: Found Two Bee section
+2025-08-23 01:50:50,602 - INFO -   Page 13: Found Two Bee section
+2025-08-23 01:50:50,666 - INFO -   Page 14: Found Two Bee section
+2025-08-23 01:50:50,714 - INFO -   Page 15: Found Two Bee section
+2025-08-23 01:50:50,810 - INFO -   Page 16: Found Two Bee section
+2025-08-23 01:50:50,843 - INFO -   Page 17: Found Two Bee section
+2025-08-23 01:50:50,896 - INFO -   Page 18: Found Two Bee section
+2025-08-23 01:50:50,953 - INFO -   Page 19: Found Two Bee section
+2025-08-23 01:50:50,979 - INFO -   Page 20: Found Two Bee section
+2025-08-23 01:50:50,997 - INFO -   Page 21: Found Three Bee section
+2025-08-23 01:50:51,083 - INFO -   Page 22: Found Three Bee section
+2025-08-23 01:50:51,158 - INFO -   Page 23: Found Three Bee section
+2025-08-23 01:50:51,210 - INFO -   Page 24: Found Three Bee section
+2025-08-23 01:50:51,275 - INFO -   Page 25: Found Three Bee section
+2025-08-23 01:50:51,340 - INFO -   Page 26: Found Three Bee section
+2025-08-23 01:50:51,410 - INFO -   Page 27: Found Three Bee section
+2025-08-23 01:50:51,714 - INFO -   Extracted 3927 unique words from 2022 Words of the Champions_low_ink_printable.pdf
+2025-08-23 01:50:51,716 - INFO -   2022 Words of the Champions_low_ink_printable.pdf difficulty distribution:
+2025-08-23 01:50:51,717 - INFO -     One Bee: 798 words
+2025-08-23 01:50:51,717 - INFO -     Three Bee: 1140 words
+2025-08-23 01:50:51,717 - INFO -     Two Bee: 1989 words
+2025-08-23 01:50:51,717 - INFO - Processing PDF: 2023_Words_of_the_Champions.pdf
+2025-08-23 01:50:51,956 - INFO -   Page 2: Found One Bee section
+2025-08-23 01:50:51,958 - INFO -   Page 3: Found One Bee section
+2025-08-23 01:50:51,996 - INFO -   Page 4: Found One Bee section
+2025-08-23 01:50:52,023 - INFO -   Page 5: Found One Bee section
+2025-08-23 01:50:52,063 - INFO -   Page 6: Found One Bee section
+2025-08-23 01:50:52,102 - INFO -   Page 7: Found One Bee section
+2025-08-23 01:50:52,145 - INFO -   Page 8: Found One Bee section
+2025-08-23 01:50:52,158 - INFO -   Page 9: Found Two Bee section
+2025-08-23 01:50:52,185 - INFO -   Page 10: Found Two Bee section
+2025-08-23 01:50:52,225 - INFO -   Page 11: Found Two Bee section
+2025-08-23 01:50:52,268 - INFO -   Page 12: Found Two Bee section
+2025-08-23 01:50:52,305 - INFO -   Page 13: Found Two Bee section
+2025-08-23 01:50:52,396 - INFO -   Page 14: Found Two Bee section
+2025-08-23 01:50:52,436 - INFO -   Page 15: Found Two Bee section
+2025-08-23 01:50:52,458 - INFO -   Page 16: Found Two Bee section
+2025-08-23 01:50:52,515 - INFO -   Page 17: Found Two Bee section
+2025-08-23 01:50:52,566 - INFO -   Page 18: Found Two Bee section
+2025-08-23 01:50:52,598 - INFO -   Page 19: Found Two Bee section
+2025-08-23 01:50:52,609 - INFO -   Page 20: Found Two Bee section
+2025-08-23 01:50:52,609 - INFO -   Page 21: Found Three Bee section
+2025-08-23 01:50:52,649 - INFO -   Page 22: Found Three Bee section
+2025-08-23 01:50:52,690 - INFO -   Page 23: Found Three Bee section
+2025-08-23 01:50:52,720 - INFO -   Page 24: Found Three Bee section
+2025-08-23 01:50:52,761 - INFO -   Page 25: Found Three Bee section
+2025-08-23 01:50:52,800 - INFO -   Page 26: Found Three Bee section
+2025-08-23 01:50:52,844 - INFO -   Page 27: Found Three Bee section
+2025-08-23 01:50:52,883 - INFO -   Extracted 3928 unique words from 2023_Words_of_the_Champions.pdf
+2025-08-23 01:50:52,887 - INFO -   2023_Words_of_the_Champions.pdf difficulty distribution:
+2025-08-23 01:50:52,887 - INFO -     One Bee: 795 words
+2025-08-23 01:50:52,887 - INFO -     Three Bee: 1152 words
+2025-08-23 01:50:52,887 - INFO -     Two Bee: 1981 words
+2025-08-23 01:50:52,887 - INFO - Processing PDF: 2024 Words of the Champions.pdf
+2025-08-23 01:50:53,321 - INFO -   Page 2: Found One Bee section
+2025-08-23 01:50:53,359 - INFO -   Page 3: Found One Bee section
+2025-08-23 01:50:53,423 - INFO -   Page 4: Found One Bee section
+2025-08-23 01:50:53,481 - INFO -   Page 6: Found One Bee section
+2025-08-23 01:50:53,731 - INFO -   Page 12: Found Three Bee section
+2025-08-23 01:50:53,823 - INFO -   Page 14: Found Two Bee section
+2025-08-23 01:50:53,899 - INFO -   Page 16: Found Two Bee section
+2025-08-23 01:50:54,428 - INFO -   Page 28: Found Two Bee section
+2025-08-23 01:50:54,502 - INFO -   Page 30: Found Three Bee section
+2025-08-23 01:50:54,609 - INFO -   Page 32: Found Three Bee section
+2025-08-23 01:50:54,894 - INFO -   Page 40: Found Three Bee section
+2025-08-23 01:50:54,975 - INFO -   Page 44: Found One Bee section
+2025-08-23 01:50:55,031 - INFO -   Page 46: Found Two Bee section
+2025-08-23 01:50:55,084 - INFO -   Page 47: Found Three Bee section
+2025-08-23 01:50:55,537 - INFO -   Extracted 4270 unique words from 2024 Words of the Champions.pdf
+2025-08-23 01:50:55,537 - INFO -   2024 Words of the Champions.pdf difficulty distribution:
+2025-08-23 01:50:55,537 - INFO -     One Bee: 912 words
+2025-08-23 01:50:55,537 - INFO -     Three Bee: 1475 words
+2025-08-23 01:50:55,537 - INFO -     Two Bee: 1883 words
+2025-08-23 01:50:55,537 - INFO - Processing PDF: 2025 Words of Champion _1_.pdf
+2025-08-23 01:50:55,839 - INFO -   Page 2: Found One Bee section
+2025-08-23 01:50:55,954 - INFO -   Page 4: Found One Bee section
+2025-08-23 01:50:55,992 - INFO -   Page 5: Found One Bee section
+2025-08-23 01:50:56,149 - INFO -   Page 9: Found Two Bee section
+2025-08-23 01:50:56,172 - INFO -   Page 10: Found Two Bee section
+2025-08-23 01:50:56,891 - INFO -   Page 18: Found Three Bee section
+2025-08-23 01:50:56,965 - INFO -   Page 19: Found Three Bee section
+2025-08-23 01:50:57,159 - INFO -   Page 24: Found Three Bee section
+2025-08-23 01:50:57,222 - INFO -   Page 26: Found One Bee section
+2025-08-23 01:50:57,249 - INFO -   Page 27: Found Two Bee section
+2025-08-23 01:50:57,293 - INFO -   Page 28: Found Three Bee section
+2025-08-23 01:50:57,342 - INFO -   Page 30: Found Two Bee section
+2025-08-23 01:50:57,365 - INFO -   Page 31: Found One Bee section
+2025-08-23 01:50:57,380 - INFO -   Page 32: Found One Bee section
+2025-08-23 01:50:57,392 - INFO -   Page 33: Found Two Bee section
+2025-08-23 01:50:57,492 - INFO -   Extracted 4165 unique words from 2025 Words of Champion _1_.pdf
+2025-08-23 01:50:57,493 - INFO -   2025 Words of Champion _1_.pdf difficulty distribution:
+2025-08-23 01:50:57,493 - INFO -     One Bee: 1092 words
+2025-08-23 01:50:57,493 - INFO -     Three Bee: 1186 words
+2025-08-23 01:50:57,493 - INFO -     Two Bee: 1887 words
+2025-08-23 01:52:01,536 - INFO - Starting proper header-based extraction from all PDFs...
+2025-08-23 01:52:01,536 - INFO - Found 6 PDF files to process
+2025-08-23 01:52:01,536 - INFO - Processing PDF: 2020 Words_of_the_Champions.pdf
+2025-08-23 01:52:02,979 - INFO -   Page 3: Found One Bee section
+2025-08-23 01:52:02,982 - INFO -   Page 4: Found One Bee section
+2025-08-23 01:52:03,014 - INFO -   Page 5: Found One Bee section
+2025-08-23 01:52:03,032 - INFO -   Page 6: Found One Bee section
+2025-08-23 01:52:03,066 - INFO -   Page 7: Found One Bee section
+2025-08-23 01:52:03,115 - INFO -   Page 8: Found One Bee section
+2025-08-23 01:52:03,158 - INFO -   Page 9: Found One Bee section
+2025-08-23 01:52:03,174 - INFO -   Page 10: Found Two Bee section
+2025-08-23 01:52:03,205 - INFO -   Page 11: Found Two Bee section
+2025-08-23 01:52:03,215 - INFO -   Page 12: Found Two Bee section
+2025-08-23 01:52:03,260 - INFO -   Page 13: Found Two Bee section
+2025-08-23 01:52:03,287 - INFO -   Page 14: Found Two Bee section
+2025-08-23 01:52:03,330 - INFO -   Page 15: Found Two Bee section
+2025-08-23 01:52:03,368 - INFO -   Page 16: Found Two Bee section
+2025-08-23 01:52:03,398 - INFO -   Page 17: Found Two Bee section
+2025-08-23 01:52:03,448 - INFO -   Page 18: Found Two Bee section
+2025-08-23 01:52:03,486 - INFO -   Page 19: Found Two Bee section
+2025-08-23 01:52:03,518 - INFO -   Page 20: Found Two Bee section
+2025-08-23 01:52:03,568 - INFO -   Page 21: Found Two Bee section
+2025-08-23 01:52:03,616 - INFO -   Page 22: Found Two Bee section
+2025-08-23 01:52:03,633 - INFO -   Page 23: Found Three Bee section
+2025-08-23 01:52:03,686 - INFO -   Page 24: Found Three Bee section
+2025-08-23 01:52:03,822 - INFO -   Page 25: Found Three Bee section
+2025-08-23 01:52:03,909 - INFO -   Page 26: Found Three Bee section
+2025-08-23 01:52:03,970 - INFO -   Page 27: Found Three Bee section
+2025-08-23 01:52:04,047 - INFO -   Page 28: Found Three Bee section
+2025-08-23 01:52:04,118 - INFO -   Page 29: Found Three Bee section
+2025-08-23 01:52:04,365 - INFO -   Extracted 3916 unique words from 2020 Words_of_the_Champions.pdf
+2025-08-23 01:52:04,366 - INFO -   2020 Words_of_the_Champions.pdf difficulty distribution:
+2025-08-23 01:52:04,367 - INFO -     One Bee: 775 words
+2025-08-23 01:52:04,367 - INFO -     Three Bee: 1079 words
+2025-08-23 01:52:04,367 - INFO -     Two Bee: 2062 words
+2025-08-23 01:52:04,367 - INFO - Processing PDF: 2021_Printable_Words of the Champions.pdf
+2025-08-23 01:52:04,764 - INFO -   Page 2: Found One Bee section
+2025-08-23 01:52:04,780 - INFO -   Page 3: Found One Bee section
+2025-08-23 01:52:04,813 - INFO -   Page 4: Found One Bee section
+2025-08-23 01:52:04,868 - INFO -   Page 5: Found One Bee section
+2025-08-23 01:52:04,939 - INFO -   Page 6: Found One Bee section
+2025-08-23 01:52:05,041 - INFO -   Page 7: Found One Bee section
+2025-08-23 01:52:05,096 - INFO -   Page 8: Found One Bee section
+2025-08-23 01:52:05,114 - INFO -   Page 9: Found Two Bee section
+2025-08-23 01:52:05,161 - INFO -   Page 10: Found Two Bee section
+2025-08-23 01:52:05,215 - INFO -   Page 11: Found Two Bee section
+2025-08-23 01:52:05,266 - INFO -   Page 12: Found Two Bee section
+2025-08-23 01:52:05,329 - INFO -   Page 13: Found Two Bee section
+2025-08-23 01:52:05,396 - INFO -   Page 14: Found Two Bee section
+2025-08-23 01:52:05,446 - INFO -   Page 15: Found Two Bee section
+2025-08-23 01:52:05,513 - INFO -   Page 16: Found Two Bee section
+2025-08-23 01:52:05,563 - INFO -   Page 17: Found Two Bee section
+2025-08-23 01:52:05,646 - INFO -   Page 18: Found Two Bee section
+2025-08-23 01:52:05,712 - INFO -   Page 19: Found Two Bee section
+2025-08-23 01:52:05,729 - INFO -   Page 20: Found Two Bee section
+2025-08-23 01:52:05,762 - INFO -   Page 21: Found Three Bee section
+2025-08-23 01:52:05,829 - INFO -   Page 22: Found Three Bee section
+2025-08-23 01:52:05,912 - INFO -   Page 23: Found Three Bee section
+2025-08-23 01:52:05,979 - INFO -   Page 24: Found Three Bee section
+2025-08-23 01:52:06,132 - INFO -   Page 25: Found Three Bee section
+2025-08-23 01:52:06,259 - INFO -   Page 26: Found Three Bee section
+2025-08-23 01:52:06,373 - INFO -   Page 27: Found Three Bee section
+2025-08-23 01:52:06,382 - INFO -   Extracted 3923 unique words from 2021_Printable_Words of the Champions.pdf
+2025-08-23 01:52:06,383 - INFO -   2021_Printable_Words of the Champions.pdf difficulty distribution:
+2025-08-23 01:52:06,383 - INFO -     One Bee: 798 words
+2025-08-23 01:52:06,383 - INFO -     Three Bee: 1137 words
+2025-08-23 01:52:06,383 - INFO -     Two Bee: 1988 words
+2025-08-23 01:52:06,383 - INFO - Processing PDF: 2022 Words of the Champions_low_ink_printable.pdf
+2025-08-23 01:52:08,161 - INFO -   Page 2: Found One Bee section
+2025-08-23 01:52:08,164 - INFO -   Page 3: Found One Bee section
+2025-08-23 01:52:08,194 - INFO -   Page 4: Found One Bee section
+2025-08-23 01:52:08,220 - INFO -   Page 5: Found One Bee section
+2025-08-23 01:52:08,245 - INFO -   Page 6: Found One Bee section
+2025-08-23 01:52:08,291 - INFO -   Page 7: Found One Bee section
+2025-08-23 01:52:08,308 - INFO -   Page 8: Found One Bee section
+2025-08-23 01:52:08,323 - INFO -   Page 9: Found Two Bee section
+2025-08-23 01:52:08,367 - INFO -   Page 10: Found Two Bee section
+2025-08-23 01:52:08,395 - INFO -   Page 11: Found Two Bee section
+2025-08-23 01:52:08,448 - INFO -   Page 12: Found Two Bee section
+2025-08-23 01:52:08,503 - INFO -   Page 13: Found Two Bee section
+2025-08-23 01:52:08,588 - INFO -   Page 14: Found Two Bee section
+2025-08-23 01:52:08,667 - INFO -   Page 15: Found Two Bee section
+2025-08-23 01:52:08,773 - INFO -   Page 16: Found Two Bee section
+2025-08-23 01:52:08,825 - INFO -   Page 17: Found Two Bee section
+2025-08-23 01:52:08,883 - INFO -   Page 18: Found Two Bee section
+2025-08-23 01:52:08,931 - INFO -   Page 19: Found Two Bee section
+2025-08-23 01:52:08,962 - INFO -   Page 20: Found Two Bee section
+2025-08-23 01:52:08,983 - INFO -   Page 21: Found Three Bee section
+2025-08-23 01:52:09,029 - INFO -   Page 22: Found Three Bee section
+2025-08-23 01:52:09,114 - INFO -   Page 23: Found Three Bee section
+2025-08-23 01:52:09,178 - INFO -   Page 24: Found Three Bee section
+2025-08-23 01:52:09,245 - INFO -   Page 25: Found Three Bee section
+2025-08-23 01:52:09,314 - INFO -   Page 26: Found Three Bee section
+2025-08-23 01:52:09,365 - INFO -   Page 27: Found Three Bee section
+2025-08-23 01:52:09,562 - INFO -   Extracted 3927 unique words from 2022 Words of the Champions_low_ink_printable.pdf
+2025-08-23 01:52:09,564 - INFO -   2022 Words of the Champions_low_ink_printable.pdf difficulty distribution:
+2025-08-23 01:52:09,564 - INFO -     One Bee: 798 words
+2025-08-23 01:52:09,564 - INFO -     Three Bee: 1140 words
+2025-08-23 01:52:09,564 - INFO -     Two Bee: 1989 words
+2025-08-23 01:52:09,570 - INFO - Processing PDF: 2023_Words_of_the_Champions.pdf
+2025-08-23 01:52:09,784 - INFO -   Page 2: Found One Bee section
+2025-08-23 01:52:09,784 - INFO -   Page 3: Found One Bee section
+2025-08-23 01:52:09,834 - INFO -   Page 4: Found One Bee section
+2025-08-23 01:52:09,865 - INFO -   Page 5: Found One Bee section
+2025-08-23 01:52:09,905 - INFO -   Page 6: Found One Bee section
+2025-08-23 01:52:09,927 - INFO -   Page 7: Found One Bee section
+2025-08-23 01:52:09,986 - INFO -   Page 8: Found One Bee section
+2025-08-23 01:52:09,993 - INFO -   Page 9: Found Two Bee section
+2025-08-23 01:52:10,020 - INFO -   Page 10: Found Two Bee section
+2025-08-23 01:52:10,062 - INFO -   Page 11: Found Two Bee section
+2025-08-23 01:52:10,108 - INFO -   Page 12: Found Two Bee section
+2025-08-23 01:52:10,145 - INFO -   Page 13: Found Two Bee section
+2025-08-23 01:52:10,226 - INFO -   Page 14: Found Two Bee section
+2025-08-23 01:52:10,277 - INFO -   Page 15: Found Two Bee section
+2025-08-23 01:52:10,314 - INFO -   Page 16: Found Two Bee section
+2025-08-23 01:52:10,361 - INFO -   Page 17: Found Two Bee section
+2025-08-23 01:52:10,404 - INFO -   Page 18: Found Two Bee section
+2025-08-23 01:52:10,440 - INFO -   Page 19: Found Two Bee section
+2025-08-23 01:52:10,457 - INFO -   Page 20: Found Two Bee section
+2025-08-23 01:52:10,463 - INFO -   Page 21: Found Three Bee section
+2025-08-23 01:52:10,511 - INFO -   Page 22: Found Three Bee section
+2025-08-23 01:52:10,557 - INFO -   Page 23: Found Three Bee section
+2025-08-23 01:52:10,573 - INFO -   Page 24: Found Three Bee section
+2025-08-23 01:52:10,617 - INFO -   Page 25: Found Three Bee section
+2025-08-23 01:52:10,659 - INFO -   Page 26: Found Three Bee section
+2025-08-23 01:52:10,676 - INFO -   Page 27: Found Three Bee section
+2025-08-23 01:52:10,715 - INFO -   Extracted 3928 unique words from 2023_Words_of_the_Champions.pdf
+2025-08-23 01:52:10,716 - INFO -   2023_Words_of_the_Champions.pdf difficulty distribution:
+2025-08-23 01:52:10,716 - INFO -     One Bee: 795 words
+2025-08-23 01:52:10,716 - INFO -     Three Bee: 1152 words
+2025-08-23 01:52:10,716 - INFO -     Two Bee: 1981 words
+2025-08-23 01:52:10,716 - INFO - Processing PDF: 2024 Words of the Champions.pdf
+2025-08-23 01:52:11,092 - INFO -   Page 2: Found One Bee section
+2025-08-23 01:52:11,129 - INFO -   Page 3: Found One Bee section
+2025-08-23 01:52:11,191 - INFO -   Page 4: Found One Bee section
+2025-08-23 01:52:11,264 - INFO -   Page 6: Found One Bee section
+2025-08-23 01:52:11,480 - INFO -   Page 12: Found Three Bee section
+2025-08-23 01:52:11,566 - INFO -   Page 14: Found Two Bee section
+2025-08-23 01:52:11,636 - INFO -   Page 16: Found Two Bee section
+2025-08-23 01:52:12,123 - INFO -   Page 28: Found Two Bee section
+2025-08-23 01:52:12,194 - INFO -   Page 30: Found Three Bee section
+2025-08-23 01:52:12,300 - INFO -   Page 32: Found Three Bee section
+2025-08-23 01:52:12,586 - INFO -   Page 40: Found Three Bee section
+2025-08-23 01:52:12,683 - INFO -   Page 44: Found One Bee section
+2025-08-23 01:52:12,742 - INFO -   Page 46: Found Two Bee section
+2025-08-23 01:52:12,793 - INFO -   Page 47: Found Three Bee section
+2025-08-23 01:52:13,350 - INFO -   Extracted 4270 unique words from 2024 Words of the Champions.pdf
+2025-08-23 01:52:13,352 - INFO -   2024 Words of the Champions.pdf difficulty distribution:
+2025-08-23 01:52:13,352 - INFO -     One Bee: 912 words
+2025-08-23 01:52:13,352 - INFO -     Three Bee: 1475 words
+2025-08-23 01:52:13,352 - INFO -     Two Bee: 1883 words
+2025-08-23 01:52:13,352 - INFO - Processing PDF: 2025 Words of Champion _1_.pdf
+2025-08-23 01:52:13,653 - INFO -   Page 2: Found One Bee section
+2025-08-23 01:52:13,726 - INFO -   Page 4: Found One Bee section
+2025-08-23 01:52:13,758 - INFO -   Page 5: Found One Bee section
+2025-08-23 01:52:13,954 - INFO -   Page 9: Found Two Bee section
+2025-08-23 01:52:13,980 - INFO -   Page 10: Found Two Bee section
+2025-08-23 01:52:14,640 - INFO -   Page 18: Found Three Bee section
+2025-08-23 01:52:14,689 - INFO -   Page 19: Found Three Bee section
+2025-08-23 01:52:14,832 - INFO -   Page 24: Found Three Bee section
+2025-08-23 01:52:14,892 - INFO -   Page 26: Found One Bee section
+2025-08-23 01:52:14,921 - INFO -   Page 27: Found Two Bee section
+2025-08-23 01:52:14,974 - INFO -   Page 28: Found Three Bee section
+2025-08-23 01:52:15,007 - INFO -   Page 30: Found Two Bee section
+2025-08-23 01:52:15,025 - INFO -   Page 31: Found One Bee section
+2025-08-23 01:52:15,057 - INFO -   Page 32: Found One Bee section
+2025-08-23 01:52:15,073 - INFO -   Page 33: Found Two Bee section
+2025-08-23 01:52:15,177 - INFO -   Extracted 4165 unique words from 2025 Words of Champion _1_.pdf
+2025-08-23 01:52:15,178 - INFO -   2025 Words of Champion _1_.pdf difficulty distribution:
+2025-08-23 01:52:15,178 - INFO -     One Bee: 1092 words
+2025-08-23 01:52:15,178 - INFO -     Three Bee: 1186 words
+2025-08-23 01:52:15,179 - INFO -     Two Bee: 1887 words
+2025-08-23 01:52:15,258 - INFO - Difficulty Distribution:
+2025-08-23 01:52:15,273 - INFO -   One Bee: 5170 words (21.4%)
+2025-08-23 01:52:15,273 - INFO -   Three Bee: 7169 words (29.7%)
+2025-08-23 01:52:15,274 - INFO -   Two Bee: 11790 words (48.9%)
+2025-08-23 01:52:15,274 - INFO - 
+Year Distribution:
+2025-08-23 01:52:15,274 - INFO -   2020: 3916 words (16.2%)
+2025-08-23 01:52:15,274 - INFO -   2021: 3923 words (16.3%)
+2025-08-23 01:52:15,274 - INFO -   2022: 3927 words (16.3%)
+2025-08-23 01:52:15,274 - INFO -   2023: 3928 words (16.3%)
+2025-08-23 01:52:15,274 - INFO -   2024: 4270 words (17.7%)
+2025-08-23 01:52:15,274 - INFO -   2025: 4165 words (17.3%)

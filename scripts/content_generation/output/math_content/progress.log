@@ -1,0 +1,35 @@
+[2025-08-23T05:44:21.701Z] Loading math nodes from database...
+[2025-08-23T05:44:23.141Z] Found 162 math nodes total
+[2025-08-23T05:44:23.142Z] Found 128 leaf math nodes needing content
+[2025-08-23T05:44:23.143Z] 
+First nodes to process:
+[2025-08-23T05:44:23.144Z] 
+Processing first 3 nodes for review...
+[2025-08-23T05:44:23.145Z] Processing: Money Counting
+[2025-08-23T05:44:23.371Z] Error generating content for Money Counting: 404 {"type":"error","error":{"type":"not_found_error","message":"model: claude-3-5-sonnet-20241022"},"request_id":"req_011CSQ7MQRWRxfo8s5ix2mse"}
+[2025-08-23T05:44:23.372Z] Failed to process Money Counting: 404 {"type":"error","error":{"type":"not_found_error","message":"model: claude-3-5-sonnet-20241022"},"request_id":"req_011CSQ7MQRWRxfo8s5ix2mse"}
+[2025-08-23T05:44:23.381Z] Fatal error: 404 {"type":"error","error":{"type":"not_found_error","message":"model: claude-3-5-sonnet-20241022"},"request_id":"req_011CSQ7MQRWRxfo8s5ix2mse"}
+[2025-08-23T05:51:10.808Z] Loading math nodes from database...
+[2025-08-23T05:51:12.288Z] Found 162 math nodes total
+[2025-08-23T05:51:12.290Z] Found 128 leaf math nodes needing content
+[2025-08-23T05:51:12.291Z] 
+First nodes to process:
+[2025-08-23T05:51:12.292Z] 
+Processing first 3 nodes for review...
+[2025-08-23T05:51:12.292Z] Processing: Money Counting
+[2025-08-23T05:51:12.294Z] Error generating content for Money Counting: Streaming is required for operations that may take longer than 10 minutes. See https://github.com/anthropics/anthropic-sdk-typescript#long-requests for more details
+[2025-08-23T05:51:12.294Z] Failed to process Money Counting: Streaming is required for operations that may take longer than 10 minutes. See https://github.com/anthropics/anthropic-sdk-typescript#long-requests for more details
+[2025-08-23T05:51:12.297Z] Fatal error: Streaming is required for operations that may take longer than 10 minutes. See https://github.com/anthropics/anthropic-sdk-typescript#long-requests for more details
+[2025-08-23T05:51:26.716Z] Loading math nodes from database...
+[2025-08-23T05:51:27.883Z] Found 162 math nodes total
+[2025-08-23T05:51:27.884Z] Found 128 leaf math nodes needing content
+[2025-08-23T05:51:27.884Z] 
+First nodes to process:
+[2025-08-23T05:51:27.886Z] 
+Processing first 3 nodes for review...
+[2025-08-23T05:51:27.886Z] Processing: Money Counting
+[2025-08-23T05:51:43.659Z] JSON parse error for Money Counting, using fallback
+[2025-08-23T05:52:16.422Z] Failed to parse questions for Money Counting
+[2025-08-23T05:52:16.425Z] Saved content for review: Money Counting
+[2025-08-23T05:52:21.441Z] Processing: Counting 1-10
+[2025-08-23T05:52:34.006Z] JSON parse error for Counting 1-10, using fallback

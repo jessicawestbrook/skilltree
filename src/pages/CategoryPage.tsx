@@ -414,7 +414,7 @@ const CategoryPage: React.FC = () => {
                   {category.name}
                 </h1>
                 {category.description && (
-                  <p className="text-neutral-600 dark:text-neutral-400 mt-2 text-lg">
+                  <p className="text-neutral-600 dark:text-neutral-400 mt-1 text-sm leading-tight">
                     {category.description}
                   </p>
                 )}
@@ -614,11 +614,6 @@ const CategoryPage: React.FC = () => {
                 </button>
               </div>
               
-              {subcat.description && (
-                <p className="text-xs text-neutral-600 dark:text-neutral-400 mb-2 leading-tight">
-                  {subcat.description}
-                </p>
-              )}
               
               {children.length > 0 && (
                 <div className="space-y-2">

@@ -583,6 +583,151 @@ Based on research in vocabulary acquisition (Nation, 2001; Schmitt, 2000):
 - **Mixed Practice**: Include 20% words from adjacent levels for scaffolding
 - **Spaced Repetition**: Emphasize semantic relationships over time intervals
 
+### Adaptive Learning for Module Tests
+
+#### Theoretical Foundation
+
+The adaptive learning system for module tests is based on several established educational theories:
+
+1. **Zone of Proximal Development (Vygotsky, 1978)**: Questions progress from what learners can do independently (easy questions) to what they can achieve with guidance (harder questions).
+
+2. **Scaffolding Theory (Wood, Bruner, & Ross, 1976)**: Starting with easier questions provides the support structure needed for tackling more complex problems.
+
+3. **Flow Theory (Csikszentmihalyi, 1990)**: Maintaining optimal challenge levels keeps learners engaged without causing anxiety or boredom.
+
+4. **Item Response Theory (IRT)**: Questions are calibrated by difficulty to accurately assess learner ability across different performance levels.
+
+#### Implementation Design
+
+##### Question Difficulty Classification
+
+Questions are categorized into four difficulty levels based on cognitive complexity (Bloom's Revised Taxonomy):
+
+```typescript
+interface DifficultyLevels {
+  easy: {
+    cognitiveLevel: 'Remember/Understand';
+    complexity: 'Single concept, direct recall';
+    timeEstimate: '< 30 seconds';
+    pointMultiplier: 1.0;
+  };
+  medium: {
+    cognitiveLevel: 'Apply';
+    complexity: 'Multiple steps, standard procedures';
+    timeEstimate: '30-60 seconds';
+    pointMultiplier: 2.0;
+  };
+  hard: {
+    cognitiveLevel: 'Analyze/Evaluate';
+    complexity: 'Complex reasoning, multiple concepts';
+    timeEstimate: '60-90 seconds';
+    pointMultiplier: 3.0;
+  };
+  expert: {
+    cognitiveLevel: 'Create/Synthesize';
+    complexity: 'Novel problems, creative solutions';
+    timeEstimate: '> 90 seconds';
+    pointMultiplier: 4.0;
+  };
+}
+```
+
+##### Adaptive Question Selection Algorithm
+
+The system employs a progressive difficulty model:
+
+**Pre-Quiz Phase (Diagnostic)**:
+- 2 easy questions: Establish baseline confidence
+- 1 medium question: Probe higher-level understanding
+- Purpose: Calibrate starting difficulty for main test
+
+**Test Phase (Adaptive Progression)**:
+
+Distribution based on test length:
+- **Short tests (≤5 questions)**: 60% easy, 40% medium
+- **Medium tests (6-10 questions)**: 40% easy, 40% medium, 20% hard
+- **Long tests (>10 questions)**: 30% easy, 35% medium, 25% hard, 10% expert
+
+Questions are sorted from easy to hard within the test to:
+1. Build learner confidence early
+2. Reduce test anxiety
+3. Ensure foundational concepts are assessed first
+4. Allow for natural progression of complexity
+
+##### Performance-Based Adaptation
+
+While the current implementation uses pre-sorted difficulty progression, the framework supports dynamic adaptation:
+
+```typescript
+interface AdaptationRules {
+  difficultyAdjustment: {
+    consecutiveCorrect: 2; // Advance difficulty after 2 correct
+    consecutiveIncorrect: 2; // Reduce difficulty after 2 incorrect
+    maxJump: 1; // Maximum difficulty change per adjustment
+  };
+  
+  performanceTracking: {
+    currentStreak: number;
+    difficultyHistory: string[];
+    responseTime: number[];
+    confidenceScore: number; // Calculated from speed and accuracy
+  };
+}
+```
+
+##### Visual Feedback and Motivation
+
+Difficulty indicators provide transparency and motivation:
+
+- **Color Coding**: Green (Easy) → Blue (Medium) → Orange (Hard) → Red (Expert)
+- **Progress Messaging**: Contextual feedback based on performance tiers
+  - 100%: "Perfect Score!" - Mastery achieved
+  - 80-99%: "Great Job!" - Strong understanding
+  - 60-79%: "Good Progress!" - Solid foundation
+  - <60%: "Keep Practicing!" - Encouragement to continue
+
+##### Scoring Algorithm with Difficulty Weighting
+
+Performance scoring accounts for question difficulty:
+
+```typescript
+calculateScore(question, answer) {
+  const basePoints = 10 * difficultyMultiplier[question.difficulty];
+  let earnedPoints = 0;
+  
+  if (answer.correct) {
+    earnedPoints = basePoints;
+    
+    // Speed bonus for quick, correct answers
+    if (answer.timeSpent < 30) {
+      earnedPoints *= 1.2; // 20% bonus
+    }
+  }
+  
+  return {
+    earned: earnedPoints,
+    possible: basePoints,
+    efficiency: earnedPoints / answer.timeSpent
+  };
+}
+```
+
+#### Pedagogical Benefits
+
+1. **Reduced Cognitive Overload**: Starting with easier questions prevents overwhelming learners
+2. **Increased Self-Efficacy**: Early successes build confidence (Bandura, 1977)
+3. **Accurate Assessment**: Difficulty range provides better ability estimation
+4. **Personalized Learning Path**: Performance data informs future content recommendations
+5. **Engagement Maintenance**: Progressive challenge maintains flow state
+
+#### Future Enhancements
+
+1. **Real-time Adaptation**: Adjust difficulty during test based on performance
+2. **Personalized Difficulty Curves**: Learn individual progression preferences
+3. **Cross-module Calibration**: Use performance across topics for initial difficulty
+4. **Predictive Modeling**: Anticipate optimal difficulty based on learning history
+5. **Collaborative Filtering**: Use peer performance data for difficulty validation
+
 ##### Learning Analytics for Vocabulary
 
 Track distinct metrics from spelling performance:
@@ -621,31 +766,37 @@ Following Scripps National Spelling Bee format:
 
 1. Ausubel, D. P. (1968). *Educational Psychology: A Cognitive View*. Holt, Rinehart and Winston.
 
-2. Bloom, B. S. (1968). "Learning for Mastery." *Evaluation Comment*, 1(2), 1-12.
+2. Bandura, A. (1977). "Self-efficacy: Toward a unifying theory of behavioral change." *Psychological Review*, 84(2), 191-215.
 
-3. Ebbinghaus, H. (1885). *Memory: A Contribution to Experimental Psychology*. Teachers College, Columbia University.
+3. Bloom, B. S. (1968). "Learning for Mastery." *Evaluation Comment*, 1(2), 1-12.
 
-4. Kintsch, W., & van Dijk, T. A. (1978). "Toward a model of text comprehension and production." *Psychological Review*, 85(5), 363-394.
+4. Csikszentmihalyi, M. (1990). *Flow: The Psychology of Optimal Experience*. Harper & Row.
 
-5. Leitner, S. (1972). *So lernt man lernen*. Herder.
+5. Ebbinghaus, H. (1885). *Memory: A Contribution to Experimental Psychology*. Teachers College, Columbia University.
 
-6. Mayer, R. E. (2009). *Multimedia Learning* (2nd ed.). Cambridge University Press.
+6. Kintsch, W., & van Dijk, T. A. (1978). "Toward a model of text comprehension and production." *Psychological Review*, 85(5), 363-394.
 
-7. Sweller, J. (1988). "Cognitive load during problem solving." *Cognitive Science*, 12(2), 257-285.
+7. Leitner, S. (1972). *So lernt man lernen*. Herder.
 
-8. Vygotsky, L. S. (1978). *Mind in Society: The Development of Higher Psychological Processes*. Harvard University Press.
+8. Mayer, R. E. (2009). *Multimedia Learning* (2nd ed.). Cambridge University Press.
 
-9. Webb, N. L. (1997). "Criteria for alignment of expectations and assessments in mathematics and science education." Council of Chief State School Officers.
+9. Sweller, J. (1988). "Cognitive load during problem solving." *Cognitive Science*, 12(2), 257-285.
 
-10. Beck, I. L., McKeown, M. G., & Kucan, L. (2002). *Bringing Words to Life: Robust Vocabulary Instruction*. Guilford Press.
+10. Vygotsky, L. S. (1978). *Mind in Society: The Development of Higher Psychological Processes*. Harvard University Press.
 
-11. Nagy, W. E., & Scott, J. A. (2000). "Vocabulary processes." In M. L. Kamil, P. B. Mosenthal, P. D. Pearson, & R. Barr (Eds.), *Handbook of reading research* (Vol. 3, pp. 269-284). Lawrence Erlbaum Associates.
+11. Wood, D., Bruner, J. S., & Ross, G. (1976). "The role of tutoring in problem solving." *Journal of Child Psychology and Psychiatry*, 17(2), 89-100.
 
-12. Nation, I. S. P. (2001). *Learning Vocabulary in Another Language*. Cambridge University Press.
+12. Webb, N. L. (1997). "Criteria for alignment of expectations and assessments in mathematics and science education." Council of Chief State School Officers.
 
-13. Schmitt, N. (2000). *Vocabulary in Language Teaching*. Cambridge University Press.
+13. Beck, I. L., McKeown, M. G., & Kucan, L. (2002). *Bringing Words to Life: Robust Vocabulary Instruction*. Guilford Press.
 
-14. Coxhead, A. (2000). "A new academic word list." *TESOL Quarterly*, 34(2), 213-238.
+14. Nagy, W. E., & Scott, J. A. (2000). "Vocabulary processes." In M. L. Kamil, P. B. Mosenthal, P. D. Pearson, & R. Barr (Eds.), *Handbook of reading research* (Vol. 3, pp. 269-284). Lawrence Erlbaum Associates.
+
+15. Nation, I. S. P. (2001). *Learning Vocabulary in Another Language*. Cambridge University Press.
+
+16. Schmitt, N. (2000). *Vocabulary in Language Teaching*. Cambridge University Press.
+
+17. Coxhead, A. (2000). "A new academic word list." *TESOL Quarterly*, 34(2), 213-238.
 
 ---
 

@@ -1,0 +1,16 @@
+{
+  "totalWords": 8873,
+  "gradeDistribution": {
+    "2": 35,
+    "3": 909,
+    "4": 662,
+    "5": 379,
+    "6": 3541,
+    "7": 970,
+    "8": 455,
+    "9": 1903,
+    "11": 19
+  },
+  "sqlFile": "scripts/update_all_grade_levels_1755923800401.sql",
+  "generatedAt": "2025-08-23T04:36:40.406Z"
+}
