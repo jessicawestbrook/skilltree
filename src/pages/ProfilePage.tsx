@@ -391,7 +391,18 @@ const ProfilePage: React.FC = () => {
       for (const nodeId of Array.from(allNodeIds)) {
         try {
           const path = await buildCategoryPath(nodeId)
-          paths[nodeId] = path ? `/${path}` : `/learning/${nodeId}`
+          const fullPath = path ? `/${path}` : `/learning/${nodeId}`
+          
+          // Check for duplicate segments in the path
+          const segments = fullPath.split('/').filter(s => s.length > 0)
+          const uniqueSegments = [...new Set(segments)]
+          if (segments.length !== uniqueSegments.length) {
+            console.warn(`Duplicate segments detected in path for ${nodeId}: ${fullPath}`)
+            // Use deduplicated path
+            paths[nodeId] = '/' + uniqueSegments.join('/')
+          } else {
+            paths[nodeId] = fullPath
+          }
         } catch (err) {
           console.error(`Error building path for node ${nodeId}:`, err)
           paths[nodeId] = `/learning/${nodeId}`
