@@ -153,7 +153,7 @@ const MegaMenu: React.FC = () => {
               categoryId={category.id}
               className="block group mb-3"
             >
-              <div className="flex items-center justify-between p-3 bg-neutral-100 dark:bg-neutral-800 rounded-lg hover:shadow-lg transition-all border border-neutral-200 dark:border-neutral-700 hover:border-neutral-300 dark:hover:border-neutral-600">
+              <div className="flex items-center justify-between p-3 bg-neutral-100 dark:bg-neutral-800 rounded-lg hover:shadow-lg transition-all border border-neutral-200 dark:border-neutral-700 hover:border-neutral-300 dark:hover:border-neutral-600 cursor-pointer">
                 <div>
                   <h3 className="text-lg font-bold text-primary-800 dark:text-primary-300 group-hover:text-primary-900 dark:group-hover:text-primary-200">
                     {category.name}
@@ -169,7 +169,7 @@ const MegaMenu: React.FC = () => {
                   <div key={child.id} className="border-l border-neutral-200 dark:border-neutral-700 pl-2 ml-1">
                     <CategoryLink
                       categoryId={child.id}
-                      className="block py-0.5 px-1 text-xs font-medium text-neutral-700 dark:text-neutral-300 hover:bg-neutral-50 dark:hover:bg-neutral-800 rounded transition-colors hover:text-primary-600 dark:hover:text-primary-400"
+                      className="block py-0.5 px-1 text-xs font-medium text-neutral-700 dark:text-neutral-300 hover:bg-neutral-50 dark:hover:bg-neutral-800 rounded transition-colors hover:text-primary-600 dark:hover:text-primary-400 cursor-pointer"
                     >
                       <div className="flex items-center gap-2">
                         <span className={`inline-block w-2 h-2 rounded-full flex-shrink-0 ${
@@ -193,7 +193,7 @@ const MegaMenu: React.FC = () => {
                           <CategoryLink
                             key={grandchild.id}
                             categoryId={grandchild.id}
-                            className="block py-0 px-1 text-xs text-neutral-500 dark:text-neutral-400 hover:text-primary-600 dark:hover:text-primary-400 transition-colors truncate"
+                            className="block py-0 px-1 text-xs text-neutral-500 dark:text-neutral-400 hover:text-primary-600 dark:hover:text-primary-400 transition-colors truncate cursor-pointer"
                           >
                             {grandchild.name}
                           </CategoryLink>
@@ -206,7 +206,7 @@ const MegaMenu: React.FC = () => {
                   <div className="pt-1 mt-1 border-t border-neutral-200 dark:border-neutral-700">
                     <CategoryLink
                       categoryId={category.id}
-                      className="block py-1 px-2 text-xs font-medium text-primary-600 hover:text-primary-700 dark:text-primary-400 dark:hover:text-primary-300 text-center"
+                      className="block py-1 px-2 text-xs font-medium text-primary-600 hover:text-primary-700 dark:text-primary-400 dark:hover:text-primary-300 text-center cursor-pointer"
                     >
                       View all {childNodes[category.id].directChildren.length} subcategories →
                     </CategoryLink>
@@ -221,7 +221,7 @@ const MegaMenu: React.FC = () => {
       <div className="mt-4 text-center">
         <Link 
           to="/learning-paths" 
-          className="inline-flex items-center gap-1 text-sm text-primary-600 hover:text-primary-700 dark:text-primary-400 dark:hover:text-primary-300 font-medium"
+          className="inline-flex items-center gap-1 text-sm text-primary-600 hover:text-primary-700 dark:text-primary-400 dark:hover:text-primary-300 font-medium cursor-pointer"
         >
           View Learning Paths
           <ChevronRightIcon className="h-4 w-4" />
