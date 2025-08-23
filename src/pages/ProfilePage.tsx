@@ -190,14 +190,8 @@ const ProfilePage: React.FC = () => {
           question,
           options,
           correct_answer,
-          explanation,
-          skill_id,
-          skill_tree_nodes!inner(
-            name,
-            learning_area
-          )
+          explanation
         `)
-        .in('node_id', nodeIds)
         .limit(5)
         .order('created_at', { ascending: false })
 
@@ -213,9 +207,9 @@ const ProfilePage: React.FC = () => {
           options: q.options,
           correct_answer: q.correct_answer,
           explanation: q.explanation,
-          skill_id: q.skill_id,
-          node_name: q.skill_tree_nodes?.name || 'Unknown Topic',
-          category: q.skill_tree_nodes?.learning_area || 'General'
+          skill_id: undefined,
+          node_name: 'Review Question',
+          category: 'General'
         }))
         setReviewQuestions(reviewQuestions)
       }
@@ -242,7 +236,7 @@ const ProfilePage: React.FC = () => {
         .from('user_progress')
         .select(`
           *,
-          skill_tree_nodes (
+          skill_tree_nodes!skill_id (
             id,
             name,
             learning_area,
