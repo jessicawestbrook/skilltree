@@ -43,6 +43,7 @@ const Layout: React.FC = () => {
       // Pre-fetch subcategories for all root categories to show chevrons immediately
       if (rootNodes && rootNodes.length > 0) {
         const subcategoriesData: Record<string, SkillTreeNode[]> = {}
+        const subSubcategoriesData: Record<string, SkillTreeNode[]> = {}
         
         for (const category of rootNodes) {
           const { data: childNodes } = await supabase
@@ -54,10 +55,25 @@ const Layout: React.FC = () => {
           
           if (childNodes && childNodes.length > 0) {
             subcategoriesData[category.id] = childNodes
+            
+            // Pre-fetch sub-subcategories for all subcategories
+            for (const subcategory of childNodes) {
+              const { data: grandchildNodes } = await supabase
+                .from('skill_tree_nodes')
+                .select('*')
+                .eq('parent_id', subcategory.id)
+                .order('display_order', { nullsFirst: false })
+                .order('name')
+              
+              if (grandchildNodes && grandchildNodes.length > 0) {
+                subSubcategoriesData[subcategory.id] = grandchildNodes
+              }
+            }
           }
         }
         
         setSubcategories(subcategoriesData)
+        setSubSubcategories(subSubcategoriesData)
       }
     } catch (error) {
       console.error('Error fetching subject categories:', error)
