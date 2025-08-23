@@ -287,9 +287,8 @@ const Layout: React.FC = () => {
                                       className="flex items-center justify-between px-3 py-1.5 text-sm text-neutral-700 dark:text-neutral-300 hover:bg-neutral-100 dark:hover:bg-neutral-700 transition-colors"
                                     >
                                       <span>{subcategory.name}</span>
-                                      {subSubcategories[subcategory.id] && subSubcategories[subcategory.id].length > 0 && (
-                                        <ChevronDownIcon className="h-4 w-4 -rotate-90 text-neutral-400 dark:text-neutral-500 flex-shrink-0 ml-1" />
-                                      )}
+                                      {/* Always show chevron for better UX */}
+                                      <ChevronDownIcon className="h-4 w-4 -rotate-90 text-primary-500 dark:text-primary-400 flex-shrink-0 ml-1" />
                                     </CategoryLink>
                                   </div>
                                   
