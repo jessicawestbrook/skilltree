@@ -24,7 +24,7 @@ Search bar to easily find content categories, learning content, and questions. D
 Add a feedback system, with different categories of feedback the user can select from, such as bug reports or learning content requests. Create an admin page for responding to the requests as well as a messaging history so users can see admin responses. Link the feedback system in the top menu. Add ability for user to flag content or questions that have issues.
 
 ### Admin
-Make it so only admin users can see the admin dashboard. 
+Make it so only admin users can see the admin dashboard. Make field to mark learning categories to hide it and all its children from users. Make this updatable in the admin section.
 
 ## Specs
 

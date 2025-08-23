@@ -73,8 +73,8 @@ class RecommendationService {
 
     let maxScore = 0
     const nodeName = node.name.toLowerCase()
-    const nodeLearningArea = node.learning_area?.toLowerCase() || ''
-    const nodeContent = `${nodeName} ${nodeLearningArea}`
+    const nodeDescription = node.description?.toLowerCase() || ''
+    const nodeContent = `${nodeName} ${nodeDescription}`
 
     // Check each user interest against the node
     for (const interest of interestLevels) {
@@ -147,15 +147,11 @@ class RecommendationService {
       }
     }
 
-    // Check if node's type or path matches starred categories
+    // Check if node name matches starred categories
     let score = 0
-    if (starredCategories.has(node.type)) {
-      score += 0.5
-    }
-    
-    const nodePath = node.path?.split('/') || []
-    const matchingPaths = nodePath.filter(part => starredCategories.has(part))
-    score += (matchingPaths.length / nodePath.length) * 0.5
+    const nodeNameParts = node.name.toLowerCase().split(/[\s-_]+/)
+    const matchingParts = nodeNameParts.filter((part: string) => starredCategories.has(part))
+    score += Math.min(matchingParts.length * 0.3, 0.5)
 
     return Math.min(score, 1.0)
   }
@@ -227,21 +223,21 @@ class RecommendationService {
       // Get goal node
       const { data: goalNode } = await supabase
         .from('skill_tree_nodes')
-        .select('path')
+        .select('name, parent_id')
         .eq('id', goalId)
         .single()
 
       if (goalNode) {
-        // Check if current node is on path to goal
-        const goalPath = goalNode.path?.split('/') || []
-        const nodePath = node.path?.split('/') || []
+        // Check if current node is related to goal
+        const goalName = goalNode.name.toLowerCase()
+        const nodeName = node.name.toLowerCase()
         
-        // Calculate path overlap
-        const commonPath = nodePath.filter((part, index) => 
-          index < goalPath.length && goalPath[index] === part
+        // Calculate name similarity
+        const commonWords = nodeName.split(/[\s-_]+/).filter((part: string) => 
+          goalName.includes(part) && part.length > 3
         )
         
-        const efficiency = commonPath.length / Math.max(nodePath.length, 1)
+        const efficiency = commonWords.length > 0 ? 0.5 : 0
         maxEfficiency = Math.max(maxEfficiency, efficiency)
       }
     }

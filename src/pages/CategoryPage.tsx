@@ -496,57 +496,40 @@ const CategoryPage: React.FC = () => {
         </div>
       </div>
 
-      {/* Learning Flow Section */}
-      {stats.withContent > 0 && (
-        <div className="bg-white dark:bg-neutral-800 rounded-xl shadow-lg p-6 mb-6">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center gap-4">
-              <div className="p-3 bg-primary-100 dark:bg-primary-900/30 rounded-lg">
-                <BookOpenIcon className="h-8 w-8 text-primary-600 dark:text-primary-400" />
-              </div>
-              <div>
-                <h2 className="text-xl font-bold text-neutral-900 dark:text-white">
-                  Study Content First
-                </h2>
-                <p className="text-neutral-600 dark:text-neutral-400">
-                  Learn {category.name} through interactive content before testing your knowledge
-                </p>
-              </div>
-            </div>
-            <Link
-              to={`/learning/${resolvedCategoryId}`}
-              className="px-6 py-3 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition-colors flex items-center gap-2 font-medium"
-            >
-              <BookOpenIcon className="h-5 w-5" />
-              Start Learning Flow
-            </Link>
-          </div>
-        </div>
-      )}
-
-      {/* Adaptive Assessment */}
+      {/* Learning and Assessment Section */}
       <div className="bg-white dark:bg-neutral-800 rounded-xl shadow-lg p-6 mb-6">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-4">
-            <div className="p-3 bg-gold-100 dark:bg-gold-900/30 rounded-lg">
-              <TrophyIcon className="h-8 w-8 text-gold-600 dark:text-gold-400" />
+            <div className="p-3 bg-primary-100 dark:bg-primary-900/30 rounded-lg">
+              <BookOpenIcon className="h-8 w-8 text-primary-600 dark:text-primary-400" />
             </div>
             <div>
               <h2 className="text-xl font-bold text-neutral-900 dark:text-white">
-                Rate Your Knowledge
+                Learn & Test Your Knowledge
               </h2>
               <p className="text-neutral-600 dark:text-neutral-400">
-                Take an adaptive assessment to earn points and demonstrate your skills in {category.name}
+                Study {category.name} content or take an adaptive assessment to demonstrate your skills
               </p>
             </div>
           </div>
-          <button
-            onClick={() => setShowAdaptiveAssessment(true)}
-            className="px-6 py-3 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition-colors flex items-center gap-2 font-medium"
-          >
-            <BoltIcon className="h-5 w-5" />
-            Start Assessment
-          </button>
+          <div className="flex items-center gap-3">
+            <button
+              onClick={() => setShowAdaptiveAssessment(true)}
+              className="px-6 py-3 bg-neutral-200 dark:bg-neutral-700 text-neutral-800 dark:text-neutral-200 rounded-lg hover:bg-neutral-300 dark:hover:bg-neutral-600 transition-colors flex items-center gap-2 font-medium"
+            >
+              <BoltIcon className="h-5 w-5" />
+              Start Assessment
+            </button>
+            {stats.withContent > 0 && (
+              <Link
+                to={`/learning/${resolvedCategoryId}`}
+                className="px-6 py-3 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition-colors flex items-center gap-2 font-medium"
+              >
+                <BookOpenIcon className="h-5 w-5" />
+                Start Learning
+              </Link>
+            )}
+          </div>
         </div>
         
         <div className="mt-4 grid grid-cols-1 md:grid-cols-3 gap-4">

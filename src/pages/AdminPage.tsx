@@ -9,11 +9,13 @@ import {
   FunnelIcon,
   LinkIcon,
   DocumentTextIcon,
-  UsersIcon
+  UsersIcon,
+  EyeSlashIcon
 } from '@heroicons/react/24/outline'
 import { Link } from 'react-router-dom'
 import SourceURLManager from '../components/SourceURLManager'
 import AdminUserManager from '../components/AdminUserManager'
+import HiddenNodesManager from '../components/HiddenNodesManager'
 
 interface FeedbackItem {
   id: string
@@ -40,7 +42,7 @@ interface ContentFlag {
 }
 
 const AdminPage: React.FC = () => {
-  const [activeTab, setActiveTab] = useState<'feedback' | 'flags' | 'sources' | 'users'>('feedback')
+  const [activeTab, setActiveTab] = useState<'feedback' | 'flags' | 'sources' | 'users' | 'visibility'>('feedback')
   const [feedbackItems, setFeedbackItems] = useState<FeedbackItem[]>([])
   const [contentFlags, setContentFlags] = useState<ContentFlag[]>([])
   const [filterStatus, setFilterStatus] = useState<string>('all')
@@ -233,10 +235,21 @@ const AdminPage: React.FC = () => {
           <UsersIcon className="h-5 w-5 inline mr-2" />
           User Management
         </button>
+        <button
+          onClick={() => setActiveTab('visibility')}
+          className={`pb-2 px-1 font-medium transition-colors ${
+            activeTab === 'visibility'
+              ? 'text-primary-600 border-b-2 border-primary-600'
+              : 'text-neutral-600 dark:text-neutral-400 hover:text-primary-600'
+          }`}
+        >
+          <EyeSlashIcon className="h-5 w-5 inline mr-2" />
+          Node Visibility
+        </button>
       </div>
 
       {/* Filter */}
-      {activeTab !== 'sources' && activeTab !== 'users' && (
+      {activeTab !== 'sources' && activeTab !== 'users' && activeTab !== 'visibility' && (
         <div className="flex items-center gap-4 mb-6">
           <FunnelIcon className="h-5 w-5 text-neutral-500" />
           <select
@@ -257,6 +270,8 @@ const AdminPage: React.FC = () => {
         <SourceURLManager />
       ) : activeTab === 'users' ? (
         <AdminUserManager />
+      ) : activeTab === 'visibility' ? (
+        <HiddenNodesManager />
       ) : (
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* List */}

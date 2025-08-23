@@ -37,6 +37,7 @@ import StudyListsPage from './pages/StudyListsPage'
 import TestPage from './pages/TestPage'
 import NotificationsPage from './pages/NotificationsPage'
 import AboutPage from './pages/AboutPage'
+import ReviewFlashcardsPage from './pages/ReviewFlashcardsPage'
 import ProtectedRoute from './components/ProtectedRoute'
 import AdminRoute from './components/AdminRoute'
 
@@ -101,6 +102,14 @@ function App() {
                 element={
                   <ProtectedRoute>
                     <StudyListsPage />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="review"
+                element={
+                  <ProtectedRoute>
+                    <ReviewFlashcardsPage />
                   </ProtectedRoute>
                 }
               />

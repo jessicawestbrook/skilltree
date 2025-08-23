@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react'
 import { supabase } from '../services/supabase'
+import { spacedRepetitionService } from '../services/spacedRepetitionService'
 import { useAuth } from '../contexts/AuthContext'
 import { useSpellingBee } from '../contexts/SpellingBeeContext'
 import { checkSpellingBeeTables, createSpellingBeeTables } from '../utils/createSpellingBeeTables'
@@ -515,6 +516,16 @@ const VocabularyTrainerPage: React.FC = () => {
 
     // Save attempt if user is logged in
     if (user) {
+      // Add this vocabulary word to flashcard review
+      try {
+        await spacedRepetitionService.addFlashcardsToReview(user.id, [{
+          id: currentQuestion.word.id,
+          type: 'vocabulary'
+        }])
+      } catch (error) {
+        console.error('Error adding vocabulary to flashcard review:', error)
+      }
+      
       // First create vocabulary attempts table if it doesn't exist
       await supabase.rpc('exec_sql', {
         sql: `

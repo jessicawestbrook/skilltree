@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react'
 import { supabase } from '../services/supabase'
+import { spacedRepetitionService } from '../services/spacedRepetitionService'
 import { useAuth } from '../contexts/AuthContext'
 import { 
   CheckCircleIcon, 
@@ -369,6 +370,16 @@ const LanguageTrainerPage: React.FC = () => {
 
     // Record the attempt if user is logged in
     if (user) {
+      // Add this language question to flashcard review
+      try {
+        await spacedRepetitionService.addFlashcardsToReview(user.id, [{
+          id: currentQuestion.id,
+          type: 'language'
+        }])
+      } catch (error) {
+        console.error('Error adding language question to flashcard review:', error)
+      }
+      
       await recordAttempt(currentQuestion.id, selectedAnswer, correct)
     }
   }

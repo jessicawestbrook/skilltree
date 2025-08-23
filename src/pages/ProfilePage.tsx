@@ -5,7 +5,9 @@ import { supabase } from '../services/supabase'
 import { studyListService } from '../services/studyListService'
 import { UserProgress, StudyList } from '../types/database.types'
 import { recommendationService, RecommendationScore } from '../services/recommendationService'
+import { spacedRepetitionService } from '../services/spacedRepetitionService'
 import { buildCategoryPath } from '../utils/categoryPaths'
+import InteractiveFlashcardReview from '../components/InteractiveFlashcardReview'
 import { 
   TrophyIcon, 
   ClockIcon, 
@@ -13,14 +15,10 @@ import {
   ChartBarIcon,
   RocketLaunchIcon,
   HeartIcon,
-  AcademicCapIcon,
   ArrowRightIcon,
   QuestionMarkCircleIcon,
   CheckCircleIcon,
   XCircleIcon,
-  ChevronLeftIcon,
-  ChevronRightIcon,
-  ArrowPathIcon
 } from '@heroicons/react/24/outline'
 import { StarIcon as StarSolidIcon } from '@heroicons/react/24/solid'
 
@@ -49,13 +47,26 @@ interface ReviewQuestion {
 
 interface Flashcard {
   id: string
-  type: 'vocabulary' | 'spelling' | 'language' | 'question'
-  front: string
-  back: string
-  details?: string
+  type: 'vocabulary' | 'spelling' | 'language' | 'question' | 'skill_node'
+  // Question/Assessment format
+  question?: string
+  options?: string[]
+  correct_answer?: string
+  correct_answer_index?: number
+  explanation?: string
+  // Vocabulary/Spelling format  
+  word?: string
+  definition?: string
+  part_of_speech?: string
+  pronunciation?: string
+  example_sentence?: string
+  // Language format
+  language?: string
+  hint?: string
+  // General
   difficulty?: string
   category?: string
-  isFlipped?: boolean
+  estimated_time_seconds?: number
 }
 
 const ProfilePage: React.FC = () => {
@@ -69,8 +80,9 @@ const ProfilePage: React.FC = () => {
   const [showingAnswer, setShowingAnswer] = useState<string | null>(null)
   const [selectedAnswers, setSelectedAnswers] = useState<Record<string, string>>({})
   const [flashcards, setFlashcards] = useState<Flashcard[]>([])
-  const [currentFlashcardIndex, setCurrentFlashcardIndex] = useState(0)
-  const [flippedCards, setFlippedCards] = useState<Set<string>>(new Set())
+  const [dueFlashcards, setDueFlashcards] = useState<Flashcard[]>([])
+  const [useSpacedRepetition, setUseSpacedRepetition] = useState(true)
+  const [loadedCardIds, setLoadedCardIds] = useState<Set<string>>(new Set())
   const [stats, setStats] = useState<DashboardStats>({
     completedLessons: 0,
     averageRating: 0,
@@ -81,18 +93,114 @@ const ProfilePage: React.FC = () => {
   })
   const [loading, setLoading] = useState(true)
 
-  const fetchFlashcards = async () => {
+  const fetchFlashcards = async (append: boolean = false) => {
+    try {
+      if (!user) return
+      
+      // Fetch due flashcards using spaced repetition
+      if (useSpacedRepetition) {
+        const dueSessions = await spacedRepetitionService.getDueFlashcards(
+          user.id,
+          100 // Get more cards for continuous review
+        )
+        
+        // Filter out already loaded cards if appending
+        const filteredSessions = append 
+          ? dueSessions.filter(s => !loadedCardIds.has(s.flashcard?.id || ''))
+          : dueSessions
+        
+        const dueCards: Flashcard[] = filteredSessions.map(session => {
+          const card = session.flashcard
+          let flashcard: Flashcard
+          
+          if (session.review?.flashcard_type === 'vocabulary' || session.review?.flashcard_type === 'spelling') {
+            flashcard = {
+              id: card.id,
+              type: session.review.flashcard_type,
+              word: card.word,
+              definition: card.definition,
+              part_of_speech: card.part_of_speech,
+              pronunciation: card.pronunciation,
+              example_sentence: card.example_sentence,
+              difficulty: card.difficulty,
+              category: session.review.flashcard_type === 'vocabulary' ? 'Vocabulary' : 'Spelling'
+            }
+          } else if (session.review?.flashcard_type === 'question') {
+            flashcard = {
+              id: card.id,
+              type: 'question',
+              question: card.question || card.question_text,
+              options: card.options,
+              correct_answer: card.correct_answer,
+              explanation: card.explanation,
+              difficulty: card.difficulty,
+              estimated_time_seconds: card.estimated_time_seconds,
+              category: 'Review Question'
+            }
+          } else if (session.review?.flashcard_type === 'language') {
+            flashcard = {
+              id: card.id,
+              type: 'language',
+              question: card.question || card.prompt,
+              options: card.options,
+              correct_answer_index: card.correct_answer_index,
+              explanation: card.explanation,
+              language: card.language,
+              category: card.category || 'Language',
+              hint: card.hint
+            }
+          } else {
+            flashcard = {
+              id: card.id || `${session.review?.flashcard_id}`,
+              type: session.review?.flashcard_type || 'question',
+              question: card.name || card.question || 'Review Card',
+              correct_answer: card.description || card.answer || 'No content',
+              category: session.review?.flashcard_type || 'Review'
+            }
+          }
+          
+          return flashcard
+        })
+        
+        // Update loaded card IDs
+        const newCardIds = new Set(loadedCardIds)
+        dueCards.forEach(card => newCardIds.add(card.id))
+        setLoadedCardIds(newCardIds)
+        
+        if (append) {
+          setDueFlashcards(prev => [...prev, ...dueCards])
+          setFlashcards(prev => [...prev, ...dueCards])
+        } else {
+          setDueFlashcards(dueCards)
+          setFlashcards(dueCards)
+        }
+        
+        // If no due cards, fall back to regular flashcards
+        if (dueCards.length === 0 && !append) {
+          await fetchRegularFlashcards(append)
+        }
+      } else {
+        await fetchRegularFlashcards(append)
+      }
+    } catch (error) {
+      console.error('Error fetching flashcards:', error)
+      // Fall back to regular flashcards on error
+      await fetchRegularFlashcards()
+    }
+  }
+  
+  const fetchRegularFlashcards = async (append: boolean = false) => {
     try {
       if (!user) return
       
       const flashcardsList: Flashcard[] = []
       
-      // Fetch some vocabulary words
+      // Fetch vocabulary words
       const { data: vocabWords, error: vocabError } = await supabase
         .from('spelling_words')
         .select('*')
         .not('definition', 'is', null)
-        .limit(3)
+        .limit(20)
         .order('created_at', { ascending: false })
       
       if (!vocabError && vocabWords) {
@@ -100,21 +208,23 @@ const ProfilePage: React.FC = () => {
           flashcardsList.push({
             id: `vocab-${word.id}`,
             type: 'vocabulary',
-            front: word.word,
-            back: word.definition || 'No definition available',
-            details: word.part_of_speech,
+            word: word.word,
+            definition: word.definition || 'No definition available',
+            part_of_speech: word.part_of_speech,
+            pronunciation: word.pronunciation,
+            example_sentence: word.example_sentence,
             difficulty: word.difficulty,
             category: 'Vocabulary'
           })
         })
       }
       
-      // Fetch some spelling words  
+      // Fetch spelling words  
       const { data: spellingWords, error: spellingError } = await supabase
         .from('spelling_words')
         .select('*')
         .is('definition', null)
-        .limit(2)
+        .limit(15)
         .order('created_at', { ascending: false })
       
       if (!spellingError && spellingWords) {
@@ -122,40 +232,53 @@ const ProfilePage: React.FC = () => {
           flashcardsList.push({
             id: `spelling-${word.id}`,
             type: 'spelling',
-            front: 'Spell this word',
-            back: word.word,
+            word: word.word,
+            definition: word.definition,
+            pronunciation: word.pronunciation,
             difficulty: word.difficulty,
             category: 'Spelling'
           })
         })
       }
       
-      // Fetch some questions from user's progress
+      // Fetch questions from user's progress
       if (recentProgress.length > 0) {
-        const nodeIds = recentProgress.slice(0, 2).map(p => p.skill_id)
+        const nodeIds = recentProgress.slice(0, 5).map(p => p.skill_id)
         const { data: questions, error: questionsError } = await supabase
           .from('questions')
           .select('*')
           .in('skill_id', nodeIds)
-          .limit(2)
+          .limit(15)
         
         if (!questionsError && questions) {
           questions.forEach(q => {
             flashcardsList.push({
               id: `question-${q.id}`,
               type: 'question',
-              front: q.question,
-              back: q.correct_answer || 'No answer available',
-              details: q.explanation,
+              question: q.question,
+              options: q.options,
+              correct_answer: q.correct_answer,
+              explanation: q.explanation,
+              difficulty: q.difficulty,
+              estimated_time_seconds: q.estimated_time_seconds,
               category: 'Review Question'
             })
           })
         }
       }
       
-      setFlashcards(flashcardsList)
+      // Update loaded card IDs
+      const newCardIds = new Set(loadedCardIds)
+      flashcardsList.forEach(card => newCardIds.add(card.id))
+      setLoadedCardIds(newCardIds)
+      
+      if (append) {
+        setFlashcards(prev => [...prev, ...flashcardsList])
+      } else {
+        setFlashcards(flashcardsList)
+      }
     } catch (error) {
-      console.error('Error fetching flashcards:', error)
+      console.error('Error fetching regular flashcards:', error)
     }
   }
 
@@ -494,32 +617,8 @@ const ProfilePage: React.FC = () => {
     setShowingAnswer(showingAnswer === questionId ? null : questionId)
   }
   
-  const flipCard = (cardId: string) => {
-    setFlippedCards(prev => {
-      const newSet = new Set(prev)
-      if (newSet.has(cardId)) {
-        newSet.delete(cardId)
-      } else {
-        newSet.add(cardId)
-      }
-      return newSet
-    })
-  }
-  
-  const nextFlashcard = () => {
-    if (currentFlashcardIndex < flashcards.length - 1) {
-      setCurrentFlashcardIndex(prev => prev + 1)
-    } else {
-      setCurrentFlashcardIndex(0) // Loop back to start
-    }
-  }
-  
-  const previousFlashcard = () => {
-    if (currentFlashcardIndex > 0) {
-      setCurrentFlashcardIndex(prev => prev - 1)
-    } else {
-      setCurrentFlashcardIndex(flashcards.length - 1) // Loop to end
-    }
+  const loadMoreFlashcards = () => {
+    fetchFlashcards(true) // Append more cards
   }
 
   const getProgressColor = (status: string) => {
@@ -558,7 +657,7 @@ const ProfilePage: React.FC = () => {
       </div>
 
       {/* Stats Grid */}
-      <div className="grid md:grid-cols-3 lg:grid-cols-6 gap-4">
+      <div className="grid md:grid-cols-3 lg:grid-cols-5 gap-4">
         <div className="bg-white dark:bg-neutral-800 rounded-xl shadow-lg p-4 border border-neutral-200 dark:border-neutral-700">
           <div className="flex items-center justify-between">
             <div>
@@ -608,18 +707,6 @@ const ProfilePage: React.FC = () => {
             <BookOpenIcon className="h-8 w-8 text-blue-600" />
           </div>
         </div>
-
-        <div className="bg-white dark:bg-neutral-800 rounded-xl shadow-lg p-4 border border-neutral-200 dark:border-neutral-700">
-          <div className="flex items-center justify-between">
-            <div>
-              <p className="text-sm text-neutral-600 dark:text-neutral-400">Email</p>
-              <p className="text-xs font-medium truncate text-neutral-700 dark:text-neutral-300">
-                {user?.email?.split('@')[0]}
-              </p>
-            </div>
-            <AcademicCapIcon className="h-8 w-8 text-primary-600" />
-          </div>
-        </div>
       </div>
 
       {/* Interest-Based Quick Recommendations */}
@@ -655,7 +742,7 @@ const ProfilePage: React.FC = () => {
                   )}
                   <div className="flex items-center justify-between">
                     <span className="text-xs text-neutral-500">
-                      {node.learning_area}
+                      Learning Module
                     </span>
                     <ArrowRightIcon className="h-3 w-3 text-primary-500" />
                   </div>
@@ -790,19 +877,28 @@ const ProfilePage: React.FC = () => {
             )}
           </div>
 
-          {/* Flashcard Review Box */}
+          {/* Flashcard Review Box with Spaced Repetition */}
           <div className="bg-white dark:bg-neutral-800 rounded-xl shadow-lg p-4 border border-neutral-200 dark:border-neutral-700">
             <div className="flex items-center justify-between mb-3">
-              <h3 className="text-lg font-semibold text-neutral-900 dark:text-white">Quick Review</h3>
+              <h3 className="text-lg font-semibold text-neutral-900 dark:text-white">Smart Review</h3>
               <div className="flex items-center gap-2">
+                <button
+                  onClick={() => {
+                    setUseSpacedRepetition(!useSpacedRepetition)
+                    fetchFlashcards()
+                  }}
+                  className={`text-xs px-2 py-1 rounded ${useSpacedRepetition ? 'bg-primary-100 text-primary-700 dark:bg-primary-900/30 dark:text-primary-400' : 'bg-neutral-100 text-neutral-600 dark:bg-neutral-700 dark:text-neutral-400'}`}
+                >
+                  {useSpacedRepetition ? 'Spaced' : 'Random'}
+                </button>
                 <span className="text-xs text-neutral-500">
-                  {flashcards.length > 0 ? `${currentFlashcardIndex + 1}/${flashcards.length}` : '0/0'}
+                  {flashcards.length > 0 ? `${flashcards.length} cards` : '0 cards'}
                 </span>
                 <Link 
-                  to="/vocabulary-trainer" 
+                  to="/review" 
                   className="text-primary-600 hover:text-primary-700 text-xs font-medium"
                 >
-                  Study All
+                  Full Review
                 </Link>
               </div>
             </div>
@@ -811,85 +907,37 @@ const ProfilePage: React.FC = () => {
               <div className="text-center py-8">
                 <BookOpenIcon className="h-8 w-8 text-neutral-400 mx-auto mb-2" />
                 <p className="text-sm text-neutral-600 dark:text-neutral-400">
-                  No flashcards available yet
+                  {useSpacedRepetition ? 'No cards due for review' : 'No flashcards available yet'}
                 </p>
                 <p className="text-xs text-neutral-500 mt-1">
-                  Start learning to see review cards here
+                  {useSpacedRepetition ? 'Great job! All caught up!' : 'Start learning to see review cards here'}
                 </p>
-              </div>
-            ) : (
-              <div className="space-y-3">
-                {/* Current Flashcard */}
-                <div 
-                  className="relative h-48 cursor-pointer perspective-1000"
-                  onClick={() => flipCard(flashcards[currentFlashcardIndex].id)}
+                <Link
+                  to="/review"
+                  className="inline-flex items-center gap-2 mt-4 px-4 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition-colors text-sm"
                 >
-                  <div className={`absolute inset-0 w-full h-full transition-transform duration-500 transform-style-preserve-3d ${
-                    flippedCards.has(flashcards[currentFlashcardIndex].id) ? 'rotate-y-180' : ''
-                  }`}>
-                    {/* Front of card */}
-                    <div className="absolute inset-0 w-full h-full backface-hidden rounded-lg bg-gradient-to-br from-primary-50 to-gold-50 dark:from-primary-900/20 dark:to-gold-900/20 border border-primary-200 dark:border-primary-700 p-4 flex flex-col justify-center items-center text-center">
-                      <span className="text-xs text-primary-600 dark:text-primary-400 mb-2">
-                        {flashcards[currentFlashcardIndex].category}
-                      </span>
-                      <p className="text-base font-medium text-neutral-800 dark:text-neutral-200">
-                        {flashcards[currentFlashcardIndex].front}
-                      </p>
-                      {flashcards[currentFlashcardIndex].difficulty && (
-                        <span className="text-xs text-neutral-500 mt-2">
-                          Difficulty: {flashcards[currentFlashcardIndex].difficulty}
-                        </span>
-                      )}
-                      <ArrowPathIcon className="h-4 w-4 text-neutral-400 mt-3" />
-                    </div>
-                    
-                    {/* Back of card */}
-                    <div className="absolute inset-0 w-full h-full backface-hidden rotate-y-180 rounded-lg bg-gradient-to-br from-gold-50 to-primary-50 dark:from-gold-900/20 dark:to-primary-900/20 border border-gold-200 dark:border-gold-700 p-4 flex flex-col justify-center items-center text-center">
-                      <p className="text-lg font-semibold text-neutral-800 dark:text-neutral-200">
-                        {flashcards[currentFlashcardIndex].back}
-                      </p>
-                      {flashcards[currentFlashcardIndex].details && (
-                        <p className="text-xs text-neutral-600 dark:text-neutral-400 mt-2">
-                          {flashcards[currentFlashcardIndex].details}
-                        </p>
-                      )}
-                    </div>
-                  </div>
-                </div>
-                
-                {/* Navigation Controls */}
-                <div className="flex items-center justify-between">
-                  <button
-                    onClick={previousFlashcard}
-                    className="p-2 rounded-lg bg-neutral-100 dark:bg-neutral-700 hover:bg-neutral-200 dark:hover:bg-neutral-600 transition-colors"
-                    disabled={flashcards.length === 0}
-                  >
-                    <ChevronLeftIcon className="h-4 w-4 text-neutral-600 dark:text-neutral-300" />
-                  </button>
-                  
-                  <div className="flex gap-1">
-                    {flashcards.map((_, index) => (
-                      <button
-                        key={index}
-                        onClick={() => setCurrentFlashcardIndex(index)}
-                        className={`w-2 h-2 rounded-full transition-colors ${
-                          index === currentFlashcardIndex 
-                            ? 'bg-primary-600' 
-                            : 'bg-neutral-300 dark:bg-neutral-600'
-                        }`}
-                      />
-                    ))}
-                  </div>
-                  
-                  <button
-                    onClick={nextFlashcard}
-                    className="p-2 rounded-lg bg-neutral-100 dark:bg-neutral-700 hover:bg-neutral-200 dark:hover:bg-neutral-600 transition-colors"
-                    disabled={flashcards.length === 0}
-                  >
-                    <ChevronRightIcon className="h-4 w-4 text-neutral-600 dark:text-neutral-300" />
-                  </button>
-                </div>
+                  <ArrowRightIcon className="h-4 w-4" />
+                  Go to Full Review
+                </Link>
               </div>
+            ) : useSpacedRepetition && dueFlashcards.length > 0 ? (
+              <InteractiveFlashcardReview
+                flashcards={dueFlashcards}
+                onComplete={() => {
+                  fetchFlashcards() // Refresh after completion
+                }}
+                onLoadMore={loadMoreFlashcards}
+                className="-m-4"
+              />
+            ) : (
+              <InteractiveFlashcardReview
+                flashcards={flashcards}
+                onComplete={() => {
+                  fetchFlashcards() // Refresh after completion
+                }}
+                onLoadMore={loadMoreFlashcards}
+                className="-m-4"
+              />
             )}
           </div>
         </div>

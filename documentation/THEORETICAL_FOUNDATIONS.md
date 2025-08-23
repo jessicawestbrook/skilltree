@@ -762,6 +762,134 @@ Following Scripps National Spelling Bee format:
 - **Difficulty progression** based on word frequency data
 - **Memory techniques** in feedback (mnemonics, word roots)
 
+## Spaced Repetition Algorithm for Flashcard Review
+
+### Theoretical Foundation
+
+The spaced repetition system is based on established memory research and cognitive psychology principles:
+
+1. **Ebbinghaus Forgetting Curve (1885)**: Memory retention decreases exponentially over time without review
+2. **SuperMemo SM-2 Algorithm (Wozniak, 1987)**: Adaptive interval scheduling based on performance
+3. **Leitner System**: Progressive difficulty boxes with graduated intervals
+4. **Testing Effect (Roediger & Karpicke, 2006)**: Active recall strengthens memory more than passive review
+
+### Algorithm Design
+
+#### Core Components
+
+The spaced repetition algorithm uses a modified SM-2 approach optimized for educational content:
+
+```typescript
+interface FlashcardReview {
+  easiness_factor: number;    // 1.3 to 2.5 (difficulty measure)
+  interval_days: number;       // Days until next review
+  consecutive_correct: number; // Streak counter
+  review_count: number;        // Total review sessions
+  last_reviewed: Date;         // Last review timestamp
+  next_review: Date;           // Scheduled review date
+}
+```
+
+#### Interval Calculation
+
+The algorithm calculates review intervals based on:
+
+1. **Quality of Response** (0-5 scale):
+   - 0: Complete blackout
+   - 1: Incorrect, no recognition
+   - 2: Incorrect, but familiar
+   - 3: Correct with serious difficulty
+   - 4: Correct with some hesitation
+   - 5: Perfect recall
+
+2. **Easiness Factor Update**:
+   ```
+   EF' = EF + (0.1 - (5 - q) * (0.08 + (5 - q) * 0.02))
+   ```
+   Where q is quality rating, constrained to [1.3, 2.5]
+
+3. **Interval Progression**:
+   - First review: 1 day
+   - Second review: 6 days
+   - Subsequent: I(n) = I(n-1) * EF
+   - Maximum interval: 180 days (6 months)
+
+#### Priority Scheduling
+
+Review priority is calculated using multiple factors:
+
+```typescript
+priority = 100
+  + min(daysPastDue * 10, 50)           // Overdue bonus (capped)
+  + (1 - successRate) * 30              // Difficulty bonus
+  + (2.5 - easinessFactor) * 20         // Hard card bonus
+  + (reviewCount < 5 ? (5 - reviewCount) * 5 : 0)  // New card bonus
+```
+
+### Implementation Specifications
+
+#### Database Schema
+
+**user_flashcard_reviews** table:
+- Tracks individual flashcard scheduling per user
+- Stores performance metrics (easiness, interval, streaks)
+- Supports multiple flashcard types (vocabulary, spelling, questions, etc.)
+- Unique constraint on (user_id, flashcard_id, flashcard_type)
+
+**flashcard_review_history** table:
+- Records each review attempt for analytics
+- Tracks quality ratings, time taken, hint usage
+- Enables learning curve analysis
+
+#### Review Categories
+
+Flashcards are categorized based on their review status:
+
+1. **New Cards**: Never reviewed (review_count = 0)
+2. **Learning Cards**: In initial acquisition phase (interval < 21 days)
+3. **Mature Cards**: Well-established in memory (interval ≥ 21 days)
+4. **Due Cards**: Ready for review (next_review ≤ now + grace_period)
+5. **Overdue Cards**: Past optimal review time (next_review < now)
+
+#### Grace Period
+
+A 4-hour grace period allows slight flexibility in review timing while maintaining optimal spacing.
+
+### Pedagogical Benefits
+
+1. **Optimized Memory Retention**: Reviews timed at forgetting threshold maximize encoding strength
+2. **Efficient Time Use**: Focuses review on cards most needing attention
+3. **Reduced Cognitive Load**: Graduated intervals prevent overwhelming learners
+4. **Personalized Difficulty**: Adapts to individual card difficulty automatically
+5. **Motivation Through Progress**: Visible progression from learning to mature cards
+
+### Integration with Learning System
+
+The spaced repetition system integrates with existing components:
+
+1. **ProfilePage**: Displays due flashcards with review interface
+2. **Study Lists**: Can be converted to spaced repetition decks
+3. **Question Tracking**: Shares review history with test question selection
+4. **Learning Analytics**: Provides retention metrics and learning curves
+
+### Performance Metrics
+
+Track system effectiveness through:
+
+1. **Retention Rate**: Percentage of mature cards retained over time
+2. **Learning Velocity**: Average time to reach mature status
+3. **Review Efficiency**: Average reviews per card to achieve mastery
+4. **Forgetting Index**: Frequency of lapses in mature cards
+5. **Optimal Interval Accuracy**: Correlation between predicted and actual retention
+
+### Future Enhancements
+
+1. **Machine Learning Optimization**: Use neural networks to predict optimal intervals
+2. **Context-Aware Scheduling**: Adjust intervals based on topic relationships
+3. **Multi-Modal Review**: Different algorithms for visual vs. verbal content
+4. **Social Calibration**: Use aggregated user data to refine difficulty ratings
+5. **Interference Mitigation**: Schedule reviews to minimize similar item confusion
+
 ## References
 
 1. Ausubel, D. P. (1968). *Educational Psychology: A Cognitive View*. Holt, Rinehart and Winston.

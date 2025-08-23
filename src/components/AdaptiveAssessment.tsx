@@ -6,6 +6,7 @@ import {
   AssessmentSession, 
   QuestionResponse 
 } from '../services/adaptiveAssessmentService'
+import { spacedRepetitionService } from '../services/spacedRepetitionService'
 import {
   CheckCircleIcon,
   XCircleIcon,
@@ -79,10 +80,23 @@ const AdaptiveAssessment: React.FC<AdaptiveAssessmentProps> = ({
   }
 
   const completeAssessment = useCallback(async () => {
-    if (!state.session) return
+    if (!state.session || !user) return
 
     try {
       const completedSession = await AdaptiveAssessmentService.completeAssessment(state.session.id)
+      
+      // Add all questions from this assessment to the user's flashcard review
+      if (completedSession && state.responses.length > 0) {
+        const flashcardsToAdd = state.responses.map(response => ({
+          id: response.question_id,
+          type: 'question' as const
+        }))
+        
+        // Add questions to spaced repetition system
+        await spacedRepetitionService.addFlashcardsToReview(user.id, flashcardsToAdd)
+        
+        console.log(`Added ${flashcardsToAdd.length} questions to flashcard review`)
+      }
       
       if (completedSession && onComplete) {
         onComplete(completedSession)
@@ -90,9 +104,9 @@ const AdaptiveAssessment: React.FC<AdaptiveAssessmentProps> = ({
     } catch (error) {
       console.error('Error completing assessment:', error)
     }
-  }, [state.session, onComplete])
+  }, [state.session, state.responses, user, onComplete])
 
-  const loadNextQuestion = useCallback(async (sessionId: string) => {
+  const loadNextQuestion = useCallback(async (sessionId: string, onNoMoreQuestions?: () => Promise<void>) => {
     if (!user) return
 
     try {
@@ -115,48 +129,71 @@ const AdaptiveAssessment: React.FC<AdaptiveAssessmentProps> = ({
         }))
       } else {
         // No more questions available - complete assessment
-        await completeAssessment()
+        if (onNoMoreQuestions) {
+          await onNoMoreQuestions()
+        }
       }
     } catch (error) {
       console.error('Error loading next question:', error)
       setState(prev => ({ ...prev, isLoading: false }))
     }
-  }, [user, categoryId, completeAssessment])
-
-  const initializeAssessment = useCallback(async () => {
-    if (!user) return
-
-    try {
-      setState(prev => ({ ...prev, isLoading: true }))
-      
-      const session = await AdaptiveAssessmentService.startAssessment(
-        user.id,
-        categoryId,
-        sessionType
-      )
-      
-      if (session) {
-        setState(prev => ({
-          ...prev,
-          session,
-          abilityEstimate: session.final_ability_estimate,
-          currentDifficulty: Math.round(session.final_ability_estimate)
-        }))
-        
-        await loadNextQuestion(session.id)
-      }
-    } catch (error) {
-      console.error('Error initializing assessment:', error)
-      setState(prev => ({ ...prev, isLoading: false }))
-    }
-  }, [user, categoryId, sessionType, loadNextQuestion])
+  }, [user, categoryId])
 
   // Initialize assessment session
   useEffect(() => {
-    if (user && !state.session) {
-      initializeAssessment()
+    if (!user) return
+    
+    // Only initialize if we don't have a session yet
+    if (state.session) return
+
+    const initializeAssessment = async () => {
+      try {
+        setState(prev => ({ ...prev, isLoading: true }))
+        
+        const session = await AdaptiveAssessmentService.startAssessment(
+          user.id,
+          categoryId,
+          sessionType
+        )
+        
+        if (session) {
+          setState(prev => ({
+            ...prev,
+            session,
+            abilityEstimate: session.final_ability_estimate,
+            currentDifficulty: Math.round(session.final_ability_estimate)
+          }))
+          
+          // Load first question after setting session
+          const question = await AdaptiveAssessmentService.getNextQuestion(
+            session.id,
+            user.id,
+            categoryId
+          )
+          
+          if (question) {
+            setState(prev => ({
+              ...prev,
+              currentQuestion: question,
+              selectedAnswer: '',
+              startTime: Date.now(),
+              showExplanation: false,
+              isLoading: false
+            }))
+          } else {
+            // No questions available
+            setState(prev => ({ ...prev, isLoading: false }))
+          }
+        }
+      } catch (error) {
+        console.error('Error initializing assessment:', error)
+        setState(prev => ({ ...prev, isLoading: false }))
+      }
     }
-  }, [user, state.session, initializeAssessment])
+
+    initializeAssessment()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [user, categoryId, sessionType]) // Intentionally omitting state.session to avoid re-initialization
 
   const submitAnswer = async () => {
     if (!state.session || !state.currentQuestion || !state.selectedAnswer) return
@@ -198,7 +235,7 @@ const AdaptiveAssessment: React.FC<AdaptiveAssessmentProps> = ({
 
   const nextQuestion = async () => {
     if (state.session) {
-      await loadNextQuestion(state.session.id)
+      await loadNextQuestion(state.session.id, completeAssessment)
     }
   }
 

@@ -55,6 +55,7 @@ const HomePage: React.FC = () => {
     }
   ]
   
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const features = [
     {
       icon: <AcademicCapIcon className="h-8 w-8" />,
@@ -126,15 +127,16 @@ const HomePage: React.FC = () => {
         structuredData={createOrganizationStructuredData()}
       />
       <div className="space-y-8">
-      <section className="text-center pt-3 pb-1">
-        <h1 className="text-3xl font-bold mb-2 text-primary-600 dark:text-primary-400">
+      <div className="text-center">
+        <h1 className="text-4xl font-bold mb-4 text-primary-600 dark:text-primary-400">
           Welcome to SkillTree
         </h1>
-        <p className="text-base text-neutral-600 dark:text-neutral-400 max-w-xl mx-auto mb-4">
-          Your path to mastering everything you've ever dreamed of learning. 
-          Navigate knowledge like a video game and level up your skills.
+        <p className="text-lg text-neutral-600 dark:text-neutral-400 max-w-3xl mx-auto mb-6">
+          Your personal memory palace for lifelong learning. Build lasting knowledge 
+          through interactive skill trees and science-backed learning methods.
         </p>
-{!user ? (
+        
+        {!user ? (
           <div className="bg-gradient-to-r from-primary-50 to-gold-50 dark:from-primary-900/20 dark:to-gold-900/20 rounded-lg p-4 max-w-md mx-auto border border-primary-200 dark:border-primary-800">
             <p className="text-sm text-neutral-600 dark:text-neutral-400 mb-3">
               Get personalized learning recommendations based on your interests
@@ -146,7 +148,7 @@ const HomePage: React.FC = () => {
               Take Interests Quiz
             </Link>
           </div>
-) : !checkingAssessment ? (
+        ) : !checkingAssessment ? (
           !hasCompletedAssessment ? (
             <div className="bg-gradient-to-r from-primary-50 to-gold-50 dark:from-primary-900/20 dark:to-gold-900/20 rounded-lg p-4 max-w-md mx-auto border border-primary-200 dark:border-primary-800">
               <p className="text-sm text-neutral-600 dark:text-neutral-400 mb-3">
@@ -173,11 +175,11 @@ const HomePage: React.FC = () => {
             </div>
           )
         ) : null}
-      </section>
+      </div>
 
       {/* Flashcard Practice Section */}
-      <section className="bg-white dark:bg-neutral-800 rounded-xl shadow-lg p-4">
-        <h2 className="text-xl font-bold text-center mb-4 text-neutral-900 dark:text-white">
+      <section className="bg-white dark:bg-neutral-900 rounded-xl shadow-lg p-6">
+        <h2 className="text-2xl font-bold text-center mb-4 text-neutral-900 dark:text-neutral-100">
           Practice with Flashcards
         </h2>
         <div className="grid md:grid-cols-3 gap-4">
@@ -229,25 +231,6 @@ const HomePage: React.FC = () => {
       </section>
 
       <MegaMenu />
-
-      <section className="py-8">
-        <h2 className="text-3xl font-bold text-center mb-12">
-          Learning That Feels Like Playing
-        </h2>
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {features.map((feature, index) => (
-            <div key={index} className="card hover:shadow-xl transition-shadow">
-              <div className="text-primary-600 dark:text-primary-400 mb-4">
-                {feature.icon}
-              </div>
-              <h3 className="text-xl font-semibold mb-2">{feature.title}</h3>
-              <p className="text-neutral-600 dark:text-neutral-400">
-                {feature.description}
-              </p>
-            </div>
-          ))}
-        </div>
-      </section>
 
       <section className="py-8">
         <div className="text-center mb-8">

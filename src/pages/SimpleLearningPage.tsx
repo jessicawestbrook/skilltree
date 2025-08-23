@@ -1,13 +1,15 @@
 import React, { useState, useEffect, useCallback } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 import { supabase } from '../services/supabase'
+import { spacedRepetitionService } from '../services/spacedRepetitionService'
+import { useAuth } from '../contexts/AuthContext'
 import { LearningContent, Question } from '../types/database.types'
 import { ClockIcon, CheckCircleIcon } from '@heroicons/react/24/outline'
 
 const SimpleLearningPage: React.FC = () => {
   const { contentId } = useParams<{ contentId?: string }>()
   const navigate = useNavigate()
-  // const { user } = useAuth()
+  const { user } = useAuth()
   const [content, setContent] = useState<LearningContent | null>(null)
   const [questions, setQuestions] = useState<Question[]>([])
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0)
@@ -66,13 +68,28 @@ const SimpleLearningPage: React.FC = () => {
     }
   }
 
-  const handleNext = () => {
+  const handleNext = async () => {
     setSelectedOptionIndex(null)
     setShowAnswer(false)
     
     if (currentQuestionIndex < questions.length - 1) {
       setCurrentQuestionIndex(prev => prev + 1)
     } else {
+      // Test complete - add questions to flashcard review
+      if (user && questions.length > 0) {
+        try {
+          const flashcardsToAdd = questions.map(q => ({
+            id: q.id,
+            type: 'question' as const
+          }))
+          
+          await spacedRepetitionService.addFlashcardsToReview(user.id, flashcardsToAdd)
+          console.log(`Added ${flashcardsToAdd.length} questions to flashcard review`)
+        } catch (error) {
+          console.error('Error adding questions to flashcard review:', error)
+        }
+      }
+      
       setPhase('complete')
     }
   }

@@ -9,6 +9,7 @@ import TreeLogo from './TreeLogo'
 import CategoryLink from './CategoryLink'
 import { supabase } from '../services/supabase'
 import { SkillTreeNode } from '../types/database.types'
+import { hiddenNodesService } from '../services/hiddenNodesService'
 
 const Layout: React.FC = () => {
   const { menuPinned, toggleMenuPinned } = useTheme()
@@ -38,14 +39,17 @@ const Layout: React.FC = () => {
         .order('name')
 
       if (rootError) throw rootError
-      setSubjectCategories(rootNodes || [])
+      
+      // Filter out hidden categories
+      const visibleRootNodes = await hiddenNodesService.filterVisibleNodes(rootNodes || [])
+      setSubjectCategories(visibleRootNodes)
       
       // Pre-fetch subcategories for all root categories to show chevrons immediately
-      if (rootNodes && rootNodes.length > 0) {
+      if (visibleRootNodes && visibleRootNodes.length > 0) {
         const subcategoriesData: Record<string, SkillTreeNode[]> = {}
         const subSubcategoriesData: Record<string, SkillTreeNode[]> = {}
         
-        for (const category of rootNodes) {
+        for (const category of visibleRootNodes) {
           const { data: childNodes } = await supabase
             .from('skill_tree_nodes')
             .select('*')
@@ -54,10 +58,14 @@ const Layout: React.FC = () => {
             .order('name')
           
           if (childNodes && childNodes.length > 0) {
-            subcategoriesData[category.id] = childNodes
+            // Filter out hidden subcategories
+            const visibleChildNodes = await hiddenNodesService.filterVisibleNodes(childNodes)
+            if (visibleChildNodes.length > 0) {
+              subcategoriesData[category.id] = visibleChildNodes
+            }
             
-            // Pre-fetch sub-subcategories for all subcategories
-            for (const subcategory of childNodes) {
+            // Pre-fetch sub-subcategories for all visible subcategories
+            for (const subcategory of visibleChildNodes) {
               const { data: grandchildNodes } = await supabase
                 .from('skill_tree_nodes')
                 .select('*')
@@ -66,7 +74,11 @@ const Layout: React.FC = () => {
                 .order('name')
               
               if (grandchildNodes && grandchildNodes.length > 0) {
-                subSubcategoriesData[subcategory.id] = grandchildNodes
+                // Filter out hidden sub-subcategories
+                const visibleGrandchildNodes = await hiddenNodesService.filterVisibleNodes(grandchildNodes)
+                if (visibleGrandchildNodes.length > 0) {
+                  subSubcategoriesData[subcategory.id] = visibleGrandchildNodes
+                }
               }
             }
           }
@@ -94,9 +106,12 @@ const Layout: React.FC = () => {
 
       if (error) throw error
       
+      // Filter out hidden nodes
+      const visibleChildNodes = await hiddenNodesService.filterVisibleNodes(childNodes || [])
+      
       setSubcategories(prev => ({
         ...prev,
-        [categoryId]: childNodes || []
+        [categoryId]: visibleChildNodes
       }))
     } catch (error) {
       console.error('Error fetching subcategories:', error)
@@ -145,9 +160,12 @@ const Layout: React.FC = () => {
 
       if (error) throw error
       
+      // Filter out hidden nodes
+      const visibleChildNodes = await hiddenNodesService.filterVisibleNodes(childNodes || [])
+      
       setSubSubcategories(prev => ({
         ...prev,
-        [subcategoryId]: childNodes || []
+        [subcategoryId]: visibleChildNodes
       }))
     } catch (error) {
       console.error('Error fetching sub-subcategories:', error)
@@ -266,7 +284,14 @@ const Layout: React.FC = () => {
                 {/* Subjects Dropdown */}
                 <div className="relative" ref={subjectsRef}>
                   <button
-                    onClick={() => setSubjectsOpen(!subjectsOpen)}
+                    onClick={() => {
+                      setSubjectsOpen(!subjectsOpen)
+                      // Reset hover states when toggling menu
+                      if (!subjectsOpen) {
+                        setHoveredCategoryId(null)
+                        setHoveredSubcategoryId(null)
+                      }
+                    }}
                     className="flex items-center px-3 py-2 text-sm font-medium text-neutral-700 dark:text-neutral-300 hover:text-primary-600 dark:hover:text-primary-400 hover:bg-neutral-50 dark:hover:bg-neutral-700 rounded-lg transition-colors"
                   >
                     Subjects
@@ -286,7 +311,11 @@ const Layout: React.FC = () => {
                           >
                             <CategoryLink
                               categoryId={category.id}
-                              onClick={() => setSubjectsOpen(false)}
+                              onClick={() => {
+                                setSubjectsOpen(false)
+                                setHoveredCategoryId(null)
+                                setHoveredSubcategoryId(null)
+                              }}
                               className="flex items-center justify-between px-3 py-1.5 text-sm text-neutral-700 dark:text-neutral-300 hover:bg-neutral-100 dark:hover:bg-neutral-700 transition-colors"
                             >
                               <span>{category.name}</span>
@@ -310,7 +339,11 @@ const Layout: React.FC = () => {
                                   >
                                     <CategoryLink
                                       categoryId={subcategory.id}
-                                      onClick={() => setSubjectsOpen(false)}
+                                      onClick={() => {
+                                        setSubjectsOpen(false)
+                                        setHoveredCategoryId(null)
+                                        setHoveredSubcategoryId(null)
+                                      }}
                                       className="flex items-center justify-between px-3 py-1.5 text-sm text-neutral-700 dark:text-neutral-300 hover:bg-neutral-100 dark:hover:bg-neutral-700 transition-colors"
                                     >
                                       <span>{subcategory.name}</span>
@@ -330,7 +363,11 @@ const Layout: React.FC = () => {
                                         <CategoryLink
                                           key={subSubcategory.id}
                                           categoryId={subSubcategory.id}
-                                          onClick={() => setSubjectsOpen(false)}
+                                          onClick={() => {
+                                            setSubjectsOpen(false)
+                                            setHoveredCategoryId(null)
+                                            setHoveredSubcategoryId(null)
+                                          }}
                                           className="block px-3 py-1.5 text-sm text-neutral-700 dark:text-neutral-300 hover:bg-neutral-100 dark:hover:bg-neutral-700 transition-colors"
                                         >
                                           {subSubcategory.name}

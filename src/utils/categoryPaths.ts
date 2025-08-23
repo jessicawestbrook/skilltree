@@ -6,6 +6,11 @@ interface CategoryNode {
   parent_id: string | null
 }
 
+// Cache for all nodes to avoid repeated database calls
+let allNodesCache: CategoryNode[] | null = null
+let cacheTimestamp: number = 0
+const CACHE_DURATION = 5 * 60 * 1000 // 5 minutes
+
 /**
  * Convert a category name to a URL-safe slug
  */
@@ -34,28 +39,48 @@ export function slugToSearchTerms(slug: string): string[] {
 }
 
 /**
+ * Load all nodes into cache if needed
+ */
+async function ensureNodesCache(): Promise<CategoryNode[]> {
+  const now = Date.now()
+  
+  // Return cached data if still valid
+  if (allNodesCache && (now - cacheTimestamp) < CACHE_DURATION) {
+    return allNodesCache
+  }
+
+  // Fetch all nodes at once
+  const { data: nodes, error } = await supabase
+    .from('skill_tree_nodes')
+    .select('id, name, parent_id')
+    .or('learning_content_ids.is.null,learning_content_ids.eq.{}') // Only categories
+    .limit(10000) // Reasonable limit for categories
+
+  if (error || !nodes) {
+    console.error('Error loading category nodes:', error)
+    return allNodesCache || []
+  }
+
+  allNodesCache = nodes as CategoryNode[]
+  cacheTimestamp = now
+  return allNodesCache
+}
+
+/**
  * Build the full path for a category by traversing up the hierarchy
  */
 export async function buildCategoryPath(categoryId: string): Promise<string> {
+  const nodes = await ensureNodesCache()
+  const nodeMap = new Map(nodes.map(n => [n.id, n]))
+  
   const pathSegments: string[] = []
   let currentId: string | null = categoryId
 
-  // Traverse up the hierarchy to build the path
+  // Traverse up the hierarchy using cached data
   while (currentId) {
-    const response = await supabase
-      .from('skill_tree_nodes')
-      .select('id, name, parent_id')
-      .eq('id', currentId)
-      .limit(1)
-    
-    const { data: node, error } = response as { data: CategoryNode[] | null, error: any }
+    const category = nodeMap.get(currentId)
+    if (!category) break
 
-    if (error || !node || node.length === 0) {
-      break
-    }
-
-    const category = node[0]
-    
     // Skip the root "Knowledge" node if it exists
     if (category.name !== 'Knowledge' && category.parent_id) {
       pathSegments.unshift(nameToSlug(category.name))
@@ -67,7 +92,6 @@ export async function buildCategoryPath(categoryId: string): Promise<string> {
     currentId = category.parent_id
   }
 
-  // Return path without leading slash if it's empty, otherwise with slash
   return pathSegments.length > 0 ? pathSegments.join('/') : ''
 }
 
@@ -75,54 +99,32 @@ export async function buildCategoryPath(categoryId: string): Promise<string> {
  * Resolve a category path to an ID by traversing down the hierarchy
  */
 export async function resolveCategoryPath(path: string): Promise<string | null> {
-  // Remove leading slash and split into segments
   const segments = path.replace(/^\/+/, '').split('/').filter(segment => segment.length > 0)
   
   if (segments.length === 0) {
     return null
   }
 
+  const nodes = await ensureNodesCache()
+  
   // Start from root level (parent_id is null)
   let currentParentId: string | null = null
   
-  for (let i = 0; i < segments.length; i++) {
-    const segment = segments[i]
+  for (const segment of segments) {
     const searchTerms = slugToSearchTerms(segment)
     
-    // Search for a node with matching name at this level
-    const response = await supabase
-      .from('skill_tree_nodes')
-      .select('id, name, parent_id')
-      .eq('parent_id', currentParentId)
-      .in('name', searchTerms)
+    // Find matching node at this level
+    // eslint-disable-next-line no-loop-func
+    const matchingNode = nodes.find(node => 
+      node.parent_id === currentParentId && 
+      searchTerms.some(term => node.name === term)
+    )
     
-    const { data: nodes, error } = response as { data: CategoryNode[] | null, error: any }
-    
-    if (error || !nodes || nodes.length === 0) {
-      // Try a broader search if exact parent match fails
-      const broadResponse = await supabase
-        .from('skill_tree_nodes')
-        .select('id, name, parent_id')
-        .in('name', searchTerms)
-      
-      const { data: broadNodes, error: broadError } = broadResponse as { data: CategoryNode[] | null, error: any }
-      
-      if (broadError || !broadNodes || broadNodes.length === 0) {
-        return null
-      }
-      
-      // Find the one with the correct parent
-      const parentIdToMatch: string | null = currentParentId
-      const matchingNode: CategoryNode | undefined = broadNodes.find(node => node.parent_id === parentIdToMatch)
-      if (!matchingNode) {
-        return null
-      }
-      
-      currentParentId = matchingNode.id
-    } else {
-      // Found exact match
-      currentParentId = nodes[0].id
+    if (!matchingNode) {
+      return null
     }
+    
+    currentParentId = matchingNode.id
   }
   
   return currentParentId
@@ -132,25 +134,16 @@ export async function resolveCategoryPath(path: string): Promise<string | null> 
  * Get breadcrumb trail for a category
  */
 export async function getCategoryBreadcrumbs(categoryId: string): Promise<Array<{ name: string, id: string, path: string }>> {
-  const breadcrumbs: Array<{ name: string, id: string, path: string }> = []
+  const nodes = await ensureNodesCache()
+  const nodeMap = new Map(nodes.map(n => [n.id, n]))
+  
+  const ancestors: CategoryNode[] = []
   let currentId: string | null = categoryId
 
-  // First, collect all ancestors
-  const ancestors: CategoryNode[] = []
+  // Collect all ancestors using cached data
   while (currentId) {
-    const response = await supabase
-      .from('skill_tree_nodes')
-      .select('id, name, parent_id')
-      .eq('id', currentId)
-      .limit(1)
-    
-    const { data: node, error } = response as { data: CategoryNode[] | null, error: any }
-
-    if (error || !node || node.length === 0) {
-      break
-    }
-
-    const category = node[0]
+    const category = nodeMap.get(currentId)
+    if (!category) break
     
     // Skip the root "Knowledge" node
     if (category.name !== 'Knowledge') {
@@ -161,6 +154,7 @@ export async function getCategoryBreadcrumbs(categoryId: string): Promise<Array<
   }
 
   // Build breadcrumbs with cumulative paths
+  const breadcrumbs: Array<{ name: string, id: string, path: string }> = []
   for (let i = 0; i < ancestors.length; i++) {
     const pathSegments = ancestors.slice(0, i + 1).map(ancestor => nameToSlug(ancestor.name))
     const path = '/' + pathSegments.join('/')
@@ -191,4 +185,13 @@ export async function getCachedCategoryPath(categoryId: string): Promise<string>
   const path = await buildCategoryPath(categoryId)
   categoryPathCache.set(categoryId, path)
   return path
+}
+
+/**
+ * Clear the cache (useful for when data changes)
+ */
+export function clearCategoryCache(): void {
+  allNodesCache = null
+  cacheTimestamp = 0
+  categoryPathCache.clear()
 }

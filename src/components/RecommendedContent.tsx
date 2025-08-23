@@ -248,9 +248,9 @@ const RecommendedContent: React.FC = () => {
                     {rec.node.name}
                   </h3>
                   
-                  {rec.node.learning_area && (
+                  {rec.node.description && (
                     <p className="text-sm text-neutral-600 dark:text-neutral-400 mt-1 line-clamp-2">
-                      {rec.node.learning_area}
+                      {rec.node.description}
                     </p>
                   )}
                   

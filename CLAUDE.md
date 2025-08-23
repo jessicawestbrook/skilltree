@@ -167,19 +167,32 @@ As you're working, try to identify if features have already been implemented or 
 - "learning modules" terminology instead of "nodes" in UI
 
 # To Do List
-Fill in missing parts of speech
 
-Create algorithm for review flashcards
+Add field to skill tree nodes table to mark learning categories to show/hide it and all its children from users. Make this updatable in the admin section. Need to update megamenu and navbar to hide hidden items.
 
-Generate content for next learning module per CONTENT_GENERATION_SYSTEM.md
-
-Fix Money Counting module shows up under recommended items instead of recent activity on the user page
-
-Format user page
+Update review page formatting. Questions were multiple choice except spelling bee questions. Make sure spelling bee questions have audio.
 
 Format the learning flow more attractively
 
+Update display order field in skill tree nodes table
+
 Fix the html view of learning content to be more attractive
+
+Update login page with new brand logo
+
+Update flashcard pages to have similar styling as the review page
+
+Add settings for how many flashcards you want to study at a time, and be able to set a reminder date to study the next batch and/or review.
+
+On flashcards give a total number of flashcards based on your filters
+
+ left to study (number you've gotten correct at least once vs. total number of flashcards with the given filters)
+
+Add flashcard completion statistics by difficulty level to flashcards
+
+Create math, history, and test prep trainers
+
+Fix Money Counting module shows up under recommended items instead of recent activity on the user page
 
 On interests quiz if you show interest in an area it should ask for more detail about which area in particular, such as what languages you want to learn
 
@@ -187,39 +200,23 @@ Evaluate spelling and vocabulary word difficulties, look at the distributions an
 
 Reformat category page with learning button
 
-Add option to create printable flashcards
-
-Expand spelling and vocabulary lists
-
 Fix icon and site title in tab bar
 
-New tagline in hero section based on content from about page
-
-Make learning content, formatted as html and stored to db?
+Generate content for next learning module per CONTENT_GENERATION_SYSTEM.md
 
 For each language trainer flashcard, identify the part of the question that is in the foreign language and play the audio for that rather than the answer specifically
 
-On the flashcard pages give a number of flashcards left to study (number you've gotten correct at least once vs. total number of flashcards with the given filters)
-
-Update text in hero section
-
-Test link to category page to start learning the learning content (only shows if there is learning content)
+Add language flashcards. Use wordfreq library to create a comprehensive list of study words broken out by topic and frequency. Start with Spanish.
 
 Rename site
 
-Update intro skill assessment
+Screenshot review card module from skilltree or neuroquest and recreate it here
+
+Update intro interest assessment
 
 Put reusable scripts in a special folder
 
 Make special folder for one-off scripts like examining the db structure
-
-Implement timed IQ and standardized tests in the web code
-
-Generate timed IQ and standardized tests
-
-Fix the home page having two sets of 6 info cards
-
-Look at Anki again to see how it works and what I should replicate
 
 Sort items in megamenu
 
@@ -227,17 +224,11 @@ Add a button that uses a computer to read the learning content aloud to you
 
 Add historical timelines to category pages
 
-Add ability for users to upload anki cards and/or csvs, etc.
-
 Change site formatting to be more attractive
 
 Go back and make sure all the combined spelling words were fixed
 
-Create different study strategy options, such as date you last saw the card
-
-Add ability to add comments to your saved flashcards
-
-Add photo for every learning category
+Research optimal review time periods. Create different study strategy options, such as based on date you last saw the card.
 
 Try to shorten extra long word definitions in the spelling table when it makes sense to do so
 
@@ -249,33 +240,28 @@ Review vocabulary difficulty rating plan in THEORETICAL_FOUNDATIONS.md
 
 Clean up old db tables and make sure all needed tables are created
 
-Put tree image as main page background
-
 Fill in missing values in spelling table
 
 I have to find reputable links for the learning facts on the home page
-
-Add caching for megamenu
-
-Add learning paths
-
-Add flashcard completion statistics by difficulty level
 
 Review and update claude.md so claude doesn't start making regressions
 
 Evaluate knowledge tree table for too many/few learning categories in each learning category
 
-Convert Anki cards to questions in my db
-
 Test out automatic notifications and settings
-
-Improve tree viz
 
 Fill out more learning categories with learning content
 
 Review menu/questions with Ryan
 
-Improve site structure
+
+# To do on release
+
+Implement web analytics
+
+Pay for db
+
+Contact supabase support to fix login issues
 
 Evaluate database table security
 
@@ -283,10 +269,37 @@ Evaluate site security
 
 Make my github private
 
-Implement one week free trial and then $10/mo, $80/year
+Improve SEO
 
-Generate additional question sets when needed rather than front loading everything
+Add longer-term cacheing of skills hierarchy
+
+
+# Nice to haves / Later releases
+
+Add learning paths
+
+Automatically add word definitions and other content when users add vocabulary words
+
+Add ability for users to upload anki cards and/or csvs, etc.
+
+Add ability to add comments to your saved flashcards
+
+Look at Anki again to see how it works and what I should replicate
+
+Add photo for every learning category
+
+Add option to create printable flashcards
+
+Convert Anki cards to questions in my db
+
+Implement timed IQ and standardized tests in the web code
+
+Generate timed IQ and standardized tests
+
+Expand spelling and vocabulary lists
 
 After more users sign up, add user rankings by different categories, by age group, etc.
 
-Improve SEO
+Implement one week free trial and then $10/mo, $80/year
+
+Put tree image as main page background

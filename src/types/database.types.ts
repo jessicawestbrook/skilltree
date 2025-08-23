@@ -2,15 +2,13 @@ export interface SkillTreeNode {
   id: string
   parent_id: string | null
   name: string
-  type: string
-  path: string
-  learning_area: string
   description?: string
   metadata: any
   display_order: number
   created_at: string
   updated_at: string
   learning_content_ids: string[] | null
+  is_hidden?: boolean
   source_url?: string
 }
 

@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react'
 import { supabase } from '../services/supabase'
+import { spacedRepetitionService } from '../services/spacedRepetitionService'
 import { useAuth } from '../contexts/AuthContext'
 import { useSpellingBee } from '../contexts/SpellingBeeContext'
 import { checkSpellingBeeTables, createSpellingBeeTables } from '../utils/createSpellingBeeTables'
@@ -316,6 +317,16 @@ const SpellingBeePage: React.FC = () => {
 
     // Save attempt if user is logged in
     if (user) {
+      // Add this spelling word to flashcard review
+      try {
+        await spacedRepetitionService.addFlashcardsToReview(user.id, [{
+          id: currentWord.id,
+          type: 'spelling'
+        }])
+      } catch (error) {
+        console.error('Error adding spelling word to flashcard review:', error)
+      }
+      
       await supabase.from('user_spelling_attempts').insert({
         user_id: user.id,
         word_id: currentWord.id,

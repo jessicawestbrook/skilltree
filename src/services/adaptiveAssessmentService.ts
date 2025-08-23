@@ -1,4 +1,5 @@
 import { supabase } from './supabase'
+import { AssessmentTableAdapter } from './assessmentTableAdapter'
 
 // Types for the adaptive assessment system
 export interface Question {
@@ -437,21 +438,41 @@ export class AdaptiveAssessmentService {
       // Get user's current ability estimate for this category
       const abilityEstimate = await this.getUserAbilityEstimate(userId, categoryId)
       
-      // Create new assessment session
-      const { data, error } = await supabase
-        .from('assessment_sessions')
-        .insert({
-          user_id: userId,
-          category_id: categoryId,
-          session_type: sessionType,
-          final_ability_estimate: abilityEstimate
-        })
-        .select()
-        .single()
+      // Create new assessment session using adapter
+      const { data, error } = await AssessmentTableAdapter.createSession({
+        user_id: userId,
+        category_id: categoryId,
+        session_type: sessionType,
+        current_ability_estimate: abilityEstimate,
+        confidence_interval: 1,
+        total_questions: 0,
+        correct_answers: 0,
+        total_points: 0,
+        streak_count: 0,
+        max_streak: 0,
+        started_at: new Date().toISOString(),
+        status: 'active'
+      })
       
       if (error) throw error
       
-      return data as AssessmentSession
+      // Map adapter response to AssessmentSession interface
+      if (data) {
+        return {
+          id: data.id,
+          user_id: data.user_id,
+          category_id: data.category_id,
+          started_at: data.started_at,
+          total_points: data.total_points,
+          questions_answered: data.total_questions,
+          highest_difficulty_reached: 0,
+          final_ability_estimate: data.current_ability_estimate,
+          session_type: data.session_type as 'practice' | 'assessment' | 'quick_test',
+          is_completed: data.status === 'completed'
+        } as AssessmentSession
+      }
+      
+      return null
       
     } catch (error) {
       console.error('Error starting assessment:', error)
@@ -578,23 +599,33 @@ export class AdaptiveAssessmentService {
    */
   static async completeAssessment(sessionId: string): Promise<AssessmentSession | null> {
     try {
-      const { data, error } = await supabase
-        .from('assessment_sessions')
-        .update({
-          ended_at: new Date().toISOString(),
-          is_completed: true
-        })
-        .eq('id', sessionId)
-        .select()
-        .single()
+      const { data, error } = await AssessmentTableAdapter.updateSession(sessionId, {
+        completed_at: new Date().toISOString(),
+        status: 'completed'
+      })
       
       if (error) throw error
       
-      // Update user category scores with session completion
-      const session = data as AssessmentSession
-      await this.recordSessionCompletion(session)
+      // Convert back to AssessmentSession
+      if (data) {
+        const session: AssessmentSession = {
+          id: data.id,
+          user_id: data.user_id,
+          category_id: data.category_id,
+          started_at: data.started_at,
+          ended_at: data.completed_at,
+          total_points: data.total_points,
+          questions_answered: data.total_questions,
+          highest_difficulty_reached: 0,
+          final_ability_estimate: data.current_ability_estimate,
+          session_type: data.session_type as 'practice' | 'assessment' | 'quick_test',
+          is_completed: true
+        }
+        await this.recordSessionCompletion(session)
+        return session
+      }
       
-      return session
+      return null
       
     } catch (error) {
       console.error('Error completing assessment:', error)
@@ -604,12 +635,7 @@ export class AdaptiveAssessmentService {
 
   // Helper methods
   private static async getUserAbilityEstimate(userId: string, categoryId: string): Promise<number> {
-    const { data, error } = await supabase
-      .from('user_category_scores')
-      .select('current_ability_estimate')
-      .eq('user_id', userId)
-      .eq('category_id', categoryId)
-      .single()
+    const { data, error } = await AssessmentTableAdapter.getUserCategoryScore(userId, categoryId)
     
     if (error || !data) {
       return 2.0  // Default to elementary level
@@ -619,13 +645,24 @@ export class AdaptiveAssessmentService {
   }
 
   private static async getSessionById(sessionId: string): Promise<AssessmentSession | null> {
-    const { data, error } = await supabase
-      .from('assessment_sessions')
-      .select('*')
-      .eq('id', sessionId)
-      .single()
+    const { data, error } = await AssessmentTableAdapter.getSession(sessionId)
     
-    return error ? null : data as AssessmentSession
+    if (error || !data) return null
+    
+    // Map adapter response to AssessmentSession interface
+    return {
+      id: data.id,
+      user_id: data.user_id,
+      category_id: data.category_id,
+      started_at: data.started_at,
+      ended_at: data.completed_at,
+      total_points: data.total_points,
+      questions_answered: data.total_questions,
+      highest_difficulty_reached: 0,
+      final_ability_estimate: data.current_ability_estimate,
+      session_type: data.session_type as 'practice' | 'assessment' | 'quick_test',
+      is_completed: data.status === 'completed'
+    } as AssessmentSession
   }
 
   private static async getQuestionById(questionId: string): Promise<Question | null> {
@@ -673,10 +710,14 @@ export class AdaptiveAssessmentService {
   }
 
   private static async updateSession(sessionId: string, updates: Partial<AssessmentSession>): Promise<void> {
-    await supabase
-      .from('assessment_sessions')
-      .update(updates)
-      .eq('id', sessionId)
+    // Map AssessmentSession updates to adapter format
+    await AssessmentTableAdapter.updateSession(sessionId, {
+      total_points: updates.total_points,
+      total_questions: updates.questions_answered,
+      current_ability_estimate: updates.final_ability_estimate,
+      completed_at: updates.ended_at,
+      status: updates.is_completed ? 'completed' : 'active'
+    })
   }
 
   private static async updateUserCategoryScore(
@@ -685,45 +726,35 @@ export class AdaptiveAssessmentService {
     pointsEarned: number, 
     abilityEstimate: number
   ): Promise<void> {
-    await supabase
-      .from('user_category_scores')
-      .upsert({
-        user_id: userId,
-        category_id: categoryId,
+    // Update user category score using adapter
+    await AssessmentTableAdapter.updateUserCategoryScore(
+      userId,
+      categoryId,
+      {
         current_ability_estimate: abilityEstimate,
-        total_points: supabase.rpc('add_points', { user_id: userId, category_id: categoryId, points: pointsEarned }),
-        questions_answered_total: supabase.rpc('increment_questions_answered', { user_id: userId, category_id: categoryId }),
-        mastery_level: PointCalculator.calculateMasteryLevel(abilityEstimate),
         last_assessment_date: new Date().toISOString()
-      })
+      }
+    )
   }
 
   private static async recordSessionCompletion(session: AssessmentSession): Promise<void> {
-    // Get current category score
-    const { data: categoryScore } = await supabase
-      .from('user_category_scores')
-      .select('*')
-      .eq('user_id', session.user_id)
-      .eq('category_id', session.category_id)
-      .single()
+    // Get current category score using adapter
+    const { data: categoryScore } = await AssessmentTableAdapter.getUserCategoryScore(
+      session.user_id,
+      session.category_id
+    )
     
     if (categoryScore) {
-      // Calculate achievement badges
-      const newBadges = PointCalculator.calculateAchievementBadges(session, categoryScore as UserCategoryScore)
-      const existingBadges = categoryScore.achievement_badges || []
-      const badgeSet = new Set([...existingBadges, ...newBadges])
-      const updatedBadges = Array.from(badgeSet)
-      
       // Update category score with session completion data
-      await supabase
-        .from('user_category_scores')
-        .update({
-          sessions_completed: (categoryScore.sessions_completed || 0) + 1,
-          best_session_points: Math.max(categoryScore.best_session_points || 0, session.total_points),
-          achievement_badges: updatedBadges
-        })
-        .eq('user_id', session.user_id)
-        .eq('category_id', session.category_id)
+      // Since we're using user_question_tracking, we'll update the assessment metadata
+      await AssessmentTableAdapter.updateUserCategoryScore(
+        session.user_id,
+        session.category_id,
+        {
+          current_ability_estimate: session.final_ability_estimate,
+          last_assessment_date: new Date().toISOString()
+        }
+      )
     }
   }
 }
