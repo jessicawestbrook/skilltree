@@ -395,7 +395,7 @@ const ProfilePage: React.FC = () => {
           
           // Check for duplicate segments in the path
           const segments = fullPath.split('/').filter(s => s.length > 0)
-          const uniqueSegments = [...new Set(segments)]
+          const uniqueSegments = Array.from(new Set(segments))
           if (segments.length !== uniqueSegments.length) {
             console.warn(`Duplicate segments detected in path for ${nodeId}: ${fullPath}`)
             // Use deduplicated path
