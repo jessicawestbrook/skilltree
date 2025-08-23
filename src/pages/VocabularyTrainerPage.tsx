@@ -4,7 +4,7 @@ import { useAuth } from '../contexts/AuthContext'
 import { useSpellingBee } from '../contexts/SpellingBeeContext'
 import { checkSpellingBeeTables, createSpellingBeeTables } from '../utils/createSpellingBeeTables'
 import { replaceWordAndVariationsWithBlanks } from '../utils/vocabularyHelpers'
-import { getVocabularyDifficultyLevels, getVocabularyDifficultyName } from '../services/difficultyLevels'
+import { getVocabularyDifficultyLevels } from '../services/difficultyLevels'
 import { SpellingWordWithDifficulties, VocabularyDifficultyLevel } from '../types/difficultyLevels'
 import { 
   CheckCircleIcon, 
@@ -27,6 +27,7 @@ interface VocabularyQuestion {
   word: SpellingWord
   options: string[]
   correctAnswer: string
+  isWordToDefinition?: boolean
 }
 
 const VocabularyTrainerPage: React.FC = () => {
@@ -44,6 +45,7 @@ const VocabularyTrainerPage: React.FC = () => {
   const [stats, setStats] = useState({ correct: 0, total: 0 })
   const [sessionStats, setSessionStats] = useState({ correct: 0, total: 0 })
   const [showFlagModal, setShowFlagModal] = useState(false)
+  const [isWordToDefinition, setIsWordToDefinition] = useState(true)
   
   // Study list functionality
   const [studyLists, setStudyLists] = useState<StudyList[]>([])
@@ -168,7 +170,7 @@ const VocabularyTrainerPage: React.FC = () => {
             .from('spelling_words')
             .select(`
               *,
-              vocabulary_difficulty:vocabulary_difficulty_levels(id, name, description)
+              vocabulary_difficulty_levels!vocabulary_difficulty_id(id, name, description)
             `)
             .in('id', wordIds)
 
@@ -194,29 +196,35 @@ const VocabularyTrainerPage: React.FC = () => {
         .from('spelling_words')
         .select(`
           *,
-          vocabulary_difficulty:vocabulary_difficulty_levels(id, name, description)
+          vocabulary_difficulty_levels!vocabulary_difficulty_id(id, name, description)
         `)
-        .order('vocabulary_difficulty_level')
+        .order('vocabulary_difficulty_id')
 
       // Apply difficulty filter from selected difficulties
       if (selectedDifficulties.length > 0 && selectedDifficulties.length < 5) {
-        // Try to filter by both new FK table and old name field for compatibility
-        query = query.or(`vocabulary_difficulty.name.in.(${selectedDifficulties.join(',')}),vocabulary_difficulty_name.in.(${selectedDifficulties.join(',')})`)
+        // Filter by the foreign key ID based on selected difficulty names
+        query = query.in('vocabulary_difficulty_id', selectedDifficulties.map(name => {
+          const difficultyMap: Record<string, number> = { 'Foundation': 1, 'Academic': 2, 'Sophisticated': 3, 'Specialized': 4, 'Scholarly': 5 };
+          return difficultyMap[name] || 1;
+        }))
       }
 
       let { data, error } = await query.limit(100)
 
-      // If the join fails (tables don't exist yet), fall back to old structure
-      if (error && error.message?.includes('vocabulary_difficulty_levels')) {
+      // If the join fails, fall back to old structure
+      if (error && error.message?.includes('vocabulary_difficulty_levels!')) {
         console.log('New difficulty tables not found, using legacy structure...')
         
         query = supabase
           .from('spelling_words')
           .select('*')
-          .order('vocabulary_difficulty_level')
+          .order('vocabulary_difficulty_id')
 
         if (selectedDifficulties.length > 0 && selectedDifficulties.length < 5) {
-          query = query.in('vocabulary_difficulty_name', selectedDifficulties)
+          // Map difficulty names to IDs for filtering
+          const difficultyMap: Record<string, number> = { 'Foundation': 1, 'Academic': 2, 'Sophisticated': 3, 'Specialized': 4, 'Scholarly': 5 };
+          const difficultyIds = selectedDifficulties.map(name => difficultyMap[name] || 1);
+          query = query.in('vocabulary_difficulty_id', difficultyIds)
         }
 
         const fallbackResult = await query.limit(100)
@@ -234,10 +242,7 @@ const VocabularyTrainerPage: React.FC = () => {
         // For words that don't have difficulty names, try to get them from the service
         const wordsWithNames = await Promise.all(
           data.map(async (word) => {
-            if (!word.vocabulary_difficulty_name && word.vocabulary_difficulty_level) {
-              const difficultyName = await getVocabularyDifficultyName(word.vocabulary_difficulty_level)
-              return { ...word, vocabulary_difficulty_name: difficultyName }
-            }
+            // No need to fetch difficulty name anymore, it comes from the join
             return word
           })
         )
@@ -317,37 +322,60 @@ const VocabularyTrainerPage: React.FC = () => {
 
     const targetWord = words[index]
     const targetOrigin = getLanguageOrigin(targetWord.etymology)
+    const targetPartOfSpeech = targetWord.part_of_speech?.toLowerCase()
     
-    // First priority: words from same etymology/origin
-    const sameOrigin = words.filter(w => 
+    // First priority: words with same part of speech
+    const samePartOfSpeech = words.filter(w => 
       w.id !== targetWord.id && 
+      w.part_of_speech?.toLowerCase() === targetPartOfSpeech &&
+      targetPartOfSpeech // Only filter if part of speech exists
+    )
+    
+    // Second priority: words from same etymology/origin with same part of speech
+    const sameOriginAndPOS = samePartOfSpeech.filter(w => 
       getLanguageOrigin(w.etymology) === targetOrigin &&
       targetOrigin !== 'unknown' && targetOrigin !== 'other'
     )
     
-    // Second priority: words from same difficulty level
-    const sameLevel = words.filter(w => 
-      w.id !== targetWord.id && 
-      w.vocabulary_difficulty_name === targetWord.vocabulary_difficulty_name
+    // Third priority: words from same difficulty level with same part of speech
+    const sameLevelAndPOS = samePartOfSpeech.filter(w => 
+      w.vocabulary_difficulty_id === targetWord.vocabulary_difficulty_id
     )
     
-    // Third priority: all other words
+    // Fourth priority: words from same difficulty level (any part of speech)
+    const sameLevel = words.filter(w => 
+      w.id !== targetWord.id && 
+      w.vocabulary_difficulty_id === targetWord.vocabulary_difficulty_id
+    )
+    
+    // Fifth priority: all other words
     const allOthers = words.filter(w => w.id !== targetWord.id)
     
     let alternatives: SpellingWord[] = []
     
-    // Try to get 3 alternatives from same origin first
-    if (sameOrigin.length >= 3) {
-      alternatives = [...sameOrigin].sort(() => Math.random() - 0.5).slice(0, 3)
-    } 
-    // If not enough same origin, mix same origin with same difficulty
-    else if (sameOrigin.length > 0) {
-      const remainingNeeded = 3 - sameOrigin.length
+    // Try to get 3 alternatives with same part of speech first
+    if (samePartOfSpeech.length >= 3) {
+      // Prefer same origin and POS if available
+      if (sameOriginAndPOS.length >= 3) {
+        alternatives = [...sameOriginAndPOS].sort(() => Math.random() - 0.5).slice(0, 3)
+      }
+      // Then same difficulty and POS
+      else if (sameLevelAndPOS.length >= 3) {
+        alternatives = [...sameLevelAndPOS].sort(() => Math.random() - 0.5).slice(0, 3)
+      }
+      // Otherwise any words with same POS
+      else {
+        alternatives = [...samePartOfSpeech].sort(() => Math.random() - 0.5).slice(0, 3)
+      }
+    }
+    // If not enough same part of speech, mix with same difficulty level
+    else if (samePartOfSpeech.length > 0) {
+      const remainingNeeded = 3 - samePartOfSpeech.length
       const additionalOptions = sameLevel
-        .filter(w => !sameOrigin.find(sw => sw.id === w.id))
+        .filter(w => !samePartOfSpeech.find(sp => sp.id === w.id))
         .sort(() => Math.random() - 0.5)
         .slice(0, remainingNeeded)
-      alternatives = [...sameOrigin, ...additionalOptions]
+      alternatives = [...samePartOfSpeech, ...additionalOptions]
     }
     // Fall back to same difficulty level
     else if (sameLevel.length >= 3) {
@@ -358,17 +386,31 @@ const VocabularyTrainerPage: React.FC = () => {
       alternatives = [...allOthers].sort(() => Math.random() - 0.5).slice(0, 3)
     }
     
-    const wrongOptions = alternatives.map(w => w.word)
-    
-    // Create options array with correct answer
-    const allOptions = [targetWord.word, ...wrongOptions]
-    const shuffledOptions = [...allOptions].sort(() => Math.random() - 0.5)
+    if (isWordToDefinition) {
+      // Word-to-definition mode: show word, select from definitions
+      const wrongDefinitions = alternatives.map(w => w.definition)
+      const allDefinitions = [targetWord.definition, ...wrongDefinitions]
+      const shuffledDefinitions = [...allDefinitions].sort(() => Math.random() - 0.5)
+      
+      setCurrentQuestion({
+        word: targetWord,
+        options: shuffledDefinitions,
+        correctAnswer: targetWord.definition,
+        isWordToDefinition: true
+      })
+    } else {
+      // Definition-to-word mode (original): show definition, select from words
+      const wrongOptions = alternatives.map(w => w.word)
+      const allOptions = [targetWord.word, ...wrongOptions]
+      const shuffledOptions = [...allOptions].sort(() => Math.random() - 0.5)
 
-    setCurrentQuestion({
-      word: targetWord,
-      options: shuffledOptions,
-      correctAnswer: targetWord.word
-    })
+      setCurrentQuestion({
+        word: targetWord,
+        options: shuffledOptions,
+        correctAnswer: targetWord.word,
+        isWordToDefinition: false
+      })
+    }
   }
 
   const fetchUserStats = useCallback(async () => {
@@ -426,12 +468,20 @@ const VocabularyTrainerPage: React.FC = () => {
     loadStudyLists()
   }, [loadStudyLists])
 
-  // Refetch words when selected difficulties or study list change
+  // Refetch words when selected difficulties or study list changes
   useEffect(() => {
     setLoading(true)
     fetchWords()
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedDifficulties, selectedStudyList])
+  
+  // Regenerate current question when mode changes
+  useEffect(() => {
+    if (wordBank.length > 0 && !showResult) {
+      generateQuestion(wordBank, currentIndex)
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isWordToDefinition])
 
   const handleAnswerSelect = (answer: string) => {
     if (showResult) return
@@ -570,24 +620,40 @@ const VocabularyTrainerPage: React.FC = () => {
         {/* Settings and Stats Row */}
         <div className="flex justify-between items-start mb-1">
           {/* Practice Settings */}
-          <div className="flex flex-col lg:flex-row gap-1 sm:gap-2 items-start lg:items-center flex-1 mr-2 sm:mr-0">
-            {/* Adaptive Learning Toggle */}
-            <div className="flex items-center gap-1">
-              <label className="flex items-center gap-1 cursor-pointer">
-                <input
-                  type="checkbox"
-                  checked={useAdaptiveTesting}
-                  onChange={(e) => setUseAdaptiveTesting(e.target.checked)}
-                  className="rounded border-neutral-300 text-primary-600 focus:ring-primary-500 h-3 w-3"
-                />
-                <span className="text-xs font-medium">Adaptive Learning</span>
-              </label>
-              {useAdaptiveTesting && (
-                <span className="text-xs text-neutral-500">Auto-adjusts</span>
-              )}
+          <div className="flex flex-col gap-1 sm:gap-2 items-start flex-1 mr-2 sm:mr-0">
+            {/* First Row: Mode and Adaptive Learning Toggles */}
+            <div className="flex items-center gap-2">
+              {/* Mode Toggle */}
+              <div className="flex items-center gap-1">
+                <label className="flex items-center gap-1 cursor-pointer">
+                  <input
+                    type="checkbox"
+                    checked={isWordToDefinition}
+                    onChange={(e) => setIsWordToDefinition(e.target.checked)}
+                    className="rounded border-neutral-300 text-primary-600 focus:ring-primary-500 h-3 w-3"
+                  />
+                  <span className="text-xs font-medium">Word → Definition</span>
+                </label>
+              </div>
+              
+              {/* Adaptive Learning Toggle */}
+              <div className="flex items-center gap-1">
+                <label className="flex items-center gap-1 cursor-pointer">
+                  <input
+                    type="checkbox"
+                    checked={useAdaptiveTesting}
+                    onChange={(e) => setUseAdaptiveTesting(e.target.checked)}
+                    className="rounded border-neutral-300 text-primary-600 focus:ring-primary-500 h-3 w-3"
+                  />
+                  <span className="text-xs font-medium">Adaptive</span>
+                </label>
+                {useAdaptiveTesting && (
+                  <span className="text-xs text-neutral-500">Auto-adjusts</span>
+                )}
+              </div>
             </div>
 
-            {/* Study List Selection */}
+            {/* Second Row: Study List Selection */}
             {studyLists.length > 0 && (
               <div className="flex items-center gap-1">
                 <span className="text-xs font-medium text-neutral-700 dark:text-neutral-300">Study List:</span>
@@ -719,31 +785,50 @@ const VocabularyTrainerPage: React.FC = () => {
           <>
             {/* Question Content */}
             <div className="space-y-2 mb-2">
-              <div className="bg-gradient-to-br from-primary-50 to-primary-100 dark:from-primary-900/30 dark:to-primary-800/20 rounded-lg p-3 sm:p-4 border-2 border-primary-200 dark:border-primary-700 shadow-lg">
-                <p className="text-base sm:text-lg font-medium text-neutral-800 dark:text-neutral-200 leading-snug text-center">
-                  {replaceWordAndVariationsWithBlanks(currentQuestion.word.definition, currentQuestion.word.word)}
-                </p>
-              </div>
+              {currentQuestion.isWordToDefinition ? (
+                // Word-to-definition mode: Display the word prominently (without example)
+                <div className="bg-gradient-to-br from-primary-50 to-primary-100 dark:from-primary-900/30 dark:to-primary-800/20 rounded-lg p-3 sm:p-4 border-2 border-primary-200 dark:border-primary-700 shadow-lg">
+                  <div className="text-center">
+                    <p className="text-3xl sm:text-4xl font-bold text-primary-700 dark:text-primary-400 mb-2">
+                      {currentQuestion.word.word}
+                    </p>
+                    {currentQuestion.word.part_of_speech && (
+                      <span className="text-sm text-neutral-600 dark:text-neutral-400 italic">
+                        ({currentQuestion.word.part_of_speech})
+                      </span>
+                    )}
+                  </div>
+                </div>
+              ) : (
+                // Definition-to-word mode: Display the definition (original behavior)
+                <>
+                  <div className="bg-gradient-to-br from-primary-50 to-primary-100 dark:from-primary-900/30 dark:to-primary-800/20 rounded-lg p-3 sm:p-4 border-2 border-primary-200 dark:border-primary-700 shadow-lg">
+                    <p className="text-base sm:text-lg font-medium text-neutral-800 dark:text-neutral-200 leading-snug text-center">
+                      {replaceWordAndVariationsWithBlanks(currentQuestion.word.definition, currentQuestion.word.word)}
+                    </p>
+                  </div>
 
-              <div className="bg-gold-50 dark:bg-gold-900/20 rounded-lg p-2 text-center border border-gold-200 dark:border-gold-800">
-                <h3 className="font-semibold text-sm mb-2 text-gold-700 dark:text-gold-400">Example</h3>
-                <p className="text-sm text-neutral-700 dark:text-neutral-300 italic">
-                  "{replaceWordAndVariationsWithBlanks(currentQuestion.word.example_sentence, currentQuestion.word.word)}"
-                </p>
-              </div>
+                  <div className="bg-gold-50 dark:bg-gold-900/20 rounded-lg p-2 text-center border border-gold-200 dark:border-gold-800">
+                    <h3 className="font-semibold text-sm mb-2 text-gold-700 dark:text-gold-400">Example</h3>
+                    <p className="text-sm text-neutral-700 dark:text-neutral-300 italic">
+                      "{replaceWordAndVariationsWithBlanks(currentQuestion.word.example_sentence, currentQuestion.word.word)}"
+                    </p>
+                  </div>
+                </>
+              )}
             </div>
 
             <div className="text-center mb-2 space-y-1">
               <div className="flex justify-center items-center gap-2 sm:gap-3 text-xs">
-                {currentQuestion.word.vocabulary_difficulty_name && (
+                {(currentQuestion.word as any).vocabulary_difficulty_levels?.name && (
                   <span className={`px-1 sm:px-2 py-0.5 sm:py-1 rounded text-xs font-medium ${
-                    currentQuestion.word.vocabulary_difficulty_name === 'Beginner' ? 'bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400' :
-                    currentQuestion.word.vocabulary_difficulty_name === 'Elementary' ? 'bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-400' :
-                    currentQuestion.word.vocabulary_difficulty_name === 'Intermediate' ? 'bg-yellow-100 text-yellow-700 dark:bg-yellow-900/30 dark:text-yellow-400' :
-                    currentQuestion.word.vocabulary_difficulty_name === 'Advanced' ? 'bg-orange-100 text-orange-700 dark:bg-orange-900/30 dark:text-orange-400' :
+                    (currentQuestion.word as any).vocabulary_difficulty_levels?.name === 'Foundation' ? 'bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400' :
+                    (currentQuestion.word as any).vocabulary_difficulty_levels?.name === 'Academic' ? 'bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-400' :
+                    (currentQuestion.word as any).vocabulary_difficulty_levels?.name === 'Sophisticated' ? 'bg-yellow-100 text-yellow-700 dark:bg-yellow-900/30 dark:text-yellow-400' :
+                    (currentQuestion.word as any).vocabulary_difficulty_levels?.name === 'Specialized' ? 'bg-orange-100 text-orange-700 dark:bg-orange-900/30 dark:text-orange-400' :
                     'bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400'
                   }`}>
-                    {currentQuestion.word.vocabulary_difficulty_name}
+                    {(currentQuestion.word as any).vocabulary_difficulty_levels?.name}
                   </span>
                 )}
                 {currentQuestion.word.part_of_speech && (
@@ -756,19 +841,25 @@ const VocabularyTrainerPage: React.FC = () => {
 
             {/* Multiple Choice Options */}
             <div className="space-y-1.5 mb-2">
-              <h3 className="font-semibold text-sm">Which word matches the definition above?</h3>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-1.5">
+              <h3 className="font-semibold text-sm">
+                {currentQuestion.isWordToDefinition 
+                  ? "Which definition matches the word above?" 
+                  : "Which word matches the definition above?"}
+              </h3>
+              <div className={`grid gap-1.5 ${currentQuestion.isWordToDefinition ? 'grid-cols-1' : 'grid-cols-1 sm:grid-cols-2'}`}>
                 {currentQuestion.options.map((option, index) => (
                   <button
                     key={index}
                     onClick={() => handleAnswerSelect(option)}
-                    className={`p-1.5 text-left border-2 rounded-lg transition-colors ${
+                    className={`${currentQuestion.isWordToDefinition ? 'p-2' : 'p-1.5'} text-left border-2 rounded-lg transition-colors ${
                       selectedAnswer === option
                         ? 'border-primary-600 bg-primary-50 dark:bg-primary-900/20'
                         : 'border-neutral-300 dark:border-neutral-600 hover:border-primary-400 hover:bg-primary-50 dark:hover:bg-primary-900/10 bg-white dark:bg-neutral-800'
                     }`}
                   >
-                    <span className="text-sm">{option}</span>
+                    <span className={`text-sm ${currentQuestion.isWordToDefinition ? 'line-clamp-2' : ''}`}>
+                      {option}
+                    </span>
                   </button>
                 ))}
               </div>
@@ -799,14 +890,35 @@ const VocabularyTrainerPage: React.FC = () => {
                     </span>
                   </div>
                   <div className="text-center">
-                    <p className="text-sm text-neutral-600 dark:text-neutral-400 mb-2">
-                      {replaceWordAndVariationsWithBlanks(currentQuestion.word.definition, currentQuestion.word.word)}
-                    </p>
+                    {currentQuestion.isWordToDefinition ? (
+                      <>
+                        <p className="text-2xl font-bold text-green-700 dark:text-green-400 mb-2">
+                          {currentQuestion.word.word}
+                        </p>
+                        <p className="text-sm text-neutral-600 dark:text-neutral-400 mb-2">
+                          {currentQuestion.word.definition}
+                        </p>
+                        {currentQuestion.word.example_sentence && (
+                          <div className="bg-gold-50 dark:bg-gold-900/20 rounded-lg p-2 text-center border border-gold-200 dark:border-gold-800 mt-2">
+                            <h3 className="font-semibold text-xs mb-1 text-gold-700 dark:text-gold-400">Example:</h3>
+                            <p className="text-xs text-neutral-700 dark:text-neutral-300 italic">
+                              "{currentQuestion.word.example_sentence}"
+                            </p>
+                          </div>
+                        )}
+                      </>
+                    ) : (
+                      <>
+                        <p className="text-sm text-neutral-600 dark:text-neutral-400 mb-2">
+                          {replaceWordAndVariationsWithBlanks(currentQuestion.word.definition, currentQuestion.word.word)}
+                        </p>
+                        <span className="text-5xl font-bold text-green-700 dark:text-green-400">
+                          {currentQuestion.word.word}
+                        </span>
+                      </>
+                    )}
                   </div>
                   <div className="flex items-center justify-center gap-3">
-                    <span className="text-5xl font-bold text-green-700 dark:text-green-400">
-                      {currentQuestion.word.word}
-                    </span>
                     <button
                       onClick={() => speakWord(currentQuestion.word.word)}
                       className="p-1 hover:bg-green-100 dark:hover:bg-green-800/20 rounded-md transition-colors"
@@ -824,13 +936,36 @@ const VocabularyTrainerPage: React.FC = () => {
                   </div>
                   <div className="text-center mb-2">
                     <p className="text-sm text-neutral-600 dark:text-neutral-400">
-                      {replaceWordAndVariationsWithBlanks(currentQuestion.word.definition, currentQuestion.word.word)}
+                      {currentQuestion.isWordToDefinition 
+                        ? `The word "${currentQuestion.word.word}" means:`
+                        : replaceWordAndVariationsWithBlanks(currentQuestion.word.definition, currentQuestion.word.word)}
                     </p>
                   </div>
-                  <div className="flex items-center justify-center gap-3">
-                    <div className="text-xl text-red-600 dark:text-red-400">{selectedAnswer}</div>
-                    <div className="text-lg text-neutral-500">→</div>
-                    <div className="text-3xl font-mono text-green-600 dark:text-green-400 font-bold">{currentQuestion.word.word}</div>
+                  <div className="flex flex-col items-center justify-center gap-3">
+                    {currentQuestion.isWordToDefinition ? (
+                      <>
+                        <div className="text-sm text-red-600 dark:text-red-400 max-w-md text-center line-clamp-2">
+                          Your answer: {selectedAnswer}
+                        </div>
+                        <div className="text-sm text-green-600 dark:text-green-400 max-w-md text-center">
+                          <span className="font-semibold">Correct answer:</span> {currentQuestion.word.definition}
+                        </div>
+                        {currentQuestion.word.example_sentence && (
+                          <div className="bg-gold-50 dark:bg-gold-900/20 rounded-lg p-2 text-center border border-gold-200 dark:border-gold-800 mt-1 max-w-md">
+                            <h3 className="font-semibold text-xs mb-1 text-gold-700 dark:text-gold-400">Example:</h3>
+                            <p className="text-xs text-neutral-700 dark:text-neutral-300 italic">
+                              "{currentQuestion.word.example_sentence}"
+                            </p>
+                          </div>
+                        )}
+                      </>
+                    ) : (
+                      <div className="flex items-center gap-3">
+                        <div className="text-xl text-red-600 dark:text-red-400">{selectedAnswer}</div>
+                        <div className="text-lg text-neutral-500">→</div>
+                        <div className="text-3xl font-mono text-green-600 dark:text-green-400 font-bold">{currentQuestion.word.word}</div>
+                      </div>
+                    )}
                     <button
                       onClick={() => speakWord(currentQuestion.word.word)}
                       className="p-1 hover:bg-green-100 dark:hover:bg-green-800/20 rounded-md transition-colors"

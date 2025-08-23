@@ -1,0 +1,32 @@
+{
+  "timestamp": "2025-08-23T15:18:48.224Z",
+  "backupTable": "spelling_words_bkp_1755962327948",
+  "columnsToRemove": [
+    "spelling_difficulty_level",
+    "spelling_difficulty_name",
+    "ai_spelling_difficulty_level",
+    "ai_spelling_difficulty_name",
+    "vocabulary_difficulty_level",
+    "vocabulary_difficulty_name",
+    "difficulty",
+    "source_difficulty"
+  ],
+  "columnsToKeep": [
+    "spelling_difficulty_id",
+    "vocabulary_difficulty_id"
+  ],
+  "sqlCommands": {
+    "backup": "CREATE TABLE spelling_words_bkp_1755962327948 AS SELECT * FROM spelling_words;",
+    "dropColumns": [
+      "ALTER TABLE spelling_words DROP COLUMN IF EXISTS spelling_difficulty_level;",
+      "ALTER TABLE spelling_words DROP COLUMN IF EXISTS spelling_difficulty_name;",
+      "ALTER TABLE spelling_words DROP COLUMN IF EXISTS ai_spelling_difficulty_level;",
+      "ALTER TABLE spelling_words DROP COLUMN IF EXISTS ai_spelling_difficulty_name;",
+      "ALTER TABLE spelling_words DROP COLUMN IF EXISTS vocabulary_difficulty_level;",
+      "ALTER TABLE spelling_words DROP COLUMN IF EXISTS vocabulary_difficulty_name;",
+      "ALTER TABLE spelling_words DROP COLUMN IF EXISTS difficulty;",
+      "ALTER TABLE spelling_words DROP COLUMN IF EXISTS source_difficulty;"
+    ],
+    "verify": "SELECT column_name FROM information_schema.columns WHERE table_name = 'spelling_words' AND column_name LIKE '%difficulty%';"
+  }
+}

@@ -220,7 +220,7 @@ const LearningContentModal: React.FC<LearningContentModalProps> = ({
         .from('user_progress')
         .upsert({
           user_id: user.id,
-          skill_node_id: node.id,
+          skill_id: node.id,
           status: passed ? 'completed' : 'in_progress',
           rating: rating,
           last_accessed: new Date().toISOString(),

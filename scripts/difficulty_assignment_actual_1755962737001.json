@@ -1,0 +1,5007 @@
+{
+  "timestamp": "2025-08-23T15:25:37.001Z",
+  "processed": [],
+  "errors": [],
+  "assignments": [
+    {
+      "word": "aaccdi",
+      "spelling_id": 1,
+      "vocab_id": 1
+    },
+    {
+      "word": "aal",
+      "spelling_id": 1,
+      "vocab_id": 1
+    },
+    {
+      "word": "abnegationbeguile",
+      "spelling_id": 3,
+      "vocab_id": 2
+    },
+    {
+      "word": "abstrusenephrolith",
+      "spelling_id": 3,
+      "vocab_id": 2
+    },
+    {
+      "word": "abundancecalamitous",
+      "spelling_id": 2,
+      "vocab_id": 3
+    },
+    {
+      "word": "acquitcapnometer",
+      "spelling_id": 3,
+      "vocab_id": 2
+    },
+    {
+      "word": "adjudicatecaricature",
+      "spelling_id": 2,
+      "vocab_id": 2
+    },
+    {
+      "word": "advocatoryaerobics",
+      "spelling_id": 2,
+      "vocab_id": 2
+    },
+    {
+      "word": "aes",
+      "spelling_id": 1,
+      "vocab_id": 1
+    },
+    {
+      "word": "aethaliumaffiche",
+      "spelling_id": 3,
+      "vocab_id": 2
+    },
+    {
+      "word": "affiliateaffluent",
+      "spelling_id": 3,
+      "vocab_id": 2
+    },
+    {
+      "word": "agrypniaague",
+      "spelling_id": 3,
+      "vocab_id": 2
+    },
+    {
+      "word": "allelopathy",
+      "spelling_id": 2,
+      "vocab_id": 4
+    },
+    {
+      "word": "americanaamiably",
+      "spelling_id": 2,
+      "vocab_id": 2
+    },
+    {
+      "word": "americanamonopolize",
+      "spelling_id": 2,
+      "vocab_id": 4
+    },
+    {
+      "word": "amidcathect",
+      "spelling_id": 2,
+      "vocab_id": 2
+    },
+    {
+      "word": "amishamnesty",
+      "spelling_id": 3,
+      "vocab_id": 2
+    },
+    {
+      "word": "amuse-gueule",
+      "spelling_id": 3,
+      "vocab_id": 2
+    },
+    {
+      "word": "amusedpouch",
+      "spelling_id": 3,
+      "vocab_id": 2
+    },
+    {
+      "word": "anabolicjimberjawed",
+      "spelling_id": 3,
+      "vocab_id": 2
+    },
+    {
+      "word": "analepsisanalgesia",
+      "spelling_id": 3,
+      "vocab_id": 2
+    },
+    {
+      "word": "andeanscrawled",
+      "spelling_id": 2,
+      "vocab_id": 2
+    },
+    {
+      "word": "angolacontours",
+      "spelling_id": 2,
+      "vocab_id": 2
+    },
+    {
+      "word": "angularconcomitant",
+      "spelling_id": 2,
+      "vocab_id": 2
+    },
+    {
+      "word": "animustrillium",
+      "spelling_id": 2,
+      "vocab_id": 2
+    },
+    {
+      "word": "ape-ape",
+      "spelling_id": 1,
+      "vocab_id": 1
+    },
+    {
+      "word": "art",
+      "spelling_id": 1,
+      "vocab_id": 1
+    },
+    {
+      "word": "astrologers",
+      "spelling_id": 2,
+      "vocab_id": 2
+    },
+    {
+      "word": "ataxiapageantry",
+      "spelling_id": 2,
+      "vocab_id": 2
+    },
+    {
+      "word": "atencatjang",
+      "spelling_id": 2,
+      "vocab_id": 2
+    },
+    {
+      "word": "athletejotted",
+      "spelling_id": 2,
+      "vocab_id": 2
+    },
+    {
+      "word": "atrophyattempt",
+      "spelling_id": 3,
+      "vocab_id": 2
+    },
+    {
+      "word": "aughtsaugment",
+      "spelling_id": 3,
+      "vocab_id": 3
+    },
+    {
+      "word": "authenticatefiscal",
+      "spelling_id": 2,
+      "vocab_id": 2
+    },
+    {
+      "word": "awe",
+      "spelling_id": 1,
+      "vocab_id": 1
+    },
+    {
+      "word": "awryb",
+      "spelling_id": 2,
+      "vocab_id": 1
+    },
+    {
+      "word": "aye-aye",
+      "spelling_id": 1,
+      "vocab_id": 1
+    },
+    {
+      "word": "azorestankard",
+      "spelling_id": 2,
+      "vocab_id": 2
+    },
+    {
+      "word": "backgammonintuitable",
+      "spelling_id": 2,
+      "vocab_id": 3
+    },
+    {
+      "word": "badgerbailiff",
+      "spelling_id": 2,
+      "vocab_id": 2
+    },
+    {
+      "word": "bahuvrihipanjandrum",
+      "spelling_id": 2,
+      "vocab_id": 2
+    },
+    {
+      "word": "bailiffinfiltrate",
+      "spelling_id": 2,
+      "vocab_id": 2
+    },
+    {
+      "word": "bakeryporridge",
+      "spelling_id": 2,
+      "vocab_id": 2
+    },
+    {
+      "word": "balm",
+      "spelling_id": 1,
+      "vocab_id": 1
+    },
+    {
+      "word": "bangalore",
+      "spelling_id": 2,
+      "vocab_id": 2
+    },
+    {
+      "word": "bantamapprentice",
+      "spelling_id": 2,
+      "vocab_id": 2
+    },
+    {
+      "word": "bas-relief",
+      "spelling_id": 2,
+      "vocab_id": 2
+    },
+    {
+      "word": "basketsbonnet",
+      "spelling_id": 2,
+      "vocab_id": 2
+    },
+    {
+      "word": "beatboxingmutate",
+      "spelling_id": 2,
+      "vocab_id": 2
+    },
+    {
+      "word": "beatificbeguile",
+      "spelling_id": 2,
+      "vocab_id": 2
+    },
+    {
+      "word": "beaucoupbanal",
+      "spelling_id": 3,
+      "vocab_id": 2
+    },
+    {
+      "word": "becquereldarnel",
+      "spelling_id": 3,
+      "vocab_id": 2
+    },
+    {
+      "word": "being",
+      "spelling_id": 1,
+      "vocab_id": 1
+    },
+    {
+      "word": "beix",
+      "spelling_id": 1,
+      "vocab_id": 1
+    },
+    {
+      "word": "ben",
+      "spelling_id": 1,
+      "vocab_id": 1
+    },
+    {
+      "word": "benedictinearcane",
+      "spelling_id": 2,
+      "vocab_id": 2
+    },
+    {
+      "word": "bermudasamusement",
+      "spelling_id": 2,
+      "vocab_id": 3
+    },
+    {
+      "word": "bhikshunisvarabhakti",
+      "spelling_id": 2,
+      "vocab_id": 2
+    },
+    {
+      "word": "bifurcatedrivel",
+      "spelling_id": 2,
+      "vocab_id": 2
+    },
+    {
+      "word": "big",
+      "spelling_id": 1,
+      "vocab_id": 1
+    },
+    {
+      "word": "big-time",
+      "spelling_id": 1,
+      "vocab_id": 2
+    },
+    {
+      "word": "binomialbiomimicry",
+      "spelling_id": 2,
+      "vocab_id": 4
+    },
+    {
+      "word": "bipolar",
+      "spelling_id": 1,
+      "vocab_id": 1
+    },
+    {
+      "word": "blessingspeacock",
+      "spelling_id": 2,
+      "vocab_id": 2
+    },
+    {
+      "word": "blockheap",
+      "spelling_id": 2,
+      "vocab_id": 2
+    },
+    {
+      "word": "blottesquebobolink",
+      "spelling_id": 4,
+      "vocab_id": 2
+    },
+    {
+      "word": "blurtedwallet",
+      "spelling_id": 2,
+      "vocab_id": 2
+    },
+    {
+      "word": "bonoboabrogate",
+      "spelling_id": 2,
+      "vocab_id": 2
+    },
+    {
+      "word": "boogie-woogie",
+      "spelling_id": 2,
+      "vocab_id": 2
+    },
+    {
+      "word": "bow",
+      "spelling_id": 1,
+      "vocab_id": 1
+    },
+    {
+      "word": "bowlerphantom",
+      "spelling_id": 3,
+      "vocab_id": 2
+    },
+    {
+      "word": "boycottcalzone",
+      "spelling_id": 2,
+      "vocab_id": 2
+    },
+    {
+      "word": "braillevignette",
+      "spelling_id": 3,
+      "vocab_id": 2
+    },
+    {
+      "word": "breviloquencenoun",
+      "spelling_id": 3,
+      "vocab_id": 2
+    },
+    {
+      "word": "bric-a-brac",
+      "spelling_id": 2,
+      "vocab_id": 2
+    },
+    {
+      "word": "briocheadumbrate",
+      "spelling_id": 3,
+      "vocab_id": 2
+    },
+    {
+      "word": "bromidealgae",
+      "spelling_id": 2,
+      "vocab_id": 2
+    },
+    {
+      "word": "brujaupsilon",
+      "spelling_id": 3,
+      "vocab_id": 2
+    },
+    {
+      "word": "bunyanesqueexsect",
+      "spelling_id": 3,
+      "vocab_id": 2
+    },
+    {
+      "word": "burgoooccupancy",
+      "spelling_id": 2,
+      "vocab_id": 2
+    },
+    {
+      "word": "busbyadjective",
+      "spelling_id": 2,
+      "vocab_id": 2
+    },
+    {
+      "word": "cachexiaconnoisseur",
+      "spelling_id": 4,
+      "vocab_id": 2
+    },
+    {
+      "word": "camarillanidicolous",
+      "spelling_id": 2,
+      "vocab_id": 3
+    },
+    {
+      "word": "came",
+      "spelling_id": 1,
+      "vocab_id": 1
+    },
+    {
+      "word": "canaillecantatrice",
+      "spelling_id": 2,
+      "vocab_id": 2
+    },
+    {
+      "word": "capillarycapnometer",
+      "spelling_id": 2,
+      "vocab_id": 2
+    },
+    {
+      "word": "car",
+      "spelling_id": 1,
+      "vocab_id": 1
+    },
+    {
+      "word": "carapacedauerlauf",
+      "spelling_id": 3,
+      "vocab_id": 2
+    },
+    {
+      "word": "cardiopathy",
+      "spelling_id": 2,
+      "vocab_id": 4
+    },
+    {
+      "word": "cartoondough",
+      "spelling_id": 3,
+      "vocab_id": 2
+    },
+    {
+      "word": "castigateveered",
+      "spelling_id": 2,
+      "vocab_id": 2
+    },
+    {
+      "word": "cat",
+      "spelling_id": 1,
+      "vocab_id": 1
+    },
+    {
+      "word": "cathodecatnap",
+      "spelling_id": 2,
+      "vocab_id": 2
+    },
+    {
+      "word": "cathodecattalo",
+      "spelling_id": 2,
+      "vocab_id": 2
+    },
+    {
+      "word": "celeryidiosyncratic",
+      "spelling_id": 2,
+      "vocab_id": 2
+    },
+    {
+      "word": "censusstagflation",
+      "spelling_id": 3,
+      "vocab_id": 3
+    },
+    {
+      "word": "centenarymatrimony",
+      "spelling_id": 2,
+      "vocab_id": 2
+    },
+    {
+      "word": "centennialcertiorari",
+      "spelling_id": 2,
+      "vocab_id": 2
+    },
+    {
+      "word": "champion",
+      "spelling_id": 2,
+      "vocab_id": 2
+    },
+    {
+      "word": "charlotte",
+      "spelling_id": 3,
+      "vocab_id": 2
+    },
+    {
+      "word": "chauve-souris",
+      "spelling_id": 3,
+      "vocab_id": 2
+    },
+    {
+      "word": "chi",
+      "spelling_id": 1,
+      "vocab_id": 1
+    },
+    {
+      "word": "christened",
+      "spelling_id": 2,
+      "vocab_id": 2
+    },
+    {
+      "word": "cinerarium",
+      "spelling_id": 2,
+      "vocab_id": 2
+    },
+    {
+      "word": "cirrhosis",
+      "spelling_id": 3,
+      "vocab_id": 2
+    },
+    {
+      "word": "cog",
+      "spelling_id": 1,
+      "vocab_id": 1
+    },
+    {
+      "word": "con",
+      "spelling_id": 1,
+      "vocab_id": 1
+    },
+    {
+      "word": "constant",
+      "spelling_id": 1,
+      "vocab_id": 2
+    },
+    {
+      "word": "contaminated",
+      "spelling_id": 2,
+      "vocab_id": 2
+    },
+    {
+      "word": "cookie-cutter",
+      "spelling_id": 2,
+      "vocab_id": 2
+    },
+    {
+      "word": "cordaun",
+      "spelling_id": 1,
+      "vocab_id": 1
+    },
+    {
+      "word": "cordillerazazen",
+      "spelling_id": 2,
+      "vocab_id": 2
+    },
+    {
+      "word": "couverturecreances",
+      "spelling_id": 2,
+      "vocab_id": 2
+    },
+    {
+      "word": "covid",
+      "spelling_id": 1,
+      "vocab_id": 1
+    },
+    {
+      "word": "creelboniface",
+      "spelling_id": 2,
+      "vocab_id": 2
+    },
+    {
+      "word": "crockerygauze",
+      "spelling_id": 2,
+      "vocab_id": 2
+    },
+    {
+      "word": "cry",
+      "spelling_id": 1,
+      "vocab_id": 1
+    },
+    {
+      "word": "cul-de-sac",
+      "spelling_id": 2,
+      "vocab_id": 2
+    },
+    {
+      "word": "cum",
+      "spelling_id": 1,
+      "vocab_id": 1
+    },
+    {
+      "word": "curiecurmudgeon",
+      "spelling_id": 2,
+      "vocab_id": 4
+    },
+    {
+      "word": "cutiscyanosis",
+      "spelling_id": 2,
+      "vocab_id": 2
+    },
+    {
+      "word": "cyanosisregurgitate",
+      "spelling_id": 2,
+      "vocab_id": 2
+    },
+    {
+      "word": "cyberneticsgarniture",
+      "spelling_id": 2,
+      "vocab_id": 2
+    },
+    {
+      "word": "darjeelingrecusancy",
+      "spelling_id": 2,
+      "vocab_id": 2
+    },
+    {
+      "word": "de-mer",
+      "spelling_id": 1,
+      "vocab_id": 2
+    },
+    {
+      "word": "deceitfulcinderella",
+      "spelling_id": 2,
+      "vocab_id": 3
+    },
+    {
+      "word": "deficiencies",
+      "spelling_id": 3,
+      "vocab_id": 3
+    },
+    {
+      "word": "deglaciationrecruit",
+      "spelling_id": 3,
+      "vocab_id": 3
+    },
+    {
+      "word": "demolitiongargantuan",
+      "spelling_id": 3,
+      "vocab_id": 3
+    },
+    {
+      "word": "derelictderisive",
+      "spelling_id": 2,
+      "vocab_id": 3
+    },
+    {
+      "word": "derring-do",
+      "spelling_id": 2,
+      "vocab_id": 2
+    },
+    {
+      "word": "derring-dodeseret",
+      "spelling_id": 2,
+      "vocab_id": 3
+    },
+    {
+      "word": "des",
+      "spelling_id": 1,
+      "vocab_id": 1
+    },
+    {
+      "word": "designerleisure",
+      "spelling_id": 3,
+      "vocab_id": 3
+    },
+    {
+      "word": "diaspora",
+      "spelling_id": 1,
+      "vocab_id": 2
+    },
+    {
+      "word": "diastole",
+      "spelling_id": 1,
+      "vocab_id": 2
+    },
+    {
+      "word": "diathermy",
+      "spelling_id": 2,
+      "vocab_id": 2
+    },
+    {
+      "word": "diatonic",
+      "spelling_id": 1,
+      "vocab_id": 2
+    },
+    {
+      "word": "diatribe",
+      "spelling_id": 1,
+      "vocab_id": 2
+    },
+    {
+      "word": "diaulos",
+      "spelling_id": 1,
+      "vocab_id": 1
+    },
+    {
+      "word": "dicey",
+      "spelling_id": 1,
+      "vocab_id": 1
+    },
+    {
+      "word": "dictum",
+      "spelling_id": 1,
+      "vocab_id": 1
+    },
+    {
+      "word": "dietetic",
+      "spelling_id": 1,
+      "vocab_id": 2
+    },
+    {
+      "word": "differed",
+      "spelling_id": 2,
+      "vocab_id": 2
+    },
+    {
+      "word": "different",
+      "spelling_id": 2,
+      "vocab_id": 2
+    },
+    {
+      "word": "difficult",
+      "spelling_id": 2,
+      "vocab_id": 2
+    },
+    {
+      "word": "difficulty",
+      "spelling_id": 2,
+      "vocab_id": 2
+    },
+    {
+      "word": "digerati",
+      "spelling_id": 1,
+      "vocab_id": 2
+    },
+    {
+      "word": "dignify",
+      "spelling_id": 2,
+      "vocab_id": 2
+    },
+    {
+      "word": "digression",
+      "spelling_id": 3,
+      "vocab_id": 2
+    },
+    {
+      "word": "dihedral",
+      "spelling_id": 1,
+      "vocab_id": 2
+    },
+    {
+      "word": "diktat",
+      "spelling_id": 1,
+      "vocab_id": 1
+    },
+    {
+      "word": "dilapidated",
+      "spelling_id": 2,
+      "vocab_id": 2
+    },
+    {
+      "word": "dilemma",
+      "spelling_id": 2,
+      "vocab_id": 1
+    },
+    {
+      "word": "diligence",
+      "spelling_id": 2,
+      "vocab_id": 2
+    },
+    {
+      "word": "dillydally",
+      "spelling_id": 2,
+      "vocab_id": 2
+    },
+    {
+      "word": "diluent",
+      "spelling_id": 2,
+      "vocab_id": 1
+    },
+    {
+      "word": "dilute",
+      "spelling_id": 1,
+      "vocab_id": 1
+    },
+    {
+      "word": "dim",
+      "spelling_id": 1,
+      "vocab_id": 1
+    },
+    {
+      "word": "dimension",
+      "spelling_id": 2,
+      "vocab_id": 2
+    },
+    {
+      "word": "diminished",
+      "spelling_id": 2,
+      "vocab_id": 2
+    },
+    {
+      "word": "dimorphism",
+      "spelling_id": 2,
+      "vocab_id": 3
+    },
+    {
+      "word": "dimple",
+      "spelling_id": 1,
+      "vocab_id": 1
+    },
+    {
+      "word": "dinero",
+      "spelling_id": 1,
+      "vocab_id": 1
+    },
+    {
+      "word": "dingoes",
+      "spelling_id": 1,
+      "vocab_id": 1
+    },
+    {
+      "word": "dinner",
+      "spelling_id": 1,
+      "vocab_id": 1
+    },
+    {
+      "word": "dinosaur",
+      "spelling_id": 1,
+      "vocab_id": 2
+    },
+    {
+      "word": "diocese",
+      "spelling_id": 1,
+      "vocab_id": 1
+    },
+    {
+      "word": "diode",
+      "spelling_id": 1,
+      "vocab_id": 1
+    },
+    {
+      "word": "diphtheria",
+      "spelling_id": 2,
+      "vocab_id": 2
+    },
+    {
+      "word": "diplodocus",
+      "spelling_id": 2,
+      "vocab_id": 2
+    },
+    {
+      "word": "diploma",
+      "spelling_id": 1,
+      "vocab_id": 1
+    },
+    {
+      "word": "diptych",
+      "spelling_id": 2,
+      "vocab_id": 1
+    },
+    {
+      "word": "dire",
+      "spelling_id": 1,
+      "vocab_id": 1
+    },
+    {
+      "word": "direct",
+      "spelling_id": 1,
+      "vocab_id": 1
+    },
+    {
+      "word": "dirigible",
+      "spelling_id": 2,
+      "vocab_id": 2
+    },
+    {
+      "word": "dirndl",
+      "spelling_id": 1,
+      "vocab_id": 1
+    },
+    {
+      "word": "disaster",
+      "spelling_id": 1,
+      "vocab_id": 2
+    },
+    {
+      "word": "disasternoun",
+      "spelling_id": 2,
+      "vocab_id": 3
+    },
+    {
+      "word": "disband",
+      "spelling_id": 1,
+      "vocab_id": 2
+    },
+    {
+      "word": "distraught",
+      "spelling_id": 2,
+      "vocab_id": 2
+    },
+    {
+      "word": "distressed",
+      "spelling_id": 2,
+      "vocab_id": 2
+    },
+    {
+      "word": "disturbancewily",
+      "spelling_id": 2,
+      "vocab_id": 3
+    },
+    {
+      "word": "diurnal",
+      "spelling_id": 1,
+      "vocab_id": 1
+    },
+    {
+      "word": "diva",
+      "spelling_id": 1,
+      "vocab_id": 1
+    },
+    {
+      "word": "divanbadminton",
+      "spelling_id": 2,
+      "vocab_id": 2
+    },
+    {
+      "word": "diverge",
+      "spelling_id": 1,
+      "vocab_id": 1
+    },
+    {
+      "word": "diversion",
+      "spelling_id": 2,
+      "vocab_id": 2
+    },
+    {
+      "word": "diversity",
+      "spelling_id": 2,
+      "vocab_id": 2
+    },
+    {
+      "word": "divestiture",
+      "spelling_id": 2,
+      "vocab_id": 2
+    },
+    {
+      "word": "divine",
+      "spelling_id": 1,
+      "vocab_id": 1
+    },
+    {
+      "word": "divot",
+      "spelling_id": 1,
+      "vocab_id": 1
+    },
+    {
+      "word": "divulge",
+      "spelling_id": 1,
+      "vocab_id": 1
+    },
+    {
+      "word": "divvy",
+      "spelling_id": 1,
+      "vocab_id": 1
+    },
+    {
+      "word": "divvyfatuously",
+      "spelling_id": 2,
+      "vocab_id": 2
+    },
+    {
+      "word": "djibouti",
+      "spelling_id": 1,
+      "vocab_id": 2
+    },
+    {
+      "word": "dlailmnr",
+      "spelling_id": 2,
+      "vocab_id": 2
+    },
+    {
+      "word": "docket",
+      "spelling_id": 1,
+      "vocab_id": 1
+    },
+    {
+      "word": "doctor",
+      "spelling_id": 1,
+      "vocab_id": 1
+    },
+    {
+      "word": "documentary",
+      "spelling_id": 2,
+      "vocab_id": 2
+    },
+    {
+      "word": "dodecahedron",
+      "spelling_id": 2,
+      "vocab_id": 2
+    },
+    {
+      "word": "dodge",
+      "spelling_id": 1,
+      "vocab_id": 1
+    },
+    {
+      "word": "dodgy",
+      "spelling_id": 1,
+      "vocab_id": 1
+    },
+    {
+      "word": "dogana",
+      "spelling_id": 1,
+      "vocab_id": 1
+    },
+    {
+      "word": "dojo",
+      "spelling_id": 1,
+      "vocab_id": 1
+    },
+    {
+      "word": "doldrums",
+      "spelling_id": 1,
+      "vocab_id": 2
+    },
+    {
+      "word": "dollbill",
+      "spelling_id": 2,
+      "vocab_id": 2
+    },
+    {
+      "word": "dolma",
+      "spelling_id": 1,
+      "vocab_id": 1
+    },
+    {
+      "word": "dolmen",
+      "spelling_id": 1,
+      "vocab_id": 1
+    },
+    {
+      "word": "dolphin",
+      "spelling_id": 2,
+      "vocab_id": 1
+    },
+    {
+      "word": "domain",
+      "spelling_id": 1,
+      "vocab_id": 1
+    },
+    {
+      "word": "dome",
+      "spelling_id": 1,
+      "vocab_id": 1
+    },
+    {
+      "word": "domesticity",
+      "spelling_id": 2,
+      "vocab_id": 3
+    },
+    {
+      "word": "domiciled",
+      "spelling_id": 2,
+      "vocab_id": 2
+    },
+    {
+      "word": "domineering",
+      "spelling_id": 2,
+      "vocab_id": 2
+    },
+    {
+      "word": "domino",
+      "spelling_id": 1,
+      "vocab_id": 1
+    },
+    {
+      "word": "donatee",
+      "spelling_id": 1,
+      "vocab_id": 1
+    },
+    {
+      "word": "donkeys",
+      "spelling_id": 1,
+      "vocab_id": 1
+    },
+    {
+      "word": "donna",
+      "spelling_id": 1,
+      "vocab_id": 1
+    },
+    {
+      "word": "donut",
+      "spelling_id": 1,
+      "vocab_id": 1
+    },
+    {
+      "word": "doodled",
+      "spelling_id": 1,
+      "vocab_id": 1
+    },
+    {
+      "word": "doomed",
+      "spelling_id": 1,
+      "vocab_id": 1
+    },
+    {
+      "word": "doorjamb",
+      "spelling_id": 2,
+      "vocab_id": 2
+    },
+    {
+      "word": "dopamine",
+      "spelling_id": 1,
+      "vocab_id": 2
+    },
+    {
+      "word": "doppler",
+      "spelling_id": 2,
+      "vocab_id": 1
+    },
+    {
+      "word": "dorking",
+      "spelling_id": 1,
+      "vocab_id": 1
+    },
+    {
+      "word": "dormitories",
+      "spelling_id": 2,
+      "vocab_id": 2
+    },
+    {
+      "word": "dorsiflexor",
+      "spelling_id": 2,
+      "vocab_id": 2
+    },
+    {
+      "word": "dosages",
+      "spelling_id": 1,
+      "vocab_id": 1
+    },
+    {
+      "word": "dots",
+      "spelling_id": 1,
+      "vocab_id": 1
+    },
+    {
+      "word": "dotted",
+      "spelling_id": 1,
+      "vocab_id": 1
+    },
+    {
+      "word": "double",
+      "spelling_id": 1,
+      "vocab_id": 1
+    },
+    {
+      "word": "doubloons",
+      "spelling_id": 2,
+      "vocab_id": 2
+    },
+    {
+      "word": "doubt",
+      "spelling_id": 1,
+      "vocab_id": 1
+    },
+    {
+      "word": "dough",
+      "spelling_id": 2,
+      "vocab_id": 1
+    },
+    {
+      "word": "doughnut",
+      "spelling_id": 3,
+      "vocab_id": 2
+    },
+    {
+      "word": "douloureux",
+      "spelling_id": 4,
+      "vocab_id": 2
+    },
+    {
+      "word": "dovecote",
+      "spelling_id": 1,
+      "vocab_id": 2
+    },
+    {
+      "word": "dowager",
+      "spelling_id": 1,
+      "vocab_id": 1
+    },
+    {
+      "word": "dowdy",
+      "spelling_id": 1,
+      "vocab_id": 1
+    },
+    {
+      "word": "dowdycorkscrew",
+      "spelling_id": 2,
+      "vocab_id": 2
+    },
+    {
+      "word": "downcast",
+      "spelling_id": 1,
+      "vocab_id": 2
+    },
+    {
+      "word": "downcastjubilant",
+      "spelling_id": 2,
+      "vocab_id": 2
+    },
+    {
+      "word": "doxycycline",
+      "spelling_id": 2,
+      "vocab_id": 2
+    },
+    {
+      "word": "draconian",
+      "spelling_id": 2,
+      "vocab_id": 2
+    },
+    {
+      "word": "draegerman",
+      "spelling_id": 2,
+      "vocab_id": 2
+    },
+    {
+      "word": "drag",
+      "spelling_id": 1,
+      "vocab_id": 1
+    },
+    {
+      "word": "dragoon",
+      "spelling_id": 1,
+      "vocab_id": 1
+    },
+    {
+      "word": "drahthaar",
+      "spelling_id": 2,
+      "vocab_id": 2
+    },
+    {
+      "word": "dramatization",
+      "spelling_id": 3,
+      "vocab_id": 3
+    },
+    {
+      "word": "dramaturgy",
+      "spelling_id": 2,
+      "vocab_id": 2
+    },
+    {
+      "word": "drape",
+      "spelling_id": 1,
+      "vocab_id": 1
+    },
+    {
+      "word": "drastic",
+      "spelling_id": 1,
+      "vocab_id": 1
+    },
+    {
+      "word": "drawers",
+      "spelling_id": 1,
+      "vocab_id": 1
+    },
+    {
+      "word": "drawl",
+      "spelling_id": 1,
+      "vocab_id": 1
+    },
+    {
+      "word": "dreadlocks",
+      "spelling_id": 2,
+      "vocab_id": 2
+    },
+    {
+      "word": "dredged",
+      "spelling_id": 1,
+      "vocab_id": 1
+    },
+    {
+      "word": "dreikanter",
+      "spelling_id": 2,
+      "vocab_id": 2
+    },
+    {
+      "word": "dribbles",
+      "spelling_id": 2,
+      "vocab_id": 2
+    },
+    {
+      "word": "drift",
+      "spelling_id": 1,
+      "vocab_id": 1
+    },
+    {
+      "word": "drill",
+      "spelling_id": 1,
+      "vocab_id": 1
+    },
+    {
+      "word": "drivel",
+      "spelling_id": 1,
+      "vocab_id": 1
+    },
+    {
+      "word": "driveljettison",
+      "spelling_id": 2,
+      "vocab_id": 2
+    },
+    {
+      "word": "drizzle",
+      "spelling_id": 2,
+      "vocab_id": 1
+    },
+    {
+      "word": "droll",
+      "spelling_id": 1,
+      "vocab_id": 1
+    },
+    {
+      "word": "dromedary",
+      "spelling_id": 2,
+      "vocab_id": 2
+    },
+    {
+      "word": "dromic",
+      "spelling_id": 1,
+      "vocab_id": 1
+    },
+    {
+      "word": "drone",
+      "spelling_id": 1,
+      "vocab_id": 1
+    },
+    {
+      "word": "drool",
+      "spelling_id": 1,
+      "vocab_id": 1
+    },
+    {
+      "word": "drooped",
+      "spelling_id": 1,
+      "vocab_id": 1
+    },
+    {
+      "word": "dropsonde",
+      "spelling_id": 2,
+      "vocab_id": 2
+    },
+    {
+      "word": "drowsy",
+      "spelling_id": 1,
+      "vocab_id": 1
+    },
+    {
+      "word": "drudgery",
+      "spelling_id": 1,
+      "vocab_id": 2
+    },
+    {
+      "word": "druid",
+      "spelling_id": 1,
+      "vocab_id": 1
+    },
+    {
+      "word": "drum",
+      "spelling_id": 1,
+      "vocab_id": 1
+    },
+    {
+      "word": "drumlin",
+      "spelling_id": 1,
+      "vocab_id": 1
+    },
+    {
+      "word": "drupiferous",
+      "spelling_id": 2,
+      "vocab_id": 3
+    },
+    {
+      "word": "dubhe",
+      "spelling_id": 1,
+      "vocab_id": 1
+    },
+    {
+      "word": "dubiously",
+      "spelling_id": 2,
+      "vocab_id": 3
+    },
+    {
+      "word": "dubitante",
+      "spelling_id": 2,
+      "vocab_id": 2
+    },
+    {
+      "word": "dubuque",
+      "spelling_id": 3,
+      "vocab_id": 1
+    },
+    {
+      "word": "ducats",
+      "spelling_id": 1,
+      "vocab_id": 1
+    },
+    {
+      "word": "duchy",
+      "spelling_id": 2,
+      "vocab_id": 1
+    },
+    {
+      "word": "duchypagoda",
+      "spelling_id": 3,
+      "vocab_id": 2
+    },
+    {
+      "word": "duckling",
+      "spelling_id": 1,
+      "vocab_id": 2
+    },
+    {
+      "word": "dudgeon",
+      "spelling_id": 1,
+      "vocab_id": 3
+    },
+    {
+      "word": "dudley",
+      "spelling_id": 1,
+      "vocab_id": 1
+    },
+    {
+      "word": "duello",
+      "spelling_id": 2,
+      "vocab_id": 1
+    },
+    {
+      "word": "dulcet",
+      "spelling_id": 1,
+      "vocab_id": 1
+    },
+    {
+      "word": "dulcinea",
+      "spelling_id": 1,
+      "vocab_id": 2
+    },
+    {
+      "word": "dumbwaiter",
+      "spelling_id": 2,
+      "vocab_id": 2
+    },
+    {
+      "word": "dunk",
+      "spelling_id": 1,
+      "vocab_id": 1
+    },
+    {
+      "word": "duo",
+      "spelling_id": 1,
+      "vocab_id": 1
+    },
+    {
+      "word": "duodenum",
+      "spelling_id": 1,
+      "vocab_id": 2
+    },
+    {
+      "word": "duopoly",
+      "spelling_id": 1,
+      "vocab_id": 3
+    },
+    {
+      "word": "duplicitous",
+      "spelling_id": 2,
+      "vocab_id": 3
+    },
+    {
+      "word": "durango",
+      "spelling_id": 1,
+      "vocab_id": 1
+    },
+    {
+      "word": "duress",
+      "spelling_id": 1,
+      "vocab_id": 1
+    },
+    {
+      "word": "durham",
+      "spelling_id": 2,
+      "vocab_id": 1
+    },
+    {
+      "word": "during",
+      "spelling_id": 1,
+      "vocab_id": 1
+    },
+    {
+      "word": "dusk",
+      "spelling_id": 1,
+      "vocab_id": 1
+    },
+    {
+      "word": "dutifully",
+      "spelling_id": 2,
+      "vocab_id": 2
+    },
+    {
+      "word": "duvet",
+      "spelling_id": 1,
+      "vocab_id": 1
+    },
+    {
+      "word": "duxelles",
+      "spelling_id": 2,
+      "vocab_id": 2
+    },
+    {
+      "word": "dvandva",
+      "spelling_id": 1,
+      "vocab_id": 1
+    },
+    {
+      "word": "dvorak",
+      "spelling_id": 1,
+      "vocab_id": 1
+    },
+    {
+      "word": "dwindled",
+      "spelling_id": 1,
+      "vocab_id": 2
+    },
+    {
+      "word": "dynamite",
+      "spelling_id": 1,
+      "vocab_id": 2
+    },
+    {
+      "word": "dynasty",
+      "spelling_id": 1,
+      "vocab_id": 1
+    },
+    {
+      "word": "dysgraphia",
+      "spelling_id": 2,
+      "vocab_id": 3
+    },
+    {
+      "word": "dyspeptic",
+      "spelling_id": 2,
+      "vocab_id": 2
+    },
+    {
+      "word": "dysphasia",
+      "spelling_id": 2,
+      "vocab_id": 2
+    },
+    {
+      "word": "dysphasiae",
+      "spelling_id": 2,
+      "vocab_id": 2
+    },
+    {
+      "word": "dysrhythmia",
+      "spelling_id": 3,
+      "vocab_id": 2
+    },
+    {
+      "word": "dystopia",
+      "spelling_id": 1,
+      "vocab_id": 2
+    },
+    {
+      "word": "dystopiae",
+      "spelling_id": 2,
+      "vocab_id": 2
+    },
+    {
+      "word": "each",
+      "spelling_id": 1,
+      "vocab_id": 1
+    },
+    {
+      "word": "eagerly",
+      "spelling_id": 1,
+      "vocab_id": 1
+    },
+    {
+      "word": "eagle",
+      "spelling_id": 1,
+      "vocab_id": 1
+    },
+    {
+      "word": "earmark",
+      "spelling_id": 1,
+      "vocab_id": 1
+    },
+    {
+      "word": "earnestly",
+      "spelling_id": 2,
+      "vocab_id": 2
+    },
+    {
+      "word": "ears",
+      "spelling_id": 1,
+      "vocab_id": 1
+    },
+    {
+      "word": "earthquake",
+      "spelling_id": 2,
+      "vocab_id": 2
+    },
+    {
+      "word": "easily",
+      "spelling_id": 1,
+      "vocab_id": 1
+    },
+    {
+      "word": "eastern",
+      "spelling_id": 1,
+      "vocab_id": 1
+    },
+    {
+      "word": "eaten",
+      "spelling_id": 1,
+      "vocab_id": 1
+    },
+    {
+      "word": "eats",
+      "spelling_id": 1,
+      "vocab_id": 1
+    },
+    {
+      "word": "eavesdrop",
+      "spelling_id": 2,
+      "vocab_id": 2
+    },
+    {
+      "word": "ebb",
+      "spelling_id": 1,
+      "vocab_id": 1
+    },
+    {
+      "word": "ebullience",
+      "spelling_id": 2,
+      "vocab_id": 2
+    },
+    {
+      "word": "eburnean",
+      "spelling_id": 1,
+      "vocab_id": 2
+    },
+    {
+      "word": "ecchymosis",
+      "spelling_id": 3,
+      "vocab_id": 2
+    },
+    {
+      "word": "ecclesiology",
+      "spelling_id": 2,
+      "vocab_id": 3
+    },
+    {
+      "word": "echelon",
+      "spelling_id": 2,
+      "vocab_id": 1
+    },
+    {
+      "word": "echidna",
+      "spelling_id": 2,
+      "vocab_id": 1
+    },
+    {
+      "word": "echinoderm",
+      "spelling_id": 2,
+      "vocab_id": 2
+    },
+    {
+      "word": "echoed",
+      "spelling_id": 2,
+      "vocab_id": 1
+    },
+    {
+      "word": "eclectic",
+      "spelling_id": 1,
+      "vocab_id": 2
+    },
+    {
+      "word": "eclipse",
+      "spelling_id": 2,
+      "vocab_id": 1
+    },
+    {
+      "word": "economic",
+      "spelling_id": 1,
+      "vocab_id": 2
+    },
+    {
+      "word": "economy",
+      "spelling_id": 1,
+      "vocab_id": 1
+    },
+    {
+      "word": "ecotourism",
+      "spelling_id": 2,
+      "vocab_id": 2
+    },
+    {
+      "word": "ecstatic",
+      "spelling_id": 1,
+      "vocab_id": 2
+    },
+    {
+      "word": "ecstaticcinnamon",
+      "spelling_id": 2,
+      "vocab_id": 2
+    },
+    {
+      "word": "ectoplasm",
+      "spelling_id": 2,
+      "vocab_id": 2
+    },
+    {
+      "word": "ectoplasmolfactory",
+      "spelling_id": 2,
+      "vocab_id": 2
+    },
+    {
+      "word": "ecuador",
+      "spelling_id": 1,
+      "vocab_id": 1
+    },
+    {
+      "word": "eczema",
+      "spelling_id": 2,
+      "vocab_id": 1
+    },
+    {
+      "word": "edamame",
+      "spelling_id": 1,
+      "vocab_id": 1
+    },
+    {
+      "word": "eddy",
+      "spelling_id": 1,
+      "vocab_id": 1
+    },
+    {
+      "word": "edenic",
+      "spelling_id": 1,
+      "vocab_id": 1
+    },
+    {
+      "word": "edge",
+      "spelling_id": 1,
+      "vocab_id": 1
+    },
+    {
+      "word": "edible",
+      "spelling_id": 1,
+      "vocab_id": 2
+    },
+    {
+      "word": "edification",
+      "spelling_id": 3,
+      "vocab_id": 3
+    },
+    {
+      "word": "edinburgh",
+      "spelling_id": 2,
+      "vocab_id": 2
+    },
+    {
+      "word": "editorial",
+      "spelling_id": 2,
+      "vocab_id": 2
+    },
+    {
+      "word": "educand",
+      "spelling_id": 1,
+      "vocab_id": 1
+    },
+    {
+      "word": "edwardian",
+      "spelling_id": 2,
+      "vocab_id": 2
+    },
+    {
+      "word": "eel",
+      "spelling_id": 1,
+      "vocab_id": 1
+    },
+    {
+      "word": "eerily",
+      "spelling_id": 1,
+      "vocab_id": 1
+    },
+    {
+      "word": "efface",
+      "spelling_id": 1,
+      "vocab_id": 1
+    },
+    {
+      "word": "effect",
+      "spelling_id": 1,
+      "vocab_id": 1
+    },
+    {
+      "word": "effectual",
+      "spelling_id": 2,
+      "vocab_id": 2
+    },
+    {
+      "word": "effervescent",
+      "spelling_id": 2,
+      "vocab_id": 2
+    },
+    {
+      "word": "effete",
+      "spelling_id": 1,
+      "vocab_id": 1
+    },
+    {
+      "word": "efficient",
+      "spelling_id": 3,
+      "vocab_id": 2
+    },
+    {
+      "word": "effigy",
+      "spelling_id": 1,
+      "vocab_id": 1
+    },
+    {
+      "word": "effleurage",
+      "spelling_id": 2,
+      "vocab_id": 2
+    },
+    {
+      "word": "efflux",
+      "spelling_id": 1,
+      "vocab_id": 1
+    },
+    {
+      "word": "effluxfrugivore",
+      "spelling_id": 2,
+      "vocab_id": 2
+    },
+    {
+      "word": "effortless",
+      "spelling_id": 2,
+      "vocab_id": 2
+    },
+    {
+      "word": "effortlesseighth",
+      "spelling_id": 4,
+      "vocab_id": 2
+    },
+    {
+      "word": "effraction",
+      "spelling_id": 3,
+      "vocab_id": 2
+    },
+    {
+      "word": "effrontery",
+      "spelling_id": 2,
+      "vocab_id": 2
+    },
+    {
+      "word": "effusive",
+      "spelling_id": 2,
+      "vocab_id": 2
+    },
+    {
+      "word": "effusiveprimitive",
+      "spelling_id": 2,
+      "vocab_id": 2
+    },
+    {
+      "word": "egeria",
+      "spelling_id": 1,
+      "vocab_id": 1
+    },
+    {
+      "word": "egg",
+      "spelling_id": 1,
+      "vocab_id": 1
+    },
+    {
+      "word": "eggcorn",
+      "spelling_id": 2,
+      "vocab_id": 1
+    },
+    {
+      "word": "eggplant",
+      "spelling_id": 2,
+      "vocab_id": 2
+    },
+    {
+      "word": "egress",
+      "spelling_id": 1,
+      "vocab_id": 1
+    },
+    {
+      "word": "egressgeocaching",
+      "spelling_id": 3,
+      "vocab_id": 4
+    },
+    {
+      "word": "egyptian",
+      "spelling_id": 1,
+      "vocab_id": 2
+    },
+    {
+      "word": "eighth",
+      "spelling_id": 3,
+      "vocab_id": 1
+    },
+    {
+      "word": "einstein",
+      "spelling_id": 1,
+      "vocab_id": 2
+    },
+    {
+      "word": "eisteddfod",
+      "spelling_id": 2,
+      "vocab_id": 2
+    },
+    {
+      "word": "either",
+      "spelling_id": 1,
+      "vocab_id": 1
+    },
+    {
+      "word": "elaborative",
+      "spelling_id": 2,
+      "vocab_id": 2
+    },
+    {
+      "word": "elasticity",
+      "spelling_id": 2,
+      "vocab_id": 2
+    },
+    {
+      "word": "elation",
+      "spelling_id": 2,
+      "vocab_id": 2
+    },
+    {
+      "word": "elderly",
+      "spelling_id": 1,
+      "vocab_id": 1
+    },
+    {
+      "word": "elderlyamigo",
+      "spelling_id": 2,
+      "vocab_id": 2
+    },
+    {
+      "word": "electrode",
+      "spelling_id": 2,
+      "vocab_id": 2
+    },
+    {
+      "word": "eleemosynary",
+      "spelling_id": 2,
+      "vocab_id": 2
+    },
+    {
+      "word": "elegant",
+      "spelling_id": 1,
+      "vocab_id": 1
+    },
+    {
+      "word": "elegiac",
+      "spelling_id": 1,
+      "vocab_id": 1
+    },
+    {
+      "word": "element",
+      "spelling_id": 1,
+      "vocab_id": 2
+    },
+    {
+      "word": "elevator",
+      "spelling_id": 1,
+      "vocab_id": 2
+    },
+    {
+      "word": "elicitation",
+      "spelling_id": 3,
+      "vocab_id": 3
+    },
+    {
+      "word": "eligibility",
+      "spelling_id": 2,
+      "vocab_id": 3
+    },
+    {
+      "word": "eliminate",
+      "spelling_id": 2,
+      "vocab_id": 2
+    },
+    {
+      "word": "elision",
+      "spelling_id": 2,
+      "vocab_id": 2
+    },
+    {
+      "word": "ellipse",
+      "spelling_id": 2,
+      "vocab_id": 1
+    },
+    {
+      "word": "elocution",
+      "spelling_id": 2,
+      "vocab_id": 2
+    },
+    {
+      "word": "elongated",
+      "spelling_id": 2,
+      "vocab_id": 2
+    },
+    {
+      "word": "else",
+      "spelling_id": 1,
+      "vocab_id": 1
+    },
+    {
+      "word": "eluate",
+      "spelling_id": 1,
+      "vocab_id": 1
+    },
+    {
+      "word": "eluateheterophony",
+      "spelling_id": 3,
+      "vocab_id": 2
+    },
+    {
+      "word": "elucidate",
+      "spelling_id": 2,
+      "vocab_id": 2
+    },
+    {
+      "word": "elusive",
+      "spelling_id": 1,
+      "vocab_id": 1
+    },
+    {
+      "word": "elves",
+      "spelling_id": 1,
+      "vocab_id": 1
+    },
+    {
+      "word": "emanant",
+      "spelling_id": 1,
+      "vocab_id": 1
+    },
+    {
+      "word": "emancipatory",
+      "spelling_id": 2,
+      "vocab_id": 2
+    },
+    {
+      "word": "embassy",
+      "spelling_id": 2,
+      "vocab_id": 1
+    },
+    {
+      "word": "embellishes",
+      "spelling_id": 3,
+      "vocab_id": 2
+    },
+    {
+      "word": "embers",
+      "spelling_id": 2,
+      "vocab_id": 1
+    },
+    {
+      "word": "embezzlement",
+      "spelling_id": 3,
+      "vocab_id": 3
+    },
+    {
+      "word": "emblazoned",
+      "spelling_id": 2,
+      "vocab_id": 2
+    },
+    {
+      "word": "emblem",
+      "spelling_id": 2,
+      "vocab_id": 1
+    },
+    {
+      "word": "emboldened",
+      "spelling_id": 2,
+      "vocab_id": 2
+    },
+    {
+      "word": "embolus",
+      "spelling_id": 2,
+      "vocab_id": 1
+    },
+    {
+      "word": "embossed",
+      "spelling_id": 2,
+      "vocab_id": 2
+    },
+    {
+      "word": "embouchure",
+      "spelling_id": 3,
+      "vocab_id": 2
+    },
+    {
+      "word": "embrace",
+      "spelling_id": 2,
+      "vocab_id": 1
+    },
+    {
+      "word": "embroglio",
+      "spelling_id": 2,
+      "vocab_id": 2
+    },
+    {
+      "word": "embroidery",
+      "spelling_id": 2,
+      "vocab_id": 2
+    },
+    {
+      "word": "embroiled",
+      "spelling_id": 2,
+      "vocab_id": 2
+    },
+    {
+      "word": "embryo",
+      "spelling_id": 2,
+      "vocab_id": 1
+    },
+    {
+      "word": "emerald",
+      "spelling_id": 1,
+      "vocab_id": 1
+    },
+    {
+      "word": "emerge",
+      "spelling_id": 1,
+      "vocab_id": 1
+    },
+    {
+      "word": "emeritus",
+      "spelling_id": 1,
+      "vocab_id": 2
+    },
+    {
+      "word": "emigrate",
+      "spelling_id": 1,
+      "vocab_id": 2
+    },
+    {
+      "word": "eminent",
+      "spelling_id": 1,
+      "vocab_id": 1
+    },
+    {
+      "word": "eminentdemographics",
+      "spelling_id": 3,
+      "vocab_id": 4
+    },
+    {
+      "word": "emissary",
+      "spelling_id": 2,
+      "vocab_id": 2
+    },
+    {
+      "word": "emitting",
+      "spelling_id": 2,
+      "vocab_id": 2
+    },
+    {
+      "word": "emollient",
+      "spelling_id": 2,
+      "vocab_id": 2
+    },
+    {
+      "word": "emolument",
+      "spelling_id": 2,
+      "vocab_id": 2
+    },
+    {
+      "word": "emotional",
+      "spelling_id": 2,
+      "vocab_id": 2
+    },
+    {
+      "word": "emotionsword",
+      "spelling_id": 3,
+      "vocab_id": 2
+    },
+    {
+      "word": "empennage",
+      "spelling_id": 2,
+      "vocab_id": 2
+    },
+    {
+      "word": "emperor",
+      "spelling_id": 1,
+      "vocab_id": 1
+    },
+    {
+      "word": "emphatic",
+      "spelling_id": 2,
+      "vocab_id": 2
+    },
+    {
+      "word": "everglades",
+      "spelling_id": 2,
+      "vocab_id": 2
+    },
+    {
+      "word": "everlasting",
+      "spelling_id": 2,
+      "vocab_id": 2
+    },
+    {
+      "word": "everyone",
+      "spelling_id": 1,
+      "vocab_id": 2
+    },
+    {
+      "word": "eviction",
+      "spelling_id": 2,
+      "vocab_id": 2
+    },
+    {
+      "word": "evidence",
+      "spelling_id": 1,
+      "vocab_id": 2
+    },
+    {
+      "word": "evildoer",
+      "spelling_id": 1,
+      "vocab_id": 2
+    },
+    {
+      "word": "evince",
+      "spelling_id": 1,
+      "vocab_id": 1
+    },
+    {
+      "word": "evo-devo",
+      "spelling_id": 1,
+      "vocab_id": 2
+    },
+    {
+      "word": "evzone",
+      "spelling_id": 1,
+      "vocab_id": 1
+    },
+    {
+      "word": "ewe",
+      "spelling_id": 1,
+      "vocab_id": 1
+    },
+    {
+      "word": "ewer",
+      "spelling_id": 1,
+      "vocab_id": 1
+    },
+    {
+      "word": "exactly",
+      "spelling_id": 1,
+      "vocab_id": 1
+    },
+    {
+      "word": "exaggerate",
+      "spelling_id": 2,
+      "vocab_id": 2
+    },
+    {
+      "word": "examen",
+      "spelling_id": 1,
+      "vocab_id": 1
+    },
+    {
+      "word": "exas",
+      "spelling_id": 1,
+      "vocab_id": 1
+    },
+    {
+      "word": "exasperate",
+      "spelling_id": 2,
+      "vocab_id": 2
+    },
+    {
+      "word": "exaugural",
+      "spelling_id": 2,
+      "vocab_id": 2
+    },
+    {
+      "word": "excavating",
+      "spelling_id": 2,
+      "vocab_id": 2
+    },
+    {
+      "word": "excellence",
+      "spelling_id": 2,
+      "vocab_id": 2
+    },
+    {
+      "word": "excelsior",
+      "spelling_id": 2,
+      "vocab_id": 2
+    },
+    {
+      "word": "exception",
+      "spelling_id": 2,
+      "vocab_id": 2
+    },
+    {
+      "word": "excessive",
+      "spelling_id": 2,
+      "vocab_id": 2
+    },
+    {
+      "word": "exchequer",
+      "spelling_id": 4,
+      "vocab_id": 2
+    },
+    {
+      "word": "exchequerf",
+      "spelling_id": 4,
+      "vocab_id": 2
+    },
+    {
+      "word": "excision",
+      "spelling_id": 2,
+      "vocab_id": 2
+    },
+    {
+      "word": "exciting",
+      "spelling_id": 1,
+      "vocab_id": 2
+    },
+    {
+      "word": "excursion",
+      "spelling_id": 2,
+      "vocab_id": 2
+    },
+    {
+      "word": "execrable",
+      "spelling_id": 2,
+      "vocab_id": 2
+    },
+    {
+      "word": "exemplar",
+      "spelling_id": 1,
+      "vocab_id": 2
+    },
+    {
+      "word": "exercise",
+      "spelling_id": 1,
+      "vocab_id": 2
+    },
+    {
+      "word": "exerts",
+      "spelling_id": 1,
+      "vocab_id": 1
+    },
+    {
+      "word": "exeunt",
+      "spelling_id": 1,
+      "vocab_id": 1
+    },
+    {
+      "word": "exhalation",
+      "spelling_id": 2,
+      "vocab_id": 2
+    },
+    {
+      "word": "exhaust",
+      "spelling_id": 1,
+      "vocab_id": 1
+    },
+    {
+      "word": "exhibition",
+      "spelling_id": 2,
+      "vocab_id": 2
+    },
+    {
+      "word": "exhibits",
+      "spelling_id": 1,
+      "vocab_id": 2
+    },
+    {
+      "word": "exhilaration",
+      "spelling_id": 3,
+      "vocab_id": 3
+    },
+    {
+      "word": "exiguous",
+      "spelling_id": 1,
+      "vocab_id": 2
+    },
+    {
+      "word": "exiguousexodus",
+      "spelling_id": 2,
+      "vocab_id": 2
+    },
+    {
+      "word": "exile",
+      "spelling_id": 1,
+      "vocab_id": 1
+    },
+    {
+      "word": "existence",
+      "spelling_id": 2,
+      "vocab_id": 2
+    },
+    {
+      "word": "existential",
+      "spelling_id": 2,
+      "vocab_id": 2
+    },
+    {
+      "word": "exodus",
+      "spelling_id": 1,
+      "vocab_id": 1
+    },
+    {
+      "word": "exogenous",
+      "spelling_id": 2,
+      "vocab_id": 2
+    },
+    {
+      "word": "exoneration",
+      "spelling_id": 3,
+      "vocab_id": 3
+    },
+    {
+      "word": "expatiatexerogel",
+      "spelling_id": 2,
+      "vocab_id": 2
+    },
+    {
+      "word": "explanation",
+      "spelling_id": 3,
+      "vocab_id": 3
+    },
+    {
+      "word": "extinctextinguish",
+      "spelling_id": 2,
+      "vocab_id": 2
+    },
+    {
+      "word": "extrorsef",
+      "spelling_id": 2,
+      "vocab_id": 2
+    },
+    {
+      "word": "faminelinoleum",
+      "spelling_id": 2,
+      "vocab_id": 2
+    },
+    {
+      "word": "fed",
+      "spelling_id": 1,
+      "vocab_id": 1
+    },
+    {
+      "word": "feintedhumus",
+      "spelling_id": 2,
+      "vocab_id": 2
+    },
+    {
+      "word": "feldenkraisbailiwick",
+      "spelling_id": 2,
+      "vocab_id": 2
+    },
+    {
+      "word": "fensterfiat",
+      "spelling_id": 2,
+      "vocab_id": 2
+    },
+    {
+      "word": "few",
+      "spelling_id": 1,
+      "vocab_id": 1
+    },
+    {
+      "word": "fez",
+      "spelling_id": 1,
+      "vocab_id": 1
+    },
+    {
+      "word": "ficusagelicism",
+      "spelling_id": 2,
+      "vocab_id": 2
+    },
+    {
+      "word": "fiduciaryadjective",
+      "spelling_id": 2,
+      "vocab_id": 2
+    },
+    {
+      "word": "fie",
+      "spelling_id": 1,
+      "vocab_id": 1
+    },
+    {
+      "word": "find",
+      "spelling_id": 1,
+      "vocab_id": 1
+    },
+    {
+      "word": "fineday",
+      "spelling_id": 1,
+      "vocab_id": 1
+    },
+    {
+      "word": "flashbackquonk",
+      "spelling_id": 3,
+      "vocab_id": 2
+    },
+    {
+      "word": "flaxentriplicate",
+      "spelling_id": 2,
+      "vocab_id": 2
+    },
+    {
+      "word": "flexibleskeleton",
+      "spelling_id": 2,
+      "vocab_id": 2
+    },
+    {
+      "word": "floruitbunyanesque",
+      "spelling_id": 3,
+      "vocab_id": 2
+    },
+    {
+      "word": "flotus",
+      "spelling_id": 1,
+      "vocab_id": 1
+    },
+    {
+      "word": "flotusfluoride",
+      "spelling_id": 2,
+      "vocab_id": 2
+    },
+    {
+      "word": "focacciapahoehoe",
+      "spelling_id": 2,
+      "vocab_id": 2
+    },
+    {
+      "word": "fodder",
+      "spelling_id": 1,
+      "vocab_id": 1
+    },
+    {
+      "word": "foible",
+      "spelling_id": 1,
+      "vocab_id": 2
+    },
+    {
+      "word": "foist",
+      "spelling_id": 2,
+      "vocab_id": 1
+    },
+    {
+      "word": "folate",
+      "spelling_id": 1,
+      "vocab_id": 1
+    },
+    {
+      "word": "folding",
+      "spelling_id": 1,
+      "vocab_id": 1
+    },
+    {
+      "word": "foley",
+      "spelling_id": 1,
+      "vocab_id": 1
+    },
+    {
+      "word": "foleysyzygy",
+      "spelling_id": 2,
+      "vocab_id": 2
+    },
+    {
+      "word": "foliage",
+      "spelling_id": 1,
+      "vocab_id": 1
+    },
+    {
+      "word": "follicle",
+      "spelling_id": 2,
+      "vocab_id": 2
+    },
+    {
+      "word": "followed",
+      "spelling_id": 2,
+      "vocab_id": 2
+    },
+    {
+      "word": "following",
+      "spelling_id": 2,
+      "vocab_id": 2
+    },
+    {
+      "word": "folly",
+      "spelling_id": 1,
+      "vocab_id": 1
+    },
+    {
+      "word": "fomentation",
+      "spelling_id": 3,
+      "vocab_id": 3
+    },
+    {
+      "word": "fond",
+      "spelling_id": 1,
+      "vocab_id": 1
+    },
+    {
+      "word": "fondant",
+      "spelling_id": 1,
+      "vocab_id": 1
+    },
+    {
+      "word": "fontina",
+      "spelling_id": 1,
+      "vocab_id": 1
+    },
+    {
+      "word": "food",
+      "spelling_id": 1,
+      "vocab_id": 1
+    },
+    {
+      "word": "foods",
+      "spelling_id": 1,
+      "vocab_id": 1
+    },
+    {
+      "word": "foolishness",
+      "spelling_id": 2,
+      "vocab_id": 3
+    },
+    {
+      "word": "foosball",
+      "spelling_id": 2,
+      "vocab_id": 2
+    },
+    {
+      "word": "foothills",
+      "spelling_id": 2,
+      "vocab_id": 2
+    },
+    {
+      "word": "foozle",
+      "spelling_id": 1,
+      "vocab_id": 1
+    },
+    {
+      "word": "foppery",
+      "spelling_id": 2,
+      "vocab_id": 1
+    },
+    {
+      "word": "forage",
+      "spelling_id": 1,
+      "vocab_id": 1
+    },
+    {
+      "word": "forbidden",
+      "spelling_id": 2,
+      "vocab_id": 2
+    },
+    {
+      "word": "forbivorous",
+      "spelling_id": 2,
+      "vocab_id": 3
+    },
+    {
+      "word": "force",
+      "spelling_id": 1,
+      "vocab_id": 1
+    },
+    {
+      "word": "forcefully",
+      "spelling_id": 2,
+      "vocab_id": 2
+    },
+    {
+      "word": "forearms",
+      "spelling_id": 1,
+      "vocab_id": 2
+    },
+    {
+      "word": "forefend",
+      "spelling_id": 1,
+      "vocab_id": 2
+    },
+    {
+      "word": "forensics",
+      "spelling_id": 2,
+      "vocab_id": 2
+    },
+    {
+      "word": "foresight",
+      "spelling_id": 3,
+      "vocab_id": 2
+    },
+    {
+      "word": "forestallment",
+      "spelling_id": 2,
+      "vocab_id": 3
+    },
+    {
+      "word": "forever",
+      "spelling_id": 1,
+      "vocab_id": 1
+    },
+    {
+      "word": "forfeit",
+      "spelling_id": 1,
+      "vocab_id": 1
+    },
+    {
+      "word": "forfend",
+      "spelling_id": 1,
+      "vocab_id": 1
+    },
+    {
+      "word": "forgeable",
+      "spelling_id": 2,
+      "vocab_id": 2
+    },
+    {
+      "word": "forgetrare",
+      "spelling_id": 2,
+      "vocab_id": 2
+    },
+    {
+      "word": "forgive",
+      "spelling_id": 1,
+      "vocab_id": 2
+    },
+    {
+      "word": "form",
+      "spelling_id": 1,
+      "vocab_id": 1
+    },
+    {
+      "word": "formalise",
+      "spelling_id": 2,
+      "vocab_id": 2
+    },
+    {
+      "word": "formalize",
+      "spelling_id": 2,
+      "vocab_id": 2
+    },
+    {
+      "word": "formation",
+      "spelling_id": 2,
+      "vocab_id": 2
+    },
+    {
+      "word": "formed",
+      "spelling_id": 1,
+      "vocab_id": 1
+    },
+    {
+      "word": "former",
+      "spelling_id": 1,
+      "vocab_id": 1
+    },
+    {
+      "word": "formica",
+      "spelling_id": 1,
+      "vocab_id": 1
+    },
+    {
+      "word": "forsook",
+      "spelling_id": 1,
+      "vocab_id": 1
+    },
+    {
+      "word": "forsooth",
+      "spelling_id": 1,
+      "vocab_id": 2
+    },
+    {
+      "word": "fortification",
+      "spelling_id": 3,
+      "vocab_id": 3
+    },
+    {
+      "word": "fortificationnoun",
+      "spelling_id": 3,
+      "vocab_id": 2
+    },
+    {
+      "word": "fortissimo",
+      "spelling_id": 2,
+      "vocab_id": 2
+    },
+    {
+      "word": "fortran",
+      "spelling_id": 1,
+      "vocab_id": 1
+    },
+    {
+      "word": "fortuitous",
+      "spelling_id": 2,
+      "vocab_id": 2
+    },
+    {
+      "word": "fortune",
+      "spelling_id": 1,
+      "vocab_id": 1
+    },
+    {
+      "word": "forty",
+      "spelling_id": 1,
+      "vocab_id": 1
+    },
+    {
+      "word": "forza",
+      "spelling_id": 1,
+      "vocab_id": 1
+    },
+    {
+      "word": "fossiliferous",
+      "spelling_id": 2,
+      "vocab_id": 3
+    },
+    {
+      "word": "foster",
+      "spelling_id": 1,
+      "vocab_id": 1
+    },
+    {
+      "word": "fou",
+      "spelling_id": 1,
+      "vocab_id": 1
+    },
+    {
+      "word": "foudroyant",
+      "spelling_id": 2,
+      "vocab_id": 2
+    },
+    {
+      "word": "fountain",
+      "spelling_id": 1,
+      "vocab_id": 2
+    },
+    {
+      "word": "four",
+      "spelling_id": 1,
+      "vocab_id": 1
+    },
+    {
+      "word": "fowl",
+      "spelling_id": 1,
+      "vocab_id": 1
+    },
+    {
+      "word": "foxes",
+      "spelling_id": 1,
+      "vocab_id": 1
+    },
+    {
+      "word": "foyer",
+      "spelling_id": 1,
+      "vocab_id": 1
+    },
+    {
+      "word": "frabjous",
+      "spelling_id": 1,
+      "vocab_id": 2
+    },
+    {
+      "word": "fracas",
+      "spelling_id": 1,
+      "vocab_id": 1
+    },
+    {
+      "word": "fractions",
+      "spelling_id": 2,
+      "vocab_id": 2
+    },
+    {
+      "word": "fractious",
+      "spelling_id": 2,
+      "vocab_id": 2
+    },
+    {
+      "word": "fragile",
+      "spelling_id": 1,
+      "vocab_id": 2
+    },
+    {
+      "word": "fragment",
+      "spelling_id": 1,
+      "vocab_id": 2
+    },
+    {
+      "word": "fragrance",
+      "spelling_id": 2,
+      "vocab_id": 2
+    },
+    {
+      "word": "fragrant",
+      "spelling_id": 1,
+      "vocab_id": 2
+    },
+    {
+      "word": "frailty",
+      "spelling_id": 1,
+      "vocab_id": 1
+    },
+    {
+      "word": "framboise",
+      "spelling_id": 3,
+      "vocab_id": 2
+    },
+    {
+      "word": "frames",
+      "spelling_id": 1,
+      "vocab_id": 1
+    },
+    {
+      "word": "franca",
+      "spelling_id": 1,
+      "vocab_id": 1
+    },
+    {
+      "word": "francatriforium",
+      "spelling_id": 2,
+      "vocab_id": 2
+    },
+    {
+      "word": "franchise",
+      "spelling_id": 2,
+      "vocab_id": 2
+    },
+    {
+      "word": "franciscan",
+      "spelling_id": 2,
+      "vocab_id": 2
+    },
+    {
+      "word": "francophone",
+      "spelling_id": 3,
+      "vocab_id": 2
+    },
+    {
+      "word": "frangipane",
+      "spelling_id": 2,
+      "vocab_id": 2
+    },
+    {
+      "word": "frankly",
+      "spelling_id": 1,
+      "vocab_id": 1
+    },
+    {
+      "word": "frantic",
+      "spelling_id": 1,
+      "vocab_id": 1
+    },
+    {
+      "word": "frass",
+      "spelling_id": 1,
+      "vocab_id": 1
+    },
+    {
+      "word": "fratority",
+      "spelling_id": 2,
+      "vocab_id": 2
+    },
+    {
+      "word": "fraudulent",
+      "spelling_id": 2,
+      "vocab_id": 2
+    },
+    {
+      "word": "french-derived",
+      "spelling_id": 3,
+      "vocab_id": 2
+    },
+    {
+      "word": "fuddy-duddy",
+      "spelling_id": 2,
+      "vocab_id": 2
+    },
+    {
+      "word": "fun",
+      "spelling_id": 1,
+      "vocab_id": 1
+    },
+    {
+      "word": "gab",
+      "spelling_id": 1,
+      "vocab_id": 1
+    },
+    {
+      "word": "grown-ups",
+      "spelling_id": 2,
+      "vocab_id": 2
+    },
+    {
+      "word": "hat",
+      "spelling_id": 1,
+      "vocab_id": 1
+    },
+    {
+      "word": "have",
+      "spelling_id": 1,
+      "vocab_id": 1
+    },
+    {
+      "word": "haw",
+      "spelling_id": 1,
+      "vocab_id": 1
+    },
+    {
+      "word": "hei-tiki",
+      "spelling_id": 1,
+      "vocab_id": 2
+    },
+    {
+      "word": "hem",
+      "spelling_id": 1,
+      "vocab_id": 1
+    },
+    {
+      "word": "hey",
+      "spelling_id": 1,
+      "vocab_id": 1
+    },
+    {
+      "word": "hit",
+      "spelling_id": 1,
+      "vocab_id": 1
+    },
+    {
+      "word": "hocus-pocus",
+      "spelling_id": 2,
+      "vocab_id": 2
+    },
+    {
+      "word": "hoi",
+      "spelling_id": 1,
+      "vocab_id": 1
+    },
+    {
+      "word": "hoity-toity",
+      "spelling_id": 2,
+      "vocab_id": 3
+    },
+    {
+      "word": "hokus-pokus",
+      "spelling_id": 2,
+      "vocab_id": 2
+    },
+    {
+      "word": "hot",
+      "spelling_id": 1,
+      "vocab_id": 1
+    },
+    {
+      "word": "hug",
+      "spelling_id": 1,
+      "vocab_id": 1
+    },
+    {
+      "word": "hunky-dory",
+      "spelling_id": 2,
+      "vocab_id": 2
+    },
+    {
+      "word": "hurdy-gurdy",
+      "spelling_id": 2,
+      "vocab_id": 2
+    },
+    {
+      "word": "ice",
+      "spelling_id": 1,
+      "vocab_id": 1
+    },
+    {
+      "word": "incarnated",
+      "spelling_id": 2,
+      "vocab_id": 2
+    },
+    {
+      "word": "inu",
+      "spelling_id": 1,
+      "vocab_id": 1
+    },
+    {
+      "word": "jai",
+      "spelling_id": 1,
+      "vocab_id": 1
+    },
+    {
+      "word": "jam",
+      "spelling_id": 1,
+      "vocab_id": 1
+    },
+    {
+      "word": "jiggery-pokery",
+      "spelling_id": 2,
+      "vocab_id": 2
+    },
+    {
+      "word": "jitterbugkennel",
+      "spelling_id": 2,
+      "vocab_id": 2
+    },
+    {
+      "word": "joy",
+      "spelling_id": 1,
+      "vocab_id": 1
+    },
+    {
+      "word": "jurassicmyoglobin",
+      "spelling_id": 2,
+      "vocab_id": 2
+    },
+    {
+      "word": "jus",
+      "spelling_id": 1,
+      "vocab_id": 1
+    },
+    {
+      "word": "kenningnoun",
+      "spelling_id": 3,
+      "vocab_id": 2
+    },
+    {
+      "word": "kerneltawny",
+      "spelling_id": 2,
+      "vocab_id": 2
+    },
+    {
+      "word": "kilnwebisode",
+      "spelling_id": 2,
+      "vocab_id": 2
+    },
+    {
+      "word": "kiltwhirlybird",
+      "spelling_id": 2,
+      "vocab_id": 2
+    },
+    {
+      "word": "kimcheemenorahs",
+      "spelling_id": 3,
+      "vocab_id": 2
+    },
+    {
+      "word": "klutzenvoy",
+      "spelling_id": 3,
+      "vocab_id": 2
+    },
+    {
+      "word": "kmleerac",
+      "spelling_id": 1,
+      "vocab_id": 2
+    },
+    {
+      "word": "koh-i-noor",
+      "spelling_id": 2,
+      "vocab_id": 2
+    },
+    {
+      "word": "koi",
+      "spelling_id": 1,
+      "vocab_id": 1
+    },
+    {
+      "word": "kreteloi",
+      "spelling_id": 1,
+      "vocab_id": 2
+    },
+    {
+      "word": "krewekriegspiel",
+      "spelling_id": 2,
+      "vocab_id": 2
+    },
+    {
+      "word": "kyphoplastyaten",
+      "spelling_id": 3,
+      "vocab_id": 2
+    },
+    {
+      "word": "lambentlyadjective",
+      "spelling_id": 3,
+      "vocab_id": 2
+    },
+    {
+      "word": "landline",
+      "spelling_id": 1,
+      "vocab_id": 2
+    },
+    {
+      "word": "languorouslanolated",
+      "spelling_id": 2,
+      "vocab_id": 2
+    },
+    {
+      "word": "lanternmince",
+      "spelling_id": 2,
+      "vocab_id": 2
+    },
+    {
+      "word": "lapidarycachexia",
+      "spelling_id": 3,
+      "vocab_id": 2
+    },
+    {
+      "word": "latencyepitaphs",
+      "spelling_id": 3,
+      "vocab_id": 2
+    },
+    {
+      "word": "laterigradehyssop",
+      "spelling_id": 2,
+      "vocab_id": 2
+    },
+    {
+      "word": "lawmusic",
+      "spelling_id": 1,
+      "vocab_id": 2
+    },
+    {
+      "word": "leanderpneumonia",
+      "spelling_id": 2,
+      "vocab_id": 2
+    },
+    {
+      "word": "leewardhurly-burly",
+      "spelling_id": 2,
+      "vocab_id": 2
+    },
+    {
+      "word": "legerityvatican",
+      "spelling_id": 2,
+      "vocab_id": 2
+    },
+    {
+      "word": "leisureleotard",
+      "spelling_id": 2,
+      "vocab_id": 2
+    },
+    {
+      "word": "lid",
+      "spelling_id": 1,
+      "vocab_id": 1
+    },
+    {
+      "word": "like",
+      "spelling_id": 1,
+      "vocab_id": 1
+    },
+    {
+      "word": "limpidsyllabus",
+      "spelling_id": 2,
+      "vocab_id": 2
+    },
+    {
+      "word": "linsey-woolsey",
+      "spelling_id": 2,
+      "vocab_id": 2
+    },
+    {
+      "word": "little",
+      "spelling_id": 1,
+      "vocab_id": 1
+    },
+    {
+      "word": "long",
+      "spelling_id": 1,
+      "vocab_id": 1
+    },
+    {
+      "word": "loup-garou",
+      "spelling_id": 2,
+      "vocab_id": 2
+    },
+    {
+      "word": "made",
+      "spelling_id": 1,
+      "vocab_id": 1
+    },
+    {
+      "word": "mange-tout",
+      "spelling_id": 2,
+      "vocab_id": 2
+    },
+    {
+      "word": "map",
+      "spelling_id": 1,
+      "vocab_id": 1
+    },
+    {
+      "word": "mea",
+      "spelling_id": 1,
+      "vocab_id": 1
+    },
+    {
+      "word": "midi",
+      "spelling_id": 1,
+      "vocab_id": 1
+    },
+    {
+      "word": "mix",
+      "spelling_id": 1,
+      "vocab_id": 1
+    },
+    {
+      "word": "moo",
+      "spelling_id": 1,
+      "vocab_id": 1
+    },
+    {
+      "word": "mooc",
+      "spelling_id": 1,
+      "vocab_id": 1
+    },
+    {
+      "word": "more",
+      "spelling_id": 1,
+      "vocab_id": 1
+    },
+    {
+      "word": "mountebank",
+      "spelling_id": 2,
+      "vocab_id": 2
+    },
+    {
+      "word": "much",
+      "spelling_id": 1,
+      "vocab_id": 1
+    },
+    {
+      "word": "name",
+      "spelling_id": 1,
+      "vocab_id": 1
+    },
+    {
+      "word": "nas",
+      "spelling_id": 1,
+      "vocab_id": 1
+    },
+    {
+      "word": "ner",
+      "spelling_id": 1,
+      "vocab_id": 1
+    },
+    {
+      "word": "ni-vanuatu",
+      "spelling_id": 2,
+      "vocab_id": 2
+    },
+    {
+      "word": "niger-congo",
+      "spelling_id": 2,
+      "vocab_id": 2
+    },
+    {
+      "word": "niminy-piminy",
+      "spelling_id": 2,
+      "vocab_id": 2
+    },
+    {
+      "word": "no-goodnik",
+      "spelling_id": 2,
+      "vocab_id": 2
+    },
+    {
+      "word": "nom",
+      "spelling_id": 1,
+      "vocab_id": 1
+    },
+    {
+      "word": "nulliusnoun",
+      "spelling_id": 2,
+      "vocab_id": 2
+    },
+    {
+      "word": "obligeviscount",
+      "spelling_id": 2,
+      "vocab_id": 2
+    },
+    {
+      "word": "obviouspulse",
+      "spelling_id": 2,
+      "vocab_id": 2
+    },
+    {
+      "word": "oceaniancharitable",
+      "spelling_id": 3,
+      "vocab_id": 3
+    },
+    {
+      "word": "odlcceroi",
+      "spelling_id": 2,
+      "vocab_id": 2
+    },
+    {
+      "word": "off",
+      "spelling_id": 1,
+      "vocab_id": 1
+    },
+    {
+      "word": "ogivalnoun",
+      "spelling_id": 2,
+      "vocab_id": 2
+    },
+    {
+      "word": "oil",
+      "spelling_id": 1,
+      "vocab_id": 1
+    },
+    {
+      "word": "only",
+      "spelling_id": 1,
+      "vocab_id": 1
+    },
+    {
+      "word": "ostensiblyosteopath",
+      "spelling_id": 2,
+      "vocab_id": 4
+    },
+    {
+      "word": "other",
+      "spelling_id": 1,
+      "vocab_id": 1
+    },
+    {
+      "word": "otherbedroom",
+      "spelling_id": 2,
+      "vocab_id": 2
+    },
+    {
+      "word": "oud",
+      "spelling_id": 1,
+      "vocab_id": 1
+    },
+    {
+      "word": "oxalismyeloma",
+      "spelling_id": 2,
+      "vocab_id": 2
+    },
+    {
+      "word": "palatialpallor",
+      "spelling_id": 2,
+      "vocab_id": 2
+    },
+    {
+      "word": "panoramagimmick",
+      "spelling_id": 2,
+      "vocab_id": 2
+    },
+    {
+      "word": "pao",
+      "spelling_id": 1,
+      "vocab_id": 1
+    },
+    {
+      "word": "par",
+      "spelling_id": 1,
+      "vocab_id": 1
+    },
+    {
+      "word": "parabolaparameters",
+      "spelling_id": 2,
+      "vocab_id": 2
+    },
+    {
+      "word": "paraffinvigneron",
+      "spelling_id": 3,
+      "vocab_id": 2
+    },
+    {
+      "word": "parishioner",
+      "spelling_id": 2,
+      "vocab_id": 2
+    },
+    {
+      "word": "parquetparterre",
+      "spelling_id": 4,
+      "vocab_id": 2
+    },
+    {
+      "word": "part",
+      "spelling_id": 1,
+      "vocab_id": 1
+    },
+    {
+      "word": "pas",
+      "spelling_id": 1,
+      "vocab_id": 1
+    },
+    {
+      "word": "pat",
+      "spelling_id": 1,
+      "vocab_id": 1
+    },
+    {
+      "word": "patronymicodometer",
+      "spelling_id": 2,
+      "vocab_id": 2
+    },
+    {
+      "word": "pauperepoch",
+      "spelling_id": 3,
+      "vocab_id": 2
+    },
+    {
+      "word": "pei",
+      "spelling_id": 1,
+      "vocab_id": 1
+    },
+    {
+      "word": "pelagialpelerine",
+      "spelling_id": 2,
+      "vocab_id": 2
+    },
+    {
+      "word": "pell-mell",
+      "spelling_id": 2,
+      "vocab_id": 2
+    },
+    {
+      "word": "per",
+      "spelling_id": 1,
+      "vocab_id": 1
+    },
+    {
+      "word": "peremptoryinfarction",
+      "spelling_id": 3,
+      "vocab_id": 3
+    },
+    {
+      "word": "pharaohopponency",
+      "spelling_id": 3,
+      "vocab_id": 2
+    },
+    {
+      "word": "pharmacyfondant",
+      "spelling_id": 3,
+      "vocab_id": 2
+    },
+    {
+      "word": "physicalpunily",
+      "spelling_id": 3,
+      "vocab_id": 2
+    },
+    {
+      "word": "pie",
+      "spelling_id": 1,
+      "vocab_id": 1
+    },
+    {
+      "word": "pinyondysfunctional",
+      "spelling_id": 3,
+      "vocab_id": 2
+    },
+    {
+      "word": "piperhear",
+      "spelling_id": 2,
+      "vocab_id": 2
+    },
+    {
+      "word": "pitch-black",
+      "spelling_id": 3,
+      "vocab_id": 2
+    },
+    {
+      "word": "plaaac",
+      "spelling_id": 1,
+      "vocab_id": 1
+    },
+    {
+      "word": "plush",
+      "spelling_id": 1,
+      "vocab_id": 1
+    },
+    {
+      "word": "plutonomy",
+      "spelling_id": 2,
+      "vocab_id": 2
+    },
+    {
+      "word": "pneumatocyst",
+      "spelling_id": 2,
+      "vocab_id": 2
+    },
+    {
+      "word": "poblano",
+      "spelling_id": 1,
+      "vocab_id": 1
+    },
+    {
+      "word": "pochoir",
+      "spelling_id": 2,
+      "vocab_id": 1
+    },
+    {
+      "word": "pocket",
+      "spelling_id": 1,
+      "vocab_id": 1
+    },
+    {
+      "word": "pod",
+      "spelling_id": 1,
+      "vocab_id": 1
+    },
+    {
+      "word": "podagra",
+      "spelling_id": 1,
+      "vocab_id": 1
+    },
+    {
+      "word": "podium",
+      "spelling_id": 1,
+      "vocab_id": 1
+    },
+    {
+      "word": "podotheca",
+      "spelling_id": 2,
+      "vocab_id": 2
+    },
+    {
+      "word": "podsnappery",
+      "spelling_id": 2,
+      "vocab_id": 2
+    },
+    {
+      "word": "podunk",
+      "spelling_id": 1,
+      "vocab_id": 1
+    },
+    {
+      "word": "poem",
+      "spelling_id": 1,
+      "vocab_id": 1
+    },
+    {
+      "word": "poika",
+      "spelling_id": 1,
+      "vocab_id": 1
+    },
+    {
+      "word": "point",
+      "spelling_id": 1,
+      "vocab_id": 1
+    },
+    {
+      "word": "pointelle",
+      "spelling_id": 2,
+      "vocab_id": 2
+    },
+    {
+      "word": "poisonous",
+      "spelling_id": 3,
+      "vocab_id": 2
+    },
+    {
+      "word": "poke",
+      "spelling_id": 1,
+      "vocab_id": 1
+    },
+    {
+      "word": "polarized",
+      "spelling_id": 2,
+      "vocab_id": 2
+    },
+    {
+      "word": "pole",
+      "spelling_id": 1,
+      "vocab_id": 1
+    },
+    {
+      "word": "polemic",
+      "spelling_id": 1,
+      "vocab_id": 1
+    },
+    {
+      "word": "polenta",
+      "spelling_id": 1,
+      "vocab_id": 1
+    },
+    {
+      "word": "police",
+      "spelling_id": 1,
+      "vocab_id": 1
+    },
+    {
+      "word": "policy",
+      "spelling_id": 1,
+      "vocab_id": 1
+    },
+    {
+      "word": "polish",
+      "spelling_id": 1,
+      "vocab_id": 1
+    },
+    {
+      "word": "politeia",
+      "spelling_id": 1,
+      "vocab_id": 2
+    },
+    {
+      "word": "politick",
+      "spelling_id": 1,
+      "vocab_id": 2
+    },
+    {
+      "word": "politickpollutant",
+      "spelling_id": 2,
+      "vocab_id": 2
+    },
+    {
+      "word": "polloi",
+      "spelling_id": 1,
+      "vocab_id": 1
+    },
+    {
+      "word": "pollutant",
+      "spelling_id": 2,
+      "vocab_id": 2
+    },
+    {
+      "word": "polo",
+      "spelling_id": 1,
+      "vocab_id": 1
+    },
+    {
+      "word": "polonium",
+      "spelling_id": 1,
+      "vocab_id": 2
+    },
+    {
+      "word": "poltroon",
+      "spelling_id": 1,
+      "vocab_id": 2
+    },
+    {
+      "word": "polyandry",
+      "spelling_id": 2,
+      "vocab_id": 3
+    },
+    {
+      "word": "polydactyly",
+      "spelling_id": 2,
+      "vocab_id": 4
+    },
+    {
+      "word": "polyester",
+      "spelling_id": 2,
+      "vocab_id": 3
+    },
+    {
+      "word": "polyesteranoint",
+      "spelling_id": 2,
+      "vocab_id": 4
+    },
+    {
+      "word": "polygenous",
+      "spelling_id": 2,
+      "vocab_id": 4
+    },
+    {
+      "word": "polyglot",
+      "spelling_id": 1,
+      "vocab_id": 3
+    },
+    {
+      "word": "polymerized",
+      "spelling_id": 2,
+      "vocab_id": 4
+    },
+    {
+      "word": "polypeptide",
+      "spelling_id": 2,
+      "vocab_id": 4
+    },
+    {
+      "word": "polysemy",
+      "spelling_id": 1,
+      "vocab_id": 3
+    },
+    {
+      "word": "portmanteaucoaxation",
+      "spelling_id": 4,
+      "vocab_id": 3
+    },
+    {
+      "word": "portraitpraise",
+      "spelling_id": 2,
+      "vocab_id": 2
+    },
+    {
+      "word": "posterityposthumous",
+      "spelling_id": 2,
+      "vocab_id": 3
+    },
+    {
+      "word": "postponewafer",
+      "spelling_id": 2,
+      "vocab_id": 2
+    },
+    {
+      "word": "pot-au-feu",
+      "spelling_id": 2,
+      "vocab_id": 2
+    },
+    {
+      "word": "pothospolysyllabic",
+      "spelling_id": 2,
+      "vocab_id": 4
+    },
+    {
+      "word": "pou",
+      "spelling_id": 1,
+      "vocab_id": 1
+    },
+    {
+      "word": "practice",
+      "spelling_id": 1,
+      "vocab_id": 2
+    },
+    {
+      "word": "pralltrillerpratique",
+      "spelling_id": 4,
+      "vocab_id": 2
+    },
+    {
+      "word": "presencesizzle",
+      "spelling_id": 2,
+      "vocab_id": 3
+    },
+    {
+      "word": "princepsprocurement",
+      "spelling_id": 3,
+      "vocab_id": 3
+    },
+    {
+      "word": "pro",
+      "spelling_id": 1,
+      "vocab_id": 1
+    },
+    {
+      "word": "procedure",
+      "spelling_id": 2,
+      "vocab_id": 2
+    },
+    {
+      "word": "prodigiousprofligacy",
+      "spelling_id": 2,
+      "vocab_id": 2
+    },
+    {
+      "word": "pronaoscraquelure",
+      "spelling_id": 3,
+      "vocab_id": 2
+    },
+    {
+      "word": "proneselfie",
+      "spelling_id": 2,
+      "vocab_id": 2
+    },
+    {
+      "word": "propinquityepidermis",
+      "spelling_id": 3,
+      "vocab_id": 2
+    },
+    {
+      "word": "propitiousellipsis",
+      "spelling_id": 3,
+      "vocab_id": 2
+    },
+    {
+      "word": "propreamphistylar",
+      "spelling_id": 3,
+      "vocab_id": 2
+    },
+    {
+      "word": "prosceniumpolitesse",
+      "spelling_id": 2,
+      "vocab_id": 2
+    },
+    {
+      "word": "pugilistpugnacious",
+      "spelling_id": 3,
+      "vocab_id": 3
+    },
+    {
+      "word": "purificationplantain",
+      "spelling_id": 3,
+      "vocab_id": 2
+    },
+    {
+      "word": "puzzlespage",
+      "spelling_id": 2,
+      "vocab_id": 2
+    },
+    {
+      "word": "quantifyredemption",
+      "spelling_id": 3,
+      "vocab_id": 3
+    },
+    {
+      "word": "quo",
+      "spelling_id": 1,
+      "vocab_id": 1
+    },
+    {
+      "word": "qwerty",
+      "spelling_id": 1,
+      "vocab_id": 1
+    },
+    {
+      "word": "rabble-rouser",
+      "spelling_id": 2,
+      "vocab_id": 2
+    },
+    {
+      "word": "rambunctiousnoun",
+      "spelling_id": 3,
+      "vocab_id": 2
+    },
+    {
+      "word": "ray",
+      "spelling_id": 1,
+      "vocab_id": 1
+    },
+    {
+      "word": "rebuffrecanted",
+      "spelling_id": 2,
+      "vocab_id": 2
+    },
+    {
+      "word": "reddish-brown",
+      "spelling_id": 2,
+      "vocab_id": 2
+    },
+    {
+      "word": "referralaerials",
+      "spelling_id": 2,
+      "vocab_id": 2
+    },
+    {
+      "word": "regional",
+      "spelling_id": 1,
+      "vocab_id": 2
+    },
+    {
+      "word": "reiterateremorseful",
+      "spelling_id": 2,
+      "vocab_id": 3
+    },
+    {
+      "word": "renvoinoun",
+      "spelling_id": 2,
+      "vocab_id": 2
+    },
+    {
+      "word": "res",
+      "spelling_id": 1,
+      "vocab_id": 1
+    },
+    {
+      "word": "rescissiblejungian",
+      "spelling_id": 3,
+      "vocab_id": 2
+    },
+    {
+      "word": "resuscitateretina",
+      "spelling_id": 3,
+      "vocab_id": 2
+    },
+    {
+      "word": "revelationarithmetic",
+      "spelling_id": 3,
+      "vocab_id": 2
+    },
+    {
+      "word": "roi",
+      "spelling_id": 1,
+      "vocab_id": 1
+    },
+    {
+      "word": "round-shaped",
+      "spelling_id": 2,
+      "vocab_id": 2
+    },
+    {
+      "word": "row",
+      "spelling_id": 1,
+      "vocab_id": 1
+    },
+    {
+      "word": "rug",
+      "spelling_id": 1,
+      "vocab_id": 1
+    },
+    {
+      "word": "rules",
+      "spelling_id": 1,
+      "vocab_id": 1
+    },
+    {
+      "word": "runesancestors",
+      "spelling_id": 2,
+      "vocab_id": 2
+    },
+    {
+      "word": "ryeland",
+      "spelling_id": 1,
+      "vocab_id": 1
+    },
+    {
+      "word": "ryelanddomesticity",
+      "spelling_id": 2,
+      "vocab_id": 3
+    },
+    {
+      "word": "san",
+      "spelling_id": 1,
+      "vocab_id": 1
+    },
+    {
+      "word": "sci-fi",
+      "spelling_id": 2,
+      "vocab_id": 1
+    },
+    {
+      "word": "sea",
+      "spelling_id": 1,
+      "vocab_id": 1
+    },
+    {
+      "word": "sententious",
+      "spelling_id": 2,
+      "vocab_id": 3
+    },
+    {
+      "word": "set",
+      "spelling_id": 1,
+      "vocab_id": 1
+    },
+    {
+      "word": "shar-pei",
+      "spelling_id": 1,
+      "vocab_id": 2
+    },
+    {
+      "word": "sherifftarry",
+      "spelling_id": 2,
+      "vocab_id": 2
+    },
+    {
+      "word": "short-winged",
+      "spelling_id": 2,
+      "vocab_id": 2
+    },
+    {
+      "word": "show",
+      "spelling_id": 1,
+      "vocab_id": 1
+    },
+    {
+      "word": "shrivellimbering",
+      "spelling_id": 3,
+      "vocab_id": 2
+    },
+    {
+      "word": "shutterscorner",
+      "spelling_id": 2,
+      "vocab_id": 2
+    },
+    {
+      "word": "siotetro",
+      "spelling_id": 1,
+      "vocab_id": 2
+    },
+    {
+      "word": "sir",
+      "spelling_id": 1,
+      "vocab_id": 1
+    },
+    {
+      "word": "sit",
+      "spelling_id": 1,
+      "vocab_id": 1
+    },
+    {
+      "word": "solderinterim",
+      "spelling_id": 2,
+      "vocab_id": 2
+    },
+    {
+      "word": "solitairedishevel",
+      "spelling_id": 2,
+      "vocab_id": 2
+    },
+    {
+      "word": "son",
+      "spelling_id": 1,
+      "vocab_id": 1
+    },
+    {
+      "word": "sparrow",
+      "spelling_id": 2,
+      "vocab_id": 1
+    },
+    {
+      "word": "spelling",
+      "spelling_id": 2,
+      "vocab_id": 2
+    },
+    {
+      "word": "spic-and-span",
+      "spelling_id": 2,
+      "vocab_id": 2
+    },
+    {
+      "word": "spick-and-span",
+      "spelling_id": 2,
+      "vocab_id": 2
+    },
+    {
+      "word": "sprung",
+      "spelling_id": 1,
+      "vocab_id": 1
+    },
+    {
+      "word": "state",
+      "spelling_id": 1,
+      "vocab_id": 1
+    },
+    {
+      "word": "sto",
+      "spelling_id": 1,
+      "vocab_id": 1
+    },
+    {
+      "word": "sum",
+      "spelling_id": 1,
+      "vocab_id": 1
+    },
+    {
+      "word": "summary",
+      "spelling_id": 2,
+      "vocab_id": 1
+    },
+    {
+      "word": "tae",
+      "spelling_id": 1,
+      "vocab_id": 1
+    },
+    {
+      "word": "tai",
+      "spelling_id": 1,
+      "vocab_id": 1
+    },
+    {
+      "word": "tam-o",
+      "spelling_id": 1,
+      "vocab_id": 1
+    },
+    {
+      "word": "tea",
+      "spelling_id": 1,
+      "vocab_id": 1
+    },
+    {
+      "word": "ten",
+      "spelling_id": 1,
+      "vocab_id": 1
+    },
+    {
+      "word": "terra-cotta",
+      "spelling_id": 2,
+      "vocab_id": 2
+    },
+    {
+      "word": "tic",
+      "spelling_id": 1,
+      "vocab_id": 1
+    },
+    {
+      "word": "tok",
+      "spelling_id": 1,
+      "vocab_id": 1
+    },
+    {
+      "word": "top",
+      "spelling_id": 1,
+      "vocab_id": 1
+    },
+    {
+      "word": "trous-de-loup",
+      "spelling_id": 2,
+      "vocab_id": 2
+    },
+    {
+      "word": "try",
+      "spelling_id": 1,
+      "vocab_id": 1
+    },
+    {
+      "word": "tsk-tsked",
+      "spelling_id": 2,
+      "vocab_id": 2
+    },
+    {
+      "word": "tug",
+      "spelling_id": 1,
+      "vocab_id": 1
+    },
+    {
+      "word": "turkenriddance",
+      "spelling_id": 2,
+      "vocab_id": 2
+    },
+    {
+      "word": "tutorial",
+      "spelling_id": 1,
+      "vocab_id": 2
+    },
+    {
+      "word": "tutti-frutti",
+      "spelling_id": 2,
+      "vocab_id": 2
+    },
+    {
+      "word": "tutti-frutticantor",
+      "spelling_id": 2,
+      "vocab_id": 2
+    },
+    {
+      "word": "tweeholiday",
+      "spelling_id": 2,
+      "vocab_id": 2
+    },
+    {
+      "word": "twinklesnicker",
+      "spelling_id": 2,
+      "vocab_id": 2
+    },
+    {
+      "word": "tympanumfisticuffs",
+      "spelling_id": 2,
+      "vocab_id": 2
+    },
+    {
+      "word": "ubi",
+      "spelling_id": 1,
+      "vocab_id": 1
+    },
+    {
+      "word": "una",
+      "spelling_id": 1,
+      "vocab_id": 1
+    },
+    {
+      "word": "undergirdnoun",
+      "spelling_id": 2,
+      "vocab_id": 3
+    },
+    {
+      "word": "univocalavarice",
+      "spelling_id": 2,
+      "vocab_id": 3
+    },
+    {
+      "word": "unprepossessing",
+      "spelling_id": 2,
+      "vocab_id": 3
+    },
+    {
+      "word": "upsilonsakura",
+      "spelling_id": 3,
+      "vocab_id": 2
+    },
+    {
+      "word": "urgencybifurcate",
+      "spelling_id": 2,
+      "vocab_id": 2
+    },
+    {
+      "word": "uvulaenumerated",
+      "spelling_id": 2,
+      "vocab_id": 2
+    },
+    {
+      "word": "vandalizechancellor",
+      "spelling_id": 3,
+      "vocab_id": 2
+    },
+    {
+      "word": "veneernoun",
+      "spelling_id": 2,
+      "vocab_id": 2
+    },
+    {
+      "word": "vernalaardvark",
+      "spelling_id": 2,
+      "vocab_id": 2
+    },
+    {
+      "word": "verylast",
+      "spelling_id": 1,
+      "vocab_id": 2
+    },
+    {
+      "word": "vigilvincible",
+      "spelling_id": 2,
+      "vocab_id": 3
+    },
+    {
+      "word": "vindictiveattitudes",
+      "spelling_id": 2,
+      "vocab_id": 2
+    },
+    {
+      "word": "vinegarfiduciary",
+      "spelling_id": 2,
+      "vocab_id": 2
+    },
+    {
+      "word": "virtuallyvisibility",
+      "spelling_id": 2,
+      "vocab_id": 3
+    },
+    {
+      "word": "vis",
+      "spelling_id": 1,
+      "vocab_id": 1
+    },
+    {
+      "word": "viscidityw",
+      "spelling_id": 2,
+      "vocab_id": 2
+    },
+    {
+      "word": "vitiatespodumene",
+      "spelling_id": 2,
+      "vocab_id": 2
+    },
+    {
+      "word": "vivaciousxenoglossy",
+      "spelling_id": 2,
+      "vocab_id": 2
+    },
+    {
+      "word": "vizierialcrescive",
+      "spelling_id": 3,
+      "vocab_id": 2
+    },
+    {
+      "word": "vizierialnoun",
+      "spelling_id": 2,
+      "vocab_id": 2
+    },
+    {
+      "word": "voceinesculent",
+      "spelling_id": 2,
+      "vocab_id": 2
+    },
+    {
+      "word": "voraciousnoun",
+      "spelling_id": 2,
+      "vocab_id": 2
+    },
+    {
+      "word": "vue",
+      "spelling_id": 1,
+      "vocab_id": 1
+    },
+    {
+      "word": "waf",
+      "spelling_id": 1,
+      "vocab_id": 1
+    },
+    {
+      "word": "wag",
+      "spelling_id": 1,
+      "vocab_id": 1
+    },
+    {
+      "word": "wan",
+      "spelling_id": 1,
+      "vocab_id": 1
+    },
+    {
+      "word": "wanted",
+      "spelling_id": 1,
+      "vocab_id": 1
+    },
+    {
+      "word": "wapitiweka",
+      "spelling_id": 2,
+      "vocab_id": 2
+    },
+    {
+      "word": "wasteweir",
+      "spelling_id": 2,
+      "vocab_id": 2
+    },
+    {
+      "word": "wealdblink",
+      "spelling_id": 2,
+      "vocab_id": 2
+    },
+    {
+      "word": "whetnoun",
+      "spelling_id": 1,
+      "vocab_id": 2
+    },
+    {
+      "word": "wheytrademarks",
+      "spelling_id": 2,
+      "vocab_id": 2
+    },
+    {
+      "word": "whimperbracelet",
+      "spelling_id": 2,
+      "vocab_id": 2
+    },
+    {
+      "word": "whippoorwillficus",
+      "spelling_id": 2,
+      "vocab_id": 2
+    },
+    {
+      "word": "why",
+      "spelling_id": 1,
+      "vocab_id": 1
+    },
+    {
+      "word": "wi-fi",
+      "spelling_id": 1,
+      "vocab_id": 1
+    },
+    {
+      "word": "wieldscuppers",
+      "spelling_id": 2,
+      "vocab_id": 2
+    },
+    {
+      "word": "wiesbadenmontmorency",
+      "spelling_id": 2,
+      "vocab_id": 2
+    },
+    {
+      "word": "wigan",
+      "spelling_id": 1,
+      "vocab_id": 1
+    },
+    {
+      "word": "wiggle",
+      "spelling_id": 1,
+      "vocab_id": 1
+    },
+    {
+      "word": "wilco",
+      "spelling_id": 1,
+      "vocab_id": 1
+    },
+    {
+      "word": "wildcat",
+      "spelling_id": 1,
+      "vocab_id": 1
+    },
+    {
+      "word": "wimple",
+      "spelling_id": 1,
+      "vocab_id": 1
+    },
+    {
+      "word": "wince",
+      "spelling_id": 1,
+      "vocab_id": 1
+    },
+    {
+      "word": "windbaggery",
+      "spelling_id": 2,
+      "vocab_id": 2
+    },
+    {
+      "word": "window",
+      "spelling_id": 1,
+      "vocab_id": 1
+    },
+    {
+      "word": "winegrower",
+      "spelling_id": 2,
+      "vocab_id": 2
+    },
+    {
+      "word": "wings",
+      "spelling_id": 1,
+      "vocab_id": 1
+    },
+    {
+      "word": "winnow",
+      "spelling_id": 1,
+      "vocab_id": 1
+    },
+    {
+      "word": "winsome",
+      "spelling_id": 1,
+      "vocab_id": 1
+    },
+    {
+      "word": "wisdom",
+      "spelling_id": 1,
+      "vocab_id": 2
+    },
+    {
+      "word": "wish",
+      "spelling_id": 1,
+      "vocab_id": 1
+    },
+    {
+      "word": "wistful",
+      "spelling_id": 1,
+      "vocab_id": 2
+    },
+    {
+      "word": "withered",
+      "spelling_id": 1,
+      "vocab_id": 2
+    },
+    {
+      "word": "withers",
+      "spelling_id": 1,
+      "vocab_id": 1
+    },
+    {
+      "word": "without",
+      "spelling_id": 1,
+      "vocab_id": 1
+    },
+    {
+      "word": "wizard",
+      "spelling_id": 1,
+      "vocab_id": 1
+    },
+    {
+      "word": "wizened",
+      "spelling_id": 1,
+      "vocab_id": 1
+    },
+    {
+      "word": "woad",
+      "spelling_id": 1,
+      "vocab_id": 1
+    },
+    {
+      "word": "wobbulator",
+      "spelling_id": 2,
+      "vocab_id": 2
+    },
+    {
+      "word": "wobbulatormahogany",
+      "spelling_id": 2,
+      "vocab_id": 2
+    },
+    {
+      "word": "woebegone",
+      "spelling_id": 2,
+      "vocab_id": 2
+    },
+    {
+      "word": "wok",
+      "spelling_id": 1,
+      "vocab_id": 1
+    },
+    {
+      "word": "wolfsbane",
+      "spelling_id": 2,
+      "vocab_id": 2
+    },
+    {
+      "word": "woman",
+      "spelling_id": 1,
+      "vocab_id": 1
+    },
+    {
+      "word": "wombat",
+      "spelling_id": 2,
+      "vocab_id": 1
+    },
+    {
+      "word": "women",
+      "spelling_id": 1,
+      "vocab_id": 1
+    },
+    {
+      "word": "womyn",
+      "spelling_id": 1,
+      "vocab_id": 1
+    },
+    {
+      "word": "wonder",
+      "spelling_id": 1,
+      "vocab_id": 1
+    },
+    {
+      "word": "wood",
+      "spelling_id": 1,
+      "vocab_id": 1
+    },
+    {
+      "word": "wootz",
+      "spelling_id": 2,
+      "vocab_id": 1
+    },
+    {
+      "word": "wordmonger",
+      "spelling_id": 2,
+      "vocab_id": 2
+    },
+    {
+      "word": "workhorse",
+      "spelling_id": 2,
+      "vocab_id": 2
+    },
+    {
+      "word": "worldmath",
+      "spelling_id": 2,
+      "vocab_id": 2
+    },
+    {
+      "word": "worried",
+      "spelling_id": 2,
+      "vocab_id": 1
+    },
+    {
+      "word": "worrywart",
+      "spelling_id": 2,
+      "vocab_id": 2
+    },
+    {
+      "word": "worse",
+      "spelling_id": 1,
+      "vocab_id": 1
+    },
+    {
+      "word": "worth",
+      "spelling_id": 1,
+      "vocab_id": 1
+    },
+    {
+      "word": "wow",
+      "spelling_id": 1,
+      "vocab_id": 1
+    },
+    {
+      "word": "wraith",
+      "spelling_id": 2,
+      "vocab_id": 1
+    },
+    {
+      "word": "wrath",
+      "spelling_id": 2,
+      "vocab_id": 1
+    },
+    {
+      "word": "wreaked",
+      "spelling_id": 2,
+      "vocab_id": 1
+    },
+    {
+      "word": "wreath",
+      "spelling_id": 2,
+      "vocab_id": 1
+    },
+    {
+      "word": "wreckage",
+      "spelling_id": 2,
+      "vocab_id": 2
+    },
+    {
+      "word": "wren",
+      "spelling_id": 1,
+      "vocab_id": 1
+    },
+    {
+      "word": "wrench",
+      "spelling_id": 2,
+      "vocab_id": 1
+    },
+    {
+      "word": "wrenches",
+      "spelling_id": 3,
+      "vocab_id": 2
+    },
+    {
+      "word": "wrestle",
+      "spelling_id": 2,
+      "vocab_id": 1
+    },
+    {
+      "word": "wretched",
+      "spelling_id": 3,
+      "vocab_id": 2
+    },
+    {
+      "word": "wriggle",
+      "spelling_id": 2,
+      "vocab_id": 1
+    },
+    {
+      "word": "wring",
+      "spelling_id": 2,
+      "vocab_id": 1
+    },
+    {
+      "word": "writers",
+      "spelling_id": 2,
+      "vocab_id": 1
+    },
+    {
+      "word": "writhes",
+      "spelling_id": 2,
+      "vocab_id": 1
+    },
+    {
+      "word": "written",
+      "spelling_id": 2,
+      "vocab_id": 1
+    },
+    {
+      "word": "wunderkind",
+      "spelling_id": 2,
+      "vocab_id": 2
+    },
+    {
+      "word": "wushu",
+      "spelling_id": 1,
+      "vocab_id": 1
+    },
+    {
+      "word": "xenoglossy",
+      "spelling_id": 2,
+      "vocab_id": 2
+    },
+    {
+      "word": "xerogel",
+      "spelling_id": 1,
+      "vocab_id": 1
+    },
+    {
+      "word": "xiphias",
+      "spelling_id": 2,
+      "vocab_id": 1
+    },
+    {
+      "word": "xiphophyllous",
+      "spelling_id": 3,
+      "vocab_id": 3
+    },
+    {
+      "word": "xylem",
+      "spelling_id": 1,
+      "vocab_id": 1
+    },
+    {
+      "word": "xyloglyphy",
+      "spelling_id": 2,
+      "vocab_id": 2
+    },
+    {
+      "word": "xylyl",
+      "spelling_id": 1,
+      "vocab_id": 1
+    },
+    {
+      "word": "yabbies",
+      "spelling_id": 2,
+      "vocab_id": 1
+    },
+    {
+      "word": "yakitori",
+      "spelling_id": 1,
+      "vocab_id": 2
+    },
+    {
+      "word": "yakitoripejorate",
+      "spelling_id": 2,
+      "vocab_id": 2
+    },
+    {
+      "word": "yammer",
+      "spelling_id": 1,
+      "vocab_id": 1
+    },
+    {
+      "word": "yankee",
+      "spelling_id": 1,
+      "vocab_id": 1
+    },
+    {
+      "word": "yardang",
+      "spelling_id": 1,
+      "vocab_id": 1
+    },
+    {
+      "word": "yarn",
+      "spelling_id": 1,
+      "vocab_id": 1
+    },
+    {
+      "word": "yawl",
+      "spelling_id": 1,
+      "vocab_id": 1
+    },
+    {
+      "word": "yawmeter",
+      "spelling_id": 1,
+      "vocab_id": 2
+    },
+    {
+      "word": "yeanling",
+      "spelling_id": 1,
+      "vocab_id": 2
+    },
+    {
+      "word": "yearn",
+      "spelling_id": 1,
+      "vocab_id": 1
+    },
+    {
+      "word": "yeatsian",
+      "spelling_id": 1,
+      "vocab_id": 2
+    },
+    {
+      "word": "yellowfin",
+      "spelling_id": 2,
+      "vocab_id": 2
+    },
+    {
+      "word": "yeoman",
+      "spelling_id": 1,
+      "vocab_id": 1
+    },
+    {
+      "word": "yesterday",
+      "spelling_id": 2,
+      "vocab_id": 2
+    },
+    {
+      "word": "yeti",
+      "spelling_id": 1,
+      "vocab_id": 1
+    },
+    {
+      "word": "yippee",
+      "spelling_id": 1,
+      "vocab_id": 1
+    },
+    {
+      "word": "yoga",
+      "spelling_id": 1,
+      "vocab_id": 1
+    },
+    {
+      "word": "yolks",
+      "spelling_id": 1,
+      "vocab_id": 1
+    },
+    {
+      "word": "yom",
+      "spelling_id": 1,
+      "vocab_id": 1
+    },
+    {
+      "word": "yonder",
+      "spelling_id": 1,
+      "vocab_id": 1
+    },
+    {
+      "word": "yoo-hoo",
+      "spelling_id": 1,
+      "vocab_id": 1
+    },
+    {
+      "word": "yore",
+      "spelling_id": 1,
+      "vocab_id": 1
+    },
+    {
+      "word": "yorkshire",
+      "spelling_id": 2,
+      "vocab_id": 2
+    },
+    {
+      "word": "yoruba",
+      "spelling_id": 1,
+      "vocab_id": 1
+    },
+    {
+      "word": "yosenabe",
+      "spelling_id": 1,
+      "vocab_id": 2
+    },
+    {
+      "word": "young",
+      "spelling_id": 1,
+      "vocab_id": 1
+    },
+    {
+      "word": "yttriferous",
+      "spelling_id": 2,
+      "vocab_id": 3
+    },
+    {
+      "word": "yuga",
+      "spelling_id": 1,
+      "vocab_id": 1
+    },
+    {
+      "word": "yuloh",
+      "spelling_id": 1,
+      "vocab_id": 1
+    },
+    {
+      "word": "yurt",
+      "spelling_id": 1,
+      "vocab_id": 1
+    },
+    {
+      "word": "yuzu",
+      "spelling_id": 1,
+      "vocab_id": 1
+    },
+    {
+      "word": "zabaglione",
+      "spelling_id": 2,
+      "vocab_id": 2
+    },
+    {
+      "word": "zacate",
+      "spelling_id": 1,
+      "vocab_id": 1
+    },
+    {
+      "word": "zaibatsu",
+      "spelling_id": 1,
+      "vocab_id": 2
+    },
+    {
+      "word": "zamboni",
+      "spelling_id": 2,
+      "vocab_id": 1
+    },
+    {
+      "word": "zamboniblarney",
+      "spelling_id": 3,
+      "vocab_id": 2
+    },
+    {
+      "word": "zanni",
+      "spelling_id": 1,
+      "vocab_id": 1
+    },
+    {
+      "word": "zapateado",
+      "spelling_id": 2,
+      "vocab_id": 2
+    },
+    {
+      "word": "zazen",
+      "spelling_id": 1,
+      "vocab_id": 1
+    },
+    {
+      "word": "zazencabochon",
+      "spelling_id": 3,
+      "vocab_id": 2
+    },
+    {
+      "word": "zdarsky",
+      "spelling_id": 1,
+      "vocab_id": 1
+    }
+  ]
+}

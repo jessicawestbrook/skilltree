@@ -134,12 +134,12 @@ const LearningPathsPage: React.FC = () => {
       // Fetch user's completed nodes
       const { data: progress } = await supabase
         .from('user_progress')
-        .select('skill_tree_node_id, status')
+        .select('skill_id, status')
         .eq('user_id', user.id)
         .eq('status', 'completed')
 
       if (progress) {
-        setUserProgress(new Set(progress.map(p => p.skill_tree_node_id)))
+        setUserProgress(new Set(progress.map(p => p.skill_id)))
       }
 
       // Calculate progress for each path
@@ -225,13 +225,13 @@ const LearningPathsPage: React.FC = () => {
       const node = nodes.get(progress.currentNode)
       if (node) {
         const categoryPath = await buildCategoryPath(node.id)
-        navigate(categoryPath)
+        navigate(categoryPath ? `/${categoryPath}` : `/learning/${node.id}`)
       }
     } else if (path.nodes.length > 0) {
       const firstNode = nodes.get(path.nodes[0])
       if (firstNode) {
         const categoryPath = await buildCategoryPath(firstNode.id)
-        navigate(categoryPath)
+        navigate(categoryPath ? `/${categoryPath}` : `/learning/${firstNode.id}`)
       }
     }
   }
@@ -438,7 +438,7 @@ const LearningPathsPage: React.FC = () => {
                             const node = nodes.get(nodeId)
                             if (node) {
                               const categoryPath = await buildCategoryPath(node.id)
-                              navigate(categoryPath)
+                              navigate(categoryPath ? `/${categoryPath}` : `/learning/${node.id}`)
                             }
                           }}
                           className="text-primary-600 hover:text-primary-700 dark:text-primary-400 dark:hover:text-primary-300"

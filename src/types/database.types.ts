@@ -83,7 +83,7 @@ export interface NotificationPreferences {
 export interface UserProgress {
   id: string
   user_id: string
-  skill_node_id: string
+  skill_id: string
   status: 'not_started' | 'in_progress' | 'completed'
   rating: number
   last_accessed: string
@@ -106,7 +106,7 @@ export interface UserQuestionAttempt {
 export interface StarredCategory {
   id: string
   user_id: string
-  skill_node_id: string
+  skill_id: string
   created_at: string
 }
 

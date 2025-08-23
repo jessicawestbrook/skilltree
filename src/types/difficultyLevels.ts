@@ -23,14 +23,7 @@ export interface SpellingWordWithDifficulties {
   definition: string;
   example_sentence: string;
   spelling_difficulty_id?: number;
-  spelling_difficulty_level?: number;
-  spelling_difficulty_name?: string;
   vocabulary_difficulty_id?: number;
-  vocabulary_difficulty_level?: number;
-  vocabulary_difficulty_name?: string;
-  source_difficulty?: string;
-  ai_spelling_difficulty_level?: number;
-  ai_spelling_difficulty_name?: string;
   etymology?: string;
   etymology_source?: string;
   pronunciation_guide?: string;

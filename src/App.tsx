@@ -36,6 +36,7 @@ import LanguageTrainerPage from './pages/LanguageTrainerPage'
 import StudyListsPage from './pages/StudyListsPage'
 import TestPage from './pages/TestPage'
 import NotificationsPage from './pages/NotificationsPage'
+import AboutPage from './pages/AboutPage'
 import ProtectedRoute from './components/ProtectedRoute'
 import AdminRoute from './components/AdminRoute'
 
@@ -82,6 +83,7 @@ function App() {
               <Route path="diagnostics" element={<DiagnosticPage />} />
               <Route path="settings" element={<SettingsPage />} />
               <Route path="search" element={<SearchPage />} />
+              <Route path="about" element={<AboutPage />} />
               <Route
                 path="notifications"
                 element={

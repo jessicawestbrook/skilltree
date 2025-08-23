@@ -1,0 +1,162 @@
+{
+  "timestamp": "2025-08-23T15:04:33.692Z",
+  "backupTable": "spelling_words_bkp_1755961473004",
+  "concatenatedWords": {
+    "toSplit": [],
+    "newWordsToAdd": [
+      {
+        "word": "mountebank",
+        "source_difficulty": "Three Bee"
+      },
+      {
+        "word": "allelopathy",
+        "source_difficulty": "Three Bee"
+      },
+      {
+        "word": "parishioner",
+        "source_difficulty": "Three Bee"
+      },
+      {
+        "word": "astrologers",
+        "source_difficulty": "Three Bee"
+      },
+      {
+        "word": "sententious",
+        "source_difficulty": "Two Bee"
+      },
+      {
+        "word": "cardiopathy",
+        "source_difficulty": "Two Bee"
+      },
+      {
+        "word": "spelling",
+        "source_difficulty": "Two Bee"
+      },
+      {
+        "word": "unprepossessing",
+        "source_difficulty": "Three Bee"
+      },
+      {
+        "word": "bipolar",
+        "source_difficulty": "Three Bee"
+      },
+      {
+        "word": "landline",
+        "source_difficulty": "Two Bee"
+      },
+      {
+        "word": "sparrow",
+        "source_difficulty": "Two Bee"
+      },
+      {
+        "word": "wanted",
+        "source_difficulty": "One Bee"
+      },
+      {
+        "word": "sprung",
+        "source_difficulty": "One Bee"
+      }
+    ],
+    "toDelete": [
+      "establishmentruminate",
+      "glengarrycommissioner",
+      "grandiloquentarmature",
+      "haplographytchefuncte",
+      "hydriotaphiahydrocortisone",
+      "ichthyologyicosahedron",
+      "jiggery-pokerysobersides",
+      "ministrationsracketeer",
+      "moribundrecriminatory",
+      "mortadellamotherumbung",
+      "mountebankallelopathy",
+      "newfoundlandfulminate",
+      "octonocularoctuplicate",
+      "panjandrumcatachresis",
+      "parishionerastrologers",
+      "perspicaciousadjective",
+      "philharmonicendorphin",
+      "porcelaindeglaciation",
+      "rambunctiousingenuous",
+      "ramificationstemerity",
+      "repercussionrepository",
+      "resuscitateapprobatory",
+      "retinoscopysepulchral",
+      "sententiouscardiopathy",
+      "spellingphosphorescent",
+      "unprepossessingbipolar",
+      "veritableinterjection",
+      "fadeawayfallacy",
+      "jingoismjitney",
+      "landlinesparrow",
+      "laudeevo-devo",
+      "palookapannose",
+      "pashminautilitarian",
+      "phoneticianmacular",
+      "potentatepotoroo",
+      "premonitionprevious",
+      "quinaryafroth",
+      "rescissiblereveille",
+      "soppinesssousaphone",
+      "ufologycholera",
+      "uglinessquack",
+      "universalv",
+      "wantedsprung"
+    ]
+  },
+  "invalidWords": {
+    "toDelete": [
+      "bwlalay",
+      "eoaoadldrbl",
+      "egucigalpa",
+      "fairesbrinz",
+      "hsaing-waing",
+      "wootzy",
+      "universalv"
+    ]
+  },
+  "validWordsNeedingDefinitions": [
+    "big-time",
+    "boogie-woogie",
+    "cookie-cutter",
+    "derring-do",
+    "different",
+    "dillydally",
+    "dodgy",
+    "donna",
+    "drag",
+    "dreadlocks",
+    "dromic",
+    "dulcinea",
+    "durango",
+    "earmark",
+    "evo-devo",
+    "fortran",
+    "frabjous",
+    "fuddy-duddy",
+    "hocus-pocus",
+    "hoity-toity",
+    "hokus-pokus",
+    "hunky-dory",
+    "jiggery-pokery",
+    "niminy-piminy",
+    "podunk",
+    "rabble-rouser",
+    "spic-and-span",
+    "spick-and-span",
+    "wi-fi",
+    "windbaggery",
+    "worrywart",
+    "wunderkind",
+    "yankee",
+    "yoo-hoo",
+    "zowie",
+    "zydeco"
+  ],
+  "summary": {
+    "concatenatedWordsToSplit": 43,
+    "newWordsToAdd": 13,
+    "invalidWordsToDelete": 7,
+    "validWordsNeedingDefinitions": 36,
+    "totalChanges": 63
+  }
+}

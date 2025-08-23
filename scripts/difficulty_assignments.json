@@ -1,0 +1,3164 @@
+[
+  {
+    "id": "2d89d1e3-7848-4b6f-bef2-d6ca5f472bfe",
+    "word": "hem",
+    "vocabulary_difficulty_id": 1,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "03f81761-34e3-4572-a0ba-6443d48ea82c",
+    "word": "polo",
+    "vocabulary_difficulty_id": 1,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "36d30d46-ff6a-4d4f-86ab-eea31dc4f651",
+    "word": "forgive",
+    "vocabulary_difficulty_id": 1,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "52ccb1c6-e912-422b-b184-03b6a8d73918",
+    "word": "fragile",
+    "vocabulary_difficulty_id": 1,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "5ec0b6e3-01a6-4ebf-bd92-5b881ab83995",
+    "word": "forefend",
+    "vocabulary_difficulty_id": 2,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "4540fb28-7319-4ebe-b7d0-63bc91c1e624",
+    "word": "foothills",
+    "vocabulary_difficulty_id": 2,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "09efc186-e64f-40ac-8699-34d7ffc7e9fd",
+    "word": "lanternmince",
+    "vocabulary_difficulty_id": 2,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "f791d07c-62de-41fe-9113-9f9ada3439d1",
+    "word": "formalise",
+    "vocabulary_difficulty_id": 2,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "a8e491be-655a-4ea2-81f7-606ceb6ad345",
+    "word": "zither",
+    "vocabulary_difficulty_id": 1,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "cae7ac41-5452-4133-993c-03ee95dd9c82",
+    "word": "foxes",
+    "vocabulary_difficulty_id": 1,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "2e12c16c-5800-467a-9611-2366756a1bfa",
+    "word": "wan",
+    "vocabulary_difficulty_id": 1,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "75967b67-e937-4245-92a2-ef05488bef66",
+    "word": "yarn",
+    "vocabulary_difficulty_id": 1,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "aa5fbaeb-e30a-4ed9-8633-ba708ff9f120",
+    "word": "winsome",
+    "vocabulary_difficulty_id": 1,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "e1142e85-37ce-44d8-b970-87b31f4846fa",
+    "word": "fuddy-duddy",
+    "vocabulary_difficulty_id": 2,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "85ae04a1-d3fc-4aa4-8976-ea761e17549b",
+    "word": "forage",
+    "vocabulary_difficulty_id": 1,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "489d4e93-9cad-4300-8cba-7bc2d2b5d525",
+    "word": "yellowfin",
+    "vocabulary_difficulty_id": 2,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "d9baba10-9128-4091-8f98-bbcfa82f9542",
+    "word": "sum",
+    "vocabulary_difficulty_id": 1,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "b0fcda71-0f9c-4d9c-a29f-ba79427a08f9",
+    "word": "worrywart",
+    "vocabulary_difficulty_id": 2,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "7d8ca7cc-e6ab-49d3-9314-0d62e7aca834",
+    "word": "polenta",
+    "vocabulary_difficulty_id": 2,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "2082a0ab-7089-4e31-8063-7d7a5c1825cd",
+    "word": "police",
+    "vocabulary_difficulty_id": 2,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "3e0ac8c2-13bc-47f3-bce3-817738c5bd10",
+    "word": "wren",
+    "vocabulary_difficulty_id": 1,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "12f035bd-2fc4-4f5f-b66c-368e07f44f38",
+    "word": "rabble-rouser",
+    "vocabulary_difficulty_id": 2,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "a606147e-1633-445b-b96d-69f5aa697e83",
+    "word": "sherifftarry",
+    "vocabulary_difficulty_id": 2,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "97de0064-89a9-4cab-a3db-c892832e3387",
+    "word": "hunky-dory",
+    "vocabulary_difficulty_id": 2,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "2b280302-47d2-4d58-ad74-d28d285e153d",
+    "word": "pharaohopponency",
+    "vocabulary_difficulty_id": 2,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "85fe33f1-b635-448d-ad43-2167998b7a92",
+    "word": "zirconium",
+    "vocabulary_difficulty_id": 2,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "3c5dee05-0ec7-4cae-8085-aa3b6554c8ac",
+    "word": "summary",
+    "vocabulary_difficulty_id": 1,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "78f7ea38-d08f-4afe-9b8c-261a85e35d65",
+    "word": "fomentation",
+    "vocabulary_difficulty_id": 2,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "4dd0b46e-2667-4b6d-a9b6-6c663006a15a",
+    "word": "yeanling",
+    "vocabulary_difficulty_id": 2,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "77fcf424-b631-487a-b7e3-ee67b7871f24",
+    "word": "wushu",
+    "vocabulary_difficulty_id": 1,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "d94e1660-1aea-4779-81d7-78a9a7095c8d",
+    "word": "vernalaardvark",
+    "vocabulary_difficulty_id": 2,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "f407cb55-b44a-4560-8406-d32eb3bbc9dc",
+    "word": "fracas",
+    "vocabulary_difficulty_id": 2,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "fb3fa806-b470-4b5b-ac29-43481ab7002e",
+    "word": "yardang",
+    "vocabulary_difficulty_id": 2,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "b86ef75e-0099-4219-9992-7d7dfbfc79b0",
+    "word": "pollutant",
+    "vocabulary_difficulty_id": 2,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "c33b257c-bfc4-425b-b835-b7a5280b20ef",
+    "word": "wobbulator",
+    "vocabulary_difficulty_id": 2,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "cc56e411-bd67-42f1-aaf5-1f7acdf5a0e4",
+    "word": "yorkshire",
+    "vocabulary_difficulty_id": 2,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "1dbf88ed-a187-4036-87e4-cd5d8ed412a3",
+    "word": "polysemy",
+    "vocabulary_difficulty_id": 2,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "a75536cf-90db-4d42-a914-319652e2bda9",
+    "word": "podunk",
+    "vocabulary_difficulty_id": 2,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "0b51e895-af98-48c1-8665-f46036fc2117",
+    "word": "par",
+    "vocabulary_difficulty_id": 1,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "a4a5d803-80b8-4b79-a708-b172c3706851",
+    "word": "tae",
+    "vocabulary_difficulty_id": 1,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "e289aa9b-9590-4483-91e8-6f03993ac47c",
+    "word": "hoity-toity",
+    "vocabulary_difficulty_id": 2,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "77e2eb63-0709-4323-ad4e-f25d327c014c",
+    "word": "frabjous",
+    "vocabulary_difficulty_id": 2,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "71fb24ec-5b38-49db-8f3a-58ad61a9b231",
+    "word": "formica",
+    "vocabulary_difficulty_id": 1,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "ed5cdd92-6d42-4045-9a02-aa46d9c86531",
+    "word": "yuzu",
+    "vocabulary_difficulty_id": 1,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "3673db4b-1d40-4db9-8075-c83de83d5f39",
+    "word": "franca",
+    "vocabulary_difficulty_id": 1,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "31a2f81f-5e53-451a-a3e3-2f253c874f94",
+    "word": "pro",
+    "vocabulary_difficulty_id": 1,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "47138820-4f15-455c-a45d-797a021ae926",
+    "word": "solitairedishevel",
+    "vocabulary_difficulty_id": 2,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "019f272a-96d8-472b-ad95-518add9ea05a",
+    "word": "wraith",
+    "vocabulary_difficulty_id": 2,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "a4617f73-3436-4deb-a423-d00901411afd",
+    "word": "peremptoryinfarction",
+    "vocabulary_difficulty_id": 2,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "b4e69104-616c-45a2-84a0-6903dcb588e8",
+    "word": "yeoman",
+    "vocabulary_difficulty_id": 1,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "653410f9-51c0-4426-b4da-a08e092b0dec",
+    "word": "voceinesculent",
+    "vocabulary_difficulty_id": 2,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "92cc514e-c953-407e-bc3d-96fee98d5a72",
+    "word": "framboise",
+    "vocabulary_difficulty_id": 2,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "844aee08-62a7-4156-af2f-b86a1e95e7f7",
+    "word": "polydactyly",
+    "vocabulary_difficulty_id": 2,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "196bd2a6-6b6b-410c-acc2-860b80677f42",
+    "word": "podagra",
+    "vocabulary_difficulty_id": 1,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "98bfe782-e6bf-4451-8852-0290cf377a7e",
+    "word": "yuloh",
+    "vocabulary_difficulty_id": 2,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "8b5a71e3-169f-4a1d-ab00-2f4d6ef95157",
+    "word": "zeitgeist",
+    "vocabulary_difficulty_id": 2,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "0b2cd4b8-aaef-415b-80e2-5c9fde8af28b",
+    "word": "yakitoripejorate",
+    "vocabulary_difficulty_id": 2,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "d04c051b-0442-417f-b2a3-d4564f0110ee",
+    "word": "poltroon",
+    "vocabulary_difficulty_id": 2,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "155fd89e-ccd4-4b5b-810c-84ea203bc93b",
+    "word": "hoi",
+    "vocabulary_difficulty_id": 1,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "9c1ac36c-774c-4c43-bb61-e3035137f05f",
+    "word": "pochoir",
+    "vocabulary_difficulty_id": 1,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "83c41e69-51f3-42c0-aaf2-7713332103fa",
+    "word": "fortissimo",
+    "vocabulary_difficulty_id": 2,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "4c74c9eb-a65d-4384-9b61-90adb24ff23c",
+    "word": "xerogel",
+    "vocabulary_difficulty_id": 2,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "58eb27d2-9509-4f91-b92d-6627dfb39ea1",
+    "word": "yosenabe",
+    "vocabulary_difficulty_id": 2,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "432a1896-4013-4fa6-9068-3015205517bd",
+    "word": "fossiliferous",
+    "vocabulary_difficulty_id": 2,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "f8b14137-ea70-4832-b3c2-580a975a928f",
+    "word": "ray",
+    "vocabulary_difficulty_id": 1,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "6070fd20-28e8-4ed3-adbc-8b6ccbec32a5",
+    "word": "fineday",
+    "vocabulary_difficulty_id": 2,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "301efac4-5350-4d53-b47c-8487a3776639",
+    "word": "jam",
+    "vocabulary_difficulty_id": 1,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "2103ee2d-97a7-4242-9edf-13812ebff037",
+    "word": "sir",
+    "vocabulary_difficulty_id": 1,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "7292bbe8-d107-4efe-9b25-e19cbe9d1e71",
+    "word": "little",
+    "vocabulary_difficulty_id": 2,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "7d1975c8-6cb8-4b99-8767-dbd427485bdc",
+    "word": "presencesizzle",
+    "vocabulary_difficulty_id": 2,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "08fcaa96-d10e-4b7b-8abb-166d04fef5d3",
+    "word": "worse",
+    "vocabulary_difficulty_id": 2,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "0193d7a2-e2a4-45ab-8767-d281d4227101",
+    "word": "yonder",
+    "vocabulary_difficulty_id": 1,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "2398a01d-2ff5-4b23-83d9-f5ccd5169d64",
+    "word": "frailty",
+    "vocabulary_difficulty_id": 1,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "6efb30b3-cbfc-4933-a998-39620af10385",
+    "word": "yoo-hoo",
+    "vocabulary_difficulty_id": 1,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "5f3a3155-d377-479c-bc7d-ca4162510a0b",
+    "word": "wisdom",
+    "vocabulary_difficulty_id": 2,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "a26061c8-fad8-44d0-a4f6-c0fb5731df3c",
+    "word": "plush",
+    "vocabulary_difficulty_id": 2,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "579ea8b6-ff9c-4f2b-ac96-5f79d81c7b64",
+    "word": "fortran",
+    "vocabulary_difficulty_id": 1,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "9d52c0a6-e0ec-4f34-9f0e-c2d680397ffa",
+    "word": "runesancestors",
+    "vocabulary_difficulty_id": 2,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "65b252f7-925b-441d-92d3-25f7ba778640",
+    "word": "fountain",
+    "vocabulary_difficulty_id": 2,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "6c4380c8-da69-4db6-b824-b8d68dc61d32",
+    "word": "urgencybifurcate",
+    "vocabulary_difficulty_id": 2,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "29d4efb0-21cf-489b-ae55-3764f9e92a94",
+    "word": "limpidsyllabus",
+    "vocabulary_difficulty_id": 2,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "adc3e5d5-1101-42c9-99d7-94a99cfbebed",
+    "word": "revelationarithmetic",
+    "vocabulary_difficulty_id": 2,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "eb1c2325-77ae-4b8d-85df-662295bbfdc0",
+    "word": "legerityvatican",
+    "vocabulary_difficulty_id": 2,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "dd09bb8c-0fb0-490d-85fd-d245edf4bff6",
+    "word": "tam-o",
+    "vocabulary_difficulty_id": 1,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "01fab887-6818-47e1-8421-5585d1c3ed63",
+    "word": "wrath",
+    "vocabulary_difficulty_id": 1,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "e7a48c5b-f622-4553-979b-053a3069177f",
+    "word": "polemic",
+    "vocabulary_difficulty_id": 1,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "17b49669-3b3e-4ea8-bd37-baf4feb95485",
+    "word": "vitiatespodumene",
+    "vocabulary_difficulty_id": 2,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "07d5fc39-1381-4162-82f7-e8a0331ce16a",
+    "word": "laterigradehyssop",
+    "vocabulary_difficulty_id": 2,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "93ce9c54-231e-470b-b245-937093c9b1b1",
+    "word": "zazen",
+    "vocabulary_difficulty_id": 1,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "56191a2a-85ac-4b8b-9bee-7160121d1d56",
+    "word": "foley",
+    "vocabulary_difficulty_id": 2,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "4eb893a1-b916-405a-aef8-a83fe00a4876",
+    "word": "zugzwang",
+    "vocabulary_difficulty_id": 2,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "57bcb188-7d2e-43c5-b274-55db97e93b29",
+    "word": "part",
+    "vocabulary_difficulty_id": 1,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "c6ed39f3-d57b-4070-8dee-8763bb89004b",
+    "word": "son",
+    "vocabulary_difficulty_id": 1,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "42b95694-3324-4b6b-895a-1ac87b48d531",
+    "word": "much",
+    "vocabulary_difficulty_id": 1,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "9890cc67-e6fc-4ec5-895f-e30244af2b00",
+    "word": "hat",
+    "vocabulary_difficulty_id": 1,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "56c0fca7-e8c0-41ff-bc19-47de8fc63f96",
+    "word": "wrenches",
+    "vocabulary_difficulty_id": 2,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "c8ec12c8-78e9-44b0-91fc-c8f0dff85fd9",
+    "word": "forty",
+    "vocabulary_difficulty_id": 2,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "fa7ecb76-193e-4191-b948-a4cbd4c77b5d",
+    "word": "quantifyredemption",
+    "vocabulary_difficulty_id": 2,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "dfd97869-a757-4ba4-bbc4-087c40e5f8ee",
+    "word": "flotus",
+    "vocabulary_difficulty_id": 2,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "a7ce408d-e47c-406e-90cc-73b9e93482ed",
+    "word": "windbaggery",
+    "vocabulary_difficulty_id": 2,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "82f4a5a2-a3dd-40ae-94b1-b2674826cba2",
+    "word": "wizard",
+    "vocabulary_difficulty_id": 2,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "5282f9be-6d15-4c24-a558-779850652181",
+    "word": "withered",
+    "vocabulary_difficulty_id": 2,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "fa2637c6-fe7a-4592-acd5-94ba01e40fa6",
+    "word": "wretched",
+    "vocabulary_difficulty_id": 2,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "0174496b-9f8a-474f-9744-5d78ea16c5bf",
+    "word": "propinquityepidermis",
+    "vocabulary_difficulty_id": 2,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "c6ae0929-6b9d-4bff-a12e-34f27c1c67a4",
+    "word": "ryeland",
+    "vocabulary_difficulty_id": 1,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "9f6f7b8a-d2ba-4509-9ec4-10e0f8697451",
+    "word": "inu",
+    "vocabulary_difficulty_id": 1,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "31ccc4a0-f823-43d4-8326-64260906d6f5",
+    "word": "polyesteranoint",
+    "vocabulary_difficulty_id": 2,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "b6fa844c-3a89-4fe2-8fb7-a0d2b9b772db",
+    "word": "pao",
+    "vocabulary_difficulty_id": 1,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "bb25eec2-2704-4fe8-8ac8-5ce08b60568d",
+    "word": "zacate",
+    "vocabulary_difficulty_id": 2,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "fc3da666-fd20-4eea-b1b8-c89d43f1a7d2",
+    "word": "fontina",
+    "vocabulary_difficulty_id": 2,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "43828f14-ada3-4485-917e-b281d56e794e",
+    "word": "referralaerials",
+    "vocabulary_difficulty_id": 2,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "5326f7b8-8272-4f49-84ec-93cb10f2cd56",
+    "word": "fractious",
+    "vocabulary_difficulty_id": 2,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "0d5a869c-eaa0-4619-a25b-9ec8ee77aafc",
+    "word": "yom",
+    "vocabulary_difficulty_id": 1,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "5d8202a4-e323-465f-a22a-4a948ade96e3",
+    "word": "mange-tout",
+    "vocabulary_difficulty_id": 2,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "d6de5677-500f-40ba-ab22-3dd47f1c83bc",
+    "word": "una",
+    "vocabulary_difficulty_id": 1,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "6d0c9780-5017-4b4a-9018-152b15cd4eb6",
+    "word": "zowie",
+    "vocabulary_difficulty_id": 2,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "3e825461-fc9a-41a8-8029-6da35b325a34",
+    "word": "sit",
+    "vocabulary_difficulty_id": 1,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "92befeca-044a-4164-bafc-2bb5e9b349b8",
+    "word": "poke",
+    "vocabulary_difficulty_id": 1,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "7e0fbb60-d0bf-47ac-8b05-8dd6f597d09a",
+    "word": "off",
+    "vocabulary_difficulty_id": 1,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "82b49dc6-431c-4ac7-a6c4-52d4d605826d",
+    "word": "long",
+    "vocabulary_difficulty_id": 1,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "866b88ab-c0c1-45ba-8d44-66661bbfd933",
+    "word": "top",
+    "vocabulary_difficulty_id": 1,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "68821d7d-79ef-4c0e-b93c-1d16e7ff5b4a",
+    "word": "ten",
+    "vocabulary_difficulty_id": 1,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "c6a8edca-3032-4601-8bd7-da0aca2596e7",
+    "word": "moo",
+    "vocabulary_difficulty_id": 1,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "83f3d555-e655-4fad-982d-fd0b2e216b2e",
+    "word": "forgetrare",
+    "vocabulary_difficulty_id": 2,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "c72699fc-a543-4749-96ad-f8a961d3332e",
+    "word": "frantic",
+    "vocabulary_difficulty_id": 2,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "e40b44d1-b5b9-4f34-8e86-b4ffaa12024e",
+    "word": "wonder",
+    "vocabulary_difficulty_id": 1,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "995afcf3-eae6-4eca-868f-fc74f31ffbf8",
+    "word": "kiltwhirlybird",
+    "vocabulary_difficulty_id": 2,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "11ae9f7b-51af-4017-8157-c8fda6e9fbb5",
+    "word": "fie",
+    "vocabulary_difficulty_id": 1,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "2ac11ee9-4ac8-4775-a2ae-c7f4e3a5551b",
+    "word": "row",
+    "vocabulary_difficulty_id": 1,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "0170d59d-9405-4f3c-bb67-b279b25aa547",
+    "word": "wolfsbane",
+    "vocabulary_difficulty_id": 2,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "9aee846d-572b-41f8-8c7b-d21e0bac1862",
+    "word": "jus",
+    "vocabulary_difficulty_id": 1,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "8d9d76d2-32a6-4f8c-83ea-1b770e41fe15",
+    "word": "tutti-frutticantor",
+    "vocabulary_difficulty_id": 2,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "cc19a88b-eb2f-4915-88d7-5232573428d5",
+    "word": "wi-fi",
+    "vocabulary_difficulty_id": 1,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "3f144d5d-a157-4f11-95d9-8e9c4d271979",
+    "word": "former",
+    "vocabulary_difficulty_id": 1,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "db733b25-54e8-4732-9c2a-f8edc5bf5b92",
+    "word": "spick-and-span",
+    "vocabulary_difficulty_id": 2,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "8574655a-7ee8-48dd-ae6d-28bf9bbd905a",
+    "word": "spic-and-span",
+    "vocabulary_difficulty_id": 2,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "2c5497c1-12bc-4ed9-8400-e5de247c7e16",
+    "word": "wigan",
+    "vocabulary_difficulty_id": 2,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "4e7c0453-03b3-4938-a007-8d8d6b3b9c7c",
+    "word": "res",
+    "vocabulary_difficulty_id": 1,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "f46333d6-1430-4dd9-8122-eee1c822670f",
+    "word": "yuga",
+    "vocabulary_difficulty_id": 1,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "a2bf02aa-8945-4507-9eea-bb8806649484",
+    "word": "niminy-piminy",
+    "vocabulary_difficulty_id": 2,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "4111baab-879d-4bac-8afb-c28da428e16e",
+    "word": "oud",
+    "vocabulary_difficulty_id": 1,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "0a2970d9-ae94-4eb1-a672-e42e8c32f7f5",
+    "word": "mooc",
+    "vocabulary_difficulty_id": 1,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "6e6da5bb-bb2d-4771-b368-99a040bc6179",
+    "word": "zimocca",
+    "vocabulary_difficulty_id": 1,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "a79c2856-2464-40d0-9cf6-19d1bca75995",
+    "word": "pell-mell",
+    "vocabulary_difficulty_id": 2,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "7220a401-0e55-44ab-ab07-ed91acfc9b46",
+    "word": "forsooth",
+    "vocabulary_difficulty_id": 2,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "bd820069-2a1f-4e2d-8525-1163c3bafa0e",
+    "word": "nom",
+    "vocabulary_difficulty_id": 1,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "e8512799-e0fb-4fcd-b6cf-4b9f20a3860b",
+    "word": "ubi",
+    "vocabulary_difficulty_id": 1,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "64648c1d-1dd6-4a78-b650-dc4bee8786c1",
+    "word": "pas",
+    "vocabulary_difficulty_id": 1,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "f5b473c4-8f8b-4a29-a3a3-af05d92292a4",
+    "word": "zdarsky",
+    "vocabulary_difficulty_id": 2,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "8f070419-4219-42f7-b04c-5c6beeb95dce",
+    "word": "fun",
+    "vocabulary_difficulty_id": 1,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "9fed3ae0-68a2-485b-9c21-a60f065f91b7",
+    "word": "puzzlespage",
+    "vocabulary_difficulty_id": 2,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "c932805e-3c71-4aa3-90b6-685ae99e58a1",
+    "word": "wow",
+    "vocabulary_difficulty_id": 1,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "fa24161c-ee71-4fac-b0f8-97d1ea75755a",
+    "word": "why",
+    "vocabulary_difficulty_id": 1,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "aa65dffe-6fcb-4dec-a050-eafa7ec69b4b",
+    "word": "name",
+    "vocabulary_difficulty_id": 1,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "f141d14b-ab5b-4034-9c79-1a7a6d106ce1",
+    "word": "four",
+    "vocabulary_difficulty_id": 1,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "0a24bfdb-2fd6-4be7-b824-f64f5ff00144",
+    "word": "tug",
+    "vocabulary_difficulty_id": 1,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "c114743a-d8fa-41ac-96e9-50e4cb345dd3",
+    "word": "pole",
+    "vocabulary_difficulty_id": 1,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "7c12f8db-fd05-42a0-91a9-cb1599511291",
+    "word": "state",
+    "vocabulary_difficulty_id": 1,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "ca4e2168-5ddf-4b6a-b37a-197c9a2e80e4",
+    "word": "foozle",
+    "vocabulary_difficulty_id": 1,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "f1f80648-bb6c-44ce-8a96-045401e13310",
+    "word": "other",
+    "vocabulary_difficulty_id": 1,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "1903e0ea-f485-4d5e-a0e0-87211e1ecf2a",
+    "word": "gab",
+    "vocabulary_difficulty_id": 1,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "ae5347ae-a001-4f3a-9977-784228cee36c",
+    "word": "rebuffrecanted",
+    "vocabulary_difficulty_id": 2,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "3b3b623b-bc45-4850-bfc3-6470c1e3e12f",
+    "word": "short-winged",
+    "vocabulary_difficulty_id": 2,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "36c7596f-f43f-481f-ae38-856356028d31",
+    "word": "undergirdnoun",
+    "vocabulary_difficulty_id": 2,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "b18fb443-cc36-4905-a7b1-ca3dee87380d",
+    "word": "yore",
+    "vocabulary_difficulty_id": 1,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "7a789cff-f5ce-452c-aa11-9d19df6aabf2",
+    "word": "whetnoun",
+    "vocabulary_difficulty_id": 2,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "0a984ec5-8a5e-47fe-baca-12776e5f0458",
+    "word": "practice",
+    "vocabulary_difficulty_id": 2,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "51a799b2-d0c4-4787-b5b0-8ddf082aaebb",
+    "word": "yesterday",
+    "vocabulary_difficulty_id": 2,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "6cbcd917-ba4d-4710-967b-93b86efa4d7f",
+    "word": "fowl",
+    "vocabulary_difficulty_id": 1,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "4b461a7c-7cc2-4963-b462-abd549669943",
+    "word": "have",
+    "vocabulary_difficulty_id": 1,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "39a4572f-9afb-4d6f-9d64-78c5bb81822f",
+    "word": "forbivorous",
+    "vocabulary_difficulty_id": 2,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "69b5312e-3cbb-4044-b242-5f3a21289edd",
+    "word": "lambentlyadjective",
+    "vocabulary_difficulty_id": 2,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "55e7ede4-f5b6-4474-9b3e-2171eaa0b1a6",
+    "word": "foods",
+    "vocabulary_difficulty_id": 2,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "22875518-a403-4fae-93af-4202e53c9449",
+    "word": "parabolaparameters",
+    "vocabulary_difficulty_id": 2,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "5d0c1740-f3fd-4233-a1f7-7b46a6c72c1b",
+    "word": "show",
+    "vocabulary_difficulty_id": 1,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "2c9568d9-7a81-4b6c-b2df-4f5a3043659d",
+    "word": "politickpollutant",
+    "vocabulary_difficulty_id": 2,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "08ca1bba-43fd-4668-9514-b5f12767ce98",
+    "word": "prodigiousprofligacy",
+    "vocabulary_difficulty_id": 2,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "96b3ec13-2ce6-4758-9911-064b8d4b1347",
+    "word": "form",
+    "vocabulary_difficulty_id": 1,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "6cef1375-f808-4d1d-9f85-35ca33123cae",
+    "word": "vigilvincible",
+    "vocabulary_difficulty_id": 2,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "c8df8684-6b25-4c64-a6eb-5dd9462ff54d",
+    "word": "yawmeter",
+    "vocabulary_difficulty_id": 2,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "08d7dad8-3fd9-4f88-b54d-6743dd77cf06",
+    "word": "zygotenoun",
+    "vocabulary_difficulty_id": 2,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "e23866f8-664f-4506-9801-65e05da6d45f",
+    "word": "haw",
+    "vocabulary_difficulty_id": 1,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "62adddb5-f042-49cf-ad64-99abbb19aa47",
+    "word": "tea",
+    "vocabulary_difficulty_id": 1,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "ee177a44-4f0f-4f16-a544-5662893a37d4",
+    "word": "poem",
+    "vocabulary_difficulty_id": 1,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "5424a494-e66d-4ea5-b715-5ce0dece3e44",
+    "word": "ogivalnoun",
+    "vocabulary_difficulty_id": 2,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "cc491bc0-5f00-4ae8-b3b3-b86a168173f1",
+    "word": "sea",
+    "vocabulary_difficulty_id": 1,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "a4010aa3-227f-4e26-8fba-17425203a454",
+    "word": "renvoinoun",
+    "vocabulary_difficulty_id": 2,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "f74ba36d-3667-47c6-9754-f9b0e9b1684a",
+    "word": "woman",
+    "vocabulary_difficulty_id": 1,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "84256519-4702-46a9-a6e7-54c5c8e56d33",
+    "word": "vizierialnoun",
+    "vocabulary_difficulty_id": 2,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "eb6acf55-05ab-45e1-8dcc-9134b04efbb1",
+    "word": "viscidityw",
+    "vocabulary_difficulty_id": 2,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "55dd86eb-5ea2-4c84-9704-e1972da5daa5",
+    "word": "plaaac",
+    "vocabulary_difficulty_id": 2,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "7095b8b8-5ea8-4a24-af4b-59b345147fd3",
+    "word": "kmleerac",
+    "vocabulary_difficulty_id": 2,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "7273145e-ada5-4b3f-ac0b-71233311a407",
+    "word": "poika",
+    "vocabulary_difficulty_id": 2,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "e67d08e5-8859-4f1c-a3b6-41bd76363a09",
+    "word": "worldmath",
+    "vocabulary_difficulty_id": 2,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "46486bd9-c138-4522-babc-ea20cde292e1",
+    "word": "women",
+    "vocabulary_difficulty_id": 2,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "c293af12-e2ec-4dd7-99c3-15d01632909f",
+    "word": "wriggle",
+    "vocabulary_difficulty_id": 1,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "7833ba13-dc2f-4112-b07d-0aa872a47cdc",
+    "word": "fractions",
+    "vocabulary_difficulty_id": 2,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "0c6e851a-660c-41f2-a737-267e9ade29ad",
+    "word": "polarized",
+    "vocabulary_difficulty_id": 2,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "4604d3c9-78a6-49ed-8cd5-996c91f68d4e",
+    "word": "regional",
+    "vocabulary_difficulty_id": 2,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "ea539748-f822-4ac2-8b81-9769b88578c6",
+    "word": "zithersustain",
+    "vocabulary_difficulty_id": 2,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "35e5b02f-7f65-40ca-993f-d871f3aad503",
+    "word": "worried",
+    "vocabulary_difficulty_id": 1,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "25c69587-6a56-4e09-938b-04455d3c48cc",
+    "word": "wreckage",
+    "vocabulary_difficulty_id": 2,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "859ad544-5cde-4af3-9008-f2d0f983bd46",
+    "word": "hocus-pocus",
+    "vocabulary_difficulty_id": 2,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "9af61b44-0f4c-4bfc-90fe-383dac3b4001",
+    "word": "hokus-pokus",
+    "vocabulary_difficulty_id": 2,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "d53490be-d71a-4360-8634-87dda12aa676",
+    "word": "pelagialpelerine",
+    "vocabulary_difficulty_id": 2,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "f7269571-5ba0-45af-b16f-ea482dbab195",
+    "word": "posterityposthumous",
+    "vocabulary_difficulty_id": 2,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "46547399-89df-4712-8b62-ae738542d29f",
+    "word": "zygotea",
+    "vocabulary_difficulty_id": 2,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "32eb8b4b-215c-4e52-8b27-c024e4625e94",
+    "word": "writhes",
+    "vocabulary_difficulty_id": 1,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "dcef89ed-ae77-4075-afd1-46481c56c050",
+    "word": "leewardhurly-burly",
+    "vocabulary_difficulty_id": 2,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "1394320c-df8a-40b1-8a5e-68d80d3ef241",
+    "word": "foyer",
+    "vocabulary_difficulty_id": 1,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "e7e70e40-0204-4a52-8673-f06a0f87b517",
+    "word": "san",
+    "vocabulary_difficulty_id": 1,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "51e18027-2b12-4f70-999c-b87a9f4b3b4a",
+    "word": "folding",
+    "vocabulary_difficulty_id": 1,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "aa32775f-452c-47d2-91ca-f179d3a97273",
+    "word": "podotheca",
+    "vocabulary_difficulty_id": 2,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "6b2bb380-b8ec-41e7-ad85-056b360a4e2b",
+    "word": "wapitiweka",
+    "vocabulary_difficulty_id": 2,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "a7c52f42-b8a3-4bd5-8940-115de209f76d",
+    "word": "xiphophyllous",
+    "vocabulary_difficulty_id": 2,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "db3cb4b7-41a9-49dc-a944-896378fe5947",
+    "word": "french-derived",
+    "vocabulary_difficulty_id": 2,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "4167a96f-23e2-4795-a8cb-3a890fcdda64",
+    "word": "lawmusic",
+    "vocabulary_difficulty_id": 2,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "b364cdcd-9789-4cce-b541-6376842deff1",
+    "word": "wheytrademarks",
+    "vocabulary_difficulty_id": 2,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "c830c9a7-a129-4622-b57c-8881a436dfa2",
+    "word": "find",
+    "vocabulary_difficulty_id": 1,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "6e1f4097-e14f-488c-a6c7-fbd7741fbf3d",
+    "word": "focacciapahoehoe",
+    "vocabulary_difficulty_id": 2,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "b353c24f-1eed-4cb0-b324-94c112aa79d1",
+    "word": "flashbackquonk",
+    "vocabulary_difficulty_id": 2,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "558b9103-3dcb-4d7b-8fe9-4664abe26def",
+    "word": "following",
+    "vocabulary_difficulty_id": 2,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "afb6fba7-8819-46b6-9826-9b04b4e9ce2c",
+    "word": "flaxentriplicate",
+    "vocabulary_difficulty_id": 2,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "0708e0d1-6b24-40c2-a7bd-8348fa6e4d76",
+    "word": "foible",
+    "vocabulary_difficulty_id": 1,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "1819b5c7-d20f-45fa-ad28-9c356780e6ce",
+    "word": "flexibleskeleton",
+    "vocabulary_difficulty_id": 2,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "75d6fbde-c969-40be-a21e-caab2a298e81",
+    "word": "foist",
+    "vocabulary_difficulty_id": 1,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "071b9a0e-b254-4c6c-9fdd-54d3e41ca8d3",
+    "word": "floruitbunyanesque",
+    "vocabulary_difficulty_id": 2,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "045dca0a-d13b-4f3b-b02b-ab534d7a09c8",
+    "word": "folate",
+    "vocabulary_difficulty_id": 1,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "14bfd97e-980a-4a8b-8a56-fae4ae96a946",
+    "word": "flotusfluoride",
+    "vocabulary_difficulty_id": 2,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "a16bf8e4-d9e9-4730-b00a-d4faf4c6b3ce",
+    "word": "fodder",
+    "vocabulary_difficulty_id": 1,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "c5f0e8bc-e4c4-494c-8fac-d80cffb6e78a",
+    "word": "foleysyzygy",
+    "vocabulary_difficulty_id": 2,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "61b2a82b-f106-4af5-a309-0eeff7dd2943",
+    "word": "foliage",
+    "vocabulary_difficulty_id": 2,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "3a228a2d-f008-4085-9916-9938f89577c8",
+    "word": "follicle",
+    "vocabulary_difficulty_id": 2,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "39681876-6d00-4715-b486-c1e0d1732939",
+    "word": "followed",
+    "vocabulary_difficulty_id": 2,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "4d477a7e-1669-40b3-952c-feeacd3ffd98",
+    "word": "food",
+    "vocabulary_difficulty_id": 1,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "289ae881-5a1f-4657-ae49-828d1702c483",
+    "word": "folly",
+    "vocabulary_difficulty_id": 1,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "76d0ec39-6c54-4e07-bb50-fa1b55fe577f",
+    "word": "foosball",
+    "vocabulary_difficulty_id": 2,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "5caafaf7-7823-465a-acca-54c26278ec60",
+    "word": "fond",
+    "vocabulary_difficulty_id": 1,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "ae890beb-4ae5-4fdd-8ee7-8a328fb1b001",
+    "word": "forensics",
+    "vocabulary_difficulty_id": 2,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "a4810159-6e3d-4cb1-85c3-b3d8b00953fa",
+    "word": "fondant",
+    "vocabulary_difficulty_id": 2,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "6d850c9b-d870-4bb8-bba2-759fd3c4185e",
+    "word": "foolishness",
+    "vocabulary_difficulty_id": 2,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "ceda9066-c304-4115-a924-c5b0ac5e612b",
+    "word": "foppery",
+    "vocabulary_difficulty_id": 1,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "7d75f2fc-f4ba-4292-ba44-4dd6ea6483c4",
+    "word": "forbidden",
+    "vocabulary_difficulty_id": 2,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "ba68a469-a57a-4042-92da-864467908c32",
+    "word": "force",
+    "vocabulary_difficulty_id": 1,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "d9dcf554-cb93-455d-8b65-dc9c0c9202cd",
+    "word": "forever",
+    "vocabulary_difficulty_id": 1,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "aabf8974-e9ed-4881-9c19-e2920198db48",
+    "word": "forcefully",
+    "vocabulary_difficulty_id": 2,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "f88b04c7-45c8-4ce3-ba59-c9f1e5d02d46",
+    "word": "forearms",
+    "vocabulary_difficulty_id": 2,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "a3b1a57d-4eb3-49a7-a740-333a475ad0f7",
+    "word": "forfend",
+    "vocabulary_difficulty_id": 2,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "14e8a30b-30af-4b76-87e6-5e793ee05a65",
+    "word": "foresight",
+    "vocabulary_difficulty_id": 2,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "a55562a6-d7a0-4dbf-88f5-180780dead80",
+    "word": "forestallment",
+    "vocabulary_difficulty_id": 2,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "1f5d2158-ece7-4b94-96dc-fa0855093052",
+    "word": "forfeit",
+    "vocabulary_difficulty_id": 2,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "35ac353e-9e99-465c-b64c-8cb01dcc352b",
+    "word": "forgeable",
+    "vocabulary_difficulty_id": 2,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "f595f8c5-5a9a-41ea-bde5-cab0cd218de0",
+    "word": "formalize",
+    "vocabulary_difficulty_id": 2,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "5875cb28-8e4c-4bad-bd2a-a24df5576622",
+    "word": "formation",
+    "vocabulary_difficulty_id": 2,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "d8e90f2a-50f9-4e34-bc54-e02a868072b6",
+    "word": "formed",
+    "vocabulary_difficulty_id": 1,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "60875da9-553c-4652-9957-a44699a83587",
+    "word": "forsook",
+    "vocabulary_difficulty_id": 1,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "e0d89142-8446-484f-8d55-3aa331762721",
+    "word": "fortification",
+    "vocabulary_difficulty_id": 2,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "3d711c90-30ff-48cc-a252-dac99042771c",
+    "word": "fortificationnoun",
+    "vocabulary_difficulty_id": 2,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "fc743a1f-4e96-4f00-8dc6-44427af23f3b",
+    "word": "fortuitous",
+    "vocabulary_difficulty_id": 2,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "001d1bc4-2432-454e-a158-4497661f1c49",
+    "word": "fortune",
+    "vocabulary_difficulty_id": 2,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "b25f8504-54f1-495d-b525-6e1d37f7312d",
+    "word": "forza",
+    "vocabulary_difficulty_id": 1,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "9e99a8e3-66bc-4336-8a43-f5af5bbda8bd",
+    "word": "foster",
+    "vocabulary_difficulty_id": 1,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "fa4ae35e-b034-4e37-9854-8685c8de9504",
+    "word": "fou",
+    "vocabulary_difficulty_id": 1,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "1652d3f0-d4f4-4a3b-bbcb-9c90247648de",
+    "word": "foudroyant",
+    "vocabulary_difficulty_id": 2,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "93cce3bd-011d-43d5-b9f7-f4280e1813b4",
+    "word": "fragment",
+    "vocabulary_difficulty_id": 2,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "29e0fa41-2163-4828-b813-28feaa5c7b66",
+    "word": "fragrance",
+    "vocabulary_difficulty_id": 2,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "44c904ac-56da-4695-b5f0-43d31da71876",
+    "word": "fragrant",
+    "vocabulary_difficulty_id": 2,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "8f43edce-6c74-484a-b54a-8ba12ed5f656",
+    "word": "frames",
+    "vocabulary_difficulty_id": 2,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "3c708477-9e88-4320-a3bc-54e6e5b8c9f0",
+    "word": "francatriforium",
+    "vocabulary_difficulty_id": 2,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "e1bae60f-8a8b-4217-bb5d-a13e34a3832e",
+    "word": "franchise",
+    "vocabulary_difficulty_id": 2,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "30f0ae32-65b7-4bd2-807f-6f11b061cc74",
+    "word": "franciscan",
+    "vocabulary_difficulty_id": 2,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "7454cd5c-bb58-4212-a2d2-ce2f832cf05a",
+    "word": "francophone",
+    "vocabulary_difficulty_id": 2,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "178d05ad-df25-41af-94fb-83435ef222eb",
+    "word": "frangipane",
+    "vocabulary_difficulty_id": 2,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "4a25448e-bb22-4aa5-b71a-0e3735d70ae2",
+    "word": "frankly",
+    "vocabulary_difficulty_id": 1,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "30c8acdc-6736-4b2c-8d4b-788257751d4e",
+    "word": "frass",
+    "vocabulary_difficulty_id": 1,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "b8d34935-e174-44c7-950c-79f5aa8db096",
+    "word": "fratority",
+    "vocabulary_difficulty_id": 2,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "8bb6a554-9c6b-4b71-bcf6-862faf88e295",
+    "word": "fraudulent",
+    "vocabulary_difficulty_id": 2,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "a6ce4685-d474-45f9-9e91-fe8eeeae9053",
+    "word": "grown-ups",
+    "vocabulary_difficulty_id": 2,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "36c2e8cc-b67b-45a0-a0f8-e07bcfe05ea4",
+    "word": "hei-tiki",
+    "vocabulary_difficulty_id": 2,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "ae7dbc0b-5b81-4078-ba18-27d80b1c64fb",
+    "word": "hey",
+    "vocabulary_difficulty_id": 1,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "cce2fee6-274e-47b7-9694-9c2308ca6daa",
+    "word": "hit",
+    "vocabulary_difficulty_id": 1,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "7ecfe8ac-7dd3-47ca-9ee5-f2f1c5ce36ae",
+    "word": "hot",
+    "vocabulary_difficulty_id": 1,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "5e121d19-fd4d-40a2-8d19-6370662d7f50",
+    "word": "jitterbugkennel",
+    "vocabulary_difficulty_id": 2,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "d7ccffab-d814-4da1-af1f-af46808e4805",
+    "word": "hug",
+    "vocabulary_difficulty_id": 1,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "b59fa59f-2ff6-43bb-95e9-599c97afdef9",
+    "word": "hurdy-gurdy",
+    "vocabulary_difficulty_id": 2,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "56bc661e-fd3a-4b65-b6aa-2b3de6ef0fec",
+    "word": "ice",
+    "vocabulary_difficulty_id": 1,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "281e1082-8f19-49df-bef7-dcedc2f4af07",
+    "word": "jai",
+    "vocabulary_difficulty_id": 1,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "e1207edc-c95a-49c1-8de2-ab1a9800fe66",
+    "word": "joy",
+    "vocabulary_difficulty_id": 1,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "2fbe1c6c-2228-4fb8-a0af-78215e83f863",
+    "word": "jurassicmyoglobin",
+    "vocabulary_difficulty_id": 2,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "de7ebc4c-4e0c-4567-8174-c0e23e31518c",
+    "word": "kenningnoun",
+    "vocabulary_difficulty_id": 2,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "d443ff48-e89b-4de9-b5ae-ce1a682e6f45",
+    "word": "koh-i-noor",
+    "vocabulary_difficulty_id": 2,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "07212aa9-518b-4be3-9d08-fcedf4d4566a",
+    "word": "kerneltawny",
+    "vocabulary_difficulty_id": 2,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "74dd68b1-c66a-459e-9eaa-322a829fb12e",
+    "word": "koi",
+    "vocabulary_difficulty_id": 1,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "a71adfdd-9c4d-4ff2-bbc9-dfd045400f15",
+    "word": "kilnwebisode",
+    "vocabulary_difficulty_id": 2,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "e8a3702e-e193-4783-a2f7-42d07e01233b",
+    "word": "krewekriegspiel",
+    "vocabulary_difficulty_id": 2,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "301eea98-85b2-45dc-bb00-004220682828",
+    "word": "kimcheemenorahs",
+    "vocabulary_difficulty_id": 2,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "036ad736-d2c2-4354-a847-2bd9b79de765",
+    "word": "klutzenvoy",
+    "vocabulary_difficulty_id": 2,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "2085f906-8db7-4d07-9311-4ddaa8405e51",
+    "word": "kreteloi",
+    "vocabulary_difficulty_id": 2,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "cf567ab6-9361-4bad-ab19-e080211a3fa0",
+    "word": "kyphoplastyaten",
+    "vocabulary_difficulty_id": 2,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "bc8165ba-d560-4928-a085-d7134455439a",
+    "word": "languorouslanolated",
+    "vocabulary_difficulty_id": 2,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "cc98dff3-9fba-4c99-8283-fec273593bbb",
+    "word": "lapidarycachexia",
+    "vocabulary_difficulty_id": 2,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "4d1cc63c-cd60-47f4-a58d-17fdeeb2600c",
+    "word": "latencyepitaphs",
+    "vocabulary_difficulty_id": 2,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "406c971b-14bb-4605-bd6e-9019ab0d2fe4",
+    "word": "lid",
+    "vocabulary_difficulty_id": 1,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "eabecb0f-5104-4b27-b363-90dd7992c9a4",
+    "word": "leanderpneumonia",
+    "vocabulary_difficulty_id": 2,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "a098fc12-5f80-4ff1-8613-2b1105342970",
+    "word": "linsey-woolsey",
+    "vocabulary_difficulty_id": 2,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "e04b4c74-e13a-478c-a9d4-54a7ed4a1cbe",
+    "word": "leisureleotard",
+    "vocabulary_difficulty_id": 2,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "7d4e5703-3c98-43e1-b27a-f4be422836cd",
+    "word": "like",
+    "vocabulary_difficulty_id": 1,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "5f522bf6-f923-4632-8626-6c1c1ad62866",
+    "word": "loup-garou",
+    "vocabulary_difficulty_id": 2,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "5c11cc7e-1fc0-4b34-a4dc-ea8009e4795a",
+    "word": "mix",
+    "vocabulary_difficulty_id": 1,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "1070e0d9-5a06-4a2f-8120-1870c7057bc5",
+    "word": "made",
+    "vocabulary_difficulty_id": 1,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "8f058fee-a1af-4ed0-b9ef-ef2afb52e854",
+    "word": "map",
+    "vocabulary_difficulty_id": 1,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "d3f0eab1-084e-41d4-b632-ad7f373516e0",
+    "word": "mea",
+    "vocabulary_difficulty_id": 1,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "9fe7fe9a-db75-4fcd-bea6-3ef8375c3f88",
+    "word": "midi",
+    "vocabulary_difficulty_id": 1,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "fcff1c00-1394-4540-8d38-7b5286f5c9be",
+    "word": "more",
+    "vocabulary_difficulty_id": 1,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "b67d4cf8-f7a9-4ab7-bd57-2285750e03f8",
+    "word": "nas",
+    "vocabulary_difficulty_id": 1,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "adb3665f-f494-4a65-aeb6-641cc49e483b",
+    "word": "ner",
+    "vocabulary_difficulty_id": 1,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "aa097e35-0c53-4bc2-a139-417037b123ca",
+    "word": "ni-vanuatu",
+    "vocabulary_difficulty_id": 2,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "20de35b4-0239-4711-bdf7-3c4386ba37d5",
+    "word": "niger-congo",
+    "vocabulary_difficulty_id": 2,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "24c5e3f3-4477-4318-bfd1-cd821265be6a",
+    "word": "no-goodnik",
+    "vocabulary_difficulty_id": 2,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "76e5043c-acc0-4ea5-8397-10665960548a",
+    "word": "nulliusnoun",
+    "vocabulary_difficulty_id": 2,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "c0330349-0700-43e8-885c-0e67b9b60ddd",
+    "word": "obligeviscount",
+    "vocabulary_difficulty_id": 2,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "c112c795-d18f-4ecb-81f3-21a6ca5be7f1",
+    "word": "obviouspulse",
+    "vocabulary_difficulty_id": 2,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "a9a457ae-c010-417b-a1d9-44bfb85c734e",
+    "word": "oceaniancharitable",
+    "vocabulary_difficulty_id": 2,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "395078b8-dd62-4721-87e4-cbd343c59ede",
+    "word": "odlcceroi",
+    "vocabulary_difficulty_id": 2,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "d7db172f-a367-4f59-8c0e-3c701eb3da6b",
+    "word": "otherbedroom",
+    "vocabulary_difficulty_id": 2,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "5e74d685-53e3-4f95-bbcd-c7c7d20d0150",
+    "word": "oil",
+    "vocabulary_difficulty_id": 1,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "c335bdcf-ce1a-4f62-80d0-227332a70df1",
+    "word": "palatialpallor",
+    "vocabulary_difficulty_id": 2,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "fbf879cb-7a11-4255-862a-4c0fe9023b11",
+    "word": "only",
+    "vocabulary_difficulty_id": 1,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "c25ac76e-cb80-417a-9ebc-67c12341cf1e",
+    "word": "ostensiblyosteopath",
+    "vocabulary_difficulty_id": 2,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "627f42ca-b411-436e-afad-54686433eb03",
+    "word": "oxalismyeloma",
+    "vocabulary_difficulty_id": 2,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "dae60826-64ba-4e38-8912-aab784c0f82f",
+    "word": "panoramagimmick",
+    "vocabulary_difficulty_id": 2,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "76ed90e9-f871-4ed0-85cf-8b2de6e2fb39",
+    "word": "paraffinvigneron",
+    "vocabulary_difficulty_id": 2,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "98bca8a9-c970-4f59-96a9-c74a4e7d2d37",
+    "word": "parquetparterre",
+    "vocabulary_difficulty_id": 2,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "634f2797-73a3-446e-8b14-fe2ea3be53b2",
+    "word": "pat",
+    "vocabulary_difficulty_id": 1,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "f51189f1-a3fc-4d17-8e37-b65e15f7abdb",
+    "word": "patronymicodometer",
+    "vocabulary_difficulty_id": 2,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "326982c7-08a3-4a86-b635-85ec76228080",
+    "word": "pauperepoch",
+    "vocabulary_difficulty_id": 2,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "494483f3-947b-446b-b91b-a7f4da88a42a",
+    "word": "pharmacyfondant",
+    "vocabulary_difficulty_id": 2,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "fdfca378-7136-43a9-ba0e-489d7dd10e43",
+    "word": "pei",
+    "vocabulary_difficulty_id": 1,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "74049b9d-6047-42f5-a0c1-6b3121145bce",
+    "word": "physicalpunily",
+    "vocabulary_difficulty_id": 2,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "6f1f16f4-0f36-422b-893d-5dd3effa2034",
+    "word": "per",
+    "vocabulary_difficulty_id": 1,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "2c710c43-6716-4656-91a2-66fb274e8654",
+    "word": "pie",
+    "vocabulary_difficulty_id": 1,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "4e5fc798-ba69-4faa-8c91-af47d41f4994",
+    "word": "pinyondysfunctional",
+    "vocabulary_difficulty_id": 2,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "7be8cb6f-a9b4-4e8f-988d-f4b3c7e63a90",
+    "word": "piperhear",
+    "vocabulary_difficulty_id": 2,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "3e13a12d-9ebd-42b7-a208-d1b68c328c28",
+    "word": "pitch-black",
+    "vocabulary_difficulty_id": 2,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "f53f44ae-c112-46bb-95df-82c81202d308",
+    "word": "pocket",
+    "vocabulary_difficulty_id": 1,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "5dbea5c5-9113-4d9f-9f13-906d3551e065",
+    "word": "plutonomy",
+    "vocabulary_difficulty_id": 2,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "89238d52-6819-4ea8-ba44-54ebaeb930cf",
+    "word": "pneumatocyst",
+    "vocabulary_difficulty_id": 2,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "7b00c4e2-9060-4387-b62d-35363d9adb73",
+    "word": "poblano",
+    "vocabulary_difficulty_id": 2,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "714053b4-1c13-4ecd-8cbe-e1de80d96171",
+    "word": "podsnappery",
+    "vocabulary_difficulty_id": 2,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "87497984-6eb4-433e-a64c-da14d25ac95e",
+    "word": "pod",
+    "vocabulary_difficulty_id": 1,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "9acc9401-38ce-4a12-b205-25929f70aa4f",
+    "word": "podium",
+    "vocabulary_difficulty_id": 2,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "ca419403-e560-46cb-9e05-d4f2ff79d4b0",
+    "word": "point",
+    "vocabulary_difficulty_id": 1,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "1f960c2c-040a-4ac6-a80b-71f84035eac7",
+    "word": "pointelle",
+    "vocabulary_difficulty_id": 2,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "ac806d4c-c144-4623-b311-4a8c1167e6b2",
+    "word": "poisonous",
+    "vocabulary_difficulty_id": 2,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "1b59dbf1-ae80-4984-b9f4-3f646630e7cd",
+    "word": "policy",
+    "vocabulary_difficulty_id": 2,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "11732032-207a-493e-b487-df934d2ea0d3",
+    "word": "polish",
+    "vocabulary_difficulty_id": 2,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "bdd79576-2ad8-464b-a4e6-057aede54ce6",
+    "word": "politeia",
+    "vocabulary_difficulty_id": 2,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "2b91b542-9bfe-47e8-81e6-44369684ba07",
+    "word": "politick",
+    "vocabulary_difficulty_id": 2,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "7c7804e9-8898-437a-8a80-10704550dc06",
+    "word": "polloi",
+    "vocabulary_difficulty_id": 1,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "4e5539dc-7ee4-4e06-b12d-e217dfd284fe",
+    "word": "polonium",
+    "vocabulary_difficulty_id": 2,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "acf04b80-922b-4e50-bf9f-73a287c536ee",
+    "word": "polyandry",
+    "vocabulary_difficulty_id": 2,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "6e28bcf4-89a0-4f0c-b99e-11843617f6ef",
+    "word": "polyester",
+    "vocabulary_difficulty_id": 2,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "e9003e89-a65c-45dc-b8eb-e888b4099246",
+    "word": "portmanteaucoaxation",
+    "vocabulary_difficulty_id": 2,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "faa99ee9-5a5b-49d9-bb86-2374b0c25b72",
+    "word": "polygenous",
+    "vocabulary_difficulty_id": 2,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "b8fd1f79-60f0-45c2-a98d-62c5ae0c8cb1",
+    "word": "pralltrillerpratique",
+    "vocabulary_difficulty_id": 2,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "6c0202af-c317-492f-9d5f-92c3a98b1221",
+    "word": "princepsprocurement",
+    "vocabulary_difficulty_id": 2,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "9042162f-e798-46fd-9f5c-10a84bad027f",
+    "word": "polyglot",
+    "vocabulary_difficulty_id": 2,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "5e1eb3bb-615c-4752-b9f7-10918ef1213b",
+    "word": "postponewafer",
+    "vocabulary_difficulty_id": 2,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "96180f5e-b5ae-4421-98dc-4fe34e600ab8",
+    "word": "pou",
+    "vocabulary_difficulty_id": 1,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "fa72b028-81ed-4a07-bc65-71688800a02e",
+    "word": "purificationplantain",
+    "vocabulary_difficulty_id": 2,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "1de93fd5-fbe8-4ee0-bec5-46bf444cf599",
+    "word": "resuscitateretina",
+    "vocabulary_difficulty_id": 2,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "1abb0608-4051-413a-9b73-3a868504a1d5",
+    "word": "solderinterim",
+    "vocabulary_difficulty_id": 2,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "ed7706e4-4536-46c4-a00c-df095384c2cb",
+    "word": "polymerized",
+    "vocabulary_difficulty_id": 2,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "736c61c2-d061-46a7-945f-2312f2472f0d",
+    "word": "polypeptide",
+    "vocabulary_difficulty_id": 2,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "69d416d0-b97c-45de-aa33-7dd26c64d0c0",
+    "word": "procedure",
+    "vocabulary_difficulty_id": 2,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "9be2f875-3ed2-4d15-9133-a78e2977d390",
+    "word": "portraitpraise",
+    "vocabulary_difficulty_id": 2,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "2ee660d0-64c8-46f1-9271-b2c3933edabd",
+    "word": "propreamphistylar",
+    "vocabulary_difficulty_id": 2,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "d335f039-c4f7-4da0-83e4-52ab46b496a2",
+    "word": "qwerty",
+    "vocabulary_difficulty_id": 1,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "9a8b1d9c-f9f5-4ea3-8885-71b119ed3621",
+    "word": "pot-au-feu",
+    "vocabulary_difficulty_id": 2,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "af7b4ac1-2005-4625-97fd-2bc2910e67ec",
+    "word": "propitiousellipsis",
+    "vocabulary_difficulty_id": 2,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "62604e7a-e769-41a5-b837-5a091f10abba",
+    "word": "pothospolysyllabic",
+    "vocabulary_difficulty_id": 2,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "1921d1f5-58c3-4c38-9190-fd6fce34d029",
+    "word": "try",
+    "vocabulary_difficulty_id": 1,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "d4e75abf-e8b0-4527-8e19-ccb254d89d7a",
+    "word": "pronaoscraquelure",
+    "vocabulary_difficulty_id": 2,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "20b08ed9-f808-4c9d-bd56-8d0e6551d696",
+    "word": "reiterateremorseful",
+    "vocabulary_difficulty_id": 2,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "1a4b6120-6c2b-4a5a-b48d-4e974b03093f",
+    "word": "proneselfie",
+    "vocabulary_difficulty_id": 2,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "e86f3839-ce9e-475c-ae83-927e9830d9d7",
+    "word": "tsk-tsked",
+    "vocabulary_difficulty_id": 2,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "487f2bfb-02d5-46f2-b1d9-d261ba41212c",
+    "word": "tweeholiday",
+    "vocabulary_difficulty_id": 2,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "0b709622-2983-43dd-acd4-2bc78175ad24",
+    "word": "prosceniumpolitesse",
+    "vocabulary_difficulty_id": 2,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "43bad3ee-fe86-4bd1-9e22-603ec67e546c",
+    "word": "rambunctiousnoun",
+    "vocabulary_difficulty_id": 2,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "38d50f80-d832-4b4b-80cd-7c06d7d6556d",
+    "word": "pugilistpugnacious",
+    "vocabulary_difficulty_id": 2,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "73c2d072-7107-4630-b770-34a23de2745b",
+    "word": "rescissiblejungian",
+    "vocabulary_difficulty_id": 2,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "ce85fe76-6ba8-446d-ab39-eeb3d5abd0bc",
+    "word": "rules",
+    "vocabulary_difficulty_id": 2,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "3c0930fe-dc3d-442e-8ced-b14c950c8d24",
+    "word": "quo",
+    "vocabulary_difficulty_id": 1,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "ac547cd6-dfab-4a79-95b4-98c791c05071",
+    "word": "reddish-brown",
+    "vocabulary_difficulty_id": 2,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "5fa35f04-7d22-4b3f-9252-8fcb0e04d4cf",
+    "word": "roi",
+    "vocabulary_difficulty_id": 1,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "99529b8c-bf9d-4413-9dc5-9a5d867fdb64",
+    "word": "ryelanddomesticity",
+    "vocabulary_difficulty_id": 2,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "0c30793a-349d-4bfa-8188-232f55a6f753",
+    "word": "trous-de-loup",
+    "vocabulary_difficulty_id": 2,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "102d36e2-384b-4eac-a256-ded8d4acad8d",
+    "word": "upsilonsakura",
+    "vocabulary_difficulty_id": 2,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "fb3c2d65-0bf4-4b0c-9bd0-47c70c2bcdb2",
+    "word": "round-shaped",
+    "vocabulary_difficulty_id": 2,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "5eacc927-35d6-4bdb-b024-06fcf82a1041",
+    "word": "sci-fi",
+    "vocabulary_difficulty_id": 1,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "8f3270f7-32d5-4bc6-ab90-4a69e48b949f",
+    "word": "shrivellimbering",
+    "vocabulary_difficulty_id": 2,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "2d7b1dc3-2c9f-4ce5-a115-b4c6b8f90cd7",
+    "word": "rug",
+    "vocabulary_difficulty_id": 1,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "7264c6d9-1685-4a3a-b8e1-94cda01177ee",
+    "word": "set",
+    "vocabulary_difficulty_id": 1,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "b5aaee03-2651-42b3-9437-bb8f2ba33ef3",
+    "word": "siotetro",
+    "vocabulary_difficulty_id": 2,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "02141779-6f72-4ec1-9241-130850406e6a",
+    "word": "shar-pei",
+    "vocabulary_difficulty_id": 2,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "5976c821-90f3-43dc-8c81-7ab45218bebc",
+    "word": "terra-cotta",
+    "vocabulary_difficulty_id": 2,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "9467e353-17ea-4809-b55e-f5db8e79ba61",
+    "word": "voraciousnoun",
+    "vocabulary_difficulty_id": 2,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "2645be48-9925-412c-90b4-087d86197060",
+    "word": "shutterscorner",
+    "vocabulary_difficulty_id": 2,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "77b6991d-98fb-4f2d-9219-19f8ced6a145",
+    "word": "tympanumfisticuffs",
+    "vocabulary_difficulty_id": 2,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "03e58ea9-03ef-4c18-b498-1ffd47248840",
+    "word": "uvulaenumerated",
+    "vocabulary_difficulty_id": 2,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "4d8d8f08-6e42-414b-8602-10264c993848",
+    "word": "sto",
+    "vocabulary_difficulty_id": 1,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "185dda6b-905f-4039-8846-11d9e1a30adb",
+    "word": "turkenriddance",
+    "vocabulary_difficulty_id": 2,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "950c080c-bd00-4a66-8b27-6971b901ae7c",
+    "word": "tai",
+    "vocabulary_difficulty_id": 1,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "0737a145-6593-457f-ba7f-ac55cdeea3ad",
+    "word": "tic",
+    "vocabulary_difficulty_id": 1,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "9452a077-b448-49be-940a-332c3cc42d65",
+    "word": "tok",
+    "vocabulary_difficulty_id": 1,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "0facef85-6a51-46e0-b240-90fef1457396",
+    "word": "tutorial",
+    "vocabulary_difficulty_id": 2,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "efb65780-e15e-4b7f-8aad-32621056cd7f",
+    "word": "vis",
+    "vocabulary_difficulty_id": 1,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "14cba719-b0f7-47ec-b3df-f827d202dda1",
+    "word": "wealdblink",
+    "vocabulary_difficulty_id": 2,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "d707457c-3b4d-4a53-acf1-7de5d7366d66",
+    "word": "tutti-frutti",
+    "vocabulary_difficulty_id": 2,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "88fb583e-0e6e-469b-ae3f-2b6ba487239c",
+    "word": "twinklesnicker",
+    "vocabulary_difficulty_id": 2,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "322a40e2-09ff-40b8-8a48-3f88ab1a8a0e",
+    "word": "univocalavarice",
+    "vocabulary_difficulty_id": 2,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "d3ff9631-d707-49d2-86a5-8a533095a190",
+    "word": "vinegarfiduciary",
+    "vocabulary_difficulty_id": 2,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "92743bc9-77f9-438c-9f13-450eb20dfb86",
+    "word": "vizierialcrescive",
+    "vocabulary_difficulty_id": 2,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "83ced3c8-22f9-4116-a440-39eab6dc70eb",
+    "word": "wiesbadenmontmorency",
+    "vocabulary_difficulty_id": 2,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "98216c75-5613-420c-8759-3dc871b498b7",
+    "word": "vandalizechancellor",
+    "vocabulary_difficulty_id": 2,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "1da0a994-5f37-41d9-8dfb-bdf7b89d3ac3",
+    "word": "veneernoun",
+    "vocabulary_difficulty_id": 2,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "e02819c1-cf04-491b-b60c-b64f7743db09",
+    "word": "vivaciousxenoglossy",
+    "vocabulary_difficulty_id": 2,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "e255c5de-d447-44e9-bae1-6a4f30b21450",
+    "word": "wieldscuppers",
+    "vocabulary_difficulty_id": 2,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "2b9a9c1a-b0aa-4b48-a211-46d80ef5af9f",
+    "word": "wince",
+    "vocabulary_difficulty_id": 1,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "524685ac-4fa4-47cc-b052-f7f2c3e6106e",
+    "word": "wok",
+    "vocabulary_difficulty_id": 1,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "bf0d58f7-ad7e-4f84-9b55-94294fd879fb",
+    "word": "wordmonger",
+    "vocabulary_difficulty_id": 2,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "5a9c1be9-0bf2-403e-9300-c4b7a78f14d2",
+    "word": "writers",
+    "vocabulary_difficulty_id": 1,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "e343a21f-b448-4f52-bb2e-a957c20774fd",
+    "word": "xiphias",
+    "vocabulary_difficulty_id": 1,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "e05f96ae-e51d-4eb9-a298-67c78e0b24be",
+    "word": "yearn",
+    "vocabulary_difficulty_id": 2,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "be0e024d-0e4f-4962-b036-9e64f424b786",
+    "word": "verylast",
+    "vocabulary_difficulty_id": 2,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "d7478264-f6b5-43e9-b7ea-6adaf2a30fc9",
+    "word": "virtuallyvisibility",
+    "vocabulary_difficulty_id": 2,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "6e4794ef-b0e9-45ab-b72a-385bb49d6048",
+    "word": "vindictiveattitudes",
+    "vocabulary_difficulty_id": 2,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "ca2b6596-a298-4533-8ed3-e1be1711fcf5",
+    "word": "vue",
+    "vocabulary_difficulty_id": 1,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "2ebb3453-ba77-4ac3-b8ea-3b52131f14b0",
+    "word": "whimperbracelet",
+    "vocabulary_difficulty_id": 2,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "2e99bb91-f83b-4649-9105-a3720833eab4",
+    "word": "without",
+    "vocabulary_difficulty_id": 2,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "bf224ac2-3952-4377-9a64-6d56055c3825",
+    "word": "wobbulatormahogany",
+    "vocabulary_difficulty_id": 2,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "2c194951-c366-4159-8caa-4187ae83c158",
+    "word": "waf",
+    "vocabulary_difficulty_id": 1,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "33967437-a6bd-431d-b3dc-3a8517c5c17c",
+    "word": "wimple",
+    "vocabulary_difficulty_id": 1,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "36aba9b1-ca97-4a8c-8482-af60184dbace",
+    "word": "wag",
+    "vocabulary_difficulty_id": 1,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "5d167dee-1623-4c95-aab8-537d7fc67f61",
+    "word": "whippoorwillficus",
+    "vocabulary_difficulty_id": 2,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "d61593b9-2624-450a-ae7d-256c0e8815d8",
+    "word": "wreaked",
+    "vocabulary_difficulty_id": 1,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "ec4a41ff-483e-48be-87d4-5f49a3e12973",
+    "word": "wrestle",
+    "vocabulary_difficulty_id": 1,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "978e482e-7fe8-4b97-8ec9-db05e37dae63",
+    "word": "xylyl",
+    "vocabulary_difficulty_id": 2,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "d8aedfdf-16ec-43b3-aed4-7ae413a9ccac",
+    "word": "yeatsian",
+    "vocabulary_difficulty_id": 2,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "90f47f20-92a5-4070-b916-19114938b502",
+    "word": "wiggle",
+    "vocabulary_difficulty_id": 2,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "e1b01aa3-c3a0-4167-aaad-47e448f416a8",
+    "word": "winnow",
+    "vocabulary_difficulty_id": 2,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "8f7e85ed-438c-4098-8bb5-a20a0e725304",
+    "word": "written",
+    "vocabulary_difficulty_id": 1,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "4f210fa5-e47b-4197-bf6f-2a20e81edb70",
+    "word": "yolks",
+    "vocabulary_difficulty_id": 2,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "68a45d71-2ba0-4688-bf99-957e1c53fe30",
+    "word": "wilco",
+    "vocabulary_difficulty_id": 1,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "99431c17-0621-48fe-b065-3d48b6659673",
+    "word": "withers",
+    "vocabulary_difficulty_id": 2,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "47525730-1971-47ef-889b-468d9effabeb",
+    "word": "wildcat",
+    "vocabulary_difficulty_id": 1,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "4c4fadd8-f95a-46bb-97bb-dad525ac765b",
+    "word": "wizened",
+    "vocabulary_difficulty_id": 1,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "e0258fb9-9490-420d-a692-30d48b085d1a",
+    "word": "window",
+    "vocabulary_difficulty_id": 1,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "eba49a40-fb9b-4720-a6f6-8e84d8ed2c5a",
+    "word": "woebegone",
+    "vocabulary_difficulty_id": 2,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "8516983e-0b94-4488-ab27-29708a7c095b",
+    "word": "winegrower",
+    "vocabulary_difficulty_id": 2,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "c18503f3-4c94-477e-b106-50306f795c68",
+    "word": "wish",
+    "vocabulary_difficulty_id": 1,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "4e5af4df-ffb2-4dbc-9454-67873f662f4c",
+    "word": "wootz",
+    "vocabulary_difficulty_id": 1,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "da50b78d-884a-4864-bd9b-2834e9d12c00",
+    "word": "wings",
+    "vocabulary_difficulty_id": 2,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "5b368191-f8fc-4f6e-a8db-c5904a6ccd35",
+    "word": "wistful",
+    "vocabulary_difficulty_id": 2,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "05a466c7-2d63-419e-9368-ac7fe4788895",
+    "word": "wombat",
+    "vocabulary_difficulty_id": 1,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "e127db57-9749-4427-a442-4c0265195156",
+    "word": "workhorse",
+    "vocabulary_difficulty_id": 2,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "7b242dfb-cdaa-449c-bbca-f675cd8aeb78",
+    "word": "yakitori",
+    "vocabulary_difficulty_id": 2,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "7ceafc1b-6d25-41ea-ad30-b8619da7b360",
+    "word": "yippee",
+    "vocabulary_difficulty_id": 1,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "13f0c716-03a6-48d6-afca-188a962bd92c",
+    "word": "woad",
+    "vocabulary_difficulty_id": 1,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "eb17360f-e858-4402-8f50-2d43552554b4",
+    "word": "xenoglossy",
+    "vocabulary_difficulty_id": 2,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "d811a524-a237-40f5-90a7-6c2c76f1244b",
+    "word": "womyn",
+    "vocabulary_difficulty_id": 2,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "4f4afdbd-0e38-445c-9eb7-b3262df4dbec",
+    "word": "xyloglyphy",
+    "vocabulary_difficulty_id": 2,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "c865234f-e75f-4f60-b984-f66baee01b4b",
+    "word": "wood",
+    "vocabulary_difficulty_id": 1,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "822e5695-19f3-469d-938c-d962962b52dc",
+    "word": "yawl",
+    "vocabulary_difficulty_id": 1,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "ba04a480-af15-404a-804f-10eb1fe1d2cf",
+    "word": "worth",
+    "vocabulary_difficulty_id": 2,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "cf6d78cc-ab41-4914-9943-0a510644c8c4",
+    "word": "wreath",
+    "vocabulary_difficulty_id": 2,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "d4cb858e-ef51-4c3d-8f7a-a69250e7eb96",
+    "word": "yabbies",
+    "vocabulary_difficulty_id": 1,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "1850d504-eb2f-4eeb-a5c7-f7924cb74dc5",
+    "word": "wrench",
+    "vocabulary_difficulty_id": 1,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "007a3672-f051-47f7-958f-c2e61e1efa8a",
+    "word": "wring",
+    "vocabulary_difficulty_id": 1,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "2f097cfd-5431-42f2-bd7d-f89267a0e85b",
+    "word": "yeti",
+    "vocabulary_difficulty_id": 1,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "97c34117-8233-4dd4-9268-ba444ba363a9",
+    "word": "xylem",
+    "vocabulary_difficulty_id": 1,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "826417fb-68f2-4551-86c0-d6ba12790fdd",
+    "word": "yammer",
+    "vocabulary_difficulty_id": 1,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "f4dee173-3e56-4499-a20d-8ba33aad1a8a",
+    "word": "yoga",
+    "vocabulary_difficulty_id": 1,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "a0cbd05d-5133-42a9-95c8-59165920f4ce",
+    "word": "yoruba",
+    "vocabulary_difficulty_id": 2,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "189d8d0f-6095-4cf0-a59e-20d98784ad34",
+    "word": "young",
+    "vocabulary_difficulty_id": 1,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "ec4766d2-6f84-4114-a33b-cd4024e40dba",
+    "word": "yurt",
+    "vocabulary_difficulty_id": 1,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "b80324a9-ffae-4267-bb50-c41e1b2837cc",
+    "word": "zaibatsu",
+    "vocabulary_difficulty_id": 2,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "1f777c41-dce3-4b2f-9e52-85c0a174e7c4",
+    "word": "yttriferous",
+    "vocabulary_difficulty_id": 2,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "989d1140-43e5-4367-b43c-ee873556fe89",
+    "word": "zebra",
+    "vocabulary_difficulty_id": 1,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "8130e1e0-cc23-4528-a49e-492e59ac6593",
+    "word": "zip",
+    "vocabulary_difficulty_id": 1,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "65f6d7c9-547f-497b-a8cc-eb0966cd125f",
+    "word": "zabaglione",
+    "vocabulary_difficulty_id": 2,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "c1c47c79-1ccb-4aef-accc-bc06eae57c9b",
+    "word": "zamboni",
+    "vocabulary_difficulty_id": 1,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "95015e37-ed45-4c50-a1c4-170d6a16a4d8",
+    "word": "zamboniblarney",
+    "vocabulary_difficulty_id": 2,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "0e38132a-552a-4845-b1ec-7f1672d65fd7",
+    "word": "zanni",
+    "vocabulary_difficulty_id": 2,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "585edfa0-32db-40b4-96f3-8eaad68d0363",
+    "word": "zazencabochon",
+    "vocabulary_difficulty_id": 2,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "267d6da9-7b9a-493d-9548-9945a795b95d",
+    "word": "zapateado",
+    "vocabulary_difficulty_id": 2,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "3ffe624d-b5ff-42e4-8598-53a1b1ba61fc",
+    "word": "zodiac",
+    "vocabulary_difficulty_id": 1,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "5f025ec8-cfb3-4da2-a94d-5f1e107b111a",
+    "word": "zemi",
+    "vocabulary_difficulty_id": 1,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "23940fbe-9e99-4cf3-b789-45d2a3d0f0e9",
+    "word": "zoetic",
+    "vocabulary_difficulty_id": 2,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "d3391ed3-1329-4c77-b6a5-f8087901a518",
+    "word": "zortzico",
+    "vocabulary_difficulty_id": 2,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "f2410802-859d-41ad-94a6-891967d07180",
+    "word": "zeppelin",
+    "vocabulary_difficulty_id": 2,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "7028dd76-e789-44aa-a8bb-c63da9d78664",
+    "word": "zimbabwe",
+    "vocabulary_difficulty_id": 2,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "b9534f89-18c7-443a-ad84-375bddd29a00",
+    "word": "ziggurat",
+    "vocabulary_difficulty_id": 2,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "79bd95de-e410-4996-adfd-984e4999edeb",
+    "word": "zocalo",
+    "vocabulary_difficulty_id": 1,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "c913e213-f640-4928-ad10-4bd907bd21f7",
+    "word": "zoolatry",
+    "vocabulary_difficulty_id": 2,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "c711e2e9-e1f0-42e5-9fd6-5e2f3f2942c5",
+    "word": "zoomed",
+    "vocabulary_difficulty_id": 1,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "ac5a9af1-986a-480c-a199-e6eeb681ced2",
+    "word": "zugzwangterre",
+    "vocabulary_difficulty_id": 2,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "9fc41fd7-5aa7-4c01-bad5-48e3a3daf580",
+    "word": "zurna",
+    "vocabulary_difficulty_id": 2,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "96a9f4db-3207-466f-8650-8cae76cc516f",
+    "word": "zygote",
+    "vocabulary_difficulty_id": 1,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "d02334a8-1e97-40ad-b8e5-c9f62299957e",
+    "word": "zyzomysadjective",
+    "vocabulary_difficulty_id": 2,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "4e9b44cc-89fe-4777-bb88-d14ec2db7963",
+    "word": "zymurgy",
+    "vocabulary_difficulty_id": 2,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "267a3154-d2ce-4230-8049-5046f40475e6",
+    "word": "zyzomys",
+    "vocabulary_difficulty_id": 1,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "d0473666-ccee-4293-ba0c-43be9070376b",
+    "word": "incarnated",
+    "vocabulary_difficulty_id": 2,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "fce08c2a-3d37-4e66-b40e-c15c43befe12",
+    "word": "wasteweir",
+    "vocabulary_difficulty_id": 2,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "01e5589b-dfc1-4d96-936b-5655a567423a",
+    "word": "parishioner",
+    "vocabulary_difficulty_id": 2,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "acfd16c7-936a-4018-b63c-48dc0a6e4744",
+    "word": "unprepossessing",
+    "vocabulary_difficulty_id": 2,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "ef577998-b48e-483e-b2fe-7bebe60a7183",
+    "word": "landline",
+    "vocabulary_difficulty_id": 2,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "145a3967-c351-4e3c-ac2e-ecf78a4380d6",
+    "word": "sparrow",
+    "vocabulary_difficulty_id": 2,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "059d2527-dee9-426c-b497-b318b6c7f58a",
+    "word": "wanted",
+    "vocabulary_difficulty_id": 1,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "bac68225-b921-42d4-a587-e83a09854437",
+    "word": "sprung",
+    "vocabulary_difficulty_id": 1,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "4dc70cd3-b06b-4550-ba26-491ba3fbf51c",
+    "word": "mountebank",
+    "vocabulary_difficulty_id": 2,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "fb61141f-0c1c-498f-a3e8-a95448c1a801",
+    "word": "wunderkind",
+    "vocabulary_difficulty_id": 2,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "913100ea-6415-4a6e-98ae-3e4d6eb46cb5",
+    "word": "sententious",
+    "vocabulary_difficulty_id": 2,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "9a668899-107d-40f3-b7f3-6519068dbf92",
+    "word": "yankee",
+    "vocabulary_difficulty_id": 1,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "28a379a7-e660-4e34-b40d-48d75b9ce4a3",
+    "word": "jiggery-pokery",
+    "vocabulary_difficulty_id": 2,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "7ae37340-53f7-4317-8294-a807e7d040b0",
+    "word": "spelling",
+    "vocabulary_difficulty_id": 2,
+    "spelling_difficulty_id": 1
+  },
+  {
+    "id": "a3d86800-6c87-49db-99e1-29984502311a",
+    "word": "zydeco",
+    "vocabulary_difficulty_id": 1,
+    "spelling_difficulty_id": 1
+  }
+]

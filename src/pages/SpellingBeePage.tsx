@@ -4,7 +4,7 @@ import { useAuth } from '../contexts/AuthContext'
 import { useSpellingBee } from '../contexts/SpellingBeeContext'
 import { checkSpellingBeeTables, createSpellingBeeTables } from '../utils/createSpellingBeeTables'
 import { replaceWordAndVariationsWithBlanks } from '../utils/vocabularyHelpers'
-import { getSpellingDifficultyLevels, getSpellingDifficultyName } from '../services/difficultyLevels'
+import { getSpellingDifficultyLevels } from '../services/difficultyLevels'
 import { SpellingWordWithDifficulties, SpellingDifficultyLevel } from '../types/difficultyLevels'
 import { 
   SpeakerWaveIcon, 
@@ -131,7 +131,7 @@ const SpellingBeePage: React.FC = () => {
             .from('spelling_words')
             .select(`
               *,
-              spelling_difficulty:spelling_difficulty_levels(id, name, description, grade_equivalent)
+              spelling_difficulty_levels!spelling_difficulty_id(id, name, description, grade_equivalent)
             `)
             .in('id', wordIds)
 
@@ -157,14 +157,17 @@ const SpellingBeePage: React.FC = () => {
         .from('spelling_words')
         .select(`
           *,
-          spelling_difficulty:spelling_difficulty_levels(id, name, description, grade_equivalent)
+          spelling_difficulty_levels!spelling_difficulty_id(id, name, description, grade_equivalent)
         `)
-        .order('spelling_difficulty_level')
+        .order('spelling_difficulty_id')
 
       // Apply difficulty filter from selected difficulties
       if (selectedDifficulties.length > 0 && selectedDifficulties.length < 5) {
-        // Try to filter by both new FK table and old name field for compatibility
-        query = query.or(`spelling_difficulty.name.in.(${selectedDifficulties.join(',')}),spelling_difficulty_name.in.(${selectedDifficulties.join(',')})`)
+        // Filter by the foreign key ID based on selected difficulty names
+        query = query.in('spelling_difficulty_id', selectedDifficulties.map(name => {
+          const difficultyMap: Record<string, number> = { 'Beginner': 1, 'Elementary': 2, 'Intermediate': 3, 'Advanced': 4, 'Expert': 5 };
+          return difficultyMap[name] || 1;
+        }))
       }
 
       let { data, error } = await query.limit(100)
@@ -176,10 +179,13 @@ const SpellingBeePage: React.FC = () => {
         query = supabase
           .from('spelling_words')
           .select('*')
-          .order('spelling_difficulty_level')
+          .order('spelling_difficulty_id')
 
         if (selectedDifficulties.length > 0 && selectedDifficulties.length < 5) {
-          query = query.in('spelling_difficulty_name', selectedDifficulties)
+          // Map difficulty names to IDs for filtering
+          const difficultyMap: Record<string, number> = { 'Beginner': 1, 'Elementary': 2, 'Intermediate': 3, 'Advanced': 4, 'Expert': 5 };
+          const difficultyIds = selectedDifficulties.map(name => difficultyMap[name] || 1);
+          query = query.in('spelling_difficulty_id', difficultyIds)
         }
 
         const fallbackResult = await query.limit(100)
@@ -197,10 +203,7 @@ const SpellingBeePage: React.FC = () => {
         // For words that don't have difficulty names, try to get them from the service
         const wordsWithNames = await Promise.all(
           data.map(async (word) => {
-            if (!word.spelling_difficulty_name && word.spelling_difficulty_level) {
-              const difficultyName = await getSpellingDifficultyName(word.spelling_difficulty_level)
-              return { ...word, spelling_difficulty_name: difficultyName }
-            }
+            // No need to fetch difficulty name anymore, it comes from the join
             return word
           })
         )
@@ -595,15 +598,15 @@ const SpellingBeePage: React.FC = () => {
 
             <div className="text-center mb-1 sm:mb-4 space-y-1">
               <div className="flex justify-center items-center gap-2 sm:gap-3 text-xs">
-                {currentWord.spelling_difficulty_name && (
+                {(currentWord as any).spelling_difficulty_levels?.name && (
                   <span className={`px-1 sm:px-2 py-0.5 sm:py-1 rounded text-xs font-medium ${
-                    currentWord.spelling_difficulty_name === 'Beginner' ? 'bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400' :
-                    currentWord.spelling_difficulty_name === 'Elementary' ? 'bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-400' :
-                    currentWord.spelling_difficulty_name === 'Intermediate' ? 'bg-yellow-100 text-yellow-700 dark:bg-yellow-900/30 dark:text-yellow-400' :
-                    currentWord.spelling_difficulty_name === 'Advanced' ? 'bg-orange-100 text-orange-700 dark:bg-orange-900/30 dark:text-orange-400' :
+                    (currentWord as any).spelling_difficulty_levels?.name === 'Beginner' ? 'bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400' :
+                    (currentWord as any).spelling_difficulty_levels?.name === 'Elementary' ? 'bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-400' :
+                    (currentWord as any).spelling_difficulty_levels?.name === 'Intermediate' ? 'bg-yellow-100 text-yellow-700 dark:bg-yellow-900/30 dark:text-yellow-400' :
+                    (currentWord as any).spelling_difficulty_levels?.name === 'Advanced' ? 'bg-orange-100 text-orange-700 dark:bg-orange-900/30 dark:text-orange-400' :
                     'bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400'
                   }`}>
-                    {currentWord.spelling_difficulty_name}
+                    {(currentWord as any).spelling_difficulty_levels?.name}
                   </span>
                 )}
                 {currentWord.part_of_speech && (

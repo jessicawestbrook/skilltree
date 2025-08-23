@@ -15,7 +15,7 @@ export interface UserProfile {
   completed_nodes: string[]
   in_progress_nodes: string[]
   recent_activity: Array<{
-    node_id: string
+    skill_id: string
     timestamp: string
   }>
 }
@@ -188,9 +188,9 @@ class RecommendationService {
    */
   private calculateRecency(
     nodeId: string,
-    recentActivity: Array<{ node_id: string; timestamp: string }>
+    recentActivity: Array<{ skill_id: string; timestamp: string }>
   ): number {
-    const lastActivity = recentActivity.find(a => a.node_id === nodeId)
+    const lastActivity = recentActivity.find(a => a.skill_id === nodeId)
     
     if (!lastActivity) {
       return 1.0 // Never accessed, high priority
@@ -336,7 +336,7 @@ class RecommendationService {
         supabase.from('user_progress').select('*').eq('user_id', userId),
         supabase.from('starred_items').select('item_id').eq('user_id', userId).eq('item_type', 'skill_node'),
         supabase.from('user_progress')
-          .select('skill_node_id, last_accessed')
+          .select('skill_id, last_accessed')
           .eq('user_id', userId)
           .order('last_accessed', { ascending: false })
           .limit(50)
@@ -348,12 +348,12 @@ class RecommendationService {
         starred_nodes: (starredResult.status === 'fulfilled' && starredResult.value.data?.map((s: any) => s.item_id)) || [],
         completed_nodes: (progressResult.status === 'fulfilled' && progressResult.value.data
           ?.filter((p: any) => p.status === 'completed')
-          .map((p: any) => p.skill_node_id)) || [],
+          .map((p: any) => p.skill_id)) || [],
         in_progress_nodes: (progressResult.status === 'fulfilled' && progressResult.value.data
           ?.filter((p: any) => p.status === 'in_progress')
-          .map((p: any) => p.skill_node_id)) || [],
+          .map((p: any) => p.skill_id)) || [],
         recent_activity: (activityResult.status === 'fulfilled' && activityResult.value.data?.map((a: any) => ({
-          node_id: a.skill_node_id,
+          skill_id: a.skill_id,
           timestamp: a.last_accessed
         }))) || []
       }
@@ -369,7 +369,10 @@ class RecommendationService {
       }
 
       if (excludeCompleted) {
-        nodesQuery = nodesQuery.not('id', 'in', `(${userProfile.completed_nodes.join(',')})`)
+        const excludedNodes = [...userProfile.completed_nodes, ...userProfile.in_progress_nodes]
+        if (excludedNodes.length > 0) {
+          nodesQuery = nodesQuery.not('id', 'in', `(${excludedNodes.join(',')})`)
+        }
       }
 
       if (focusOnStarred && userProfile.starred_nodes.length > 0) {
@@ -412,7 +415,7 @@ class RecommendationService {
           reasons.push('Matches your skill level')
         }
         
-        const lastActivity = userProfile.recent_activity.find(a => a.node_id === node.id)
+        const lastActivity = userProfile.recent_activity.find(a => a.skill_id === node.id)
         if (lastActivity) {
           const daysSince = (Date.now() - new Date(lastActivity.timestamp).getTime()) / (1000 * 60 * 60 * 24)
           if (daysSince > 7) {
@@ -510,11 +513,11 @@ class RecommendationService {
       // Get user's completed nodes
       const { data: progress } = await supabase
         .from('user_progress')
-        .select('skill_tree_node_id')
+        .select('skill_id')
         .eq('user_id', userId)
         .eq('status', 'completed')
 
-      const completedSet = new Set(progress?.map(p => p.skill_tree_node_id) || [])
+      const completedSet = new Set(progress?.map(p => p.skill_id) || [])
 
       // Get goal node and its ancestors
       const { data: goalNode } = await supabase

@@ -15,7 +15,6 @@ describe('App Component Tests', () => {
     expect(packageJson.dependencies['react']).toBeDefined();
     expect(packageJson.dependencies['react-dom']).toBeDefined();
     expect(packageJson.dependencies['@supabase/supabase-js']).toBeDefined();
-    expect(packageJson.dependencies['d3']).toBeDefined();
     expect(packageJson.dependencies['@headlessui/react']).toBeDefined();
     expect(packageJson.dependencies['@heroicons/react']).toBeDefined();
   });

@@ -1,0 +1,354 @@
+{
+  "timestamp": "2025-08-23T15:02:08.344Z",
+  "totalWithoutDefinitions": 85,
+  "categories": {
+    "concatenated": [
+      {
+        "word": "establishmentruminate",
+        "source_difficulty": "Two Bee"
+      },
+      {
+        "word": "glengarrycommissioner",
+        "source_difficulty": "Two Bee"
+      },
+      {
+        "word": "grandiloquentarmature",
+        "source_difficulty": "Two Bee"
+      },
+      {
+        "word": "haplographytchefuncte",
+        "source_difficulty": "Three Bee"
+      },
+      {
+        "word": "hydriotaphiahydrocortisone",
+        "source_difficulty": "Two Bee"
+      },
+      {
+        "word": "ichthyologyicosahedron",
+        "source_difficulty": "Three Bee"
+      },
+      {
+        "word": "jiggery-pokerysobersides",
+        "source_difficulty": "Two Bee"
+      },
+      {
+        "word": "ministrationsracketeer",
+        "source_difficulty": "Two Bee"
+      },
+      {
+        "word": "moribundrecriminatory",
+        "source_difficulty": "Two Bee"
+      },
+      {
+        "word": "mortadellamotherumbung",
+        "source_difficulty": "Three Bee"
+      },
+      {
+        "word": "mountebankallelopathy",
+        "source_difficulty": "Three Bee"
+      },
+      {
+        "word": "newfoundlandfulminate",
+        "source_difficulty": "Two Bee"
+      },
+      {
+        "word": "octonocularoctuplicate",
+        "source_difficulty": "Two Bee"
+      },
+      {
+        "word": "panjandrumcatachresis",
+        "source_difficulty": "Three Bee"
+      },
+      {
+        "word": "parishionerastrologers",
+        "source_difficulty": "Three Bee"
+      },
+      {
+        "word": "perspicaciousadjective",
+        "source_difficulty": "Two Bee"
+      },
+      {
+        "word": "philharmonicendorphin",
+        "source_difficulty": "Two Bee"
+      },
+      {
+        "word": "porcelaindeglaciation",
+        "source_difficulty": "Two Bee"
+      },
+      {
+        "word": "rambunctiousingenuous",
+        "source_difficulty": "Two Bee"
+      },
+      {
+        "word": "ramificationstemerity",
+        "source_difficulty": "Two Bee"
+      },
+      {
+        "word": "repercussionrepository",
+        "source_difficulty": "Two Bee"
+      },
+      {
+        "word": "resuscitateapprobatory",
+        "source_difficulty": "Two Bee"
+      },
+      {
+        "word": "retinoscopysepulchral",
+        "source_difficulty": "Three Bee"
+      },
+      {
+        "word": "sententiouscardiopathy",
+        "source_difficulty": "Two Bee"
+      },
+      {
+        "word": "spellingphosphorescent",
+        "source_difficulty": "Two Bee"
+      },
+      {
+        "word": "unprepossessingbipolar",
+        "source_difficulty": "Three Bee"
+      },
+      {
+        "word": "veritableinterjection",
+        "source_difficulty": "Two Bee"
+      }
+    ],
+    "withNumbers": [],
+    "tooShort": [],
+    "nonAlpha": [],
+    "allCaps": [],
+    "other": [
+      {
+        "word": "big-time",
+        "source_difficulty": "Two Bee"
+      },
+      {
+        "word": "boogie-woogie",
+        "source_difficulty": "One Bee"
+      },
+      {
+        "word": "bwlalay",
+        "source_difficulty": "Three Bee"
+      },
+      {
+        "word": "cookie-cutter",
+        "source_difficulty": "One Bee"
+      },
+      {
+        "word": "derring-do",
+        "source_difficulty": "Three Bee"
+      },
+      {
+        "word": "different",
+        "source_difficulty": "Three Bee"
+      },
+      {
+        "word": "dillydally",
+        "source_difficulty": "One Bee"
+      },
+      {
+        "word": "dodgy",
+        "source_difficulty": "Two Bee"
+      },
+      {
+        "word": "donna",
+        "source_difficulty": "Two Bee"
+      },
+      {
+        "word": "drag",
+        "source_difficulty": "One Bee"
+      },
+      {
+        "word": "dreadlocks",
+        "source_difficulty": "One Bee"
+      },
+      {
+        "word": "dromic",
+        "source_difficulty": "Two Bee"
+      },
+      {
+        "word": "dulcinea",
+        "source_difficulty": "Three Bee"
+      },
+      {
+        "word": "durango",
+        "source_difficulty": "Two Bee"
+      },
+      {
+        "word": "earmark",
+        "source_difficulty": "One Bee"
+      },
+      {
+        "word": "egucigalpa",
+        "source_difficulty": "Three Bee"
+      },
+      {
+        "word": "eoaoadldrbl",
+        "source_difficulty": "Three Bee"
+      },
+      {
+        "word": "evo-devo",
+        "source_difficulty": "Two Bee"
+      },
+      {
+        "word": "fadeawayfallacy",
+        "source_difficulty": "One Bee"
+      },
+      {
+        "word": "fairesbrinz",
+        "source_difficulty": "Three Bee"
+      },
+      {
+        "word": "fortran",
+        "source_difficulty": "Two Bee"
+      },
+      {
+        "word": "frabjous",
+        "source_difficulty": "Three Bee"
+      },
+      {
+        "word": "fuddy-duddy",
+        "source_difficulty": "One Bee"
+      },
+      {
+        "word": "hocus-pocus",
+        "source_difficulty": "Two Bee"
+      },
+      {
+        "word": "hoity-toity",
+        "source_difficulty": "Two Bee"
+      },
+      {
+        "word": "hokus-pokus",
+        "source_difficulty": "Two Bee"
+      },
+      {
+        "word": "hsaing-waing",
+        "source_difficulty": "Three Bee"
+      },
+      {
+        "word": "hunky-dory",
+        "source_difficulty": "Two Bee"
+      },
+      {
+        "word": "jiggery-pokery",
+        "source_difficulty": "Two Bee"
+      },
+      {
+        "word": "jingoismjitney",
+        "source_difficulty": "Two Bee"
+      },
+      {
+        "word": "landlinesparrow",
+        "source_difficulty": "Two Bee"
+      },
+      {
+        "word": "laudeevo-devo",
+        "source_difficulty": "Two Bee"
+      },
+      {
+        "word": "niminy-piminy",
+        "source_difficulty": "Three Bee"
+      },
+      {
+        "word": "palookapannose",
+        "source_difficulty": "Three Bee"
+      },
+      {
+        "word": "pashminautilitarian",
+        "source_difficulty": "Two Bee"
+      },
+      {
+        "word": "phoneticianmacular",
+        "source_difficulty": "Two Bee"
+      },
+      {
+        "word": "podunk",
+        "source_difficulty": "Two Bee"
+      },
+      {
+        "word": "potentatepotoroo",
+        "source_difficulty": "Three Bee"
+      },
+      {
+        "word": "premonitionprevious",
+        "source_difficulty": "One Bee"
+      },
+      {
+        "word": "quinaryafroth",
+        "source_difficulty": "Two Bee"
+      },
+      {
+        "word": "rabble-rouser",
+        "source_difficulty": "Two Bee"
+      },
+      {
+        "word": "rescissiblereveille",
+        "source_difficulty": "Three Bee"
+      },
+      {
+        "word": "soppinesssousaphone",
+        "source_difficulty": "Two Bee"
+      },
+      {
+        "word": "spic-and-span",
+        "source_difficulty": "Two Bee"
+      },
+      {
+        "word": "spick-and-span",
+        "source_difficulty": "Two Bee"
+      },
+      {
+        "word": "ufologycholera",
+        "source_difficulty": "Two Bee"
+      },
+      {
+        "word": "uglinessquack",
+        "source_difficulty": "One Bee"
+      },
+      {
+        "word": "universalv",
+        "source_difficulty": "Three Bee"
+      },
+      {
+        "word": "wantedsprung",
+        "source_difficulty": "One Bee"
+      },
+      {
+        "word": "wi-fi",
+        "source_difficulty": "Two Bee"
+      },
+      {
+        "word": "windbaggery",
+        "source_difficulty": "One Bee"
+      },
+      {
+        "word": "wootzy",
+        "source_difficulty": "Two Bee"
+      },
+      {
+        "word": "worrywart",
+        "source_difficulty": "One Bee"
+      },
+      {
+        "word": "wunderkind",
+        "source_difficulty": "Two Bee"
+      },
+      {
+        "word": "yankee",
+        "source_difficulty": "One Bee"
+      },
+      {
+        "word": "yoo-hoo",
+        "source_difficulty": "One Bee"
+      },
+      {
+        "word": "zowie",
+        "source_difficulty": "Two Bee"
+      },
+      {
+        "word": "zydeco",
+        "source_difficulty": "Two Bee"
+      }
+    ]
+  }
+}

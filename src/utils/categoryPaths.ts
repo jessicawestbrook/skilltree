@@ -67,7 +67,8 @@ export async function buildCategoryPath(categoryId: string): Promise<string> {
     currentId = category.parent_id
   }
 
-  return '/' + pathSegments.join('/')
+  // Return path without leading slash if it's empty, otherwise with slash
+  return pathSegments.length > 0 ? pathSegments.join('/') : ''
 }
 
 /**

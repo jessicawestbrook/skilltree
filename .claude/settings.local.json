@@ -47,7 +47,12 @@
       "Bash(do echo \"=== Running batch $i ===\")",
       "Bash(done)",
       "Bash(for i in {1..10})",
-      "Bash(start scripts/money_counting_full_preview.html)"
+      "Bash(start scripts/money_counting_full_preview.html)",
+      "Bash(for i in {1..20})",
+      "Bash(do echo \"=== Running improved batch $i ===\")",
+      "Bash(for i in {1..50})",
+      "Bash(for i in {1..40})",
+      "Bash(npx supabase db query:*)"
     ],
     "deny": [],
     "ask": [],

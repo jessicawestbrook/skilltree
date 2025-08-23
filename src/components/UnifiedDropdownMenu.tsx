@@ -21,7 +21,8 @@ import {
   SparklesIcon,
   QueueListIcon,
   ClipboardDocumentListIcon,
-  PuzzlePieceIcon
+  PuzzlePieceIcon,
+  InformationCircleIcon
 } from '@heroicons/react/24/outline'
 
 const UnifiedDropdownMenu: React.FC = () => {
@@ -98,6 +99,7 @@ const UnifiedDropdownMenu: React.FC = () => {
   ]
 
   const otherItems = [
+    { to: '/about', label: 'About', icon: InformationCircleIcon },
     { to: '/feedback', label: 'Feedback', icon: ChatBubbleBottomCenterTextIcon },
   ]
 

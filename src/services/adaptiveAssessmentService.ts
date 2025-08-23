@@ -10,7 +10,7 @@ export interface Question {
   difficulty_level: number
   estimated_time_seconds: number
   cognitive_load_rating: number
-  skill_node_id: string
+  skill_id: string
   last_used_at?: string
   usage_count: number
 }
@@ -292,7 +292,7 @@ export class AdaptiveQuestionSelector {
     let query = supabase
       .from('questions')
       .select('*')
-      .eq('skill_node_id', categoryId)
+      .eq('skill_id', categoryId)
       .eq('difficulty_level', difficulty)
       .order('usage_count', { ascending: true })  // Prefer less-used questions
       .order('last_used_at', { ascending: true, nullsFirst: true })  // Prefer never/old questions

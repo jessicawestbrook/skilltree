@@ -200,7 +200,7 @@ const CategoryPage: React.FC = () => {
             .from('user_progress')
             .select('*')
             .eq('user_id', user.id)
-            .in('skill_node_id', directChildren.map(n => n.id))
+            .in('skill_id', directChildren.map(n => n.id))
 
           const completed = progressData?.filter(p => p.status === 'completed' && p.rating >= 70).length || 0
           const progress = withContent > 0 ? Math.round((completed / withContent) * 100) : 0
@@ -334,7 +334,7 @@ const CategoryPage: React.FC = () => {
       // This is a category node with no learning content - navigate using hierarchical path
       try {
         const categoryPath = await buildCategoryPath(node.id)
-        navigate(categoryPath)
+        navigate(categoryPath ? `/${categoryPath}` : `/learning/${node.id}`)
       } catch (error) {
         console.warn('Failed to navigate to category:', error)
       }
@@ -704,7 +704,7 @@ const CategoryPage: React.FC = () => {
                     .from('user_progress')
                     .upsert({
                       user_id: user.id,
-                      skill_node_id: resolvedCategoryId,
+                      skill_id: resolvedCategoryId,
                       status: 'completed',
                       rating: session.total_points,
                       last_accessed: new Date().toISOString()
