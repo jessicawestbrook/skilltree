@@ -37,6 +37,26 @@ const Layout: React.FC = () => {
 
       if (rootError) throw rootError
       setSubjectCategories(rootNodes || [])
+      
+      // Pre-fetch subcategories for all root categories to show chevrons immediately
+      if (rootNodes && rootNodes.length > 0) {
+        const subcategoriesData: Record<string, SkillTreeNode[]> = {}
+        
+        for (const category of rootNodes) {
+          const { data: childNodes } = await supabase
+            .from('skill_tree_nodes')
+            .select('*')
+            .eq('parent_id', category.id)
+            .order('display_order', { nullsFirst: false })
+            .order('name')
+          
+          if (childNodes && childNodes.length > 0) {
+            subcategoriesData[category.id] = childNodes
+          }
+        }
+        
+        setSubcategories(subcategoriesData)
+      }
     } catch (error) {
       console.error('Error fetching subject categories:', error)
     }
