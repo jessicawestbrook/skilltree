@@ -154,15 +154,39 @@ const Layout: React.FC = () => {
     }
   }
 
+  const subHoverTimeoutRef = useRef<NodeJS.Timeout | null>(null)
+
   const handleSubcategoryHover = (subcategoryId: string) => {
+    // Clear any pending timeout to prevent menu from closing
+    if (subHoverTimeoutRef.current) {
+      clearTimeout(subHoverTimeoutRef.current)
+      subHoverTimeoutRef.current = null
+    }
     setHoveredSubcategoryId(subcategoryId)
     fetchSubSubcategories(subcategoryId)
   }
 
   const handleSubcategoryLeave = () => {
-    setTimeout(() => {
+    // Add longer delay to allow cursor to reach the submenu
+    subHoverTimeoutRef.current = setTimeout(() => {
       setHoveredSubcategoryId(null)
-    }, 100)
+    }, 300)
+  }
+  
+  const handleSubSubmenuEnter = (subcategoryId: string) => {
+    // Clear timeout when entering the third-level menu
+    if (subHoverTimeoutRef.current) {
+      clearTimeout(subHoverTimeoutRef.current)
+      subHoverTimeoutRef.current = null
+    }
+    setHoveredSubcategoryId(subcategoryId)
+  }
+  
+  const handleSubSubmenuLeave = () => {
+    // Add delay when leaving third-level menu
+    subHoverTimeoutRef.current = setTimeout(() => {
+      setHoveredSubcategoryId(null)
+    }, 200)
   }
 
   // Fetch subject categories on component mount
@@ -197,6 +221,9 @@ const Layout: React.FC = () => {
       document.removeEventListener('mousedown', handleClickOutside)
       if (hoverTimeoutRef.current) {
         clearTimeout(hoverTimeoutRef.current)
+      }
+      if (subHoverTimeoutRef.current) {
+        clearTimeout(subHoverTimeoutRef.current)
       }
     }
   }, [])
@@ -295,9 +322,9 @@ const Layout: React.FC = () => {
                                   {/* Third level dropdown */}
                                   {hoveredSubcategoryId === subcategory.id && subSubcategories[subcategory.id] && subSubcategories[subcategory.id].length > 0 && (
                                     <div 
-                                      className="absolute left-full top-0 ml-1 w-48 rounded-lg shadow-xl bg-white dark:bg-neutral-800 ring-1 ring-black ring-opacity-5 py-1 z-50"
-                                      onMouseEnter={() => handleSubcategoryHover(subcategory.id)}
-                                      onMouseLeave={handleSubcategoryLeave}
+                                      className="absolute left-full top-0 -ml-1 w-48 rounded-lg shadow-xl bg-white dark:bg-neutral-800 ring-1 ring-black ring-opacity-5 py-1 z-50"
+                                      onMouseEnter={() => handleSubSubmenuEnter(subcategory.id)}
+                                      onMouseLeave={handleSubSubmenuLeave}
                                     >
                                       {subSubcategories[subcategory.id].map(subSubcategory => (
                                         <CategoryLink

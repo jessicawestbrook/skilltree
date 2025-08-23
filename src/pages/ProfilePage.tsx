@@ -180,8 +180,6 @@ const ProfilePage: React.FC = () => {
         return
       }
 
-      const nodeIds = userProgress.map(p => p.skill_id)
-
       // Fetch questions from these nodes
       const { data: questions, error: questionsError } = await supabase
         .from('questions')
