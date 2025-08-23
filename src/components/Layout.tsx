@@ -18,7 +18,9 @@ const Layout: React.FC = () => {
   const [subjectsOpen, setSubjectsOpen] = useState(false)
   const [subjectCategories, setSubjectCategories] = useState<SkillTreeNode[]>([])
   const [hoveredCategoryId, setHoveredCategoryId] = useState<string | null>(null)
+  const [hoveredSubcategoryId, setHoveredSubcategoryId] = useState<string | null>(null)
   const [subcategories, setSubcategories] = useState<Record<string, SkillTreeNode[]>>({})
+  const [subSubcategories, setSubSubcategories] = useState<Record<string, SkillTreeNode[]>>({})
   const standardizedTestsRef = useRef<HTMLDivElement>(null)
   const flashcardsRef = useRef<HTMLDivElement>(null)
   const subjectsRef = useRef<HTMLDivElement>(null)
@@ -109,7 +111,42 @@ const Layout: React.FC = () => {
   const handleSubmenuLeave = () => {
     hoverTimeoutRef.current = setTimeout(() => {
       setHoveredCategoryId(null)
+      setHoveredSubcategoryId(null)
     }, 200)
+  }
+
+  const fetchSubSubcategories = async (subcategoryId: string) => {
+    // Return if we already have sub-subcategories for this subcategory
+    if (subSubcategories[subcategoryId]) return
+
+    try {
+      const { data: childNodes, error } = await supabase
+        .from('skill_tree_nodes')
+        .select('*')
+        .eq('parent_id', subcategoryId)
+        .order('display_order', { nullsFirst: false })
+        .order('name')
+
+      if (error) throw error
+      
+      setSubSubcategories(prev => ({
+        ...prev,
+        [subcategoryId]: childNodes || []
+      }))
+    } catch (error) {
+      console.error('Error fetching sub-subcategories:', error)
+    }
+  }
+
+  const handleSubcategoryHover = (subcategoryId: string) => {
+    setHoveredSubcategoryId(subcategoryId)
+    fetchSubSubcategories(subcategoryId)
+  }
+
+  const handleSubcategoryLeave = () => {
+    setTimeout(() => {
+      setHoveredSubcategoryId(null)
+    }, 100)
   }
 
   // Fetch subject categories on component mount
@@ -136,6 +173,7 @@ const Layout: React.FC = () => {
       if (subjectsRef.current && !subjectsRef.current.contains(event.target as Node)) {
         setSubjectsOpen(false)
         setHoveredCategoryId(null)
+        setHoveredSubcategoryId(null)
       }
     }
     document.addEventListener('mousedown', handleClickOutside)
@@ -222,14 +260,43 @@ const Layout: React.FC = () => {
                               onMouseLeave={handleSubmenuLeave}
                             >
                               {subcategories[category.id].map(subcategory => (
-                                <CategoryLink
-                                  key={subcategory.id}
-                                  categoryId={subcategory.id}
-                                  onClick={() => setSubjectsOpen(false)}
-                                  className="block px-3 py-1.5 text-sm text-neutral-700 dark:text-neutral-300 hover:bg-neutral-100 dark:hover:bg-neutral-700 transition-colors"
-                                >
-                                  {subcategory.name}
-                                </CategoryLink>
+                                <div key={subcategory.id} className="relative">
+                                  <div
+                                    onMouseEnter={() => handleSubcategoryHover(subcategory.id)}
+                                    onMouseLeave={handleSubcategoryLeave}
+                                  >
+                                    <CategoryLink
+                                      categoryId={subcategory.id}
+                                      onClick={() => setSubjectsOpen(false)}
+                                      className="flex items-center justify-between px-3 py-1.5 text-sm text-neutral-700 dark:text-neutral-300 hover:bg-neutral-100 dark:hover:bg-neutral-700 transition-colors"
+                                    >
+                                      <span>{subcategory.name}</span>
+                                      {subSubcategories[subcategory.id] && subSubcategories[subcategory.id].length > 0 && (
+                                        <ChevronDownIcon className="h-4 w-4 -rotate-90 text-neutral-400 dark:text-neutral-500 flex-shrink-0 ml-1" />
+                                      )}
+                                    </CategoryLink>
+                                  </div>
+                                  
+                                  {/* Third level dropdown */}
+                                  {hoveredSubcategoryId === subcategory.id && subSubcategories[subcategory.id] && subSubcategories[subcategory.id].length > 0 && (
+                                    <div 
+                                      className="absolute left-full top-0 ml-1 w-48 rounded-lg shadow-xl bg-white dark:bg-neutral-800 ring-1 ring-black ring-opacity-5 py-1 z-50"
+                                      onMouseEnter={() => handleSubcategoryHover(subcategory.id)}
+                                      onMouseLeave={handleSubcategoryLeave}
+                                    >
+                                      {subSubcategories[subcategory.id].map(subSubcategory => (
+                                        <CategoryLink
+                                          key={subSubcategory.id}
+                                          categoryId={subSubcategory.id}
+                                          onClick={() => setSubjectsOpen(false)}
+                                          className="block px-3 py-1.5 text-sm text-neutral-700 dark:text-neutral-300 hover:bg-neutral-100 dark:hover:bg-neutral-700 transition-colors"
+                                        >
+                                          {subSubcategory.name}
+                                        </CategoryLink>
+                                      ))}
+                                    </div>
+                                  )}
+                                </div>
                               ))}
                             </div>
                           )}
