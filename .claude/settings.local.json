@@ -52,7 +52,11 @@
       "Bash(do echo \"=== Running improved batch $i ===\")",
       "Bash(for i in {1..50})",
       "Bash(for i in {1..40})",
-      "Bash(npx supabase db query:*)"
+      "Bash(npx supabase db query:*)",
+      "Bash(npx supabase query:*)",
+      "Bash(npx supabase db push:*)",
+      "Bash(npx supabase db dump:*)",
+      "Bash(npx supabase:*)"
     ],
     "deny": [],
     "ask": [],

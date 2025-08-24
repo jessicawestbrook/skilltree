@@ -403,167 +403,111 @@ const CategoryPage: React.FC = () => {
 
       {/* Header */}
       <div className="bg-white dark:bg-neutral-800 rounded-xl shadow-lg p-6 mb-6">
-        <div className="flex items-start justify-between">
-          <div className="flex-1">
-            <div className="flex items-center gap-3 mb-4">
-              <div className="p-3 bg-primary-100 dark:bg-primary-900/30 rounded-lg">
-                <AcademicCapIcon className="h-8 w-8 text-primary-600 dark:text-primary-400" />
-              </div>
-              <div>
-                <h1 className="text-3xl font-bold text-neutral-900 dark:text-white">
-                  {category.name}
-                </h1>
-                {category.description && (
-                  <p className="text-neutral-600 dark:text-neutral-400 mt-1 text-sm leading-tight">
-                    {category.description}
-                  </p>
-                )}
-              </div>
+        {/* Title and Star Row */}
+        <div className="flex items-start justify-between mb-4">
+          <div className="flex items-start gap-3 flex-1">
+            <div className="p-2.5 bg-primary-100 dark:bg-primary-900/30 rounded-lg flex-shrink-0">
+              <AcademicCapIcon className="h-7 w-7 text-primary-600 dark:text-primary-400" />
             </div>
-          </div>
-          
-          <div className="flex items-center gap-2">
-            {/* Start Learning Button */}
-            {category.learning_content_ids && category.learning_content_ids.length > 0 && (
-              <button
-                onClick={() => {
-                  setSelectedNode(category)
-                  setShowLearningModal(true)
-                }}
-                className="inline-flex items-center gap-2 px-4 py-2 bg-primary-600 hover:bg-primary-700 text-white rounded-lg transition-colors font-medium"
-                title="Start learning this content"
-              >
-                <BookOpenIcon className="h-5 w-5" />
-                Start Learning
-              </button>
-            )}
-            
+            <div className="flex-1">
+              <h1 className="text-2xl font-bold text-neutral-900 dark:text-white">
+                {category.name}
+              </h1>
+              {category.description && (
+                <p className="text-neutral-600 dark:text-neutral-400 mt-1.5 text-sm leading-relaxed">
+                  {category.description}
+                </p>
+              )}
+            </div>
             <button
               onClick={toggleStar}
-              className="p-2 hover:bg-neutral-100 dark:hover:bg-neutral-700 rounded-lg transition-colors"
+              className="p-1.5 hover:bg-neutral-100 dark:hover:bg-neutral-700 rounded-lg transition-colors flex-shrink-0"
               title={isStarred ? 'Unstar' : 'Star'}
             >
               {isStarred ? (
-                <StarIconSolid className="h-6 w-6 text-yellow-500" />
+                <StarIconSolid className="h-5 w-5 text-yellow-500" />
               ) : (
-                <StarIcon className="h-6 w-6 text-neutral-400" />
+                <StarIcon className="h-5 w-5 text-neutral-400" />
               )}
             </button>
           </div>
         </div>
 
-        {/* Stats */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-6">
-          <div className="bg-neutral-50 dark:bg-neutral-900 rounded-lg p-3">
-            <div className="flex items-center gap-2 text-neutral-600 dark:text-neutral-400 mb-1">
-              <AcademicCapIcon className="h-4 w-4" />
-              <span className="text-xs">Subcategories</span>
+        {/* Stats and Buttons Row */}
+        <div className="flex flex-col md:flex-row items-start md:items-end justify-between gap-4 mt-5">
+          {/* Stats - only show if there are subcategories */}
+          {subcategories.length > 0 ? (
+            <div className="flex gap-3 flex-1">
+              <div className="bg-neutral-50 dark:bg-neutral-900 rounded-lg px-4 py-2.5 min-w-[120px]">
+                <div className="flex items-center gap-1.5 text-neutral-600 dark:text-neutral-400 mb-0.5">
+                  <AcademicCapIcon className="h-3.5 w-3.5" />
+                  <span className="text-xs">Subcategories</span>
+                </div>
+                <p className="text-xl font-bold text-neutral-900 dark:text-white">
+                  {stats.totalSubcategories}
+                </p>
+              </div>
+              
+              <div className="bg-neutral-50 dark:bg-neutral-900 rounded-lg px-4 py-2.5 min-w-[120px]">
+                <div className="flex items-center gap-1.5 text-neutral-600 dark:text-neutral-400 mb-0.5">
+                  <BookOpenIcon className="h-3.5 w-3.5" />
+                  <span className="text-xs">Modules</span>
+                </div>
+                <p className="text-xl font-bold text-neutral-900 dark:text-white">
+                  {stats.totalModules}
+                </p>
+              </div>
+              
+              <div className="bg-neutral-50 dark:bg-neutral-900 rounded-lg px-4 py-2.5 min-w-[120px]">
+                <div className="flex items-center gap-1.5 text-neutral-600 dark:text-neutral-400 mb-0.5">
+                  <ChartBarIcon className="h-3.5 w-3.5" />
+                  <span className="text-xs">Progress</span>
+                </div>
+                <p className="text-xl font-bold text-primary-600 dark:text-primary-400">
+                  {stats.userProgress}%
+                </p>
+              </div>
             </div>
-            <p className="text-2xl font-bold text-neutral-900 dark:text-white">
-              {stats.totalSubcategories}
-            </p>
-          </div>
-          
-          <div className="bg-neutral-50 dark:bg-neutral-900 rounded-lg p-3">
-            <div className="flex items-center gap-2 text-neutral-600 dark:text-neutral-400 mb-1">
-              <BookOpenIcon className="h-4 w-4" />
-              <span className="text-xs">Total Modules</span>
+          ) : (
+            <div className="flex-1">
+              {/* Only show progress if there are no subcategories */}
+              <div className="bg-neutral-50 dark:bg-neutral-900 rounded-lg px-4 py-2.5 max-w-[140px]">
+                <div className="flex items-center gap-1.5 text-neutral-600 dark:text-neutral-400 mb-0.5">
+                  <ChartBarIcon className="h-3.5 w-3.5" />
+                  <span className="text-xs">Progress</span>
+                </div>
+                <p className="text-xl font-bold text-primary-600 dark:text-primary-400">
+                  {stats.userProgress}%
+                </p>
+              </div>
             </div>
-            <p className="text-2xl font-bold text-neutral-900 dark:text-white">
-              {stats.totalModules}
-            </p>
-          </div>
-          
-          <div className="bg-neutral-50 dark:bg-neutral-900 rounded-lg p-3">
-            <div className="flex items-center gap-2 text-neutral-600 dark:text-neutral-400 mb-1">
-              <ClockIcon className="h-4 w-4" />
-              <span className="text-xs">With Content</span>
-            </div>
-            <p className="text-2xl font-bold text-neutral-900 dark:text-white">
-              {stats.withContent}
-            </p>
-          </div>
-          
-          <div className="bg-neutral-50 dark:bg-neutral-900 rounded-lg p-3">
-            <div className="flex items-center gap-2 text-neutral-600 dark:text-neutral-400 mb-1">
-              <ChartBarIcon className="h-4 w-4" />
-              <span className="text-xs">Your Progress</span>
-            </div>
-            <p className="text-2xl font-bold text-primary-600 dark:text-primary-400">
-              {stats.userProgress}%
-            </p>
-          </div>
-        </div>
-      </div>
+          )}
 
-      {/* Learning and Assessment Section */}
-      <div className="bg-white dark:bg-neutral-800 rounded-xl shadow-lg p-6 mb-6">
-        <div className="flex items-center justify-between">
-          <div className="flex items-center gap-4">
-            <div className="p-3 bg-primary-100 dark:bg-primary-900/30 rounded-lg">
-              <BookOpenIcon className="h-8 w-8 text-primary-600 dark:text-primary-400" />
-            </div>
-            <div>
-              <h2 className="text-xl font-bold text-neutral-900 dark:text-white">
-                Learn & Test Your Knowledge
-              </h2>
-              <p className="text-neutral-600 dark:text-neutral-400">
-                Study {category.name} content or take an adaptive assessment to demonstrate your skills
-              </p>
-            </div>
-          </div>
-          <div className="flex items-center gap-3">
+          {/* Action Buttons */}
+          <div className="flex items-center gap-3 self-end">
+            {(category.learning_content_ids && category.learning_content_ids.length > 0) && (
+              <button
+                onClick={() => {
+                  setSelectedNode(category)
+                  setShowLearningModal(true)
+                }}
+                className="px-5 py-2.5 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition-colors flex items-center gap-2 font-medium shadow-sm"
+              >
+                <BookOpenIcon className="h-5 w-5" />
+                Start Learning
+              </button>
+            )}
             <button
               onClick={() => setShowAdaptiveAssessment(true)}
-              className="px-6 py-3 bg-neutral-200 dark:bg-neutral-700 text-neutral-800 dark:text-neutral-200 rounded-lg hover:bg-neutral-300 dark:hover:bg-neutral-600 transition-colors flex items-center gap-2 font-medium"
+              className="px-5 py-2.5 bg-gold-500 text-white rounded-lg hover:bg-gold-600 transition-colors flex items-center gap-2 font-medium shadow-sm"
             >
               <BoltIcon className="h-5 w-5" />
               Start Assessment
             </button>
-            {stats.withContent > 0 && (
-              <Link
-                to={`/learning/${resolvedCategoryId}`}
-                className="px-6 py-3 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition-colors flex items-center gap-2 font-medium"
-              >
-                <BookOpenIcon className="h-5 w-5" />
-                Start Learning
-              </Link>
-            )}
-          </div>
-        </div>
-        
-        <div className="mt-4 grid grid-cols-1 md:grid-cols-3 gap-4">
-          <div className="bg-neutral-50 dark:bg-neutral-900 rounded-lg p-4">
-            <div className="flex items-center gap-2 text-gold-600 dark:text-gold-400 mb-2">
-              <BoltIcon className="h-5 w-5" />
-              <span className="font-medium">Computer Adaptive</span>
-            </div>
-            <p className="text-sm text-neutral-600 dark:text-neutral-400">
-              Questions adapt to your skill level in real-time
-            </p>
-          </div>
-          
-          <div className="bg-neutral-50 dark:bg-neutral-900 rounded-lg p-4">
-            <div className="flex items-center gap-2 text-primary-600 dark:text-primary-400 mb-2">
-              <TrophyIcon className="h-5 w-5" />
-              <span className="font-medium">Point-Based Scoring</span>
-            </div>
-            <p className="text-sm text-neutral-600 dark:text-neutral-400">
-              Earn more points for harder questions
-            </p>
-          </div>
-          
-          <div className="bg-neutral-50 dark:bg-neutral-900 rounded-lg p-4">
-            <div className="flex items-center gap-2 text-green-600 dark:text-green-400 mb-2">
-              <ClockIcon className="h-5 w-5" />
-              <span className="font-medium">Flexible Length</span>
-            </div>
-            <p className="text-sm text-neutral-600 dark:text-neutral-400">
-              Stop anytime or continue for higher scores
-            </p>
           </div>
         </div>
       </div>
+
 
       {/* Subcategories Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -652,13 +596,6 @@ const CategoryPage: React.FC = () => {
         })}
       </div>
 
-      {subcategories.length === 0 && (
-        <div className="text-center py-12">
-          <p className="text-neutral-500 dark:text-neutral-400">
-            No subcategories found in this category
-          </p>
-        </div>
-      )}
 
       {/* Learning Modal */}
       {selectedNode && showLearningModal && (

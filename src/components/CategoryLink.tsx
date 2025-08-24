@@ -28,7 +28,8 @@ const CategoryLink: React.FC<CategoryLinkProps> = ({
       const buildPath = async () => {
         try {
           const path = await getCachedCategoryPath(categoryId)
-          setCategoryPath(path)
+          // Ensure path starts with /
+          setCategoryPath(path ? `/${path}` : '')
         } catch (error) {
           console.warn('Failed to build category path:', error)
           // No fallback - show as non-clickable

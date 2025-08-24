@@ -105,7 +105,7 @@ class SpacedRepetitionService {
   ): Promise<FlashcardReview | null> {
     try {
       // Check if review record exists
-      const { data: existing } = await supabase
+      const { data: existing, error: fetchError } = await supabase
         .from('user_flashcard_reviews')
         .select('*')
         .eq('user_id', userId)
@@ -113,11 +113,17 @@ class SpacedRepetitionService {
         .eq('flashcard_type', flashcardType)
         .single()
       
+      // If table doesn't exist, return null gracefully
+      if (fetchError?.code === '42P01') {
+        console.warn('user_flashcard_reviews table not found. Please run the migration script.')
+        return null
+      }
+      
       if (existing) {
         return existing as FlashcardReview
       }
       
-      // Create new review record
+      // Create new review record with all columns
       const now = new Date().toISOString()
       const newReview: Partial<FlashcardReview> = {
         user_id: userId,
@@ -142,7 +148,12 @@ class SpacedRepetitionService {
         .single()
       
       if (error) {
-        console.error('Error creating review record:', error)
+        // If table doesn't exist, log warning instead of error
+        if (error.code === '42P01') {
+          console.warn('user_flashcard_reviews table not found. Please run the migration script.')
+        } else {
+          console.error('Error creating review record:', error)
+        }
         return null
       }
       
@@ -179,7 +190,7 @@ class SpacedRepetitionService {
       const nextReviewDate = new Date()
       nextReviewDate.setDate(nextReviewDate.getDate() + interval)
       
-      // Update review record
+      // Update review record with all columns
       const updates: Partial<FlashcardReview> = {
         last_reviewed: new Date().toISOString(),
         next_review: nextReviewDate.toISOString(),
@@ -275,6 +286,11 @@ class SpacedRepetitionService {
       const { data: dueReviews, error } = await query
       
       if (error) {
+        // If table doesn't exist, return empty array gracefully
+        if (error.code === '42P01') {
+          console.warn('user_flashcard_reviews table not found. Please run the migration script.')
+          return []
+        }
         console.error('Error fetching due reviews:', error)
         return []
       }
@@ -428,6 +444,7 @@ class SpacedRepetitionService {
       const now = new Date()
       const tomorrow = new Date(now.getTime() + 24 * 60 * 60 * 1000) // 1 day from now
       
+      // Now we can use all columns since they've been added
       const reviewRecords = flashcards.map(card => ({
         user_id: userId,
         flashcard_id: card.id,
@@ -453,7 +470,12 @@ class SpacedRepetitionService {
         })
       
       if (error) {
-        console.error('Error adding flashcards to review:', error)
+        // If table doesn't exist, log warning instead of error
+        if (error.code === '42P01') {
+          console.warn('user_flashcard_reviews table not found. Please run the migration script.')
+        } else {
+          console.error('Error adding flashcards to review:', error)
+        }
         return false
       }
       
@@ -474,7 +496,23 @@ class SpacedRepetitionService {
         .select('*')
         .eq('user_id', userId)
       
-      if (error) throw error
+      if (error) {
+        // If table doesn't exist, return default stats
+        if (error.code === '42P01') {
+          console.warn('user_flashcard_reviews table not found. Please run the migration script.')
+          return {
+            totalCards: 0,
+            dueToday: 0,
+            newCards: 0,
+            learningCards: 0,
+            matureCards: 0,
+            averageEasiness: 0,
+            averageSuccessRate: 0,
+            totalReviews: 0
+          }
+        }
+        throw error
+      }
       
       const stats = {
         totalCards: reviews?.length || 0,
@@ -540,7 +578,14 @@ class SpacedRepetitionService {
         .select('next_review, flashcard_type')
         .eq('user_id', userId)
       
-      if (error) throw error
+      if (error) {
+        // If table doesn't exist, return empty forecast
+        if (error.code === '42P01') {
+          console.warn('user_flashcard_reviews table not found. Please run the migration script.')
+          return {}
+        }
+        throw error
+      }
       
       const forecast: Record<string, number> = {}
       const today = new Date()

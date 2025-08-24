@@ -6,6 +6,9 @@ import { questionTrackingService } from '../services/questionTrackingService'
 import { adaptiveLearningService } from '../services/adaptiveLearningService'
 import { SkillTreeNode, LearningContent, Question } from '../types/database.types'
 import FlagContentModal from './FlagContentModal'
+import LearningContentViewer from './LearningContentViewer'
+import EnhancedQuestionDisplay from './EnhancedQuestionDisplay'
+import '../styles/learningContent.css'
 
 interface LearningContentModalProps {
   node: SkillTreeNode
@@ -300,9 +303,8 @@ const LearningContentModal: React.FC<LearningContentModalProps> = ({
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-      <div className="bg-white dark:bg-neutral-800 rounded-2xl shadow-2xl max-w-5xl w-full max-h-[90vh] overflow-y-auto border border-neutral-200 dark:border-neutral-700">
-        <div className="sticky top-0 bg-white dark:bg-neutral-800 border-b border-neutral-200 dark:border-neutral-700 p-4 flex justify-between items-center">
-          <h2 className="text-xl font-bold">{node.name}</h2>
+      <div className="bg-white dark:bg-neutral-800 rounded-2xl shadow-2xl max-w-5xl w-full max-h-[90vh] flex flex-col border border-neutral-200 dark:border-neutral-700 overflow-hidden">
+        <div className="bg-white dark:bg-neutral-800 border-b border-neutral-200 dark:border-neutral-700 p-4 flex justify-between items-center flex-shrink-0">
           <div className="flex items-center gap-2">
             {(phase === 'pre-quiz' || phase === 'test') && currentQuestion && (
               <button 
@@ -332,13 +334,14 @@ const LearningContentModal: React.FC<LearningContentModalProps> = ({
                 <FlagIcon className="h-5 w-5 text-neutral-500" />
               </button>
             )}
-            <button onClick={onClose} className="p-2 hover:bg-neutral-100 dark:hover:bg-neutral-700 rounded-lg">
-              <XMarkIcon className="h-5 w-5" />
-            </button>
+            <h2 className="text-xl font-bold ml-2">{node.name}</h2>
           </div>
+          <button onClick={onClose} className="p-2 hover:bg-neutral-100 dark:hover:bg-neutral-700 rounded-lg">
+            <XMarkIcon className="h-5 w-5" />
+          </button>
         </div>
 
-        <div className="p-6">
+        <div className="flex-1 overflow-y-auto p-6">
           {loading ? (
             <div className="flex justify-center py-8">
               <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary-600"></div>
@@ -351,42 +354,40 @@ const LearningContentModal: React.FC<LearningContentModalProps> = ({
             <>
               {/* Pre-Quiz Phase */}
               {phase === 'pre-quiz' && currentQuestion && (
-                <div className="space-y-4">
-                  <div className="flex justify-between items-center mb-4">
-                    <h3 className="text-lg font-semibold">Pre-Quiz</h3>
-                    <span className="text-sm text-neutral-500">Question {questionNumber} of 3</span>
-                  </div>
-                  
-                  <QuestionDisplay
-                    question={currentQuestion}
-                    selectedAnswer={selectedAnswers[currentQuestionIndex]}
-                    onAnswerSelect={(optionIndex) => handleAnswerSelect(currentQuestionIndex, optionIndex)}
-                    showExplanation={showExplanation}
-                  />
-
-                  <div className="flex justify-end gap-2">
-                    {!showExplanation ? (
-                      <button
-                        onClick={handleQuestionSubmit}
-                        disabled={selectedAnswers[currentQuestionIndex] === undefined}
-                        className="btn-primary disabled:opacity-50"
-                      >
-                        Submit Answer
-                      </button>
-                    ) : (
-                      <button onClick={handleNextQuestion} className="btn-primary">
-                        {currentQuestionIndex === 2 ? 'View Content' : 'Next Question'}
-                      </button>
-                    )}
-                  </div>
-                </div>
+                <EnhancedQuestionDisplay
+                  question={currentQuestion}
+                  questionNumber={questionNumber}
+                  totalQuestions={3}
+                  onAnswerSelect={(optionIndex) => handleAnswerSelect(currentQuestionIndex, optionIndex)}
+                  onSubmit={handleQuestionSubmit}
+                  onNext={handleNextQuestion}
+                  selectedAnswer={selectedAnswers[currentQuestionIndex]}
+                  showExplanation={showExplanation}
+                  isPreQuiz={true}
+                />
               )}
 
               {/* Learning Content Phase */}
               {phase === 'content' && (
-                <div className="space-y-6">
-                  {questions.length > 0 && (
-                    <div className="bg-gradient-to-r from-gold-50 to-primary-50 dark:from-gold-900/20 dark:to-primary-900/20 p-4 rounded-xl border border-gold-200 dark:border-gold-800">
+                <div className="relative">
+                  {/* Flag button overlay for enhanced viewer */}
+                  <div className="absolute top-4 left-4 z-10">
+                    <button 
+                      onClick={() => {
+                        setFlagType('learning_content')
+                        setFlagContentId(learningContent.id)
+                        setFlagContentTitle(learningContent.title)
+                        setShowFlagModal(true)
+                      }}
+                      className="p-2 bg-white dark:bg-neutral-800 hover:bg-neutral-100 dark:hover:bg-neutral-700 rounded-lg shadow-md"
+                      title="Report an issue with this content"
+                    >
+                      <FlagIcon className="h-5 w-5 text-neutral-500" />
+                    </button>
+                  </div>
+                  
+                  {questions.length > 0 && preQuizScore > 0 && (
+                    <div className="bg-gradient-to-r from-gold-50 to-primary-50 dark:from-gold-900/20 dark:to-primary-900/20 p-4 rounded-xl border border-gold-200 dark:border-gold-800 mb-4">
                       <div className="flex items-center justify-between">
                         <div>
                           <p className="text-sm font-medium text-gold-700 dark:text-gold-300">Pre-Quiz Performance</p>
@@ -401,14 +402,24 @@ const LearningContentModal: React.FC<LearningContentModalProps> = ({
                     </div>
                   )}
 
-                  <div className="text-center py-4">
-                    <h3 className="text-3xl font-bold bg-gradient-to-r from-primary-600 to-primary-700 dark:from-primary-400 dark:to-primary-500 bg-clip-text text-transparent">
-                      {learningContent.title}
-                    </h3>
-                  </div>
-                  
-                  {/* Handle content_sections if available, otherwise use content field */}
-                  {learningContent.content_sections && learningContent.content_sections.length > 0 ? (
+                  {/* Use enhanced viewer for HTML content */}
+                  {learningContent.content && learningContent.content.includes('<') ? (
+                    <LearningContentViewer
+                      htmlContent={learningContent.content}
+                      nodeId={learningContent.id}
+                      nodeName={learningContent.title}
+                      onComplete={() => {
+                        if (questions.length > 0) {
+                          startTest()
+                        } else {
+                          onClose()
+                        }
+                      }}
+                      onProgress={(progress) => {
+                        console.log(`Content progress: ${progress}%`)
+                      }}
+                    />
+                  ) : learningContent.content_sections && learningContent.content_sections.length > 0 ? (
                     // Modern format with content_sections
                     learningContent.content_sections.map((section, index) => (
                       <div key={index} className="space-y-4">
@@ -527,37 +538,18 @@ const LearningContentModal: React.FC<LearningContentModalProps> = ({
 
               {/* Test Phase */}
               {phase === 'test' && currentQuestion && (
-                <div className="space-y-4">
-                  <div className="flex justify-between items-center mb-4">
-                    <h3 className="text-lg font-semibold">Module Test</h3>
-                    <span className="text-sm text-neutral-500">
-                      Question {questionNumber} of {questionsInPhase}
-                    </span>
-                  </div>
-                  
-                  <QuestionDisplay
-                    question={currentQuestion}
-                    selectedAnswer={selectedAnswers[currentQuestionIndex]}
-                    onAnswerSelect={(optionIndex) => handleAnswerSelect(currentQuestionIndex, optionIndex)}
-                    showExplanation={showExplanation}
-                  />
-
-                  <div className="flex justify-end gap-2">
-                    {!showExplanation ? (
-                      <button
-                        onClick={handleQuestionSubmit}
-                        disabled={selectedAnswers[currentQuestionIndex] === undefined}
-                        className="btn-primary disabled:opacity-50"
-                      >
-                        Submit Answer
-                      </button>
-                    ) : (
-                      <button onClick={handleNextQuestion} className="btn-primary">
-                        {currentQuestionIndex === questions.length - 1 ? 'View Results' : 'Next Question'}
-                      </button>
-                    )}
-                  </div>
-                </div>
+                <EnhancedQuestionDisplay
+                  question={currentQuestion}
+                  questionNumber={questionNumber}
+                  totalQuestions={questionsInPhase}
+                  onAnswerSelect={(optionIndex) => handleAnswerSelect(currentQuestionIndex, optionIndex)}
+                  onSubmit={handleQuestionSubmit}
+                  onNext={handleNextQuestion}
+                  selectedAnswer={selectedAnswers[currentQuestionIndex]}
+                  showExplanation={showExplanation}
+                  isPreQuiz={false}
+                  timeLimit={90} // 90 seconds per question for test
+                />
               )}
 
               {/* Results Phase */}

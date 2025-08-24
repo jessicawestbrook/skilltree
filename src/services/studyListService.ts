@@ -2,6 +2,71 @@ import { supabase } from './supabase'
 import { StudyList, StarredItem, StudyListItem, CustomFlashcard } from '../types/database.types'
 
 export class StudyListService {
+  // Helper to get the auto-generated study list name for a given item type
+  private getAutoListName(itemType: StarredItem['item_type']): string {
+    const listNames: Record<StarredItem['item_type'], string> = {
+      'spelling_word': 'Starred Spelling Words',
+      'vocabulary_word': 'Starred Vocabulary Words',
+      'language_question': 'Starred Language Questions',
+      'question': 'Starred Questions',
+      'skill_node': 'Starred Skills'
+    }
+    return listNames[itemType] || 'Starred Items'
+  }
+
+  // Helper to get or create the auto-generated study list for starred items
+  private async getOrCreateAutoList(
+    userId: string, 
+    itemType: StarredItem['item_type']
+  ): Promise<StudyList | null> {
+    try {
+      const listName = this.getAutoListName(itemType)
+      
+      // Check if the list already exists
+      const { data: existingList, error: fetchError } = await supabase
+        .from('study_lists')
+        .select('*')
+        .eq('user_id', userId)
+        .eq('name', listName)
+        .single()
+      
+      if (existingList && !fetchError) {
+        return existingList
+      }
+      
+      // Create the list if it doesn't exist
+      const listColors: Record<StarredItem['item_type'], string> = {
+        'spelling_word': '#8B5CF6', // Purple
+        'vocabulary_word': '#10B981', // Green
+        'language_question': '#F59E0B', // Amber
+        'question': '#3B82F6', // Blue
+        'skill_node': '#EF4444' // Red
+      }
+      
+      const { data: newList, error: createError } = await supabase
+        .from('study_lists')
+        .insert({
+          user_id: userId,
+          name: listName,
+          description: '',
+          color: listColors[itemType] || '#6B7280',
+          is_public: false
+        })
+        .select()
+        .single()
+      
+      if (createError) {
+        console.error('Error creating auto study list:', createError)
+        return null
+      }
+      
+      return newList
+    } catch (error) {
+      console.error('Error getting/creating auto study list:', error)
+      return null
+    }
+  }
+
   // Starred Items Management
   async starItem(
     userId: string, 
@@ -10,7 +75,8 @@ export class StudyListService {
     itemData?: any
   ): Promise<boolean> {
     try {
-      const { error } = await supabase
+      // First, add to starred items
+      const { error: starError } = await supabase
         .from('starred_items')
         .insert({
           user_id: userId,
@@ -19,7 +85,38 @@ export class StudyListService {
           item_data: itemData
         })
 
-      return !error
+      if (starError) {
+        console.error('Error starring item:', starError)
+        return false
+      }
+
+      // Then, add to the auto-generated study list
+      const autoList = await this.getOrCreateAutoList(userId, itemType)
+      if (autoList) {
+        // Check if item is already in the list
+        const { data: existingItem } = await supabase
+          .from('study_list_items')
+          .select('id')
+          .eq('study_list_id', autoList.id)
+          .eq('item_type', itemType)
+          .eq('item_id', itemId)
+          .single()
+        
+        // Only add if not already in the list
+        if (!existingItem) {
+          await supabase
+            .from('study_list_items')
+            .insert({
+              study_list_id: autoList.id,
+              item_type: itemType,
+              item_id: itemId,
+              item_data: itemData,
+              notes: 'Auto-added from starred items'
+            })
+        }
+      }
+
+      return true
     } catch (error) {
       console.error('Error starring item:', error)
       return false
@@ -32,14 +129,41 @@ export class StudyListService {
     itemId: string
   ): Promise<boolean> {
     try {
-      const { error } = await supabase
+      // First, remove from starred items
+      const { error: unstarError } = await supabase
         .from('starred_items')
         .delete()
         .eq('user_id', userId)
         .eq('item_type', itemType)
         .eq('item_id', itemId)
 
-      return !error
+      if (unstarError) {
+        console.error('Error unstarring item:', unstarError)
+        return false
+      }
+
+      // Then, remove from the auto-generated study list
+      const listName = this.getAutoListName(itemType)
+      
+      // Get the auto-generated list
+      const { data: autoList } = await supabase
+        .from('study_lists')
+        .select('id')
+        .eq('user_id', userId)
+        .eq('name', listName)
+        .single()
+      
+      if (autoList) {
+        // Remove from the auto-generated study list
+        await supabase
+          .from('study_list_items')
+          .delete()
+          .eq('study_list_id', autoList.id)
+          .eq('item_type', itemType)
+          .eq('item_id', itemId)
+      }
+
+      return true
     } catch (error) {
       console.error('Error unstarring item:', error)
       return false
@@ -85,6 +209,73 @@ export class StudyListService {
     } catch (error) {
       console.error('Error fetching starred items:', error)
       return []
+    }
+  }
+
+  // Migrate existing starred items to auto-generated study lists
+  async migrateStarredItemsToLists(userId: string): Promise<void> {
+    try {
+      // Get all starred items for the user
+      const { data: starredItems, error } = await supabase
+        .from('starred_items')
+        .select('*')
+        .eq('user_id', userId)
+      
+      if (error || !starredItems) {
+        console.error('Error fetching starred items for migration:', error)
+        return
+      }
+
+      // Group items by type
+      const itemsByType = starredItems.reduce((acc, item) => {
+        if (!acc[item.item_type]) {
+          acc[item.item_type] = []
+        }
+        acc[item.item_type].push(item)
+        return acc
+      }, {} as Record<string, StarredItem[]>)
+
+      // Process each type
+      for (const [itemType, items] of Object.entries(itemsByType)) {
+        const autoList = await this.getOrCreateAutoList(userId, itemType as StarredItem['item_type'])
+        
+        if (autoList) {
+          // Get existing items in the list to avoid duplicates
+          const { data: existingItems } = await supabase
+            .from('study_list_items')
+            .select('item_id')
+            .eq('study_list_id', autoList.id)
+            .eq('item_type', itemType)
+          
+          const existingItemIds = new Set(existingItems?.map(item => item.item_id) || [])
+          
+          // Add items that aren't already in the list
+          const typedItems = items as StarredItem[]
+          const itemsToAdd = typedItems
+            .filter((item) => !existingItemIds.has(item.item_id))
+            .map((item) => ({
+              study_list_id: autoList.id,
+              item_type: item.item_type,
+              item_id: item.item_id,
+              item_data: item.item_data,
+              notes: 'Migrated from starred items'
+            }))
+          
+          if (itemsToAdd.length > 0) {
+            const { error: insertError } = await supabase
+              .from('study_list_items')
+              .insert(itemsToAdd)
+            
+            if (insertError) {
+              console.error(`Error migrating ${itemType} items:`, insertError)
+            } else {
+              console.log(`Migrated ${itemsToAdd.length} ${itemType} items to study list`)
+            }
+          }
+        }
+      }
+    } catch (error) {
+      console.error('Error migrating starred items:', error)
     }
   }
 

@@ -1,0 +1,2281 @@
+{
+  "timestamp": "2025-08-24T03:46:16.140Z",
+  "summary": {
+    "totalNodes": 2480,
+    "uniqueNames": 2343,
+    "duplicateNameGroups": 111,
+    "problematicDuplicates": 22,
+    "rootNodes": 12,
+    "nodesWithContent": 1
+  },
+  "duplicateGroups": [
+    {
+      "name": "Education and School",
+      "count": 4,
+      "nodes": [
+        {
+          "id": "8643ee6d-8b92-49bc-8ad1-837d2061106a",
+          "parentId": "665ec630-ac63-4d8d-bfc5-144496db3d79",
+          "hasContent": false,
+          "createdAt": "2025-08-20T19:39:10.122+00:00"
+        },
+        {
+          "id": "9a4138ec-6bcb-437d-ba81-8d5c0f19aec8",
+          "parentId": "02615dde-1a3f-4ef2-8839-22b9e2b46a6d",
+          "hasContent": false,
+          "createdAt": "2025-08-20T19:39:10.123+00:00"
+        },
+        {
+          "id": "fe801256-621e-4209-b826-d8a3be68b2ff",
+          "parentId": "23f1cdb3-4c66-4a77-b5bc-681a5ff60c64",
+          "hasContent": false,
+          "createdAt": "2025-08-20T19:39:10.125+00:00"
+        },
+        {
+          "id": "02d1df89-c7c2-451b-93af-8acc3295988d",
+          "parentId": "8e691e5f-4f07-4d29-abfe-78474757c66a",
+          "hasContent": false,
+          "createdAt": "2025-08-20T19:39:10.126+00:00"
+        }
+      ]
+    },
+    {
+      "name": "Reflexive Verbs",
+      "count": 4,
+      "nodes": [
+        {
+          "id": "fa03fdf0-38d7-4e23-bec4-783fcfe54898",
+          "parentId": "14b6f5cf-7c33-4c56-bab2-adae99136f3d",
+          "hasContent": false,
+          "createdAt": "2025-08-20T19:39:10.122+00:00"
+        },
+        {
+          "id": "3c8ad839-7163-4bdc-9636-50609c710d2f",
+          "parentId": "190ca369-ded3-438a-87d4-0b088d589ce9",
+          "hasContent": false,
+          "createdAt": "2025-08-20T19:39:10.124+00:00"
+        },
+        {
+          "id": "6a589882-3a39-4f5c-bb53-f9daf799eb15",
+          "parentId": "9d82cfdc-a845-4349-a126-ec1668c06074",
+          "hasContent": false,
+          "createdAt": "2025-08-20T19:39:10.125+00:00"
+        },
+        {
+          "id": "0c9a04ea-c8d9-4500-827b-e9d5b61b103c",
+          "parentId": "8f475bec-5f3f-4c6d-98d2-5c45f9d8d7fe",
+          "hasContent": false,
+          "createdAt": "2025-08-20T19:39:10.126+00:00"
+        }
+      ]
+    },
+    {
+      "name": "Possessive Pronouns",
+      "count": 4,
+      "nodes": [
+        {
+          "id": "34ce8033-c38d-430e-ade7-2e425dabfeca",
+          "parentId": "122bd8b6-1e58-4359-9525-79e82f28f8a6",
+          "hasContent": false,
+          "createdAt": "2025-08-20T19:39:10.123+00:00"
+        },
+        {
+          "id": "14a269c8-f66d-4264-87bf-7cc3ea7e15e3",
+          "parentId": "a636c129-4916-4be3-a93d-5eae2f000030",
+          "hasContent": false,
+          "createdAt": "2025-08-20T19:39:10.124+00:00"
+        },
+        {
+          "id": "3205a142-2cda-45c1-b0ac-63ca58d9f234",
+          "parentId": "e9eedd52-ff70-4aae-8096-7d5f8602212d",
+          "hasContent": false,
+          "createdAt": "2025-08-20T19:39:10.125+00:00"
+        },
+        {
+          "id": "94c5711e-990c-4535-a468-afc4763f4f5a",
+          "parentId": "e84a4c44-6521-479b-b972-61b7cf9920d9",
+          "hasContent": false,
+          "createdAt": "2025-08-20T19:39:10.126+00:00"
+        }
+      ]
+    },
+    {
+      "name": "Demonstrative Pronouns",
+      "count": 4,
+      "nodes": [
+        {
+          "id": "3ded49d1-68d7-4640-8d57-2537291d72b0",
+          "parentId": "122bd8b6-1e58-4359-9525-79e82f28f8a6",
+          "hasContent": false,
+          "createdAt": "2025-08-20T19:39:10.123+00:00"
+        },
+        {
+          "id": "c76d4dbe-9e1d-4647-b512-a006a9b97482",
+          "parentId": "a636c129-4916-4be3-a93d-5eae2f000030",
+          "hasContent": false,
+          "createdAt": "2025-08-20T19:39:10.124+00:00"
+        },
+        {
+          "id": "d3e611c9-7e78-4bc4-9d5c-3e7759081a66",
+          "parentId": "e9eedd52-ff70-4aae-8096-7d5f8602212d",
+          "hasContent": false,
+          "createdAt": "2025-08-20T19:39:10.126+00:00"
+        },
+        {
+          "id": "963975c8-e6bc-47b0-94c1-b9783704fe9b",
+          "parentId": "e84a4c44-6521-479b-b972-61b7cf9920d9",
+          "hasContent": false,
+          "createdAt": "2025-08-20T19:39:10.126+00:00"
+        }
+      ]
+    },
+    {
+      "name": "Gender of Nouns",
+      "count": 3,
+      "nodes": [
+        {
+          "id": "6200d023-83ea-471d-9be5-39b39e98aa32",
+          "parentId": "d149eb38-ebdd-4355-9a3c-ed45a7759233",
+          "hasContent": false,
+          "createdAt": "2025-08-20T19:39:10.122+00:00"
+        },
+        {
+          "id": "ed85729c-5732-4dae-ac49-ea38aab99953",
+          "parentId": "76b5a5f2-bdc5-46ea-8cd4-8b37c7e8325d",
+          "hasContent": false,
+          "createdAt": "2025-08-20T19:39:10.124+00:00"
+        },
+        {
+          "id": "1a4cc13f-79fc-4055-93a0-643f69fe1038",
+          "parentId": "a0e7af44-f0e7-45cc-97e9-16847c7d9948",
+          "hasContent": false,
+          "createdAt": "2025-08-20T19:39:10.126+00:00"
+        }
+      ]
+    },
+    {
+      "name": "Plural Formation",
+      "count": 3,
+      "nodes": [
+        {
+          "id": "497045b1-f759-4ebb-893f-9e28319974f0",
+          "parentId": "d149eb38-ebdd-4355-9a3c-ed45a7759233",
+          "hasContent": false,
+          "createdAt": "2025-08-20T19:39:10.122+00:00"
+        },
+        {
+          "id": "8ce4cc12-8aa6-441e-a38e-744175007165",
+          "parentId": "76b5a5f2-bdc5-46ea-8cd4-8b37c7e8325d",
+          "hasContent": false,
+          "createdAt": "2025-08-20T19:39:10.124+00:00"
+        },
+        {
+          "id": "f1ee0fc7-7c64-42b3-b27f-b4031d1c9e87",
+          "parentId": "a0e7af44-f0e7-45cc-97e9-16847c7d9948",
+          "hasContent": false,
+          "createdAt": "2025-08-20T19:39:10.126+00:00"
+        }
+      ]
+    },
+    {
+      "name": "Transportation and Travel",
+      "count": 3,
+      "nodes": [
+        {
+          "id": "2038a780-4569-4f92-b701-dd9506f09f4d",
+          "parentId": "665ec630-ac63-4d8d-bfc5-144496db3d79",
+          "hasContent": false,
+          "createdAt": "2025-08-20T19:39:10.122+00:00"
+        },
+        {
+          "id": "2993630c-f8c8-4d6e-91d4-5b36215bd85c",
+          "parentId": "23f1cdb3-4c66-4a77-b5bc-681a5ff60c64",
+          "hasContent": false,
+          "createdAt": "2025-08-20T19:39:10.125+00:00"
+        },
+        {
+          "id": "4259959a-ff8f-464d-a1ca-a1e204e74ec5",
+          "parentId": "8e691e5f-4f07-4d29-abfe-78474757c66a",
+          "hasContent": false,
+          "createdAt": "2025-08-20T19:39:10.126+00:00"
+        }
+      ]
+    },
+    {
+      "name": "Sports and Hobbies",
+      "count": 3,
+      "nodes": [
+        {
+          "id": "f28785aa-ad4c-42b7-800f-9e3a86f29024",
+          "parentId": "665ec630-ac63-4d8d-bfc5-144496db3d79",
+          "hasContent": false,
+          "createdAt": "2025-08-20T19:39:10.122+00:00"
+        },
+        {
+          "id": "a6dff839-7659-48e5-9328-9fc09ec9e1ca",
+          "parentId": "23f1cdb3-4c66-4a77-b5bc-681a5ff60c64",
+          "hasContent": false,
+          "createdAt": "2025-08-20T19:39:10.125+00:00"
+        },
+        {
+          "id": "46da80f9-2155-481e-9809-49d3c76d91c3",
+          "parentId": "8e691e5f-4f07-4d29-abfe-78474757c66a",
+          "hasContent": false,
+          "createdAt": "2025-08-20T19:39:10.126+00:00"
+        }
+      ]
+    },
+    {
+      "name": "Politics and Society",
+      "count": 3,
+      "nodes": [
+        {
+          "id": "1a9043b6-9d82-45c4-b1f7-87c86f53a492",
+          "parentId": "665ec630-ac63-4d8d-bfc5-144496db3d79",
+          "hasContent": false,
+          "createdAt": "2025-08-20T19:39:10.122+00:00"
+        },
+        {
+          "id": "94ac6faa-54a0-4470-9b90-b836acdb060d",
+          "parentId": "02615dde-1a3f-4ef2-8839-22b9e2b46a6d",
+          "hasContent": false,
+          "createdAt": "2025-08-20T19:39:10.123+00:00"
+        },
+        {
+          "id": "bb8a80cd-5242-4990-bd02-13e0c663e5c6",
+          "parentId": "23f1cdb3-4c66-4a77-b5bc-681a5ff60c64",
+          "hasContent": false,
+          "createdAt": "2025-08-20T19:39:10.125+00:00"
+        }
+      ]
+    },
+    {
+      "name": "Family and Relationships",
+      "count": 3,
+      "nodes": [
+        {
+          "id": "a46bf945-1ee0-4301-80aa-2f5eed9ad89a",
+          "parentId": "665ec630-ac63-4d8d-bfc5-144496db3d79",
+          "hasContent": false,
+          "createdAt": "2025-08-20T19:39:10.122+00:00"
+        },
+        {
+          "id": "d29f16a7-9790-472d-9dbe-c57297ebd1c8",
+          "parentId": "23f1cdb3-4c66-4a77-b5bc-681a5ff60c64",
+          "hasContent": false,
+          "createdAt": "2025-08-20T19:39:10.125+00:00"
+        },
+        {
+          "id": "b216c6ca-3b44-4cce-8588-eaab741e3a69",
+          "parentId": "8e691e5f-4f07-4d29-abfe-78474757c66a",
+          "hasContent": false,
+          "createdAt": "2025-08-20T19:39:10.126+00:00"
+        }
+      ]
+    },
+    {
+      "name": "City and Directions",
+      "count": 3,
+      "nodes": [
+        {
+          "id": "13e577e0-0256-4751-aa83-4c876d5fe211",
+          "parentId": "665ec630-ac63-4d8d-bfc5-144496db3d79",
+          "hasContent": false,
+          "createdAt": "2025-08-20T19:39:10.122+00:00"
+        },
+        {
+          "id": "58dd264c-7090-4784-9308-f0a58f5c87a2",
+          "parentId": "23f1cdb3-4c66-4a77-b5bc-681a5ff60c64",
+          "hasContent": false,
+          "createdAt": "2025-08-20T19:39:10.125+00:00"
+        },
+        {
+          "id": "ad5101d4-e4fa-446b-8412-cff5f70fa06e",
+          "parentId": "8e691e5f-4f07-4d29-abfe-78474757c66a",
+          "hasContent": false,
+          "createdAt": "2025-08-20T19:39:10.126+00:00"
+        }
+      ]
+    },
+    {
+      "name": "Arts and Culture",
+      "count": 3,
+      "nodes": [
+        {
+          "id": "57a50765-fb09-414e-be00-98458b2eff6f",
+          "parentId": "665ec630-ac63-4d8d-bfc5-144496db3d79",
+          "hasContent": false,
+          "createdAt": "2025-08-20T19:39:10.122+00:00"
+        },
+        {
+          "id": "aebfd744-afd2-4838-b738-9f8f3b283071",
+          "parentId": "02615dde-1a3f-4ef2-8839-22b9e2b46a6d",
+          "hasContent": false,
+          "createdAt": "2025-08-20T19:39:10.123+00:00"
+        },
+        {
+          "id": "8cac4d0b-f70f-4561-8e7f-12f9638e9b75",
+          "parentId": "23f1cdb3-4c66-4a77-b5bc-681a5ff60c64",
+          "hasContent": false,
+          "createdAt": "2025-08-20T19:39:10.125+00:00"
+        }
+      ]
+    },
+    {
+      "name": "Indirect Object Pronouns",
+      "count": 3,
+      "nodes": [
+        {
+          "id": "1aa95363-11d0-4a48-8e23-1c2fd948ed4a",
+          "parentId": "122bd8b6-1e58-4359-9525-79e82f28f8a6",
+          "hasContent": false,
+          "createdAt": "2025-08-20T19:39:10.123+00:00"
+        },
+        {
+          "id": "720276eb-c63d-41bb-aa9f-890f10f0777f",
+          "parentId": "a636c129-4916-4be3-a93d-5eae2f000030",
+          "hasContent": false,
+          "createdAt": "2025-08-20T19:39:10.124+00:00"
+        },
+        {
+          "id": "32eb5efd-0cdd-494e-bbcb-1507b95f2371",
+          "parentId": "e84a4c44-6521-479b-b972-61b7cf9920d9",
+          "hasContent": false,
+          "createdAt": "2025-08-20T19:39:10.126+00:00"
+        }
+      ]
+    },
+    {
+      "name": "Direct Object Pronouns",
+      "count": 3,
+      "nodes": [
+        {
+          "id": "7e2f3c88-78a8-43a7-a84d-096deab2bc82",
+          "parentId": "122bd8b6-1e58-4359-9525-79e82f28f8a6",
+          "hasContent": false,
+          "createdAt": "2025-08-20T19:39:10.123+00:00"
+        },
+        {
+          "id": "6802fde0-de37-40d3-8fe8-1796df4a9b91",
+          "parentId": "a636c129-4916-4be3-a93d-5eae2f000030",
+          "hasContent": false,
+          "createdAt": "2025-08-20T19:39:10.124+00:00"
+        },
+        {
+          "id": "a11e5b14-6603-4a9b-a579-f756fee9b69e",
+          "parentId": "e84a4c44-6521-479b-b972-61b7cf9920d9",
+          "hasContent": false,
+          "createdAt": "2025-08-20T19:39:10.126+00:00"
+        }
+      ]
+    },
+    {
+      "name": "Subject Pronouns",
+      "count": 3,
+      "nodes": [
+        {
+          "id": "f62677d0-683b-43a2-8c2c-1012f678b0f8",
+          "parentId": "122bd8b6-1e58-4359-9525-79e82f28f8a6",
+          "hasContent": false,
+          "createdAt": "2025-08-20T19:39:10.123+00:00"
+        },
+        {
+          "id": "fba2b85a-9c70-47aa-92db-83d2eb13f785",
+          "parentId": "a636c129-4916-4be3-a93d-5eae2f000030",
+          "hasContent": false,
+          "createdAt": "2025-08-20T19:39:10.124+00:00"
+        },
+        {
+          "id": "c9b98e45-7730-462c-9cae-76e0034bbd03",
+          "parentId": "e84a4c44-6521-479b-b972-61b7cf9920d9",
+          "hasContent": false,
+          "createdAt": "2025-08-20T19:39:10.126+00:00"
+        }
+      ]
+    },
+    {
+      "name": "Work and Professions",
+      "count": 3,
+      "nodes": [
+        {
+          "id": "3da31048-2abc-49e2-83ef-dfea5e1142e3",
+          "parentId": "02615dde-1a3f-4ef2-8839-22b9e2b46a6d",
+          "hasContent": false,
+          "createdAt": "2025-08-20T19:39:10.123+00:00"
+        },
+        {
+          "id": "9cd8e222-4c53-4402-b4f7-f040bbc25d42",
+          "parentId": "23f1cdb3-4c66-4a77-b5bc-681a5ff60c64",
+          "hasContent": false,
+          "createdAt": "2025-08-20T19:39:10.125+00:00"
+        },
+        {
+          "id": "df34dd9f-5816-4b7e-9ce8-5f796af33bfb",
+          "parentId": "8e691e5f-4f07-4d29-abfe-78474757c66a",
+          "hasContent": false,
+          "createdAt": "2025-08-20T19:39:10.126+00:00"
+        }
+      ]
+    },
+    {
+      "name": "Weather and Seasons",
+      "count": 3,
+      "nodes": [
+        {
+          "id": "3eb1534a-76d5-4bda-90e1-936396a3f548",
+          "parentId": "02615dde-1a3f-4ef2-8839-22b9e2b46a6d",
+          "hasContent": false,
+          "createdAt": "2025-08-20T19:39:10.123+00:00"
+        },
+        {
+          "id": "e7ce161b-4bff-4c8c-b8e0-1f65c0c3bac4",
+          "parentId": "23f1cdb3-4c66-4a77-b5bc-681a5ff60c64",
+          "hasContent": false,
+          "createdAt": "2025-08-20T19:39:10.125+00:00"
+        },
+        {
+          "id": "dbe9a229-6ba9-4d63-8eb5-c09d3d860da6",
+          "parentId": "8e691e5f-4f07-4d29-abfe-78474757c66a",
+          "hasContent": false,
+          "createdAt": "2025-08-20T19:39:10.126+00:00"
+        }
+      ]
+    },
+    {
+      "name": "Time and Calendar",
+      "count": 3,
+      "nodes": [
+        {
+          "id": "2ae96706-e0a5-4ae3-9f7b-88f2b7eaf9a0",
+          "parentId": "02615dde-1a3f-4ef2-8839-22b9e2b46a6d",
+          "hasContent": false,
+          "createdAt": "2025-08-20T19:39:10.123+00:00"
+        },
+        {
+          "id": "fb63087c-c65e-4b15-af6b-591af03a0e0d",
+          "parentId": "23f1cdb3-4c66-4a77-b5bc-681a5ff60c64",
+          "hasContent": false,
+          "createdAt": "2025-08-20T19:39:10.125+00:00"
+        },
+        {
+          "id": "1ed3f07c-62ae-417d-9f3c-361e97595001",
+          "parentId": "8e691e5f-4f07-4d29-abfe-78474757c66a",
+          "hasContent": false,
+          "createdAt": "2025-08-20T19:39:10.126+00:00"
+        }
+      ]
+    },
+    {
+      "name": "Nature and Environment",
+      "count": 3,
+      "nodes": [
+        {
+          "id": "38cf2d21-8a6c-4aa0-bd79-fadb2df96040",
+          "parentId": "02615dde-1a3f-4ef2-8839-22b9e2b46a6d",
+          "hasContent": false,
+          "createdAt": "2025-08-20T19:39:10.123+00:00"
+        },
+        {
+          "id": "55f72402-d7f6-4383-ad5f-22249f1a401c",
+          "parentId": "23f1cdb3-4c66-4a77-b5bc-681a5ff60c64",
+          "hasContent": false,
+          "createdAt": "2025-08-20T19:39:10.125+00:00"
+        },
+        {
+          "id": "94e90d13-92bf-494e-9895-c26cd0fe42a4",
+          "parentId": "8e691e5f-4f07-4d29-abfe-78474757c66a",
+          "hasContent": false,
+          "createdAt": "2025-08-20T19:39:10.126+00:00"
+        }
+      ]
+    },
+    {
+      "name": "Body and Health",
+      "count": 3,
+      "nodes": [
+        {
+          "id": "3d9fc2b7-0290-430f-b06e-fd39cb596361",
+          "parentId": "02615dde-1a3f-4ef2-8839-22b9e2b46a6d",
+          "hasContent": false,
+          "createdAt": "2025-08-20T19:39:10.123+00:00"
+        },
+        {
+          "id": "a65e2d0b-a02b-4e9e-9d51-8d292f3ecf0e",
+          "parentId": "23f1cdb3-4c66-4a77-b5bc-681a5ff60c64",
+          "hasContent": false,
+          "createdAt": "2025-08-20T19:39:10.125+00:00"
+        },
+        {
+          "id": "3b2d019d-d221-409e-8eba-2a804f09f311",
+          "parentId": "8e691e5f-4f07-4d29-abfe-78474757c66a",
+          "hasContent": false,
+          "createdAt": "2025-08-20T19:39:10.126+00:00"
+        }
+      ]
+    },
+    {
+      "name": "Computer Vision",
+      "count": 3,
+      "nodes": [
+        {
+          "id": "bcb6aa06-918b-47e1-96e0-f573cef4a51e",
+          "parentId": "1cb6f537-759e-45e8-8d6b-fd7259765865",
+          "hasContent": false,
+          "createdAt": "2025-08-20T19:39:10.132+00:00"
+        },
+        {
+          "id": "7a389619-b9bf-4790-9afb-17d6841e4283",
+          "parentId": "4da94c3b-111b-4714-8feb-28f98ce50a2e",
+          "hasContent": false,
+          "createdAt": "2025-08-20T19:39:10.132+00:00"
+        },
+        {
+          "id": "2cf9ef55-71d8-4ffa-80cf-d3f16b735280",
+          "parentId": "2c45a75b-87d6-457c-8ab4-35eaafc1d74c",
+          "hasContent": false,
+          "createdAt": "2025-08-20T19:39:10.133+00:00"
+        }
+      ]
+    },
+    {
+      "name": "Inventory Management",
+      "count": 3,
+      "nodes": [
+        {
+          "id": "77b7322c-0e9e-44fb-a984-f658812cd167",
+          "parentId": "5cf3ebb3-d379-40bd-9b9d-c31c89239954",
+          "hasContent": false,
+          "createdAt": "2025-08-20T19:39:10.132+00:00"
+        },
+        {
+          "id": "dc35f75f-7a06-4f6d-aa09-feb10216645e",
+          "parentId": "b4416642-6e7f-4181-aa66-cace5674b25b",
+          "hasContent": false,
+          "createdAt": "2025-08-20T19:39:10.133+00:00"
+        },
+        {
+          "id": "32e2d7fc-d5b4-473d-ae60-1bd5d125254b",
+          "parentId": "c1124f8c-f56e-4a15-89cd-544f88e0a460",
+          "hasContent": false,
+          "createdAt": "2025-08-20T20:17:59.014+00:00"
+        }
+      ]
+    },
+    {
+      "name": "Ethics",
+      "count": 2,
+      "nodes": [
+        {
+          "id": "26c104c2-999f-46dc-8c84-69892b122a39",
+          "parentId": "dcafb74e-baad-435d-be05-c4b5c5a7498f",
+          "hasContent": false,
+          "createdAt": "2025-08-20T19:39:10.12+00:00"
+        },
+        {
+          "id": "72a20725-0e04-4d81-b4b2-bb51c476c52d",
+          "parentId": "aa8f88cc-c40f-4b3f-af71-1cf5f11ca853",
+          "hasContent": false,
+          "createdAt": "2025-08-20T19:39:10.121+00:00"
+        }
+      ]
+    },
+    {
+      "name": "19th Century",
+      "count": 2,
+      "nodes": [
+        {
+          "id": "05d97dc2-5420-40c0-b291-8a1c19c04da3",
+          "parentId": "5f4a386d-1139-44b5-a145-3b8af5ed1ec8",
+          "hasContent": false,
+          "createdAt": "2025-08-20T19:39:10.12+00:00"
+        },
+        {
+          "id": "78a6662f-6af5-4ab0-ba55-083c6ff14239",
+          "parentId": "f09e19e0-6ea3-4e00-ba9c-ab36aa729adf",
+          "hasContent": false,
+          "createdAt": "2025-08-20T19:39:10.121+00:00"
+        }
+      ]
+    },
+    {
+      "name": "Character Development",
+      "count": 2,
+      "nodes": [
+        {
+          "id": "92b18daf-41d2-4f19-b36c-539c6c7db544",
+          "parentId": "2137607a-6ec2-4b2b-b979-0ee8c52b02c3",
+          "hasContent": false,
+          "createdAt": "2025-08-20T19:39:10.12+00:00"
+        },
+        {
+          "id": "6ec4088e-f065-4536-abd6-09ceedfa7293",
+          "parentId": "e4443f8c-8d27-4ac3-838f-1f3164995458",
+          "hasContent": false,
+          "createdAt": "2025-08-20T20:12:03.846+00:00"
+        }
+      ]
+    },
+    {
+      "name": "Point of View",
+      "count": 2,
+      "nodes": [
+        {
+          "id": "c54c3cf1-1afe-45a5-a3fa-afe7316e8a70",
+          "parentId": "2137607a-6ec2-4b2b-b979-0ee8c52b02c3",
+          "hasContent": false,
+          "createdAt": "2025-08-20T19:39:10.12+00:00"
+        },
+        {
+          "id": "2f848861-4ebf-430c-896d-32f779287e0c",
+          "parentId": "3d45a7f4-80c8-4ab9-abda-321f5a7ec68b",
+          "hasContent": false,
+          "createdAt": "2025-08-20T20:12:07.31+00:00"
+        }
+      ]
+    },
+    {
+      "name": "20th Century",
+      "count": 2,
+      "nodes": [
+        {
+          "id": "05a2572c-8324-48b2-9cd3-bf9b26e08735",
+          "parentId": "5f4a386d-1139-44b5-a145-3b8af5ed1ec8",
+          "hasContent": false,
+          "createdAt": "2025-08-20T19:39:10.12+00:00"
+        },
+        {
+          "id": "76443801-6ec6-4528-bff5-aa8b0c7eaed8",
+          "parentId": "f09e19e0-6ea3-4e00-ba9c-ab36aa729adf",
+          "hasContent": false,
+          "createdAt": "2025-08-20T19:39:10.121+00:00"
+        }
+      ]
+    },
+    {
+      "name": "Confessions",
+      "count": 2,
+      "nodes": [
+        {
+          "id": "28098819-4ca2-4aa6-99fc-b53f1f981dd9",
+          "parentId": "0beae2e1-1283-48b3-98e8-adf1d5e128f0",
+          "hasContent": false,
+          "createdAt": "2025-08-20T19:39:10.121+00:00"
+        },
+        {
+          "id": "cf7a748d-c225-4519-8ea8-2f7396f345b2",
+          "parentId": "5a326853-bac8-4013-8867-c8e1e8ff9aec",
+          "hasContent": false,
+          "createdAt": "2025-08-20T19:39:10.121+00:00"
+        }
+      ]
+    },
+    {
+      "name": "Simple Future Regular",
+      "count": 2,
+      "nodes": [
+        {
+          "id": "56516c72-cb41-4fe0-9cf0-bb80a991fce5",
+          "parentId": "21761750-5034-421c-83d3-a77b48db1a49",
+          "hasContent": false,
+          "createdAt": "2025-08-20T19:39:10.122+00:00"
+        },
+        {
+          "id": "16d2f626-611a-4348-81e6-971af1035a20",
+          "parentId": "5e72a1b0-d745-4600-9a58-6d468c18626f",
+          "hasContent": false,
+          "createdAt": "2025-08-20T19:39:10.124+00:00"
+        }
+      ]
+    },
+    {
+      "name": "House and Furniture",
+      "count": 2,
+      "nodes": [
+        {
+          "id": "948305ba-ced5-478e-a29a-2baf7b8b9dda",
+          "parentId": "665ec630-ac63-4d8d-bfc5-144496db3d79",
+          "hasContent": false,
+          "createdAt": "2025-08-20T19:39:10.122+00:00"
+        },
+        {
+          "id": "c3e0fec0-0b79-445c-863c-ca9fc8c1f978",
+          "parentId": "8e691e5f-4f07-4d29-abfe-78474757c66a",
+          "hasContent": false,
+          "createdAt": "2025-08-20T19:39:10.126+00:00"
+        }
+      ]
+    },
+    {
+      "name": "Food and Drinks",
+      "count": 2,
+      "nodes": [
+        {
+          "id": "a74057ca-8eaf-4122-b6b5-132320b02ead",
+          "parentId": "665ec630-ac63-4d8d-bfc5-144496db3d79",
+          "hasContent": false,
+          "createdAt": "2025-08-20T19:39:10.122+00:00"
+        },
+        {
+          "id": "51777b9c-dd7d-4d9e-ae70-86a9f8ea1d4a",
+          "parentId": "23f1cdb3-4c66-4a77-b5bc-681a5ff60c64",
+          "hasContent": false,
+          "createdAt": "2025-08-20T19:39:10.125+00:00"
+        }
+      ]
+    },
+    {
+      "name": "Emotions and Feelings",
+      "count": 2,
+      "nodes": [
+        {
+          "id": "fe563015-f3c3-4d2b-bf52-53832fbb757f",
+          "parentId": "665ec630-ac63-4d8d-bfc5-144496db3d79",
+          "hasContent": false,
+          "createdAt": "2025-08-20T19:39:10.122+00:00"
+        },
+        {
+          "id": "fecd51a2-27f0-49b4-b371-eadaf4d61fc6",
+          "parentId": "8e691e5f-4f07-4d29-abfe-78474757c66a",
+          "hasContent": false,
+          "createdAt": "2025-08-20T19:39:10.126+00:00"
+        }
+      ]
+    },
+    {
+      "name": "Numbers and Counting",
+      "count": 2,
+      "nodes": [
+        {
+          "id": "f7d70e17-41fe-45fc-ba51-9fd607ee64d0",
+          "parentId": "665ec630-ac63-4d8d-bfc5-144496db3d79",
+          "hasContent": false,
+          "createdAt": "2025-08-20T19:39:10.122+00:00"
+        },
+        {
+          "id": "6fc1e55c-ca68-4a14-86b3-b62b37658f04",
+          "parentId": "8e691e5f-4f07-4d29-abfe-78474757c66a",
+          "hasContent": false,
+          "createdAt": "2025-08-20T19:39:10.126+00:00"
+        }
+      ]
+    },
+    {
+      "name": "Regular -IR Verbs",
+      "count": 2,
+      "nodes": [
+        {
+          "id": "598296fe-c053-49ca-8614-f51ddbafc030",
+          "parentId": "14b6f5cf-7c33-4c56-bab2-adae99136f3d",
+          "hasContent": false,
+          "createdAt": "2025-08-20T19:39:10.122+00:00"
+        },
+        {
+          "id": "8e17c408-058f-479f-bb73-eed6281596c0",
+          "parentId": "190ca369-ded3-438a-87d4-0b088d589ce9",
+          "hasContent": false,
+          "createdAt": "2025-08-20T19:39:10.124+00:00"
+        }
+      ]
+    },
+    {
+      "name": "Regular -ER Verbs",
+      "count": 2,
+      "nodes": [
+        {
+          "id": "427bd538-f75e-49b1-8121-445ec9507361",
+          "parentId": "14b6f5cf-7c33-4c56-bab2-adae99136f3d",
+          "hasContent": false,
+          "createdAt": "2025-08-20T19:39:10.122+00:00"
+        },
+        {
+          "id": "706a80bb-2c87-49a2-b043-095b808c3457",
+          "parentId": "190ca369-ded3-438a-87d4-0b088d589ce9",
+          "hasContent": false,
+          "createdAt": "2025-08-20T19:39:10.124+00:00"
+        }
+      ]
+    },
+    {
+      "name": "Stress and Accent Marks",
+      "count": 2,
+      "nodes": [
+        {
+          "id": "deb3d310-0879-41af-86f7-6fff2a414305",
+          "parentId": "b306ee79-51cf-49c1-98b9-36cdaa95cb28",
+          "hasContent": false,
+          "createdAt": "2025-08-20T19:39:10.122+00:00"
+        },
+        {
+          "id": "ac88b59d-2b1d-4622-9326-e71248e1f1c0",
+          "parentId": "b33b75e0-575a-4a95-9815-fe19c5e3a96b",
+          "hasContent": false,
+          "createdAt": "2025-08-20T19:39:10.126+00:00"
+        }
+      ]
+    },
+    {
+      "name": "Present Subjunctive Formation",
+      "count": 2,
+      "nodes": [
+        {
+          "id": "ab5952bd-6e3b-4e18-bc68-8ee275edd2b0",
+          "parentId": "68076f8b-b2bb-4961-a84d-67e46fffbe34",
+          "hasContent": false,
+          "createdAt": "2025-08-20T19:39:10.123+00:00"
+        },
+        {
+          "id": "c1a2f0e3-a571-4e27-98e4-35472f4c38db",
+          "parentId": "9a86162a-6a11-4b49-abea-24ac0fa24293",
+          "hasContent": false,
+          "createdAt": "2025-08-20T19:39:10.124+00:00"
+        }
+      ]
+    },
+    {
+      "name": "Pluperfect Subjunctive",
+      "count": 2,
+      "nodes": [
+        {
+          "id": "9ee920e0-9aeb-47f3-9b36-d0e42e3e64a4",
+          "parentId": "68076f8b-b2bb-4961-a84d-67e46fffbe34",
+          "hasContent": false,
+          "createdAt": "2025-08-20T19:39:10.123+00:00"
+        },
+        {
+          "id": "0dbc1f4c-29b9-4244-a3bb-c734cbf5a214",
+          "parentId": "9a86162a-6a11-4b49-abea-24ac0fa24293",
+          "hasContent": false,
+          "createdAt": "2025-08-20T19:39:10.124+00:00"
+        }
+      ]
+    },
+    {
+      "name": "Possessive Adjectives",
+      "count": 2,
+      "nodes": [
+        {
+          "id": "3e2f380f-1605-4b89-b365-b49cdeaf54df",
+          "parentId": "2f6ab460-e833-4ed3-99e6-b48bd86ef5c3",
+          "hasContent": false,
+          "createdAt": "2025-08-20T19:39:10.123+00:00"
+        },
+        {
+          "id": "ada0007a-127a-46c3-8351-24cfb8db0ee2",
+          "parentId": "a64c162f-ae91-4fa7-943e-9c9985ff3b6d",
+          "hasContent": false,
+          "createdAt": "2025-08-20T19:39:10.124+00:00"
+        }
+      ]
+    },
+    {
+      "name": "Demonstrative Adjectives",
+      "count": 2,
+      "nodes": [
+        {
+          "id": "516adff8-84cb-4908-9c64-9535bd6a1fe0",
+          "parentId": "2f6ab460-e833-4ed3-99e6-b48bd86ef5c3",
+          "hasContent": false,
+          "createdAt": "2025-08-20T19:39:10.123+00:00"
+        },
+        {
+          "id": "1bfbf52a-7052-426e-bdeb-9b15ddbf08ea",
+          "parentId": "a64c162f-ae91-4fa7-943e-9c9985ff3b6d",
+          "hasContent": false,
+          "createdAt": "2025-08-20T19:39:10.124+00:00"
+        }
+      ]
+    },
+    {
+      "name": "Adjective Agreement",
+      "count": 2,
+      "nodes": [
+        {
+          "id": "73963fdf-ea43-431c-8ad5-f9ed8de1568f",
+          "parentId": "2f6ab460-e833-4ed3-99e6-b48bd86ef5c3",
+          "hasContent": false,
+          "createdAt": "2025-08-20T19:39:10.123+00:00"
+        },
+        {
+          "id": "b71eed3e-4e26-4b68-af5d-094951071e9b",
+          "parentId": "a64c162f-ae91-4fa7-943e-9c9985ff3b6d",
+          "hasContent": false,
+          "createdAt": "2025-08-20T19:39:10.124+00:00"
+        }
+      ]
+    },
+    {
+      "name": "Simple Future Irregular",
+      "count": 2,
+      "nodes": [
+        {
+          "id": "c299125a-bc2a-4c5d-9fda-babfb28e3ad4",
+          "parentId": "21761750-5034-421c-83d3-a77b48db1a49",
+          "hasContent": false,
+          "createdAt": "2025-08-20T19:39:10.123+00:00"
+        },
+        {
+          "id": "11f0866c-82fa-4628-af2e-70b4aaf10ae5",
+          "parentId": "5e72a1b0-d745-4600-9a58-6d468c18626f",
+          "hasContent": false,
+          "createdAt": "2025-08-20T19:39:10.124+00:00"
+        }
+      ]
+    },
+    {
+      "name": "Future Perfect",
+      "count": 2,
+      "nodes": [
+        {
+          "id": "05a793c4-a9d7-4634-b03e-a87addc5da40",
+          "parentId": "21761750-5034-421c-83d3-a77b48db1a49",
+          "hasContent": false,
+          "createdAt": "2025-08-20T19:39:10.123+00:00"
+        },
+        {
+          "id": "5c69544c-b064-4c2e-b995-86715c216dd4",
+          "parentId": "5e72a1b0-d745-4600-9a58-6d468c18626f",
+          "hasContent": false,
+          "createdAt": "2025-08-20T19:39:10.124+00:00"
+        }
+      ]
+    },
+    {
+      "name": "Relative Pronouns",
+      "count": 2,
+      "nodes": [
+        {
+          "id": "fcf43718-4d0f-49a4-afe8-47751fc42ca3",
+          "parentId": "122bd8b6-1e58-4359-9525-79e82f28f8a6",
+          "hasContent": false,
+          "createdAt": "2025-08-20T19:39:10.123+00:00"
+        },
+        {
+          "id": "71d1d22d-c0f1-4e60-b49e-b084961187d7",
+          "parentId": "e9eedd52-ff70-4aae-8096-7d5f8602212d",
+          "hasContent": false,
+          "createdAt": "2025-08-20T19:39:10.126+00:00"
+        }
+      ]
+    },
+    {
+      "name": "Reflexive Pronouns",
+      "count": 2,
+      "nodes": [
+        {
+          "id": "68307e87-a180-4897-bdb6-e11168779eb6",
+          "parentId": "122bd8b6-1e58-4359-9525-79e82f28f8a6",
+          "hasContent": false,
+          "createdAt": "2025-08-20T19:39:10.123+00:00"
+        },
+        {
+          "id": "83d56600-904b-4773-92c4-c28075995000",
+          "parentId": "e9eedd52-ff70-4aae-8096-7d5f8602212d",
+          "hasContent": false,
+          "createdAt": "2025-08-20T19:39:10.125+00:00"
+        }
+      ]
+    },
+    {
+      "name": "Numbers and Mathematics",
+      "count": 2,
+      "nodes": [
+        {
+          "id": "60c320e3-1af7-4ca3-9254-bca9f75c432f",
+          "parentId": "02615dde-1a3f-4ef2-8839-22b9e2b46a6d",
+          "hasContent": false,
+          "createdAt": "2025-08-20T19:39:10.123+00:00"
+        },
+        {
+          "id": "cd98b1bf-f720-4a24-ad79-93314d537a2d",
+          "parentId": "23f1cdb3-4c66-4a77-b5bc-681a5ff60c64",
+          "hasContent": false,
+          "createdAt": "2025-08-20T19:39:10.125+00:00"
+        }
+      ]
+    },
+    {
+      "name": "Food and Cuisine",
+      "count": 2,
+      "nodes": [
+        {
+          "id": "87885172-9979-43c2-81b2-c1288707ac1e",
+          "parentId": "02615dde-1a3f-4ef2-8839-22b9e2b46a6d",
+          "hasContent": false,
+          "createdAt": "2025-08-20T19:39:10.123+00:00"
+        },
+        {
+          "id": "5b7fbcbc-c121-47ef-b302-f35e474593aa",
+          "parentId": "8e691e5f-4f07-4d29-abfe-78474757c66a",
+          "hasContent": false,
+          "createdAt": "2025-08-20T19:39:10.126+00:00"
+        }
+      ]
+    },
+    {
+      "name": "Emotions and Personality",
+      "count": 2,
+      "nodes": [
+        {
+          "id": "87060f4a-482a-4b4d-b08d-eabfb4aed9be",
+          "parentId": "02615dde-1a3f-4ef2-8839-22b9e2b46a6d",
+          "hasContent": false,
+          "createdAt": "2025-08-20T19:39:10.123+00:00"
+        },
+        {
+          "id": "4504a667-eba6-4397-92ec-94e7fc083723",
+          "parentId": "23f1cdb3-4c66-4a77-b5bc-681a5ff60c64",
+          "hasContent": false,
+          "createdAt": "2025-08-20T19:39:10.125+00:00"
+        }
+      ]
+    },
+    {
+      "name": "Clothing and Fashion",
+      "count": 2,
+      "nodes": [
+        {
+          "id": "4e0c4d2c-20fd-4f62-bec5-bb386394b7ca",
+          "parentId": "02615dde-1a3f-4ef2-8839-22b9e2b46a6d",
+          "hasContent": false,
+          "createdAt": "2025-08-20T19:39:10.123+00:00"
+        },
+        {
+          "id": "ab1c20a3-7e23-4114-b43a-3256728154b8",
+          "parentId": "8e691e5f-4f07-4d29-abfe-78474757c66a",
+          "hasContent": false,
+          "createdAt": "2025-08-20T19:39:10.126+00:00"
+        }
+      ]
+    },
+    {
+      "name": "Technology and Modern Life",
+      "count": 2,
+      "nodes": [
+        {
+          "id": "e82fc308-4e4a-4938-aa68-b851f2de2459",
+          "parentId": "02615dde-1a3f-4ef2-8839-22b9e2b46a6d",
+          "hasContent": false,
+          "createdAt": "2025-08-20T19:39:10.123+00:00"
+        },
+        {
+          "id": "0541fc34-4b40-47c4-9f1e-9830cb750ba7",
+          "parentId": "8e691e5f-4f07-4d29-abfe-78474757c66a",
+          "hasContent": false,
+          "createdAt": "2025-08-20T19:39:10.126+00:00"
+        }
+      ]
+    },
+    {
+      "name": "Verbs with Prepositions",
+      "count": 2,
+      "nodes": [
+        {
+          "id": "97ab1cc9-a235-495c-b421-c71593c2b112",
+          "parentId": "f0d6f795-352f-4fc0-8148-1ae8391ccdbe",
+          "hasContent": false,
+          "createdAt": "2025-08-20T19:39:10.123+00:00"
+        },
+        {
+          "id": "5043563c-ea3a-4152-b639-413308d31c49",
+          "parentId": "ef1205a3-810d-4fd5-8462-afe6f8841a8c",
+          "hasContent": false,
+          "createdAt": "2025-08-20T19:39:10.124+00:00"
+        }
+      ]
+    },
+    {
+      "name": "Superlative Forms",
+      "count": 2,
+      "nodes": [
+        {
+          "id": "a5157cf6-64a4-4036-a7c3-d66c42aab014",
+          "parentId": "a64c162f-ae91-4fa7-943e-9c9985ff3b6d",
+          "hasContent": false,
+          "createdAt": "2025-08-20T19:39:10.124+00:00"
+        },
+        {
+          "id": "7a484dfd-2fb1-4f39-b7ea-f748a2358d72",
+          "parentId": "2feb4b42-e5aa-400f-9543-d24dd2f630e9",
+          "hasContent": false,
+          "createdAt": "2025-08-20T19:39:10.126+00:00"
+        }
+      ]
+    },
+    {
+      "name": "Interrogative Pronouns",
+      "count": 2,
+      "nodes": [
+        {
+          "id": "87668675-b857-4502-b939-9bd8414a3e03",
+          "parentId": "a636c129-4916-4be3-a93d-5eae2f000030",
+          "hasContent": false,
+          "createdAt": "2025-08-20T19:39:10.124+00:00"
+        },
+        {
+          "id": "c612af92-584b-45a2-bf4d-770c686c8a97",
+          "parentId": "e9eedd52-ff70-4aae-8096-7d5f8602212d",
+          "hasContent": false,
+          "createdAt": "2025-08-20T19:39:10.126+00:00"
+        }
+      ]
+    },
+    {
+      "name": "Adverb Formation",
+      "count": 2,
+      "nodes": [
+        {
+          "id": "f61ab8bc-2203-4da7-9f65-fa1dc5785985",
+          "parentId": "a64c162f-ae91-4fa7-943e-9c9985ff3b6d",
+          "hasContent": false,
+          "createdAt": "2025-08-20T19:39:10.124+00:00"
+        },
+        {
+          "id": "7f2ebcd2-67f1-4deb-ab88-1b31fa46c899",
+          "parentId": "2feb4b42-e5aa-400f-9543-d24dd2f630e9",
+          "hasContent": false,
+          "createdAt": "2025-08-20T19:39:10.126+00:00"
+        }
+      ]
+    },
+    {
+      "name": "Adverb Placement",
+      "count": 2,
+      "nodes": [
+        {
+          "id": "6c06cc5a-9cff-488f-8af1-f0f0b1e09916",
+          "parentId": "a64c162f-ae91-4fa7-943e-9c9985ff3b6d",
+          "hasContent": false,
+          "createdAt": "2025-08-20T19:39:10.124+00:00"
+        },
+        {
+          "id": "ffcdb957-b53f-4fc6-ac60-c93b188d42a9",
+          "parentId": "2feb4b42-e5aa-400f-9543-d24dd2f630e9",
+          "hasContent": false,
+          "createdAt": "2025-08-20T19:39:10.126+00:00"
+        }
+      ]
+    },
+    {
+      "name": "Comparative Forms",
+      "count": 2,
+      "nodes": [
+        {
+          "id": "223d0797-92e1-47e0-bb3a-6b449c4a01b8",
+          "parentId": "a64c162f-ae91-4fa7-943e-9c9985ff3b6d",
+          "hasContent": false,
+          "createdAt": "2025-08-20T19:39:10.124+00:00"
+        },
+        {
+          "id": "05f15552-64e5-4845-b45c-37795cce7477",
+          "parentId": "2feb4b42-e5aa-400f-9543-d24dd2f630e9",
+          "hasContent": false,
+          "createdAt": "2025-08-20T19:39:10.126+00:00"
+        }
+      ]
+    },
+    {
+      "name": "Past Participle Agreement",
+      "count": 2,
+      "nodes": [
+        {
+          "id": "3243fbeb-d64d-48d6-9bf1-99a7060fc10f",
+          "parentId": "5312768b-c223-468e-ba01-a0c92699b5db",
+          "hasContent": false,
+          "createdAt": "2025-08-20T19:39:10.124+00:00"
+        },
+        {
+          "id": "64a2df9a-13c6-4c36-ba32-49cff23515ee",
+          "parentId": "ff19d681-056d-45e8-9387-d232ee4d6a30",
+          "hasContent": false,
+          "createdAt": "2025-08-20T19:39:10.126+00:00"
+        }
+      ]
+    },
+    {
+      "name": "Shopping and Services",
+      "count": 2,
+      "nodes": [
+        {
+          "id": "c18c7402-bb82-4c2a-b36e-0913694f6383",
+          "parentId": "23f1cdb3-4c66-4a77-b5bc-681a5ff60c64",
+          "hasContent": false,
+          "createdAt": "2025-08-20T19:39:10.125+00:00"
+        },
+        {
+          "id": "8195c52c-b203-4a17-97e1-0279e5ad2004",
+          "parentId": "8e691e5f-4f07-4d29-abfe-78474757c66a",
+          "hasContent": false,
+          "createdAt": "2025-08-20T19:39:10.126+00:00"
+        }
+      ]
+    },
+    {
+      "name": "Decision Making",
+      "count": 2,
+      "nodes": [
+        {
+          "id": "99a44ef4-af87-4f37-82d2-7848f839b6f9",
+          "parentId": "2846ccd7-850e-48dd-8130-e2dc762f6a70",
+          "hasContent": false,
+          "createdAt": "2025-08-20T19:39:10.127+00:00"
+        },
+        {
+          "id": "cfd7d424-9d11-4490-a773-8cdce4160c3f",
+          "parentId": "eae2f1df-3e5a-424f-a1df-e03d2e8e6e59",
+          "hasContent": false,
+          "createdAt": "2025-08-20T20:17:50.637+00:00"
+        }
+      ]
+    },
+    {
+      "name": "Constitutional Law",
+      "count": 2,
+      "nodes": [
+        {
+          "id": "f4b48c34-bd01-4fbf-85db-e00a23a0ff41",
+          "parentId": "b4e6b22e-4822-48a8-a48a-f14d62f9ec72",
+          "hasContent": false,
+          "createdAt": "2025-08-20T19:39:10.127+00:00"
+        },
+        {
+          "id": "5cdfcf6b-2c86-442c-9a1f-9bc561f19f7d",
+          "parentId": "f3d4e9e0-a342-46af-9a75-4d3590b88867",
+          "hasContent": false,
+          "createdAt": "2025-08-20T19:39:10.127+00:00"
+        }
+      ]
+    },
+    {
+      "name": "Game Theory",
+      "count": 2,
+      "nodes": [
+        {
+          "id": "1aadc7a3-df0c-4db2-8d6f-bb96bd295541",
+          "parentId": "46c538b5-ad5b-4af7-860c-1deae34fb901",
+          "hasContent": false,
+          "createdAt": "2025-08-20T19:39:10.127+00:00"
+        },
+        {
+          "id": "7eb91c6a-d55f-4e51-958f-1f82c68bb555",
+          "parentId": "68d97f6b-7f65-4b92-a045-6c30ef3be488",
+          "hasContent": false,
+          "createdAt": "2025-08-20T19:39:10.131+00:00"
+        }
+      ]
+    },
+    {
+      "name": "Control Structures",
+      "count": 2,
+      "nodes": [
+        {
+          "id": "e77f8fb3-cdb7-4f1a-b676-c37447762913",
+          "parentId": "36b3e603-5688-480b-b673-204d9b55915c",
+          "hasContent": false,
+          "createdAt": "2025-08-20T19:39:10.131+00:00"
+        },
+        {
+          "id": "60509bc6-d98a-43c0-949d-07e7e286f06e",
+          "parentId": "51c89437-9990-4081-b8bd-eabd5f7e0e84",
+          "hasContent": false,
+          "createdAt": "2025-08-20T19:39:10.133+00:00"
+        }
+      ]
+    },
+    {
+      "name": "Variables and Data Types",
+      "count": 2,
+      "nodes": [
+        {
+          "id": "3b09332f-d620-48b2-8979-d197449ff837",
+          "parentId": "36b3e603-5688-480b-b673-204d9b55915c",
+          "hasContent": false,
+          "createdAt": "2025-08-20T19:39:10.131+00:00"
+        },
+        {
+          "id": "ae82efdd-d561-401b-814c-a8c6b4d963de",
+          "parentId": "51c89437-9990-4081-b8bd-eabd5f7e0e84",
+          "hasContent": false,
+          "createdAt": "2025-08-20T19:39:10.133+00:00"
+        }
+      ]
+    },
+    {
+      "name": "Programming Fundamentals",
+      "count": 2,
+      "nodes": [
+        {
+          "id": "36b3e603-5688-480b-b673-204d9b55915c",
+          "parentId": "92a84e49-7113-4505-8b3f-d17bfb6a67c7",
+          "hasContent": false,
+          "createdAt": "2025-08-20T19:39:10.131+00:00"
+        },
+        {
+          "id": "6f0d5374-5a6a-4721-9770-87c18e75cd5c",
+          "parentId": "51c89437-9990-4081-b8bd-eabd5f7e0e84",
+          "hasContent": false,
+          "createdAt": "2025-08-20T19:39:10.133+00:00"
+        }
+      ]
+    },
+    {
+      "name": "SWOT Analysis",
+      "count": 2,
+      "nodes": [
+        {
+          "id": "2390aacc-68e9-4521-9529-cd4cf759bb0f",
+          "parentId": "755e8e78-24e6-4818-8677-d521af9cfcfa",
+          "hasContent": false,
+          "createdAt": "2025-08-20T19:39:10.132+00:00"
+        },
+        {
+          "id": "18caa8b6-f415-4b20-bb17-f6a98fd4096d",
+          "parentId": "7fcfe747-f548-4396-b1c0-9a0a16586262",
+          "hasContent": false,
+          "createdAt": "2025-08-20T20:17:59.948+00:00"
+        }
+      ]
+    },
+    {
+      "name": "Market Analysis",
+      "count": 2,
+      "nodes": [
+        {
+          "id": "4e4baa64-166c-4310-a4d1-fc44ce81743c",
+          "parentId": "755e8e78-24e6-4818-8677-d521af9cfcfa",
+          "hasContent": false,
+          "createdAt": "2025-08-20T19:39:10.132+00:00"
+        },
+        {
+          "id": "68eb5506-553d-485a-bad5-5b6961e5e9ed",
+          "parentId": "7fcfe747-f548-4396-b1c0-9a0a16586262",
+          "hasContent": false,
+          "createdAt": "2025-08-20T20:17:59.786+00:00"
+        }
+      ]
+    },
+    {
+      "name": "Startup Fundamentals",
+      "count": 2,
+      "nodes": [
+        {
+          "id": "08432d30-b8b8-4a0e-bd15-de21c9e16fbf",
+          "parentId": "4c3404de-0caf-45ae-92cb-adabf0b7fff1",
+          "hasContent": false,
+          "createdAt": "2025-08-20T19:39:10.132+00:00"
+        },
+        {
+          "id": "f6e4cbc9-334f-45a7-8fa2-cb6c887169a6",
+          "parentId": "1aa095d7-e3f1-4001-b835-c2230842ca9a",
+          "hasContent": false,
+          "createdAt": "2025-08-20T20:18:01.336+00:00"
+        }
+      ]
+    },
+    {
+      "name": "Sports Nutrition",
+      "count": 2,
+      "nodes": [
+        {
+          "id": "3abbcde1-aea0-4450-aed0-237b0b115b9c",
+          "parentId": "b1a38297-0052-4305-8167-7c0d4b72cf92",
+          "hasContent": false,
+          "createdAt": "2025-08-20T19:39:10.132+00:00"
+        },
+        {
+          "id": "30bec511-7e9d-47c8-b925-2f753b5f83c7",
+          "parentId": "1b406aa6-6cb0-439e-b975-5bf63c3dbf52",
+          "hasContent": false,
+          "createdAt": "2025-08-20T19:39:10.133+00:00"
+        }
+      ]
+    },
+    {
+      "name": "Deep Learning",
+      "count": 2,
+      "nodes": [
+        {
+          "id": "b6e8d26c-c5c8-443c-a9bb-859f66174175",
+          "parentId": "4da94c3b-111b-4714-8feb-28f98ce50a2e",
+          "hasContent": false,
+          "createdAt": "2025-08-20T19:39:10.132+00:00"
+        },
+        {
+          "id": "d222d76e-3771-400b-8212-c218c97b2ce8",
+          "parentId": "2c45a75b-87d6-457c-8ab4-35eaafc1d74c",
+          "hasContent": false,
+          "createdAt": "2025-08-20T19:39:10.133+00:00"
+        }
+      ]
+    },
+    {
+      "name": "Operations Management",
+      "count": 2,
+      "nodes": [
+        {
+          "id": "5cf3ebb3-d379-40bd-9b9d-c31c89239954",
+          "parentId": "bc1c981e-3b15-4d2c-af69-3f01acdb7f73",
+          "hasContent": false,
+          "createdAt": "2025-08-20T19:39:10.132+00:00"
+        },
+        {
+          "id": "c1124f8c-f56e-4a15-89cd-544f88e0a460",
+          "parentId": "767c75c3-de75-42a0-bc86-f52c774f8767",
+          "hasContent": false,
+          "createdAt": "2025-08-20T20:17:58.88+00:00"
+        }
+      ]
+    },
+    {
+      "name": "Scaling Strategies",
+      "count": 2,
+      "nodes": [
+        {
+          "id": "359e3636-9d6a-4639-abe9-0a330177b5bf",
+          "parentId": "4c3404de-0caf-45ae-92cb-adabf0b7fff1",
+          "hasContent": false,
+          "createdAt": "2025-08-20T19:39:10.132+00:00"
+        },
+        {
+          "id": "44765ce9-75ac-44b5-b258-d6da2709ebcf",
+          "parentId": "1aa095d7-e3f1-4001-b835-c2230842ca9a",
+          "hasContent": false,
+          "createdAt": "2025-08-20T20:18:01.746+00:00"
+        }
+      ]
+    },
+    {
+      "name": "Product Development",
+      "count": 2,
+      "nodes": [
+        {
+          "id": "b5adfb9b-89de-412a-8ac0-8cf466f4613c",
+          "parentId": "4c3404de-0caf-45ae-92cb-adabf0b7fff1",
+          "hasContent": false,
+          "createdAt": "2025-08-20T19:39:10.132+00:00"
+        },
+        {
+          "id": "f50a9f6a-5106-4cc1-8861-e1e627410851",
+          "parentId": "1aa095d7-e3f1-4001-b835-c2230842ca9a",
+          "hasContent": false,
+          "createdAt": "2025-08-20T20:18:01.577+00:00"
+        }
+      ]
+    },
+    {
+      "name": "Data Structures",
+      "count": 2,
+      "nodes": [
+        {
+          "id": "6e4adfdf-7c48-4be6-9df3-10d26f125363",
+          "parentId": "92a84e49-7113-4505-8b3f-d17bfb6a67c7",
+          "hasContent": false,
+          "createdAt": "2025-08-20T19:39:10.132+00:00"
+        },
+        {
+          "id": "3ab751d2-bbca-428c-8204-54f839d32302",
+          "parentId": "51c89437-9990-4081-b8bd-eabd5f7e0e84",
+          "hasContent": false,
+          "createdAt": "2025-08-20T19:39:10.133+00:00"
+        }
+      ]
+    },
+    {
+      "name": "Natural Language Processing",
+      "count": 2,
+      "nodes": [
+        {
+          "id": "2468573c-a308-4fb2-bccf-bd18f6dd2bfe",
+          "parentId": "4da94c3b-111b-4714-8feb-28f98ce50a2e",
+          "hasContent": false,
+          "createdAt": "2025-08-20T19:39:10.132+00:00"
+        },
+        {
+          "id": "981b19a3-f211-4931-8cb0-23c1b5dfa8fc",
+          "parentId": "2c45a75b-87d6-457c-8ab4-35eaafc1d74c",
+          "hasContent": false,
+          "createdAt": "2025-08-20T19:39:10.133+00:00"
+        }
+      ]
+    },
+    {
+      "name": "Supervised Learning",
+      "count": 2,
+      "nodes": [
+        {
+          "id": "98d69080-4e77-44ac-a54f-ad9512de7d99",
+          "parentId": "4da94c3b-111b-4714-8feb-28f98ce50a2e",
+          "hasContent": false,
+          "createdAt": "2025-08-20T19:39:10.132+00:00"
+        },
+        {
+          "id": "89432e5d-c6ef-471a-8f83-feb2147c4cfd",
+          "parentId": "2c45a75b-87d6-457c-8ab4-35eaafc1d74c",
+          "hasContent": false,
+          "createdAt": "2025-08-20T19:39:10.133+00:00"
+        }
+      ]
+    },
+    {
+      "name": "Entrepreneurship",
+      "count": 2,
+      "nodes": [
+        {
+          "id": "4c3404de-0caf-45ae-92cb-adabf0b7fff1",
+          "parentId": "bc1c981e-3b15-4d2c-af69-3f01acdb7f73",
+          "hasContent": false,
+          "createdAt": "2025-08-20T19:39:10.132+00:00"
+        },
+        {
+          "id": "1aa095d7-e3f1-4001-b835-c2230842ca9a",
+          "parentId": "c1f031cf-6556-43db-a8dc-89f6756d3703",
+          "hasContent": false,
+          "createdAt": "2025-08-20T20:18:01.169+00:00"
+        }
+      ]
+    },
+    {
+      "name": "Unsupervised Learning",
+      "count": 2,
+      "nodes": [
+        {
+          "id": "7690cf2d-84e7-4342-a9b2-0739c9984033",
+          "parentId": "4da94c3b-111b-4714-8feb-28f98ce50a2e",
+          "hasContent": false,
+          "createdAt": "2025-08-20T19:39:10.132+00:00"
+        },
+        {
+          "id": "79e538ea-cecc-47c6-b719-87eac1c8a6a5",
+          "parentId": "2c45a75b-87d6-457c-8ab4-35eaafc1d74c",
+          "hasContent": false,
+          "createdAt": "2025-08-20T19:39:10.133+00:00"
+        }
+      ]
+    },
+    {
+      "name": "Web Development",
+      "count": 2,
+      "nodes": [
+        {
+          "id": "d1d8f2ea-4777-4022-9aea-0ebd66e0b1eb",
+          "parentId": "92a84e49-7113-4505-8b3f-d17bfb6a67c7",
+          "hasContent": false,
+          "createdAt": "2025-08-20T19:39:10.132+00:00"
+        },
+        {
+          "id": "98f5c52b-fdbb-4432-8331-3556a7be8ade",
+          "parentId": "4020492a-5bd6-47da-95b9-96400dcaa1e2",
+          "hasContent": false,
+          "createdAt": "2025-08-20T19:39:10.133+00:00"
+        }
+      ]
+    },
+    {
+      "name": "Object-Oriented Programming",
+      "count": 2,
+      "nodes": [
+        {
+          "id": "6a4c1778-c9ac-4f1d-b290-d1570bf2cae5",
+          "parentId": "92a84e49-7113-4505-8b3f-d17bfb6a67c7",
+          "hasContent": false,
+          "createdAt": "2025-08-20T19:39:10.132+00:00"
+        },
+        {
+          "id": "120b4eb1-ca27-4365-bc6e-ccbf25008862",
+          "parentId": "51c89437-9990-4081-b8bd-eabd5f7e0e84",
+          "hasContent": false,
+          "createdAt": "2025-08-20T19:39:10.133+00:00"
+        }
+      ]
+    },
+    {
+      "name": "Six Sigma",
+      "count": 2,
+      "nodes": [
+        {
+          "id": "cc41ac7e-1338-45d2-8c0a-21e63e1a1d57",
+          "parentId": "5cf3ebb3-d379-40bd-9b9d-c31c89239954",
+          "hasContent": false,
+          "createdAt": "2025-08-20T19:39:10.132+00:00"
+        },
+        {
+          "id": "c42e204f-b170-417a-acc0-b22e76b52146",
+          "parentId": "e3470400-62ac-4dae-9ff3-005dd597140a",
+          "hasContent": false,
+          "createdAt": "2025-08-20T20:17:58.623+00:00"
+        }
+      ]
+    },
+    {
+      "name": "Supply Chain Management",
+      "count": 2,
+      "nodes": [
+        {
+          "id": "9276041c-c7b1-4f91-b162-c9ffc6710f1e",
+          "parentId": "5cf3ebb3-d379-40bd-9b9d-c31c89239954",
+          "hasContent": false,
+          "createdAt": "2025-08-20T19:39:10.132+00:00"
+        },
+        {
+          "id": "c4d3dd45-c64a-4847-bd83-469a0ae1b650",
+          "parentId": "c1124f8c-f56e-4a15-89cd-544f88e0a460",
+          "hasContent": false,
+          "createdAt": "2025-08-20T20:17:58.945+00:00"
+        }
+      ]
+    },
+    {
+      "name": "Mental Health Awareness",
+      "count": 2,
+      "nodes": [
+        {
+          "id": "4a4381fa-dbb4-4515-bbfe-7a585caa2d58",
+          "parentId": "3630f00f-d8be-4b4f-a527-b9c1608aaf78",
+          "hasContent": false,
+          "createdAt": "2025-08-20T19:39:10.132+00:00"
+        },
+        {
+          "id": "1cc84db2-cebf-4b45-8280-b9febcaf0705",
+          "parentId": "bf8a514b-8e99-4e69-9b88-0ee454a30a3f",
+          "hasContent": false,
+          "createdAt": "2025-08-20T19:39:10.133+00:00"
+        }
+      ]
+    },
+    {
+      "name": "Algorithms",
+      "count": 2,
+      "nodes": [
+        {
+          "id": "787a05a5-3cd8-443e-ad8b-b7afa1491521",
+          "parentId": "92a84e49-7113-4505-8b3f-d17bfb6a67c7",
+          "hasContent": false,
+          "createdAt": "2025-08-20T19:39:10.132+00:00"
+        },
+        {
+          "id": "8cb5041a-0a70-4480-9384-e175f256d571",
+          "parentId": "51c89437-9990-4081-b8bd-eabd5f7e0e84",
+          "hasContent": false,
+          "createdAt": "2025-08-20T19:39:10.133+00:00"
+        }
+      ]
+    },
+    {
+      "name": "Digital Marketing",
+      "count": 2,
+      "nodes": [
+        {
+          "id": "605f378c-e043-4570-b54b-88ae9c8780c6",
+          "parentId": "41ae3d64-ee02-495f-b281-064fee431fb0",
+          "hasContent": false,
+          "createdAt": "2025-08-20T19:39:10.132+00:00"
+        },
+        {
+          "id": "d7a58270-cead-4d23-a8a1-bdfe0b85437f",
+          "parentId": "5d0a4f90-61d5-439f-99f7-a355c8bb35ef",
+          "hasContent": false,
+          "createdAt": "2025-08-20T20:18:06.274+00:00"
+        }
+      ]
+    },
+    {
+      "name": "Risk Management",
+      "count": 2,
+      "nodes": [
+        {
+          "id": "2266f1ef-e9c1-4937-b480-c16c0ee26ec8",
+          "parentId": "4a2d98c3-2881-4114-965c-86f8507411f7",
+          "hasContent": false,
+          "createdAt": "2025-08-20T19:39:10.132+00:00"
+        },
+        {
+          "id": "bf23562a-fb5b-4d37-83d5-2e72eb53acfe",
+          "parentId": "e5bdeb3e-5082-4bde-aa40-6972fc75ea50",
+          "hasContent": false,
+          "createdAt": "2025-08-20T20:17:51.838+00:00"
+        }
+      ]
+    },
+    {
+      "name": "Investment Analysis",
+      "count": 2,
+      "nodes": [
+        {
+          "id": "816153c1-6c2f-4c7f-901c-9bbd00047d2c",
+          "parentId": "4a2d98c3-2881-4114-965c-86f8507411f7",
+          "hasContent": false,
+          "createdAt": "2025-08-20T19:39:10.132+00:00"
+        },
+        {
+          "id": "586c4101-2040-4d6f-aaa0-9fda289c7fb3",
+          "parentId": "f87b92c4-7726-490e-9fdf-80873c273ca6",
+          "hasContent": false,
+          "createdAt": "2025-08-20T20:18:07.907+00:00"
+        }
+      ]
+    },
+    {
+      "name": "Financial Statements",
+      "count": 2,
+      "nodes": [
+        {
+          "id": "64677656-8733-4abe-bfa8-0e95a5c4d577",
+          "parentId": "4a2d98c3-2881-4114-965c-86f8507411f7",
+          "hasContent": false,
+          "createdAt": "2025-08-20T19:39:10.132+00:00"
+        },
+        {
+          "id": "19135dd3-e45c-49bb-9db2-281fa5de7aee",
+          "parentId": "f87b92c4-7726-490e-9fdf-80873c273ca6",
+          "hasContent": false,
+          "createdAt": "2025-08-20T20:18:07.354+00:00"
+        }
+      ]
+    },
+    {
+      "name": "Corporate Finance",
+      "count": 2,
+      "nodes": [
+        {
+          "id": "6ba7165e-f9cb-4509-b9c7-1fb592bd06be",
+          "parentId": "4a2d98c3-2881-4114-965c-86f8507411f7",
+          "hasContent": false,
+          "createdAt": "2025-08-20T19:39:10.132+00:00"
+        },
+        {
+          "id": "6aa0fa08-dd92-4077-b02f-122e72fe8472",
+          "parentId": "c5c7151c-440f-4565-9d68-7e6fdea7398f",
+          "hasContent": false,
+          "createdAt": "2025-08-20T20:18:08.289+00:00"
+        }
+      ]
+    },
+    {
+      "name": "Cash Flow Management",
+      "count": 2,
+      "nodes": [
+        {
+          "id": "561d716d-16d6-4721-ac41-88784d83809f",
+          "parentId": "4a2d98c3-2881-4114-965c-86f8507411f7",
+          "hasContent": false,
+          "createdAt": "2025-08-20T19:39:10.132+00:00"
+        },
+        {
+          "id": "2473ed85-585e-4b5d-9473-fc7762627a92",
+          "parentId": "f87b92c4-7726-490e-9fdf-80873c273ca6",
+          "hasContent": false,
+          "createdAt": "2025-08-20T20:18:07.826+00:00"
+        }
+      ]
+    },
+    {
+      "name": "RESTful APIs",
+      "count": 2,
+      "nodes": [
+        {
+          "id": "6be734b0-bf34-4049-b887-c9e733147c87",
+          "parentId": "d1d8f2ea-4777-4022-9aea-0ebd66e0b1eb",
+          "hasContent": false,
+          "createdAt": "2025-08-20T19:39:10.132+00:00"
+        },
+        {
+          "id": "fc1763ed-fd54-45b7-91eb-245757822834",
+          "parentId": "98f5c52b-fdbb-4432-8331-3556a7be8ade",
+          "hasContent": false,
+          "createdAt": "2025-08-20T19:39:10.133+00:00"
+        }
+      ]
+    },
+    {
+      "name": "CSS Styling",
+      "count": 2,
+      "nodes": [
+        {
+          "id": "310c4d78-41ef-4eb8-b01c-32a45b7247b5",
+          "parentId": "d1d8f2ea-4777-4022-9aea-0ebd66e0b1eb",
+          "hasContent": false,
+          "createdAt": "2025-08-20T19:39:10.132+00:00"
+        },
+        {
+          "id": "2e8719cc-c26a-4fba-9a96-b83612484628",
+          "parentId": "98f5c52b-fdbb-4432-8331-3556a7be8ade",
+          "hasContent": false,
+          "createdAt": "2025-08-20T19:39:10.133+00:00"
+        }
+      ]
+    },
+    {
+      "name": "Backend Development",
+      "count": 2,
+      "nodes": [
+        {
+          "id": "185444f9-2902-4205-8b1d-871d2138257f",
+          "parentId": "d1d8f2ea-4777-4022-9aea-0ebd66e0b1eb",
+          "hasContent": false,
+          "createdAt": "2025-08-20T19:39:10.132+00:00"
+        },
+        {
+          "id": "c95b5ee8-0794-45f9-b62c-99702a02d230",
+          "parentId": "98f5c52b-fdbb-4432-8331-3556a7be8ade",
+          "hasContent": false,
+          "createdAt": "2025-08-20T19:39:10.133+00:00"
+        }
+      ]
+    },
+    {
+      "name": "Time Management",
+      "count": 2,
+      "nodes": [
+        {
+          "id": "6eadfe8d-3a5e-48a7-b0a0-953aba0710d8",
+          "parentId": "c9ac9ed1-9fc2-4c14-8adc-2d3ab5910852",
+          "hasContent": false,
+          "createdAt": "2025-08-20T19:39:10.133+00:00"
+        },
+        {
+          "id": "5bdc74de-7aaa-4e1d-bfcb-4c99a621607f",
+          "parentId": "3f8c031b-07b2-4bae-a9c8-4f34c9cd639a",
+          "hasContent": false,
+          "createdAt": "2025-08-20T19:39:10.134+00:00"
+        }
+      ]
+    },
+    {
+      "name": "Tax Fundamentals",
+      "count": 2,
+      "nodes": [
+        {
+          "id": "8cb2b6dc-8ba3-420f-9fe5-361d5cd93af6",
+          "parentId": "c469eeda-9a0c-4610-b96c-538d31142154",
+          "hasContent": false,
+          "createdAt": "2025-08-20T19:39:10.133+00:00"
+        },
+        {
+          "id": "1a571bd1-7da0-4794-8575-902d32f1c109",
+          "parentId": "f87b92c4-7726-490e-9fdf-80873c273ca6",
+          "hasContent": false,
+          "createdAt": "2025-08-20T20:18:08.068+00:00"
+        }
+      ]
+    },
+    {
+      "name": "Digital Literacy",
+      "count": 2,
+      "nodes": [
+        {
+          "id": "46020c7f-d2a5-4d7e-b908-2780359182a3",
+          "parentId": "4020492a-5bd6-47da-95b9-96400dcaa1e2",
+          "hasContent": false,
+          "createdAt": "2025-08-20T19:39:10.133+00:00"
+        },
+        {
+          "id": "5bf732f8-e541-464b-b640-396ab112b2d6",
+          "parentId": "eeb33e66-3d91-45f7-aff1-843eac3081eb",
+          "hasContent": false,
+          "createdAt": "2025-08-20T20:18:02.002+00:00"
+        }
+      ]
+    },
+    {
+      "name": "Logical Reasoning",
+      "count": 2,
+      "nodes": [
+        {
+          "id": "beb187aa-715c-4372-bc2f-073e81ffa139",
+          "parentId": "3c4a7b47-f7aa-488b-92dd-a6dbd8814f04",
+          "hasContent": false,
+          "createdAt": "2025-08-20T19:39:10.133+00:00"
+        },
+        {
+          "id": "975e0bfc-1ff5-4e61-a034-f2b06469ab6f",
+          "parentId": "9b7ec0d9-3a72-4d2f-8dbd-149b36596781",
+          "hasContent": false,
+          "createdAt": "2025-08-20T19:39:10.134+00:00"
+        }
+      ]
+    },
+    {
+      "name": "Active Listening",
+      "count": 2,
+      "nodes": [
+        {
+          "id": "f61ae1b7-327c-4751-936a-c29b8d89be25",
+          "parentId": "b8070f64-a682-400e-b33d-7900ce5cc21e",
+          "hasContent": false,
+          "createdAt": "2025-08-20T19:39:10.133+00:00"
+        },
+        {
+          "id": "3f98c068-8aae-49bb-b113-bd6c1a7c2988",
+          "parentId": "9e13b9a6-b676-4e0f-8318-76a98ba474bb",
+          "hasContent": false,
+          "createdAt": "2025-08-20T20:17:56.469+00:00"
+        }
+      ]
+    },
+    {
+      "name": "Conflict Resolution",
+      "count": 2,
+      "nodes": [
+        {
+          "id": "7d83ba7a-406e-4f48-b6ac-9b36aa30388a",
+          "parentId": "b8070f64-a682-400e-b33d-7900ce5cc21e",
+          "hasContent": false,
+          "createdAt": "2025-08-20T19:39:10.133+00:00"
+        },
+        {
+          "id": "b53f59f2-be09-4c32-9a91-5e2f28b04866",
+          "parentId": "eae2f1df-3e5a-424f-a1df-e03d2e8e6e59",
+          "hasContent": false,
+          "createdAt": "2025-08-20T20:17:50.778+00:00"
+        }
+      ]
+    },
+    {
+      "name": "Emotional Intelligence",
+      "count": 2,
+      "nodes": [
+        {
+          "id": "79e7ffa3-36eb-447b-b0d3-209198378835",
+          "parentId": "b8070f64-a682-400e-b33d-7900ce5cc21e",
+          "hasContent": false,
+          "createdAt": "2025-08-20T19:39:10.133+00:00"
+        },
+        {
+          "id": "d4e530f4-1077-480f-acb0-e89ca8a5acc5",
+          "parentId": "eae2f1df-3e5a-424f-a1df-e03d2e8e6e59",
+          "hasContent": false,
+          "createdAt": "2025-08-20T20:17:50.549+00:00"
+        }
+      ]
+    },
+    {
+      "name": "Public Speaking",
+      "count": 2,
+      "nodes": [
+        {
+          "id": "e4c39305-bd6a-4a99-b63c-1dddf022d068",
+          "parentId": "b8070f64-a682-400e-b33d-7900ce5cc21e",
+          "hasContent": false,
+          "createdAt": "2025-08-20T19:39:10.133+00:00"
+        },
+        {
+          "id": "2a032764-e9b6-4c74-8bbd-e7e0e1ab9f3a",
+          "parentId": "656bf119-4c45-42aa-b288-c2e9eaf9cdfc",
+          "hasContent": false,
+          "createdAt": "2025-08-20T20:17:53.88+00:00"
+        }
+      ]
+    },
+    {
+      "name": "Written Communication",
+      "count": 2,
+      "nodes": [
+        {
+          "id": "1d5ab7fc-3d7d-40c5-8ed2-14b79465cf81",
+          "parentId": "b8070f64-a682-400e-b33d-7900ce5cc21e",
+          "hasContent": false,
+          "createdAt": "2025-08-20T19:39:10.133+00:00"
+        },
+        {
+          "id": "1b4fd601-5bc0-42a9-840f-e0d4824e08e0",
+          "parentId": "4349a1f8-a6a0-4632-bcbf-0ee633b3eb46",
+          "hasContent": false,
+          "createdAt": "2025-08-20T20:17:55.271+00:00"
+        }
+      ]
+    },
+    {
+      "name": "Data Visualization",
+      "count": 2,
+      "nodes": [
+        {
+          "id": "39a9389a-a377-4d37-a4aa-7330e984a542",
+          "parentId": "99e54553-b0c6-44d6-9576-a77a99f1237b",
+          "hasContent": false,
+          "createdAt": "2025-08-20T19:39:10.133+00:00"
+        },
+        {
+          "id": "75b3e75d-c6e2-4af0-82f6-a334a50c07dd",
+          "parentId": "fae803f9-174b-416a-9075-45e72254045d",
+          "hasContent": false,
+          "createdAt": "2025-08-20T20:18:02.869+00:00"
+        }
+      ]
+    },
+    {
+      "name": "Database Management",
+      "count": 2,
+      "nodes": [
+        {
+          "id": "099cc458-6665-4d2c-9057-5f3bf604f1af",
+          "parentId": "99e54553-b0c6-44d6-9576-a77a99f1237b",
+          "hasContent": false,
+          "createdAt": "2025-08-20T19:39:10.133+00:00"
+        },
+        {
+          "id": "2ab7d7cf-2827-4f7a-bad2-5e297a6fbaec",
+          "parentId": "fae803f9-174b-416a-9075-45e72254045d",
+          "hasContent": false,
+          "createdAt": "2025-08-20T20:18:03.011+00:00"
+        }
+      ]
+    },
+    {
+      "name": "Digital Illustration",
+      "count": 2,
+      "nodes": [
+        {
+          "id": "8f811ae0-c267-4bce-83a9-53d22329ddba",
+          "parentId": "2a4c53a0-7597-45c6-b5b0-a900f75b669f",
+          "hasContent": false,
+          "createdAt": "2025-08-20T19:39:10.134+00:00"
+        },
+        {
+          "id": "0495cb0e-bf50-4e9d-ae0e-a75d2fe3cd61",
+          "parentId": "bb981dea-1bf5-4f10-9acb-1f024e2f7074",
+          "hasContent": false,
+          "createdAt": "2025-08-20T20:11:59.749+00:00"
+        }
+      ]
+    },
+    {
+      "name": "Pattern Recognition",
+      "count": 2,
+      "nodes": [
+        {
+          "id": "c5955b68-5743-4fe2-af93-3e3e78208683",
+          "parentId": "9b7ec0d9-3a72-4d2f-8dbd-149b36596781",
+          "hasContent": false,
+          "createdAt": "2025-08-20T19:39:10.134+00:00"
+        },
+        {
+          "id": "ba5c2f27-7faf-4b51-b1c2-1906e40bcbad",
+          "parentId": "1e4bf78c-b3fe-41d3-af3c-7b8137682c2d",
+          "hasContent": false,
+          "createdAt": "2025-08-20T20:12:15.161+00:00"
+        }
+      ]
+    },
+    {
+      "name": "DevOps Practices",
+      "count": 2,
+      "nodes": [
+        {
+          "id": "c25a311e-f557-4eb7-9617-87148b62e1ab",
+          "parentId": "42184eab-e0f0-4731-b1e2-8e21cfd625c5",
+          "hasContent": false,
+          "createdAt": "2025-08-20T19:39:10.134+00:00"
+        },
+        {
+          "id": "c8b32ac4-614b-4f6a-90e7-d496a8522ed5",
+          "parentId": "e3470400-62ac-4dae-9ff3-005dd597140a",
+          "hasContent": false,
+          "createdAt": "2025-08-20T20:17:58.782+00:00"
+        }
+      ]
+    },
+    {
+      "name": "Motion Graphics",
+      "count": 2,
+      "nodes": [
+        {
+          "id": "84b5a4a0-68d3-4587-9333-1c01f5aeba83",
+          "parentId": "2a4c53a0-7597-45c6-b5b0-a900f75b669f",
+          "hasContent": false,
+          "createdAt": "2025-08-20T19:39:10.134+00:00"
+        },
+        {
+          "id": "69cb5ad4-fa23-48e7-8d9a-4fff89945a3c",
+          "parentId": "6e723e4d-8121-4bf3-b211-2e9bca7f98e8",
+          "hasContent": false,
+          "createdAt": "2025-08-20T20:12:11.416+00:00"
+        }
+      ]
+    },
+    {
+      "name": "Video Editing",
+      "count": 2,
+      "nodes": [
+        {
+          "id": "ec73d023-a19e-488e-b390-3785d738d74b",
+          "parentId": "2a4c53a0-7597-45c6-b5b0-a900f75b669f",
+          "hasContent": false,
+          "createdAt": "2025-08-20T19:39:10.134+00:00"
+        },
+        {
+          "id": "8db01301-ad9d-4f93-91e1-51ab6ad9b69f",
+          "parentId": "e9b9e6be-9bad-49a4-aa12-8eeb2dac5dd5",
+          "hasContent": false,
+          "createdAt": "2025-08-20T20:12:10.492+00:00"
+        }
+      ]
+    },
+    {
+      "name": "Technical Writing",
+      "count": 2,
+      "nodes": [
+        {
+          "id": "59a10695-be41-4a71-a08e-4b51bb36c62a",
+          "parentId": "2c903516-2e53-46fa-8e2d-65aa7048d4a6",
+          "hasContent": false,
+          "createdAt": "2025-08-20T20:12:05.704+00:00"
+        },
+        {
+          "id": "76507312-225a-4ff5-92f4-53ecd43b7983",
+          "parentId": "1b4fd601-5bc0-42a9-840f-e0d4824e08e0",
+          "hasContent": false,
+          "createdAt": "2025-08-20T20:17:56.274+00:00"
+        }
+      ]
+    },
+    {
+      "name": "Business Writing",
+      "count": 2,
+      "nodes": [
+        {
+          "id": "d6195513-ec52-4736-a7af-47eccaaa21ee",
+          "parentId": "2c903516-2e53-46fa-8e2d-65aa7048d4a6",
+          "hasContent": false,
+          "createdAt": "2025-08-20T20:12:06.428+00:00"
+        },
+        {
+          "id": "a0de5b79-517d-4a91-87ac-2ca5c7a8f873",
+          "parentId": "1b4fd601-5bc0-42a9-840f-e0d4824e08e0",
+          "hasContent": false,
+          "createdAt": "2025-08-20T20:17:55.463+00:00"
+        }
+      ]
+    },
+    {
+      "name": "Strategic Planning",
+      "count": 2,
+      "nodes": [
+        {
+          "id": "60003f6c-4bfd-494e-ac41-dca86da53dee",
+          "parentId": "309ab18a-f0c0-46b4-8b5f-777a0940df60",
+          "hasContent": false,
+          "createdAt": "2025-08-20T20:17:52.455+00:00"
+        },
+        {
+          "id": "7fcfe747-f548-4396-b1c0-9a0a16586262",
+          "parentId": "c1f031cf-6556-43db-a8dc-89f6756d3703",
+          "hasContent": false,
+          "createdAt": "2025-08-20T20:17:59.698+00:00"
+        }
+      ]
+    }
+  ],
+  "batchCreationEvents": [
+    {
+      "batch": "2025-08-20 15:39",
+      "nodeCount": 2046,
+      "sampleNames": [
+        "Humanities",
+        "Homer's Epics",
+        "Stoicism",
+        "Egyptian Art Styles",
+        "Olympic Games Origins",
+        "Classical Egyptian Literature",
+        "Invasion of the Hyksos",
+        "Reunification under Mentuhotep II",
+        "Hieroglyphic Writing System",
+        "Epicureanism"
+      ]
+    },
+    {
+      "batch": "2025-08-20 16:12",
+      "nodeCount": 159,
+      "sampleNames": [
+        "NFT and Crypto Art",
+        "Graphic Design",
+        "Typography",
+        "Logo Design",
+        "Brand Identity Design",
+        "Layout and Composition",
+        "Print Design",
+        "Packaging Design",
+        "Infographic Design",
+        "Design Software Mastery"
+      ]
+    },
+    {
+      "batch": "2025-08-20 16:18",
+      "nodeCount": 135,
+      "sampleNames": [
+        "Business Model Development",
+        "Strategic Implementation",
+        "Performance Metrics",
+        "Innovation Strategy",
+        "Digital Transformation",
+        "Business Analysis",
+        "Requirements Gathering",
+        "Process Mapping",
+        "Data Analysis",
+        "Financial Analysis"
+      ]
+    },
+    {
+      "batch": "2025-08-20 16:17",
+      "nodeCount": 89,
+      "sampleNames": [
+        "Leadership & Management",
+        "Leadership Fundamentals",
+        "Leadership Styles and Approaches",
+        "Emotional Intelligence",
+        "Decision Making",
+        "Conflict Resolution",
+        "Team Building",
+        "Delegation and Empowerment",
+        "Vision and Strategic Thinking",
+        "Influence and Persuasion"
+      ]
+    },
+    {
+      "batch": "2025-08-20 21:25",
+      "nodeCount": 20,
+      "sampleNames": [
+        "Civic Education & Government",
+        "Government Structure & Functions",
+        "Constitutional Law & Rights",
+        "Democratic Processes",
+        "Civic Duties & Responsibilities",
+        "Public Policy & Analysis",
+        "Community Engagement",
+        "Federal Government",
+        "State Government",
+        "Local Government"
+      ]
+    },
+    {
+      "batch": "2025-08-20 16:11",
+      "nodeCount": 18,
+      "sampleNames": [
+        "Visual Arts & Design",
+        "Fine Arts",
+        "Drawing Fundamentals",
+        "Painting Techniques",
+        "Sculpture Basics",
+        "Printmaking",
+        "Mixed Media Art",
+        "Art History and Analysis",
+        "Color Theory",
+        "Composition and Design Principles"
+      ]
+    },
+    {
+      "batch": "2025-08-20 21:49",
+      "nodeCount": 10,
+      "sampleNames": [
+        "ACT",
+        "SAT",
+        "Advanced Placement (AP)",
+        "GRE (Graduate Record Examination)",
+        "GMAT (Graduate Management)",
+        "LSAT (Law School)",
+        "MCAT (Medical School)",
+        "TOEFL (Test of English)",
+        "IELTS (English Language)",
+        "Other Language Tests"
+      ]
+    }
+  ]
+}

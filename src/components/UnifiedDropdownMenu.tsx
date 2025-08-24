@@ -1,10 +1,12 @@
 import React, { useState, useRef, useEffect } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { useAuth } from '../contexts/AuthContext'
+import { useAdmin } from '../hooks/useAdmin'
 import SearchBar from './SearchBar'
 import CategoryLink from './CategoryLink'
 import { supabase } from '../services/supabase'
 import { SkillTreeNode } from '../types/database.types'
+import { clearCategoryCache } from '../utils/categoryPaths'
 import {
   ChevronDownIcon,
   ChevronLeftIcon,
@@ -27,6 +29,7 @@ import {
 
 const UnifiedDropdownMenu: React.FC = () => {
   const { user, signOut } = useAuth()
+  const { isAdmin } = useAdmin()
   const navigate = useNavigate()
   const [dropdownOpen, setDropdownOpen] = useState(false)
   const [subjectCategories, setSubjectCategories] = useState<SkillTreeNode[]>([])
@@ -70,6 +73,8 @@ const UnifiedDropdownMenu: React.FC = () => {
 
   // Fetch subject categories on component mount
   useEffect(() => {
+    // Clear cache to ensure Money Counting and other items with content are included
+    clearCategoryCache()
     fetchSubjectCategories()
   }, [])
 
@@ -106,9 +111,6 @@ const UnifiedDropdownMenu: React.FC = () => {
   const userItems = [
     { to: '/settings', label: 'Settings', icon: Cog6ToothIcon },
   ]
-
-  // Check if user is admin (you may want to add proper admin check)
-  const isAdmin = user?.email === 'admin@skilltree.com' // Replace with actual admin check
 
   return (
     <div className="relative" ref={dropdownRef}>

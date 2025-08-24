@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react'
+import { useLocation } from 'react-router-dom'
 import { supabase } from '../services/supabase'
 import { spacedRepetitionService } from '../services/spacedRepetitionService'
 import { useAuth } from '../contexts/AuthContext'
@@ -71,6 +72,7 @@ function getSkillTreeNodeId(languageName: string, categoryName: string): string 
 
 const LanguageTrainerPage: React.FC = () => {
   const { user } = useAuth()
+  const location = useLocation()
   const [languages, setLanguages] = useState<Language[]>([])
   const [categories, setCategories] = useState<Category[]>([])
   const [questionBank, setQuestionBank] = useState<Question[]>([])
@@ -327,12 +329,58 @@ const LanguageTrainerPage: React.FC = () => {
     }
   }, [selectedLanguage, loadCategories, loadUserProgress, user])
 
+  // Handle navigation from study list page
+  useEffect(() => {
+    if (location.state) {
+      const state = location.state as any
+      if (state.studyListQuestions && state.studyListQuestions.length > 0) {
+        // Load questions from the study list navigation
+        const loadStudyListQuestions = async () => {
+          setLoading(true)
+          const questionIds = state.studyListQuestions.map((q: any) => q.id)
+          const startIndex = state.startIndex || 0
+          
+          const { data: questions, error } = await supabase
+            .from('language_questions')
+            .select('*')
+            .in('id', questionIds)
+          
+          if (error) {
+            console.error('Error fetching study list questions:', error)
+            setLoading(false)
+            return
+          }
+          
+          if (questions && questions.length > 0) {
+            // Sort questions to match the order from study list
+            const sortedQuestions = questionIds.map((id: string) => 
+              questions.find((q: Question) => q.id === id)
+            ).filter(Boolean) as Question[]
+            
+            setQuestionBank(sortedQuestions)
+            setCurrentIndex(startIndex)
+            setCurrentQuestion(sortedQuestions[startIndex])
+            setLoading(false)
+          }
+        }
+        
+        loadStudyListQuestions()
+        return
+      }
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [location.state])
+
   // Load questions when category changes
   useEffect(() => {
+    // Don't load if we came from study list navigation
+    if (location.state?.studyListQuestions) {
+      return
+    }
     if (selectedCategory) {
       loadQuestions(selectedCategory.id)
     }
-  }, [selectedCategory, loadQuestions])
+  }, [selectedCategory, loadQuestions, location.state])
 
   const handleAnswerSelect = (answerIndex: number) => {
     if (showResult) return
@@ -341,18 +389,24 @@ const LanguageTrainerPage: React.FC = () => {
     if (currentQuestion && selectedLanguage && selectedCategory) {
       saveSessionState(currentQuestion, currentIndex, answerIndex, showResult, isCorrect, selectedLanguage.id, selectedCategory.id)
     }
+    // Auto-submit the answer after a brief delay
+    setTimeout(() => {
+      handleSubmit(answerIndex)
+    }, 100)
   }
 
-  const handleSubmit = async () => {
-    if (!currentQuestion || selectedAnswer === null) return
+  const handleSubmit = async (answerIndex?: number) => {
+    if (!currentQuestion) return
+    const answer = answerIndex !== undefined ? answerIndex : selectedAnswer
+    if (answer === null) return
 
-    const correct = selectedAnswer === currentQuestion.correct_answer_index
+    const correct = answer === currentQuestion.correct_answer_index
     setIsCorrect(correct)
     setShowResult(true)
 
     // Save session state when result is shown
     if (selectedLanguage && selectedCategory) {
-      saveSessionState(currentQuestion, currentIndex, selectedAnswer, true, correct, selectedLanguage.id, selectedCategory.id)
+      saveSessionState(currentQuestion, currentIndex, answer, true, correct, selectedLanguage.id, selectedCategory.id)
     }
 
     // Auto-play audio for the correct answer when result is shown (if language voice available)
@@ -380,7 +434,7 @@ const LanguageTrainerPage: React.FC = () => {
         console.error('Error adding language question to flashcard review:', error)
       }
       
-      await recordAttempt(currentQuestion.id, selectedAnswer, correct)
+      await recordAttempt(currentQuestion.id, answer, correct)
     }
   }
 
@@ -659,22 +713,26 @@ const LanguageTrainerPage: React.FC = () => {
         </div>
         {/* Action Buttons */}
         {currentQuestion && (
-          <div className="absolute top-2 right-2 flex items-center gap-1 z-10">
-            <StudyListActions
-              itemType="language_question"
-              itemId={currentQuestion.id}
-              itemData={currentQuestion}
-              itemTitle={`${selectedLanguage?.name || 'Language'}: ${currentQuestion.question_text.substring(0, 50)}...`}
-              className="bg-white dark:bg-neutral-800 rounded-lg shadow-sm border border-neutral-200 dark:border-neutral-700 px-2 py-1"
-            />
-            <button
-              onClick={() => setShowFlagModal(true)}
-              className="p-1.5 text-neutral-400 hover:text-red-500 hover:bg-red-50 dark:hover:bg-red-900/20 rounded-lg transition-colors bg-white dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700"
-              title="Report an issue with this question"
-            >
-              <FlagIcon className="h-4 w-4" />
-            </button>
-          </div>
+          <>
+            <div className="absolute top-2 left-2 z-10">
+              <button
+                onClick={() => setShowFlagModal(true)}
+                className="p-1.5 text-neutral-400 hover:text-red-500 hover:bg-red-50 dark:hover:bg-red-900/20 rounded-lg transition-colors bg-white dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700"
+                title="Report an issue with this question"
+              >
+                <FlagIcon className="h-4 w-4" />
+              </button>
+            </div>
+            <div className="absolute top-2 right-2 z-10">
+              <StudyListActions
+                itemType="language_question"
+                itemId={currentQuestion.id}
+                itemData={currentQuestion}
+                itemTitle={`${selectedLanguage?.name || 'Language'}: ${currentQuestion.question_text.substring(0, 50)}...`}
+                className="bg-white dark:bg-neutral-800 rounded-lg shadow-sm border border-neutral-200 dark:border-neutral-700 px-2 py-1"
+              />
+            </div>
+          </>
         )}
         
         {/* Settings and Stats Row */}
@@ -841,14 +899,6 @@ const LanguageTrainerPage: React.FC = () => {
                 ))}
               </div>
             </div>
-
-            <button
-              onClick={handleSubmit}
-              disabled={selectedAnswer === null}
-              className="w-full py-2 bg-primary-700 text-white rounded-lg hover:bg-primary-800 active:bg-primary-900 disabled:bg-neutral-400 disabled:cursor-not-allowed transition-colors text-sm font-semibold shadow-md"
-            >
-              Submit
-            </button>
           </>
         ) : (
           <>

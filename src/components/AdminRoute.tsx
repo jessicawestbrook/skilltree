@@ -25,17 +25,40 @@ const AdminRoute: React.FC<AdminRouteProps> = ({ children }) => {
     }
 
     try {
+      console.log('Checking admin status for user:', user.id)
+      
       const { data, error } = await supabase
         .from('profiles')
         .select('is_admin')
         .eq('id', user.id)
-        .single()
+        .maybeSingle() // Use maybeSingle instead of single to handle no rows gracefully
 
       if (error) {
         console.error('Error checking admin status:', error)
+        // If no profile exists, create one
+        if (error.code === 'PGRST116') {
+          console.log('No profile found, creating one...')
+          const { error: insertError } = await supabase
+            .from('profiles')
+            .insert({
+              id: user.id,
+              email: user.email,
+              is_admin: false,
+              created_at: new Date().toISOString(),
+              updated_at: new Date().toISOString()
+            })
+          
+          if (insertError) {
+            console.error('Error creating profile:', insertError)
+          }
+        }
+        setIsAdmin(false)
+      } else if (!data) {
+        console.log('No profile data returned')
         setIsAdmin(false)
       } else {
-        setIsAdmin(data?.is_admin === true)
+        console.log('Admin status:', data.is_admin)
+        setIsAdmin(data.is_admin === true)
       }
     } catch (error) {
       console.error('Error checking admin status:', error)

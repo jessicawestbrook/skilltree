@@ -1,7 +1,8 @@
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { supabase } from '../services/supabase'
-import { EnvelopeIcon, ArrowLeftIcon } from '@heroicons/react/24/outline'
+import { ArrowLeftIcon } from '@heroicons/react/24/outline'
+import TreeLogo from '../components/TreeLogo'
 
 const PasswordResetPage: React.FC = () => {
   const [email, setEmail] = useState('')
@@ -40,9 +41,11 @@ const PasswordResetPage: React.FC = () => {
       <div className="max-w-md w-full">
         <div className="bg-white dark:bg-neutral-800 rounded-2xl shadow-xl p-8">
           <div className="text-center mb-8">
-            <div className="inline-flex items-center justify-center w-16 h-16 bg-primary-100 dark:bg-primary-900/30 rounded-full mb-4">
-              <EnvelopeIcon className="h-8 w-8 text-primary-600 dark:text-primary-400" />
-            </div>
+            <Link to="/" className="inline-flex flex-col items-center mb-4 group">
+              <div className="transform transition-transform group-hover:scale-110">
+                <TreeLogo size={56} className="filter drop-shadow-lg" />
+              </div>
+            </Link>
             <h2 className="text-3xl font-bold text-neutral-900 dark:text-white">
               Reset Password
             </h2>

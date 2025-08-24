@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Money Counting - SkillTree Learning</title>
+    <link rel="stylesheet" href="/styles/standardLearningContent.css">
+    <style>
+        /* Money Counting Specific Styles */
+        .money-display {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            justify-content: center;
+            padding: 1.5rem;
+            background: #f9fafb;
+            border-radius: 8px;
+            margin: 1.5rem 0;
+        }
+        
+        .coin, .bill {
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+        
+        .coin:hover, .bill:hover {
+            transform: scale(1.1);
+        }
+        
+        .coin.selected, .bill.selected {
+            filter: drop-shadow(0 0 8px #10b981);
+            transform: scale(1.15);
+        }
+        
+        .money-total {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #059669;
+            text-align: center;
+            margin: 1rem 0;
+            padding: 1rem;
+            background: white;
+            border: 2px solid #10b981;
+            border-radius: 8px;
+        }
+        
+        .cash-register {
+            background: linear-gradient(135deg, #374151 0%, #1f2937 100%);
+            border-radius: 12px;
+            padding: 1.5rem;
+            color: white;
+            margin: 2rem 0;
+        }
+        
+        .register-display {
+            background: #065f46;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+            font-size: 1.5rem;
+            text-align: right;
+            margin-bottom: 1rem;
+        }
+        
+        .money-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+            gap: 0.5rem;
+        }
+        
+        .money-item {
+            text-align: center;
+            padding: 0.5rem;
+            background: white;
+            border-radius: 8px;
+            border: 2px solid transparent;
+            transition: all 0.2s;
+        }
+        
+        .money-item:hover {
+            border-color: #10b981;
+            background: #f0fdf4;
+        }
+        
+        .wallet-section {
+            background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="learning-content money-counting">
+        <!-- ===== MODULE HEADER ===== -->
+        <header class="module-header">
+            <div class="module-meta">
+                <span class="module-category">Elementary Math</span>
+                <span class="module-subcategory">Money & Finance</span>
+                <span class="module-grade">Grades K-3</span>
+            </div>
+            <h1 class="module-title">Learning to Count Money</h1>
+            <p class="module-description">Master counting coins and bills while developing real-world money skills!</p>
+        </header>
+
+        <!-- ===== INTRODUCTION ===== -->
+        <section class="intro-section">
+            <h2>💰 Welcome to Money Counting!</h2>
+            <p>Money is everywhere in our daily lives! Today, we'll learn how to recognize, count, and use different coins and bills. By the end of this lesson, you'll be a money counting expert!</p>
+        </section>
+
+        <!-- ===== COIN INTRODUCTION ===== -->
+        <section class="coin-guide">
+            <h2>🪙 Meet the Coins</h2>
+            
+            <!-- Penny -->
+            <div class="coin-card">
+                <h3>Penny</h3>
+                <div class="money-display">
+                    <svg width="80" height="80" viewBox="0 0 80 80">
+                        <circle cx="40" cy="40" r="35" fill="#B87333" stroke="#8B4513" stroke-width="2"/>
+                        <text x="40" y="45" text-anchor="middle" font-size="24" font-weight="bold" fill="white">1¢</text>
+                    </svg>
+                </div>
+                <p><strong>Value:</strong> 1 cent (1¢)</p>
+                <p><strong>Color:</strong> Copper (brown)</p>
+                <p><strong>Fun Fact:</strong> It takes 100 pennies to make $1.00!</p>
+            </div>
+
+            <!-- Nickel -->
+            <div class="coin-card">
+                <h3>Nickel</h3>
+                <div class="money-display">
+                    <svg width="80" height="80" viewBox="0 0 80 80">
+                        <circle cx="40" cy="40" r="38" fill="#C0C0C0" stroke="#808080" stroke-width="2"/>
+                        <text x="40" y="45" text-anchor="middle" font-size="24" font-weight="bold" fill="#333">5¢</text>
+                    </svg>
+                </div>
+                <p><strong>Value:</strong> 5 cents (5¢)</p>
+                <p><strong>Color:</strong> Silver</p>
+                <p><strong>Equal to:</strong> 5 pennies</p>
+            </div>
+
+            <!-- Dime -->
+            <div class="coin-card">
+                <h3>Dime</h3>
+                <div class="money-display">
+                    <svg width="80" height="80" viewBox="0 0 80 80">
+                        <circle cx="40" cy="40" r="30" fill="#E5E5E5" stroke="#999999" stroke-width="2"/>
+                        <text x="40" y="45" text-anchor="middle" font-size="22" font-weight="bold" fill="#333">10¢</text>
+                    </svg>
+                </div>
+                <p><strong>Value:</strong> 10 cents (10¢)</p>
+                <p><strong>Color:</strong> Silver (smallest coin!)</p>
+                <p><strong>Equal to:</strong> 2 nickels or 10 pennies</p>
+            </div>
+
+            <!-- Quarter -->
+            <div class="coin-card">
+                <h3>Quarter</h3>
+                <div class="money-display">
+                    <svg width="80" height="80" viewBox="0 0 80 80">
+                        <circle cx="40" cy="40" r="38" fill="#D3D3D3" stroke="#888888" stroke-width="2"/>
+                        <text x="40" y="45" text-anchor="middle" font-size="24" font-weight="bold" fill="#333">25¢</text>
+                    </svg>
+                </div>
+                <p><strong>Value:</strong> 25 cents (25¢)</p>
+                <p><strong>Color:</strong> Silver (bigger than nickel)</p>
+                <p><strong>Equal to:</strong> 5 nickels or 25 pennies</p>
+            </div>
+        </section>
+
+        <!-- ===== SKIP COUNTING ===== -->
+        <section class="skip-counting-section">
+            <h2>🔢 Skip Counting with Coins</h2>
+            <p class="intro">Skip counting helps us count money faster!</p>
+            
+            <div class="skip-pattern">
+                <h3>Count by 5s (Nickels)</h3>
+                <div class="number-sequence">
+                    <span>5</span> → <span>10</span> → <span>15</span> → <span>20</span> → <span>25</span> → <span>30</span>
+                </div>
+            </div>
+            
+            <div class="skip-pattern">
+                <h3>Count by 10s (Dimes)</h3>
+                <div class="number-sequence">
+                    <span>10</span> → <span>20</span> → <span>30</span> → <span>40</span> → <span>50</span> → <span>60</span>
+                </div>
+            </div>
+            
+            <div class="skip-pattern">
+                <h3>Count by 25s (Quarters)</h3>
+                <div class="number-sequence">
+                    <span>25</span> → <span>50</span> → <span>75</span> → <span>100</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== INTERACTIVE COUNTING ===== -->
+        <section class="interactive-counting">
+            <h2>🎮 Let's Count Money!</h2>
+            
+            <div class="counting-activity">
+                <h3>Click the coins to add them up!</h3>
+                <div class="money-display" id="coin-selector">
+                    <!-- Coins to click -->
+                    <svg class="coin" data-value="1" width="60" height="60">
+                        <circle cx="30" cy="30" r="28" fill="#B87333" stroke="#8B4513" stroke-width="2"/>
+                        <text x="30" y="35" text-anchor="middle" font-size="18" fill="white">1¢</text>
+                    </svg>
+                    <svg class="coin" data-value="5" width="60" height="60">
+                        <circle cx="30" cy="30" r="28" fill="#C0C0C0" stroke="#808080" stroke-width="2"/>
+                        <text x="30" y="35" text-anchor="middle" font-size="18" fill="#333">5¢</text>
+                    </svg>
+                    <svg class="coin" data-value="10" width="60" height="60">
+                        <circle cx="30" cy="30" r="28" fill="#E5E5E5" stroke="#999999" stroke-width="2"/>
+                        <text x="30" y="35" text-anchor="middle" font-size="18" fill="#333">10¢</text>
+                    </svg>
+                    <svg class="coin" data-value="25" width="60" height="60">
+                        <circle cx="30" cy="30" r="28" fill="#D3D3D3" stroke="#888888" stroke-width="2"/>
+                        <text x="30" y="35" text-anchor="middle" font-size="18" fill="#333">25¢</text>
+                    </svg>
+                </div>
+                
+                <div class="money-total" id="total-display">
+                    Total: $0.00
+                </div>
+                
+                <button class="btn btn-secondary" onclick="resetCount()">Clear</button>
+            </div>
+        </section>
+
+        <!-- ===== PRACTICE PROBLEMS ===== -->
+        <section class="practice-problems">
+            <h2>📝 Practice Counting</h2>
+            
+            <!-- Problem 1 -->
+            <div class="practice-problem">
+                <span class="problem-number">Problem 1</span>
+                <p class="problem-question">How much money is shown?</p>
+                <div class="money-display">
+                    <svg width="50" height="50">
+                        <circle cx="25" cy="25" r="23" fill="#D3D3D3" stroke="#888888" stroke-width="2"/>
+                        <text x="25" y="30" text-anchor="middle" font-size="16" fill="#333">25¢</text>
+                    </svg>
+                    <svg width="50" height="50">
+                        <circle cx="25" cy="25" r="23" fill="#D3D3D3" stroke="#888888" stroke-width="2"/>
+                        <text x="25" y="30" text-anchor="middle" font-size="16" fill="#333">25¢</text>
+                    </svg>
+                    <svg width="50" height="50">
+                        <circle cx="25" cy="25" r="23" fill="#E5E5E5" stroke="#999999" stroke-width="2"/>
+                        <text x="25" y="30" text-anchor="middle" font-size="16" fill="#333">10¢</text>
+                    </svg>
+                </div>
+                <div class="answer-choices">
+                    <button class="answer-choice" data-correct="false">50¢</button>
+                    <button class="answer-choice" data-correct="true">60¢</button>
+                    <button class="answer-choice" data-correct="false">35¢</button>
+                    <button class="answer-choice" data-correct="false">75¢</button>
+                </div>
+                <div class="hint-box" style="display: none;">
+                    Count the quarters first (25¢ + 25¢ = 50¢), then add the dime (50¢ + 10¢ = ?)
+                </div>
+            </div>
+
+            <!-- Problem 2 -->
+            <div class="practice-problem">
+                <span class="problem-number">Problem 2</span>
+                <p class="problem-question">Sarah has 3 dimes and 2 nickels. How much money does she have?</p>
+                <div class="answer-choices">
+                    <button class="answer-choice" data-correct="false">35¢</button>
+                    <button class="answer-choice" data-correct="true">40¢</button>
+                    <button class="answer-choice" data-correct="false">50¢</button>
+                    <button class="answer-choice" data-correct="false">25¢</button>
+                </div>
+                <div class="hint-box" style="display: none;">
+                    3 dimes = 3 × 10¢ = 30¢<br>
+                    2 nickels = 2 × 5¢ = 10¢<br>
+                    Total = 30¢ + 10¢ = ?
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== REAL WORLD PRACTICE ===== -->
+        <section class="real-world-practice">
+            <h2>🛒 Shopping Practice</h2>
+            <div class="cash-register">
+                <h3>You're the Cashier!</h3>
+                <div class="register-display" id="register">$0.00</div>
+                <p>A customer buys a toy for 75¢. They give you $1.00. How much change do they get?</p>
+                <div class="answer-choices">
+                    <button class="answer-choice" data-correct="true">25¢</button>
+                    <button class="answer-choice" data-correct="false">35¢</button>
+                    <button class="answer-choice" data-correct="false">15¢</button>
+                    <button class="answer-choice" data-correct="false">50¢</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== MONEY TIPS ===== -->
+        <section class="money-tips">
+            <h2>💡 Money Counting Tips</h2>
+            <div class="tip-box">
+                <h3>Start with the Biggest Coins</h3>
+                <p>Always count quarters first, then dimes, nickels, and finally pennies. This makes counting easier!</p>
+            </div>
+            <div class="tip-box">
+                <h3>Group Same Coins Together</h3>
+                <p>Put all your quarters in one pile, all dimes in another. This helps you skip count!</p>
+            </div>
+            <div class="tip-box">
+                <h3>Practice Making Change</h3>
+                <p>If something costs 60¢ and you have $1.00, count up: 60¢ → 75¢ (nickel) → $1.00 (quarter). That's 40¢ change!</p>
+            </div>
+        </section>
+
+        <!-- ===== GAMES ===== -->
+        <section class="money-games">
+            <h2>🎯 Money Games</h2>
+            <div class="wallet-section">
+                <h3>Fill the Piggy Bank!</h3>
+                <p>Can you make exactly $1.00 using different coin combinations?</p>
+                <div class="game-challenges">
+                    <div class="challenge">✓ Use only quarters (4 quarters)</div>
+                    <div class="challenge">✓ Use only dimes (10 dimes)</div>
+                    <div class="challenge">✓ Use 2 quarters and 5 dimes</div>
+                    <div class="challenge">✓ Make your own combination!</div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Money Counting JavaScript -->
+    <script>
+        let total = 0;
+        
+        // Handle coin clicking for counting
+        document.querySelectorAll('.coin').forEach(coin => {
+            coin.addEventListener('click', function() {
+                const value = parseInt(this.dataset.value);
+                total += value;
+                updateTotal();
+                
+                // Visual feedback
+                this.classList.add('selected');
+                setTimeout(() => this.classList.remove('selected'), 300);
+            });
+        });
+        
+        function updateTotal() {
+            const dollars = Math.floor(total / 100);
+            const cents = total % 100;
+            document.getElementById('total-display').textContent = 
+                `Total: $${dollars}.${cents.toString().padStart(2, '0')}`;
+        }
+        
+        function resetCount() {
+            total = 0;
+            updateTotal();
+        }
+        
+        // Handle answer choices
+        document.querySelectorAll('.answer-choice').forEach(button => {
+            button.addEventListener('click', function() {
+                const parent = this.closest('.practice-problem, .cash-register');
+                const choices = parent.querySelectorAll('.answer-choice');
+                
+                choices.forEach(choice => {
+                    choice.classList.remove('correct', 'incorrect');
+                });
+                
+                if (this.dataset.correct === 'true') {
+                    this.classList.add('correct');
+                } else {
+                    this.classList.add('incorrect');
+                    const hint = parent.querySelector('.hint-box');
+                    if (hint) hint.style.display = 'block';
+                }
+            });
+        });
+    </script>
+</body>
+</html>

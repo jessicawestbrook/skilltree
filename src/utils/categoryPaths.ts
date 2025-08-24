@@ -49,12 +49,11 @@ async function ensureNodesCache(): Promise<CategoryNode[]> {
     return allNodesCache
   }
 
-  // Fetch all nodes at once
+  // Fetch all nodes at once (including those with learning content)
   const { data: nodes, error } = await supabase
     .from('skill_tree_nodes')
     .select('id, name, parent_id')
-    .or('learning_content_ids.is.null,learning_content_ids.eq.{}') // Only categories
-    .limit(10000) // Reasonable limit for categories
+    .limit(10000) // Reasonable limit
 
   if (error || !nodes) {
     console.error('Error loading category nodes:', error)
@@ -115,10 +114,12 @@ export async function resolveCategoryPath(path: string): Promise<string | null> 
     
     // Find matching node at this level
     // eslint-disable-next-line no-loop-func
-    const matchingNode = nodes.find(node => 
-      node.parent_id === currentParentId && 
-      searchTerms.some(term => node.name === term)
-    )
+    const matchingNode = nodes.find(node => {
+      // Handle null parent_id comparison correctly
+      const parentMatches = (node.parent_id === currentParentId) || 
+                           (node.parent_id == null && currentParentId == null)
+      return parentMatches && searchTerms.some(term => node.name === term)
+    })
     
     if (!matchingNode) {
       return null

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 200">
+  <!-- Penny (1 cent) -->
+  <g id="penny" transform="translate(50, 100)">
+    <circle cx="0" cy="0" r="40" fill="#B87333" stroke="#8B4513" stroke-width="2"/>
+    <circle cx="0" cy="0" r="35" fill="none" stroke="#A0522D" stroke-width="1"/>
+    <text x="0" y="5" text-anchor="middle" font-family="Arial, sans-serif" font-size="20" font-weight="bold" fill="#654321">1¢</text>
+    <text x="0" y="50" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="#333">Penny</text>
+  </g>
+  
+  <!-- Nickel (5 cents) -->
+  <g id="nickel" transform="translate(200, 100)">
+    <circle cx="0" cy="0" r="45" fill="#C0C0C0" stroke="#808080" stroke-width="2"/>
+    <circle cx="0" cy="0" r="40" fill="none" stroke="#A9A9A9" stroke-width="1"/>
+    <text x="0" y="5" text-anchor="middle" font-family="Arial, sans-serif" font-size="20" font-weight="bold" fill="#333">5¢</text>
+    <text x="0" y="55" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="#333">Nickel</text>
+  </g>
+  
+  <!-- Dime (10 cents) -->
+  <g id="dime" transform="translate(350, 100)">
+    <circle cx="0" cy="0" r="35" fill="#E5E5E5" stroke="#999999" stroke-width="2"/>
+    <circle cx="0" cy="0" r="30" fill="none" stroke="#BBBBBB" stroke-width="1"/>
+    <text x="0" y="5" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" font-weight="bold" fill="#333">10¢</text>
+    <text x="0" y="50" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="#333">Dime</text>
+  </g>
+  
+  <!-- Quarter (25 cents) -->
+  <g id="quarter" transform="translate(500, 100)">
+    <circle cx="0" cy="0" r="50" fill="#D3D3D3" stroke="#888888" stroke-width="2"/>
+    <circle cx="0" cy="0" r="45" fill="none" stroke="#A8A8A8" stroke-width="1"/>
+    <text x="0" y="5" text-anchor="middle" font-family="Arial, sans-serif" font-size="22" font-weight="bold" fill="#333">25¢</text>
+    <text x="0" y="60" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="#333">Quarter</text>
+  </g>
+  
+  <!-- Half Dollar (50 cents) -->
+  <g id="half-dollar" transform="translate(650, 100)">
+    <circle cx="0" cy="0" r="55" fill="#DCDCDC" stroke="#777777" stroke-width="2"/>
+    <circle cx="0" cy="0" r="50" fill="none" stroke="#9E9E9E" stroke-width="1"/>
+    <text x="0" y="5" text-anchor="middle" font-family="Arial, sans-serif" font-size="22" font-weight="bold" fill="#333">50¢</text>
+    <text x="0" y="65" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="#333">Half Dollar</text>
+  </g>
+  
+  <!-- Dollar Coin -->
+  <g id="dollar-coin" transform="translate(750, 100)">
+    <circle cx="0" cy="0" r="50" fill="#FFD700" stroke="#B8860B" stroke-width="2"/>
+    <circle cx="0" cy="0" r="45" fill="none" stroke="#DAA520" stroke-width="1"/>
+    <text x="0" y="5" text-anchor="middle" font-family="Arial, sans-serif" font-size="22" font-weight="bold" fill="#654321">$1</text>
+    <text x="0" y="60" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="#333">Dollar</text>
+  </g>
+</svg>

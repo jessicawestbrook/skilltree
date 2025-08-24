@@ -14,5 +14,6 @@ root.render(
   </React.StrictMode>
 );
 
-serviceWorkerRegistration.register();
+// Temporarily disabled until service worker is created
+// serviceWorkerRegistration.register();
 reportWebVitals();

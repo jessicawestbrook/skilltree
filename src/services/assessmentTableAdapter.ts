@@ -1,8 +1,9 @@
 import { supabase } from './supabase'
+import { AssessmentSessionAdapter } from './assessmentSessionAdapter'
 
 /**
  * Adapter service to map between adaptive assessment service expectations
- * and actual database tables (user_test_attempts, user_question_attempts, etc.)
+ * and actual database tables (assessment_sessions or user_test_attempts)
  */
 
 interface AssessmentSession {
@@ -37,17 +38,79 @@ interface UserCategoryScore {
 
 export class AssessmentTableAdapter {
   /**
-   * Create a new assessment session using user_test_attempts table
+   * Create a new assessment session using assessment_sessions table if available,
+   * otherwise fallback to user_test_attempts table
    */
   static async createSession(data: Partial<AssessmentSession>) {
+    // First try to use the new assessment_sessions table
+    const { data: testTable } = await supabase
+      .from('assessment_sessions')
+      .select('id')
+      .limit(0)
+    
+    // If assessment_sessions table exists, use the new adapter
+    if (testTable !== null) {
+      return AssessmentSessionAdapter.createSession(data)
+    }
+    
+    // Otherwise, fallback to user_test_attempts
     try {
+      // First check if there's already an incomplete session for this user and category
+      const { data: existingAttempt } = await supabase
+        .from('user_test_attempts')
+        .select('*')
+        .eq('user_id', data.user_id)
+        .eq('test_id', data.category_id)
+        .eq('is_completed', false)
+        .order('created_at', { ascending: false })
+        .limit(1)
+        .single()
+      
+      if (existingAttempt) {
+        // Return the existing incomplete session
+        return {
+          data: {
+            ...existingAttempt,
+            category_id: existingAttempt.metadata?.category_id || data.category_id,
+            session_type: existingAttempt.metadata?.session_type || data.session_type,
+            status: 'active',
+            current_ability_estimate: existingAttempt.scaled_score || 0,
+            confidence_interval: existingAttempt.metadata?.confidence_interval || 1,
+            total_questions: existingAttempt.metadata?.total_questions || 0,
+            correct_answers: existingAttempt.metadata?.correct_answers || 0,
+            total_points: existingAttempt.raw_score || 0,
+            streak_count: existingAttempt.metadata?.streak_count || 0,
+            max_streak: existingAttempt.metadata?.max_streak || 0,
+            started_at: existingAttempt.created_at,
+            completed_at: existingAttempt.completed_at,
+            metadata: existingAttempt.metadata || {},
+            created_at: existingAttempt.created_at,
+            updated_at: existingAttempt.updated_at || existingAttempt.created_at
+          },
+          error: null
+        }
+      }
+      
+      // Get the highest attempt number for this user and test
+      const { data: previousAttempts } = await supabase
+        .from('user_test_attempts')
+        .select('attempt_number')
+        .eq('user_id', data.user_id)
+        .eq('test_id', data.category_id)
+        .order('attempt_number', { ascending: false })
+        .limit(1)
+      
+      const nextAttemptNumber = previousAttempts && previousAttempts.length > 0 
+        ? (previousAttempts[0].attempt_number + 1) 
+        : 1
+      
       // Map to user_test_attempts structure
       const { data: attempt, error } = await supabase
         .from('user_test_attempts')
         .insert({
           user_id: data.user_id,
-          test_id: data.category_id, // Using category_id as test_id
-          attempt_number: 1,
+          test_id: data.category_id, // Use category_id directly as test_id
+          attempt_number: nextAttemptNumber,
           is_practice: data.session_type === 'practice',
           raw_score: data.total_points || 0,
           scaled_score: data.current_ability_estimate || 0,
@@ -59,19 +122,28 @@ export class AssessmentTableAdapter {
             streak_count: data.streak_count || 0,
             max_streak: data.max_streak || 0,
             total_questions: data.total_questions || 0,
-            correct_answers: data.correct_answers || 0
+            correct_answers: data.correct_answers || 0,
+            category_id: data.category_id // Store category_id in metadata
           }
         })
         .select()
         .single()
 
-      if (error) throw error
+      if (error) {
+        console.error('Error in AssessmentTableAdapter.createSession:', error)
+        console.error('Insert data:', {
+          user_id: data.user_id,
+          test_id: data.category_id,
+          session_type: data.session_type
+        })
+        throw error
+      }
 
       // Transform back to expected format
       return {
         data: {
           ...attempt,
-          category_id: attempt.test_id,
+          category_id: attempt.metadata?.category_id || data.category_id,
           session_type: data.session_type,
           status: attempt.is_completed ? 'completed' : 'active',
           current_ability_estimate: attempt.scaled_score || 0,
@@ -95,9 +167,22 @@ export class AssessmentTableAdapter {
   }
 
   /**
-   * Get assessment session using user_test_attempts table
+   * Get assessment session using assessment_sessions table if available,
+   * otherwise fallback to user_test_attempts table
    */
   static async getSession(sessionId: string) {
+    // First try to use the new assessment_sessions table
+    const { data: testTable } = await supabase
+      .from('assessment_sessions')
+      .select('id')
+      .limit(0)
+    
+    // If assessment_sessions table exists, use the new adapter
+    if (testTable !== null) {
+      return AssessmentSessionAdapter.getSession(sessionId)
+    }
+    
+    // Otherwise, fallback to user_test_attempts
     try {
       const { data: attempt, error } = await supabase
         .from('user_test_attempts')
@@ -111,7 +196,7 @@ export class AssessmentTableAdapter {
       return {
         data: {
           ...attempt,
-          category_id: attempt.test_id,
+          category_id: attempt.metadata?.category_id || attempt.test_id,
           session_type: attempt.metadata?.session_type || 'assessment',
           status: attempt.is_completed ? 'completed' : 'active',
           current_ability_estimate: attempt.scaled_score || 0,
@@ -135,9 +220,22 @@ export class AssessmentTableAdapter {
   }
 
   /**
-   * Update assessment session using user_test_attempts table
+   * Update assessment session using assessment_sessions table if available,
+   * otherwise fallback to user_test_attempts table
    */
   static async updateSession(sessionId: string, updates: Partial<AssessmentSession>) {
+    // First try to use the new assessment_sessions table
+    const { data: testTable } = await supabase
+      .from('assessment_sessions')
+      .select('id')
+      .limit(0)
+    
+    // If assessment_sessions table exists, use the new adapter
+    if (testTable !== null) {
+      return AssessmentSessionAdapter.updateSession(sessionId, updates)
+    }
+    
+    // Otherwise, fallback to user_test_attempts
     try {
       // Get current attempt to merge metadata
       const { data: current } = await supabase
@@ -153,7 +251,8 @@ export class AssessmentTableAdapter {
         streak_count: updates.streak_count,
         max_streak: updates.max_streak,
         total_questions: updates.total_questions,
-        correct_answers: updates.correct_answers
+        correct_answers: updates.correct_answers,
+        category_id: current?.metadata?.category_id // Preserve category_id
       }
 
       const { data: attempt, error } = await supabase
@@ -176,7 +275,7 @@ export class AssessmentTableAdapter {
       return {
         data: {
           ...attempt,
-          category_id: attempt.test_id,
+          category_id: mergedMetadata.category_id || attempt.test_id,
           session_type: mergedMetadata.session_type || 'assessment',
           status: attempt.is_completed ? 'completed' : 'active',
           current_ability_estimate: attempt.scaled_score || 0,
@@ -200,9 +299,22 @@ export class AssessmentTableAdapter {
   }
 
   /**
-   * Get user category scores using user_question_tracking table
+   * Get user category scores using assessment_sessions table if available,
+   * otherwise fallback to user_question_tracking table
    */
   static async getUserCategoryScore(userId: string, categoryId: string) {
+    // First try to use the new assessment_sessions table
+    const { data: testTable } = await supabase
+      .from('assessment_sessions')
+      .select('id')
+      .limit(0)
+    
+    // If assessment_sessions table exists, use the new adapter
+    if (testTable !== null) {
+      return AssessmentSessionAdapter.getUserCategoryScore(userId, categoryId)
+    }
+    
+    // Otherwise, fallback to user_question_tracking
     try {
       // Get aggregated stats from user_question_tracking for questions in this category
       const { data: questions } = await supabase

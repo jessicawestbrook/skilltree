@@ -78,10 +78,13 @@ function checkValidServiceWorker(swUrl: string, config?: Config) {
         response.status === 404 ||
         (contentType != null && contentType.indexOf('javascript') === -1)
       ) {
+        // Service worker not found, unregister any existing worker silently
         navigator.serviceWorker.ready.then((registration) => {
           registration.unregister().then(() => {
-            window.location.reload()
+            console.log('Service worker not found, running without offline support.')
           })
+        }).catch(() => {
+          // Silently fail if there's no service worker to unregister
         })
       } else {
         registerValidSW(swUrl, config)

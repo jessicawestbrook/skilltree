@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{MODULE_TITLE}} - Elementary Math</title>
+    <link rel="stylesheet" href="/styles/standardLearningContent.css">
+    <style>
+        /* Elementary Math Specific Styles */
+        .math-manipulative {
+            display: flex;
+            gap: 0.5rem;
+            justify-content: center;
+            margin: 1.5rem 0;
+            flex-wrap: wrap;
+        }
+        
+        .number-line {
+            width: 100%;
+            height: 60px;
+            position: relative;
+            margin: 2rem 0;
+            background: linear-gradient(to right, #e5e7eb 49%, transparent 49%, transparent 51%, #e5e7eb 51%);
+            background-size: 50px 1px;
+            background-position: 0 30px;
+        }
+        
+        .math-equation {
+            font-size: 1.5rem;
+            text-align: center;
+            margin: 1.5rem 0;
+            font-family: 'Courier New', monospace;
+        }
+        
+        .visual-counter {
+            display: grid;
+            grid-template-columns: repeat(10, 1fr);
+            gap: 0.25rem;
+            max-width: 400px;
+            margin: 1rem auto;
+        }
+        
+        .counter-item {
+            width: 30px;
+            height: 30px;
+            background: #10b981;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+        }
+        
+        .math-workspace {
+            background: #f9fafb;
+            border: 2px dashed #d1d5db;
+            border-radius: 8px;
+            padding: 2rem;
+            margin: 1.5rem 0;
+            min-height: 200px;
+        }
+    </style>
+</head>
+<body>
+    <div class="learning-content elementary-math">
+        <!-- ===== MODULE HEADER ===== -->
+        <header class="module-header">
+            <div class="module-meta">
+                <span class="module-category">Elementary Math</span>
+                <span class="module-subcategory">{{MATH_SUBCATEGORY}}</span>
+                <span class="module-grade">Grade {{GRADE_LEVEL}}</span>
+                <span class="module-duration">{{ESTIMATED_TIME}} minutes</span>
+            </div>
+            <h1 class="module-title">{{MODULE_TITLE}}</h1>
+            <p class="module-description">{{MODULE_DESCRIPTION}}</p>
+        </header>
+
+        <!-- ===== WARM-UP ACTIVITY ===== -->
+        <section class="warm-up">
+            <h2>🧠 Warm-Up</h2>
+            <div class="warm-up-activity">
+                <p>{{WARM_UP_PROMPT}}</p>
+                <div class="math-workspace">
+                    <!-- Interactive warm-up space -->
+                    {{WARM_UP_ACTIVITY}}
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== VOCABULARY (if applicable) ===== -->
+        <section class="math-vocabulary">
+            <h2>📚 Math Words to Know</h2>
+            <div class="vocabulary-cards">
+                <div class="vocab-card">
+                    <h3>{{VOCAB_TERM_1}}</h3>
+                    <p class="definition">{{VOCAB_DEFINITION_1}}</p>
+                    <p class="example">Example: {{VOCAB_EXAMPLE_1}}</p>
+                </div>
+                <!-- Add more vocabulary cards as needed -->
+            </div>
+        </section>
+
+        <!-- ===== CONCEPT INTRODUCTION ===== -->
+        <section class="concept-introduction">
+            <h2>{{CONCEPT_TITLE}}</h2>
+            
+            <!-- Visual Introduction -->
+            <div class="visual-introduction">
+                {{VISUAL_INTRO}}
+                <!-- This could be manipulatives, diagrams, or animations -->
+            </div>
+
+            <!-- Concrete Examples -->
+            <div class="concrete-examples">
+                <h3>Let's Look at Real Things</h3>
+                <div class="example-set">
+                    {{CONCRETE_EXAMPLES}}
+                </div>
+            </div>
+
+            <!-- Abstract Representation -->
+            <div class="abstract-representation">
+                <h3>Now with Numbers</h3>
+                <div class="math-equation">
+                    {{MATH_EQUATION}}
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== WORKED EXAMPLES ===== -->
+        <section class="worked-examples">
+            <h2>📝 Let's Work Through Examples</h2>
+            
+            <!-- Example 1: Step by Step -->
+            <div class="worked-example">
+                <h3>Example 1</h3>
+                <div class="problem-statement">
+                    {{EXAMPLE_1_PROBLEM}}
+                </div>
+                
+                <div class="solution-steps">
+                    <div class="step">
+                        <span class="step-number">Step 1:</span>
+                        <p>{{EXAMPLE_1_STEP_1}}</p>
+                        <div class="step-visual">{{EXAMPLE_1_VISUAL_1}}</div>
+                    </div>
+                    <div class="step">
+                        <span class="step-number">Step 2:</span>
+                        <p>{{EXAMPLE_1_STEP_2}}</p>
+                        <div class="step-visual">{{EXAMPLE_1_VISUAL_2}}</div>
+                    </div>
+                    <div class="step">
+                        <span class="step-number">Answer:</span>
+                        <p class="answer">{{EXAMPLE_1_ANSWER}}</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== INTERACTIVE PRACTICE ===== -->
+        <section class="interactive-practice">
+            <h2>🎮 Practice Time!</h2>
+            
+            <!-- Visual Problem Solving -->
+            <div class="visual-problem">
+                <h3>Count and Solve</h3>
+                <div class="problem-visuals">
+                    {{VISUAL_PROBLEM}}
+                </div>
+                <div class="answer-input">
+                    <label>Your Answer:</label>
+                    <input type="number" class="math-answer-input" />
+                    <button class="check-answer">Check</button>
+                </div>
+            </div>
+
+            <!-- Word Problems -->
+            <div class="word-problems">
+                <h3>Story Problems</h3>
+                <div class="word-problem">
+                    <div class="problem-story">
+                        {{WORD_PROBLEM_1}}
+                    </div>
+                    <div class="problem-helpers">
+                        <button class="show-picture">Show Picture</button>
+                        <button class="show-hint">Need a Hint?</button>
+                    </div>
+                    <div class="picture-help" style="display: none;">
+                        {{WORD_PROBLEM_1_VISUAL}}
+                    </div>
+                    <div class="hint-content" style="display: none;">
+                        {{WORD_PROBLEM_1_HINT}}
+                    </div>
+                </div>
+            </div>
+
+            <!-- Mental Math -->
+            <div class="mental-math">
+                <h3>🧮 Quick Math</h3>
+                <p>Try to solve these in your head!</p>
+                <div class="mental-math-problems">
+                    <div class="quick-problem">
+                        <span class="problem">{{MENTAL_MATH_1}}</span>
+                        <input type="number" class="quick-answer" />
+                    </div>
+                    <!-- Add more mental math problems -->
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== MATH STRATEGIES ===== -->
+        <section class="math-strategies">
+            <h2>🔧 Different Ways to Solve</h2>
+            <div class="strategy-cards">
+                <div class="strategy-card">
+                    <h3>{{STRATEGY_1_NAME}}</h3>
+                    <p>{{STRATEGY_1_DESCRIPTION}}</p>
+                    <div class="strategy-example">
+                        {{STRATEGY_1_EXAMPLE}}
+                    </div>
+                </div>
+                <!-- Add more strategies -->
+            </div>
+        </section>
+
+        <!-- ===== GAMES AND ACTIVITIES ===== -->
+        <section class="math-games">
+            <h2>🎯 Fun Activities</h2>
+            <div class="activity-card">
+                <h3>{{ACTIVITY_NAME}}</h3>
+                <p>{{ACTIVITY_DESCRIPTION}}</p>
+                <button class="start-activity">Start Activity</button>
+            </div>
+        </section>
+
+        <!-- ===== REAL-WORLD CONNECTIONS ===== -->
+        <section class="real-world">
+            <h2>🌍 Math in Real Life</h2>
+            <div class="real-world-examples">
+                <div class="real-example">
+                    <h3>{{REAL_WORLD_SCENARIO_1}}</h3>
+                    <p>{{REAL_WORLD_DESCRIPTION_1}}</p>
+                    <div class="try-it">
+                        {{REAL_WORLD_ACTIVITY_1}}
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== PRACTICE WORKSHEET ===== -->
+        <section class="practice-worksheet">
+            <h2>📋 Practice Problems</h2>
+            <div class="worksheet-problems">
+                <!-- Problem Set A: Basic -->
+                <div class="problem-set">
+                    <h3>Set A: Basic Practice</h3>
+                    <ol class="problem-list">
+                        <li>{{BASIC_PROBLEM_1}}</li>
+                        <li>{{BASIC_PROBLEM_2}}</li>
+                        <li>{{BASIC_PROBLEM_3}}</li>
+                        <li>{{BASIC_PROBLEM_4}}</li>
+                        <li>{{BASIC_PROBLEM_5}}</li>
+                    </ol>
+                </div>
+
+                <!-- Problem Set B: Challenge -->
+                <div class="problem-set">
+                    <h3>Set B: Challenge Yourself</h3>
+                    <ol class="problem-list">
+                        <li>{{CHALLENGE_PROBLEM_1}}</li>
+                        <li>{{CHALLENGE_PROBLEM_2}}</li>
+                        <li>{{CHALLENGE_PROBLEM_3}}</li>
+                    </ol>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== REFLECTION ===== -->
+        <section class="reflection">
+            <h2>🤔 Think About It</h2>
+            <div class="reflection-questions">
+                <p>{{REFLECTION_PROMPT}}</p>
+                <ul>
+                    <li>{{REFLECTION_QUESTION_1}}</li>
+                    <li>{{REFLECTION_QUESTION_2}}</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- ===== PARENT/TEACHER NOTES ===== -->
+        <section class="educator-notes">
+            <h2>👨‍👩‍👧‍👦 For Parents & Teachers</h2>
+            <div class="notes-content">
+                <h3>How to Help</h3>
+                <ul>
+                    <li>{{PARENT_TIP_1}}</li>
+                    <li>{{PARENT_TIP_2}}</li>
+                    <li>{{PARENT_TIP_3}}</li>
+                </ul>
+                <h3>Extension Ideas</h3>
+                <ul>
+                    <li>{{EXTENSION_IDEA_1}}</li>
+                    <li>{{EXTENSION_IDEA_2}}</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- ===== PROGRESS AND REWARDS ===== -->
+        <footer class="module-footer">
+            <div class="achievement-section">
+                <h3>🏆 Great Job!</h3>
+                <div class="badges-earned">
+                    {{BADGES_EARNED}}
+                </div>
+                <div class="progress-summary">
+                    <p>You've completed {{PROBLEMS_SOLVED}} problems!</p>
+                    <p>Accuracy: {{ACCURACY_PERCENTAGE}}%</p>
+                </div>
+            </div>
+            <div class="next-steps">
+                <button class="btn btn-secondary">Practice More</button>
+                <button class="btn btn-primary">Next Lesson</button>
+            </div>
+        </footer>
+    </div>
+
+    <!-- Elementary Math Specific JavaScript -->
+    <script>
+        // Handle visual manipulatives
+        function createManipulatives(count, container) {
+            container.innerHTML = '';
+            for (let i = 0; i < count; i++) {
+                const item = document.createElement('div');
+                item.className = 'counter-item';
+                item.textContent = i + 1;
+                container.appendChild(item);
+            }
+        }
+
+        // Handle show/hide helpers
+        document.querySelectorAll('.show-picture').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const picture = this.parentElement.nextElementSibling;
+                picture.style.display = picture.style.display === 'none' ? 'block' : 'none';
+                this.textContent = picture.style.display === 'none' ? 'Show Picture' : 'Hide Picture';
+            });
+        });
+
+        document.querySelectorAll('.show-hint').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const hint = this.parentElement.parentElement.querySelector('.hint-content');
+                hint.style.display = hint.style.display === 'none' ? 'block' : 'none';
+            });
+        });
+
+        // Handle answer checking
+        document.querySelectorAll('.check-answer').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const input = this.previousElementSibling;
+                const answer = parseInt(input.value);
+                const correct = parseInt(this.dataset.correct);
+                
+                if (answer === correct) {
+                    input.style.borderColor = '#10b981';
+                    this.textContent = '✓ Correct!';
+                    this.style.background = '#10b981';
+                } else {
+                    input.style.borderColor = '#ef4444';
+                    this.textContent = 'Try Again';
+                    this.style.background = '#f59e0b';
+                }
+            });
+        });
+
+        // Handle mental math quick checks
+        document.querySelectorAll('.quick-answer').forEach(input => {
+            input.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    const correct = parseInt(this.dataset.answer);
+                    const userAnswer = parseInt(this.value);
+                    
+                    if (userAnswer === correct) {
+                        this.style.background = '#dcfce7';
+                        this.style.borderColor = '#10b981';
+                    } else {
+                        this.style.background = '#fee2e2';
+                        this.style.borderColor = '#ef4444';
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>

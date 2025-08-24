@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react'
+import { useLocation } from 'react-router-dom'
 import { supabase } from '../services/supabase'
 import { spacedRepetitionService } from '../services/spacedRepetitionService'
 import { useAuth } from '../contexts/AuthContext'
@@ -33,6 +34,7 @@ interface VocabularyQuestion {
 
 const VocabularyTrainerPage: React.FC = () => {
   const { user } = useAuth()
+  const location = useLocation()
   const { selectedDifficulties, setSelectedDifficulties, toggleDifficulty, useAdaptiveTesting, setUseAdaptiveTesting } = useSpellingBee()
   const [currentQuestion, setCurrentQuestion] = useState<VocabularyQuestion | null>(null)
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -469,8 +471,57 @@ const VocabularyTrainerPage: React.FC = () => {
     loadStudyLists()
   }, [loadStudyLists])
 
+  // Handle navigation from study list page
+  useEffect(() => {
+    if (location.state) {
+      const state = location.state as any
+      if (state.studyListWords && state.studyListWords.length > 0) {
+        // Load words from the study list navigation
+        const loadStudyListWords = async () => {
+          setLoading(true)
+          const wordIds = state.studyListWords.map((w: any) => w.id)
+          const startIndex = state.startIndex || 0
+          
+          const { data: words, error } = await supabase
+            .from('spelling_words')
+            .select(`
+              *,
+              vocabulary_difficulty_levels!vocabulary_difficulty_id(id, name, description)
+            `)
+            .in('id', wordIds)
+          
+          if (error) {
+            console.error('Error fetching study list words:', error)
+            setLoading(false)
+            return
+          }
+          
+          if (words && words.length > 0) {
+            // Sort words to match the order from study list
+            const sortedWords = wordIds.map((id: string) => 
+              words.find(w => w.id === id)
+            ).filter(Boolean)
+            
+            setWordBank(sortedWords)
+            setCurrentIndex(startIndex)
+            generateQuestion(sortedWords, startIndex)
+            setLoading(false)
+          }
+        }
+        
+        loadStudyListWords()
+        return
+      }
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [location.state])
+
   // Refetch words when selected difficulties or study list changes
   useEffect(() => {
+    // Don't refetch if we came from study list navigation
+    if (location.state?.studyListWords) {
+      return
+    }
     setLoading(true)
     fetchWords()
   // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -491,6 +542,28 @@ const VocabularyTrainerPage: React.FC = () => {
     if (currentQuestion) {
       saveSessionState(currentQuestion, currentIndex, answer, showResult, isCorrect)
     }
+    // Auto-submit the answer after a brief delay
+    setTimeout(() => {
+      handleSubmitAnswer(answer)
+    }, 100)
+  }
+  
+  const handleSubmitAnswer = async (answer: string) => {
+    if (!currentQuestion) return
+    
+    const correct = answer === currentQuestion.correctAnswer
+    setIsCorrect(correct)
+    setShowResult(true)
+    
+    // Update session stats
+    setStats(prev => ({
+      ...prev,
+      correct: correct ? prev.correct + 1 : prev.correct,
+      total: prev.total + 1
+    }))
+    
+    // Save session state after submission
+    saveSessionState(currentQuestion, currentIndex, answer, true, correct)
   }
 
   const handleSubmit = async () => {
@@ -610,22 +683,26 @@ const VocabularyTrainerPage: React.FC = () => {
         </div>
         {/* Action Buttons */}
         {currentQuestion && (
-          <div className="absolute top-2 right-2 flex items-center gap-1 z-10">
-            <StudyListActions
-              itemType="vocabulary_word"
-              itemId={currentQuestion.word.id}
-              itemData={currentQuestion.word}
-              itemTitle={`Vocabulary: ${currentQuestion.word.word}`}
-              className="bg-white dark:bg-neutral-800 rounded-lg shadow-sm border border-neutral-200 dark:border-neutral-700 px-2 py-1"
-            />
-            <button
-              onClick={() => setShowFlagModal(true)}
-              className="p-1.5 text-neutral-400 hover:text-red-500 hover:bg-red-50 dark:hover:bg-red-900/20 rounded-lg transition-colors bg-white dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700"
-              title="Report an issue with this question"
-            >
-              <FlagIcon className="h-4 w-4" />
-            </button>
-          </div>
+          <>
+            <div className="absolute top-2 left-2 z-10">
+              <button
+                onClick={() => setShowFlagModal(true)}
+                className="p-1.5 text-neutral-400 hover:text-red-500 hover:bg-red-50 dark:hover:bg-red-900/20 rounded-lg transition-colors bg-white dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700"
+                title="Report an issue with this question"
+              >
+                <FlagIcon className="h-4 w-4" />
+              </button>
+            </div>
+            <div className="absolute top-2 right-2 z-10">
+              <StudyListActions
+                itemType="vocabulary_word"
+                itemId={currentQuestion.word.id}
+                itemData={currentQuestion.word}
+                itemTitle={`Vocabulary: ${currentQuestion.word.word}`}
+                className="bg-white dark:bg-neutral-800 rounded-lg shadow-sm border border-neutral-200 dark:border-neutral-700 px-2 py-1"
+              />
+            </div>
+          </>
         )}
         
         {/* Settings and Stats Row */}
@@ -875,14 +952,6 @@ const VocabularyTrainerPage: React.FC = () => {
                 ))}
               </div>
             </div>
-
-            <button
-              onClick={handleSubmit}
-              disabled={!selectedAnswer}
-              className="w-full py-2 bg-primary-700 text-white rounded-lg hover:bg-primary-800 active:bg-primary-900 disabled:bg-neutral-400 disabled:cursor-not-allowed transition-colors text-sm font-semibold shadow-md"
-            >
-              Submit
-            </button>
           </>
         ) : (
           <>

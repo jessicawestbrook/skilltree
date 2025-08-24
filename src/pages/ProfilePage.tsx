@@ -7,6 +7,7 @@ import { UserProgress, StudyList } from '../types/database.types'
 import { recommendationService, RecommendationScore } from '../services/recommendationService'
 import { spacedRepetitionService } from '../services/spacedRepetitionService'
 import { buildCategoryPath } from '../utils/categoryPaths'
+import { nameToSlug } from '../utils/studyListSlug'
 import InteractiveFlashcardReview from '../components/InteractiveFlashcardReview'
 import { 
   TrophyIcon, 
@@ -340,6 +341,9 @@ const ProfilePage: React.FC = () => {
   }
 
   useEffect(() => {
+    // Scroll to top when component mounts
+    window.scrollTo(0, 0)
+    
     if (user) {
       fetchUserData()
       fetchReviewQuestions()
@@ -360,7 +364,6 @@ const ProfilePage: React.FC = () => {
           skill_tree_nodes!skill_id (
             id,
             name,
-            learning_area,
             description
           )
         `)
@@ -387,91 +390,27 @@ const ProfilePage: React.FC = () => {
         }))
       }
 
-      // Fetch starred items
+      // Fetch starred items - only skill_node types since flashcards are in study lists
       const starred = await studyListService.getStarredItems(user.id)
       
-      // Fetch details for different types of starred items
+      // Filter to only show skill nodes (not flashcard types which are in study lists)
+      const filteredStarred = starred.filter(item => 
+        item.item_type === 'skill_node'
+      )
+      
+      // Fetch details for skill node starred items
       const starredWithDetails = await Promise.all(
-        starred.map(async (item) => {
-          if (item.item_type === 'skill_node') {
-            const { data: nodeData } = await supabase
-              .from('skill_tree_nodes')
-              .select('*')
-              .eq('id', item.item_id)
-              .single()
-            
-            return {
-              ...item,
-              nodeData,
-              displayType: 'Learning Module'
-            }
-          } else if (item.item_type === 'spelling_word') {
-            // For spelling words, the data might be stored in item_data
-            if (item.item_data && item.item_data.word) {
-              return {
-                ...item,
-                wordData: item.item_data,
-                displayType: 'Spelling Word'
-              }
-            }
-            // Fallback to fetching from spelling_words table
-            const { data: wordData } = await supabase
-              .from('spelling_words')
-              .select('*')
-              .eq('id', item.item_id)
-              .maybeSingle()
-            
-            return {
-              ...item,
-              wordData: wordData || item.item_data,
-              displayType: 'Spelling Word'
-            }
-          } else if (item.item_type === 'vocabulary_word') {
-            // For vocabulary words, the data is stored in item_data
-            if (item.item_data && item.item_data.word) {
-              return {
-                ...item,
-                wordData: item.item_data,
-                displayType: 'Vocabulary Word'
-              }
-            }
-            // Fallback to fetching from spelling_words table
-            const { data: wordData } = await supabase
-              .from('spelling_words')
-              .select('*')
-              .eq('id', item.item_id)
-              .maybeSingle()
-            
-            return {
-              ...item,
-              wordData: wordData || item.item_data,
-              displayType: 'Vocabulary Word'
-            }
-          } else if (item.item_type === 'language_question') {
-            // For language questions, check if data is in item_data first
-            if (item.item_data && (item.item_data.question || item.item_data.text)) {
-              return {
-                ...item,
-                questionData: item.item_data,
-                displayType: 'Language Question'
-              }
-            }
-            // Fallback to fetching from language_questions table
-            const { data: questionData } = await supabase
-              .from('language_questions')
-              .select('*')
-              .eq('id', item.item_id)
-              .maybeSingle()
-            
-            return {
-              ...item,
-              questionData: questionData || item.item_data,
-              displayType: 'Language Question'
-            }
-          }
+        filteredStarred.map(async (item) => {
+          const { data: nodeData } = await supabase
+            .from('skill_tree_nodes')
+            .select('*')
+            .eq('id', item.item_id)
+            .single()
+          
           return {
             ...item,
-            displayType: 'Other'
+            nodeData,
+            displayType: 'Learning Module'
           }
         })
       )
@@ -767,118 +706,9 @@ const ProfilePage: React.FC = () => {
 
       {/* Main Content Grid */}
       <div className="grid lg:grid-cols-3 gap-6">
-        {/* Recent Progress */}
-        <div className="lg:col-span-2 bg-white dark:bg-neutral-800 rounded-xl shadow-lg p-6 border border-neutral-200 dark:border-neutral-700">
-          <div className="flex items-center justify-between mb-4">
-            <h2 className="text-xl font-semibold text-neutral-900 dark:text-white">Recent Activity</h2>
-            <Link 
-              to="/learning-paths" 
-              className="text-primary-600 hover:text-primary-700 text-sm font-medium flex items-center gap-1"
-            >
-              View All <ArrowRightIcon className="h-4 w-4" />
-            </Link>
-          </div>
-          
-          {recentProgress.length === 0 ? (
-            <div className="text-center py-8">
-              <BookOpenIcon className="h-12 w-12 text-neutral-400 mx-auto mb-4" />
-              <p className="text-neutral-600 dark:text-neutral-400 mb-4">
-                No learning progress yet. Start exploring!
-              </p>
-              <Link 
-                to="/learning-paths"
-                className="inline-flex items-center gap-2 px-4 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition-colors"
-              >
-                <RocketLaunchIcon className="h-4 w-4" />
-                Explore Skill Tree
-              </Link>
-            </div>
-          ) : (
-            <div className="space-y-3">
-              {recentProgress.map((item: any) => {
-                const nodeName = item.skill_tree_nodes?.name || 'Learning Module'
-                const nodeArea = item.skill_tree_nodes?.learning_area
-                const nodePath = nodePaths[item.skill_id] || `/learning/${item.skill_id}`
-                return (
-                  <Link
-                    to={nodePath}
-                    key={item.id}
-                    className="flex items-center justify-between p-3 bg-neutral-50 dark:bg-neutral-900 rounded-lg hover:bg-neutral-100 dark:hover:bg-neutral-800 transition-colors cursor-pointer"
-                  >
-                    <div className="flex items-center gap-3">
-                      <div className={`w-2 h-2 rounded-full ${item.status === 'completed' ? 'bg-green-500' : item.status === 'in_progress' ? 'bg-yellow-500' : 'bg-gray-400'}`}></div>
-                      <div>
-                        <h3 className="font-medium text-neutral-900 dark:text-white">{nodeName}</h3>
-                        <p className="text-sm text-neutral-600 dark:text-neutral-400">
-                          {nodeArea && <span className="text-xs mr-2">{nodeArea}</span>}
-                          <span className={`inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium mr-2 ${getProgressColor(item.status)}`}>
-                            {item.status.replace('_', ' ')}
-                          </span>
-                          {item.status === 'completed' && `Score: ${item.rating}%`}
-                        </p>
-                      </div>
-                    </div>
-                    <span className="text-xs text-neutral-500">
-                      {new Date(item.last_accessed).toLocaleDateString()}
-                    </span>
-                  </Link>
-                )
-              })}
-            </div>
-          )}
-        </div>
-
-        {/* Quick Actions */}
-        <div className="space-y-6">
-          {/* Study Lists Quick Access */}
+        {/* Smart Review - moved to left with more space */}
+        <div className="lg:col-span-2">
           <div className="bg-white dark:bg-neutral-800 rounded-xl shadow-lg p-6 border border-neutral-200 dark:border-neutral-700">
-            <div className="flex items-center justify-between mb-4">
-              <h3 className="text-lg font-semibold text-neutral-900 dark:text-white">Study Lists</h3>
-              <Link 
-                to="/study-lists" 
-                className="text-primary-600 hover:text-primary-700 text-sm font-medium"
-              >
-                View All
-              </Link>
-            </div>
-            
-            {studyLists.length === 0 ? (
-              <div className="text-center py-4">
-                <HeartIcon className="h-8 w-8 text-neutral-400 mx-auto mb-2" />
-                <p className="text-sm text-neutral-600 dark:text-neutral-400 mb-3">
-                  No study lists yet
-                </p>
-                <Link 
-                  to="/study-lists"
-                  className="text-primary-600 hover:text-primary-700 text-sm font-medium"
-                >
-                  Create your first list
-                </Link>
-              </div>
-            ) : (
-              <div className="space-y-2">
-                {studyLists.slice(0, 3).map(list => (
-                  <div key={list.id} className="flex items-center gap-2 p-2 rounded-lg hover:bg-neutral-50 dark:hover:bg-neutral-700">
-                    <div 
-                      className="w-3 h-3 rounded-full flex-shrink-0"
-                      style={{ backgroundColor: list.color }}
-                    ></div>
-                    <span className="text-sm font-medium text-neutral-700 dark:text-neutral-300 truncate">
-                      {list.name}
-                    </span>
-                  </div>
-                ))}
-                {studyLists.length > 3 && (
-                  <p className="text-xs text-neutral-500 mt-2">
-                    +{studyLists.length - 3} more lists
-                  </p>
-                )}
-              </div>
-            )}
-          </div>
-
-          {/* Flashcard Review Box with Spaced Repetition */}
-          <div className="bg-white dark:bg-neutral-800 rounded-xl shadow-lg p-4 border border-neutral-200 dark:border-neutral-700">
             <div className="flex items-center justify-between mb-3">
               <h3 className="text-lg font-semibold text-neutral-900 dark:text-white">Smart Review</h3>
               <div className="flex items-center gap-2">
@@ -928,6 +758,7 @@ const ProfilePage: React.FC = () => {
                 }}
                 onLoadMore={loadMoreFlashcards}
                 className="-m-4"
+                disableAutoFocus={true}
               />
             ) : (
               <InteractiveFlashcardReview
@@ -937,19 +768,136 @@ const ProfilePage: React.FC = () => {
                 }}
                 onLoadMore={loadMoreFlashcards}
                 className="-m-4"
+                disableAutoFocus={true}
               />
             )}
           </div>
         </div>
+
+        {/* Right Column */}
+        <div className="space-y-6">
+          {/* Recent Activity - moved to right side */}
+          <div className="bg-white dark:bg-neutral-800 rounded-xl shadow-lg p-6 border border-neutral-200 dark:border-neutral-700">
+            <div className="flex items-center justify-between mb-4">
+              <h2 className="text-xl font-semibold text-neutral-900 dark:text-white">Recent Activity</h2>
+              <Link 
+                to="/learning-paths" 
+                className="text-primary-600 hover:text-primary-700 text-sm font-medium flex items-center gap-1"
+              >
+                View All <ArrowRightIcon className="h-4 w-4" />
+              </Link>
+            </div>
+            
+            {recentProgress.length === 0 ? (
+              <div className="text-center py-8">
+                <BookOpenIcon className="h-12 w-12 text-neutral-400 mx-auto mb-4" />
+                <p className="text-neutral-600 dark:text-neutral-400 mb-4">
+                  No learning progress yet. Start exploring!
+                </p>
+                <Link 
+                  to="/learning-paths"
+                  className="inline-flex items-center gap-2 px-4 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition-colors"
+                >
+                  <RocketLaunchIcon className="h-4 w-4" />
+                  Explore Skill Tree
+                </Link>
+              </div>
+            ) : (
+              <div className="space-y-3 max-h-96 overflow-y-auto">
+                {recentProgress.map((item: any) => {
+                  const nodeName = item.skill_tree_nodes?.name || 'Learning Module'
+                  const nodeArea = item.skill_tree_nodes?.learning_area
+                  const nodePath = nodePaths[item.skill_id] || `/learning/${item.skill_id}`
+                  return (
+                    <Link
+                      to={nodePath}
+                      key={item.id}
+                      className="flex items-center justify-between p-3 bg-neutral-50 dark:bg-neutral-900 rounded-lg hover:bg-neutral-100 dark:hover:bg-neutral-800 transition-colors cursor-pointer"
+                    >
+                      <div className="flex items-center gap-3">
+                        <div className={`w-2 h-2 rounded-full ${item.status === 'completed' ? 'bg-green-500' : item.status === 'in_progress' ? 'bg-yellow-500' : 'bg-gray-400'}`}></div>
+                        <div>
+                          <h3 className="font-medium text-neutral-900 dark:text-white">{nodeName}</h3>
+                          <p className="text-sm text-neutral-600 dark:text-neutral-400">
+                            {nodeArea && <span className="text-xs mr-2">{nodeArea}</span>}
+                            <span className={`inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium mr-2 ${getProgressColor(item.status)}`}>
+                              {item.status.replace('_', ' ')}
+                            </span>
+                            {item.status === 'completed' && `Score: ${item.rating}%`}
+                          </p>
+                        </div>
+                      </div>
+                      <span className="text-xs text-neutral-500">
+                        {new Date(item.last_accessed).toLocaleDateString()}
+                      </span>
+                    </Link>
+                  )
+                })}
+              </div>
+            )}
+          </div>
+
+          {/* Study Lists Quick Access */}
+          <div className="bg-white dark:bg-neutral-800 rounded-xl shadow-lg p-6 border border-neutral-200 dark:border-neutral-700">
+            <div className="flex items-center justify-between mb-4">
+              <h3 className="text-lg font-semibold text-neutral-900 dark:text-white">Study Lists</h3>
+              <Link 
+                to="/study-lists" 
+                className="text-primary-600 hover:text-primary-700 text-sm font-medium"
+              >
+                View All
+              </Link>
+            </div>
+            
+            {studyLists.length === 0 ? (
+              <div className="text-center py-4">
+                <HeartIcon className="h-8 w-8 text-neutral-400 mx-auto mb-2" />
+                <p className="text-sm text-neutral-600 dark:text-neutral-400 mb-3">
+                  No study lists yet
+                </p>
+                <Link 
+                  to="/study-lists"
+                  className="text-primary-600 hover:text-primary-700 text-sm font-medium"
+                >
+                  Create your first list
+                </Link>
+              </div>
+            ) : (
+              <div className="space-y-2">
+                {studyLists.slice(0, 3).map(list => (
+                  <Link
+                    key={list.id}
+                    to={`/study-lists/${nameToSlug(list.name)}`}
+                    className="flex items-center gap-2 p-2 rounded-lg hover:bg-neutral-50 dark:hover:bg-neutral-700 transition-colors cursor-pointer"
+                  >
+                    <div 
+                      className="w-3 h-3 rounded-full flex-shrink-0"
+                      style={{ backgroundColor: list.color }}
+                    ></div>
+                    <span className="text-sm font-medium text-neutral-700 dark:text-neutral-300 truncate">
+                      {list.name}
+                    </span>
+                  </Link>
+                ))}
+                {studyLists.length > 3 && (
+                  <p className="text-xs text-neutral-500 mt-2">
+                    +{studyLists.length - 3} more lists
+                  </p>
+                )}
+              </div>
+            )}
+          </div>
+
+        </div>
       </div>
 
-      {/* Starred Learning Items */}
+      {/* Starred Learning Modules */}
       {starredItems.length > 0 && (
         <div className="bg-white dark:bg-neutral-800 rounded-xl shadow-lg p-6 border border-neutral-200 dark:border-neutral-700">
           <div className="flex items-center justify-between mb-4">
             <div className="flex items-center gap-2">
               <StarSolidIcon className="h-5 w-5 text-gold-500" />
-              <h2 className="text-xl font-semibold text-neutral-900 dark:text-white">Your Starred Learning Items</h2>
+              <h2 className="text-xl font-semibold text-neutral-900 dark:text-white">Your Starred Learning Modules</h2>
             </div>
             <span className="text-sm text-neutral-600 dark:text-neutral-400">
               {starredItems.length} item{starredItems.length !== 1 ? 's' : ''}
@@ -958,131 +906,39 @@ const ProfilePage: React.FC = () => {
           
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
             {starredItems.slice(0, 6).map(item => {
-              // Handle different types of starred items
-              if (item.nodeData) {
-                // Skill tree node
-                const node = item.nodeData
-                const nodePath = nodePaths[node.id] || `/learning/${node.id}`
-                return (
-                  <Link
-                    key={item.id}
-                    to={nodePath}
-                    className="p-4 rounded-lg border border-neutral-200 dark:border-neutral-700 hover:border-gold-300 dark:hover:border-gold-600 hover:shadow-md transition-all group bg-gradient-to-br from-white to-gold-50/30 dark:from-neutral-800 dark:to-gold-900/10"
-                  >
-                    <div className="flex items-start justify-between mb-2">
-                      <h3 className="font-semibold text-neutral-900 dark:text-white group-hover:text-primary-600 line-clamp-2">
-                        {node.name}
-                      </h3>
-                      <StarSolidIcon className="h-4 w-4 text-gold-500 flex-shrink-0 ml-2" />
-                    </div>
-                    <p className="text-xs text-neutral-600 dark:text-neutral-400 mb-2">
-                      {node.learning_area || 'General'}
-                    </p>
-                    {node.description && (
-                      <p className="text-xs text-neutral-500 dark:text-neutral-400 line-clamp-2 mb-2">
-                        {node.description}
-                      </p>
-                    )}
-                    <div className="flex items-center justify-between">
-                      <span className="text-xs text-neutral-500">
-                        Starred {new Date(item.created_at).toLocaleDateString()}
-                      </span>
-                      <ArrowRightIcon className="h-4 w-4 text-primary-500 opacity-0 group-hover:opacity-100 transition-opacity" />
-                    </div>
-                  </Link>
-                )
-              } else if (item.wordData) {
-                // Spelling or vocabulary word
-                const word = item.wordData
-                const link = item.item_type === 'spelling_word' ? '/spelling-bee' : '/vocabulary-trainer'
-                return (
-                  <Link
-                    key={item.id}
-                    to={link}
-                    className="p-4 rounded-lg border border-neutral-200 dark:border-neutral-700 hover:border-gold-300 dark:hover:border-gold-600 hover:shadow-md transition-all group bg-gradient-to-br from-white to-gold-50/30 dark:from-neutral-800 dark:to-gold-900/10"
-                  >
-                    <div className="flex items-start justify-between mb-2">
-                      <h3 className="font-semibold text-neutral-900 dark:text-white group-hover:text-primary-600">
-                        {word.word}
-                      </h3>
-                      <StarSolidIcon className="h-4 w-4 text-gold-500 flex-shrink-0 ml-2" />
-                    </div>
-                    <p className="text-xs text-neutral-600 dark:text-neutral-400 mb-2">
-                      {item.displayType}
-                    </p>
-                    {word.definition && (
-                      <p className="text-xs text-neutral-500 dark:text-neutral-400 line-clamp-2 mb-2">
-                        {word.definition}
-                      </p>
-                    )}
-                    <div className="flex items-center justify-between">
-                      <span className="text-xs text-neutral-500">
-                        Difficulty: {word.difficulty || 'Not set'}
-                      </span>
-                      <ArrowRightIcon className="h-4 w-4 text-primary-500 opacity-0 group-hover:opacity-100 transition-opacity" />
-                    </div>
-                  </Link>
-                )
-              } else if (item.questionData) {
-                // Language question
-                const question = item.questionData
-                const questionText = question.question || question.text || 'Language Question'
-                const language = question.language || 'Unknown Language'
-                const category = question.category || question.type || ''
-                
-                return (
-                  <Link
-                    key={item.id}
-                    to="/language-trainer"
-                    className="p-4 rounded-lg border border-neutral-200 dark:border-neutral-700 hover:border-gold-300 dark:hover:border-gold-600 hover:shadow-md transition-all group bg-gradient-to-br from-white to-gold-50/30 dark:from-neutral-800 dark:to-gold-900/10"
-                  >
-                    <div className="flex items-start justify-between mb-2">
-                      <h3 className="font-semibold text-neutral-900 dark:text-white group-hover:text-primary-600 line-clamp-2">
-                        {questionText}
-                      </h3>
-                      <StarSolidIcon className="h-4 w-4 text-gold-500 flex-shrink-0 ml-2" />
-                    </div>
-                    <p className="text-xs text-neutral-600 dark:text-neutral-400 mb-2">
-                      {item.displayType} - {language}
-                    </p>
-                    <div className="flex items-center justify-between">
-                      <span className="text-xs text-neutral-500">
-                        {category}
-                      </span>
-                      <ArrowRightIcon className="h-4 w-4 text-primary-500 opacity-0 group-hover:opacity-100 transition-opacity" />
-                    </div>
-                  </Link>
-                )
-              } else {
-                // Fallback for items without data - try to display stored item_data
-                const displayName = item.item_data?.word || item.item_data?.name || item.item_data?.question || `Item ${item.item_id.slice(0, 8)}...`
-                const displayDescription = item.item_data?.definition || item.item_data?.description || ''
-                
-                return (
-                  <div
-                    key={item.id}
-                    className="p-4 rounded-lg border border-neutral-200 dark:border-neutral-700 bg-gradient-to-br from-white to-gold-50/30 dark:from-neutral-800 dark:to-gold-900/10"
-                  >
-                    <div className="flex items-start justify-between mb-2">
-                      <h3 className="font-semibold text-neutral-900 dark:text-white">
-                        {displayName}
-                      </h3>
-                      <StarSolidIcon className="h-4 w-4 text-gold-500 flex-shrink-0 ml-2" />
-                    </div>
-                    <p className="text-xs text-neutral-600 dark:text-neutral-400 mb-2">
-                      {item.displayType}
-                    </p>
-                    {displayDescription && (
-                      <p className="text-xs text-neutral-500 dark:text-neutral-400 line-clamp-2 mb-2">
-                        {displayDescription}
-                      </p>
-                    )}
-                    <div className="text-xs text-neutral-500">
-                      Starred {new Date(item.created_at).toLocaleDateString()}
-                    </div>
+              // All items are skill tree nodes now
+              const node = item.nodeData
+              if (!node) return null
+              
+              const nodePath = nodePaths[node.id] || `/learning/${node.id}`
+              return (
+                <Link
+                  key={item.id}
+                  to={nodePath}
+                  className="p-4 rounded-lg border border-neutral-200 dark:border-neutral-700 hover:border-gold-300 dark:hover:border-gold-600 hover:shadow-md transition-all group bg-gradient-to-br from-white to-gold-50/30 dark:from-neutral-800 dark:to-gold-900/10"
+                >
+                  <div className="flex items-start justify-between mb-2">
+                    <h3 className="font-semibold text-neutral-900 dark:text-white group-hover:text-primary-600 line-clamp-2">
+                      {node.name}
+                    </h3>
+                    <StarSolidIcon className="h-4 w-4 text-gold-500 flex-shrink-0 ml-2" />
                   </div>
-                )
-              }
+                  {node.description && (
+                    <p className="text-sm text-neutral-600 dark:text-neutral-400 line-clamp-3 mb-2">
+                      {node.description}
+                    </p>
+                  )}
+                  <div className="flex items-center justify-between mt-auto">
+                    {node.has_learning_content && (
+                      <span className="inline-flex items-center gap-1 px-2 py-0.5 bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-300 rounded-full text-xs">
+                        <BookOpenIcon className="h-3 w-3" />
+                        Content
+                      </span>
+                    )}
+                    <ArrowRightIcon className="h-4 w-4 text-primary-500 opacity-0 group-hover:opacity-100 transition-opacity ml-auto" />
+                  </div>
+                </Link>
+              )
             })}
           </div>
           
@@ -1092,7 +948,7 @@ const ProfilePage: React.FC = () => {
                 to="/starred-items" 
                 className="inline-flex items-center gap-2 text-primary-600 hover:text-primary-700 font-medium text-sm"
               >
-                View all {starredItems.length} starred items
+                View all {starredItems.length} starred modules
                 <ArrowRightIcon className="h-4 w-4" />
               </Link>
             </div>

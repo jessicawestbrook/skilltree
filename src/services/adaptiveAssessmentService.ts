@@ -329,14 +329,29 @@ export class AdaptiveQuestionSelector {
     categoryId: string
   ): Promise<void> {
     try {
+      // First get current usage count
+      const { data: questionData } = await supabase
+        .from('questions')
+        .select('usage_count')
+        .eq('id', questionId)
+        .single()
+      
       // Update question usage count
       await supabase
         .from('questions')
         .update({ 
-          usage_count: supabase.rpc('increment_usage_count', { question_id: questionId }),
+          usage_count: (questionData?.usage_count || 0) + 1,
           last_used_at: new Date().toISOString()
         })
         .eq('id', questionId)
+      
+      // Check if user has seen this question before
+      const { data: historyData } = await supabase
+        .from('user_question_history')
+        .select('times_seen')
+        .eq('user_id', userId)
+        .eq('question_id', questionId)
+        .single()
       
       // Update or insert user question history
       await supabase
@@ -345,10 +360,7 @@ export class AdaptiveQuestionSelector {
           user_id: userId,
           question_id: questionId,
           category_id: categoryId,
-          times_seen: supabase.rpc('increment_times_seen', { 
-            p_user_id: userId, 
-            p_question_id: questionId 
-          }),
+          times_seen: (historyData?.times_seen || 0) + 1,
           last_seen_at: new Date().toISOString()
         })
         
@@ -454,7 +466,10 @@ export class AdaptiveAssessmentService {
         status: 'active'
       })
       
-      if (error) throw error
+      if (error) {
+        console.error('Error creating assessment session in startAssessment:', error)
+        throw error
+      }
       
       // Map adapter response to AssessmentSession interface
       if (data) {

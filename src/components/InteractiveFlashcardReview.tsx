@@ -10,6 +10,9 @@ import {
   ChartBarIcon,
   ClockIcon
 } from '@heroicons/react/24/outline'
+import SpellingBeeCard from './flashcards/SpellingBeeCard'
+import VocabularyCard from './flashcards/VocabularyCard'
+import LanguageCard from './flashcards/LanguageCard'
 
 interface FlashcardData {
   id: string
@@ -42,13 +45,15 @@ interface InteractiveFlashcardReviewProps {
   onComplete?: () => void
   onLoadMore?: () => void
   className?: string
+  disableAutoFocus?: boolean
 }
 
 const InteractiveFlashcardReview: React.FC<InteractiveFlashcardReviewProps> = ({
   flashcards,
   onComplete,
   onLoadMore,
-  className = ''
+  className = '',
+  disableAutoFocus = false
 }) => {
   const { user } = useAuth()
   const [currentIndex, setCurrentIndex] = useState(0)
@@ -189,72 +194,24 @@ const InteractiveFlashcardReview: React.FC<InteractiveFlashcardReviewProps> = ({
     if (!currentCard) return null
 
     return (
-      <div className="space-y-6">
-        <div className="text-center">
-          <h3 className="text-2xl font-semibold text-neutral-900 dark:text-white mb-4">
-            Spell this word
-          </h3>
-          
-          <button
-            onClick={() => speak(currentCard.word || '')}
-            className="inline-flex items-center gap-2 px-6 py-3 bg-primary-100 hover:bg-primary-200 dark:bg-primary-900/30 dark:hover:bg-primary-900/50 text-primary-700 dark:text-primary-300 rounded-lg transition-colors"
-          >
-            <SpeakerWaveIcon className="h-6 w-6" />
-            Play Audio
-          </button>
-
-          {currentCard.pronunciation && (
-            <p className="text-sm text-neutral-600 dark:text-neutral-400 mt-2">
-              Pronunciation: {currentCard.pronunciation}
-            </p>
-          )}
-
-          {currentCard.example_sentence && showHint && (
-            <div className="mt-4 p-3 bg-blue-50 dark:bg-blue-900/20 rounded-lg">
-              <p className="text-sm text-blue-700 dark:text-blue-300">
-                {currentCard.example_sentence}
-              </p>
-            </div>
-          )}
-        </div>
-
-        <div>
-          <input
-            type="text"
-            value={userAnswer}
-            onChange={(e) => setUserAnswer(e.target.value)}
-            onKeyPress={(e) => {
-              if (e.key === 'Enter' && !showResult) {
-                checkAnswer()
-              }
-            }}
-            placeholder="Type your answer..."
-            disabled={showResult}
-            className="w-full px-4 py-3 text-lg border border-neutral-300 dark:border-neutral-600 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent dark:bg-neutral-800 dark:text-white"
-            autoFocus
-          />
-        </div>
-
-        {showResult && (
-          <div className={`p-4 rounded-lg ${isCorrect ? 'bg-green-100 dark:bg-green-900/30' : 'bg-red-100 dark:bg-red-900/30'}`}>
-            <div className="flex items-center gap-2">
-              {isCorrect ? (
-                <CheckCircleIcon className="h-6 w-6 text-green-600 dark:text-green-400" />
-              ) : (
-                <XCircleIcon className="h-6 w-6 text-red-600 dark:text-red-400" />
-              )}
-              <p className={`font-semibold ${isCorrect ? 'text-green-700 dark:text-green-300' : 'text-red-700 dark:text-red-300'}`}>
-                {isCorrect ? 'Correct!' : `Incorrect. The answer is: ${currentCard.word}`}
-              </p>
-            </div>
-            {currentCard.definition && (
-              <p className="text-sm text-neutral-700 dark:text-neutral-300 mt-2">
-                Definition: {currentCard.definition}
-              </p>
-            )}
-          </div>
-        )}
-      </div>
+      <SpellingBeeCard
+        word={currentCard.word || ''}
+        definition={currentCard.definition}
+        partOfSpeech={currentCard.part_of_speech}
+        difficulty={parseInt(currentCard.difficulty || '1')}
+        userInput={userAnswer}
+        showResult={showResult}
+        isCorrect={isCorrect}
+        onPlayAudio={() => speak(currentCard.word || '')}
+        onInputChange={(value) => {
+          setUserAnswer(value)
+          if (!showResult && value.trim().toLowerCase() === currentCard.word?.toLowerCase()) {
+            setTimeout(() => {
+              checkAnswer()
+            }, 100)
+          }
+        }}
+      />
     )
   }
 
@@ -262,99 +219,88 @@ const InteractiveFlashcardReview: React.FC<InteractiveFlashcardReviewProps> = ({
     if (!currentCard) return null
 
     const isWordToDefinition = Math.random() > 0.5
-    const question = isWordToDefinition ? currentCard.word : currentCard.definition
-    const correctAnswer = isWordToDefinition ? currentCard.definition : currentCard.word
+    const questionType = isWordToDefinition ? 'definition' : 'word'
+    const question = isWordToDefinition 
+      ? `What is the definition of "${currentCard.word}"?`
+      : `What word means: ${currentCard.definition}?`
 
     return (
-      <div className="space-y-6">
-        <div>
-          <h3 className="text-xl font-semibold text-neutral-900 dark:text-white mb-2">
-            {isWordToDefinition ? 'What is the definition of:' : 'What word means:'}
-          </h3>
-          <p className="text-2xl font-bold text-primary-600 dark:text-primary-400">
-            {question}
-          </p>
-          {currentCard.part_of_speech && isWordToDefinition && (
-            <p className="text-sm text-neutral-600 dark:text-neutral-400 mt-1">
-              ({currentCard.part_of_speech})
-            </p>
-          )}
-        </div>
+      <VocabularyCard
+        word={currentCard.word || ''}
+        definition={currentCard.definition}
+        partOfSpeech={currentCard.part_of_speech}
+        difficulty={parseInt(currentCard.difficulty || '1')}
+        questionType={questionType}
+        question={question}
+        options={currentCard.options || []}
+        selectedOption={selectedOption}
+        correctAnswer={currentCard.correct_answer || (currentCard.correct_answer_index !== undefined && currentCard.options ? currentCard.options[currentCard.correct_answer_index] : '')}
+        showResult={showResult}
+        onSelectOption={(index) => {
+          if (!showResult) {
+            setSelectedOption(index)
+            // Immediately check answer when option is selected
+            setTimeout(() => {
+              const correct = index === currentCard.correct_answer_index ||
+                             currentCard.options![index] === currentCard.correct_answer
+              setIsCorrect(correct)
+              setShowResult(true)
+              // Update session stats
+              setSessionStats(prev => ({
+                reviewed: prev.reviewed + 1,
+                correct: correct ? prev.correct + 1 : prev.correct,
+                incorrect: !correct ? prev.incorrect + 1 : prev.incorrect,
+                averageTime: (prev.averageTime * prev.reviewed + (Date.now() - startTime) / 1000) / (prev.reviewed + 1)
+              }))
+            }, 100)
+          }
+        }}
+        onPlayAudio={() => speak(currentCard.word || '')}
+      />
+    )
+  }
 
-        {currentCard.options && currentCard.options.length > 0 ? (
-          <div className="space-y-3">
-            {currentCard.options.map((option, index) => (
-              <button
-                key={index}
-                onClick={() => {
-                  if (!showResult) {
-                    setSelectedOption(index)
-                  }
-                }}
-                disabled={showResult}
-                className={`w-full text-left p-4 rounded-lg border-2 transition-all ${
-                  showResult
-                    ? index === currentCard.correct_answer_index
-                      ? 'border-green-500 bg-green-50 dark:bg-green-900/20'
-                      : selectedOption === index
-                      ? 'border-red-500 bg-red-50 dark:bg-red-900/20'
-                      : 'border-neutral-200 dark:border-neutral-700'
-                    : selectedOption === index
-                    ? 'border-primary-500 bg-primary-50 dark:bg-primary-900/20'
-                    : 'border-neutral-200 dark:border-neutral-700 hover:border-primary-300'
-                }`}
-              >
-                <div className="flex items-center justify-between">
-                  <span className="text-neutral-800 dark:text-neutral-200">
-                    {option}
-                  </span>
-                  {showResult && (
-                    <span>
-                      {index === currentCard.correct_answer_index ? (
-                        <CheckCircleIcon className="h-5 w-5 text-green-600" />
-                      ) : selectedOption === index ? (
-                        <XCircleIcon className="h-5 w-5 text-red-600" />
-                      ) : null}
-                    </span>
-                  )}
-                </div>
-              </button>
-            ))}
-          </div>
-        ) : (
-          <div>
-            <input
-              type="text"
-              value={userAnswer}
-              onChange={(e) => setUserAnswer(e.target.value)}
-              onKeyPress={(e) => {
-                if (e.key === 'Enter' && !showResult) {
-                  checkAnswer()
-                }
-              }}
-              placeholder="Type your answer..."
-              disabled={showResult}
-              className="w-full px-4 py-3 text-lg border border-neutral-300 dark:border-neutral-600 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent dark:bg-neutral-800 dark:text-white"
-              autoFocus
-            />
-            {showResult && (
-              <div className={`mt-4 p-4 rounded-lg ${isCorrect ? 'bg-green-100 dark:bg-green-900/30' : 'bg-red-100 dark:bg-red-900/30'}`}>
-                <p className={`font-semibold ${isCorrect ? 'text-green-700 dark:text-green-300' : 'text-red-700 dark:text-red-300'}`}>
-                  {isCorrect ? 'Correct!' : `Incorrect. The answer is: ${correctAnswer}`}
-                </p>
-              </div>
-            )}
-          </div>
-        )}
+  const renderLanguageCard = () => {
+    if (!currentCard) return null
 
-        {currentCard.example_sentence && showResult && (
-          <div className="p-3 bg-neutral-100 dark:bg-neutral-800 rounded-lg">
-            <p className="text-sm text-neutral-700 dark:text-neutral-300">
-              <strong>Example:</strong> {currentCard.example_sentence}
-            </p>
-          </div>
-        )}
-      </div>
+    return (
+      <LanguageCard
+        language={currentCard.language || 'Language'}
+        questionText={currentCard.question || ''}
+        questionType={currentCard.category}
+        options={currentCard.options || []}
+        selectedOption={selectedOption}
+        correctAnswer={currentCard.correct_answer || (currentCard.correct_answer_index !== undefined && currentCard.options ? currentCard.options[currentCard.correct_answer_index] : '')}
+        showResult={showResult}
+        explanation={currentCard.explanation}
+        difficulty={parseInt(currentCard.difficulty || '1')}
+        onSelectOption={(index) => {
+          if (!showResult) {
+            setSelectedOption(index)
+            // Immediately check answer when option is selected
+            setTimeout(() => {
+              const correct = index === currentCard.correct_answer_index ||
+                             currentCard.options![index] === currentCard.correct_answer
+              setIsCorrect(correct)
+              setShowResult(true)
+              // Update session stats
+              setSessionStats(prev => ({
+                reviewed: prev.reviewed + 1,
+                correct: correct ? prev.correct + 1 : prev.correct,
+                incorrect: !correct ? prev.incorrect + 1 : prev.incorrect,
+                averageTime: (prev.averageTime * prev.reviewed + (Date.now() - startTime) / 1000) / (prev.reviewed + 1)
+              }))
+            }, 100)
+          }
+        }}
+        onPlayAudio={() => {
+          // Play audio for foreign language text
+          const foreignText = currentCard.question || ''
+          if (foreignText && !foreignText.match(/^[A-Za-z\s.,!?'"]+$/)) {
+            speak(foreignText, currentCard.language === 'Spanish' ? 'es-ES' : 'en-US')
+          }
+        }}
+      />
     )
   }
 
@@ -382,6 +328,19 @@ const InteractiveFlashcardReview: React.FC<InteractiveFlashcardReviewProps> = ({
                 onClick={() => {
                   if (!showResult) {
                     setSelectedOption(index)
+                    // Immediately check answer when option is selected
+                    setTimeout(() => {
+                      const correct = option === currentCard.correct_answer
+                      setIsCorrect(correct)
+                      setShowResult(true)
+                      // Update session stats
+                      setSessionStats(prev => ({
+                        reviewed: prev.reviewed + 1,
+                        correct: correct ? prev.correct + 1 : prev.correct,
+                        incorrect: !correct ? prev.incorrect + 1 : prev.incorrect,
+                        averageTime: (prev.averageTime * prev.reviewed + (Date.now() - startTime) / 1000) / (prev.reviewed + 1)
+                      }))
+                    }, 100)
                   }
                 }}
                 disabled={showResult}
@@ -423,7 +382,7 @@ const InteractiveFlashcardReview: React.FC<InteractiveFlashcardReviewProps> = ({
               disabled={showResult}
               className="w-full px-4 py-3 border border-neutral-300 dark:border-neutral-600 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent dark:bg-neutral-800 dark:text-white"
               rows={3}
-              autoFocus
+              autoFocus={!disableAutoFocus}
             />
           </div>
         )}
@@ -433,98 +392,6 @@ const InteractiveFlashcardReview: React.FC<InteractiveFlashcardReviewProps> = ({
             <p className="text-sm text-blue-700 dark:text-blue-300">
               <strong>Explanation:</strong> {currentCard.explanation}
             </p>
-          </div>
-        )}
-      </div>
-    )
-  }
-
-  const renderLanguageCard = () => {
-    if (!currentCard) return null
-
-    return (
-      <div className="space-y-6">
-        <div>
-          <div className="flex items-center gap-2 mb-2">
-            <span className="px-2 py-1 bg-purple-100 dark:bg-purple-900/30 text-purple-700 dark:text-purple-300 rounded text-sm font-medium">
-              {currentCard.language}
-            </span>
-            {currentCard.category && (
-              <span className="px-2 py-1 bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 rounded text-sm">
-                {currentCard.category}
-              </span>
-            )}
-          </div>
-          <h3 className="text-xl font-medium text-neutral-900 dark:text-white">
-            {currentCard.question}
-          </h3>
-          {currentCard.hint && showHint && (
-            <div className="mt-3 p-3 bg-yellow-50 dark:bg-yellow-900/20 rounded-lg">
-              <p className="text-sm text-yellow-700 dark:text-yellow-300">
-                Hint: {currentCard.hint}
-              </p>
-            </div>
-          )}
-        </div>
-
-        {currentCard.options && currentCard.options.length > 0 && (
-          <div className="space-y-3">
-            {currentCard.options.map((option, index) => (
-              <button
-                key={index}
-                onClick={() => {
-                  if (!showResult) {
-                    setSelectedOption(index)
-                    // Auto-play pronunciation for language options
-                    if (currentCard.language) {
-                      const langCode = currentCard.language.toLowerCase().substring(0, 2)
-                      speak(option, langCode)
-                    }
-                  }
-                }}
-                disabled={showResult}
-                className={`w-full text-left p-4 rounded-lg border-2 transition-all ${
-                  showResult
-                    ? index === currentCard.correct_answer_index
-                      ? 'border-green-500 bg-green-50 dark:bg-green-900/20'
-                      : selectedOption === index
-                      ? 'border-red-500 bg-red-50 dark:bg-red-900/20'
-                      : 'border-neutral-200 dark:border-neutral-700'
-                    : selectedOption === index
-                    ? 'border-primary-500 bg-primary-50 dark:bg-primary-900/20'
-                    : 'border-neutral-200 dark:border-neutral-700 hover:border-primary-300'
-                }`}
-              >
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-2">
-                    <span className="text-neutral-800 dark:text-neutral-200">
-                      {option}
-                    </span>
-                    <button
-                      onClick={(e) => {
-                        e.stopPropagation()
-                        if (currentCard.language) {
-                          const langCode = currentCard.language.toLowerCase().substring(0, 2)
-                          speak(option, langCode)
-                        }
-                      }}
-                      className="p-1 hover:bg-neutral-200 dark:hover:bg-neutral-700 rounded"
-                    >
-                      <SpeakerWaveIcon className="h-4 w-4 text-neutral-600 dark:text-neutral-400" />
-                    </button>
-                  </div>
-                  {showResult && (
-                    <span>
-                      {index === currentCard.correct_answer_index ? (
-                        <CheckCircleIcon className="h-5 w-5 text-green-600" />
-                      ) : selectedOption === index ? (
-                        <XCircleIcon className="h-5 w-5 text-red-600" />
-                      ) : null}
-                    </span>
-                  )}
-                </div>
-              </button>
-            ))}
           </div>
         )}
       </div>
@@ -611,20 +478,7 @@ const InteractiveFlashcardReview: React.FC<InteractiveFlashcardReviewProps> = ({
 
       {/* Action Buttons */}
       <div className="mt-6 flex justify-end gap-3">
-        {!showResult ? (
-          <button
-            onClick={checkAnswer}
-            disabled={
-              (currentCard.type === 'spelling' && !userAnswer) ||
-              ((currentCard.type === 'vocabulary' || currentCard.type === 'language' || 
-                (currentCard.type === 'question' && currentCard.options)) && selectedOption === null) ||
-              ((currentCard.type === 'question' && !currentCard.options) && !userAnswer)
-            }
-            className="px-6 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 disabled:bg-neutral-300 disabled:cursor-not-allowed transition-colors"
-          >
-            Check Answer
-          </button>
-        ) : (
+        {showResult ? (
           <button
             onClick={submitReview}
             className="inline-flex items-center gap-2 px-6 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition-colors"
@@ -632,6 +486,17 @@ const InteractiveFlashcardReview: React.FC<InteractiveFlashcardReviewProps> = ({
             Next
             <ArrowRightIcon className="h-4 w-4" />
           </button>
+        ) : (
+          // Only show Check Answer button for text input types (spelling and free-form questions)
+          (currentCard.type === 'spelling' || (currentCard.type === 'question' && !currentCard.options)) && (
+            <button
+              onClick={checkAnswer}
+              disabled={!userAnswer}
+              className="px-6 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 disabled:bg-neutral-300 disabled:cursor-not-allowed transition-colors"
+            >
+              Check Answer
+            </button>
+          )
         )}
       </div>
 

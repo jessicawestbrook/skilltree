@@ -1,7 +1,8 @@
 import React, { useState } from 'react'
 import { Link, useNavigate, useSearchParams } from 'react-router-dom'
 import { useAuth } from '../contexts/AuthContext'
-import { AcademicCapIcon, EyeIcon, EyeSlashIcon } from '@heroicons/react/24/outline'
+import { EyeIcon, EyeSlashIcon } from '@heroicons/react/24/outline'
+import TreeLogo from '../components/TreeLogo'
 
 const LoginPage: React.FC = () => {
   const [email, setEmail] = useState('')
@@ -44,9 +45,11 @@ const LoginPage: React.FC = () => {
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-primary-50 to-secondary-50 dark:from-neutral-900 dark:to-neutral-800">
       <div className="bg-white dark:bg-neutral-800 p-8 rounded-2xl shadow-xl w-full max-w-md">
         <div className="flex justify-center mb-6">
-          <Link to="/" className="flex items-center space-x-2">
-            <AcademicCapIcon className="h-10 w-10 text-primary-600" />
-            <span className="font-game text-3xl text-primary-600 dark:text-primary-400">
+          <Link to="/" className="flex flex-col items-center space-y-2 group">
+            <div className="transform transition-transform group-hover:scale-110">
+              <TreeLogo size={64} className="filter drop-shadow-lg" />
+            </div>
+            <span className="font-game text-3xl text-primary-600 dark:text-primary-400 tracking-wide">
               SkillTree
             </span>
           </Link>

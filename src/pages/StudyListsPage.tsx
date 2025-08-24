@@ -1,8 +1,10 @@
 import React, { useState, useEffect, useCallback } from 'react'
+import { useParams, useNavigate } from 'react-router-dom'
 import { useAuth } from '../contexts/AuthContext'
 import { studyListService } from '../services/studyListService'
 import { checkStudyListTables, createStudyListTables } from '../utils/createStudyListTables'
 import { StudyList, StarredItem, StudyListItem } from '../types/database.types'
+import { nameToSlug } from '../utils/studyListSlug'
 import {
   PlusIcon,
   TrashIcon,
@@ -13,6 +15,8 @@ import { StarIcon as StarIconSolid } from '@heroicons/react/24/solid'
 
 const StudyListsPage: React.FC = () => {
   const { user } = useAuth()
+  const { listSlug } = useParams<{ listSlug?: string }>()
+  const navigate = useNavigate()
   const [studyLists, setStudyLists] = useState<StudyList[]>([])
   const [starredItems, setStarredItems] = useState<StarredItem[]>([])
   const [loading, setLoading] = useState(true)
@@ -38,6 +42,11 @@ const StudyListsPage: React.FC = () => {
     '#84CC16'  // Lime
   ]
 
+  const fetchListItems = useCallback(async (listId: string) => {
+    const items = await studyListService.getStudyListItems(listId)
+    setListItems(items)
+  }, [])
+
   const fetchData = useCallback(async () => {
     if (!user) return
 
@@ -50,12 +59,21 @@ const StudyListsPage: React.FC = () => {
       
       setStudyLists(lists)
       setStarredItems(starred)
+      
+      // If there's a listSlug in the URL, select that list
+      if (listSlug && lists.length > 0) {
+        const targetList = lists.find(list => nameToSlug(list.name) === listSlug)
+        if (targetList) {
+          setSelectedList(targetList)
+          await fetchListItems(targetList.id)
+        }
+      }
     } catch (error) {
       console.error('Error fetching data:', error)
     } finally {
       setLoading(false)
     }
-  }, [user])
+  }, [user, listSlug, fetchListItems])
 
   const initializeStudyLists = useCallback(async () => {
     // Check if tables exist
@@ -78,10 +96,6 @@ const StudyListsPage: React.FC = () => {
     }
   }, [user, initializeStudyLists])
 
-  const fetchListItems = async (listId: string) => {
-    const items = await studyListService.getStudyListItems(listId)
-    setListItems(items)
-  }
 
   const handleCreateList = async () => {
     if (!user || !newListData.name.trim()) return
@@ -144,6 +158,8 @@ const StudyListsPage: React.FC = () => {
   }
 
   const handleViewList = (list: StudyList) => {
+    const slug = nameToSlug(list.name)
+    navigate(`/study-lists/${slug}`)
     setSelectedList(list)
     fetchListItems(list.id)
   }
@@ -160,6 +176,45 @@ const StudyListsPage: React.FC = () => {
     if (success) {
       setListItems(listItems.filter(i => i.id !== item.id))
     }
+  }
+
+  const handlePlayAllItems = (items: (StarredItem | StudyListItem)[], listName?: string) => {
+    if (items.length === 0) return
+    
+    // Navigate to the study list review page with all items
+    navigate('/study-list-review', {
+      state: {
+        items: items.map(item => ({
+          id: item.item_id,
+          type: item.item_type,
+          data: item.item_data
+        })),
+        listName: listName || 'Study Session'
+      }
+    })
+  }
+
+  const handleItemClick = (item: StarredItem | StudyListItem, allItems: (StarredItem | StudyListItem)[], itemIndex: number, listName?: string) => {
+    const data = item.item_data || {}
+    
+    // For skill nodes, navigate to their category page
+    if (item.item_type === 'skill_node' && data.id) {
+      navigate(`/category/${data.id}`)
+      return
+    }
+    
+    // For all other items, navigate to the study list review page starting at the clicked item
+    navigate('/study-list-review', {
+      state: {
+        items: allItems.map(listItem => ({
+          id: listItem.item_id,
+          type: listItem.item_type,
+          data: listItem.item_data
+        })),
+        listName: listName || 'Study Session',
+        startIndex: itemIndex
+      }
+    })
   }
 
   const renderItemPreview = (item: StarredItem | StudyListItem) => {
@@ -409,11 +464,6 @@ CREATE INDEX IF NOT EXISTS idx_study_list_items_study_list_id ON study_list_item
                         <span className="font-medium text-neutral-900 dark:text-white block truncate">
                           {list.name}
                         </span>
-                        {list.description && (
-                          <p className="text-xs text-neutral-500 dark:text-neutral-400 truncate">
-                            {list.description}
-                          </p>
-                        )}
                       </div>
                     </div>
                     <div className="flex items-center gap-1">
@@ -474,26 +524,34 @@ CREATE INDEX IF NOT EXISTS idx_study_list_items_study_list_id ON study_list_item
                   <span className="text-sm text-neutral-500 dark:text-neutral-400">
                     {listItems.length} items
                   </span>
-                  <button className="p-2 bg-primary-100 dark:bg-primary-900/30 text-primary-600 dark:text-primary-400 rounded-lg hover:bg-primary-200 dark:hover:bg-primary-900/50 transition-colors">
+                  <button 
+                    onClick={() => handlePlayAllItems(listItems, selectedList.name)}
+                    className="p-2 bg-primary-100 dark:bg-primary-900/30 text-primary-600 dark:text-primary-400 rounded-lg hover:bg-primary-200 dark:hover:bg-primary-900/50 transition-colors"
+                    title="Study all items in this list"
+                  >
                     <PlayIcon className="h-5 w-5" />
                   </button>
                 </div>
               </div>
 
               <div className="space-y-3">
-                {listItems.map(item => (
+                {listItems.map((item, index) => (
                   <div
                     key={item.id}
-                    className="flex items-center gap-3 p-4 border border-neutral-200 dark:border-neutral-700 rounded-lg"
+                    className="flex items-center gap-3 p-4 border border-neutral-200 dark:border-neutral-700 rounded-lg hover:border-primary-400 dark:hover:border-primary-500 hover:bg-primary-50 dark:hover:bg-primary-900/10 transition-all cursor-pointer group"
+                    onClick={() => handleItemClick(item, listItems, index, selectedList.name)}
                   >
-                    <div className="w-2 h-2 bg-neutral-400 rounded-full flex-shrink-0" />
+                    <div className="w-2 h-2 bg-neutral-400 group-hover:bg-primary-500 rounded-full flex-shrink-0 transition-colors" />
                     {renderItemPreview(item)}
                     <div className="flex items-center gap-2">
                       <span className="text-xs bg-neutral-100 dark:bg-neutral-700 text-neutral-600 dark:text-neutral-400 px-2 py-1 rounded">
                         {item.item_type.replace('_', ' ')}
                       </span>
                       <button
-                        onClick={() => handleRemoveFromList(item)}
+                        onClick={(e) => {
+                          e.stopPropagation()
+                          handleRemoveFromList(item)
+                        }}
                         className="p-1 hover:bg-red-100 dark:hover:bg-red-900/30 rounded transition-colors"
                       >
                         <TrashIcon className="h-4 w-4 text-red-500" />
@@ -511,18 +569,30 @@ CREATE INDEX IF NOT EXISTS idx_study_list_items_study_list_id ON study_list_item
           ) : (
             /* Starred Items */
             <div className="bg-white dark:bg-neutral-800 rounded-xl shadow-lg p-6">
-              <div className="flex items-center gap-3 mb-6">
-                <StarIconSolid className="h-6 w-6 text-yellow-500" />
-                <h2 className="text-xl font-semibold text-neutral-900 dark:text-white">
-                  Starred Items ({starredItems.length})
-                </h2>
+              <div className="flex items-center justify-between mb-6">
+                <div className="flex items-center gap-3">
+                  <StarIconSolid className="h-6 w-6 text-yellow-500" />
+                  <h2 className="text-xl font-semibold text-neutral-900 dark:text-white">
+                    Starred Items ({starredItems.length})
+                  </h2>
+                </div>
+                {starredItems.length > 0 && (
+                  <button 
+                    onClick={() => handlePlayAllItems(starredItems, 'Starred Items')}
+                    className="p-2 bg-primary-100 dark:bg-primary-900/30 text-primary-600 dark:text-primary-400 rounded-lg hover:bg-primary-200 dark:hover:bg-primary-900/50 transition-colors"
+                    title="Study all starred items"
+                  >
+                    <PlayIcon className="h-5 w-5" />
+                  </button>
+                )}
               </div>
 
               <div className="space-y-3">
-                {starredItems.map(item => (
+                {starredItems.map((item, index) => (
                   <div
                     key={item.id}
-                    className="flex items-center gap-3 p-4 border border-neutral-200 dark:border-neutral-700 rounded-lg"
+                    className="flex items-center gap-3 p-4 border border-neutral-200 dark:border-neutral-700 rounded-lg hover:border-primary-400 dark:hover:border-primary-500 hover:bg-primary-50 dark:hover:bg-primary-900/10 transition-all cursor-pointer group"
+                    onClick={() => handleItemClick(item, starredItems, index, 'Starred Items')}
                   >
                     <StarIconSolid className="h-4 w-4 text-yellow-500 flex-shrink-0" />
                     {renderItemPreview(item)}

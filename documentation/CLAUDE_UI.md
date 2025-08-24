@@ -24,7 +24,7 @@ Search bar to easily find content categories, learning content, and questions. D
 Add a feedback system, with different categories of feedback the user can select from, such as bug reports or learning content requests. Create an admin page for responding to the requests as well as a messaging history so users can see admin responses. Link the feedback system in the top menu. Add ability for user to flag content or questions that have issues.
 
 ### Admin
-Make it so only admin users can see the admin dashboard. Make field to mark learning categories to hide it and all its children from users. Make this updatable in the admin section.
+Make it so only admin users can see the admin dashboard. Make field to mark learning categories to hide it and all its children from users. Make this updatable in the admin section. Add link to admin in navbar profile button menu dropdown if user is an admin.
 
 ## Specs
 
@@ -38,7 +38,7 @@ Clicking on a learning category takes you to a standard category overview page t
 Put key site components on the upper menu bar. A menu dropdown should be combined with the profile button so the dropdown is on the right side of the button. It should say sign up/login, or if the user is already logged in it should display "My Learning" which takes the user to their profile when clicked. The right side of the button is a dropdown that displays the dropdown menu.
 
 ### Mega menu
-Home page should have a mega menu to view the first 3 nodes in the skills tree and be able to click them to go to a page dedicated to that learning category. Menu should automatically update if the skill tree updates in the db. Within a hierarchical level, categories should be sorted by their typical order in academic programs or by difficulty, or otherwise by their popularity. For example, the Spanish language should come before Ancient Greek and Elementary Algebra should come before Abstract Algebra.
+Home page should have a mega menu to view the first 3 nodes in the skills tree and be able to click them to go to a page dedicated to that learning category. Menu should automatically update if the skill tree updates in the db in the display order field. Within a hierarchical level, categories should be sorted by their typical order in academic programs or by difficulty, or otherwise by their popularity. For example, the Spanish language should come before Ancient Greek and Elementary Algebra should come before Abstract Algebra.
 
 ### Tree view
 Add a checkbox on the list view page which allows user to expand the whole menu. 

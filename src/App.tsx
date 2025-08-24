@@ -1,5 +1,6 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
+import { initializeChromeErrorHandler } from './utils/chromeErrorHandler'
 import { HelmetProvider } from 'react-helmet-async'
 import { AuthProvider } from './contexts/AuthContext'
 import { ThemeProvider } from './contexts/ThemeContext'
@@ -38,10 +39,16 @@ import TestPage from './pages/TestPage'
 import NotificationsPage from './pages/NotificationsPage'
 import AboutPage from './pages/AboutPage'
 import ReviewFlashcardsPage from './pages/ReviewFlashcardsPage'
+import StudyListReviewPage from './pages/StudyListReviewPage'
 import ProtectedRoute from './components/ProtectedRoute'
 import AdminRoute from './components/AdminRoute'
 
 function App() {
+  useEffect(() => {
+    // Initialize Chrome error handler to suppress extension errors
+    initializeChromeErrorHandler()
+  }, [])
+
   return (
     <HelmetProvider>
       <ThemeProvider>
@@ -102,6 +109,22 @@ function App() {
                 element={
                   <ProtectedRoute>
                     <StudyListsPage />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="study-lists/:listSlug"
+                element={
+                  <ProtectedRoute>
+                    <StudyListsPage />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="study-list-review"
+                element={
+                  <ProtectedRoute>
+                    <StudyListReviewPage />
                   </ProtectedRoute>
                 }
               />

@@ -47,9 +47,56 @@ export const NotificationProvider: React.FC<NotificationProviderProps> = ({ chil
     if (user) {
       fetchNotifications()
       fetchPreferences()
-      // Set up periodic refresh for notifications
-      const interval = setInterval(fetchNotifications, 30000) // Every 30 seconds
-      return () => clearInterval(interval)
+      
+      // Check connection and sync on mount
+      notificationService.checkConnectionAndSync(user.id)
+      
+      // Set up periodic refresh for notifications with exponential backoff on errors
+      let failureCount = 0
+      const baseInterval = 30000 // 30 seconds
+      let currentInterval = baseInterval
+      
+      const intervalFn = async () => {
+        try {
+          // Check connection and sync pending updates
+          const isConnected = await notificationService.checkConnectionAndSync(user.id)
+          if (isConnected) {
+            await fetchNotifications()
+            failureCount = 0
+            currentInterval = baseInterval
+          } else {
+            throw new Error('Connection check failed')
+          }
+        } catch (error) {
+          failureCount++
+          // Exponential backoff: 30s, 60s, 120s, max 240s
+          currentInterval = Math.min(baseInterval * Math.pow(2, failureCount), 240000)
+          console.log(`Notification fetch failed, next retry in ${currentInterval / 1000}s`)
+        }
+      }
+      
+      const interval = setInterval(intervalFn, baseInterval)
+      
+      // Also listen for online/offline events
+      const handleOnline = () => {
+        console.log('Connection restored, syncing notifications...')
+        notificationService.checkConnectionAndSync(user.id).then(() => {
+          fetchNotifications()
+        })
+      }
+      
+      const handleOffline = () => {
+        console.log('Connection lost, using cached data')
+      }
+      
+      window.addEventListener('online', handleOnline)
+      window.addEventListener('offline', handleOffline)
+      
+      return () => {
+        clearInterval(interval)
+        window.removeEventListener('online', handleOnline)
+        window.removeEventListener('offline', handleOffline)
+      }
     } else {
       setNotifications([])
       setUnreadCount(0)
@@ -63,15 +110,30 @@ export const NotificationProvider: React.FC<NotificationProviderProps> = ({ chil
 
     setLoading(true)
     try {
-      const [notifs, count] = await Promise.all([
+      const [notifs, count] = await Promise.allSettled([
         notificationService.getUserNotifications(user.id, 50),
         notificationService.getUnreadCount(user.id)
       ])
       
-      setNotifications(notifs)
-      setUnreadCount(count)
+      // Handle notifications result
+      if (notifs.status === 'fulfilled') {
+        setNotifications(notifs.value)
+      } else {
+        console.error('Error fetching notifications:', notifs.reason)
+        // Keep existing notifications if fetch failed
+      }
+      
+      // Handle count result
+      if (count.status === 'fulfilled') {
+        setUnreadCount(count.value)
+      } else {
+        console.error('Error fetching unread count:', count.reason)
+        // Calculate from local notifications if fetch failed
+        const localUnreadCount = notifications.filter(n => !n.is_read).length
+        setUnreadCount(localUnreadCount)
+      }
     } catch (error) {
-      console.error('Error fetching notifications:', error)
+      console.error('Unexpected error fetching notifications:', error)
     } finally {
       setLoading(false)
     }

@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{MODULE_TITLE}} - SkillTree Learning</title>
+    <link rel="stylesheet" href="/styles/standardLearningContent.css">
+</head>
+<body>
+    <div class="learning-content">
+        <!-- ===== MODULE HEADER ===== -->
+        <header class="module-header">
+            <div class="module-meta">
+                <span class="module-category">{{CATEGORY}}</span>
+                <span class="module-level">{{DIFFICULTY_LEVEL}}</span>
+                <span class="module-duration">{{ESTIMATED_TIME}}</span>
+            </div>
+            <h1 class="module-title">{{MODULE_TITLE}}</h1>
+            <p class="module-description">{{MODULE_DESCRIPTION}}</p>
+        </header>
+
+        <!-- ===== LEARNING OBJECTIVES ===== -->
+        <section class="learning-objectives">
+            <h2>What You'll Learn</h2>
+            <ul class="objectives-list">
+                <li>{{OBJECTIVE_1}}</li>
+                <li>{{OBJECTIVE_2}}</li>
+                <li>{{OBJECTIVE_3}}</li>
+                <!-- Add more objectives as needed -->
+            </ul>
+        </section>
+
+        <!-- ===== PREREQUISITES (Optional) ===== -->
+        <section class="prerequisites">
+            <h2>Before You Start</h2>
+            <p>To get the most from this lesson, you should already know:</p>
+            <ul>
+                <li>{{PREREQUISITE_1}}</li>
+                <li>{{PREREQUISITE_2}}</li>
+            </ul>
+        </section>
+
+        <!-- ===== INTRODUCTION ===== -->
+        <section class="intro-section">
+            <h2>Introduction</h2>
+            <p>{{INTRODUCTION_TEXT}}</p>
+            
+            <!-- Optional: Hook or real-world connection -->
+            <div class="real-world-connection">
+                <h3>Why This Matters</h3>
+                <p>{{REAL_WORLD_CONNECTION}}</p>
+            </div>
+        </section>
+
+        <!-- ===== MAIN CONTENT SECTIONS ===== -->
+        <!-- Repeat this pattern for each concept -->
+        <section class="concept-section" id="concept-1">
+            <h2>{{CONCEPT_1_TITLE}}</h2>
+            
+            <!-- Explanation -->
+            <div class="concept-explanation">
+                <p>{{CONCEPT_1_EXPLANATION}}</p>
+            </div>
+
+            <!-- Visual Aid (if applicable) -->
+            <div class="visual-aid">
+                {{CONCEPT_1_VISUAL}}
+                <!-- This could be an image, diagram, or interactive element -->
+            </div>
+
+            <!-- Example -->
+            <div class="example-box">
+                <h3>Example</h3>
+                <div class="example-content">
+                    {{CONCEPT_1_EXAMPLE}}
+                </div>
+            </div>
+
+            <!-- Key Points -->
+            <div class="key-points">
+                <h3>Remember:</h3>
+                <ul>
+                    <li>{{KEY_POINT_1}}</li>
+                    <li>{{KEY_POINT_2}}</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- ===== PRACTICE PROBLEMS ===== -->
+        <section class="practice-section">
+            <h2>Practice Problems</h2>
+            
+            <!-- Guided Practice -->
+            <div class="guided-practice">
+                <h3>Let's Try Together</h3>
+                <div class="practice-problem guided">
+                    <span class="problem-number">Guided Problem 1</span>
+                    <div class="problem-content">
+                        <p class="problem-question">{{GUIDED_PROBLEM_1}}</p>
+                        <div class="problem-workspace">
+                            {{GUIDED_SOLUTION_STEPS}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Independent Practice -->
+            <div class="independent-practice">
+                <h3>Your Turn</h3>
+                
+                <!-- Problem 1 -->
+                <div class="practice-problem">
+                    <span class="problem-number">Problem 1</span>
+                    <div class="problem-content">
+                        <p class="problem-question">{{PROBLEM_1_QUESTION}}</p>
+                        <div class="answer-choices">
+                            <button class="answer-choice" data-correct="{{PROBLEM_1_CORRECT}}">
+                                {{PROBLEM_1_CHOICE_A}}
+                            </button>
+                            <button class="answer-choice" data-correct="false">
+                                {{PROBLEM_1_CHOICE_B}}
+                            </button>
+                            <button class="answer-choice" data-correct="false">
+                                {{PROBLEM_1_CHOICE_C}}
+                            </button>
+                            <button class="answer-choice" data-correct="false">
+                                {{PROBLEM_1_CHOICE_D}}
+                            </button>
+                        </div>
+                        <div class="hint-box" style="display: none;">
+                            {{PROBLEM_1_HINT}}
+                        </div>
+                        <div class="solution-explanation" style="display: none;">
+                            <h4>Solution:</h4>
+                            <p>{{PROBLEM_1_EXPLANATION}}</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Add more problems as needed -->
+            </div>
+        </section>
+
+        <!-- ===== COMMON MISTAKES ===== -->
+        <section class="common-mistakes">
+            <h2>Common Mistakes to Avoid</h2>
+            <div class="mistake-card">
+                <div class="mistake-header">
+                    <span class="mistake-icon">⚠️</span>
+                    <h3>{{MISTAKE_1_TITLE}}</h3>
+                </div>
+                <p class="mistake-description">{{MISTAKE_1_DESCRIPTION}}</p>
+                <div class="correct-approach">
+                    <strong>Instead:</strong> {{CORRECT_APPROACH_1}}
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== SUMMARY ===== -->
+        <section class="summary-section">
+            <h2>Summary</h2>
+            <div class="summary-points">
+                <ul>
+                    <li>{{SUMMARY_POINT_1}}</li>
+                    <li>{{SUMMARY_POINT_2}}</li>
+                    <li>{{SUMMARY_POINT_3}}</li>
+                </ul>
+            </div>
+            
+            <!-- Quick Check -->
+            <div class="quick-check">
+                <h3>Quick Check</h3>
+                <p>Can you...</p>
+                <ul class="checklist">
+                    <li>☐ {{CHECK_ITEM_1}}</li>
+                    <li>☐ {{CHECK_ITEM_2}}</li>
+                    <li>☐ {{CHECK_ITEM_3}}</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- ===== EXTENSION ACTIVITIES (Optional) ===== -->
+        <section class="extension-activities">
+            <h2>Going Further</h2>
+            <div class="challenge-problem">
+                <h3>Challenge Problem</h3>
+                <p>{{CHALLENGE_PROBLEM}}</p>
+            </div>
+            <div class="explore-more">
+                <h3>Explore More</h3>
+                <ul>
+                    <li>{{EXTENSION_1}}</li>
+                    <li>{{EXTENSION_2}}</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- ===== NEXT STEPS ===== -->
+        <section class="next-steps">
+            <h2>What's Next?</h2>
+            <p>{{NEXT_LESSON_INTRO}}</p>
+            <div class="next-lesson-preview">
+                <h3>Next Lesson: {{NEXT_LESSON_TITLE}}</h3>
+                <p>{{NEXT_LESSON_DESCRIPTION}}</p>
+            </div>
+        </section>
+
+        <!-- ===== PROGRESS TRACKER ===== -->
+        <footer class="module-footer">
+            <div class="progress-indicator">
+                <div class="progress-bar">
+                    <div class="progress-fill" style="width: {{PROGRESS_PERCENTAGE}}%"></div>
+                </div>
+                <p class="progress-text">{{PROGRESS_TEXT}}</p>
+            </div>
+            <div class="module-actions">
+                <button class="btn btn-secondary">Review</button>
+                <button class="btn btn-primary">Continue</button>
+            </div>
+        </footer>
+    </div>
+
+    <!-- Template JavaScript for Interactivity -->
+    <script>
+        // Handle answer choices
+        document.querySelectorAll('.answer-choice').forEach(button => {
+            button.addEventListener('click', function() {
+                const parent = this.closest('.practice-problem');
+                const choices = parent.querySelectorAll('.answer-choice');
+                const solution = parent.querySelector('.solution-explanation');
+                
+                // Reset all choices
+                choices.forEach(choice => {
+                    choice.classList.remove('correct', 'incorrect', 'selected');
+                });
+                
+                // Mark this choice
+                this.classList.add('selected');
+                
+                if (this.dataset.correct === 'true') {
+                    this.classList.add('correct');
+                    if (solution) solution.style.display = 'block';
+                } else {
+                    this.classList.add('incorrect');
+                    // Show hint after wrong answer
+                    const hint = parent.querySelector('.hint-box');
+                    if (hint) hint.style.display = 'block';
+                }
+            });
+        });
+
+        // Handle checklist items
+        document.querySelectorAll('.checklist li').forEach(item => {
+            item.addEventListener('click', function() {
+                const checkbox = this.textContent.includes('☐') ? '☑' : '☐';
+                this.textContent = this.textContent.replace(/[☐☑]/, checkbox);
+                this.classList.toggle('completed');
+            });
+        });
+    </script>
+</body>
+</html>

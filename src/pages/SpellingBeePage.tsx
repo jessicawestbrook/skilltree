@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react'
+import { useLocation } from 'react-router-dom'
 import { supabase } from '../services/supabase'
 import { spacedRepetitionService } from '../services/spacedRepetitionService'
 import { useAuth } from '../contexts/AuthContext'
@@ -28,6 +29,7 @@ type SpellingWord = SpellingWordWithDifficulties;
 
 const SpellingBeePage: React.FC = () => {
   const { user } = useAuth()
+  const location = useLocation()
   const { selectedDifficulties, setSelectedDifficulties, toggleDifficulty, useAdaptiveTesting, setUseAdaptiveTesting } = useSpellingBee()
   const [currentWord, setCurrentWord] = useState<SpellingWord | null>(null)
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -278,8 +280,57 @@ const SpellingBeePage: React.FC = () => {
     loadStudyLists()
   }, [loadStudyLists])
 
+  // Handle navigation from study list page
+  useEffect(() => {
+    if (location.state) {
+      const state = location.state as any
+      if (state.studyListWords && state.studyListWords.length > 0) {
+        // Load words from the study list navigation
+        const loadStudyListWords = async () => {
+          setLoading(true)
+          const wordIds = state.studyListWords.map((w: any) => w.id)
+          const startIndex = state.startIndex || 0
+          
+          const { data: words, error } = await supabase
+            .from('spelling_words')
+            .select(`
+              *,
+              spelling_difficulty_levels!spelling_difficulty_id(id, name, description)
+            `)
+            .in('id', wordIds)
+          
+          if (error) {
+            console.error('Error fetching study list words:', error)
+            setLoading(false)
+            return
+          }
+          
+          if (words && words.length > 0) {
+            // Sort words to match the order from study list
+            const sortedWords = wordIds.map((id: string) => 
+              words.find((w: SpellingWord) => w.id === id)
+            ).filter(Boolean) as SpellingWord[]
+            
+            setWordBank(sortedWords)
+            setCurrentIndex(startIndex)
+            setCurrentWord(sortedWords[startIndex])
+            setLoading(false)
+          }
+        }
+        
+        loadStudyListWords()
+        return
+      }
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [location.state])
+
   // Refetch words when selected difficulties or study list change
   useEffect(() => {
+    // Don't refetch if we came from study list navigation
+    if (location.state?.studyListWords) {
+      return
+    }
     setLoading(true)
     fetchWords()
   // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -409,22 +460,26 @@ const SpellingBeePage: React.FC = () => {
         </div>
         {/* Action Buttons */}
         {currentWord && (
-          <div className="absolute top-2 right-2 flex items-center gap-1 z-10">
-            <StudyListActions
-              itemType="spelling_word"
-              itemId={currentWord.id}
-              itemData={currentWord}
-              itemTitle={`Spelling: ${currentWord.word}`}
-              className="bg-white dark:bg-neutral-800 rounded-lg shadow-sm border border-neutral-200 dark:border-neutral-700 px-2 py-1"
-            />
-            <button
-              onClick={() => setShowFlagModal(true)}
-              className="p-1.5 text-neutral-400 hover:text-red-500 hover:bg-red-50 dark:hover:bg-red-900/20 rounded-lg transition-colors bg-white dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700"
-              title="Report an issue with this question"
-            >
-              <FlagIcon className="h-4 w-4" />
-            </button>
-          </div>
+          <>
+            <div className="absolute top-2 left-2 z-10">
+              <button
+                onClick={() => setShowFlagModal(true)}
+                className="p-1.5 text-neutral-400 hover:text-red-500 hover:bg-red-50 dark:hover:bg-red-900/20 rounded-lg transition-colors bg-white dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700"
+                title="Report an issue with this question"
+              >
+                <FlagIcon className="h-4 w-4" />
+              </button>
+            </div>
+            <div className="absolute top-2 right-2 z-10">
+              <StudyListActions
+                itemType="spelling_word"
+                itemId={currentWord.id}
+                itemData={currentWord}
+                itemTitle={`Spelling: ${currentWord.word}`}
+                className="bg-white dark:bg-neutral-800 rounded-lg shadow-sm border border-neutral-200 dark:border-neutral-700 px-2 py-1"
+              />
+            </div>
+          </>
         )}
         
         {/* Settings and Stats Row */}
