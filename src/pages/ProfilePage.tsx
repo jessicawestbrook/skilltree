@@ -10,27 +10,17 @@ import { buildCategoryPath } from '../utils/categoryPaths'
 import { nameToSlug } from '../utils/studyListSlug'
 import InteractiveFlashcardReview from '../components/InteractiveFlashcardReview'
 import { 
-  TrophyIcon, 
-  ClockIcon, 
   BookOpenIcon,
-  ChartBarIcon,
-  RocketLaunchIcon,
   HeartIcon,
   ArrowRightIcon,
   QuestionMarkCircleIcon,
   CheckCircleIcon,
   XCircleIcon,
+  ClockIcon,
 } from '@heroicons/react/24/outline'
 import { StarIcon as StarSolidIcon } from '@heroicons/react/24/solid'
 
-interface DashboardStats {
-  completedLessons: number
-  averageRating: number
-  totalTimeSpent: number
-  starredItemsCount: number
-  studyListsCount: number
-  inProgressCount: number
-}
+// DashboardStats interface removed - not being used
 
 interface ReviewQuestion {
   id: string
@@ -48,7 +38,7 @@ interface ReviewQuestion {
 
 interface Flashcard {
   id: string
-  type: 'vocabulary' | 'spelling' | 'language' | 'question' | 'skill_node'
+  type: 'vocabulary' | 'spelling' | 'language' | 'question'
   // Question/Assessment format
   question?: string
   options?: string[]
@@ -84,14 +74,12 @@ const ProfilePage: React.FC = () => {
   const [dueFlashcards, setDueFlashcards] = useState<Flashcard[]>([])
   const [useSpacedRepetition, setUseSpacedRepetition] = useState(true)
   const [loadedCardIds, setLoadedCardIds] = useState<Set<string>>(new Set())
-  const [stats, setStats] = useState<DashboardStats>({
-    completedLessons: 0,
-    averageRating: 0,
-    totalTimeSpent: 0,
-    starredItemsCount: 0,
-    studyListsCount: 0,
-    inProgressCount: 0
+  const [maxCards] = useState(() => {
+    // Load saved batch size from localStorage or default to 20
+    const saved = localStorage.getItem('preferredBatchSize')
+    return saved ? Number(saved) : 20
   })
+  // Stats state removed - not being used
   const [loading, setLoading] = useState(true)
 
   const fetchFlashcards = async (append: boolean = false) => {
@@ -102,7 +90,7 @@ const ProfilePage: React.FC = () => {
       if (useSpacedRepetition) {
         const dueSessions = await spacedRepetitionService.getDueFlashcards(
           user.id,
-          100 // Get more cards for continuous review
+          maxCards // Use user's preferred batch size
         )
         
         // Filter out already loaded cards if appending
@@ -144,18 +132,18 @@ const ProfilePage: React.FC = () => {
             flashcard = {
               id: card.id,
               type: 'language',
-              question: card.question || card.prompt,
+              question: card.question_text || card.question || card.prompt,
               options: card.options,
               correct_answer_index: card.correct_answer_index,
               explanation: card.explanation,
-              language: card.language,
+              language: card.language || card.languages?.name || 'Language',
               category: card.category || 'Language',
               hint: card.hint
             }
           } else {
             flashcard = {
               id: card.id || `${session.review?.flashcard_id}`,
-              type: session.review?.flashcard_type || 'question',
+              type: (session.review?.flashcard_type === 'skill_node' ? 'question' : session.review?.flashcard_type) || 'question',
               question: card.name || card.question || 'Review Card',
               correct_answer: card.description || card.answer || 'No content',
               category: session.review?.flashcard_type || 'Review'
@@ -198,12 +186,15 @@ const ProfilePage: React.FC = () => {
       
       const flashcardsList: Flashcard[] = []
       
+      // Calculate how many cards to fetch per type (divide maxCards by 3 types)
+      const cardsPerType = Math.ceil(maxCards / 3)
+      
       // Fetch vocabulary words
       const { data: vocabWords, error: vocabError } = await supabase
         .from('spelling_words')
         .select('*')
         .not('definition', 'is', null)
-        .limit(20)
+        .limit(cardsPerType)
         .order('created_at', { ascending: false })
       
       if (!vocabError && vocabWords) {
@@ -227,7 +218,7 @@ const ProfilePage: React.FC = () => {
         .from('spelling_words')
         .select('*')
         .is('definition', null)
-        .limit(15)
+        .limit(cardsPerType)
         .order('created_at', { ascending: false })
       
       if (!spellingError && spellingWords) {
@@ -251,7 +242,7 @@ const ProfilePage: React.FC = () => {
           .from('questions')
           .select('*')
           .in('skill_id', skillIds)
-          .limit(15)
+          .limit(cardsPerType)
         
         if (!questionsError && questions) {
           questions.forEach(q => {
@@ -270,15 +261,19 @@ const ProfilePage: React.FC = () => {
         }
       }
       
+      // Limit to maxCards total and shuffle
+      const shuffled = flashcardsList.sort(() => Math.random() - 0.5)
+      const limited = shuffled.slice(0, maxCards)
+      
       // Update loaded card IDs
       const newCardIds = new Set(loadedCardIds)
-      flashcardsList.forEach(card => newCardIds.add(card.id))
+      limited.forEach(card => newCardIds.add(card.id))
       setLoadedCardIds(newCardIds)
       
       if (append) {
-        setFlashcards(prev => [...prev, ...flashcardsList])
+        setFlashcards(prev => [...prev, ...limited])
       } else {
-        setFlashcards(flashcardsList)
+        setFlashcards(limited)
       }
     } catch (error) {
       console.error('Error fetching regular flashcards:', error)
@@ -385,19 +380,7 @@ const ProfilePage: React.FC = () => {
         
         setRecentProgress(progressWithNodes.slice(0, 5)) // Show 5 most recent
 
-        // Calculate stats
-        const completed = progressData.filter(p => p.status === 'completed')
-        const inProgress = progressData.filter(p => p.status === 'in_progress')
-        const avgRating = completed.length > 0
-          ? completed.reduce((acc, p) => acc + p.rating, 0) / completed.length
-          : 0
-
-        setStats(prev => ({
-          ...prev,
-          completedLessons: completed.length,
-          averageRating: Math.round(avgRating),
-          inProgressCount: inProgress.length
-        }))
+        // Stats calculation removed - not being used
       } else {
         // No progress data
         setRecentProgress([])
@@ -434,11 +417,7 @@ const ProfilePage: React.FC = () => {
       const lists = await studyListService.getUserStudyLists(user.id)
       setStudyLists(lists)
 
-      setStats(prev => ({
-        ...prev,
-        starredItemsCount: starred.length,
-        studyListsCount: lists.length
-      }))
+      // Stats update removed - not being used
       
       // Build paths for starred skill nodes and recent progress
       const allSkillIds = new Set<string>()
@@ -591,8 +570,8 @@ const ProfilePage: React.FC = () => {
 
   return (
     <div className="space-y-6">
-      {/* Welcome Header */}
-      <div className="bg-gradient-to-r from-primary-50 to-gold-50 dark:from-primary-900/20 dark:to-gold-900/20 rounded-xl p-6 border border-primary-200 dark:border-primary-800">
+      {/* Mobile Banner - Shows only on mobile */}
+      <div className="lg:hidden bg-gradient-to-r from-primary-50 to-gold-50 dark:from-primary-900/20 dark:to-gold-900/20 rounded-xl p-6 border border-primary-200 dark:border-primary-800">
         <div className="flex items-center justify-between">
           <div>
             <h1 className="text-3xl font-bold text-neutral-900 dark:text-white">
@@ -602,138 +581,178 @@ const ProfilePage: React.FC = () => {
               Continue your learning journey and explore new topics
             </p>
           </div>
-          <div className="hidden md:block">
-            <RocketLaunchIcon className="h-16 w-16 text-primary-500 opacity-50" />
-          </div>
         </div>
       </div>
 
-      {/* Stats Grid */}
-      <div className="grid md:grid-cols-3 lg:grid-cols-5 gap-4">
-        <div className="bg-white dark:bg-neutral-800 rounded-xl shadow-lg p-4 border border-neutral-200 dark:border-neutral-700">
-          <div className="flex items-center justify-between">
-            <div>
-              <p className="text-sm text-neutral-600 dark:text-neutral-400">Completed</p>
-              <p className="text-2xl font-bold text-green-600">{stats.completedLessons}</p>
+      {/* Main Grid */}
+      <div className="grid lg:grid-cols-3 gap-6">
+        {/* Left Content - 2/3 width on desktop, full width on mobile */}
+        <div className="lg:col-span-2 space-y-4">
+          {/* Desktop Banner - Shows only on desktop */}
+          <div className="hidden lg:block bg-gradient-to-r from-primary-50 to-gold-50 dark:from-primary-900/20 dark:to-gold-900/20 rounded-xl p-6 border border-primary-200 dark:border-primary-800">
+            <div className="flex items-center justify-between">
+              <div>
+                <h1 className="text-3xl font-bold text-neutral-900 dark:text-white">
+                  Welcome back! 🌟
+                </h1>
+                <p className="text-neutral-600 dark:text-neutral-400 mt-1">
+                  Continue your learning journey and explore new topics
+                </p>
+              </div>
             </div>
-            <TrophyIcon className="h-8 w-8 text-green-600" />
           </div>
-        </div>
 
-        <div className="bg-white dark:bg-neutral-800 rounded-xl shadow-lg p-4 border border-neutral-200 dark:border-neutral-700">
-          <div className="flex items-center justify-between">
-            <div>
-              <p className="text-sm text-neutral-600 dark:text-neutral-400">In Progress</p>
-              <p className="text-2xl font-bold text-yellow-600">{stats.inProgressCount}</p>
+          {/* Mobile Sidebar - Shows only on mobile */}
+          <div className="lg:hidden bg-gradient-to-r from-purple-50 to-primary-50 dark:from-purple-900/20 dark:to-primary-900/20 rounded-xl shadow-lg p-6 border border-purple-200 dark:border-purple-800">
+            {/* Recent Activity Section */}
+            <div className="flex items-center justify-between mb-4">
+              <div className="flex items-center gap-2">
+                <ClockIcon className="h-5 w-5 text-primary-600" />
+                <h3 className="text-lg font-semibold text-neutral-900 dark:text-white">Recent Activity</h3>
+              </div>
             </div>
-            <ClockIcon className="h-8 w-8 text-yellow-600" />
-          </div>
-        </div>
+            
+            {recentProgress.length === 0 ? (
+              <p className="text-sm text-neutral-600 dark:text-neutral-400 mb-6">
+                No learning progress yet
+              </p>
+            ) : (
+              <div className="space-y-2 mb-6 max-h-64 overflow-y-auto">
+                {recentProgress.slice(0, 10).map((item: any) => {
+                  const nodeName = item.skill_tree_nodes?.name || 'Learning Module'
+                  const nodePath = nodePaths[item.skill_id] || `/learning/${item.skill_id}`
+                  return (
+                    <Link
+                      key={item.id}
+                      to={nodePath}
+                      className="block p-2 rounded-lg hover:bg-white/50 dark:hover:bg-neutral-800/50 transition-colors"
+                    >
+                      <div className="flex items-center gap-2">
+                        <div className={`w-2 h-2 rounded-full flex-shrink-0 ${item.status === 'completed' ? 'bg-green-500' : item.status === 'in_progress' ? 'bg-yellow-500' : 'bg-gray-400'}`}></div>
+                        <span className="text-sm text-neutral-700 dark:text-neutral-300 line-clamp-1 hover:text-primary-600 dark:hover:text-primary-400">
+                          {nodeName}
+                        </span>
+                      </div>
+                    </Link>
+                  )
+                })}
+              </div>
+            )}
 
-        <div className="bg-white dark:bg-neutral-800 rounded-xl shadow-lg p-4 border border-neutral-200 dark:border-neutral-700">
-          <div className="flex items-center justify-between">
-            <div>
-              <p className="text-sm text-neutral-600 dark:text-neutral-400">Avg Score</p>
-              <p className="text-2xl font-bold text-gold-600">{stats.averageRating}%</p>
-            </div>
-            <ChartBarIcon className="h-8 w-8 text-gold-600" />
-          </div>
-        </div>
+            {/* Divider */}
+            <div className="border-t border-purple-200 dark:border-purple-700 my-4"></div>
 
-        <div className="bg-white dark:bg-neutral-800 rounded-xl shadow-lg p-4 border border-neutral-200 dark:border-neutral-700">
-          <div className="flex items-center justify-between">
-            <div>
-              <p className="text-sm text-neutral-600 dark:text-neutral-400">Starred</p>
-              <p className="text-2xl font-bold text-purple-600">{stats.starredItemsCount}</p>
+            {/* Starred Modules Section */}
+            <div className="flex items-center justify-between mb-4">
+              <div className="flex items-center gap-2">
+                <StarSolidIcon className="h-5 w-5 text-gold-500" />
+                <h3 className="text-lg font-semibold text-neutral-900 dark:text-white">Starred</h3>
+              </div>
+              {starredItems.length > 0 && (
+                <span className="text-xs text-neutral-500">
+                  {starredItems.length}
+                </span>
+              )}
             </div>
-            <StarSolidIcon className="h-8 w-8 text-purple-600" />
-          </div>
-        </div>
+            
+            {starredItems.length === 0 ? (
+              <p className="text-sm text-neutral-600 dark:text-neutral-400 mb-6">
+                No starred items yet
+              </p>
+            ) : (
+              <div className="space-y-2 mb-6">
+                {starredItems.map(item => {
+                  const node = item.nodeData
+                  if (!node) return null
+                  const nodePath = nodePaths[node.id] || `/learning/${node.id}`
+                  return (
+                    <Link
+                      key={item.id}
+                      to={nodePath}
+                      className="block p-2 rounded-lg hover:bg-white/50 dark:hover:bg-neutral-800/50 transition-colors"
+                    >
+                      <span className="text-sm text-neutral-700 dark:text-neutral-300 line-clamp-1 hover:text-primary-600 dark:hover:text-primary-400">
+                        {node.name}
+                      </span>
+                    </Link>
+                  )
+                })}
+              </div>
+            )}
 
-        <div className="bg-white dark:bg-neutral-800 rounded-xl shadow-lg p-4 border border-neutral-200 dark:border-neutral-700">
-          <div className="flex items-center justify-between">
-            <div>
-              <p className="text-sm text-neutral-600 dark:text-neutral-400">Study Lists</p>
-              <p className="text-2xl font-bold text-blue-600">{stats.studyListsCount}</p>
-            </div>
-            <BookOpenIcon className="h-8 w-8 text-blue-600" />
-          </div>
-        </div>
-      </div>
+            {/* Divider */}
+            <div className="border-t border-purple-200 dark:border-purple-700 my-4"></div>
 
-      {/* Interest-Based Quick Recommendations */}
-      {recommendedNodes.length > 0 && (
-        <div className="bg-gradient-to-r from-purple-50 to-primary-50 dark:from-purple-900/20 dark:to-primary-900/20 rounded-xl p-6 border border-purple-200 dark:border-purple-800">
-          <div className="flex items-center justify-between mb-4">
-            <div>
-              <h2 className="text-xl font-semibold text-neutral-900 dark:text-white">Based on Your Interests</h2>
-              <p className="text-sm text-neutral-600 dark:text-neutral-400">Recommendations from your assessment results</p>
-            </div>
-            <div className="hidden md:block">
-              <HeartIcon className="h-8 w-8 text-purple-500 opacity-70" />
-            </div>
-          </div>
-          
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-3">
-            {recommendedNodes.slice(0, 3).map(recommendation => {
-              const { node, reasons } = recommendation
-              const nodePath = nodePaths[node.id] || `/learning/${node.id}`
-              return (
-                <Link
-                  key={node.id}
-                  to={nodePath}
-                  className="p-3 rounded-lg bg-white/70 dark:bg-neutral-800/70 border border-white/50 dark:border-neutral-700/50 hover:bg-white dark:hover:bg-neutral-800 hover:shadow-md transition-all group"
-                >
-                  <h3 className="font-medium text-neutral-900 dark:text-white group-hover:text-primary-600 line-clamp-1 mb-1">
-                    {node.name}
-                  </h3>
-                  {reasons.length > 0 && (
-                    <p className="text-xs text-purple-600 dark:text-purple-400 mb-2">
-                      {reasons[0]}
-                    </p>
-                  )}
-                  <div className="flex items-center justify-between">
-                    <span className="text-xs text-neutral-500">
-                      Learning Module
-                    </span>
-                    <ArrowRightIcon className="h-3 w-3 text-primary-500" />
-                  </div>
-                </Link>
-              )
-            })}
-          </div>
-          
-          {recommendedNodes.length > 3 && (
-            <div className="mt-4 text-center">
+            {/* Study Lists Section */}
+            <div className="flex items-center justify-between mb-4">
+              <div className="flex items-center gap-2">
+                <BookOpenIcon className="h-5 w-5 text-purple-500" />
+                <h3 className="text-lg font-semibold text-neutral-900 dark:text-white">Study Lists</h3>
+              </div>
               <Link 
-                to="/learning-paths" 
-                className="inline-flex items-center gap-2 px-4 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition-colors text-sm font-medium"
+                to="/study-lists" 
+                className="text-primary-600 hover:text-primary-700 text-xs font-medium"
               >
-                <RocketLaunchIcon className="h-4 w-4" />
-                See All Recommendations
+                View All
               </Link>
             </div>
-          )}
-        </div>
-      )}
+            
+            {studyLists.length === 0 ? (
+              <div className="text-center py-4">
+                <p className="text-sm text-neutral-600 dark:text-neutral-400 mb-3">
+                  No study lists yet
+                </p>
+                <Link 
+                  to="/study-lists"
+                  className="text-primary-600 hover:text-primary-700 text-sm font-medium"
+                >
+                  Create your first list
+                </Link>
+              </div>
+            ) : (
+              <div className="space-y-2">
+                {studyLists.map(list => (
+                  <Link
+                    key={list.id}
+                    to={`/study-lists/${nameToSlug(list.name)}`}
+                    className="flex items-center gap-2 p-2 rounded-lg hover:bg-white/50 dark:hover:bg-neutral-800/50 transition-colors cursor-pointer"
+                  >
+                    <div 
+                      className="w-3 h-3 rounded-full flex-shrink-0"
+                      style={{ backgroundColor: list.color }}
+                    ></div>
+                    <span className="text-sm text-neutral-700 dark:text-neutral-300 truncate">
+                      {list.name}
+                    </span>
+                  </Link>
+                ))}
+              </div>
+            )}
+          </div>
 
-      {/* Main Content Grid */}
-      <div className="grid lg:grid-cols-3 gap-6">
-        {/* Smart Review - moved to left with more space */}
-        <div className="lg:col-span-2">
+          {/* Smart Review */}
           <div className="bg-white dark:bg-neutral-800 rounded-xl shadow-lg p-6 border border-neutral-200 dark:border-neutral-700">
             <div className="flex items-center justify-between mb-3">
               <h3 className="text-lg font-semibold text-neutral-900 dark:text-white">Smart Review</h3>
-              <div className="flex items-center gap-2">
-                <button
-                  onClick={() => {
-                    setUseSpacedRepetition(!useSpacedRepetition)
-                    fetchFlashcards()
-                  }}
-                  className={`text-xs px-2 py-1 rounded ${useSpacedRepetition ? 'bg-primary-100 text-primary-700 dark:bg-primary-900/30 dark:text-primary-400' : 'bg-neutral-100 text-neutral-600 dark:bg-neutral-700 dark:text-neutral-400'}`}
-                >
-                  {useSpacedRepetition ? 'Spaced' : 'Random'}
-                </button>
+              <div className="flex items-center gap-3">
+                <div className="flex items-center gap-2">
+                  <span className="text-xs text-neutral-600 dark:text-neutral-400">Random</span>
+                  <button
+                    onClick={() => {
+                      setUseSpacedRepetition(!useSpacedRepetition)
+                      fetchFlashcards()
+                    }}
+                    className="relative inline-flex h-5 w-9 items-center rounded-full transition-colors focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2"
+                    style={{ backgroundColor: useSpacedRepetition ? 'rgb(34, 197, 94)' : 'rgb(156, 163, 175)' }}
+                  >
+                    <span
+                      className={`inline-block h-4 w-4 transform rounded-full bg-white transition-transform ${
+                        useSpacedRepetition ? 'translate-x-5' : 'translate-x-0.5'
+                      }`}
+                    />
+                  </button>
+                  <span className="text-xs text-neutral-600 dark:text-neutral-400">Spaced</span>
+                </div>
                 <span className="text-xs text-neutral-500">
                   {flashcards.length > 0 ? `${flashcards.length} cards` : '0 cards'}
                 </span>
@@ -785,312 +804,316 @@ const ProfilePage: React.FC = () => {
               />
             )}
           </div>
-        </div>
 
-        {/* Right Column */}
-        <div className="space-y-6">
-          {/* Recent Activity - moved to right side */}
-          <div className="bg-white dark:bg-neutral-800 rounded-xl shadow-lg p-6 border border-neutral-200 dark:border-neutral-700">
-            <div className="flex items-center justify-between mb-4">
-              <h2 className="text-xl font-semibold text-neutral-900 dark:text-white">Recent Activity</h2>
-              <Link 
-                to="/learning-paths" 
-                className="text-primary-600 hover:text-primary-700 text-sm font-medium flex items-center gap-1"
-              >
-                View All <ArrowRightIcon className="h-4 w-4" />
-              </Link>
-            </div>
-            
-            {recentProgress.length === 0 ? (
-              <div className="text-center py-8">
-                <BookOpenIcon className="h-12 w-12 text-neutral-400 mx-auto mb-4" />
-                <p className="text-neutral-600 dark:text-neutral-400 mb-4">
-                  No learning progress yet. Start exploring!
-                </p>
-                <Link 
-                  to="/learning-paths"
-                  className="inline-flex items-center gap-2 px-4 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition-colors"
-                >
-                  <RocketLaunchIcon className="h-4 w-4" />
-                  Explore Skill Tree
-                </Link>
+          {/* Recommended Content */}
+          {recommendedNodes.length > 0 && (
+            <div className="bg-white dark:bg-neutral-800 rounded-xl shadow-lg p-6 border border-neutral-200 dark:border-neutral-700">
+              <div className="flex items-center justify-between mb-4">
+                <div>
+                  <h2 className="text-xl font-semibold text-neutral-900 dark:text-white">Recommended for You</h2>
+                  <p className="text-sm text-neutral-600 dark:text-neutral-400">Based on your interests and assessment</p>
+                </div>
+                <div className="hidden md:block">
+                  <HeartIcon className="h-8 w-8 text-purple-500 opacity-70" />
+                </div>
               </div>
-            ) : (
-              <div className="space-y-3 max-h-96 overflow-y-auto">
-                {recentProgress.map((item: any) => {
-                  const nodeName = item.skill_tree_nodes?.name || 'Learning Module'
-                  const nodeArea = item.skill_tree_nodes?.learning_area
-                  const nodePath = nodePaths[item.skill_id] || `/learning/${item.skill_id}`
-                  return (
+              
+              <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
+                {recommendedNodes.slice(0, 6).map(recommendation => {
+                  const { node, reasons } = recommendation
+                  const nodePath = nodePaths[node.id] || `/learning/${node.id}`
+                    return (
                     <Link
+                      key={node.id}
                       to={nodePath}
-                      key={item.id}
-                      className="flex items-center justify-between p-3 bg-neutral-50 dark:bg-neutral-900 rounded-lg hover:bg-neutral-100 dark:hover:bg-neutral-800 transition-colors cursor-pointer"
+                      className="p-4 rounded-lg border border-neutral-200 dark:border-neutral-700 hover:border-purple-300 dark:hover:border-purple-600 hover:shadow-md transition-all group bg-gradient-to-br from-white to-purple-50/30 dark:from-neutral-800 dark:to-purple-900/10"
                     >
-                      <div className="flex items-center gap-3">
-                        <div className={`w-2 h-2 rounded-full ${item.status === 'completed' ? 'bg-green-500' : item.status === 'in_progress' ? 'bg-yellow-500' : 'bg-gray-400'}`}></div>
-                        <div>
-                          <h3 className="font-medium text-neutral-900 dark:text-white">{nodeName}</h3>
-                          <p className="text-sm text-neutral-600 dark:text-neutral-400">
-                            {nodeArea && <span className="text-xs mr-2">{nodeArea}</span>}
-                            <span className={`inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium mr-2 ${getProgressColor(item.status)}`}>
-                              {item.status.replace('_', ' ')}
-                            </span>
-                            {item.status === 'completed' && `Score: ${item.rating}%`}
-                          </p>
-                        </div>
+                      <div className="flex items-start justify-between mb-2">
+                        <h3 className="font-semibold text-neutral-900 dark:text-white group-hover:text-primary-600 line-clamp-2">
+                          {node.name}
+                        </h3>
+                        <HeartIcon className="h-4 w-4 text-purple-500 flex-shrink-0 ml-2" />
                       </div>
-                      <span className="text-xs text-neutral-500">
-                        {new Date(item.last_accessed).toLocaleDateString()}
-                      </span>
+                      {reasons.length > 0 && (
+                        <p className="text-xs text-purple-600 dark:text-purple-400 mb-2">
+                          {reasons[0]}
+                        </p>
+                      )}
+                      <div className="flex items-center justify-end mt-auto">
+                        <ArrowRightIcon className="h-4 w-4 text-primary-500 opacity-0 group-hover:opacity-100 transition-opacity" />
+                      </div>
                     </Link>
                   )
                 })}
               </div>
-            )}
-          </div>
-
-          {/* Study Lists Quick Access */}
-          <div className="bg-white dark:bg-neutral-800 rounded-xl shadow-lg p-6 border border-neutral-200 dark:border-neutral-700">
-            <div className="flex items-center justify-between mb-4">
-              <h3 className="text-lg font-semibold text-neutral-900 dark:text-white">Study Lists</h3>
-              <Link 
-                to="/study-lists" 
-                className="text-primary-600 hover:text-primary-700 text-sm font-medium"
-              >
-                View All
-              </Link>
-            </div>
-            
-            {studyLists.length === 0 ? (
-              <div className="text-center py-4">
-                <HeartIcon className="h-8 w-8 text-neutral-400 mx-auto mb-2" />
-                <p className="text-sm text-neutral-600 dark:text-neutral-400 mb-3">
-                  No study lists yet
-                </p>
-                <Link 
-                  to="/study-lists"
-                  className="text-primary-600 hover:text-primary-700 text-sm font-medium"
-                >
-                  Create your first list
-                </Link>
-              </div>
-            ) : (
-              <div className="space-y-2">
-                {studyLists.slice(0, 3).map(list => (
-                  <Link
-                    key={list.id}
-                    to={`/study-lists/${nameToSlug(list.name)}`}
-                    className="flex items-center gap-2 p-2 rounded-lg hover:bg-neutral-50 dark:hover:bg-neutral-700 transition-colors cursor-pointer"
+              
+              {recommendedNodes.length > 6 && (
+                <div className="mt-4 text-center">
+                  <Link 
+                    to="/learning-paths" 
+                    className="inline-flex items-center gap-2 text-primary-600 hover:text-primary-700 font-medium text-sm"
                   >
-                    <div 
-                      className="w-3 h-3 rounded-full flex-shrink-0"
-                      style={{ backgroundColor: list.color }}
-                    ></div>
-                    <span className="text-sm font-medium text-neutral-700 dark:text-neutral-300 truncate">
-                      {list.name}
-                    </span>
+                    See All Recommendations
+                    <ArrowRightIcon className="h-4 w-4" />
                   </Link>
-                ))}
-                {studyLists.length > 3 && (
-                  <p className="text-xs text-neutral-500 mt-2">
-                    +{studyLists.length - 3} more lists
-                  </p>
-                )}
+                </div>
+              )}
+            </div>
+          )}
+
+          {/* Review Questions Section */}
+          {reviewQuestions.length > 0 && (
+            <div className="bg-white dark:bg-neutral-800 rounded-xl shadow-lg p-6 border border-neutral-200 dark:border-neutral-700">
+              <div className="flex items-center justify-between mb-4">
+                <div className="flex items-center gap-2">
+                  <QuestionMarkCircleIcon className="h-5 w-5 text-blue-500" />
+                  <h2 className="text-xl font-semibold text-neutral-900 dark:text-white">Review Questions</h2>
+                </div>
+                <span className="text-sm text-neutral-600 dark:text-neutral-400">
+                  Test your knowledge
+                </span>
+                </div>
+              
+              <div className="space-y-6">
+              {reviewQuestions.slice(0, 3).map((q) => {
+                const isAnswered = selectedAnswers[q.id] !== undefined
+                const isCorrect = selectedAnswers[q.id] === q.correct_answer
+                const showAnswer = showingAnswer === q.id
+                
+                return (
+                  <div key={q.id} className="border-l-4 border-blue-400 pl-4">
+                    <div className="mb-2">
+                      <span className="text-xs text-neutral-500 dark:text-neutral-400">
+                        {q.category} • {q.node_name}
+                      </span>
+                    </div>
+                    
+                    <h3 className="font-medium text-neutral-900 dark:text-white mb-3">
+                      {q.question}
+                    </h3>
+                    
+                    {q.options && q.options.length > 0 && (
+                      <div className="space-y-2 mb-3">
+                        {q.options.map((option, idx) => {
+                          const isSelected = selectedAnswers[q.id] === option
+                          const isCorrectOption = option === q.correct_answer
+                          
+                          return (
+                            <button
+                              key={idx}
+                              onClick={() => handleAnswerSelect(q.id, option)}
+                              disabled={showAnswer}
+                              className={`w-full text-left p-3 rounded-lg border transition-all ${
+                                showAnswer
+                                  ? isCorrectOption
+                                    ? 'border-green-500 bg-green-50 dark:bg-green-900/20'
+                                    : isSelected
+                                    ? 'border-red-500 bg-red-50 dark:bg-red-900/20'
+                                    : 'border-neutral-200 dark:border-neutral-700'
+                                  : isSelected
+                                  ? 'border-blue-500 bg-blue-50 dark:bg-blue-900/20'
+                                  : 'border-neutral-200 dark:border-neutral-700 hover:border-blue-300 dark:hover:border-blue-600'
+                              }`}
+                            >
+                              <div className="flex items-center justify-between">
+                                <span className="text-sm text-neutral-800 dark:text-neutral-200">
+                                  {option}
+                                </span>
+                                {showAnswer && (
+                                  <span>
+                                    {isCorrectOption ? (
+                                      <CheckCircleIcon className="h-5 w-5 text-green-600" />
+                                    ) : isSelected ? (
+                                      <XCircleIcon className="h-5 w-5 text-red-600" />
+                                    ) : null}
+                                  </span>
+                                )}
+                              </div>
+                            </button>
+                          )
+                        })}
+                      </div>
+                    )}
+                    
+                    <div className="flex items-center gap-3">
+                      <button
+                        onClick={() => checkAnswer(q.id)}
+                        disabled={!isAnswered}
+                        className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
+                          isAnswered
+                            ? 'bg-blue-600 text-white hover:bg-blue-700'
+                            : 'bg-neutral-200 text-neutral-400 cursor-not-allowed'
+                        }`}
+                      >
+                        {showAnswer ? 'Hide Answer' : 'Check Answer'}
+                      </button>
+                      
+                      {showAnswer && (
+                        <span className={`text-sm font-medium ${
+                          isCorrect ? 'text-green-600' : 'text-red-600'
+                        }`}>
+                          {isCorrect ? '✓ Correct!' : '✗ Incorrect'}
+                        </span>
+                      )}
+                    </div>
+                    
+                    {showAnswer && q.explanation && (
+                      <div className="mt-4 p-3 bg-blue-50 dark:bg-blue-900/20 rounded-lg">
+                        <p className="text-sm text-neutral-700 dark:text-neutral-300">
+                          <strong>Explanation:</strong> {q.explanation}
+                        </p>
+                      </div>
+                    )}
+                  </div>
+                )
+              })}
               </div>
-            )}
-          </div>
-
+              
+              {reviewQuestions.length > 3 && (
+                <div className="mt-6 text-center">
+                  <Link 
+                    to="/practice" 
+                    className="inline-flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors text-sm font-medium"
+                  >
+                    <QuestionMarkCircleIcon className="h-4 w-4" />
+                    Practice More Questions
+                  </Link>
+                </div>
+              )}
+            </div>
+          )}
         </div>
-      </div>
 
-      {/* Starred Learning Modules */}
-      {starredItems.length > 0 && (
-        <div className="bg-white dark:bg-neutral-800 rounded-xl shadow-lg p-6 border border-neutral-200 dark:border-neutral-700">
+        {/* Right Sidebar - Desktop only */}
+        <div className="hidden lg:block">
+        <div className="bg-gradient-to-r from-purple-50 to-primary-50 dark:from-purple-900/20 dark:to-primary-900/20 rounded-xl shadow-lg p-6 border border-purple-200 dark:border-purple-800 h-full">
+          {/* Recent Activity Section */}
+          <div className="flex items-center justify-between mb-4">
+            <div className="flex items-center gap-2">
+              <ClockIcon className="h-5 w-5 text-primary-600" />
+              <h3 className="text-lg font-semibold text-neutral-900 dark:text-white">Recent Activity</h3>
+            </div>
+          </div>
+          
+          {recentProgress.length === 0 ? (
+            <p className="text-sm text-neutral-600 dark:text-neutral-400 mb-6">
+              No learning progress yet
+            </p>
+          ) : (
+            <div className="space-y-2 mb-6 max-h-64 overflow-y-auto">
+              {recentProgress.slice(0, 10).map((item: any) => {
+                const nodeName = item.skill_tree_nodes?.name || 'Learning Module'
+                const nodePath = nodePaths[item.skill_id] || `/learning/${item.skill_id}`
+                return (
+                  <Link
+                    key={item.id}
+                    to={nodePath}
+                    className="block p-2 rounded-lg hover:bg-white/50 dark:hover:bg-neutral-800/50 transition-colors"
+                  >
+                    <div className="flex items-center gap-2">
+                      <div className={`w-2 h-2 rounded-full flex-shrink-0 ${item.status === 'completed' ? 'bg-green-500' : item.status === 'in_progress' ? 'bg-yellow-500' : 'bg-gray-400'}`}></div>
+                      <span className="text-sm text-neutral-700 dark:text-neutral-300 line-clamp-1 hover:text-primary-600 dark:hover:text-primary-400">
+                        {nodeName}
+                      </span>
+                    </div>
+                  </Link>
+                )
+              })}
+            </div>
+          )}
+
+          {/* Divider */}
+          <div className="border-t border-purple-200 dark:border-purple-700 my-4"></div>
+
+          {/* Starred Modules Section */}
           <div className="flex items-center justify-between mb-4">
             <div className="flex items-center gap-2">
               <StarSolidIcon className="h-5 w-5 text-gold-500" />
-              <h2 className="text-xl font-semibold text-neutral-900 dark:text-white">Your Starred Learning Modules</h2>
+              <h3 className="text-lg font-semibold text-neutral-900 dark:text-white">Starred</h3>
             </div>
-            <span className="text-sm text-neutral-600 dark:text-neutral-400">
-              {starredItems.length} item{starredItems.length !== 1 ? 's' : ''}
-            </span>
+            {starredItems.length > 0 && (
+              <span className="text-xs text-neutral-500">
+                {starredItems.length}
+              </span>
+            )}
           </div>
           
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
-            {starredItems.slice(0, 6).map(item => {
-              // All items are skill tree nodes now
-              const node = item.nodeData
-              if (!node) return null
-              
-              const nodePath = nodePaths[node.id] || `/learning/${node.id}`
-              return (
-                <Link
-                  key={item.id}
-                  to={nodePath}
-                  className="p-4 rounded-lg border border-neutral-200 dark:border-neutral-700 hover:border-gold-300 dark:hover:border-gold-600 hover:shadow-md transition-all group bg-gradient-to-br from-white to-gold-50/30 dark:from-neutral-800 dark:to-gold-900/10"
-                >
-                  <div className="flex items-start justify-between mb-2">
-                    <h3 className="font-semibold text-neutral-900 dark:text-white group-hover:text-primary-600 line-clamp-2">
+          {starredItems.length === 0 ? (
+            <p className="text-sm text-neutral-600 dark:text-neutral-400 mb-6">
+              No starred items yet
+            </p>
+          ) : (
+            <div className="space-y-2 mb-6">
+              {starredItems.map(item => {
+                const node = item.nodeData
+                if (!node) return null
+                const nodePath = nodePaths[node.id] || `/learning/${node.id}`
+                return (
+                  <Link
+                    key={item.id}
+                    to={nodePath}
+                    className="block p-2 rounded-lg hover:bg-white/50 dark:hover:bg-neutral-800/50 transition-colors"
+                  >
+                    <span className="text-sm text-neutral-700 dark:text-neutral-300 line-clamp-1 hover:text-primary-600 dark:hover:text-primary-400">
                       {node.name}
-                    </h3>
-                    <StarSolidIcon className="h-4 w-4 text-gold-500 flex-shrink-0 ml-2" />
-                  </div>
-                  {node.description && (
-                    <p className="text-sm text-neutral-600 dark:text-neutral-400 line-clamp-3 mb-2">
-                      {node.description}
-                    </p>
-                  )}
-                  <div className="flex items-center justify-between mt-auto">
-                    {node.has_learning_content && (
-                      <span className="inline-flex items-center gap-1 px-2 py-0.5 bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-300 rounded-full text-xs">
-                        <BookOpenIcon className="h-3 w-3" />
-                        Content
-                      </span>
-                    )}
-                    <ArrowRightIcon className="h-4 w-4 text-primary-500 opacity-0 group-hover:opacity-100 transition-opacity ml-auto" />
-                  </div>
-                </Link>
-              )
-            })}
-          </div>
-          
-          {starredItems.length > 6 && (
-            <div className="mt-4 text-center">
-              <Link 
-                to="/starred-items" 
-                className="inline-flex items-center gap-2 text-primary-600 hover:text-primary-700 font-medium text-sm"
-              >
-                View all {starredItems.length} starred modules
-                <ArrowRightIcon className="h-4 w-4" />
-              </Link>
+                    </span>
+                  </Link>
+                )
+              })}
             </div>
           )}
-        </div>
-      )}
 
+          {/* Divider */}
+          <div className="border-t border-purple-200 dark:border-purple-700 my-4"></div>
 
-      {/* Review Questions Section */}
-      {reviewQuestions.length > 0 && (
-        <div className="bg-white dark:bg-neutral-800 rounded-xl shadow-lg p-6 border border-neutral-200 dark:border-neutral-700">
+          {/* Study Lists Section */}
           <div className="flex items-center justify-between mb-4">
             <div className="flex items-center gap-2">
-              <QuestionMarkCircleIcon className="h-5 w-5 text-blue-500" />
-              <h2 className="text-xl font-semibold text-neutral-900 dark:text-white">Review Questions</h2>
+              <BookOpenIcon className="h-5 w-5 text-purple-500" />
+              <h3 className="text-lg font-semibold text-neutral-900 dark:text-white">Study Lists</h3>
             </div>
-            <span className="text-sm text-neutral-600 dark:text-neutral-400">
-              Test your knowledge
-            </span>
+            <Link 
+              to="/study-lists" 
+              className="text-primary-600 hover:text-primary-700 text-xs font-medium"
+            >
+              View All
+            </Link>
           </div>
           
-          <div className="space-y-6">
-            {reviewQuestions.slice(0, 3).map((q) => {
-              const isAnswered = selectedAnswers[q.id] !== undefined
-              const isCorrect = selectedAnswers[q.id] === q.correct_answer
-              const showAnswer = showingAnswer === q.id
-              
-              return (
-                <div key={q.id} className="border-l-4 border-blue-400 pl-4">
-                  <div className="mb-2">
-                    <span className="text-xs text-neutral-500 dark:text-neutral-400">
-                      {q.category} • {q.node_name}
-                    </span>
-                  </div>
-                  
-                  <h3 className="font-medium text-neutral-900 dark:text-white mb-3">
-                    {q.question}
-                  </h3>
-                  
-                  {q.options && q.options.length > 0 && (
-                    <div className="space-y-2 mb-3">
-                      {q.options.map((option, idx) => {
-                        const isSelected = selectedAnswers[q.id] === option
-                        const isCorrectOption = option === q.correct_answer
-                        
-                        return (
-                          <button
-                            key={idx}
-                            onClick={() => handleAnswerSelect(q.id, option)}
-                            disabled={showAnswer}
-                            className={`w-full text-left p-3 rounded-lg border transition-all ${
-                              showAnswer
-                                ? isCorrectOption
-                                  ? 'border-green-500 bg-green-50 dark:bg-green-900/20'
-                                  : isSelected
-                                  ? 'border-red-500 bg-red-50 dark:bg-red-900/20'
-                                  : 'border-neutral-200 dark:border-neutral-700'
-                                : isSelected
-                                ? 'border-blue-500 bg-blue-50 dark:bg-blue-900/20'
-                                : 'border-neutral-200 dark:border-neutral-700 hover:border-blue-300 dark:hover:border-blue-600'
-                            }`}
-                          >
-                            <div className="flex items-center justify-between">
-                              <span className="text-sm text-neutral-800 dark:text-neutral-200">
-                                {option}
-                              </span>
-                              {showAnswer && (
-                                <span>
-                                  {isCorrectOption ? (
-                                    <CheckCircleIcon className="h-5 w-5 text-green-600" />
-                                  ) : isSelected ? (
-                                    <XCircleIcon className="h-5 w-5 text-red-600" />
-                                  ) : null}
-                                </span>
-                              )}
-                            </div>
-                          </button>
-                        )
-                      })}
-                    </div>
-                  )}
-                  
-                  <div className="flex items-center gap-3">
-                    <button
-                      onClick={() => checkAnswer(q.id)}
-                      disabled={!isAnswered}
-                      className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
-                        isAnswered
-                          ? 'bg-blue-600 text-white hover:bg-blue-700'
-                          : 'bg-neutral-200 text-neutral-400 cursor-not-allowed'
-                      }`}
-                    >
-                      {showAnswer ? 'Hide Answer' : 'Check Answer'}
-                    </button>
-                    
-                    {showAnswer && (
-                      <span className={`text-sm font-medium ${
-                        isCorrect ? 'text-green-600' : 'text-red-600'
-                      }`}>
-                        {isCorrect ? '✓ Correct!' : '✗ Incorrect'}
-                      </span>
-                    )}
-                  </div>
-                  
-                  {showAnswer && q.explanation && (
-                    <div className="mt-4 p-3 bg-blue-50 dark:bg-blue-900/20 rounded-lg">
-                      <p className="text-sm text-neutral-700 dark:text-neutral-300">
-                        <strong>Explanation:</strong> {q.explanation}
-                      </p>
-                    </div>
-                  )}
-                </div>
-              )
-            })}
-          </div>
-          
-          {reviewQuestions.length > 3 && (
-            <div className="mt-6 text-center">
+          {studyLists.length === 0 ? (
+            <div className="text-center py-4">
+              <p className="text-sm text-neutral-600 dark:text-neutral-400 mb-3">
+                No study lists yet
+              </p>
               <Link 
-                to="/practice" 
-                className="inline-flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors text-sm font-medium"
+                to="/study-lists"
+                className="text-primary-600 hover:text-primary-700 text-sm font-medium"
               >
-                <QuestionMarkCircleIcon className="h-4 w-4" />
-                Practice More Questions
+                Create your first list
               </Link>
+            </div>
+          ) : (
+            <div className="space-y-2">
+              {studyLists.map(list => (
+                <Link
+                  key={list.id}
+                  to={`/study-lists/${nameToSlug(list.name)}`}
+                  className="flex items-center gap-2 p-2 rounded-lg hover:bg-white/50 dark:hover:bg-neutral-800/50 transition-colors cursor-pointer"
+                >
+                  <div 
+                    className="w-3 h-3 rounded-full flex-shrink-0"
+                    style={{ backgroundColor: list.color }}
+                  ></div>
+                  <span className="text-sm text-neutral-700 dark:text-neutral-300 truncate">
+                    {list.name}
+                  </span>
+                </Link>
+              ))}
             </div>
           )}
         </div>
-      )}
+        </div>
+      </div>
     </div>
   )
 }
