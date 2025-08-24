@@ -1,13 +1,11 @@
 import React, { useState, useEffect, useCallback } from 'react'
-import { useParams, useNavigate, useLocation, Link } from 'react-router-dom'
+import { useParams, useNavigate, useLocation } from 'react-router-dom'
 import { supabase } from '../services/supabase'
 import { 
   AcademicCapIcon, 
   ChartBarIcon, 
   BookOpenIcon,
   StarIcon,
-  ClockIcon,
-  TrophyIcon,
   BoltIcon
 } from '@heroicons/react/24/outline'
 import { StarIcon as StarIconSolid } from '@heroicons/react/24/solid'
@@ -325,16 +323,16 @@ const CategoryPage: React.FC = () => {
     fetchStarredSubcategories()
   }, [fetchStarredSubcategories])
 
-  const handleNodeClick = async (node: SkillTreeNode) => {
-    if (node.learning_content_ids && node.learning_content_ids.length > 0) {
-      // This node has learning content - prioritize showing the learning modal
-      setSelectedNode(node)
+  const handleSkillClick = async (skill: SkillTreeNode) => {
+    if (skill.learning_content_ids && skill.learning_content_ids.length > 0) {
+      // This skill has learning content - prioritize showing the learning modal
+      setSelectedNode(skill)
       setShowLearningModal(true)
     } else {
-      // This is a category node with no learning content - navigate using hierarchical path
+      // This is a category skill with no learning content - navigate using hierarchical path
       try {
-        const categoryPath = await buildCategoryPath(node.id)
-        navigate(categoryPath ? `/${categoryPath}` : `/learning/${node.id}`)
+        const categoryPath = await buildCategoryPath(skill.id)
+        navigate(categoryPath ? `/${categoryPath}` : `/learning/${skill.id}`)
       } catch (error) {
         console.warn('Failed to navigate to category:', error)
       }
@@ -573,7 +571,7 @@ const CategoryPage: React.FC = () => {
                       return (
                         <div
                           key={child.id}
-                          onClick={() => handleNodeClick(child)}
+                          onClick={() => handleSkillClick(child)}
                           className="flex items-center gap-2 text-sm text-neutral-600 dark:text-neutral-400 hover:text-primary-600 cursor-pointer py-1 px-2 rounded hover:bg-neutral-50 dark:hover:bg-neutral-700 transition-colors"
                         >
                           {content}
@@ -610,11 +608,14 @@ const CategoryPage: React.FC = () => {
       )}
 
       {/* Adaptive Assessment Modal */}
-      {showAdaptiveAssessment && (
+      {showAdaptiveAssessment && resolvedCategoryId && category && (
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
-          <div className="bg-white dark:bg-neutral-900 rounded-xl shadow-xl max-w-6xl w-full max-h-[90vh] overflow-y-auto">
+          <div 
+            className="bg-white dark:bg-neutral-900 rounded-xl shadow-xl max-w-6xl w-full max-h-[90vh] overflow-y-auto"
+            onClick={(e) => e.stopPropagation()}
+          >
             <AdaptiveAssessment
-              categoryId={resolvedCategoryId!}
+              categoryId={resolvedCategoryId}
               categoryName={category.name}
               sessionType="assessment"
               onComplete={(session: AssessmentSession) => {

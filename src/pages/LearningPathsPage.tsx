@@ -31,8 +31,8 @@ interface LearningPath {
 
 interface PathProgress {
   pathId: string
-  completedNodes: string[]
-  currentNode: string | null
+  completedSkills: string[]
+  currentSkill: string | null
   percentComplete: number
 }
 
@@ -41,7 +41,7 @@ const LearningPathsPage: React.FC = () => {
   const navigate = useNavigate()
   const [selectedPath, setSelectedPath] = useState<LearningPath | null>(null)
   const [pathProgress, setPathProgress] = useState<Map<string, PathProgress>>(new Map())
-  const [nodes, setNodes] = useState<Map<string, SkillTreeNode>>(new Map())
+  const [skills, setSkills] = useState<Map<string, SkillTreeNode>>(new Map())
   const [userProgress, setUserProgress] = useState<Set<string>>(new Set())
   const [loading, setLoading] = useState(true)
 
@@ -123,7 +123,7 @@ const LearningPathsPage: React.FC = () => {
 
   useEffect(() => {
     fetchUserProgress()
-    fetchNodes()
+    fetchSkills()
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user])
 
@@ -151,8 +151,8 @@ const LearningPathsPage: React.FC = () => {
         
         progressMap.set(path.id, {
           pathId: path.id,
-          completedNodes: completed,
-          currentNode: path.nodes.find(n => !userProgress.has(n)) || null,
+          completedSkills: completed,
+          currentSkill: path.nodes.find(n => !userProgress.has(n)) || null,
           percentComplete: (completed.length / path.nodes.length) * 100
         })
       })
@@ -163,11 +163,11 @@ const LearningPathsPage: React.FC = () => {
     }
   }
 
-  const fetchNodes = async () => {
+  const fetchSkills = async () => {
     setLoading(true)
     try {
-      // Fetch all nodes to get their names
-      const allNodes: SkillTreeNode[] = []
+      // Fetch all skills to get their names
+      const allSkills: SkillTreeNode[] = []
       const pageSize = 1000
       let offset = 0
       let hasMore = true
@@ -181,7 +181,7 @@ const LearningPathsPage: React.FC = () => {
 
         if (error) throw error
         if (data) {
-          allNodes.push(...data)
+          allSkills.push(...data)
           hasMore = data.length === pageSize
           offset += pageSize
         } else {
@@ -189,17 +189,17 @@ const LearningPathsPage: React.FC = () => {
         }
       }
 
-      const nodeMap = new Map<string, SkillTreeNode>()
-      allNodes.forEach(node => {
+      const skillMap = new Map<string, SkillTreeNode>()
+      allSkills.forEach(skill => {
         // Try to match by partial name for demonstration
-        const simplifiedId = node.name.toLowerCase().replace(/\s+/g, '-')
-        nodeMap.set(simplifiedId, node)
-        nodeMap.set(node.id, node)
+        const simplifiedId = skill.name.toLowerCase().replace(/\s+/g, '-')
+        skillMap.set(simplifiedId, skill)
+        skillMap.set(skill.id, skill)
       })
       
-      setNodes(nodeMap)
+      setSkills(skillMap)
     } catch (error) {
-      console.error('Error fetching nodes:', error)
+      console.error('Error fetching skills:', error)
     } finally {
       setLoading(false)
     }
@@ -210,28 +210,28 @@ const LearningPathsPage: React.FC = () => {
     return path.prerequisites.every(prereq => userProgress.has(prereq))
   }
 
-  const getNodeName = (nodeId: string): string => {
-    const node = nodes.get(nodeId)
-    if (node) return node.name
+  const getSkillName = (skillId: string): string => {
+    const skill = skills.get(skillId)
+    if (skill) return skill.name
     // Fallback: Convert ID to readable name
-    return nodeId.split('-').map(word => 
+    return skillId.split('-').map(word => 
       word.charAt(0).toUpperCase() + word.slice(1)
     ).join(' ')
   }
 
   const handleStartPath = async (path: LearningPath) => {
     const progress = pathProgress.get(path.id)
-    if (progress?.currentNode) {
-      const node = nodes.get(progress.currentNode)
-      if (node) {
-        const categoryPath = await buildCategoryPath(node.id)
-        navigate(categoryPath ? `/${categoryPath}` : `/learning/${node.id}`)
+    if (progress?.currentSkill) {
+      const skill = skills.get(progress.currentSkill)
+      if (skill) {
+        const categoryPath = await buildCategoryPath(skill.id)
+        navigate(categoryPath ? `/${categoryPath}` : `/learning/${skill.id}`)
       }
     } else if (path.nodes.length > 0) {
-      const firstNode = nodes.get(path.nodes[0])
-      if (firstNode) {
-        const categoryPath = await buildCategoryPath(firstNode.id)
-        navigate(categoryPath ? `/${categoryPath}` : `/learning/${firstNode.id}`)
+      const firstSkill = skills.get(path.nodes[0])
+      if (firstSkill) {
+        const categoryPath = await buildCategoryPath(firstSkill.id)
+        navigate(categoryPath ? `/${categoryPath}` : `/learning/${firstSkill.id}`)
       }
     }
   }
@@ -344,7 +344,7 @@ const LearningPathsPage: React.FC = () => {
                       </p>
                       <ul className="text-xs text-yellow-600 dark:text-yellow-500 mt-1">
                         {path.prerequisites.map(prereq => (
-                          <li key={prereq}>• {getNodeName(prereq)}</li>
+                          <li key={prereq}>• {getSkillName(prereq)}</li>
                         ))}
                       </ul>
                     </div>
@@ -397,14 +397,14 @@ const LearningPathsPage: React.FC = () => {
             <div className="mb-6">
               <h3 className="font-semibold mb-3">Learning Sequence:</h3>
               <div className="space-y-3">
-                {selectedPath.nodes.map((nodeId, idx) => {
-                  const isCompleted = userProgress.has(nodeId)
+                {selectedPath.nodes.map((skillId, idx) => {
+                  const isCompleted = userProgress.has(skillId)
                   const progress = pathProgress.get(selectedPath.id)
-                  const isCurrent = progress?.currentNode === nodeId
+                  const isCurrent = progress?.currentSkill === skillId
 
                   return (
                     <div
-                      key={nodeId}
+                      key={skillId}
                       className={`flex items-center gap-3 p-3 rounded-lg ${
                         isCompleted
                           ? 'bg-green-50 dark:bg-green-900/20'
@@ -425,7 +425,7 @@ const LearningPathsPage: React.FC = () => {
                         )}
                       </div>
                       <div className="flex-1">
-                        <p className="font-medium">{getNodeName(nodeId)}</p>
+                        <p className="font-medium">{getSkillName(skillId)}</p>
                         {isCurrent && (
                           <p className="text-xs text-primary-600 dark:text-primary-400 mt-1">
                             Current topic
@@ -435,10 +435,10 @@ const LearningPathsPage: React.FC = () => {
                       {(isCompleted || isCurrent) && (
                         <button
                           onClick={async () => {
-                            const node = nodes.get(nodeId)
-                            if (node) {
-                              const categoryPath = await buildCategoryPath(node.id)
-                              navigate(categoryPath ? `/${categoryPath}` : `/learning/${node.id}`)
+                            const skill = skills.get(skillId)
+                            if (skill) {
+                              const categoryPath = await buildCategoryPath(skill.id)
+                              navigate(categoryPath ? `/${categoryPath}` : `/learning/${skill.id}`)
                             }
                           }}
                           className="text-primary-600 hover:text-primary-700 dark:text-primary-400 dark:hover:text-primary-300"

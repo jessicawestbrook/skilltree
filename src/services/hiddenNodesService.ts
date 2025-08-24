@@ -1,14 +1,14 @@
 import { supabase } from './supabase'
 
-export interface HiddenNodeConfig {
-  hiddenNodes: string[]
+export interface HiddenSkillConfig {
+  hiddenSkills: string[]
   hiddenByDefault: string[]
   lastUpdated: string
   notes: string
 }
 
-class HiddenNodesService {
-  private hiddenNodeIds: Set<string> = new Set()
+class HiddenSkillsService {
+  private hiddenSkillIds: Set<string> = new Set()
   private initialized: boolean = false
   private useDatabase: boolean = false
 
@@ -51,14 +51,14 @@ class HiddenNodesService {
   private loadLocalConfig() {
     try {
       // Try to load from local config if it exists
-      const config = localStorage.getItem('hiddenNodes')
+      const config = localStorage.getItem('hiddenSkills')
       if (config) {
         const parsed = JSON.parse(config)
-        this.hiddenNodeIds = new Set(parsed.hiddenNodes || [])
+        this.hiddenSkillIds = new Set(parsed.hiddenSkills || [])
       }
     } catch (error) {
       console.error('Error loading local config:', error)
-      this.hiddenNodeIds = new Set()
+      this.hiddenSkillIds = new Set()
     }
   }
 
@@ -68,10 +68,10 @@ class HiddenNodesService {
   private saveLocalConfig() {
     try {
       const config = {
-        hiddenNodes: Array.from(this.hiddenNodeIds),
+        hiddenSkills: Array.from(this.hiddenSkillIds),
         lastUpdated: new Date().toISOString()
       }
-      localStorage.setItem('hiddenNodes', JSON.stringify(config))
+      localStorage.setItem('hiddenSkills', JSON.stringify(config))
     } catch (error) {
       console.error('Error saving local config:', error)
     }
@@ -87,9 +87,9 @@ class HiddenNodesService {
   }
 
   /**
-   * Check if a node should be hidden
+   * Check if a skill should be hidden
    */
-  async isNodeHidden(nodeId: string): Promise<boolean> {
+  async isSkillHidden(skillId: string): Promise<boolean> {
     await this.ensureInitialized()
 
     if (this.useDatabase) {
@@ -97,7 +97,7 @@ class HiddenNodesService {
         const { data, error } = await supabase
           .from('skill_tree_nodes')
           .select('is_hidden')
-          .eq('id', nodeId)
+          .eq('id', skillId)
           .single()
 
         if (!error && data) {
@@ -109,13 +109,13 @@ class HiddenNodesService {
     }
 
     // Fallback to local storage
-    return this.hiddenNodeIds.has(nodeId)
+    return this.hiddenSkillIds.has(skillId)
   }
 
   /**
-   * Get all hidden node IDs
+   * Get all hidden skill IDs
    */
-  async getHiddenNodeIds(): Promise<string[]> {
+  async getHiddenSkillIds(): Promise<string[]> {
     await this.ensureInitialized()
 
     if (this.useDatabase) {
@@ -134,59 +134,59 @@ class HiddenNodesService {
     }
 
     // Fallback to local storage
-    return Array.from(this.hiddenNodeIds)
+    return Array.from(this.hiddenSkillIds)
   }
 
   /**
-   * Filter out hidden nodes from a list
+   * Filter out hidden skills from a list
    */
-  async filterVisibleNodes<T extends { id: string }>(nodes: T[]): Promise<T[]> {
+  async filterVisibleSkills<T extends { id: string }>(skills: T[]): Promise<T[]> {
     await this.ensureInitialized()
 
     if (this.useDatabase) {
-      // Get all hidden node IDs in one query
-      const hiddenIds = await this.getHiddenNodeIds()
+      // Get all hidden skill IDs in one query
+      const hiddenIds = await this.getHiddenSkillIds()
       const hiddenSet = new Set(hiddenIds)
-      return nodes.filter(node => !hiddenSet.has(node.id))
+      return skills.filter(skill => !hiddenSet.has(skill.id))
     }
 
     // Fallback to local storage
-    return nodes.filter(node => !this.hiddenNodeIds.has(node.id))
+    return skills.filter(skill => !this.hiddenSkillIds.has(skill.id))
   }
 
   /**
    * Synchronous version for immediate filtering (uses cached data)
    */
-  filterVisibleNodesSync<T extends { id: string }>(nodes: T[]): T[] {
+  filterVisibleSkillsSync<T extends { id: string }>(skills: T[]): T[] {
     if (!this.initialized) {
-      // If not initialized, return all nodes (safe default)
-      return nodes
+      // If not initialized, return all skills (safe default)
+      return skills
     }
 
     if (this.useDatabase) {
       // For database mode, we need the async version
-      console.warn('filterVisibleNodesSync called but database mode is active. Some nodes might not be filtered.')
-      return nodes
+      console.warn('filterVisibleSkillsSync called but database mode is active. Some skills might not be filtered.')
+      return skills
     }
 
     // Use local cache
-    return nodes.filter(node => !this.hiddenNodeIds.has(node.id))
+    return skills.filter(skill => !this.hiddenSkillIds.has(skill.id))
   }
 
   /**
-   * Check if any ancestor of a node is hidden (which would hide this node too)
+   * Check if any ancestor of a skill is hidden (which would hide this skill too)
    */
-  async isNodeOrAncestorHidden(nodeId: string): Promise<boolean> {
+  async isSkillOrAncestorHidden(skillId: string): Promise<boolean> {
     await this.ensureInitialized()
 
-    // First check if the node itself is hidden
-    if (await this.isNodeHidden(nodeId)) {
+    // First check if the skill itself is hidden
+    if (await this.isSkillHidden(skillId)) {
       return true
     }
 
     // Check ancestors
     try {
-      let currentId: string | null = nodeId
+      let currentId: string | null = skillId
       const visitedIds = new Set<string>()
 
       while (currentId) {
@@ -196,8 +196,8 @@ class HiddenNodesService {
         }
         visitedIds.add(currentId)
 
-        // Check if current node is hidden
-        if (await this.isNodeHidden(currentId)) {
+        // Check if current skill is hidden
+        if (await this.isSkillHidden(currentId)) {
           return true
         }
 
@@ -225,9 +225,9 @@ class HiddenNodesService {
   /**
    * Get all descendant IDs of a node (for hiding entire subtrees)
    */
-  async getDescendantIds(nodeId: string): Promise<string[]> {
+  async getDescendantIds(skillId: string): Promise<string[]> {
     const descendants: string[] = []
-    const queue: string[] = [nodeId]
+    const queue: string[] = [skillId]
     const visited = new Set<string>()
 
     while (queue.length > 0) {
@@ -258,13 +258,13 @@ class HiddenNodesService {
   /**
    * Add a node to the hidden list (admin only)
    */
-  async hideNode(nodeId: string, hideDescendants: boolean = true): Promise<void> {
+  async hideSkill(skillId: string, hideDescendants: boolean = true): Promise<void> {
     await this.ensureInitialized()
 
-    const nodeIds = [nodeId]
+    const skillIds = [skillId]
     if (hideDescendants) {
-      const descendants = await this.getDescendantIds(nodeId)
-      nodeIds.push(...descendants)
+      const descendants = await this.getDescendantIds(skillId)
+      skillIds.push(...descendants)
     }
 
     if (this.useDatabase) {
@@ -272,40 +272,40 @@ class HiddenNodesService {
         const { error } = await supabase
           .from('skill_tree_nodes')
           .update({ is_hidden: true })
-          .in('id', nodeIds)
+          .in('id', skillIds)
 
         if (error) {
           console.error('Error hiding nodes:', error)
           // Fallback to local storage
-          nodeIds.forEach(id => this.hiddenNodeIds.add(id))
+          skillIds.forEach(id => this.hiddenSkillIds.add(id))
           this.saveLocalConfig()
         } else {
-          console.log(`Hidden ${nodeIds.length} node(s)`)
+          console.log(`Hidden ${skillIds.length} skill(s)`)
         }
       } catch (error) {
         console.error('Error hiding nodes:', error)
         // Fallback to local storage
-        nodeIds.forEach(id => this.hiddenNodeIds.add(id))
+        skillIds.forEach(id => this.hiddenSkillIds.add(id))
         this.saveLocalConfig()
       }
     } else {
       // Use local storage
-      nodeIds.forEach(id => this.hiddenNodeIds.add(id))
+      skillIds.forEach(id => this.hiddenSkillIds.add(id))
       this.saveLocalConfig()
-      console.log(`Hidden ${nodeIds.length} node(s) locally`)
+      console.log(`Hidden ${skillIds.length} skill(s) locally`)
     }
   }
 
   /**
-   * Remove a node from the hidden list (admin only)
+   * Remove a skill from the hidden list (admin only)
    */
-  async showNode(nodeId: string, showDescendants: boolean = true): Promise<void> {
+  async showSkill(skillId: string, showDescendants: boolean = true): Promise<void> {
     await this.ensureInitialized()
 
-    const nodeIds = [nodeId]
+    const skillIds = [skillId]
     if (showDescendants) {
-      const descendants = await this.getDescendantIds(nodeId)
-      nodeIds.push(...descendants)
+      const descendants = await this.getDescendantIds(skillId)
+      skillIds.push(...descendants)
     }
 
     if (this.useDatabase) {
@@ -313,57 +313,57 @@ class HiddenNodesService {
         const { error } = await supabase
           .from('skill_tree_nodes')
           .update({ is_hidden: false })
-          .in('id', nodeIds)
+          .in('id', skillIds)
 
         if (error) {
-          console.error('Error showing nodes:', error)
+          console.error('Error showing skills:', error)
           // Fallback to local storage
-          nodeIds.forEach(id => this.hiddenNodeIds.delete(id))
+          skillIds.forEach(id => this.hiddenSkillIds.delete(id))
           this.saveLocalConfig()
         } else {
-          console.log(`Shown ${nodeIds.length} node(s)`)
+          console.log(`Shown ${skillIds.length} skill(s)`)
         }
       } catch (error) {
         console.error('Error showing nodes:', error)
         // Fallback to local storage
-        nodeIds.forEach(id => this.hiddenNodeIds.delete(id))
+        skillIds.forEach(id => this.hiddenSkillIds.delete(id))
         this.saveLocalConfig()
       }
     } else {
       // Use local storage
-      nodeIds.forEach(id => this.hiddenNodeIds.delete(id))
+      skillIds.forEach(id => this.hiddenSkillIds.delete(id))
       this.saveLocalConfig()
-      console.log(`Shown ${nodeIds.length} node(s) locally`)
+      console.log(`Shown ${skillIds.length} skill(s) locally`)
     }
   }
 
   /**
-   * Toggle node visibility (admin only)
+   * Toggle skill visibility (admin only)
    */
-  async toggleNodeVisibility(nodeId: string, includeDescendants: boolean = true): Promise<boolean> {
-    if (await this.isNodeHidden(nodeId)) {
-      await this.showNode(nodeId, includeDescendants)
+  async toggleSkillVisibility(skillId: string, includeDescendants: boolean = true): Promise<boolean> {
+    if (await this.isSkillHidden(skillId)) {
+      await this.showSkill(skillId, includeDescendants)
       return false // Now visible
     } else {
-      await this.hideNode(nodeId, includeDescendants)
+      await this.hideSkill(skillId, includeDescendants)
       return true // Now hidden
     }
   }
 
   /**
-   * Filter nodes to only include visible ones, considering parent visibility
+   * Filter skills to only include visible ones, considering parent visibility
    */
-  async filterVisibleNodesWithAncestors<T extends { id: string }>(nodes: T[]): Promise<T[]> {
-    const visibleNodes: T[] = []
+  async filterVisibleSkillsWithAncestors<T extends { id: string }>(skills: T[]): Promise<T[]> {
+    const visibleSkills: T[] = []
 
-    for (const node of nodes) {
-      const isHidden = await this.isNodeOrAncestorHidden(node.id)
+    for (const skill of skills) {
+      const isHidden = await this.isSkillOrAncestorHidden(skill.id)
       if (!isHidden) {
-        visibleNodes.push(node)
+        visibleSkills.push(skill)
       }
     }
 
-    return visibleNodes
+    return visibleSkills
   }
 
   /**
@@ -375,4 +375,4 @@ class HiddenNodesService {
 }
 
 // Export singleton instance
-export const hiddenNodesService = new HiddenNodesService()
+export const hiddenSkillsService = new HiddenSkillsService()

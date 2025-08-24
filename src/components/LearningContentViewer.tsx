@@ -1,20 +1,20 @@
 import React, { useState, useEffect } from 'react'
-import { ChevronLeftIcon, ChevronRightIcon, BookOpenIcon, ClockIcon, TrophyIcon, CheckCircleIcon, PlayIcon, PauseIcon, SpeakerWaveIcon } from '@heroicons/react/24/outline'
+import { ChevronLeftIcon, ChevronRightIcon, BookOpenIcon, ClockIcon, TrophyIcon, CheckCircleIcon, PauseIcon, SpeakerWaveIcon } from '@heroicons/react/24/outline'
 import { CheckCircleIcon as CheckCircleSolidIcon } from '@heroicons/react/24/solid'
 import { extractTextForSpeech, estimateReadingTime } from '../utils/textExtractor'
 
 interface LearningContentViewerProps {
   htmlContent: string
-  nodeId: string
-  nodeName: string
+  skillId: string
+  skillName: string
   onComplete?: () => void
   onProgress?: (progress: number) => void
 }
 
 const LearningContentViewer: React.FC<LearningContentViewerProps> = ({
   htmlContent,
-  nodeId,
-  nodeName,
+  skillId,
+  skillName,
   onComplete,
   onProgress
 }) => {
@@ -53,7 +53,7 @@ const LearningContentViewer: React.FC<LearningContentViewerProps> = ({
     } else {
       // Fallback: treat entire content as one section
       parsedSections.push({
-        title: nodeName,
+        title: skillName,
         content: htmlContent,
         id: 'main-content'
       })
@@ -63,7 +63,7 @@ const LearningContentViewer: React.FC<LearningContentViewerProps> = ({
     
     // Calculate estimated reading time
     setReadingTime(estimateReadingTime(htmlContent))
-  }, [htmlContent, nodeName])
+  }, [htmlContent, skillName])
 
   // Mark section as completed
   const markSectionComplete = (sectionIndex: number) => {
@@ -76,7 +76,7 @@ const LearningContentViewer: React.FC<LearningContentViewerProps> = ({
     onProgress?.(progress)
     
     // Save progress to localStorage
-    localStorage.setItem(`learning-progress-${nodeId}`, JSON.stringify({
+    localStorage.setItem(`learning-progress-${skillId}`, JSON.stringify({
       completedSections: Array.from(newCompleted),
       currentSection: sectionIndex,
       timestamp: new Date().toISOString()
@@ -90,7 +90,7 @@ const LearningContentViewer: React.FC<LearningContentViewerProps> = ({
 
   // Load saved progress
   useEffect(() => {
-    const savedProgress = localStorage.getItem(`learning-progress-${nodeId}`)
+    const savedProgress = localStorage.getItem(`learning-progress-${skillId}`)
     if (savedProgress) {
       try {
         const { completedSections: saved, currentSection: savedSection } = JSON.parse(savedProgress)
@@ -100,7 +100,7 @@ const LearningContentViewer: React.FC<LearningContentViewerProps> = ({
         console.error('Error loading progress:', error)
       }
     }
-  }, [nodeId])
+  }, [skillId])
 
   // Navigation handlers
   const goToSection = (index: number) => {
@@ -187,7 +187,7 @@ const LearningContentViewer: React.FC<LearningContentViewerProps> = ({
       <div className="bg-gradient-to-r from-primary-50 to-secondary-50 dark:from-primary-900/20 dark:to-secondary-900/20 rounded-2xl p-6 mb-8">
         <div className="flex items-center justify-between mb-4">
           <h1 className="text-3xl font-bold text-neutral-800 dark:text-neutral-100">
-            {nodeName}
+            {skillName}
           </h1>
           <div className="flex items-center gap-4">
             <button

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { supabase } from '../services/supabase'
-import { hiddenNodesService } from '../services/hiddenNodesService'
+import { hiddenSkillsService } from '../services/hiddenNodesService'
 import { SkillTreeNode } from '../types/database.types'
 import { 
   EyeIcon, 
@@ -12,24 +12,24 @@ import {
 } from '@heroicons/react/24/outline'
 
 const HiddenNodesManager: React.FC = () => {
-  const [nodes, setNodes] = useState<SkillTreeNode[]>([])
+  const [skills, setSkills] = useState<SkillTreeNode[]>([])
   const [searchTerm, setSearchTerm] = useState('')
   const [loading, setLoading] = useState(true)
-  const [expandedNodes, setExpandedNodes] = useState<Set<string>>(new Set())
-  const [hiddenNodes, setHiddenNodes] = useState<Set<string>>(new Set())
-  const [nodeChildren, setNodeChildren] = useState<Record<string, SkillTreeNode[]>>({})
+  const [expandedSkills, setExpandedSkills] = useState<Set<string>>(new Set())
+  const [hiddenSkills, setHiddenSkills] = useState<Set<string>>(new Set())
+  const [skillChildren, setSkillChildren] = useState<Record<string, SkillTreeNode[]>>({})
   const [filterMode, setFilterMode] = useState<'all' | 'visible' | 'hidden'>('all')
 
   useEffect(() => {
-    fetchNodes()
+    fetchSkills()
   }, [])
 
-  const fetchNodes = async () => {
+  const fetchSkills = async () => {
     try {
       setLoading(true)
       
-      // Fetch all top-level nodes
-      const { data: topNodes, error } = await supabase
+      // Fetch all top-level skills
+      const { data: topSkills, error } = await supabase
         .from('skill_tree_nodes')
         .select('*')
         .is('parent_id', null)
@@ -38,51 +38,51 @@ const HiddenNodesManager: React.FC = () => {
 
       if (error) throw error
 
-      setNodes(topNodes || [])
+      setSkills(topSkills || [])
       
-      // Initialize hidden nodes from service
-      const hiddenIds = await hiddenNodesService.getHiddenNodeIds()
-      setHiddenNodes(new Set(hiddenIds))
+      // Initialize hidden skills from service
+      const hiddenIds = await hiddenSkillsService.getHiddenSkillIds()
+      setHiddenSkills(new Set(hiddenIds))
       
-      // Pre-fetch children for all top nodes
+      // Pre-fetch children for all top skills
       const childrenMap: Record<string, SkillTreeNode[]> = {}
-      for (const node of topNodes || []) {
+      for (const skill of topSkills || []) {
         const { data: children } = await supabase
           .from('skill_tree_nodes')
           .select('*')
-          .eq('parent_id', node.id)
+          .eq('parent_id', skill.id)
           .order('display_order', { nullsFirst: false })
           .order('name')
         
         if (children && children.length > 0) {
-          childrenMap[node.id] = children
+          childrenMap[skill.id] = children
         }
       }
-      setNodeChildren(childrenMap)
+      setSkillChildren(childrenMap)
       
     } catch (error) {
-      console.error('Error fetching nodes:', error)
+      console.error('Error fetching skills:', error)
     } finally {
       setLoading(false)
     }
   }
 
-  const fetchChildren = async (nodeId: string) => {
-    if (nodeChildren[nodeId]) return // Already fetched
+  const fetchChildren = async (skillId: string) => {
+    if (skillChildren[skillId]) return // Already fetched
 
     try {
       const { data: children, error } = await supabase
         .from('skill_tree_nodes')
         .select('*')
-        .eq('parent_id', nodeId)
+        .eq('parent_id', skillId)
         .order('display_order', { nullsFirst: false })
         .order('name')
 
       if (error) throw error
 
-      setNodeChildren(prev => ({
+      setSkillChildren(prev => ({
         ...prev,
-        [nodeId]: children || []
+        [skillId]: children || []
       }))
 
       // Fetch grandchildren for each child
@@ -95,7 +95,7 @@ const HiddenNodesManager: React.FC = () => {
           .order('name')
         
         if (grandchildren && grandchildren.length > 0) {
-          setNodeChildren(prev => ({
+          setSkillChildren(prev => ({
             ...prev,
             [child.id]: grandchildren
           }))
@@ -106,91 +106,91 @@ const HiddenNodesManager: React.FC = () => {
     }
   }
 
-  const toggleNodeVisibility = async (nodeId: string, includeDescendants: boolean = true) => {
-    const isHidden = await hiddenNodesService.toggleNodeVisibility(nodeId, includeDescendants)
+  const toggleSkillVisibility = async (skillId: string, includeDescendants: boolean = true) => {
+    const isHidden = await hiddenSkillsService.toggleSkillVisibility(skillId, includeDescendants)
     
     // Update local state
-    setHiddenNodes(prev => {
+    setHiddenSkills(prev => {
       const newSet = new Set(prev)
       if (isHidden) {
-        newSet.add(nodeId)
+        newSet.add(skillId)
         if (includeDescendants) {
           // Add all descendants
           const addDescendants = (id: string) => {
-            const children = nodeChildren[id] || []
+            const children = skillChildren[id] || []
             children.forEach(child => {
               newSet.add(child.id)
               addDescendants(child.id)
             })
           }
-          addDescendants(nodeId)
+          addDescendants(skillId)
         }
       } else {
-        newSet.delete(nodeId)
+        newSet.delete(skillId)
         if (includeDescendants) {
           // Remove all descendants
           const removeDescendants = (id: string) => {
-            const children = nodeChildren[id] || []
+            const children = skillChildren[id] || []
             children.forEach(child => {
               newSet.delete(child.id)
               removeDescendants(child.id)
             })
           }
-          removeDescendants(nodeId)
+          removeDescendants(skillId)
         }
       }
       return newSet
     })
     
     // Save to config file (in production, this would save to database)
-    console.log('Updated hidden nodes:', Array.from(hiddenNodes))
+    console.log('Updated hidden skills:', Array.from(hiddenSkills))
   }
 
-  const toggleExpanded = (nodeId: string) => {
-    setExpandedNodes(prev => {
+  const toggleExpanded = (skillId: string) => {
+    setExpandedSkills(prev => {
       const newSet = new Set(prev)
-      if (newSet.has(nodeId)) {
-        newSet.delete(nodeId)
+      if (newSet.has(skillId)) {
+        newSet.delete(skillId)
       } else {
-        newSet.add(nodeId)
-        fetchChildren(nodeId)
+        newSet.add(skillId)
+        fetchChildren(skillId)
       }
       return newSet
     })
   }
 
-  const filteredNodes = nodes.filter(node => {
+  const filteredSkills = skills.filter(skill => {
     // Filter by search term
-    if (searchTerm && !node.name.toLowerCase().includes(searchTerm.toLowerCase())) {
+    if (searchTerm && !skill.name.toLowerCase().includes(searchTerm.toLowerCase())) {
       return false
     }
     
     // Filter by visibility mode
-    if (filterMode === 'hidden' && !hiddenNodes.has(node.id)) {
+    if (filterMode === 'hidden' && !hiddenSkills.has(skill.id)) {
       return false
     }
-    if (filterMode === 'visible' && hiddenNodes.has(node.id)) {
+    if (filterMode === 'visible' && hiddenSkills.has(skill.id)) {
       return false
     }
     
     return true
   })
 
-  const renderNode = (node: SkillTreeNode, level: number = 0) => {
-    const children = nodeChildren[node.id] || []
+  const renderSkill = (skill: SkillTreeNode, level: number = 0) => {
+    const children = skillChildren[skill.id] || []
     const hasChildren = children.length > 0
-    const isExpanded = expandedNodes.has(node.id)
-    const isHidden = hiddenNodes.has(node.id)
-    const isCategory = !node.learning_content_ids || node.learning_content_ids.length === 0
+    const isExpanded = expandedSkills.has(skill.id)
+    const isHidden = hiddenSkills.has(skill.id)
+    const isCategory = !skill.learning_content_ids || skill.learning_content_ids.length === 0
 
     return (
-      <div key={node.id} className={`${level > 0 ? 'ml-6' : ''}`}>
+      <div key={skill.id} className={`${level > 0 ? 'ml-6' : ''}`}>
         <div className={`flex items-center gap-2 p-2 rounded-lg hover:bg-neutral-100 dark:hover:bg-neutral-700 ${
           isHidden ? 'opacity-50' : ''
         }`}>
           {hasChildren && (
             <button
-              onClick={() => toggleExpanded(node.id)}
+              onClick={() => toggleExpanded(skill.id)}
               className="p-1 hover:bg-neutral-200 dark:hover:bg-neutral-600 rounded"
             >
               {isExpanded ? (
@@ -204,7 +204,7 @@ const HiddenNodesManager: React.FC = () => {
           
           <div className="flex-1">
             <span className={`text-sm font-medium ${isCategory ? 'text-primary-600' : 'text-neutral-700 dark:text-neutral-300'}`}>
-              {node.name}
+              {skill.name}
             </span>
             {isCategory && (
               <span className="ml-2 text-xs text-blue-500">
@@ -214,13 +214,13 @@ const HiddenNodesManager: React.FC = () => {
           </div>
           
           <button
-            onClick={() => toggleNodeVisibility(node.id, true)}
+            onClick={() => toggleSkillVisibility(skill.id, true)}
             className={`p-2 rounded-lg transition-colors ${
               isHidden 
                 ? 'bg-red-100 text-red-600 hover:bg-red-200 dark:bg-red-900/30 dark:text-red-400 dark:hover:bg-red-900/50' 
                 : 'bg-green-100 text-green-600 hover:bg-green-200 dark:bg-green-900/30 dark:text-green-400 dark:hover:bg-green-900/50'
             }`}
-            title={isHidden ? 'Show this node and its children' : 'Hide this node and its children'}
+            title={isHidden ? 'Show this skill and its children' : 'Hide this skill and its children'}
           >
             {isHidden ? (
               <EyeSlashIcon className="h-4 w-4" />
@@ -232,7 +232,7 @@ const HiddenNodesManager: React.FC = () => {
         
         {isExpanded && children.length > 0 && (
           <div className="mt-1">
-            {children.map(child => renderNode(child, level + 1))}
+            {children.map(child => renderSkill(child, level + 1))}
           </div>
         )}
       </div>
@@ -249,7 +249,7 @@ const HiddenNodesManager: React.FC = () => {
 
   return (
     <div className="space-y-4">
-      {!hiddenNodesService.isUsingDatabase() && (
+      {!hiddenSkillsService.isUsingDatabase() && (
         <div className="bg-yellow-50 dark:bg-yellow-900/20 border border-yellow-200 dark:border-yellow-800 rounded-lg p-4">
           <p className="text-sm text-yellow-800 dark:text-yellow-200">
             <strong>Note:</strong> Hidden nodes configuration is currently stored locally. 
@@ -258,7 +258,7 @@ const HiddenNodesManager: React.FC = () => {
         </div>
       )}
       
-      {hiddenNodesService.isUsingDatabase() && (
+      {hiddenSkillsService.isUsingDatabase() && (
         <div className="bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 rounded-lg p-4">
           <p className="text-sm text-green-800 dark:text-green-200">
             <strong>✓ Database Mode:</strong> Changes are saved to the database and will persist.
@@ -271,7 +271,7 @@ const HiddenNodesManager: React.FC = () => {
           <MagnifyingGlassIcon className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-neutral-400" />
           <input
             type="text"
-            placeholder="Search nodes..."
+            placeholder="Search skills..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
             className="w-full pl-10 pr-4 py-2 border border-neutral-300 dark:border-neutral-600 rounded-lg bg-white dark:bg-neutral-800"
@@ -283,13 +283,13 @@ const HiddenNodesManager: React.FC = () => {
           onChange={(e) => setFilterMode(e.target.value as any)}
           className="px-4 py-2 border border-neutral-300 dark:border-neutral-600 rounded-lg bg-white dark:bg-neutral-800"
         >
-          <option value="all">All Nodes</option>
+          <option value="all">All Skills</option>
           <option value="visible">Visible Only</option>
           <option value="hidden">Hidden Only</option>
         </select>
         
         <button
-          onClick={fetchNodes}
+          onClick={fetchSkills}
           className="p-2 rounded-lg bg-neutral-100 hover:bg-neutral-200 dark:bg-neutral-700 dark:hover:bg-neutral-600"
         >
           <ArrowPathIcon className="h-5 w-5" />
@@ -298,18 +298,18 @@ const HiddenNodesManager: React.FC = () => {
 
       <div className="bg-white dark:bg-neutral-800 rounded-lg border border-neutral-200 dark:border-neutral-700 p-4">
         <div className="space-y-1">
-          {filteredNodes.map(node => renderNode(node))}
+          {filteredSkills.map(skill => renderSkill(skill))}
           
-          {filteredNodes.length === 0 && (
+          {filteredSkills.length === 0 && (
             <div className="text-center py-8 text-neutral-500">
-              No nodes found matching your filters
+              No skills found matching your filters
             </div>
           )}
         </div>
       </div>
       
       <div className="text-sm text-neutral-600 dark:text-neutral-400">
-        Total: {nodes.length} nodes | Hidden: {hiddenNodes.size} nodes
+        Total: {skills.length} skills | Hidden: {hiddenSkills.size} skills
       </div>
     </div>
   )

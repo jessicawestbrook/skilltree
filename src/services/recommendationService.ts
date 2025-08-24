@@ -11,9 +11,9 @@ export interface RecommendationScore {
 export interface UserProfile {
   id: string
   overall_rating: number
-  starred_nodes: string[]
-  completed_nodes: string[]
-  in_progress_nodes: string[]
+  starred_skills: string[]
+  completed_skills: string[]
+  in_progress_skills: string[]
   recent_activity: Array<{
     skill_id: string
     timestamp: string
@@ -95,17 +95,17 @@ class RecommendationService {
    * Calculate readiness score based on prerequisites
    */
   private calculateReadiness(
-    node: SkillTreeNode,
-    completedNodes: Set<string>
+    skill: SkillTreeNode,
+    completedSkills: Set<string>
   ): number {
-    // Check if node has prerequisites (parent must be completed)
-    if (!node.parent_id) {
-      // Root nodes are always ready
+    // Check if skill has prerequisites (parent must be completed)
+    if (!skill.parent_id) {
+      // Root skills are always ready
       return 1.0
     }
 
     // Check if parent is completed
-    if (completedNodes.has(node.parent_id)) {
+    if (completedSkills.has(skill.parent_id)) {
       return 1.0
     }
 
@@ -118,21 +118,21 @@ class RecommendationService {
    * Calculate interest match based on starred categories
    */
   private async calculateInterestMatch(
-    node: SkillTreeNode,
-    starredNodes: string[]
+    skill: SkillTreeNode,
+    starredSkills: string[]
   ): Promise<number> {
-    if (starredNodes.includes(node.id)) {
+    if (starredSkills.includes(skill.id)) {
       return 1.0 // Direct match
     }
 
-    // Check if node is child of starred category
-    if (node.parent_id && starredNodes.includes(node.parent_id)) {
+    // Check if skill is child of starred category
+    if (skill.parent_id && starredSkills.includes(skill.parent_id)) {
       return 0.8
     }
 
     // Check category similarity
     const starredCategories = new Set<string>()
-    for (const starredId of starredNodes) {
+    for (const starredId of starredSkills) {
       const { data } = await supabase
         .from('skill_tree_nodes')
         .select('name, parent_id')
@@ -146,10 +146,10 @@ class RecommendationService {
       }
     }
 
-    // Check if node name matches starred categories
+    // Check if skill name matches starred categories
     let score = 0
-    const nodeNameParts = node.name.toLowerCase().split(/[\s-_]+/)
-    const matchingParts = nodeNameParts.filter((part: string) => starredCategories.has(part))
+    const skillNameParts = skill.name.toLowerCase().split(/[\s-_]+/)
+    const matchingParts = skillNameParts.filter((part: string) => starredCategories.has(part))
     score += Math.min(matchingParts.length * 0.3, 0.5)
 
     return Math.min(score, 1.0)
@@ -159,13 +159,13 @@ class RecommendationService {
    * Calculate difficulty fit based on user's current level
    */
   private calculateDifficultyFit(
-    nodeLevel: number | null,
+    skillLevel: number | null,
     userRating: number
   ): number {
-    const nodeDifficulty = nodeLevel || 5 // Default to medium
+    const skillDifficulty = skillLevel || 5 // Default to medium
     const userLevel = Math.floor(userRating / 10) // Convert 0-100 to 0-10
     
-    const difference = Math.abs(nodeDifficulty - userLevel)
+    const difference = Math.abs(skillDifficulty - userLevel)
     
     if (difference <= 1) {
       return 1.0 // Perfect fit
@@ -182,10 +182,10 @@ class RecommendationService {
    * Calculate recency factor for spaced repetition
    */
   private calculateRecency(
-    nodeId: string,
+    skillId: string,
     recentActivity: Array<{ skill_id: string; timestamp: string }>
   ): number {
-    const lastActivity = recentActivity.find(a => a.skill_id === nodeId)
+    const lastActivity = recentActivity.find(a => a.skill_id === skillId)
     
     if (!lastActivity) {
       return 1.0 // Never accessed, high priority
@@ -208,14 +208,14 @@ class RecommendationService {
    * Calculate path efficiency towards user goals
    */
   private async calculatePathEfficiency(
-    node: SkillTreeNode,
+    skill: SkillTreeNode,
     userGoals: string[]
   ): Promise<number> {
     if (userGoals.length === 0) {
       return 0.5 // Neutral if no specific goals
     }
 
-    // Check if node is on path to any goal
+    // Check if skill is on path to any goal
     let maxEfficiency = 0
 
     for (const goalId of userGoals) {
@@ -227,12 +227,12 @@ class RecommendationService {
         .single()
 
       if (goalNode) {
-        // Check if current node is related to goal
+        // Check if current skill is related to goal
         const goalName = goalNode.name.toLowerCase()
-        const nodeName = node.name.toLowerCase()
+        const skillName = skill.name.toLowerCase()
         
         // Calculate name similarity
-        const commonWords = nodeName.split(/[\s-_]+/).filter((part: string) => 
+        const commonWords = skillName.split(/[\s-_]+/).filter((part: string) => 
           goalName.includes(part) && part.length > 3
         )
         
@@ -248,23 +248,23 @@ class RecommendationService {
    * Main recommendation calculation based on Zone of Proximal Development and user interests
    */
   async calculateRecommendationScore(
-    node: SkillTreeNode,
+    skill: SkillTreeNode,
     userProfile: UserProfile
   ): Promise<number> {
-    const completedSet = new Set(userProfile.completed_nodes)
+    const completedSet = new Set(userProfile.completed_skills)
     
     // Calculate individual factors with updated weightings to prioritize interests
-    const readiness = this.calculateReadiness(node, completedSet) * 0.25
-    const quizInterest = await this.calculateInterestScore(node, userProfile.id) * 0.35 // Prioritize quiz interests
-    const starredInterest = await this.calculateInterestMatch(node, userProfile.starred_nodes) * 0.15
+    const readiness = this.calculateReadiness(skill, completedSet) * 0.25
+    const quizInterest = await this.calculateInterestScore(skill, userProfile.id) * 0.35 // Prioritize quiz interests
+    const starredInterest = await this.calculateInterestMatch(skill, userProfile.starred_skills) * 0.15
     const difficultyFit = this.calculateDifficultyFit(
-      node.display_order, // Using display_order as difficulty proxy
+      skill.display_order, // Using display_order as difficulty proxy
       userProfile.overall_rating
     ) * 0.15
-    const recency = this.calculateRecency(node.id, userProfile.recent_activity) * 0.05
+    const recency = this.calculateRecency(skill.id, userProfile.recent_activity) * 0.05
     const pathEfficiency = await this.calculatePathEfficiency(
-      node, 
-      userProfile.starred_nodes // Using starred as goals
+      skill, 
+      userProfile.starred_skills // Using starred as goals
     ) * 0.05
 
     return readiness + quizInterest + starredInterest + difficultyFit + recency + pathEfficiency
@@ -274,14 +274,14 @@ class RecommendationService {
    * Categorize recommendation based on characteristics
    */
   private categorizeRecommendation(
-    node: SkillTreeNode,
+    skill: SkillTreeNode,
     score: number,
     userProfile: UserProfile,
     reasons: string[]
   ): 'ready_to_learn' | 'challenge' | 'review' | 'interest' | 'skill_gap' {
-    const isCompleted = userProfile.completed_nodes.includes(node.id)
-    const isInProgress = userProfile.in_progress_nodes.includes(node.id)
-    const isStarred = userProfile.starred_nodes.includes(node.id)
+    const isCompleted = userProfile.completed_skills.includes(skill.id)
+    const isInProgress = userProfile.in_progress_skills.includes(skill.id)
+    const isStarred = userProfile.starred_skills.includes(skill.id)
     
     if (isCompleted) {
       return 'review'
@@ -296,10 +296,10 @@ class RecommendationService {
     }
     
     // Check difficulty level
-    const nodeDifficulty = node.display_order || 5
+    const skillDifficulty = skill.display_order || 5
     const userLevel = Math.floor(userProfile.overall_rating / 10)
     
-    if (nodeDifficulty > userLevel + 2) {
+    if (skillDifficulty > userLevel + 2) {
       return 'challenge'
     }
     
@@ -340,11 +340,11 @@ class RecommendationService {
       const userProfile: UserProfile = {
         id: userId,
         overall_rating: (profileResult.status === 'fulfilled' && profileResult.value.data?.overall_rating) || 50,
-        starred_nodes: (starredResult.status === 'fulfilled' && starredResult.value.data?.map((s: any) => s.item_id)) || [],
-        completed_nodes: (progressResult.status === 'fulfilled' && progressResult.value.data
+        starred_skills: (starredResult.status === 'fulfilled' && starredResult.value.data?.map((s: any) => s.item_id)) || [],
+        completed_skills: (progressResult.status === 'fulfilled' && progressResult.value.data
           ?.filter((p: any) => p.status === 'completed')
           .map((p: any) => p.skill_id)) || [],
-        in_progress_nodes: (progressResult.status === 'fulfilled' && progressResult.value.data
+        in_progress_skills: (progressResult.status === 'fulfilled' && progressResult.value.data
           ?.filter((p: any) => p.status === 'in_progress')
           .map((p: any) => p.skill_id)) || [],
         recent_activity: (activityResult.status === 'fulfilled' && activityResult.value.data?.map((a: any) => ({
@@ -362,59 +362,58 @@ class RecommendationService {
       if (includeCategories.length > 0) {
         // Since we don't have a type column, filter by name patterns
         // This is a workaround - ideally we'd have a category/type column
-        const categoryPatterns = includeCategories.map(cat => cat.toLowerCase())
         // Note: This won't work with Supabase query builder, would need client-side filtering
         // For now, we'll skip this filter
       }
 
       if (excludeCompleted) {
-        const excludedNodes = [...userProfile.completed_nodes, ...userProfile.in_progress_nodes]
-        if (excludedNodes.length > 0) {
-          nodesQuery = nodesQuery.not('id', 'in', `(${excludedNodes.join(',')})`)
+        const excludedSkills = [...userProfile.completed_skills, ...userProfile.in_progress_skills]
+        if (excludedSkills.length > 0) {
+          nodesQuery = nodesQuery.not('id', 'in', `(${excludedSkills.join(',')})`)
         }
       }
 
-      if (focusOnStarred && userProfile.starred_nodes.length > 0) {
-        // Get children of starred nodes
-        nodesQuery = nodesQuery.in('parent_id', userProfile.starred_nodes)
+      if (focusOnStarred && userProfile.starred_skills.length > 0) {
+        // Get children of starred skills
+        nodesQuery = nodesQuery.in('parent_id', userProfile.starred_skills)
       }
 
-      const { data: candidateNodes, error } = await nodesQuery
+      const { data: candidateSkills, error } = await nodesQuery
 
       if (error) throw error
-      if (!candidateNodes || candidateNodes.length === 0) return []
+      if (!candidateSkills || candidateSkills.length === 0) return []
 
       // Calculate scores for all candidates
       const recommendations: RecommendationScore[] = []
       
-      for (const node of candidateNodes) {
-        const score = await this.calculateRecommendationScore(node, userProfile)
+      for (const skill of candidateSkills) {
+        const score = await this.calculateRecommendationScore(skill, userProfile)
         
         const reasons: string[] = []
         
         // Determine reasons for recommendation
-        const interestScore = await this.calculateInterestScore(node, userProfile.id)
+        const interestScore = await this.calculateInterestScore(skill, userProfile.id)
         if (interestScore > 0.6) {
           reasons.push('Matches your interests from the assessment')
         } else if (interestScore > 0.3) {
           reasons.push('Related to your learning preferences')
         }
         
-        if (userProfile.starred_nodes.includes(node.parent_id || '')) {
+        if (userProfile.starred_skills.includes(skill.parent_id || '')) {
           reasons.push('Related to your bookmarked topics')
         }
         
-        if (node.parent_id && userProfile.completed_nodes.includes(node.parent_id)) {
+        if (skill.parent_id && userProfile.completed_skills.includes(skill.parent_id)) {
           reasons.push('Prerequisites completed')
         }
         
-        const nodeDifficulty = node.display_order || 5
+        const skillDifficulty = skill.display_order || 5
         const userLevel = Math.floor(userProfile.overall_rating / 10)
-        if (Math.abs(nodeDifficulty - userLevel) <= 1) {
+        if (Math.abs(skillDifficulty - userLevel) <= 1) {
           reasons.push('Matches your skill level')
         }
         
-        const lastActivity = userProfile.recent_activity.find(a => a.skill_id === node.id)
+        const lastActivity = userProfile.recent_activity.find(a => a.skill_id === skill.id)
         if (lastActivity) {
           const daysSince = (Date.now() - new Date(lastActivity.timestamp).getTime()) / (1000 * 60 * 60 * 24)
           if (daysSince > 7) {
@@ -424,10 +423,10 @@ class RecommendationService {
           reasons.push('New content to explore')
         }
 
-        const category = this.categorizeRecommendation(node, score, userProfile, reasons)
+        const category = this.categorizeRecommendation(skill, score, userProfile, reasons)
         
         recommendations.push({
-          node,
+          node: skill,
           score,
           category,
           reasons
@@ -506,7 +505,7 @@ class RecommendationService {
    */
   async getLearningPath(
     userId: string,
-    goalNodeId: string
+    goalSkillId: string
   ): Promise<SkillTreeNode[]> {
     try {
       // Get user's completed nodes
@@ -518,39 +517,39 @@ class RecommendationService {
 
       const completedSet = new Set(progress?.map(p => p.skill_id) || [])
 
-      // Get goal node and its ancestors
-      const { data: goalNode } = await supabase
+      // Get goal skill and its ancestors
+      const { data: goalSkill } = await supabase
         .from('skill_tree_nodes')
         .select('*')
-        .eq('id', goalNodeId)
+        .eq('id', goalSkillId)
         .single()
 
-      if (!goalNode) return []
+      if (!goalSkill) return []
 
       // Build path from root to goal by traversing parent relationships
       const path: SkillTreeNode[] = []
-      let currentNode: SkillTreeNode | null = goalNode
-      const visitedNodes = new Set<string>()
+      let currentSkill: SkillTreeNode | null = goalSkill
+      const visitedSkills = new Set<string>()
       
       // Traverse from goal to root via parent_id
-      while (currentNode && !visitedNodes.has(currentNode.id)) {
-        visitedNodes.add(currentNode.id)
+      while (currentSkill && !visitedSkills.has(currentSkill.id)) {
+        visitedSkills.add(currentSkill.id)
         
-        if (!completedSet.has(currentNode.id)) {
-          path.unshift(currentNode) // Add to beginning to maintain root-to-goal order
+        if (!completedSet.has(currentSkill.id)) {
+          path.unshift(currentSkill) // Add to beginning to maintain root-to-goal order
         }
         
-        // Get parent node if exists
-        if (currentNode.parent_id) {
-          const { data: parentNode } = await supabase
+        // Get parent skill if exists
+        if (currentSkill.parent_id) {
+          const { data: parentSkill } = await supabase
             .from('skill_tree_nodes')
             .select('*')
-            .eq('id', currentNode.parent_id)
+            .eq('id', currentSkill.parent_id)
             .single()
           
-          currentNode = parentNode
+          currentSkill = parentSkill
         } else {
-          currentNode = null
+          currentSkill = null
         }
       }
 

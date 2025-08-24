@@ -266,12 +266,24 @@ export class AdaptiveQuestionSelector {
     categoryId: string, 
     dayLimit: number
   ): Promise<string[]> {
-    const { data, error } = await supabase
-      .from('user_question_history')
-      .select('question_id')
+    // Get assessment sessions from the last N days
+    const { data: sessions, error: sessionsError } = await supabase
+      .from('assessment_sessions')
+      .select('id')
       .eq('user_id', userId)
       .eq('category_id', categoryId)
-      .gte('last_seen_at', new Date(Date.now() - dayLimit * 24 * 60 * 60 * 1000).toISOString())
+      .gte('started_at', new Date(Date.now() - dayLimit * 24 * 60 * 60 * 1000).toISOString())
+    
+    if (sessionsError || !sessions || sessions.length === 0) {
+      return []
+    }
+    
+    // Get question responses from those sessions
+    const sessionIds = sessions.map(s => s.id)
+    const { data, error } = await supabase
+      .from('assessment_question_responses')
+      .select('question_id')
+      .in('session_id', sessionIds)
     
     if (error) {
       console.error('Error fetching recent questions:', error)
@@ -290,34 +302,124 @@ export class AdaptiveQuestionSelector {
     excludeQuestions: string[],
     userId: string
   ): Promise<Question | null> {
-    let query = supabase
-      .from('questions')
-      .select('*')
-      .eq('skill_id', categoryId)
-      .eq('difficulty_level', difficulty)
-      .order('usage_count', { ascending: true })  // Prefer less-used questions
-      .order('last_used_at', { ascending: true, nullsFirst: true })  // Prefer never/old questions
-      .limit(10)  // Get multiple options for randomization
-    
-    // Exclude recently seen questions
-    if (excludeQuestions.length > 0) {
-      query = query.not('id', 'in', `(${excludeQuestions.map(q => `'${q}'`).join(',')})`)
-    }
-    
-    const { data, error } = await query
-    
-    if (error) {
-      console.error('Error fetching questions:', error)
+    try {
+      // First, get the skill node to find learning content IDs
+      const { data: skillNode } = await supabase
+        .from('skill_tree_nodes')
+        .select('learning_content_ids')
+        .eq('id', categoryId)
+        .single()
+      
+      if (!skillNode || !skillNode.learning_content_ids || skillNode.learning_content_ids.length === 0) {
+        console.log('No learning content for skill:', categoryId)
+        return null
+      }
+      
+      // Get all learning content for this skill
+      const { data: learningContent } = await supabase
+        .from('learning_content')
+        .select('question_ids')
+        .in('id', skillNode.learning_content_ids)
+      
+      if (!learningContent || learningContent.length === 0) {
+        console.log('No learning content found')
+        return null
+      }
+      
+      // Collect all question IDs from learning content
+      const allQuestionIds: string[] = []
+      learningContent.forEach(content => {
+        if (content.question_ids && Array.isArray(content.question_ids)) {
+          allQuestionIds.push(...content.question_ids)
+        }
+      })
+      
+      if (allQuestionIds.length === 0) {
+        console.log('No questions in learning content')
+        return null
+      }
+      
+      // Filter out excluded questions
+      const availableQuestionIds = allQuestionIds.filter(id => !excludeQuestions.includes(id))
+      
+      if (availableQuestionIds.length === 0) {
+        console.log('All questions have been recently used')
+        return null
+      }
+      
+      // Get questions from the questions table
+      // Note: Since questions don't have difficulty_level field, we'll get all available questions
+      // and map difficulty based on the actual field name
+      const { data: questions, error } = await supabase
+        .from('questions')
+        .select('*')
+        .in('id', availableQuestionIds)
+        .limit(20)  // Get multiple options for randomization
+      
+      if (error) {
+        console.error('Error fetching questions:', error)
+        return null
+      }
+      
+      if (!questions || questions.length === 0) {
+        return null
+      }
+      
+      // Map difficulty strings to numbers if needed
+      const difficultyMap: { [key: string]: number } = {
+        'easy': 1,
+        'medium': 2,
+        'hard': 3,
+        'expert': 4,
+        'master': 5
+      }
+      
+      // Filter by difficulty if questions have difficulty field
+      let filteredQuestions = questions
+      if (questions[0].difficulty) {
+        filteredQuestions = questions.filter(q => {
+          const qDifficulty = typeof q.difficulty === 'string' 
+            ? difficultyMap[q.difficulty.toLowerCase()] || 2
+            : q.difficulty
+          // Accept questions within 1 level of target difficulty
+          return Math.abs(qDifficulty - difficulty) <= 1
+        })
+      }
+      
+      // If no questions at this difficulty, use all available
+      if (filteredQuestions.length === 0) {
+        filteredQuestions = questions
+      }
+      
+      // Randomly select from available questions to add variety
+      const randomIndex = Math.floor(Math.random() * filteredQuestions.length)
+      const selectedQuestion = filteredQuestions[randomIndex]
+      
+      // Convert to expected Question format
+      const questionDifficulty = selectedQuestion.difficulty 
+        ? (typeof selectedQuestion.difficulty === 'string' 
+            ? difficultyMap[selectedQuestion.difficulty.toLowerCase()] || 2
+            : selectedQuestion.difficulty)
+        : difficulty
+      
+      return {
+        id: selectedQuestion.id,
+        question_text: selectedQuestion.question_text,
+        options: selectedQuestion.options,
+        correct_answer: typeof selectedQuestion.correct_answer === 'number' 
+          ? selectedQuestion.options[selectedQuestion.correct_answer]
+          : selectedQuestion.correct_answer,
+        explanation: selectedQuestion.explanation || '',
+        difficulty_level: questionDifficulty,
+        estimated_time_seconds: 30, // Default time
+        cognitive_load_rating: questionDifficulty,
+        skill_id: categoryId,
+        usage_count: 0
+      } as Question
+    } catch (error) {
+      console.error('Error in getQuestionAtDifficulty:', error)
       return null
     }
-    
-    if (!data || data.length === 0) {
-      return null
-    }
-    
-    // Randomly select from available questions to add variety
-    const randomIndex = Math.floor(Math.random() * data.length)
-    return data[randomIndex] as Question
   }
 
   /**
@@ -328,45 +430,8 @@ export class AdaptiveQuestionSelector {
     userId: string, 
     categoryId: string
   ): Promise<void> {
-    try {
-      // First get current usage count
-      const { data: questionData } = await supabase
-        .from('questions')
-        .select('usage_count')
-        .eq('id', questionId)
-        .single()
-      
-      // Update question usage count
-      await supabase
-        .from('questions')
-        .update({ 
-          usage_count: (questionData?.usage_count || 0) + 1,
-          last_used_at: new Date().toISOString()
-        })
-        .eq('id', questionId)
-      
-      // Check if user has seen this question before
-      const { data: historyData } = await supabase
-        .from('user_question_history')
-        .select('times_seen')
-        .eq('user_id', userId)
-        .eq('question_id', questionId)
-        .single()
-      
-      // Update or insert user question history
-      await supabase
-        .from('user_question_history')
-        .upsert({
-          user_id: userId,
-          question_id: questionId,
-          category_id: categoryId,
-          times_seen: (historyData?.times_seen || 0) + 1,
-          last_seen_at: new Date().toISOString()
-        })
-        
-    } catch (error) {
-      console.error('Error updating question usage:', error)
-    }
+    // Question usage is now tracked through assessment_question_responses
+    // which is created when recording the answer, so no separate tracking needed
   }
 }
 
@@ -714,14 +779,25 @@ export class AdaptiveAssessmentService {
   }
 
   private static async isFirstAttempt(userId: string, questionId: string): Promise<boolean> {
-    const { data, error } = await supabase
-      .from('user_question_history')
-      .select('times_seen')
+    // Check if user has answered this question before in any session
+    const { data: sessions } = await supabase
+      .from('assessment_sessions')
+      .select('id')
       .eq('user_id', userId)
-      .eq('question_id', questionId)
-      .single()
     
-    return !!error || !data || data.times_seen === 0
+    if (!sessions || sessions.length === 0) {
+      return true
+    }
+    
+    const sessionIds = sessions.map(s => s.id)
+    const { data, error } = await supabase
+      .from('assessment_question_responses')
+      .select('id')
+      .eq('question_id', questionId)
+      .in('session_id', sessionIds)
+      .limit(1)
+    
+    return !!error || !data || data.length === 0
   }
 
   private static async updateSession(sessionId: string, updates: Partial<AssessmentSession>): Promise<void> {

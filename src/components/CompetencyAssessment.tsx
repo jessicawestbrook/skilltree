@@ -29,13 +29,13 @@ const CompetencyAssessment: React.FC<CompetencyAssessmentProps> = ({
   const [score, setScore] = useState(0)
   const [questionStartTime, setQuestionStartTime] = useState<number>(Date.now())
 
-  const fetchAllDescendants = async (nodeId: string): Promise<any[]> => {
+  const fetchAllDescendants = async (skillId: string): Promise<any[]> => {
     const descendants: any[] = []
     
     const { data: children } = await supabase
       .from('skill_tree_nodes')
       .select('*')
-      .eq('parent_id', nodeId)
+      .eq('parent_id', skillId)
 
     if (children) {
       for (const child of children) {
@@ -59,9 +59,9 @@ const CompetencyAssessment: React.FC<CompetencyAssessmentProps> = ({
       // Collect question IDs from all learning content in the category
       const allQuestionIds: string[] = []
       
-      for (const node of descendants) {
-        if (node.learning_content_ids?.length) {
-          for (const contentId of node.learning_content_ids) {
+      for (const skill of descendants) {
+        if (skill.learning_content_ids?.length) {
+          for (const contentId of skill.learning_content_ids) {
             const { data: content } = await supabase
               .from('learning_content')
               .select('question_ids')

@@ -170,13 +170,15 @@ As you're working, try to identify if features have already been implemented or 
 
 # To Do List
 
-on the study list page when you click a flashcard it should open the flashcard to study
+Format assessment page
+
+Format study list review page
 
 smart review should use the same template as the study list page
 
 Update review page formatting. Questions were multiple choice except spelling bee questions. Make sure spelling bee questions have audio.
 
-Test out assessment button
+remove formatting specific to money counting learning content to see what it's likely to look like for other learning content
 
 Format the learning flow more attractively
 
@@ -199,6 +201,8 @@ Evaluate spelling and vocabulary word difficulties, look at the distributions an
 Fix icon and site title in tab bar
 
 Dots on megamenu should update when user has progress
+
+Add foreign language reading passages
 
 Generate content for next learning module per CONTENT_GENERATION_SYSTEM.md
 

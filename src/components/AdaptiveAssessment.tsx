@@ -263,33 +263,74 @@ const AdaptiveAssessment: React.FC<AdaptiveAssessmentProps> = ({
   }
 
   if (!state.currentQuestion) {
-    return (
-      <div className="max-w-4xl mx-auto p-6">
-        <div className="bg-white dark:bg-neutral-900 rounded-xl shadow-lg p-8 text-center">
-          <TrophyIcon className="h-16 w-16 text-gold-500 mx-auto mb-4" />
-          <h2 className="text-2xl font-bold text-neutral-900 dark:text-neutral-100 mb-2">
-            Assessment Complete!
-          </h2>
-          <p className="text-neutral-600 dark:text-neutral-400 mb-6">
-            You've completed the {categoryName} assessment. Great job!
-          </p>
-          <div className="bg-neutral-50 dark:bg-neutral-800 rounded-lg p-4 mb-6">
-            <div className="text-3xl font-bold text-primary-600 dark:text-primary-400">
-              {state.totalPoints} points
+    // Check if this is a completion or no questions available
+    if (state.questionsAnswered > 0) {
+      // Assessment completed
+      return (
+        <div className="max-w-4xl mx-auto p-6">
+          <div className="bg-white dark:bg-neutral-900 rounded-xl shadow-lg p-8 text-center">
+            <TrophyIcon className="h-16 w-16 text-gold-500 mx-auto mb-4" />
+            <h2 className="text-2xl font-bold text-neutral-900 dark:text-neutral-100 mb-2">
+              Assessment Complete!
+            </h2>
+            <p className="text-neutral-600 dark:text-neutral-400 mb-6">
+              You've completed the {categoryName} assessment. Great job!
+            </p>
+            <div className="bg-neutral-50 dark:bg-neutral-800 rounded-lg p-4 mb-6">
+              <div className="text-3xl font-bold text-primary-600 dark:text-primary-400">
+                {state.totalPoints} points
+              </div>
+              <div className="text-sm text-neutral-600 dark:text-neutral-400">
+                {state.questionsAnswered} questions answered
+              </div>
             </div>
-            <div className="text-sm text-neutral-600 dark:text-neutral-400">
-              {state.questionsAnswered} questions answered
+            <button
+              onClick={exitAssessment}
+              className="px-6 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition-colors"
+            >
+              Continue
+            </button>
+          </div>
+        </div>
+      )
+    } else {
+      // No questions available
+      return (
+        <div className="max-w-4xl mx-auto p-6">
+          <div className="bg-white dark:bg-neutral-900 rounded-xl shadow-lg p-8">
+            <div className="flex items-center justify-between mb-6">
+              <h2 className="text-2xl font-bold text-neutral-900 dark:text-neutral-100">
+                {categoryName} Assessment
+              </h2>
+              <button
+                onClick={exitAssessment}
+                className="p-2 text-neutral-400 hover:text-neutral-600 dark:hover:text-neutral-200 transition-colors"
+                title="Close"
+              >
+                <XMarkIcon className="h-6 w-6" />
+              </button>
+            </div>
+            <div className="text-center py-8">
+              <LightBulbIcon className="h-16 w-16 text-neutral-400 mx-auto mb-4" />
+              <p className="text-lg text-neutral-600 dark:text-neutral-400 mb-2">
+                No assessment questions available yet
+              </p>
+              <p className="text-sm text-neutral-500 dark:text-neutral-500">
+                Assessment questions for this category are being developed and will be available soon.
+              </p>
+            </div>
+            <div className="flex justify-center mt-6">
+              <button
+                onClick={exitAssessment}
+                className="px-6 py-2 bg-neutral-200 dark:bg-neutral-700 text-neutral-700 dark:text-neutral-300 rounded-lg hover:bg-neutral-300 dark:hover:bg-neutral-600 transition-colors"
+              >
+                Close
+              </button>
             </div>
           </div>
-          <button
-            onClick={exitAssessment}
-            className="px-6 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition-colors"
-          >
-            Continue
-          </button>
         </div>
-      </div>
-    )
+      )
+    }
   }
 
   const currentDifficultyInfo = difficultyInfo[state.currentDifficulty as keyof typeof difficultyInfo] || difficultyInfo[2]

@@ -141,8 +141,8 @@ const SearchBar: React.FC<SearchBarProps> = ({
       onResultSelect(result)
     } else {
       // Navigate to the content if it has simple_content_id
-      if (result.node.simple_content_id) {
-        navigate(`/learning/${result.node.simple_content_id}`)
+      if (result.skill.simple_content_id) {
+        navigate(`/learning/${result.skill.simple_content_id}`)
       }
     }
     
@@ -241,7 +241,7 @@ const SearchBar: React.FC<SearchBarProps> = ({
               <div className="text-xs font-semibold text-neutral-500 px-2 py-1">Results</div>
               {results.map((result, index) => (
                 <button
-                  key={result.node.id}
+                  key={result.skill.id}
                   onClick={() => handleResultClick(result)}
                   onMouseEnter={() => setSelectedIndex(index)}
                   className={`w-full text-left px-3 py-2 rounded-lg transition-colors ${
@@ -252,14 +252,14 @@ const SearchBar: React.FC<SearchBarProps> = ({
                 >
                   <div className="flex items-start gap-3">
                     <div className="text-neutral-400 mt-0.5">
-                      {getNodeIcon(result.node.node_type)}
+                      {getNodeIcon(result.skill.skill_type)}
                     </div>
                     <div className="flex-1 min-w-0">
                       <div className="flex items-center gap-2">
                         <div 
                           className="font-medium text-sm truncate"
                           dangerouslySetInnerHTML={{ 
-                            __html: result.highlights.title || result.node.title 
+                            __html: result.highlights.title || result.skill.title 
                           }}
                         />
                         {getMatchBadge(result.matchType)}
@@ -274,9 +274,9 @@ const SearchBar: React.FC<SearchBarProps> = ({
                         <span className="text-xs text-neutral-400">
                           Score: {Math.round(result.score * 100)}%
                         </span>
-                        {result.node.difficulty_level && (
+                        {result.skill.difficulty_level && (
                           <span className="text-xs text-neutral-400">
-                            Level {result.node.difficulty_level}
+                            Level {result.skill.difficulty_level}
                           </span>
                         )}
                       </div>

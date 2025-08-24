@@ -10,14 +10,14 @@ import {
   ChartBarIcon,
   XMarkIcon
 } from '@heroicons/react/24/outline'
-import { searchService, SearchResult, KnowledgeNode } from '../services/searchService'
+import { searchService, SearchResult, KnowledgeSkill } from '../services/searchService'
 import SearchBar from '../components/SearchBar'
 
 const SearchPage: React.FC = () => {
   const navigate = useNavigate()
   const [searchParams] = useSearchParams()
   const [results, setResults] = useState<SearchResult[]>([])
-  const [advancedResults, setAdvancedResults] = useState<KnowledgeNode[]>([])
+  const [advancedResults, setAdvancedResults] = useState<KnowledgeSkill[]>([])
   const [, setAllResults] = useState<any>({ nodes: [], questions: [], learningContent: [] })
   const [isLoading, setIsLoading] = useState(false)
   const [showFilters, setShowFilters] = useState(false)
@@ -29,7 +29,7 @@ const SearchPage: React.FC = () => {
   
   // Filter state
   const [filters, setFilters] = useState({
-    nodeTypes: [] as string[],
+    skillTypes: [] as string[],
     difficultyRange: [1, 10] as [number, number],
     hasContent: null as boolean | null,
     searchIn: ['title', 'learning_area'] as string[]
@@ -89,29 +89,29 @@ const SearchPage: React.FC = () => {
           limit: 50,
           threshold: 0.15,
           searchIn: filters.searchIn as ('title' | 'learning_area')[],
-          nodeTypes: filters.nodeTypes.length > 0 ? filters.nodeTypes : undefined
+          skillTypes: filters.skillTypes.length > 0 ? filters.skillTypes : undefined
         })
         
         // Apply difficulty filter
         const filtered = searchResults.filter(r => {
-          const level = r.node.difficulty_level || 5
+          const level = r.skill.difficulty_level || 5
           return level >= filters.difficultyRange[0] && level <= filters.difficultyRange[1]
         })
         
         // Apply content filter
         const finalResults = filters.hasContent !== null
           ? filtered.filter(r => 
-              filters.hasContent ? r.node.simple_content_id !== null : r.node.simple_content_id === null
+              filters.hasContent ? r.skill.simple_content_id !== null : r.skill.simple_content_id === null
             )
           : filtered
         
         setResults(finalResults)
-        calculateStats(finalResults.map(r => r.node))
+        calculateStats(finalResults.map(r => r.skill))
       } else {
         // Advanced search with exact criteria
         const nodes = await searchService.advancedSearch({
           query: query || undefined,
-          nodeTypes: filters.nodeTypes.length > 0 ? filters.nodeTypes : undefined,
+          skillTypes: filters.skillTypes.length > 0 ? filters.skillTypes : undefined,
           minDifficulty: filters.difficultyRange[0],
           maxDifficulty: filters.difficultyRange[1],
           hasContent: filters.hasContent !== null ? filters.hasContent : undefined
@@ -127,19 +127,19 @@ const SearchPage: React.FC = () => {
     }
   }
 
-  const calculateStats = (nodes: KnowledgeNode[]) => {
+  const calculateStats = (skills: KnowledgeSkill[]) => {
     const byType: Record<string, number> = {}
     let totalDifficulty = 0
     
-    nodes.forEach(node => {
-      byType[node.node_type] = (byType[node.node_type] || 0) + 1
-      totalDifficulty += node.difficulty_level || 5
+    skills.forEach(skill => {
+      byType[skill.skill_type] = (byType[skill.skill_type] || 0) + 1
+      totalDifficulty += skill.difficulty_level || 5
     })
     
     setStats({
-      totalResults: nodes.length,
+      totalResults: skills.length,
       byType,
-      avgDifficulty: nodes.length > 0 ? totalDifficulty / nodes.length : 0
+      avgDifficulty: skills.length > 0 ? totalDifficulty / skills.length : 0
     })
   }
 
@@ -151,9 +151,9 @@ const SearchPage: React.FC = () => {
   const toggleNodeType = (type: string) => {
     setFilters(prev => ({
       ...prev,
-      nodeTypes: prev.nodeTypes.includes(type)
-        ? prev.nodeTypes.filter(t => t !== type)
-        : [...prev.nodeTypes, type]
+      skillTypes: prev.skillTypes.includes(type)
+        ? prev.skillTypes.filter(t => t !== type)
+        : [...prev.skillTypes, type]
     }))
   }
 
@@ -190,8 +190,8 @@ const SearchPage: React.FC = () => {
             <SearchBar
               placeholder="Search for any topic, concept, or keyword..."
               onResultSelect={(result) => {
-                if (result.node.simple_content_id) {
-                  navigate(`/learning/${result.node.simple_content_id}`)
+                if (result.skill.simple_content_id) {
+                  navigate(`/learning/${result.skill.simple_content_id}`)
                 }
               }}
             />
@@ -204,9 +204,9 @@ const SearchPage: React.FC = () => {
           >
             <FunnelIcon className="h-5 w-5" />
             Filters
-            {(filters.nodeTypes.length > 0 || filters.hasContent !== null) && (
+            {(filters.skillTypes.length > 0 || filters.hasContent !== null) && (
               <span className="ml-1 px-1.5 py-0.5 bg-primary-600 text-white text-xs rounded-full">
-                {filters.nodeTypes.length + (filters.hasContent !== null ? 1 : 0)}
+                {filters.skillTypes.length + (filters.hasContent !== null ? 1 : 0)}
               </span>
             )}
           </button>
@@ -257,7 +257,7 @@ const SearchPage: React.FC = () => {
                   <label key={type} className="flex items-center gap-2 cursor-pointer">
                     <input
                       type="checkbox"
-                      checked={filters.nodeTypes.includes(type)}
+                      checked={filters.skillTypes.includes(type)}
                       onChange={() => toggleNodeType(type)}
                       className="rounded text-primary-600 focus:ring-primary-500"
                     />
@@ -347,7 +347,7 @@ const SearchPage: React.FC = () => {
           <div className="mt-4 flex justify-end">
             <button
               onClick={() => setFilters({
-                nodeTypes: [],
+                skillTypes: [],
                 difficultyRange: [1, 10],
                 hasContent: null,
                 searchIn: ['title', 'description']
@@ -394,23 +394,23 @@ const SearchPage: React.FC = () => {
             // Smart search results with scores
             results.map((result) => (
               <div
-                key={result.node.id}
+                key={result.skill.id}
                 onClick={() => {
-                  if (result.node.simple_content_id) {
-                    navigate(`/learning/${result.node.simple_content_id}`)
+                  if (result.skill.simple_content_id) {
+                    navigate(`/learning/${result.skill.simple_content_id}`)
                   }
                 }}
                 className={`card p-4 ${
-                  result.node.simple_content_id 
+                  result.skill.simple_content_id 
                     ? 'cursor-pointer hover:shadow-lg transition-shadow' 
                     : ''
                 }`}
               >
                 <div className="flex items-start gap-4">
                   <div className={`p-2 rounded-lg ${
-                    nodeTypeColors[result.node.node_type as keyof typeof nodeTypeColors] || nodeTypeColors.default
+                    nodeTypeColors[result.skill.skill_type as keyof typeof nodeTypeColors] || nodeTypeColors.default
                   }`}>
-                    {getNodeIcon(result.node.node_type)}
+                    {getNodeIcon(result.skill.skill_type)}
                   </div>
                   <div className="flex-1">
                     <div className="flex items-start justify-between">
@@ -418,7 +418,7 @@ const SearchPage: React.FC = () => {
                         <h3 
                           className="font-semibold text-lg"
                           dangerouslySetInnerHTML={{ 
-                            __html: result.highlights.title || result.node.title 
+                            __html: result.highlights.title || result.skill.title 
                           }}
                         />
                         {result.highlights.learning_area && (
@@ -445,10 +445,10 @@ const SearchPage: React.FC = () => {
                       </div>
                     </div>
                     <div className="flex items-center gap-4 mt-3 text-sm text-neutral-500">
-                      {result.node.difficulty_level && (
-                        <span>Level {result.node.difficulty_level}</span>
+                      {result.skill.difficulty_level && (
+                        <span>Level {result.skill.difficulty_level}</span>
                       )}
-                      {result.node.simple_content_id ? (
+                      {result.skill.simple_content_id ? (
                         <span className="text-green-600 dark:text-green-400">Has Content</span>
                       ) : (
                         <span className="text-neutral-400">Structure Only</span>
@@ -476,9 +476,9 @@ const SearchPage: React.FC = () => {
               >
                 <div className="flex items-start gap-4">
                   <div className={`p-2 rounded-lg ${
-                    nodeTypeColors[node.node_type as keyof typeof nodeTypeColors] || nodeTypeColors.default
+                    nodeTypeColors[node.skill_type as keyof typeof nodeTypeColors] || nodeTypeColors.default
                   }`}>
-                    {getNodeIcon(node.node_type)}
+                    {getNodeIcon(node.skill_type)}
                   </div>
                   <div className="flex-1">
                     <h3 className="font-semibold text-lg">{node.title}</h3>

@@ -406,8 +406,8 @@ const LearningContentModal: React.FC<LearningContentModalProps> = ({
                   {learningContent.content && learningContent.content.includes('<') ? (
                     <LearningContentViewer
                       htmlContent={learningContent.content}
-                      nodeId={learningContent.id}
-                      nodeName={learningContent.title}
+                      skillId={learningContent.id}
+                      skillName={learningContent.title}
                       onComplete={() => {
                         if (questions.length > 0) {
                           startTest()
@@ -637,81 +637,6 @@ const getDifficultyDisplay = (difficulty: string) => {
   } else {
     return { label: 'Medium', color: 'text-blue-600 dark:text-blue-400 bg-blue-100 dark:bg-blue-900/30' }
   }
-}
-
-// Separate component for displaying questions
-const QuestionDisplay: React.FC<{
-  question: Question
-  selectedAnswer?: number
-  onAnswerSelect: (index: number) => void
-  showExplanation: boolean
-}> = ({ question, selectedAnswer, onAnswerSelect, showExplanation }) => {
-  const difficulty = getDifficultyDisplay(question.difficulty)
-  
-  return (
-    <div className="space-y-4">
-      <div className="flex items-start justify-between gap-4">
-        <p className="text-lg flex-1">{question.question_text}</p>
-        <span className={`px-3 py-1 rounded-full text-xs font-semibold ${difficulty.color}`}>
-          {difficulty.label}
-        </span>
-      </div>
-      
-      {question.image_url && (
-        <img src={question.image_url} alt="" className="rounded-lg max-w-full" />
-      )}
-
-      <div className="space-y-2">
-        {question.options.map((option, index) => {
-          const isSelected = selectedAnswer === index
-          const isCorrect = index === question.correct_answer
-          
-          return (
-            <button
-              key={index}
-              onClick={() => !showExplanation && onAnswerSelect(index)}
-              disabled={showExplanation}
-              className={`w-full text-left p-3 rounded-lg border-2 transition-colors ${
-                showExplanation
-                  ? isCorrect
-                    ? 'bg-green-50 dark:bg-green-900/20 border-green-500'
-                    : isSelected
-                    ? 'bg-red-50 dark:bg-red-900/20 border-red-500'
-                    : 'border-neutral-200 dark:border-neutral-700'
-                  : isSelected
-                  ? 'bg-primary-50 dark:bg-primary-900/20 border-primary-500'
-                  : 'border-neutral-200 dark:border-neutral-700 hover:bg-neutral-50 dark:hover:bg-neutral-800'
-              }`}
-            >
-              {option}
-            </button>
-          )
-        })}
-      </div>
-
-      {showExplanation && (
-        <div className="p-4 bg-gold-50 dark:bg-gold-900/20 rounded-lg">
-          <p className="font-semibold mb-2">Explanation:</p>
-          <p className="text-sm">{question.explanation || 'No explanation available.'}</p>
-        </div>
-      )}
-      
-      {/* Question Source URL Display */}
-      {question.source_url && (
-        <div className="bg-neutral-50 dark:bg-neutral-900 p-3 rounded-lg border-l-4 border-primary-500">
-          <p className="text-sm text-neutral-600 dark:text-neutral-400 mb-1">Source:</p>
-          <a 
-            href={question.source_url}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-sm text-primary-600 dark:text-primary-400 hover:underline break-all"
-          >
-            {question.source_url}
-          </a>
-        </div>
-      )}
-    </div>
-  )
 }
 
 export default LearningContentModal

@@ -4,7 +4,7 @@ import { supabase } from '../services/supabase'
 import { SkillTreeNode } from '../types/database.types'
 import CategoryLink from './CategoryLink'
 import { ChevronRightIcon } from '@heroicons/react/24/outline'
-import { hiddenNodesService } from '../services/hiddenNodesService'
+import { hiddenSkillsService } from '../services/hiddenNodesService'
 
 interface CategoryChildren {
   directChildren: SkillTreeNode[]
@@ -39,7 +39,7 @@ const MegaMenu: React.FC = () => {
       }
 
       // Filter out hidden top-level categories
-      const visibleTopCategories = await hiddenNodesService.filterVisibleNodes(topLevelCategories)
+      const visibleTopCategories = await hiddenSkillsService.filterVisibleSkills(topLevelCategories)
       setTopCategories(visibleTopCategories)
 
       // Get all nodes up to level 3 efficiently
@@ -57,7 +57,7 @@ const MegaMenu: React.FC = () => {
         if (level2Error) throw level2Error
         
         // Filter out hidden level 2 nodes
-        const visibleLevel2Nodes = await hiddenNodesService.filterVisibleNodes(level2Nodes || [])
+        const visibleLevel2Nodes = await hiddenSkillsService.filterVisibleSkills(level2Nodes || [])
 
         // Get all level 3 nodes (children of level 2 categories)
         const level2CategoryIds = visibleLevel2Nodes.filter(n => !n.learning_content_ids || n.learning_content_ids.length === 0).map(c => c.id)
@@ -73,7 +73,7 @@ const MegaMenu: React.FC = () => {
 
           if (level3Error) throw level3Error
           // Filter out hidden level 3 nodes
-          level3Nodes = await hiddenNodesService.filterVisibleNodes(level3Data || [])
+          level3Nodes = await hiddenSkillsService.filterVisibleSkills(level3Data || [])
         }
 
         // Organize data for easier access

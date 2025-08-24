@@ -9,7 +9,7 @@ import TreeLogo from './TreeLogo'
 import CategoryLink from './CategoryLink'
 import { supabase } from '../services/supabase'
 import { SkillTreeNode } from '../types/database.types'
-import { hiddenNodesService } from '../services/hiddenNodesService'
+import { hiddenSkillsService } from '../services/hiddenNodesService'
 
 const Layout: React.FC = () => {
   const { menuPinned, toggleMenuPinned } = useTheme()
@@ -41,7 +41,7 @@ const Layout: React.FC = () => {
       if (rootError) throw rootError
       
       // Filter out hidden categories
-      const visibleRootNodes = await hiddenNodesService.filterVisibleNodes(rootNodes || [])
+      const visibleRootNodes = await hiddenSkillsService.filterVisibleSkills(rootNodes || [])
       setSubjectCategories(visibleRootNodes)
       
       // Pre-fetch subcategories for all root categories to show chevrons immediately
@@ -59,7 +59,7 @@ const Layout: React.FC = () => {
           
           if (childNodes && childNodes.length > 0) {
             // Filter out hidden subcategories
-            const visibleChildNodes = await hiddenNodesService.filterVisibleNodes(childNodes)
+            const visibleChildNodes = await hiddenSkillsService.filterVisibleSkills(childNodes)
             if (visibleChildNodes.length > 0) {
               subcategoriesData[category.id] = visibleChildNodes
             }
@@ -75,7 +75,7 @@ const Layout: React.FC = () => {
               
               if (grandchildNodes && grandchildNodes.length > 0) {
                 // Filter out hidden sub-subcategories
-                const visibleGrandchildNodes = await hiddenNodesService.filterVisibleNodes(grandchildNodes)
+                const visibleGrandchildNodes = await hiddenSkillsService.filterVisibleSkills(grandchildNodes)
                 if (visibleGrandchildNodes.length > 0) {
                   subSubcategoriesData[subcategory.id] = visibleGrandchildNodes
                 }
@@ -107,7 +107,7 @@ const Layout: React.FC = () => {
       if (error) throw error
       
       // Filter out hidden nodes
-      const visibleChildNodes = await hiddenNodesService.filterVisibleNodes(childNodes || [])
+      const visibleChildNodes = await hiddenSkillsService.filterVisibleSkills(childNodes || [])
       
       setSubcategories(prev => ({
         ...prev,
@@ -161,7 +161,7 @@ const Layout: React.FC = () => {
       if (error) throw error
       
       // Filter out hidden nodes
-      const visibleChildNodes = await hiddenNodesService.filterVisibleNodes(childNodes || [])
+      const visibleChildNodes = await hiddenSkillsService.filterVisibleSkills(childNodes || [])
       
       setSubSubcategories(prev => ({
         ...prev,

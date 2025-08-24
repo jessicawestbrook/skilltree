@@ -16,8 +16,8 @@ ORDER BY table_name;
 -- Let's check what skill_id values already exist
 SELECT DISTINCT 
     up.skill_id,
-    stn.id as node_id,
-    stn.name as node_name
+    stn.id as skill_id_ref,
+    stn.name as skill_name
 FROM user_progress up
 LEFT JOIN skill_tree_nodes stn ON stn.id::text = up.skill_id::text
 LIMIT 10;

@@ -110,8 +110,10 @@ const ProfilePage: React.FC = () => {
           ? dueSessions.filter(s => !loadedCardIds.has(s.flashcard?.id || ''))
           : dueSessions
         
-        const dueCards: Flashcard[] = filteredSessions.map(session => {
-          const card = session.flashcard
+        const dueCards: Flashcard[] = filteredSessions
+          .filter(session => session.flashcard != null)
+          .map(session => {
+          const card = session.flashcard!
           let flashcard: Flashcard
           
           if (session.review?.flashcard_type === 'vocabulary' || session.review?.flashcard_type === 'spelling') {
@@ -244,11 +246,11 @@ const ProfilePage: React.FC = () => {
       
       // Fetch questions from user's progress
       if (recentProgress.length > 0) {
-        const nodeIds = recentProgress.slice(0, 5).map(p => p.skill_id)
+        const skillIds = recentProgress.slice(0, 5).map(p => p.skill_id)
         const { data: questions, error: questionsError } = await supabase
           .from('questions')
           .select('*')
-          .in('skill_id', nodeIds)
+          .in('skill_id', skillIds)
           .limit(15)
         
         if (!questionsError && questions) {
@@ -356,24 +358,32 @@ const ProfilePage: React.FC = () => {
     if (!user) return
 
     try {
-      // Fetch user progress with node details
+      // Fetch user progress
       const { data: progressData, error: progressError } = await supabase
         .from('user_progress')
-        .select(`
-          *,
-          skill_tree_nodes!skill_id (
-            id,
-            name,
-            description
-          )
-        `)
+        .select('*')
         .eq('user_id', user.id)
         .order('last_accessed', { ascending: false })
 
       if (progressError) throw progressError
 
-      if (progressData) {
-        setRecentProgress(progressData.slice(0, 5)) // Show 5 most recent
+      if (progressData && progressData.length > 0) {
+        // Fetch corresponding skill tree nodes
+        const skillIds = progressData.map(p => p.skill_id).filter(Boolean)
+        const { data: nodesData, error: nodesError } = await supabase
+          .from('skill_tree_nodes')
+          .select('id, name, description, learning_area')
+          .in('id', skillIds)
+        
+        if (nodesError) throw nodesError
+        
+        // Combine progress data with node data
+        const progressWithNodes = progressData.map(progress => ({
+          ...progress,
+          skill_tree_nodes: nodesData?.find(node => node.id === progress.skill_id)
+        }))
+        
+        setRecentProgress(progressWithNodes.slice(0, 5)) // Show 5 most recent
 
         // Calculate stats
         const completed = progressData.filter(p => p.status === 'completed')
@@ -388,6 +398,9 @@ const ProfilePage: React.FC = () => {
           averageRating: Math.round(avgRating),
           inProgressCount: inProgress.length
         }))
+      } else {
+        // No progress data
+        setRecentProgress([])
       }
 
       // Fetch starred items - only skill_node types since flashcards are in study lists
@@ -428,44 +441,44 @@ const ProfilePage: React.FC = () => {
       }))
       
       // Build paths for starred skill nodes and recent progress
-      const allNodeIds = new Set<string>()
+      const allSkillIds = new Set<string>()
       
-      // Collect node IDs from starred items
+      // Collect skill IDs from starred items
       starredWithDetails.forEach(item => {
         if ('nodeData' in item && item.nodeData && item.nodeData.id) {
-          allNodeIds.add(item.nodeData.id)
+          allSkillIds.add(item.nodeData.id)
         }
       })
       
-      // Collect node IDs from recent progress
+      // Collect skill IDs from recent progress
       if (progressData) {
         progressData.forEach(p => {
           if (p.skill_id) {
-            allNodeIds.add(p.skill_id)
+            allSkillIds.add(p.skill_id)
           }
         })
       }
       
       // Build all paths
       const paths: Record<string, string> = {}
-      for (const nodeId of Array.from(allNodeIds)) {
+      for (const skillId of Array.from(allSkillIds)) {
         try {
-          const path = await buildCategoryPath(nodeId)
-          const fullPath = path ? `/${path}` : `/learning/${nodeId}`
+          const path = await buildCategoryPath(skillId)
+          const fullPath = path ? `/${path}` : `/learning/${skillId}`
           
           // Check for duplicate segments in the path
           const segments = fullPath.split('/').filter(s => s.length > 0)
           const uniqueSegments = Array.from(new Set(segments))
           if (segments.length !== uniqueSegments.length) {
-            console.warn(`Duplicate segments detected in path for ${nodeId}: ${fullPath}`)
+            console.warn(`Duplicate segments detected in path for ${skillId}: ${fullPath}`)
             // Use deduplicated path
-            paths[nodeId] = '/' + uniqueSegments.join('/')
+            paths[skillId] = '/' + uniqueSegments.join('/')
           } else {
-            paths[nodeId] = fullPath
+            paths[skillId] = fullPath
           }
         } catch (err) {
-          console.error(`Error building path for node ${nodeId}:`, err)
-          paths[nodeId] = `/learning/${nodeId}`
+          console.error(`Error building path for skill ${skillId}:`, err)
+          paths[skillId] = `/learning/${skillId}`
         }
       }
       setNodePaths(prev => ({ ...prev, ...paths }))

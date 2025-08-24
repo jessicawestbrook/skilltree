@@ -1,11 +1,11 @@
 import { supabase } from './supabase'
 
-interface KnowledgeNode {
+interface KnowledgeSkill {
   id: string
   parent_id: string | null
   title: string
   learning_area: string | null
-  node_type: string
+  skill_type: string
   difficulty_level: number | null
   simple_content_id: string | null
   order_index: number
@@ -14,7 +14,7 @@ interface KnowledgeNode {
 }
 
 interface SearchResult {
-  node: KnowledgeNode
+  skill: KnowledgeSkill
   score: number
   matchType: 'exact' | 'fuzzy' | 'semantic'
   highlights: {
@@ -27,7 +27,7 @@ interface SearchOptions {
   limit?: number
   threshold?: number
   searchIn?: ('title' | 'learning_area' | 'keywords')[]
-  nodeTypes?: string[]
+  skillTypes?: string[]
 }
 
 class SearchService {
@@ -111,7 +111,7 @@ class SearchService {
       limit = 20,
       threshold = 0.3,
       searchIn = ['title', 'learning_area'],
-      nodeTypes = []
+      skillTypes = []
     } = options
     
     // Check cache
@@ -122,58 +122,58 @@ class SearchService {
     }
     
     try {
-      // Fetch all nodes (with optional type filter)
-      let nodesQuery = supabase.from('knowledge_nodes').select('*')
+      // Fetch all skills (with optional type filter)
+      let skillsQuery = supabase.from('knowledge_skills').select('*')
       
-      if (nodeTypes.length > 0) {
-        nodesQuery = nodesQuery.in('node_type', nodeTypes)
+      if (skillTypes.length > 0) {
+        skillsQuery = skillsQuery.in('skill_type', skillTypes)
       }
       
-      const { data: nodes, error } = await nodesQuery
+      const { data: skills, error } = await skillsQuery
       
       if (error) throw error
-      if (!nodes) return []
+      if (!skills) return []
       
       const results: SearchResult[] = []
       const queryLower = query.toLowerCase()
       // const queryKeywords = this.extractKeywords(query)
       
-      for (const node of nodes) {
+      for (const skill of skills) {
         let bestScore = 0
         let matchType: 'exact' | 'fuzzy' | 'semantic' = 'fuzzy'
         const highlights: { title?: string, learning_area?: string } = {}
         
         // Search in title
-        if (searchIn.includes('title') && node.title) {
-          const titleLower = node.title.toLowerCase()
+        if (searchIn.includes('title') && skill.title) {
+          const titleLower = skill.title.toLowerCase()
           
           // Exact match
           if (titleLower.includes(queryLower)) {
             bestScore = Math.max(bestScore, 1.0)
             matchType = 'exact'
-            highlights.title = this.highlightMatch(node.title, query)
+            highlights.title = this.highlightMatch(skill.title, query)
           } else {
             // Fuzzy match
-            const fuzzyScore = this.calculateSimilarity(query, node.title)
+            const fuzzyScore = this.calculateSimilarity(query, skill.title)
             if (fuzzyScore > bestScore) {
               bestScore = fuzzyScore
               matchType = 'fuzzy'
-              highlights.title = node.title
+              highlights.title = skill.title
             }
             
             // Semantic match
-            const semanticScore = this.semanticSimilarity(query, node.title) * 0.8
+            const semanticScore = this.semanticSimilarity(query, skill.title) * 0.8
             if (semanticScore > bestScore) {
               bestScore = semanticScore
               matchType = 'semantic'
-              highlights.title = node.title
+              highlights.title = skill.title
             }
           }
         }
         
         // Search in learning_area
-        if (searchIn.includes('learning_area') && node.learning_area) {
-          const areaLower = node.learning_area.toLowerCase()
+        if (searchIn.includes('learning_area') && skill.learning_area) {
+          const areaLower = skill.learning_area.toLowerCase()
           
           // Exact match in learning_area (lower weight than title)
           if (areaLower.includes(queryLower)) {
@@ -181,15 +181,15 @@ class SearchService {
             if (score > bestScore) {
               bestScore = score
               matchType = 'exact'
-              highlights.learning_area = this.highlightMatch(node.learning_area, query)
+              highlights.learning_area = this.highlightMatch(skill.learning_area, query)
             }
           } else {
             // Semantic match in learning_area
-            const semanticScore = this.semanticSimilarity(query, node.learning_area) * 0.6
+            const semanticScore = this.semanticSimilarity(query, skill.learning_area) * 0.6
             if (semanticScore > bestScore) {
               bestScore = semanticScore
               matchType = 'semantic'
-              highlights.learning_area = node.learning_area.substring(0, 150) + '...'
+              highlights.learning_area = skill.learning_area.substring(0, 150) + '...'
             }
           }
         }
@@ -197,7 +197,7 @@ class SearchService {
         // Add to results if score meets threshold
         if (bestScore >= threshold) {
           results.push({
-            node,
+            skill,
             score: bestScore,
             matchType,
             highlights
@@ -230,15 +230,15 @@ class SearchService {
   // Search suggestions (autocomplete)
   async getSuggestions(prefix: string, limit: number = 5): Promise<string[]> {
     try {
-      const { data: nodes, error } = await supabase
-        .from('knowledge_nodes')
+      const { data: skills, error } = await supabase
+        .from('knowledge_skills')
         .select('title')
         .ilike('title', `${prefix}%`)
         .limit(limit)
       
       if (error) throw error
       
-      return nodes?.map(n => n.title) || []
+      return skills?.map(s => s.title) || []
     } catch (error) {
       console.error('Suggestions error:', error)
       return []
@@ -248,18 +248,18 @@ class SearchService {
   // Advanced search with multiple criteria
   async advancedSearch(criteria: {
     query?: string
-    nodeTypes?: string[]
+    skillTypes?: string[]
     parentId?: string
     minDifficulty?: number
     maxDifficulty?: number
     hasContent?: boolean
     isComplete?: boolean
-  }): Promise<KnowledgeNode[]> {
+  }): Promise<KnowledgeSkill[]> {
     try {
-      let query = supabase.from('knowledge_nodes').select('*')
+      let query = supabase.from('knowledge_skills').select('*')
       
-      if (criteria.nodeTypes?.length) {
-        query = query.in('node_type', criteria.nodeTypes)
+      if (criteria.skillTypes?.length) {
+        query = query.in('skill_type', criteria.skillTypes)
       }
       
       if (criteria.parentId) {
@@ -282,10 +282,10 @@ class SearchService {
         }
       }
       
-      const { data: nodes, error } = await query
+      const { data: skills, error } = await query
       
       if (error) throw error
-      if (!nodes) return []
+      if (!skills) return []
       
       // Apply text search if query provided
       if (criteria.query) {
@@ -294,11 +294,11 @@ class SearchService {
           threshold: 0.3
         })
         
-        const nodeIds = new Set(searchResults.map(r => r.node.id))
-        return nodes.filter(n => nodeIds.has(n.id))
+        const skillIds = new Set(searchResults.map(r => r.skill.id))
+        return skills.filter(s => skillIds.has(s.id))
       }
       
-      return nodes
+      return skills
     } catch (error) {
       console.error('Advanced search error:', error)
       return []
@@ -423,7 +423,7 @@ class SearchService {
     } = options
     
     const results: any = {
-      nodes: [],
+      skills: [],
       questions: [],
       learningContent: []
     }
@@ -434,7 +434,7 @@ class SearchService {
     if (includeNodes) {
       promises.push(
         this.search(query, { limit }).then(r => {
-          results.nodes = r
+          results.skills = r
         })
       )
     }
@@ -467,4 +467,4 @@ class SearchService {
 }
 
 export const searchService = new SearchService()
-export type { SearchResult, SearchOptions, KnowledgeNode }
+export type { SearchResult, SearchOptions, KnowledgeSkill }

@@ -4,7 +4,7 @@ import { supabase } from '../services/supabase'
 import { spacedRepetitionService } from '../services/spacedRepetitionService'
 import { useAuth } from '../contexts/AuthContext'
 import { LearningContent, Question } from '../types/database.types'
-import { CheckCircleIcon, TrophyIcon, StarIcon } from '@heroicons/react/24/outline'
+import { TrophyIcon, StarIcon } from '@heroicons/react/24/outline'
 import { CheckCircleIcon as CheckCircleSolidIcon } from '@heroicons/react/24/solid'
 import LearningContentViewer from '../components/LearningContentViewer'
 import EnhancedQuestionDisplay from '../components/EnhancedQuestionDisplay'
@@ -22,12 +22,12 @@ const SimpleLearningPage: React.FC = () => {
   const [phase, setPhase] = useState<'content' | 'test' | 'complete'>('content')
   const [score, setScore] = useState(0)
   const [loading, setLoading] = useState(true)
-  const [currentSkillNodeId, setCurrentSkillNodeId] = useState<string | null>(null)
+  const [currentSkillId, setCurrentSkillId] = useState<string | null>(null)
 
   const fetchContent = useCallback(async () => {
     try {
       let contentData = null
-      let skillNodeId = null
+      let skillId = null
       
       if (contentId) {
         // First, try to fetch as a learning content ID
@@ -45,7 +45,7 @@ const SimpleLearningPage: React.FC = () => {
             .select('id')
             .contains('learning_content_ids', [parseInt(contentId)])
             .single()
-          skillNodeId = node?.id
+          skillId = node?.id
         } else {
           // If not found as content ID, try as skill node ID
           const { data: nodeData, error: nodeError } = await supabase
@@ -55,7 +55,7 @@ const SimpleLearningPage: React.FC = () => {
             .single()
           
           if (!nodeError && nodeData && nodeData.learning_content_ids?.length > 0) {
-            skillNodeId = nodeData.id
+            skillId = nodeData.id
             // Fetch the first learning content for this node
             const { data: nodeContent } = await supabase
               .from('learning_content')
@@ -80,17 +80,17 @@ const SimpleLearningPage: React.FC = () => {
       }
       
       setContent(contentData)
-      setCurrentSkillNodeId(skillNodeId)
+      setCurrentSkillId(skillId)
       
-      // Track user progress if we have a skill node
-      if (user && skillNodeId) {
+      // Track user progress if we have a skill
+      if (user && skillId) {
         try {
           // Check if progress record exists
           const { data: existingProgress } = await supabase
             .from('user_progress')
             .select('*')
             .eq('user_id', user.id)
-            .eq('skill_id', skillNodeId)
+            .eq('skill_id', skillId)
             .single()
           
           if (existingProgress) {
@@ -108,7 +108,7 @@ const SimpleLearningPage: React.FC = () => {
               .from('user_progress')
               .insert({
                 user_id: user.id,
-                skill_id: skillNodeId,
+                skill_id: skillId,
                 status: 'in_progress',
                 last_accessed: new Date().toISOString(),
                 rating: 0
@@ -178,7 +178,7 @@ const SimpleLearningPage: React.FC = () => {
         }
         
         // Update user progress to completed
-        if (currentSkillNodeId) {
+        if (currentSkillId) {
           try {
             const percentage = questions.length > 0 ? Math.round((score / questions.length) * 100) : 100
             
@@ -190,7 +190,7 @@ const SimpleLearningPage: React.FC = () => {
                 last_accessed: new Date().toISOString()
               })
               .eq('user_id', user.id)
-              .eq('skill_id', currentSkillNodeId)
+              .eq('skill_id', currentSkillId)
           } catch (error) {
             console.error('Error updating progress to completed:', error)
           }
@@ -232,8 +232,8 @@ const SimpleLearningPage: React.FC = () => {
     return (
       <LearningContentViewer
         htmlContent={content.content}
-        nodeId={content.id}
-        nodeName={content.title}
+        skillId={content.id}
+        skillName={content.title}
         onComplete={() => {
           if (questions.length > 0) {
             startTest()
