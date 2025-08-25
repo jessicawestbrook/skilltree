@@ -56,7 +56,13 @@
       "Bash(npx supabase query:*)",
       "Bash(npx supabase db push:*)",
       "Bash(npx supabase db dump:*)",
-      "Bash(npx supabase:*)"
+      "Bash(npx supabase:*)",
+      "Bash(TASKKILL /F /IM node.exe)",
+      "Bash(pip3 install:*)",
+      "Bash(git clone:*)",
+      "Read(/C:\\return /**)",
+      "Read(/C:\\return /**)",
+      "Read(/C:\\return /**)"
     ],
     "deny": [],
     "ask": [],

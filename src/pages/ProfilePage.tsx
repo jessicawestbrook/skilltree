@@ -11,7 +11,6 @@ import { nameToSlug } from '../utils/studyListSlug'
 import InteractiveFlashcardReview from '../components/InteractiveFlashcardReview'
 import { 
   BookOpenIcon,
-  HeartIcon,
   ArrowRightIcon,
   QuestionMarkCircleIcon,
   CheckCircleIcon,
@@ -552,14 +551,6 @@ const ProfilePage: React.FC = () => {
     fetchFlashcards(true) // Append more cards
   }
 
-  const getProgressColor = (status: string) => {
-    switch (status) {
-      case 'completed': return 'text-green-600 bg-green-100 dark:bg-green-900/30'
-      case 'in_progress': return 'text-yellow-600 bg-yellow-100 dark:bg-yellow-900/30'
-      default: return 'text-gray-600 bg-gray-100 dark:bg-gray-900/30'
-    }
-  }
-
   if (loading) {
     return (
       <div className="flex items-center justify-center min-h-[400px]">
@@ -813,9 +804,6 @@ const ProfilePage: React.FC = () => {
                   <h2 className="text-xl font-semibold text-neutral-900 dark:text-white">Recommended for You</h2>
                   <p className="text-sm text-neutral-600 dark:text-neutral-400">Based on your interests and assessment</p>
                 </div>
-                <div className="hidden md:block">
-                  <HeartIcon className="h-8 w-8 text-purple-500 opacity-70" />
-                </div>
               </div>
               
               <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
@@ -832,7 +820,6 @@ const ProfilePage: React.FC = () => {
                         <h3 className="font-semibold text-neutral-900 dark:text-white group-hover:text-primary-600 line-clamp-2">
                           {node.name}
                         </h3>
-                        <HeartIcon className="h-4 w-4 text-purple-500 flex-shrink-0 ml-2" />
                       </div>
                       {reasons.length > 0 && (
                         <p className="text-xs text-purple-600 dark:text-purple-400 mb-2">

@@ -1,5 +1,6 @@
 import React from 'react'
 import { SpeakerWaveIcon, LanguageIcon } from '@heroicons/react/24/outline'
+import SkipButton from './SkipButton'
 
 interface LanguageCardProps {
   language: string
@@ -13,6 +14,7 @@ interface LanguageCardProps {
   difficulty?: number
   onSelectOption?: (index: number) => void
   onPlayAudio?: () => void
+  onSkip?: () => void
   className?: string
 }
 
@@ -28,6 +30,7 @@ const LanguageCard: React.FC<LanguageCardProps> = ({
   difficulty,
   onSelectOption,
   onPlayAudio,
+  onSkip,
   className = ''
 }) => {
   const getDifficultyLabel = (level?: number) => {
@@ -71,13 +74,20 @@ const LanguageCard: React.FC<LanguageCardProps> = ({
   const hasForeignText = questionText && !questionText.match(/^[A-Za-z\s.,!?'"]+$/)
 
   return (
-    <div className={`bg-white dark:bg-neutral-800 rounded-xl shadow-lg p-6 ${className}`}>
+    <div className={`px-6 py-2 ${className}`}>
+      {/* Skip link in top left */}
+      {onSkip && !showResult && (
+        <div className="flex justify-start mb-2">
+          <SkipButton onSkip={onSkip} />
+        </div>
+      )}
+      
       {/* Header */}
       <div className="flex justify-between items-center mb-4">
         <div className="flex items-center gap-3">
           <LanguageIcon className="h-5 w-5 text-primary-600 dark:text-primary-400" />
           <span className="text-sm font-medium text-primary-600 dark:text-primary-400">
-            {language}
+            {language.charAt(0).toUpperCase() + language.slice(1)}
           </span>
           {difficulty && (
             <span className={`text-sm ${getDifficultyColor(difficulty)}`}>

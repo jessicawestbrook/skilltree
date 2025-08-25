@@ -11,11 +11,14 @@ import {
   FlagIcon,
   ChevronDownIcon,
   SpeakerWaveIcon,
-  BookOpenIcon
+  BookOpenIcon,
+  QuestionMarkCircleIcon
 } from '@heroicons/react/24/outline'
 import FlagContentModal from '../components/FlagContentModal'
 import StudyListActions from '../components/StudyListActions'
+import SkipButton from '../components/flashcards/SkipButton'
 import CategoryLink from '../components/CategoryLink'
+import LanguageVocabularyMode from '../components/LanguageVocabularyMode'
 
 interface Language {
   id: string
@@ -92,6 +95,7 @@ const LanguageTrainerPage: React.FC = () => {
   const [hasLanguageVoice, setHasLanguageVoice] = useState<boolean>(false)
   
   const [error, setError] = useState<string | null>(null)
+  const [mode, setMode] = useState<'grammar' | 'vocabulary'>('grammar')
 
   // Session storage keys
   const LANG_SESSION_KEY = 'languageTrainerSession'
@@ -246,8 +250,9 @@ const LanguageTrainerPage: React.FC = () => {
           setShowResult(savedSession.showResult)
           setIsCorrect(savedSession.isCorrect)
           
-          // Auto-play audio if restoring a result state (and language voice available)
-          if (savedSession.showResult && hasLanguageVoice) {
+          // Auto-play audio if restoring a result state (and language voice available and autoplay enabled)
+          const autoplayEnabled = localStorage.getItem('audioAutoplay') !== 'false'
+          if (savedSession.showResult && hasLanguageVoice && autoplayEnabled) {
             setTimeout(() => {
               speakWord(savedSession.currentQuestion.options[savedSession.currentQuestion.correct_answer_index])
             }, 1000) // Longer delay for page restoration
@@ -409,8 +414,9 @@ const LanguageTrainerPage: React.FC = () => {
       saveSessionState(currentQuestion, currentIndex, answer, true, correct, selectedLanguage.id, selectedCategory.id)
     }
 
-    // Auto-play audio for the correct answer when result is shown (if language voice available)
-    if (hasLanguageVoice) {
+    // Auto-play audio for the correct answer when result is shown (if language voice available and autoplay enabled)
+    const autoplayEnabled = localStorage.getItem('audioAutoplay') !== 'false'
+    if (hasLanguageVoice && autoplayEnabled) {
       setTimeout(() => {
         speakWord(currentQuestion.options[currentQuestion.correct_answer_index])
       }, 500) // Small delay to let UI update first
@@ -568,6 +574,18 @@ const LanguageTrainerPage: React.FC = () => {
     setShowResult(false)
   }
 
+  const skipQuestion = () => {
+    // Clear session state when skipping
+    clearSessionState()
+    
+    // Move to next question without recording stats
+    const nextIndex = (currentIndex + 1) % questionBank.length
+    setCurrentIndex(nextIndex)
+    setCurrentQuestion(questionBank[nextIndex])
+    setSelectedAnswer(null)
+    setShowResult(false)
+  }
+
   const getCategoryProgress = (categoryId: string): UserProgress | null => {
     return userProgress.find(p => p.category_id === categoryId) || null
   }
@@ -590,15 +608,106 @@ const LanguageTrainerPage: React.FC = () => {
     )
   }
 
+  // Show vocabulary mode if selected
+  if (mode === 'vocabulary' && selectedLanguage) {
+    return (
+      <div className="max-w-4xl mx-auto p-1 sm:p-2 pt-2 sm:pt-2">
+        {/* Tab Navigation */}
+        <div className="mb-4">
+          <div className="border-b border-neutral-200 dark:border-neutral-700">
+            <nav className="-mb-px flex space-x-8" aria-label="Tabs">
+              <button
+                onClick={() => setMode('grammar')}
+                className="group inline-flex items-center py-2 px-1 border-b-2 font-medium text-sm transition-colors border-transparent text-neutral-500 hover:text-neutral-700 hover:border-neutral-300 dark:text-neutral-400 dark:hover:text-neutral-300 dark:hover:border-neutral-600"
+              >
+                <QuestionMarkCircleIcon
+                  className="-ml-0.5 mr-2 h-5 w-5 text-neutral-400 group-hover:text-neutral-500 dark:text-neutral-500 dark:group-hover:text-neutral-400"
+                />
+                Grammar
+              </button>
+
+              <button
+                onClick={() => setMode('vocabulary')}
+                className="group inline-flex items-center py-2 px-1 border-b-2 font-medium text-sm transition-colors border-primary-500 text-primary-600 dark:text-primary-400"
+              >
+                <BookOpenIcon
+                  className="-ml-0.5 mr-2 h-5 w-5 text-primary-500 dark:text-primary-400"
+                />
+                Vocabulary
+              </button>
+            </nav>
+          </div>
+        </div>
+
+        {/* Tab Content */}
+        <LanguageVocabularyMode 
+          selectedLanguage={selectedLanguage.code} 
+          onBack={() => setMode('grammar')}
+        />
+      </div>
+    )
+  }
+
   if (!currentQuestion) {
     return (
-      <div className="max-w-4xl mx-auto p-1 sm:p-2 pt-2 sm:pt-2 space-y-1 sm:space-y-2">
+      <div className="max-w-4xl mx-auto p-1 sm:p-2 pt-2 sm:pt-2">
+        {/* Tab Navigation */}
+        <div className="mb-4">
+          <div className="border-b border-neutral-200 dark:border-neutral-700">
+            <nav className="-mb-px flex space-x-8" aria-label="Tabs">
+              <button
+                onClick={() => setMode('grammar')}
+                className={`
+                  group inline-flex items-center py-2 px-1 border-b-2 font-medium text-sm transition-colors
+                  ${
+                    mode === 'grammar'
+                      ? 'border-primary-500 text-primary-600 dark:text-primary-400'
+                      : 'border-transparent text-neutral-500 hover:text-neutral-700 hover:border-neutral-300 dark:text-neutral-400 dark:hover:text-neutral-300 dark:hover:border-neutral-600'
+                  }
+                `}
+              >
+                <QuestionMarkCircleIcon
+                  className={`
+                    -ml-0.5 mr-2 h-5 w-5
+                    ${
+                      mode === 'grammar'
+                        ? 'text-primary-500 dark:text-primary-400'
+                        : 'text-neutral-400 group-hover:text-neutral-500 dark:text-neutral-500 dark:group-hover:text-neutral-400'
+                    }
+                  `}
+                />
+                Grammar
+              </button>
+
+              <button
+                onClick={() => setMode('vocabulary')}
+                className={`
+                  group inline-flex items-center py-2 px-1 border-b-2 font-medium text-sm transition-colors
+                  ${
+                    mode === 'vocabulary'
+                      ? 'border-primary-500 text-primary-600 dark:text-primary-400'
+                      : 'border-transparent text-neutral-500 hover:text-neutral-700 hover:border-neutral-300 dark:text-neutral-400 dark:hover:text-neutral-300 dark:hover:border-neutral-600'
+                  }
+                `}
+              >
+                <BookOpenIcon
+                  className={`
+                    -ml-0.5 mr-2 h-5 w-5
+                    ${
+                      mode === 'vocabulary'
+                        ? 'text-primary-500 dark:text-primary-400'
+                        : 'text-neutral-400 group-hover:text-neutral-500 dark:text-neutral-500 dark:group-hover:text-neutral-400'
+                    }
+                  `}
+                />
+                Vocabulary
+              </button>
+            </nav>
+          </div>
+        </div>
+        
         {/* Setup Card */}
         <div className="bg-white dark:bg-neutral-900 rounded-lg sm:rounded-xl shadow-lg p-4 sm:p-6">
-          {/* Page Title */}
-          <div className="text-center mb-3 sm:mb-4">
-            <h1 className="text-lg sm:text-xl font-bold text-neutral-800 dark:text-neutral-200">Language Trainer</h1>
-          </div>
           <div className="space-y-4">
             {/* Language Selection */}
             <div>
@@ -704,17 +813,74 @@ const LanguageTrainerPage: React.FC = () => {
   }
 
   return (
-    <div className="max-w-4xl mx-auto p-1 sm:p-2 pt-2 sm:pt-2 space-y-1 sm:space-y-2">
-      {/* Combined Language Practice Card */}
-      <div className="bg-white dark:bg-neutral-900 rounded-lg sm:rounded-xl shadow-lg p-2 sm:p-3 pt-14 sm:pt-12 relative">
-        {/* Page Title */}
-        <div className="text-center mb-1 sm:mb-2">
-          <h1 className="text-lg sm:text-xl font-bold text-neutral-800 dark:text-neutral-200">Language Trainer</h1>
+    <div className="max-w-4xl mx-auto p-1 sm:p-2 pt-2 sm:pt-2">
+      {/* Tab Navigation */}
+      <div className="mb-4">
+        <div className="border-b border-neutral-200 dark:border-neutral-700">
+          <nav className="-mb-px flex space-x-8" aria-label="Tabs">
+            <button
+              onClick={() => setMode('grammar')}
+              className={`
+                group inline-flex items-center py-2 px-1 border-b-2 font-medium text-sm transition-colors
+                ${
+                  mode === 'grammar'
+                    ? 'border-primary-500 text-primary-600 dark:text-primary-400'
+                    : 'border-transparent text-neutral-500 hover:text-neutral-700 hover:border-neutral-300 dark:text-neutral-400 dark:hover:text-neutral-300 dark:hover:border-neutral-600'
+                }
+              `}
+            >
+              <QuestionMarkCircleIcon
+                className={`
+                  -ml-0.5 mr-2 h-5 w-5
+                  ${
+                    mode === 'grammar'
+                      ? 'text-primary-500 dark:text-primary-400'
+                      : 'text-neutral-400 group-hover:text-neutral-500 dark:text-neutral-500 dark:group-hover:text-neutral-400'
+                  }
+                `}
+              />
+              Grammar
+            </button>
+
+            <button
+              onClick={() => {
+                setMode('vocabulary')
+                if (!selectedLanguage) {
+                  const spanish = languages.find(l => l.code === 'es')
+                  if (spanish) setSelectedLanguage(spanish)
+                }
+              }}
+              className={`
+                group inline-flex items-center py-2 px-1 border-b-2 font-medium text-sm transition-colors
+                ${
+                  mode === 'vocabulary'
+                    ? 'border-primary-500 text-primary-600 dark:text-primary-400'
+                    : 'border-transparent text-neutral-500 hover:text-neutral-700 hover:border-neutral-300 dark:text-neutral-400 dark:hover:text-neutral-300 dark:hover:border-neutral-600'
+                }
+              `}
+            >
+              <BookOpenIcon
+                className={`
+                  -ml-0.5 mr-2 h-5 w-5
+                  ${
+                    mode === 'vocabulary'
+                      ? 'text-primary-500 dark:text-primary-400'
+                      : 'text-neutral-400 group-hover:text-neutral-500 dark:text-neutral-500 dark:group-hover:text-neutral-400'
+                  }
+                `}
+              />
+              Vocabulary
+            </button>
+          </nav>
         </div>
-        {/* Action Buttons */}
-        {currentQuestion && (
-          <>
-            <div className="absolute top-2 left-2 z-10">
+      </div>
+
+      {/* Combined Language Practice Card */}
+      <div className="bg-white dark:bg-neutral-900 rounded-lg sm:rounded-xl shadow-lg p-2 sm:p-3 relative">
+        {/* Header with Action Buttons and Title */}
+        <div className="flex items-center mb-1 sm:mb-2">
+          <div className="w-10">
+            {currentQuestion && (
               <button
                 onClick={() => setShowFlagModal(true)}
                 className="p-1.5 text-neutral-400 hover:text-red-500 hover:bg-red-50 dark:hover:bg-red-900/20 rounded-lg transition-colors bg-white dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700"
@@ -722,8 +888,15 @@ const LanguageTrainerPage: React.FC = () => {
               >
                 <FlagIcon className="h-4 w-4" />
               </button>
-            </div>
-            <div className="absolute top-2 right-2 z-10">
+            )}
+          </div>
+          
+          <h1 className="flex-1 text-center text-lg sm:text-xl font-bold text-neutral-800 dark:text-neutral-200">
+            Language Trainer - Questions
+          </h1>
+          
+          <div className="w-10 flex justify-end">
+            {currentQuestion && (
               <StudyListActions
                 itemType="language_question"
                 itemId={currentQuestion.id}
@@ -731,9 +904,9 @@ const LanguageTrainerPage: React.FC = () => {
                 itemTitle={`${selectedLanguage?.name || 'Language'}: ${currentQuestion.question_text.substring(0, 50)}...`}
                 className="bg-white dark:bg-neutral-800 rounded-lg shadow-sm border border-neutral-200 dark:border-neutral-700 px-2 py-1"
               />
-            </div>
-          </>
-        )}
+            )}
+          </div>
+        </div>
         
         {/* Settings and Stats Row */}
         <div className="flex justify-between items-start mb-1 sm:mb-2">
@@ -858,6 +1031,16 @@ const LanguageTrainerPage: React.FC = () => {
 
         {!showResult ? (
           <>
+            {/* Skip link and counter */}
+            <div className="flex justify-between items-center mb-2">
+              <SkipButton onSkip={skipQuestion} />
+              {questionBank.length > 0 && (
+                <span className="text-xs text-neutral-600 dark:text-neutral-400">
+                  {currentIndex + 1} / {questionBank.length}
+                </span>
+              )}
+            </div>
+            
             {/* Question Content */}
             <div className="space-y-3 mb-4">
               <div className="bg-gradient-to-br from-primary-50 to-primary-100 dark:from-primary-900/30 dark:to-primary-800/20 rounded-xl p-4 sm:p-6 border-2 border-primary-200 dark:border-primary-700 shadow-lg">

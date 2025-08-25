@@ -2,7 +2,7 @@ import React, { useState, useEffect, useCallback } from 'react'
 import { useNavigate, useLocation } from 'react-router-dom'
 import { 
   StarIcon, 
-  BookmarkIcon 
+  FolderPlusIcon 
 } from '@heroicons/react/24/outline'
 import { StarIcon as StarIconSolid } from '@heroicons/react/24/solid'
 import { useAuth } from '../contexts/AuthContext'
@@ -120,7 +120,7 @@ const StudyListActions: React.FC<StudyListActionsProps> = ({
           className="flex items-center gap-1 p-1.5 rounded-lg hover:bg-neutral-100 dark:hover:bg-neutral-700 transition-colors"
           title={user ? 'Add to study list' : 'Log in to create study lists'}
         >
-          <BookmarkIcon className="h-4 w-4 text-neutral-400 hover:text-primary-500" />
+          <FolderPlusIcon className="h-4 w-4 text-neutral-400 hover:text-primary-500" />
           {showLabels && (
             <span className="text-xs font-medium">Add to List</span>
           )}

@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { useTheme } from '../contexts/ThemeContext'
 import { useAuth } from '../contexts/AuthContext'
-import { useNotifications } from '../contexts/NotificationContext'
 import { useNavigate } from 'react-router-dom'
 import { supabase } from '../services/supabase'
 import { 
@@ -11,7 +10,8 @@ import {
   LanguageIcon,
   ShieldCheckIcon,
   UserCircleIcon,
-  ArrowLeftIcon
+  ArrowLeftIcon,
+  SpeakerWaveIcon
 } from '@heroicons/react/24/outline'
 
 interface Setting {
@@ -30,7 +30,6 @@ interface SettingsSection {
 const SettingsPage: React.FC = () => {
   const { darkMode, toggleDarkMode } = useTheme()
   const { user } = useAuth()
-  const { preferences, updatePreferences } = useNotifications()
   const navigate = useNavigate()
   
   const [currentUsername, setCurrentUsername] = useState<string>('')
@@ -39,6 +38,12 @@ const SettingsPage: React.FC = () => {
   const [usernameLoading, setUsernameLoading] = useState(false)
   const [usernameError, setUsernameError] = useState<string>('')
   const [usernameSuccess, setUsernameSuccess] = useState<string>('')
+  
+  // Audio settings - stored in localStorage
+  const [audioAutoplay, setAudioAutoplay] = useState<boolean>(() => {
+    const saved = localStorage.getItem('audioAutoplay')
+    return saved === null ? true : saved === 'true' // Default to true
+  })
 
   useEffect(() => {
     if (user) {
@@ -169,6 +174,12 @@ const SettingsPage: React.FC = () => {
     setUsernameSuccess('')
   }
 
+  const toggleAudioAutoplay = () => {
+    const newValue = !audioAutoplay
+    setAudioAutoplay(newValue)
+    localStorage.setItem('audioAutoplay', newValue.toString())
+  }
+
   const settingsSections: SettingsSection[] = [
     {
       title: 'Appearance',
@@ -202,84 +213,39 @@ const SettingsPage: React.FC = () => {
       icon: <BellIcon className="h-5 w-5" />,
       settings: [
         {
-          label: 'Achievement Notifications',
-          description: 'Get notified when you earn achievements and complete learning goals',
+          label: 'Notification Settings',
+          description: 'Manage all notification preferences, study schedule, and reminders',
           control: (
             <button
-              onClick={() => updatePreferences({ achievement_notifications: !preferences?.achievement_notifications })}
-              className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors ${
-                preferences?.achievement_notifications ? 'bg-primary-600' : 'bg-neutral-300'
-              }`}
-              role="switch"
-              aria-checked={preferences?.achievement_notifications}
+              onClick={() => navigate('/notification-settings')}
+              className="px-4 py-2 bg-primary-600 text-white rounded-md hover:bg-primary-700 transition-colors text-sm"
             >
-              <span className="sr-only">Toggle achievement notifications</span>
-              <span
-                className={`inline-block h-4 w-4 transform rounded-full bg-white transition-transform ${
-                  preferences?.achievement_notifications ? 'translate-x-6' : 'translate-x-1'
-                }`}
-              />
+              Manage Notifications
             </button>
           )
-        },
+        }
+      ]
+    },
+    {
+      title: 'Audio',
+      icon: <SpeakerWaveIcon className="h-5 w-5" />,
+      settings: [
         {
-          label: 'Progress Updates',
-          description: 'Receive updates about your learning progress and milestones',
+          label: 'Autoplay Audio',
+          description: 'Automatically play pronunciation audio on vocabulary and language flashcards',
           control: (
             <button
-              onClick={() => updatePreferences({ progress_notifications: !preferences?.progress_notifications })}
+              onClick={toggleAudioAutoplay}
               className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors ${
-                preferences?.progress_notifications ? 'bg-primary-600' : 'bg-neutral-300'
+                audioAutoplay ? 'bg-primary-600' : 'bg-neutral-300'
               }`}
               role="switch"
-              aria-checked={preferences?.progress_notifications}
+              aria-checked={audioAutoplay}
             >
-              <span className="sr-only">Toggle progress notifications</span>
+              <span className="sr-only">Toggle audio autoplay</span>
               <span
                 className={`inline-block h-4 w-4 transform rounded-full bg-white transition-transform ${
-                  preferences?.progress_notifications ? 'translate-x-6' : 'translate-x-1'
-                }`}
-              />
-            </button>
-          )
-        },
-        {
-          label: 'Learning Reminders',
-          description: 'Get gentle reminders to continue your learning journey',
-          control: (
-            <button
-              onClick={() => updatePreferences({ reminder_notifications: !preferences?.reminder_notifications })}
-              className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors ${
-                preferences?.reminder_notifications ? 'bg-primary-600' : 'bg-neutral-300'
-              }`}
-              role="switch"
-              aria-checked={preferences?.reminder_notifications}
-            >
-              <span className="sr-only">Toggle reminder notifications</span>
-              <span
-                className={`inline-block h-4 w-4 transform rounded-full bg-white transition-transform ${
-                  preferences?.reminder_notifications ? 'translate-x-6' : 'translate-x-1'
-                }`}
-              />
-            </button>
-          )
-        },
-        {
-          label: 'System Notifications',
-          description: 'Important system updates and announcements',
-          control: (
-            <button
-              onClick={() => updatePreferences({ system_notifications: !preferences?.system_notifications })}
-              className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors ${
-                preferences?.system_notifications ? 'bg-primary-600' : 'bg-neutral-300'
-              }`}
-              role="switch"
-              aria-checked={preferences?.system_notifications}
-            >
-              <span className="sr-only">Toggle system notifications</span>
-              <span
-                className={`inline-block h-4 w-4 transform rounded-full bg-white transition-transform ${
-                  preferences?.system_notifications ? 'translate-x-6' : 'translate-x-1'
+                  audioAutoplay ? 'translate-x-6' : 'translate-x-1'
                 }`}
               />
             </button>

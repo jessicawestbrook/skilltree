@@ -10,14 +10,14 @@ import {
   ClockIcon,
   StarIcon,
   ChartBarIcon,
-  CogIcon,
+  Cog6ToothIcon,
   ArrowPathIcon,
   BookOpenIcon
 } from '@heroicons/react/24/outline'
 
 interface Flashcard {
   id: string
-  type: 'vocabulary' | 'spelling' | 'language' | 'question' | 'skill_node'
+  type: 'vocabulary' | 'spelling' | 'language' | 'question'
   // Question/Assessment format
   question?: string
   options?: string[]
@@ -51,7 +51,13 @@ interface ReviewStats {
 
 const ReviewFlashcardsPage: React.FC = () => {
   const { user } = useAuth()
-  const [flashcards, setFlashcards] = useState<Flashcard[]>([])
+  
+  // Load flashcards from sessionStorage if available
+  const [flashcards, setFlashcards] = useState<Flashcard[]>(() => {
+    const savedFlashcards = sessionStorage.getItem('reviewFlashcards')
+    return savedFlashcards ? JSON.parse(savedFlashcards) : []
+  })
+  
   const [stats, setStats] = useState<ReviewStats>({
     dueToday: 0,
     newCards: 0,
@@ -62,21 +68,105 @@ const ReviewFlashcardsPage: React.FC = () => {
     averageSuccessRate: 0
   })
   const [loading, setLoading] = useState(true)
-  const [settings, setSettings] = useState({
-    cardTypes: ['vocabulary', 'spelling', 'question'],
-    maxCards: 50,
-    prioritizeDue: true
+  
+  // Load settings from sessionStorage if available
+  const [settings, setSettings] = useState(() => {
+    const savedSettings = sessionStorage.getItem('reviewSettings')
+    return savedSettings ? JSON.parse(savedSettings) : {
+      cardTypes: ['vocabulary', 'spelling', 'skill'],
+      selectedLanguage: 'all' as string,
+      selectedSkillCategory: 'all' as string,
+      maxCards: 50,
+      prioritizeDue: true
+    }
   })
+  
   const [showSettings, setShowSettings] = useState(false)
-  const [loadedCardIds, setLoadedCardIds] = useState<Set<string>>(new Set())
+  
+  // Load loadedCardIds from sessionStorage if available
+  const [loadedCardIds, setLoadedCardIds] = useState<Set<string>>(() => {
+    const savedIds = sessionStorage.getItem('loadedCardIds')
+    return savedIds ? new Set(JSON.parse(savedIds)) : new Set()
+  })
+  const [availableLanguages, setAvailableLanguages] = useState<string[]>([])
+  const [availableCategories, setAvailableCategories] = useState<string[]>([])
 
+  // Save flashcards to sessionStorage whenever they change
+  useEffect(() => {
+    if (flashcards.length > 0) {
+      sessionStorage.setItem('reviewFlashcards', JSON.stringify(flashcards))
+    }
+  }, [flashcards])
+  
+  // Save settings to sessionStorage whenever they change
+  useEffect(() => {
+    sessionStorage.setItem('reviewSettings', JSON.stringify(settings))
+  }, [settings])
+  
+  // Save loadedCardIds to sessionStorage whenever they change
+  useEffect(() => {
+    if (loadedCardIds.size > 0) {
+      sessionStorage.setItem('loadedCardIds', JSON.stringify(Array.from(loadedCardIds)))
+    }
+  }, [loadedCardIds])
+  
+  // Initial load effect
   useEffect(() => {
     if (user) {
       fetchStats()
+      fetchAvailableFilters()
+      // Only fetch flashcards if we don't have any saved ones
+      if (flashcards.length === 0) {
+        fetchFlashcards()
+      }
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [user])
+  
+  // Settings change effect - clear and refetch when settings change
+  useEffect(() => {
+    if (user && flashcards.length > 0) {
+      // Clear saved flashcards when settings change
+      sessionStorage.removeItem('reviewFlashcards')
+      sessionStorage.removeItem('loadedCardIds')
+      setFlashcards([])
+      setLoadedCardIds(new Set())
       fetchFlashcards()
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [user, settings])
+  }, [settings.cardTypes, settings.selectedLanguage, settings.selectedSkillCategory, settings.maxCards])
+
+  const fetchAvailableFilters = async () => {
+    if (!user) return
+    
+    try {
+      // Fetch available languages
+      const { data: languageData } = await supabase
+        .from('language_questions')
+        .select('language')
+        .not('language', 'is', null)
+      
+      if (languageData) {
+        const uniqueLanguages = Array.from(new Set(languageData.map(item => item.language).filter(Boolean)))
+        setAvailableLanguages(uniqueLanguages)
+      }
+      
+      // Fetch available skill categories from skill_tree_nodes
+      const { data: categoryData } = await supabase
+        .from('skill_tree_nodes')
+        .select('name')
+        .eq('is_category', true)
+        .order('name')
+        .limit(50)
+      
+      if (categoryData) {
+        const categories = categoryData.map(item => item.name).filter(Boolean)
+        setAvailableCategories(categories)
+      }
+    } catch (error) {
+      console.error('Error fetching available filters:', error)
+    }
+  }
 
   const fetchStats = async () => {
     if (!user) return
@@ -105,11 +195,14 @@ const ReviewFlashcardsPage: React.FC = () => {
     try {
       setLoading(true)
       
+      // Apply filter to card types based on selected language/category
+      let filteredCardTypes = settings.cardTypes
+      
       // Fetch due flashcards using spaced repetition
       const dueSessions = await spacedRepetitionService.getDueFlashcards(
         user.id,
         settings.maxCards,
-        settings.cardTypes
+        filteredCardTypes
       )
       
       // Filter out already loaded cards if appending
@@ -160,7 +253,7 @@ const ReviewFlashcardsPage: React.FC = () => {
         } else {
           flashcard = {
             id: card.id || `${session.review?.flashcard_id}`,
-            type: session.review?.flashcard_type || 'question',
+            type: 'question',
             question: card.name || card.question || 'Review Card',
             correct_answer: card.description || card.answer || 'No content',
             category: session.review?.flashcard_type || 'Review'
@@ -199,13 +292,13 @@ const ReviewFlashcardsPage: React.FC = () => {
     try {
       const flashcardsList: Flashcard[] = []
       
-      // Fetch vocabulary words
-      if (settings.cardTypes.includes('vocabulary')) {
+      // Fetch vocabulary words (only if not filtering by language)
+      if (settings.cardTypes.includes('vocabulary') && settings.selectedLanguage === 'all') {
         const { data: vocabWords } = await supabase
           .from('spelling_words')
           .select('*')
           .not('definition', 'is', null)
-          .limit(20)
+          .limit(Math.ceil(settings.maxCards / settings.cardTypes.length))
           .order('created_at', { ascending: false })
         
         if (vocabWords) {
@@ -228,12 +321,12 @@ const ReviewFlashcardsPage: React.FC = () => {
       }
       
       // Fetch spelling words
-      if (settings.cardTypes.includes('spelling')) {
+      if (settings.cardTypes.includes('spelling') && settings.selectedLanguage === 'all') {
         const { data: spellingWords } = await supabase
           .from('spelling_words')
           .select('*')
           .is('definition', null)
-          .limit(20)
+          .limit(Math.ceil(settings.maxCards / settings.cardTypes.length))
           .order('created_at', { ascending: false })
         
         if (spellingWords) {
@@ -253,13 +346,48 @@ const ReviewFlashcardsPage: React.FC = () => {
         }
       }
       
+      // Fetch skill questions
+      if (settings.cardTypes.includes('skill') && settings.selectedLanguage === 'all') {
+        const { data: questions } = await supabase
+          .from('questions')
+          .select('*')
+          .limit(Math.ceil(settings.maxCards / settings.cardTypes.length))
+          .order('created_at', { ascending: false })
+        
+        if (questions) {
+          questions.forEach(q => {
+            if (!loadedCardIds.has(`skill-${q.id}`)) {
+              flashcardsList.push({
+                id: `skill-${q.id}`,
+                type: 'question',
+                question: q.question_text || q.question || 'Review Question',
+                options: q.options,
+                correct_answer: q.correct_answer,
+                correct_answer_index: q.correct_answer_index,
+                explanation: q.explanation,
+                difficulty: q.difficulty,
+                estimated_time_seconds: q.estimated_time_seconds,
+                category: 'Review Question'
+              })
+            }
+          })
+        }
+      }
+      
       // Fetch language questions
       if (settings.cardTypes.includes('language')) {
-        const { data: languageQuestions } = await supabase
+        let languageQuery = supabase
           .from('language_questions')
           .select('*')
-          .limit(20)
+          .limit(Math.ceil(settings.maxCards / settings.cardTypes.length))
           .order('created_at', { ascending: false })
+        
+        // Apply language filter if specific language selected
+        if (settings.selectedLanguage !== 'all') {
+          languageQuery = languageQuery.eq('language', settings.selectedLanguage)
+        }
+        
+        const { data: languageQuestions } = await languageQuery
         
         if (languageQuestions) {
           languageQuestions.forEach(q => {
@@ -272,7 +400,7 @@ const ReviewFlashcardsPage: React.FC = () => {
                 correct_answer_index: q.correct_answer_index,
                 explanation: q.explanation,
                 language: q.language,
-                category: q.category || 'Language',
+                category: q.category || q.language || 'Language',
                 hint: q.hint
               })
             }
@@ -280,12 +408,16 @@ const ReviewFlashcardsPage: React.FC = () => {
         }
       }
       
+      // Limit to maxCards and shuffle
+      const shuffled = flashcardsList.sort(() => Math.random() - 0.5)
+      const limited = shuffled.slice(0, settings.maxCards)
+      
       // Update loaded card IDs
       const newCardIds = new Set(loadedCardIds)
-      flashcardsList.forEach(card => newCardIds.add(card.id))
+      limited.forEach(card => newCardIds.add(card.id))
       setLoadedCardIds(newCardIds)
       
-      setFlashcards(flashcardsList)
+      setFlashcards(limited)
     } catch (error) {
       console.error('Error fetching random flashcards:', error)
     }
@@ -296,15 +428,23 @@ const ReviewFlashcardsPage: React.FC = () => {
   }
 
   const handleReset = () => {
+    // Clear sessionStorage
+    sessionStorage.removeItem('reviewFlashcards')
+    sessionStorage.removeItem('loadedCardIds')
+    
+    // Reset state
+    setFlashcards([])
     setLoadedCardIds(new Set())
+    
+    // Fetch new flashcards
     fetchFlashcards()
   }
 
   const toggleCardType = (type: string) => {
-    setSettings(prev => ({
+    setSettings((prev: typeof settings) => ({
       ...prev,
       cardTypes: prev.cardTypes.includes(type)
-        ? prev.cardTypes.filter(t => t !== type)
+        ? prev.cardTypes.filter((t: string) => t !== type)
         : [...prev.cardTypes, type]
     }))
   }
@@ -343,7 +483,7 @@ const ReviewFlashcardsPage: React.FC = () => {
             onClick={() => setShowSettings(!showSettings)}
             className="p-3 rounded-lg bg-neutral-100 hover:bg-neutral-200 dark:bg-neutral-800 dark:hover:bg-neutral-700 transition-colors"
           >
-            <CogIcon className="h-5 w-5 text-neutral-600 dark:text-neutral-300" />
+            <Cog6ToothIcon className="h-7 w-7 text-neutral-600 dark:text-neutral-300" />
           </button>
         </div>
       </div>
@@ -361,7 +501,7 @@ const ReviewFlashcardsPage: React.FC = () => {
                 Card Types
               </label>
               <div className="flex flex-wrap gap-2">
-                {['vocabulary', 'spelling', 'question', 'language', 'skill_node'].map(type => (
+                {['vocabulary', 'spelling', 'skill', 'language'].map(type => (
                   <button
                     key={type}
                     onClick={() => toggleCardType(type)}
@@ -371,9 +511,63 @@ const ReviewFlashcardsPage: React.FC = () => {
                         : 'bg-neutral-100 text-neutral-600 dark:bg-neutral-700 dark:text-neutral-400'
                     }`}
                   >
-                    {type.charAt(0).toUpperCase() + type.slice(1).replace('_', ' ')}
+                    {type === 'skill' ? 'Skill Questions' : type.charAt(0).toUpperCase() + type.slice(1).replace('_', ' ')}
                   </button>
                 ))}
+              </div>
+            </div>
+            
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div>
+                <label className="text-sm font-medium text-neutral-700 dark:text-neutral-300 mb-2 block">
+                  Skill Category Filter
+                  {!settings.cardTypes.some((t: string) => ['vocabulary', 'spelling', 'skill'].includes(t)) && 
+                    <span className="text-xs text-neutral-500 ml-2">(Enable skill-based cards to use)</span>
+                  }
+                </label>
+                <select
+                  value={settings.selectedSkillCategory}
+                  onChange={(e) => setSettings((prev: typeof settings) => ({ ...prev, selectedSkillCategory: e.target.value }))}
+                  disabled={!settings.cardTypes.some((t: string) => ['vocabulary', 'spelling', 'skill'].includes(t))}
+                  className={`w-full px-3 py-2 rounded-lg border ${
+                    !settings.cardTypes.some((t: string) => ['vocabulary', 'spelling', 'skill'].includes(t))
+                      ? 'border-neutral-200 dark:border-neutral-700 bg-neutral-100 dark:bg-neutral-800 text-neutral-400 dark:text-neutral-500 cursor-not-allowed'
+                      : 'border-neutral-300 dark:border-neutral-600 bg-white dark:bg-neutral-700 text-neutral-900 dark:text-white focus:ring-2 focus:ring-primary-500 focus:border-transparent'
+                  }`}
+                >
+                  <option value="all">All Categories</option>
+                  {availableCategories.map(category => (
+                    <option key={category} value={category}>
+                      {category}
+                    </option>
+                  ))}
+                </select>
+              </div>
+              
+              <div>
+                <label className="text-sm font-medium text-neutral-700 dark:text-neutral-300 mb-2 block">
+                  Language Filter
+                  {!settings.cardTypes.includes('language') && 
+                    <span className="text-xs text-neutral-500 ml-2">(Enable language cards to use)</span>
+                  }
+                </label>
+                <select
+                  value={settings.selectedLanguage}
+                  onChange={(e) => setSettings((prev: typeof settings) => ({ ...prev, selectedLanguage: e.target.value }))}
+                  disabled={!settings.cardTypes.includes('language')}
+                  className={`w-full px-3 py-2 rounded-lg border ${
+                    !settings.cardTypes.includes('language')
+                      ? 'border-neutral-200 dark:border-neutral-700 bg-neutral-100 dark:bg-neutral-800 text-neutral-400 dark:text-neutral-500 cursor-not-allowed'
+                      : 'border-neutral-300 dark:border-neutral-600 bg-white dark:bg-neutral-700 text-neutral-900 dark:text-white focus:ring-2 focus:ring-primary-500 focus:border-transparent'
+                  }`}
+                >
+                  <option value="all">All Languages</option>
+                  {availableLanguages.map(lang => (
+                    <option key={lang} value={lang}>
+                      {lang.charAt(0).toUpperCase() + lang.slice(1)}
+                    </option>
+                  ))}
+                </select>
               </div>
             </div>
             
@@ -387,7 +581,7 @@ const ReviewFlashcardsPage: React.FC = () => {
                 max="100"
                 step="10"
                 value={settings.maxCards}
-                onChange={(e) => setSettings(prev => ({ ...prev, maxCards: parseInt(e.target.value) }))}
+                onChange={(e) => setSettings((prev: typeof settings) => ({ ...prev, maxCards: parseInt(e.target.value) }))}
                 className="w-full"
               />
             </div>
@@ -397,7 +591,7 @@ const ReviewFlashcardsPage: React.FC = () => {
                 type="checkbox"
                 id="prioritizeDue"
                 checked={settings.prioritizeDue}
-                onChange={(e) => setSettings(prev => ({ ...prev, prioritizeDue: e.target.checked }))}
+                onChange={(e) => setSettings((prev: typeof settings) => ({ ...prev, prioritizeDue: e.target.checked }))}
                 className="rounded border-neutral-300 text-primary-600 focus:ring-primary-500"
               />
               <label htmlFor="prioritizeDue" className="text-sm text-neutral-700 dark:text-neutral-300">

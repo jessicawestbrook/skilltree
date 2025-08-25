@@ -190,7 +190,7 @@ const HomePage: React.FC = () => {
             <div className="text-center">
               <ChatBubbleBottomCenterTextIcon className="h-8 w-8 text-green-600 dark:text-green-400 mx-auto mb-2 group-hover:scale-110 transition-transform" />
               <h3 className="text-lg font-semibold mb-1 text-neutral-900 dark:text-white">
-                Spelling Bee Trainer
+                Spelling Trainer
               </h3>
               <p className="text-sm text-neutral-600 dark:text-neutral-400">
                 Master spelling with audio pronunciation and etymology tips

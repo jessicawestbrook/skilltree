@@ -162,18 +162,31 @@ export class AssessmentSessionAdapter {
    */
   static async recordResponse(response: Partial<QuestionResponse>) {
     try {
+      // Get the session to get user_id
+      const { data: session } = await supabase
+        .from('assessment_sessions')
+        .select('user_id')
+        .eq('id', response.session_id)
+        .single()
+      
+      if (!session) throw new Error('Session not found')
+
       const { data: questionResponse, error } = await supabase
-        .from('assessment_question_responses')
+        .from('user_question_responses')
         .insert({
+          user_id: session.user_id,
           session_id: response.session_id,
           question_id: response.question_id,
-          user_response: response.user_response,
+          selected_answer: response.user_response,
           is_correct: response.is_correct,
-          response_time_ms: response.response_time_ms,
-          difficulty_level: response.difficulty_level,
-          points_earned: response.points_earned || 0,
+          time_spent_seconds: Math.round((response.response_time_ms || 0) / 1000),
           question_sequence: response.question_sequence,
-          point_multipliers: response.point_multipliers || {}
+          context_type: 'assessment',
+          response_metadata: {
+            difficulty_level: response.difficulty_level,
+            points_earned: response.points_earned || 0,
+            point_multipliers: response.point_multipliers || {}
+          }
         })
         .select()
         .single()
@@ -191,9 +204,10 @@ export class AssessmentSessionAdapter {
   static async getSessionResponses(sessionId: string) {
     try {
       const { data: responses, error } = await supabase
-        .from('assessment_question_responses')
+        .from('user_question_responses')
         .select('*')
         .eq('session_id', sessionId)
+        .eq('context_type', 'assessment')
         .order('question_sequence', { ascending: true })
 
       if (error) throw error

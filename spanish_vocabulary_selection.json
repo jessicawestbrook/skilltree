@@ -1,0 +1,9026 @@
+{
+  "metadata": {
+    "language": "es",
+    "total_words": 1500,
+    "source": "wordfreq",
+    "difficulty_ranges": {
+      "Basic": "5.0+",
+      "Elementary": "4.5-5.0",
+      "Intermediate": "4.0-4.5",
+      "Advanced": "3.5-4.0",
+      "Expert": "3.0-3.5"
+    }
+  },
+  "vocabulary": {
+    "Basic": [
+      {
+        "word": "la",
+        "base_form": "ar",
+        "zipf": 7.6,
+        "word_type": "verb"
+      },
+      {
+        "word": "que",
+        "base_form": "queer",
+        "zipf": 7.5,
+        "word_type": "verb"
+      },
+      {
+        "word": "los",
+        "base_form": "lo",
+        "zipf": 7.2,
+        "word_type": "noun/adj"
+      },
+      {
+        "word": "se",
+        "base_form": "sar",
+        "zipf": 7.1,
+        "word_type": "verb"
+      },
+      {
+        "word": "las",
+        "base_form": "laser",
+        "zipf": 7.0,
+        "word_type": "verb"
+      },
+      {
+        "word": "con",
+        "base_form": "car",
+        "zipf": 7.0,
+        "word_type": "verb"
+      },
+      {
+        "word": "una",
+        "base_form": "unir",
+        "zipf": 7.0,
+        "word_type": "verb"
+      },
+      {
+        "word": "para",
+        "base_form": "parar",
+        "zipf": 6.9,
+        "word_type": "verb"
+      },
+      {
+        "word": "me",
+        "base_form": "mear",
+        "zipf": 6.7,
+        "word_type": "verb"
+      },
+      {
+        "word": "pero",
+        "base_form": "peer",
+        "zipf": 6.6,
+        "word_type": "verb"
+      },
+      {
+        "word": "te",
+        "base_form": "tar",
+        "zipf": 6.5,
+        "word_type": "verb"
+      },
+      {
+        "word": "0000",
+        "base_form": null,
+        "zipf": 6.5,
+        "word_type": "base"
+      },
+      {
+        "word": "todo",
+        "base_form": null,
+        "zipf": 6.3,
+        "word_type": "base"
+      },
+      {
+        "word": "cuando",
+        "base_form": null,
+        "zipf": 6.3,
+        "word_type": "base"
+      },
+      {
+        "word": "ser",
+        "base_form": null,
+        "zipf": 6.3,
+        "word_type": "verb"
+      },
+      {
+        "word": "son",
+        "base_form": "sonar",
+        "zipf": 6.3,
+        "word_type": "verb"
+      },
+      {
+        "word": "000",
+        "base_form": null,
+        "zipf": 6.2,
+        "word_type": "base"
+      },
+      {
+        "word": "hay",
+        "base_form": "her",
+        "zipf": 6.2,
+        "word_type": "verb"
+      },
+      {
+        "word": "fue",
+        "base_form": "far",
+        "zipf": 6.2,
+        "word_type": "verb"
+      },
+      {
+        "word": "sobre",
+        "base_form": null,
+        "zipf": 6.2,
+        "word_type": "base"
+      },
+      {
+        "word": "también",
+        "base_form": null,
+        "zipf": 6.2,
+        "word_type": "base"
+      },
+      {
+        "word": "eso",
+        "base_form": null,
+        "zipf": 6.2,
+        "word_type": "base"
+      },
+      {
+        "word": "tiene",
+        "base_form": null,
+        "zipf": 6.2,
+        "word_type": "base"
+      },
+      {
+        "word": "nos",
+        "base_form": "noir",
+        "zipf": 6.1,
+        "word_type": "verb"
+      },
+      {
+        "word": "porque",
+        "base_form": null,
+        "zipf": 6.1,
+        "word_type": "base"
+      },
+      {
+        "word": "qué",
+        "base_form": null,
+        "zipf": 6.1,
+        "word_type": "base"
+      },
+      {
+        "word": "así",
+        "base_form": "air",
+        "zipf": 6.1,
+        "word_type": "verb"
+      },
+      {
+        "word": "años",
+        "base_form": "año",
+        "zipf": 6.1,
+        "word_type": "noun/adj"
+      },
+      {
+        "word": "bien",
+        "base_form": null,
+        "zipf": 6.1,
+        "word_type": "base"
+      },
+      {
+        "word": "puede",
+        "base_form": null,
+        "zipf": 6.1,
+        "word_type": "base"
+      },
+      {
+        "word": "desde",
+        "base_form": null,
+        "zipf": 6.1,
+        "word_type": "base"
+      },
+      {
+        "word": "hasta",
+        "base_form": null,
+        "zipf": 6.1,
+        "word_type": "base"
+      },
+      {
+        "word": "hacer",
+        "base_form": null,
+        "zipf": 6.1,
+        "word_type": "verb"
+      },
+      {
+        "word": "ahora",
+        "base_form": null,
+        "zipf": 6.0,
+        "word_type": "base"
+      },
+      {
+        "word": "era",
+        "base_form": null,
+        "zipf": 6.0,
+        "word_type": "base"
+      },
+      {
+        "word": "vez",
+        "base_form": "var",
+        "zipf": 6.0,
+        "word_type": "verb"
+      },
+      {
+        "word": "nada",
+        "base_form": "nadar",
+        "zipf": 6.0,
+        "word_type": "verb"
+      },
+      {
+        "word": "donde",
+        "base_form": "donar",
+        "zipf": 6.0,
+        "word_type": "verb"
+      },
+      {
+        "word": "solo",
+        "base_form": "solar",
+        "zipf": 6.0,
+        "word_type": "verb"
+      },
+      {
+        "word": "algo",
+        "base_form": null,
+        "zipf": 6.0,
+        "word_type": "base"
+      },
+      {
+        "word": "tiempo",
+        "base_form": null,
+        "zipf": 6.0,
+        "word_type": "base"
+      },
+      {
+        "word": "mejor",
+        "base_form": "mejorar",
+        "zipf": 6.0,
+        "word_type": "verb"
+      },
+      {
+        "word": "mucho",
+        "base_form": null,
+        "zipf": 6.0,
+        "word_type": "base"
+      },
+      {
+        "word": "ver",
+        "base_form": null,
+        "zipf": 6.0,
+        "word_type": "verb"
+      },
+      {
+        "word": "vida",
+        "base_form": "vido",
+        "zipf": 6.0,
+        "word_type": "noun/adj"
+      },
+      {
+        "word": "ese",
+        "base_form": null,
+        "zipf": 5.9,
+        "word_type": "base"
+      },
+      {
+        "word": "mismo",
+        "base_form": null,
+        "zipf": 5.9,
+        "word_type": "base"
+      },
+      {
+        "word": "siempre",
+        "base_form": null,
+        "zipf": 5.9,
+        "word_type": "base"
+      },
+      {
+        "word": "cada",
+        "base_form": "caer",
+        "zipf": 5.9,
+        "word_type": "verb"
+      },
+      {
+        "word": "después",
+        "base_form": null,
+        "zipf": 5.9,
+        "word_type": "base"
+      },
+      {
+        "word": "gente",
+        "base_form": null,
+        "zipf": 5.9,
+        "word_type": "base"
+      },
+      {
+        "word": "estado",
+        "base_form": null,
+        "zipf": 5.9,
+        "word_type": "base"
+      },
+      {
+        "word": "mundo",
+        "base_form": null,
+        "zipf": 5.9,
+        "word_type": "base"
+      },
+      {
+        "word": "otro",
+        "base_form": null,
+        "zipf": 5.9,
+        "word_type": "base"
+      },
+      {
+        "word": "gracias",
+        "base_form": "gracia",
+        "zipf": 5.9,
+        "word_type": "noun/adj"
+      },
+      {
+        "word": "tener",
+        "base_form": null,
+        "zipf": 5.8,
+        "word_type": "verb"
+      },
+      {
+        "word": "cosas",
+        "base_form": "coser",
+        "zipf": 5.8,
+        "word_type": "verb"
+      },
+      {
+        "word": "gran",
+        "base_form": null,
+        "zipf": 5.8,
+        "word_type": "base"
+      },
+      {
+        "word": "menos",
+        "base_form": "meno",
+        "zipf": 5.8,
+        "word_type": "noun/adj"
+      },
+      {
+        "word": "nunca",
+        "base_form": null,
+        "zipf": 5.8,
+        "word_type": "base"
+      },
+      {
+        "word": "tanto",
+        "base_form": null,
+        "zipf": 5.8,
+        "word_type": "base"
+      },
+      {
+        "word": "poco",
+        "base_form": null,
+        "zipf": 5.8,
+        "word_type": "base"
+      },
+      {
+        "word": "durante",
+        "base_form": null,
+        "zipf": 5.8,
+        "word_type": "base"
+      },
+      {
+        "word": "lugar",
+        "base_form": null,
+        "zipf": 5.8,
+        "word_type": "verb"
+      },
+      {
+        "word": "cómo",
+        "base_form": null,
+        "zipf": 5.8,
+        "word_type": "base"
+      },
+      {
+        "word": "hecho",
+        "base_form": null,
+        "zipf": 5.8,
+        "word_type": "base"
+      },
+      {
+        "word": "quiero",
+        "base_form": null,
+        "zipf": 5.8,
+        "word_type": "base"
+      },
+      {
+        "word": "sólo",
+        "base_form": null,
+        "zipf": 5.8,
+        "word_type": "base"
+      },
+      {
+        "word": "aunque",
+        "base_form": null,
+        "zipf": 5.8,
+        "word_type": "base"
+      },
+      {
+        "word": "contra",
+        "base_form": "contar",
+        "zipf": 5.8,
+        "word_type": "verb"
+      },
+      {
+        "word": "cuenta",
+        "base_form": "cuento",
+        "zipf": 5.8,
+        "word_type": "noun/adj"
+      },
+      {
+        "word": "decir",
+        "base_form": null,
+        "zipf": 5.8,
+        "word_type": "verb"
+      },
+      {
+        "word": "gobierno",
+        "base_form": null,
+        "zipf": 5.8,
+        "word_type": "base"
+      },
+      {
+        "word": "país",
+        "base_form": null,
+        "zipf": 5.8,
+        "word_type": "base"
+      },
+      {
+        "word": "todas",
+        "base_form": "toda",
+        "zipf": 5.8,
+        "word_type": "noun/adj"
+      },
+      {
+        "word": "casa",
+        "base_form": "casar",
+        "zipf": 5.8,
+        "word_type": "verb"
+      },
+      {
+        "word": "forma",
+        "base_form": "formar",
+        "zipf": 5.8,
+        "word_type": "verb"
+      },
+      {
+        "word": "nuevo",
+        "base_form": null,
+        "zipf": 5.8,
+        "word_type": "base"
+      },
+      {
+        "word": "sido",
+        "base_form": null,
+        "zipf": 5.8,
+        "word_type": "base"
+      },
+      {
+        "word": "aquí",
+        "base_form": null,
+        "zipf": 5.8,
+        "word_type": "base"
+      },
+      {
+        "word": "estar",
+        "base_form": null,
+        "zipf": 5.7,
+        "word_type": "verb"
+      },
+      {
+        "word": "estaba",
+        "base_form": null,
+        "zipf": 5.7,
+        "word_type": "base"
+      },
+      {
+        "word": "tienen",
+        "base_form": null,
+        "zipf": 5.7,
+        "word_type": "base"
+      },
+      {
+        "word": "alguien",
+        "base_form": null,
+        "zipf": 5.7,
+        "word_type": "base"
+      },
+      {
+        "word": "dice",
+        "base_form": null,
+        "zipf": 5.7,
+        "word_type": "base"
+      },
+      {
+        "word": "quien",
+        "base_form": "quier",
+        "zipf": 5.7,
+        "word_type": "verb"
+      },
+      {
+        "word": "tres",
+        "base_form": "tre",
+        "zipf": 5.7,
+        "word_type": "noun/adj"
+      },
+      {
+        "word": "días",
+        "base_form": "día",
+        "zipf": 5.7,
+        "word_type": "noun/adj"
+      },
+      {
+        "word": "momento",
+        "base_form": null,
+        "zipf": 5.7,
+        "word_type": "base"
+      },
+      {
+        "word": "bueno",
+        "base_form": null,
+        "zipf": 5.7,
+        "word_type": "base"
+      },
+      {
+        "word": "ciudad",
+        "base_form": null,
+        "zipf": 5.7,
+        "word_type": "base"
+      },
+      {
+        "word": "nuestro",
+        "base_form": null,
+        "zipf": 5.7,
+        "word_type": "base"
+      },
+      {
+        "word": "luego",
+        "base_form": null,
+        "zipf": 5.7,
+        "word_type": "base"
+      },
+      {
+        "word": "nacional",
+        "base_form": null,
+        "zipf": 5.7,
+        "word_type": "base"
+      },
+      {
+        "word": "parece",
+        "base_form": "parecer",
+        "zipf": 5.7,
+        "word_type": "verb"
+      },
+      {
+        "word": "poder",
+        "base_form": null,
+        "zipf": 5.7,
+        "word_type": "verb"
+      },
+      {
+        "word": "pueden",
+        "base_form": null,
+        "zipf": 5.7,
+        "word_type": "base"
+      },
+      {
+        "word": "pues",
+        "base_form": "pue",
+        "zipf": 5.7,
+        "word_type": "noun/adj"
+      },
+      {
+        "word": "verdad",
+        "base_form": null,
+        "zipf": 5.7,
+        "word_type": "base"
+      },
+      {
+        "word": "historia",
+        "base_form": null,
+        "zipf": 5.7,
+        "word_type": "base"
+      }
+    ],
+    "Elementary": [
+      {
+        "word": "aires",
+        "base_form": "aire",
+        "zipf": 5.0,
+        "word_type": "noun/adj"
+      },
+      {
+        "word": "banda",
+        "base_form": "bando",
+        "zipf": 5.0,
+        "word_type": "noun/adj"
+      },
+      {
+        "word": "ciudades",
+        "base_form": "ciudad",
+        "zipf": 5.0,
+        "word_type": "noun/adj"
+      },
+      {
+        "word": "clases",
+        "base_form": "clase",
+        "zipf": 5.0,
+        "word_type": "noun/adj"
+      },
+      {
+        "word": "colegio",
+        "base_form": null,
+        "zipf": 5.0,
+        "word_type": "base"
+      },
+      {
+        "word": "contenido",
+        "base_form": null,
+        "zipf": 5.0,
+        "word_type": "base"
+      },
+      {
+        "word": "decisión",
+        "base_form": null,
+        "zipf": 5.0,
+        "word_type": "base"
+      },
+      {
+        "word": "encuentro",
+        "base_form": null,
+        "zipf": 5.0,
+        "word_type": "base"
+      },
+      {
+        "word": "entrada",
+        "base_form": "entrado",
+        "zipf": 5.0,
+        "word_type": "noun/adj"
+      },
+      {
+        "word": "fiesta",
+        "base_form": null,
+        "zipf": 5.0,
+        "word_type": "base"
+      },
+      {
+        "word": "francia",
+        "base_form": null,
+        "zipf": 5.0,
+        "word_type": "base"
+      },
+      {
+        "word": "francisco",
+        "base_form": null,
+        "zipf": 5.0,
+        "word_type": "base"
+      },
+      {
+        "word": "imposible",
+        "base_form": null,
+        "zipf": 5.0,
+        "word_type": "base"
+      },
+      {
+        "word": "medidas",
+        "base_form": "medida",
+        "zipf": 5.0,
+        "word_type": "noun/adj"
+      },
+      {
+        "word": "pagar",
+        "base_form": null,
+        "zipf": 5.0,
+        "word_type": "verb"
+      },
+      {
+        "word": "pp",
+        "base_form": "par",
+        "zipf": 5.0,
+        "word_type": "verb"
+      },
+      {
+        "word": "pudo",
+        "base_form": null,
+        "zipf": 5.0,
+        "word_type": "base"
+      },
+      {
+        "word": "televisión",
+        "base_form": null,
+        "zipf": 5.0,
+        "word_type": "base"
+      },
+      {
+        "word": "unión",
+        "base_form": null,
+        "zipf": 5.0,
+        "word_type": "base"
+      },
+      {
+        "word": "vía",
+        "base_form": "var",
+        "zipf": 5.0,
+        "word_type": "verb"
+      },
+      {
+        "word": "abajo",
+        "base_form": null,
+        "zipf": 5.0,
+        "word_type": "base"
+      },
+      {
+        "word": "atrás",
+        "base_form": null,
+        "zipf": 5.0,
+        "word_type": "base"
+      },
+      {
+        "word": "capaz",
+        "base_form": null,
+        "zipf": 5.0,
+        "word_type": "base"
+      },
+      {
+        "word": "club",
+        "base_form": null,
+        "zipf": 5.0,
+        "word_type": "base"
+      },
+      {
+        "word": "darle",
+        "base_form": null,
+        "zipf": 5.0,
+        "word_type": "base"
+      },
+      {
+        "word": "di",
+        "base_form": "dar",
+        "zipf": 5.0,
+        "word_type": "verb"
+      },
+      {
+        "word": "error",
+        "base_form": "errar",
+        "zipf": 5.0,
+        "word_type": "verb"
+      },
+      {
+        "word": "gusto",
+        "base_form": "gustar",
+        "zipf": 5.0,
+        "word_type": "verb"
+      },
+      {
+        "word": "hechos",
+        "base_form": "hecho",
+        "zipf": 5.0,
+        "word_type": "noun/adj"
+      },
+      {
+        "word": "mayores",
+        "base_form": "mayor",
+        "zipf": 5.0,
+        "word_type": "noun/adj"
+      },
+      {
+        "word": "normal",
+        "base_form": null,
+        "zipf": 5.0,
+        "word_type": "base"
+      },
+      {
+        "word": "precios",
+        "base_form": "precio",
+        "zipf": 5.0,
+        "word_type": "noun/adj"
+      },
+      {
+        "word": "proyectos",
+        "base_form": "proyectar",
+        "zipf": 5.0,
+        "word_type": "verb"
+      },
+      {
+        "word": "redes",
+        "base_form": "red",
+        "zipf": 5.0,
+        "word_type": "noun/adj"
+      },
+      {
+        "word": "sabemos",
+        "base_form": null,
+        "zipf": 5.0,
+        "word_type": "base"
+      },
+      {
+        "word": "sexo",
+        "base_form": null,
+        "zipf": 5.0,
+        "word_type": "base"
+      },
+      {
+        "word": "siete",
+        "base_form": null,
+        "zipf": 5.0,
+        "word_type": "base"
+      },
+      {
+        "word": "siguientes",
+        "base_form": "siguiente",
+        "zipf": 5.0,
+        "word_type": "noun/adj"
+      },
+      {
+        "word": "t",
+        "base_form": "tar",
+        "zipf": 5.0,
+        "word_type": "verb"
+      },
+      {
+        "word": "tambien",
+        "base_form": null,
+        "zipf": 5.0,
+        "word_type": "base"
+      },
+      {
+        "word": "texto",
+        "base_form": null,
+        "zipf": 5.0,
+        "word_type": "base"
+      },
+      {
+        "word": "tiempos",
+        "base_form": "tiempo",
+        "zipf": 5.0,
+        "word_type": "noun/adj"
+      },
+      {
+        "word": "análisis",
+        "base_form": null,
+        "zipf": 5.0,
+        "word_type": "base"
+      },
+      {
+        "word": "apenas",
+        "base_form": null,
+        "zipf": 5.0,
+        "word_type": "base"
+      },
+      {
+        "word": "constitución",
+        "base_form": null,
+        "zipf": 5.0,
+        "word_type": "base"
+      },
+      {
+        "word": "contrario",
+        "base_form": null,
+        "zipf": 5.0,
+        "word_type": "base"
+      },
+      {
+        "word": "cuentas",
+        "base_form": "cuenta",
+        "zipf": 5.0,
+        "word_type": "noun/adj"
+      },
+      {
+        "word": "código",
+        "base_form": null,
+        "zipf": 5.0,
+        "word_type": "base"
+      },
+      {
+        "word": "dolor",
+        "base_form": "dolar",
+        "zipf": 5.0,
+        "word_type": "verb"
+      },
+      {
+        "word": "efecto",
+        "base_form": null,
+        "zipf": 5.0,
+        "word_type": "base"
+      },
+      {
+        "word": "habría",
+        "base_form": null,
+        "zipf": 5.0,
+        "word_type": "base"
+      },
+      {
+        "word": "isla",
+        "base_form": null,
+        "zipf": 5.0,
+        "word_type": "base"
+      },
+      {
+        "word": "izquierda",
+        "base_form": "izquierdo",
+        "zipf": 5.0,
+        "word_type": "noun/adj"
+      },
+      {
+        "word": "mente",
+        "base_form": "mentir",
+        "zipf": 5.0,
+        "word_type": "verb"
+      },
+      {
+        "word": "odio",
+        "base_form": "odiar",
+        "zipf": 5.0,
+        "word_type": "verb"
+      },
+      {
+        "word": "perú",
+        "base_form": "peer",
+        "zipf": 5.0,
+        "word_type": "verb"
+      },
+      {
+        "word": "pienso",
+        "base_form": null,
+        "zipf": 5.0,
+        "word_type": "base"
+      },
+      {
+        "word": "post",
+        "base_form": "posar",
+        "zipf": 5.0,
+        "word_type": "verb"
+      },
+      {
+        "word": "presencia",
+        "base_form": "presenciar",
+        "zipf": 5.0,
+        "word_type": "verb"
+      },
+      {
+        "word": "profesor",
+        "base_form": null,
+        "zipf": 5.0,
+        "word_type": "base"
+      },
+      {
+        "word": "quizás",
+        "base_form": "quizá",
+        "zipf": 5.0,
+        "word_type": "noun/adj"
+      },
+      {
+        "word": "respeto",
+        "base_form": "respetar",
+        "zipf": 5.0,
+        "word_type": "verb"
+      },
+      {
+        "word": "ropa",
+        "base_form": null,
+        "zipf": 5.0,
+        "word_type": "base"
+      },
+      {
+        "word": "serán",
+        "base_form": null,
+        "zipf": 5.0,
+        "word_type": "base"
+      },
+      {
+        "word": "siguen",
+        "base_form": null,
+        "zipf": 5.0,
+        "word_type": "base"
+      },
+      {
+        "word": "sr",
+        "base_form": "sar",
+        "zipf": 5.0,
+        "word_type": "verb"
+      },
+      {
+        "word": "tenían",
+        "base_form": null,
+        "zipf": 5.0,
+        "word_type": "base"
+      },
+      {
+        "word": "totalmente",
+        "base_form": "total",
+        "zipf": 5.0,
+        "word_type": "adverb_from_adj"
+      },
+      {
+        "word": "versión",
+        "base_form": null,
+        "zipf": 5.0,
+        "word_type": "base"
+      },
+      {
+        "word": "aqui",
+        "base_form": null,
+        "zipf": 5.0,
+        "word_type": "base"
+      },
+      {
+        "word": "barcelona",
+        "base_form": null,
+        "zipf": 5.0,
+        "word_type": "base"
+      },
+      {
+        "word": "cielo",
+        "base_form": null,
+        "zipf": 5.0,
+        "word_type": "base"
+      },
+      {
+        "word": "cine",
+        "base_form": null,
+        "zipf": 5.0,
+        "word_type": "base"
+      },
+      {
+        "word": "cuestión",
+        "base_form": null,
+        "zipf": 5.0,
+        "word_type": "base"
+      },
+      {
+        "word": "debemos",
+        "base_form": null,
+        "zipf": 5.0,
+        "word_type": "base"
+      },
+      {
+        "word": "escribir",
+        "base_form": null,
+        "zipf": 5.0,
+        "word_type": "verb"
+      },
+      {
+        "word": "española",
+        "base_form": null,
+        "zipf": 5.0,
+        "word_type": "base"
+      },
+      {
+        "word": "formación",
+        "base_form": null,
+        "zipf": 5.0,
+        "word_type": "base"
+      },
+      {
+        "word": "hice",
+        "base_form": null,
+        "zipf": 5.0,
+        "word_type": "base"
+      },
+      {
+        "word": "ii",
+        "base_form": "ar",
+        "zipf": 5.0,
+        "word_type": "verb"
+      },
+      {
+        "word": "importancia",
+        "base_form": null,
+        "zipf": 5.0,
+        "word_type": "base"
+      },
+      {
+        "word": "industria",
+        "base_form": null,
+        "zipf": 5.0,
+        "word_type": "base"
+      },
+      {
+        "word": "instituto",
+        "base_form": null,
+        "zipf": 5.0,
+        "word_type": "base"
+      },
+      {
+        "word": "loco",
+        "base_form": null,
+        "zipf": 5.0,
+        "word_type": "base"
+      },
+      {
+        "word": "origen",
+        "base_form": null,
+        "zipf": 5.0,
+        "word_type": "base"
+      },
+      {
+        "word": "premio",
+        "base_form": "premiar",
+        "zipf": 5.0,
+        "word_type": "verb"
+      },
+      {
+        "word": "rico",
+        "base_form": null,
+        "zipf": 5.0,
+        "word_type": "base"
+      },
+      {
+        "word": "simple",
+        "base_form": null,
+        "zipf": 5.0,
+        "word_type": "base"
+      },
+      {
+        "word": "unidad",
+        "base_form": null,
+        "zipf": 5.0,
+        "word_type": "base"
+      },
+      {
+        "word": "vino",
+        "base_form": null,
+        "zipf": 5.0,
+        "word_type": "base"
+      },
+      {
+        "word": "cambios",
+        "base_form": "cambiar",
+        "zipf": 5.0,
+        "word_type": "verb"
+      },
+      {
+        "word": "canal",
+        "base_form": null,
+        "zipf": 5.0,
+        "word_type": "base"
+      },
+      {
+        "word": "cultural",
+        "base_form": null,
+        "zipf": 5.0,
+        "word_type": "base"
+      },
+      {
+        "word": "dando",
+        "base_form": null,
+        "zipf": 5.0,
+        "word_type": "base"
+      },
+      {
+        "word": "dejó",
+        "base_form": "dejar",
+        "zipf": 5.0,
+        "word_type": "verb"
+      },
+      {
+        "word": "derecha",
+        "base_form": "derecho",
+        "zipf": 5.0,
+        "word_type": "noun/adj"
+      },
+      {
+        "word": "escrito",
+        "base_form": null,
+        "zipf": 5.0,
+        "word_type": "base"
+      },
+      {
+        "word": "esperando",
+        "base_form": null,
+        "zipf": 5.0,
+        "word_type": "base"
+      },
+      {
+        "word": "gustaría",
+        "base_form": null,
+        "zipf": 5.0,
+        "word_type": "base"
+      },
+      {
+        "word": "interesante",
+        "base_form": null,
+        "zipf": 5.0,
+        "word_type": "base"
+      },
+      {
+        "word": "jamás",
+        "base_form": null,
+        "zipf": 5.0,
+        "word_type": "base"
+      },
+      {
+        "word": "juicio",
+        "base_form": null,
+        "zipf": 5.0,
+        "word_type": "base"
+      },
+      {
+        "word": "miles",
+        "base_form": "mil",
+        "zipf": 5.0,
+        "word_type": "noun/adj"
+      },
+      {
+        "word": "noticia",
+        "base_form": null,
+        "zipf": 5.0,
+        "word_type": "base"
+      },
+      {
+        "word": "original",
+        "base_form": null,
+        "zipf": 5.0,
+        "word_type": "base"
+      },
+      {
+        "word": "peso",
+        "base_form": "pesar",
+        "zipf": 5.0,
+        "word_type": "verb"
+      },
+      {
+        "word": "pobre",
+        "base_form": null,
+        "zipf": 5.0,
+        "word_type": "base"
+      },
+      {
+        "word": "prensa",
+        "base_form": null,
+        "zipf": 5.0,
+        "word_type": "base"
+      },
+      {
+        "word": "propiedad",
+        "base_form": null,
+        "zipf": 5.0,
+        "word_type": "base"
+      },
+      {
+        "word": "revolución",
+        "base_form": null,
+        "zipf": 5.0,
+        "word_type": "base"
+      },
+      {
+        "word": "victoria",
+        "base_form": null,
+        "zipf": 5.0,
+        "word_type": "base"
+      },
+      {
+        "word": "vuelve",
+        "base_form": null,
+        "zipf": 5.0,
+        "word_type": "base"
+      },
+      {
+        "word": "york",
+        "base_form": null,
+        "zipf": 5.0,
+        "word_type": "base"
+      },
+      {
+        "word": "éste",
+        "base_form": null,
+        "zipf": 5.0,
+        "word_type": "base"
+      },
+      {
+        "word": "pedir",
+        "base_form": null,
+        "zipf": 4.9,
+        "word_type": "verb"
+      },
+      {
+        "word": "económico",
+        "base_form": null,
+        "zipf": 4.9,
+        "word_type": "base"
+      },
+      {
+        "word": "alma",
+        "base_form": null,
+        "zipf": 4.9,
+        "word_type": "base"
+      },
+      {
+        "word": "antonio",
+        "base_form": null,
+        "zipf": 4.9,
+        "word_type": "base"
+      },
+      {
+        "word": "artículos",
+        "base_form": "artículo",
+        "zipf": 4.9,
+        "word_type": "noun/adj"
+      },
+      {
+        "word": "asunto",
+        "base_form": null,
+        "zipf": 4.9,
+        "word_type": "base"
+      },
+      {
+        "word": "buscando",
+        "base_form": null,
+        "zipf": 4.9,
+        "word_type": "base"
+      },
+      {
+        "word": "completamente",
+        "base_form": "completa",
+        "zipf": 4.9,
+        "word_type": "adverb_from_adj"
+      },
+      {
+        "word": "conoce",
+        "base_form": "conocer",
+        "zipf": 4.9,
+        "word_type": "verb"
+      },
+      {
+        "word": "conocimiento",
+        "base_form": null,
+        "zipf": 4.9,
+        "word_type": "base"
+      },
+      {
+        "word": "hospital",
+        "base_form": null,
+        "zipf": 4.9,
+        "word_type": "base"
+      },
+      {
+        "word": "humano",
+        "base_form": null,
+        "zipf": 4.9,
+        "word_type": "base"
+      },
+      {
+        "word": "imágenes",
+        "base_form": "imágen",
+        "zipf": 4.9,
+        "word_type": "noun/adj"
+      },
+      {
+        "word": "marcha",
+        "base_form": "marchar",
+        "zipf": 4.9,
+        "word_type": "verb"
+      },
+      {
+        "word": "pasando",
+        "base_form": null,
+        "zipf": 4.9,
+        "word_type": "base"
+      },
+      {
+        "word": "puedan",
+        "base_form": null,
+        "zipf": 4.9,
+        "word_type": "base"
+      },
+      {
+        "word": "tecnología",
+        "base_form": null,
+        "zipf": 4.9,
+        "word_type": "base"
+      },
+      {
+        "word": "tipos",
+        "base_form": "tipo",
+        "zipf": 4.9,
+        "word_type": "noun/adj"
+      },
+      {
+        "word": "trabajos",
+        "base_form": "trabajar",
+        "zipf": 4.9,
+        "word_type": "verb"
+      },
+      {
+        "word": "verano",
+        "base_form": null,
+        "zipf": 4.9,
+        "word_type": "base"
+      },
+      {
+        "word": "aprender",
+        "base_form": null,
+        "zipf": 4.9,
+        "word_type": "verb"
+      },
+      {
+        "word": "conjunto",
+        "base_form": null,
+        "zipf": 4.9,
+        "word_type": "base"
+      },
+      {
+        "word": "cuarto",
+        "base_form": null,
+        "zipf": 4.9,
+        "word_type": "base"
+      },
+      {
+        "word": "curso",
+        "base_form": "cursar",
+        "zipf": 4.9,
+        "word_type": "verb"
+      },
+      {
+        "word": "democracia",
+        "base_form": null,
+        "zipf": 4.9,
+        "word_type": "base"
+      },
+      {
+        "word": "don",
+        "base_form": "donar",
+        "zipf": 4.9,
+        "word_type": "verb"
+      },
+      {
+        "word": "fe",
+        "base_form": "far",
+        "zipf": 4.9,
+        "word_type": "verb"
+      },
+      {
+        "word": "ganas",
+        "base_form": "ganar",
+        "zipf": 4.9,
+        "word_type": "verb"
+      },
+      {
+        "word": "género",
+        "base_form": null,
+        "zipf": 4.9,
+        "word_type": "base"
+      },
+      {
+        "word": "muerto",
+        "base_form": null,
+        "zipf": 4.9,
+        "word_type": "base"
+      },
+      {
+        "word": "nación",
+        "base_form": null,
+        "zipf": 4.9,
+        "word_type": "base"
+      },
+      {
+        "word": "negocio",
+        "base_form": "negociar",
+        "zipf": 4.9,
+        "word_type": "verb"
+      },
+      {
+        "word": "ocho",
+        "base_form": null,
+        "zipf": 4.9,
+        "word_type": "base"
+      },
+      {
+        "word": "pablo",
+        "base_form": null,
+        "zipf": 4.9,
+        "word_type": "base"
+      },
+      {
+        "word": "particular",
+        "base_form": null,
+        "zipf": 4.9,
+        "word_type": "verb"
+      },
+      {
+        "word": "posibilidad",
+        "base_form": null,
+        "zipf": 4.9,
+        "word_type": "base"
+      },
+      {
+        "word": "profesional",
+        "base_form": null,
+        "zipf": 4.9,
+        "word_type": "base"
+      },
+      {
+        "word": "régimen",
+        "base_form": null,
+        "zipf": 4.9,
+        "word_type": "base"
+      },
+      {
+        "word": "suelo",
+        "base_form": null,
+        "zipf": 4.9,
+        "word_type": "base"
+      },
+      {
+        "word": "tuve",
+        "base_form": null,
+        "zipf": 4.9,
+        "word_type": "base"
+      },
+      {
+        "word": "ambiente",
+        "base_form": null,
+        "zipf": 4.9,
+        "word_type": "base"
+      },
+      {
+        "word": "ataque",
+        "base_form": null,
+        "zipf": 4.9,
+        "word_type": "base"
+      },
+      {
+        "word": "casas",
+        "base_form": "casar",
+        "zipf": 4.9,
+        "word_type": "verb"
+      },
+      {
+        "word": "cuba",
+        "base_form": "cubo",
+        "zipf": 4.9,
+        "word_type": "noun/adj"
+      },
+      {
+        "word": "edificio",
+        "base_form": "edificar",
+        "zipf": 4.9,
+        "word_type": "verb"
+      },
+      {
+        "word": "federal",
+        "base_form": "federer",
+        "zipf": 4.9,
+        "word_type": "verb"
+      },
+      {
+        "word": "lengua",
+        "base_form": null,
+        "zipf": 4.9,
+        "word_type": "base"
+      },
+      {
+        "word": "mesa",
+        "base_form": "mear",
+        "zipf": 4.9,
+        "word_type": "verb"
+      },
+      {
+        "word": "naturaleza",
+        "base_form": null,
+        "zipf": 4.9,
+        "word_type": "base"
+      },
+      {
+        "word": "noches",
+        "base_form": "noche",
+        "zipf": 4.9,
+        "word_type": "noun/adj"
+      },
+      {
+        "word": "programas",
+        "base_form": "programar",
+        "zipf": 4.9,
+        "word_type": "verb"
+      },
+      {
+        "word": "protección",
+        "base_form": null,
+        "zipf": 4.9,
+        "word_type": "base"
+      },
+      {
+        "word": "pruebas",
+        "base_form": "prueba",
+        "zipf": 4.9,
+        "word_type": "noun/adj"
+      },
+      {
+        "word": "publicado",
+        "base_form": null,
+        "zipf": 4.9,
+        "word_type": "base"
+      },
+      {
+        "word": "sala",
+        "base_form": "salir",
+        "zipf": 4.9,
+        "word_type": "verb"
+      },
+      {
+        "word": "santiago",
+        "base_form": null,
+        "zipf": 4.9,
+        "word_type": "base"
+      },
+      {
+        "word": "señora",
+        "base_form": null,
+        "zipf": 4.9,
+        "word_type": "base"
+      },
+      {
+        "word": "sueño",
+        "base_form": null,
+        "zipf": 4.9,
+        "word_type": "base"
+      },
+      {
+        "word": "teléfono",
+        "base_form": null,
+        "zipf": 4.9,
+        "word_type": "base"
+      },
+      {
+        "word": "trabajando",
+        "base_form": null,
+        "zipf": 4.9,
+        "word_type": "base"
+      },
+      {
+        "word": "transporte",
+        "base_form": "transportar",
+        "zipf": 4.9,
+        "word_type": "verb"
+      },
+      {
+        "word": "usa",
+        "base_form": "usar",
+        "zipf": 4.9,
+        "word_type": "verb"
+      },
+      {
+        "word": "usuario",
+        "base_form": null,
+        "zipf": 4.9,
+        "word_type": "base"
+      },
+      {
+        "word": "zonas",
+        "base_form": "zona",
+        "zipf": 4.9,
+        "word_type": "noun/adj"
+      },
+      {
+        "word": "acto",
+        "base_form": "acer",
+        "zipf": 4.9,
+        "word_type": "verb"
+      },
+      {
+        "word": "animales",
+        "base_form": "animal",
+        "zipf": 4.9,
+        "word_type": "noun/adj"
+      },
+      {
+        "word": "asociación",
+        "base_form": null,
+        "zipf": 4.9,
+        "word_type": "base"
+      },
+      {
+        "word": "completo",
+        "base_form": "completar",
+        "zipf": 4.9,
+        "word_type": "verb"
+      },
+      {
+        "word": "cuidado",
+        "base_form": null,
+        "zipf": 4.9,
+        "word_type": "base"
+      },
+      {
+        "word": "deseo",
+        "base_form": "desear",
+        "zipf": 4.9,
+        "word_type": "verb"
+      },
+      {
+        "word": "detrás",
+        "base_form": null,
+        "zipf": 4.9,
+        "word_type": "base"
+      },
+      {
+        "word": "directamente",
+        "base_form": "directa",
+        "zipf": 4.9,
+        "word_type": "adverb_from_adj"
+      },
+      {
+        "word": "doctor",
+        "base_form": null,
+        "zipf": 4.9,
+        "word_type": "base"
+      },
+      {
+        "word": "edición",
+        "base_form": null,
+        "zipf": 4.9,
+        "word_type": "base"
+      },
+      {
+        "word": "encuentran",
+        "base_form": null,
+        "zipf": 4.9,
+        "word_type": "base"
+      },
+      {
+        "word": "escuchar",
+        "base_form": null,
+        "zipf": 4.9,
+        "word_type": "verb"
+      },
+      {
+        "word": "informe",
+        "base_form": "informar",
+        "zipf": 4.9,
+        "word_type": "verb"
+      },
+      {
+        "word": "llegado",
+        "base_form": null,
+        "zipf": 4.9,
+        "word_type": "base"
+      },
+      {
+        "word": "manuel",
+        "base_form": null,
+        "zipf": 4.9,
+        "word_type": "base"
+      },
+      {
+        "word": "material",
+        "base_form": null,
+        "zipf": 4.9,
+        "word_type": "base"
+      },
+      {
+        "word": "metros",
+        "base_form": "metro",
+        "zipf": 4.9,
+        "word_type": "noun/adj"
+      },
+      {
+        "word": "momentos",
+        "base_form": "momento",
+        "zipf": 4.9,
+        "word_type": "noun/adj"
+      },
+      {
+        "word": "nacionales",
+        "base_form": "nacional",
+        "zipf": 4.9,
+        "word_type": "noun/adj"
+      },
+      {
+        "word": "pareja",
+        "base_form": "parejo",
+        "zipf": 4.9,
+        "word_type": "noun/adj"
+      },
+      {
+        "word": "perfecto",
+        "base_form": null,
+        "zipf": 4.9,
+        "word_type": "base"
+      },
+      {
+        "word": "puso",
+        "base_form": null,
+        "zipf": 4.9,
+        "word_type": "base"
+      }
+    ],
+    "Intermediate": [
+      {
+        "word": "abogados",
+        "base_form": "abogado",
+        "zipf": 4.5,
+        "word_type": "noun/adj"
+      },
+      {
+        "word": "abuelo",
+        "base_form": null,
+        "zipf": 4.5,
+        "word_type": "base"
+      },
+      {
+        "word": "aplicaciones",
+        "base_form": "aplicacion",
+        "zipf": 4.5,
+        "word_type": "noun/adj"
+      },
+      {
+        "word": "australia",
+        "base_form": null,
+        "zipf": 4.5,
+        "word_type": "base"
+      },
+      {
+        "word": "basado",
+        "base_form": null,
+        "zipf": 4.5,
+        "word_type": "base"
+      },
+      {
+        "word": "california",
+        "base_form": null,
+        "zipf": 4.5,
+        "word_type": "base"
+      },
+      {
+        "word": "colonia",
+        "base_form": null,
+        "zipf": 4.5,
+        "word_type": "base"
+      },
+      {
+        "word": "come",
+        "base_form": "comer",
+        "zipf": 4.5,
+        "word_type": "verb"
+      },
+      {
+        "word": "comunicaciones",
+        "base_form": "comunicacion",
+        "zipf": 4.5,
+        "word_type": "noun/adj"
+      },
+      {
+        "word": "cooperación",
+        "base_form": null,
+        "zipf": 4.5,
+        "word_type": "base"
+      },
+      {
+        "word": "correcta",
+        "base_form": "correcto",
+        "zipf": 4.5,
+        "word_type": "noun/adj"
+      },
+      {
+        "word": "darte",
+        "base_form": null,
+        "zipf": 4.5,
+        "word_type": "base"
+      },
+      {
+        "word": "dará",
+        "base_form": null,
+        "zipf": 4.5,
+        "word_type": "base"
+      },
+      {
+        "word": "digas",
+        "base_form": "diga",
+        "zipf": 4.5,
+        "word_type": "noun/adj"
+      },
+      {
+        "word": "discutir",
+        "base_form": null,
+        "zipf": 4.5,
+        "word_type": "verb"
+      },
+      {
+        "word": "elemento",
+        "base_form": null,
+        "zipf": 4.5,
+        "word_type": "base"
+      },
+      {
+        "word": "encuesta",
+        "base_form": null,
+        "zipf": 4.5,
+        "word_type": "base"
+      },
+      {
+        "word": "entradas",
+        "base_form": "entrada",
+        "zipf": 4.5,
+        "word_type": "noun/adj"
+      },
+      {
+        "word": "exacto",
+        "base_form": null,
+        "zipf": 4.5,
+        "word_type": "base"
+      },
+      {
+        "word": "extra",
+        "base_form": "extraer",
+        "zipf": 4.5,
+        "word_type": "verb"
+      },
+      {
+        "word": "extraña",
+        "base_form": "extrañar",
+        "zipf": 4.5,
+        "word_type": "verb"
+      },
+      {
+        "word": "forman",
+        "base_form": "formar",
+        "zipf": 4.5,
+        "word_type": "verb"
+      },
+      {
+        "word": "franco",
+        "base_form": null,
+        "zipf": 4.5,
+        "word_type": "base"
+      },
+      {
+        "word": "frases",
+        "base_form": "fraser",
+        "zipf": 4.5,
+        "word_type": "verb"
+      },
+      {
+        "word": "grados",
+        "base_form": "grado",
+        "zipf": 4.5,
+        "word_type": "noun/adj"
+      },
+      {
+        "word": "hubieran",
+        "base_form": null,
+        "zipf": 4.5,
+        "word_type": "base"
+      },
+      {
+        "word": "individual",
+        "base_form": null,
+        "zipf": 4.5,
+        "word_type": "base"
+      },
+      {
+        "word": "infancia",
+        "base_form": null,
+        "zipf": 4.5,
+        "word_type": "base"
+      },
+      {
+        "word": "infraestructura",
+        "base_form": null,
+        "zipf": 4.5,
+        "word_type": "base"
+      },
+      {
+        "word": "ingeniería",
+        "base_form": null,
+        "zipf": 4.5,
+        "word_type": "base"
+      },
+      {
+        "word": "interpretación",
+        "base_form": null,
+        "zipf": 4.5,
+        "word_type": "base"
+      },
+      {
+        "word": "is",
+        "base_form": "ar",
+        "zipf": 4.5,
+        "word_type": "verb"
+      },
+      {
+        "word": "jueces",
+        "base_form": "juez",
+        "zipf": 4.5,
+        "word_type": "noun/adj"
+      },
+      {
+        "word": "legislación",
+        "base_form": null,
+        "zipf": 4.5,
+        "word_type": "base"
+      },
+      {
+        "word": "llego",
+        "base_form": "llegar",
+        "zipf": 4.5,
+        "word_type": "verb"
+      },
+      {
+        "word": "ministros",
+        "base_form": "ministro",
+        "zipf": 4.5,
+        "word_type": "noun/adj"
+      },
+      {
+        "word": "moreno",
+        "base_form": null,
+        "zipf": 4.5,
+        "word_type": "base"
+      },
+      {
+        "word": "oscuro",
+        "base_form": null,
+        "zipf": 4.5,
+        "word_type": "base"
+      },
+      {
+        "word": "oído",
+        "base_form": null,
+        "zipf": 4.5,
+        "word_type": "base"
+      },
+      {
+        "word": "partida",
+        "base_form": "partido",
+        "zipf": 4.5,
+        "word_type": "noun/adj"
+      },
+      {
+        "word": "permiten",
+        "base_form": "permitir",
+        "zipf": 4.5,
+        "word_type": "verb"
+      },
+      {
+        "word": "personalmente",
+        "base_form": "personal",
+        "zipf": 4.5,
+        "word_type": "adverb_from_adj"
+      },
+      {
+        "word": "ponerse",
+        "base_form": null,
+        "zipf": 4.5,
+        "word_type": "base"
+      },
+      {
+        "word": "preguntó",
+        "base_form": "preguntar",
+        "zipf": 4.5,
+        "word_type": "verb"
+      },
+      {
+        "word": "princesa",
+        "base_form": null,
+        "zipf": 4.5,
+        "word_type": "base"
+      },
+      {
+        "word": "progreso",
+        "base_form": "progresar",
+        "zipf": 4.5,
+        "word_type": "verb"
+      },
+      {
+        "word": "puesta",
+        "base_form": "puesto",
+        "zipf": 4.5,
+        "word_type": "noun/adj"
+      },
+      {
+        "word": "rol",
+        "base_form": null,
+        "zipf": 4.5,
+        "word_type": "base"
+      },
+      {
+        "word": "seguimos",
+        "base_form": null,
+        "zipf": 4.5,
+        "word_type": "base"
+      },
+      {
+        "word": "sujeto",
+        "base_form": "sujetar",
+        "zipf": 4.5,
+        "word_type": "verb"
+      },
+      {
+        "word": "torneo",
+        "base_form": null,
+        "zipf": 4.5,
+        "word_type": "base"
+      },
+      {
+        "word": "trabajan",
+        "base_form": "trabajar",
+        "zipf": 4.5,
+        "word_type": "verb"
+      },
+      {
+        "word": "tradicionales",
+        "base_form": "tradicional",
+        "zipf": 4.5,
+        "word_type": "noun/adj"
+      },
+      {
+        "word": "turno",
+        "base_form": "turner",
+        "zipf": 4.5,
+        "word_type": "verb"
+      },
+      {
+        "word": "vacío",
+        "base_form": null,
+        "zipf": 4.5,
+        "word_type": "base"
+      },
+      {
+        "word": "venezolano",
+        "base_form": null,
+        "zipf": 4.5,
+        "word_type": "base"
+      },
+      {
+        "word": "veremos",
+        "base_form": null,
+        "zipf": 4.5,
+        "word_type": "base"
+      },
+      {
+        "word": "vivimos",
+        "base_form": null,
+        "zipf": 4.5,
+        "word_type": "base"
+      },
+      {
+        "word": "algun",
+        "base_form": null,
+        "zipf": 4.5,
+        "word_type": "base"
+      },
+      {
+        "word": "aprobación",
+        "base_form": null,
+        "zipf": 4.5,
+        "word_type": "base"
+      },
+      {
+        "word": "celebración",
+        "base_form": null,
+        "zipf": 4.5,
+        "word_type": "base"
+      },
+      {
+        "word": "celebrar",
+        "base_form": null,
+        "zipf": 4.5,
+        "word_type": "verb"
+      },
+      {
+        "word": "cerrado",
+        "base_form": null,
+        "zipf": 4.5,
+        "word_type": "base"
+      },
+      {
+        "word": "ciclo",
+        "base_form": null,
+        "zipf": 4.5,
+        "word_type": "base"
+      },
+      {
+        "word": "científico",
+        "base_form": null,
+        "zipf": 4.5,
+        "word_type": "base"
+      },
+      {
+        "word": "conde",
+        "base_form": null,
+        "zipf": 4.5,
+        "word_type": "base"
+      },
+      {
+        "word": "crecer",
+        "base_form": null,
+        "zipf": 4.5,
+        "word_type": "verb"
+      },
+      {
+        "word": "criminal",
+        "base_form": null,
+        "zipf": 4.5,
+        "word_type": "base"
+      },
+      {
+        "word": "círculo",
+        "base_form": null,
+        "zipf": 4.5,
+        "word_type": "base"
+      },
+      {
+        "word": "decidir",
+        "base_form": null,
+        "zipf": 4.5,
+        "word_type": "verb"
+      },
+      {
+        "word": "dirigido",
+        "base_form": null,
+        "zipf": 4.5,
+        "word_type": "base"
+      },
+      {
+        "word": "escritores",
+        "base_form": "escritor",
+        "zipf": 4.5,
+        "word_type": "noun/adj"
+      },
+      {
+        "word": "establecido",
+        "base_form": null,
+        "zipf": 4.5,
+        "word_type": "base"
+      },
+      {
+        "word": "evidente",
+        "base_form": null,
+        "zipf": 4.5,
+        "word_type": "base"
+      },
+      {
+        "word": "excepción",
+        "base_form": null,
+        "zipf": 4.5,
+        "word_type": "base"
+      },
+      {
+        "word": "exteriores",
+        "base_form": "exterior",
+        "zipf": 4.5,
+        "word_type": "noun/adj"
+      },
+      {
+        "word": "falso",
+        "base_form": null,
+        "zipf": 4.5,
+        "word_type": "base"
+      },
+      {
+        "word": "formato",
+        "base_form": null,
+        "zipf": 4.5,
+        "word_type": "base"
+      },
+      {
+        "word": "graves",
+        "base_form": "gravar",
+        "zipf": 4.5,
+        "word_type": "verb"
+      },
+      {
+        "word": "hablas",
+        "base_form": "hablar",
+        "zipf": 4.5,
+        "word_type": "verb"
+      },
+      {
+        "word": "hierro",
+        "base_form": null,
+        "zipf": 4.5,
+        "word_type": "base"
+      },
+      {
+        "word": "ja",
+        "base_form": "jar",
+        "zipf": 4.5,
+        "word_type": "verb"
+      },
+      {
+        "word": "juro",
+        "base_form": "jurar",
+        "zipf": 4.5,
+        "word_type": "verb"
+      },
+      {
+        "word": "lago",
+        "base_form": null,
+        "zipf": 4.5,
+        "word_type": "base"
+      },
+      {
+        "word": "logrado",
+        "base_form": null,
+        "zipf": 4.5,
+        "word_type": "base"
+      },
+      {
+        "word": "mercados",
+        "base_form": "mercader",
+        "zipf": 4.5,
+        "word_type": "verb"
+      },
+      {
+        "word": "modos",
+        "base_form": "modo",
+        "zipf": 4.5,
+        "word_type": "noun/adj"
+      },
+      {
+        "word": "norma",
+        "base_form": null,
+        "zipf": 4.5,
+        "word_type": "base"
+      },
+      {
+        "word": "olor",
+        "base_form": "oler",
+        "zipf": 4.5,
+        "word_type": "verb"
+      },
+      {
+        "word": "perdiendo",
+        "base_form": null,
+        "zipf": 4.5,
+        "word_type": "base"
+      },
+      {
+        "word": "peter",
+        "base_form": null,
+        "zipf": 4.5,
+        "word_type": "verb"
+      },
+      {
+        "word": "pleno",
+        "base_form": null,
+        "zipf": 4.5,
+        "word_type": "base"
+      },
+      {
+        "word": "ponga",
+        "base_form": "poner",
+        "zipf": 4.5,
+        "word_type": "verb"
+      },
+      {
+        "word": "porcentaje",
+        "base_form": null,
+        "zipf": 4.5,
+        "word_type": "base"
+      },
+      {
+        "word": "posterior",
+        "base_form": null,
+        "zipf": 4.5,
+        "word_type": "base"
+      },
+      {
+        "word": "potencia",
+        "base_form": "potenciar",
+        "zipf": 4.5,
+        "word_type": "verb"
+      },
+      {
+        "word": "preparado",
+        "base_form": null,
+        "zipf": 4.5,
+        "word_type": "base"
+      },
+      {
+        "word": "pretende",
+        "base_form": "pretender",
+        "zipf": 4.5,
+        "word_type": "verb"
+      },
+      {
+        "word": "publicada",
+        "base_form": "publicado",
+        "zipf": 4.5,
+        "word_type": "noun/adj"
+      },
+      {
+        "word": "reformas",
+        "base_form": "reformar",
+        "zipf": 4.5,
+        "word_type": "verb"
+      },
+      {
+        "word": "ricardo",
+        "base_form": null,
+        "zipf": 4.5,
+        "word_type": "base"
+      },
+      {
+        "word": "riqueza",
+        "base_form": null,
+        "zipf": 4.5,
+        "word_type": "base"
+      },
+      {
+        "word": "salario",
+        "base_form": null,
+        "zipf": 4.5,
+        "word_type": "base"
+      },
+      {
+        "word": "saludo",
+        "base_form": "saludar",
+        "zipf": 4.5,
+        "word_type": "verb"
+      },
+      {
+        "word": "sierra",
+        "base_form": null,
+        "zipf": 4.5,
+        "word_type": "base"
+      },
+      {
+        "word": "tabla",
+        "base_form": null,
+        "zipf": 4.5,
+        "word_type": "base"
+      },
+      {
+        "word": "utilizan",
+        "base_form": "utilizar",
+        "zipf": 4.5,
+        "word_type": "verb"
+      },
+      {
+        "word": "vs",
+        "base_form": "var",
+        "zipf": 4.5,
+        "word_type": "verb"
+      },
+      {
+        "word": "acuerdos",
+        "base_form": "acuerdo",
+        "zipf": 4.5,
+        "word_type": "noun/adj"
+      },
+      {
+        "word": "bienestar",
+        "base_form": null,
+        "zipf": 4.5,
+        "word_type": "verb"
+      },
+      {
+        "word": "cantante",
+        "base_form": null,
+        "zipf": 4.5,
+        "word_type": "base"
+      },
+      {
+        "word": "castilla",
+        "base_form": "castillo",
+        "zipf": 4.5,
+        "word_type": "noun/adj"
+      },
+      {
+        "word": "concentración",
+        "base_form": null,
+        "zipf": 4.5,
+        "word_type": "base"
+      },
+      {
+        "word": "conseguido",
+        "base_form": null,
+        "zipf": 4.5,
+        "word_type": "base"
+      },
+      {
+        "word": "copia",
+        "base_form": "copiar",
+        "zipf": 4.5,
+        "word_type": "verb"
+      },
+      {
+        "word": "corona",
+        "base_form": null,
+        "zipf": 4.5,
+        "word_type": "base"
+      },
+      {
+        "word": "cristina",
+        "base_form": null,
+        "zipf": 4.5,
+        "word_type": "base"
+      },
+      {
+        "word": "crítico",
+        "base_form": null,
+        "zipf": 4.5,
+        "word_type": "base"
+      },
+      {
+        "word": "deberá",
+        "base_form": null,
+        "zipf": 4.5,
+        "word_type": "base"
+      },
+      {
+        "word": "deberíamos",
+        "base_form": null,
+        "zipf": 4.5,
+        "word_type": "base"
+      },
+      {
+        "word": "dedo",
+        "base_form": null,
+        "zipf": 4.5,
+        "word_type": "base"
+      },
+      {
+        "word": "determinar",
+        "base_form": null,
+        "zipf": 4.5,
+        "word_type": "verb"
+      },
+      {
+        "word": "doce",
+        "base_form": null,
+        "zipf": 4.5,
+        "word_type": "base"
+      },
+      {
+        "word": "ee.uu",
+        "base_form": null,
+        "zipf": 4.5,
+        "word_type": "base"
+      },
+      {
+        "word": "encontraba",
+        "base_form": null,
+        "zipf": 4.5,
+        "word_type": "base"
+      },
+      {
+        "word": "envió",
+        "base_form": "enviar",
+        "zipf": 4.5,
+        "word_type": "verb"
+      },
+      {
+        "word": "establece",
+        "base_form": "establecer",
+        "zipf": 4.5,
+        "word_type": "verb"
+      },
+      {
+        "word": "estarán",
+        "base_form": null,
+        "zipf": 4.5,
+        "word_type": "base"
+      },
+      {
+        "word": "flor",
+        "base_form": null,
+        "zipf": 4.5,
+        "word_type": "base"
+      },
+      {
+        "word": "fracaso",
+        "base_form": "fracasar",
+        "zipf": 4.5,
+        "word_type": "verb"
+      },
+      {
+        "word": "fábrica",
+        "base_form": null,
+        "zipf": 4.5,
+        "word_type": "base"
+      },
+      {
+        "word": "gómez",
+        "base_form": null,
+        "zipf": 4.5,
+        "word_type": "base"
+      },
+      {
+        "word": "hacerle",
+        "base_form": null,
+        "zipf": 4.5,
+        "word_type": "base"
+      },
+      {
+        "word": "intentando",
+        "base_form": null,
+        "zipf": 4.5,
+        "word_type": "base"
+      },
+      {
+        "word": "margen",
+        "base_form": null,
+        "zipf": 4.5,
+        "word_type": "base"
+      },
+      {
+        "word": "pais",
+        "base_form": "pai",
+        "zipf": 4.5,
+        "word_type": "noun/adj"
+      },
+      {
+        "word": "paredes",
+        "base_form": "pared",
+        "zipf": 4.5,
+        "word_type": "noun/adj"
+      },
+      {
+        "word": "peligroso",
+        "base_form": null,
+        "zipf": 4.5,
+        "word_type": "base"
+      },
+      {
+        "word": "rojas",
+        "base_form": "roja",
+        "zipf": 4.5,
+        "word_type": "noun/adj"
+      },
+      {
+        "word": "secretaría",
+        "base_form": null,
+        "zipf": 4.5,
+        "word_type": "base"
+      },
+      {
+        "word": "series",
+        "base_form": "serie",
+        "zipf": 4.5,
+        "word_type": "noun/adj"
+      },
+      {
+        "word": "suficientemente",
+        "base_form": "suficiente",
+        "zipf": 4.5,
+        "word_type": "adverb_from_adj"
+      },
+      {
+        "word": "superar",
+        "base_form": null,
+        "zipf": 4.5,
+        "word_type": "verb"
+      },
+      {
+        "word": "techo",
+        "base_form": null,
+        "zipf": 4.5,
+        "word_type": "base"
+      },
+      {
+        "word": "transmisión",
+        "base_form": null,
+        "zipf": 4.5,
+        "word_type": "base"
+      },
+      {
+        "word": "tuya",
+        "base_form": "tuyo",
+        "zipf": 4.5,
+        "word_type": "noun/adj"
+      },
+      {
+        "word": "ubicación",
+        "base_form": null,
+        "zipf": 4.5,
+        "word_type": "base"
+      },
+      {
+        "word": "veinte",
+        "base_form": null,
+        "zipf": 4.5,
+        "word_type": "base"
+      },
+      {
+        "word": "visitas",
+        "base_form": "visitar",
+        "zipf": 4.5,
+        "word_type": "verb"
+      },
+      {
+        "word": "viviendas",
+        "base_form": "vivienda",
+        "zipf": 4.5,
+        "word_type": "noun/adj"
+      },
+      {
+        "word": "absoluta",
+        "base_form": "absoluto",
+        "zipf": 4.5,
+        "word_type": "noun/adj"
+      },
+      {
+        "word": "aceite",
+        "base_form": null,
+        "zipf": 4.5,
+        "word_type": "base"
+      },
+      {
+        "word": "activos",
+        "base_form": "activar",
+        "zipf": 4.5,
+        "word_type": "verb"
+      },
+      {
+        "word": "alejandro",
+        "base_form": null,
+        "zipf": 4.5,
+        "word_type": "base"
+      },
+      {
+        "word": "antecedentes",
+        "base_form": "antecedente",
+        "zipf": 4.5,
+        "word_type": "noun/adj"
+      },
+      {
+        "word": "anuncio",
+        "base_form": "anunciar",
+        "zipf": 4.5,
+        "word_type": "verb"
+      },
+      {
+        "word": "aplicar",
+        "base_form": null,
+        "zipf": 4.5,
+        "word_type": "verb"
+      },
+      {
+        "word": "audio",
+        "base_form": null,
+        "zipf": 4.5,
+        "word_type": "base"
+      },
+      {
+        "word": "azúcar",
+        "base_form": null,
+        "zipf": 4.5,
+        "word_type": "verb"
+      },
+      {
+        "word": "broma",
+        "base_form": null,
+        "zipf": 4.5,
+        "word_type": "base"
+      },
+      {
+        "word": "cambió",
+        "base_form": "cambiar",
+        "zipf": 4.5,
+        "word_type": "verb"
+      },
+      {
+        "word": "canadá",
+        "base_form": null,
+        "zipf": 4.5,
+        "word_type": "base"
+      },
+      {
+        "word": "castellano",
+        "base_form": null,
+        "zipf": 4.5,
+        "word_type": "base"
+      },
+      {
+        "word": "columna",
+        "base_form": null,
+        "zipf": 4.5,
+        "word_type": "base"
+      },
+      {
+        "word": "correspondiente",
+        "base_form": null,
+        "zipf": 4.5,
+        "word_type": "base"
+      },
+      {
+        "word": "creó",
+        "base_form": "crear",
+        "zipf": 4.5,
+        "word_type": "verb"
+      },
+      {
+        "word": "cumple",
+        "base_form": "cumplir",
+        "zipf": 4.5,
+        "word_type": "verb"
+      },
+      {
+        "word": "cura",
+        "base_form": "curar",
+        "zipf": 4.5,
+        "word_type": "verb"
+      },
+      {
+        "word": "cursos",
+        "base_form": "cursar",
+        "zipf": 4.5,
+        "word_type": "verb"
+      },
+      {
+        "word": "distinto",
+        "base_form": null,
+        "zipf": 4.5,
+        "word_type": "base"
+      },
+      {
+        "word": "duele",
+        "base_form": null,
+        "zipf": 4.5,
+        "word_type": "base"
+      },
+      {
+        "word": "dé",
+        "base_form": "dar",
+        "zipf": 4.5,
+        "word_type": "verb"
+      },
+      {
+        "word": "escuchado",
+        "base_form": null,
+        "zipf": 4.5,
+        "word_type": "base"
+      },
+      {
+        "word": "esquina",
+        "base_form": null,
+        "zipf": 4.5,
+        "word_type": "base"
+      },
+      {
+        "word": "estuvieron",
+        "base_form": null,
+        "zipf": 4.5,
+        "word_type": "base"
+      },
+      {
+        "word": "genera",
+        "base_form": "generar",
+        "zipf": 4.5,
+        "word_type": "verb"
+      },
+      {
+        "word": "gira",
+        "base_form": "girar",
+        "zipf": 4.5,
+        "word_type": "verb"
+      },
+      {
+        "word": "grecia",
+        "base_form": null,
+        "zipf": 4.5,
+        "word_type": "base"
+      },
+      {
+        "word": "intercambio",
+        "base_form": "intercambiar",
+        "zipf": 4.5,
+        "word_type": "verb"
+      },
+      {
+        "word": "introducción",
+        "base_form": null,
+        "zipf": 4.5,
+        "word_type": "base"
+      },
+      {
+        "word": "lenguas",
+        "base_form": "lengua",
+        "zipf": 4.5,
+        "word_type": "noun/adj"
+      },
+      {
+        "word": "luces",
+        "base_form": "lucir",
+        "zipf": 4.5,
+        "word_type": "verb"
+      },
+      {
+        "word": "organismo",
+        "base_form": null,
+        "zipf": 4.5,
+        "word_type": "base"
+      },
+      {
+        "word": "organizado",
+        "base_form": null,
+        "zipf": 4.5,
+        "word_type": "base"
+      },
+      {
+        "word": "pedo",
+        "base_form": "peer",
+        "zipf": 4.5,
+        "word_type": "verb"
+      },
+      {
+        "word": "piedras",
+        "base_form": "piedra",
+        "zipf": 4.5,
+        "word_type": "noun/adj"
+      },
+      {
+        "word": "posee",
+        "base_form": "posar",
+        "zipf": 4.5,
+        "word_type": "verb"
+      },
+      {
+        "word": "promover",
+        "base_form": null,
+        "zipf": 4.5,
+        "word_type": "verb"
+      },
+      {
+        "word": "pudieron",
+        "base_form": null,
+        "zipf": 4.5,
+        "word_type": "base"
+      },
+      {
+        "word": "raíz",
+        "base_form": null,
+        "zipf": 4.5,
+        "word_type": "base"
+      },
+      {
+        "word": "relacionado",
+        "base_form": null,
+        "zipf": 4.5,
+        "word_type": "base"
+      },
+      {
+        "word": "repente",
+        "base_form": null,
+        "zipf": 4.5,
+        "word_type": "base"
+      },
+      {
+        "word": "rosario",
+        "base_form": null,
+        "zipf": 4.5,
+        "word_type": "base"
+      },
+      {
+        "word": "siguió",
+        "base_form": null,
+        "zipf": 4.5,
+        "word_type": "base"
+      },
+      {
+        "word": "súper",
+        "base_form": null,
+        "zipf": 4.5,
+        "word_type": "verb"
+      },
+      {
+        "word": "terminado",
+        "base_form": null,
+        "zipf": 4.5,
+        "word_type": "base"
+      },
+      {
+        "word": "vayas",
+        "base_form": "vaya",
+        "zipf": 4.5,
+        "word_type": "noun/adj"
+      },
+      {
+        "word": "véase",
+        "base_form": null,
+        "zipf": 4.5,
+        "word_type": "base"
+      },
+      {
+        "word": "vídeos",
+        "base_form": "vídeo",
+        "zipf": 4.5,
+        "word_type": "noun/adj"
+      },
+      {
+        "word": "ángeles",
+        "base_form": "ángel",
+        "zipf": 4.5,
+        "word_type": "noun/adj"
+      },
+      {
+        "word": "índice",
+        "base_form": null,
+        "zipf": 4.5,
+        "word_type": "base"
+      },
+      {
+        "word": "acabó",
+        "base_form": "acabar",
+        "zipf": 4.5,
+        "word_type": "verb"
+      },
+      {
+        "word": "alcanza",
+        "base_form": "alcanzar",
+        "zipf": 4.5,
+        "word_type": "verb"
+      },
+      {
+        "word": "aparentemente",
+        "base_form": "aparente",
+        "zipf": 4.5,
+        "word_type": "adverb_from_adj"
+      },
+      {
+        "word": "caminos",
+        "base_form": "caminar",
+        "zipf": 4.5,
+        "word_type": "verb"
+      },
+      {
+        "word": "carreras",
+        "base_form": "carrera",
+        "zipf": 4.5,
+        "word_type": "noun/adj"
+      },
+      {
+        "word": "conflictos",
+        "base_form": "conflicto",
+        "zipf": 4.5,
+        "word_type": "noun/adj"
+      },
+      {
+        "word": "culpable",
+        "base_form": null,
+        "zipf": 4.5,
+        "word_type": "base"
+      },
+      {
+        "word": "difusión",
+        "base_form": null,
+        "zipf": 4.5,
+        "word_type": "base"
+      },
+      {
+        "word": "disponibles",
+        "base_form": "disponible",
+        "zipf": 4.5,
+        "word_type": "noun/adj"
+      },
+      {
+        "word": "documental",
+        "base_form": "documentar",
+        "zipf": 4.5,
+        "word_type": "verb"
+      },
+      {
+        "word": "drama",
+        "base_form": null,
+        "zipf": 4.5,
+        "word_type": "base"
+      },
+      {
+        "word": "entera",
+        "base_form": "enterar",
+        "zipf": 4.5,
+        "word_type": "verb"
+      },
+      {
+        "word": "estuviera",
+        "base_form": null,
+        "zipf": 4.5,
+        "word_type": "base"
+      },
+      {
+        "word": "feria",
+        "base_form": null,
+        "zipf": 4.5,
+        "word_type": "base"
+      },
+      {
+        "word": "juntas",
+        "base_form": "juntar",
+        "zipf": 4.5,
+        "word_type": "verb"
+      },
+      {
+        "word": "magia",
+        "base_form": null,
+        "zipf": 4.5,
+        "word_type": "base"
+      },
+      {
+        "word": "mantenimiento",
+        "base_form": null,
+        "zipf": 4.5,
+        "word_type": "base"
+      },
+      {
+        "word": "moderno",
+        "base_form": "moderar",
+        "zipf": 4.5,
+        "word_type": "verb"
+      },
+      {
+        "word": "muro",
+        "base_form": null,
+        "zipf": 4.5,
+        "word_type": "base"
+      },
+      {
+        "word": "necesarios",
+        "base_form": "necesario",
+        "zipf": 4.5,
+        "word_type": "noun/adj"
+      },
+      {
+        "word": "nicolás",
+        "base_form": null,
+        "zipf": 4.5,
+        "word_type": "base"
+      },
+      {
+        "word": "pareció",
+        "base_form": "parecer",
+        "zipf": 4.5,
+        "word_type": "verb"
+      },
+      {
+        "word": "podrías",
+        "base_form": "podría",
+        "zipf": 4.5,
+        "word_type": "noun/adj"
+      },
+      {
+        "word": "posiblemente",
+        "base_form": "posible",
+        "zipf": 4.5,
+        "word_type": "adverb_from_adj"
+      },
+      {
+        "word": "puto",
+        "base_form": null,
+        "zipf": 4.5,
+        "word_type": "base"
+      },
+      {
+        "word": "queso",
+        "base_form": "queer",
+        "zipf": 4.5,
+        "word_type": "verb"
+      },
+      {
+        "word": "recorrido",
+        "base_form": null,
+        "zipf": 4.5,
+        "word_type": "base"
+      },
+      {
+        "word": "relativamente",
+        "base_form": "relativa",
+        "zipf": 4.5,
+        "word_type": "adverb_from_adj"
+      },
+      {
+        "word": "restaurante",
+        "base_form": null,
+        "zipf": 4.5,
+        "word_type": "base"
+      },
+      {
+        "word": "sabor",
+        "base_form": "saber",
+        "zipf": 4.5,
+        "word_type": "verb"
+      },
+      {
+        "word": "sentía",
+        "base_form": "sentar",
+        "zipf": 4.5,
+        "word_type": "verb"
+      },
+      {
+        "word": "supremo",
+        "base_form": null,
+        "zipf": 4.5,
+        "word_type": "base"
+      },
+      {
+        "word": "temporal",
+        "base_form": null,
+        "zipf": 4.5,
+        "word_type": "base"
+      },
+      {
+        "word": "tiendas",
+        "base_form": "tienda",
+        "zipf": 4.5,
+        "word_type": "noun/adj"
+      },
+      {
+        "word": "trabajador",
+        "base_form": null,
+        "zipf": 4.5,
+        "word_type": "base"
+      },
+      {
+        "word": "vehículo",
+        "base_form": null,
+        "zipf": 4.5,
+        "word_type": "base"
+      },
+      {
+        "word": "vengo",
+        "base_form": "vengar",
+        "zipf": 4.5,
+        "word_type": "verb"
+      },
+      {
+        "word": "virus",
+        "base_form": null,
+        "zipf": 4.5,
+        "word_type": "base"
+      },
+      {
+        "word": "vías",
+        "base_form": "vía",
+        "zipf": 4.5,
+        "word_type": "noun/adj"
+      },
+      {
+        "word": "deber",
+        "base_form": null,
+        "zipf": 4.4,
+        "word_type": "verb"
+      },
+      {
+        "word": "individuo",
+        "base_form": null,
+        "zipf": 4.4,
+        "word_type": "base"
+      },
+      {
+        "word": "manejar",
+        "base_form": null,
+        "zipf": 4.4,
+        "word_type": "verb"
+      },
+      {
+        "word": "cifra",
+        "base_form": null,
+        "zipf": 4.4,
+        "word_type": "base"
+      },
+      {
+        "word": "habilidad",
+        "base_form": null,
+        "zipf": 4.4,
+        "word_type": "base"
+      },
+      {
+        "word": "imaginar",
+        "base_form": null,
+        "zipf": 4.4,
+        "word_type": "verb"
+      },
+      {
+        "word": "testigo",
+        "base_form": null,
+        "zipf": 4.4,
+        "word_type": "base"
+      },
+      {
+        "word": "vuestro",
+        "base_form": null,
+        "zipf": 4.4,
+        "word_type": "base"
+      },
+      {
+        "word": "democrático",
+        "base_form": null,
+        "zipf": 4.4,
+        "word_type": "base"
+      },
+      {
+        "word": "iniciar",
+        "base_form": null,
+        "zipf": 4.4,
+        "word_type": "verb"
+      },
+      {
+        "word": "religioso",
+        "base_form": null,
+        "zipf": 4.4,
+        "word_type": "base"
+      },
+      {
+        "word": "andalucía",
+        "base_form": null,
+        "zipf": 4.4,
+        "word_type": "base"
+      },
+      {
+        "word": "avance",
+        "base_form": null,
+        "zipf": 4.4,
+        "word_type": "base"
+      },
+      {
+        "word": "bailar",
+        "base_form": null,
+        "zipf": 4.4,
+        "word_type": "verb"
+      },
+      {
+        "word": "beso",
+        "base_form": "besar",
+        "zipf": 4.4,
+        "word_type": "verb"
+      },
+      {
+        "word": "campañas",
+        "base_form": "campaña",
+        "zipf": 4.4,
+        "word_type": "noun/adj"
+      },
+      {
+        "word": "chávez",
+        "base_form": null,
+        "zipf": 4.4,
+        "word_type": "base"
+      },
+      {
+        "word": "comenzaron",
+        "base_form": null,
+        "zipf": 4.4,
+        "word_type": "base"
+      },
+      {
+        "word": "complicado",
+        "base_form": null,
+        "zipf": 4.4,
+        "word_type": "base"
+      },
+      {
+        "word": "conclusión",
+        "base_form": null,
+        "zipf": 4.4,
+        "word_type": "base"
+      },
+      {
+        "word": "considerando",
+        "base_form": null,
+        "zipf": 4.4,
+        "word_type": "base"
+      },
+      {
+        "word": "continente",
+        "base_form": null,
+        "zipf": 4.4,
+        "word_type": "base"
+      },
+      {
+        "word": "costumbre",
+        "base_form": null,
+        "zipf": 4.4,
+        "word_type": "base"
+      },
+      {
+        "word": "destacar",
+        "base_form": null,
+        "zipf": 4.4,
+        "word_type": "verb"
+      },
+      {
+        "word": "diarios",
+        "base_form": "diario",
+        "zipf": 4.4,
+        "word_type": "noun/adj"
+      },
+      {
+        "word": "digan",
+        "base_form": null,
+        "zipf": 4.4,
+        "word_type": "base"
+      },
+      {
+        "word": "dime",
+        "base_form": null,
+        "zipf": 4.4,
+        "word_type": "base"
+      },
+      {
+        "word": "empleado",
+        "base_form": null,
+        "zipf": 4.4,
+        "word_type": "base"
+      },
+      {
+        "word": "entidades",
+        "base_form": "entidad",
+        "zipf": 4.4,
+        "word_type": "noun/adj"
+      },
+      {
+        "word": "escolar",
+        "base_form": null,
+        "zipf": 4.4,
+        "word_type": "verb"
+      },
+      {
+        "word": "factor",
+        "base_form": null,
+        "zipf": 4.4,
+        "word_type": "base"
+      },
+      {
+        "word": "fechas",
+        "base_form": "fecha",
+        "zipf": 4.4,
+        "word_type": "noun/adj"
+      },
+      {
+        "word": "hacienda",
+        "base_form": "haciendo",
+        "zipf": 4.4,
+        "word_type": "noun/adj"
+      },
+      {
+        "word": "impresionante",
+        "base_form": null,
+        "zipf": 4.4,
+        "word_type": "base"
+      },
+      {
+        "word": "infierno",
+        "base_form": null,
+        "zipf": 4.4,
+        "word_type": "base"
+      },
+      {
+        "word": "interno",
+        "base_form": null,
+        "zipf": 4.4,
+        "word_type": "base"
+      },
+      {
+        "word": "inversiones",
+        "base_form": "inversion",
+        "zipf": 4.4,
+        "word_type": "noun/adj"
+      },
+      {
+        "word": "irán",
+        "base_form": null,
+        "zipf": 4.4,
+        "word_type": "base"
+      },
+      {
+        "word": "liberación",
+        "base_form": null,
+        "zipf": 4.4,
+        "word_type": "base"
+      },
+      {
+        "word": "localidad",
+        "base_form": null,
+        "zipf": 4.4,
+        "word_type": "base"
+      },
+      {
+        "word": "ma",
+        "base_form": "mar",
+        "zipf": 4.4,
+        "word_type": "verb"
+      },
+      {
+        "word": "mandar",
+        "base_form": null,
+        "zipf": 4.4,
+        "word_type": "verb"
+      },
+      {
+        "word": "mandato",
+        "base_form": null,
+        "zipf": 4.4,
+        "word_type": "base"
+      },
+      {
+        "word": "maria",
+        "base_form": "mario",
+        "zipf": 4.4,
+        "word_type": "noun/adj"
+      },
+      {
+        "word": "meter",
+        "base_form": null,
+        "zipf": 4.4,
+        "word_type": "verb"
+      },
+      {
+        "word": "numerosas",
+        "base_form": "numerosa",
+        "zipf": 4.4,
+        "word_type": "noun/adj"
+      },
+      {
+        "word": "paraguay",
+        "base_form": null,
+        "zipf": 4.4,
+        "word_type": "base"
+      },
+      {
+        "word": "pasajeros",
+        "base_form": "pasajero",
+        "zipf": 4.4,
+        "word_type": "noun/adj"
+      },
+      {
+        "word": "peores",
+        "base_form": "peor",
+        "zipf": 4.4,
+        "word_type": "noun/adj"
+      },
+      {
+        "word": "polvo",
+        "base_form": "polar",
+        "zipf": 4.4,
+        "word_type": "verb"
+      },
+      {
+        "word": "portugal",
+        "base_form": null,
+        "zipf": 4.4,
+        "word_type": "base"
+      },
+      {
+        "word": "posiciones",
+        "base_form": "posicionar",
+        "zipf": 4.4,
+        "word_type": "verb"
+      },
+      {
+        "word": "producido",
+        "base_form": null,
+        "zipf": 4.4,
+        "word_type": "base"
+      },
+      {
+        "word": "publicar",
+        "base_form": null,
+        "zipf": 4.4,
+        "word_type": "verb"
+      },
+      {
+        "word": "realizada",
+        "base_form": "realizado",
+        "zipf": 4.4,
+        "word_type": "noun/adj"
+      },
+      {
+        "word": "reducción",
+        "base_form": null,
+        "zipf": 4.4,
+        "word_type": "base"
+      },
+      {
+        "word": "rivera",
+        "base_form": "rivero",
+        "zipf": 4.4,
+        "word_type": "noun/adj"
+      },
+      {
+        "word": "senador",
+        "base_form": null,
+        "zipf": 4.4,
+        "word_type": "base"
+      },
+      {
+        "word": "socio",
+        "base_form": null,
+        "zipf": 4.4,
+        "word_type": "base"
+      },
+      {
+        "word": "solidaridad",
+        "base_form": null,
+        "zipf": 4.4,
+        "word_type": "base"
+      }
+    ],
+    "Advanced": [
+      {
+        "word": "activamente",
+        "base_form": "activa",
+        "zipf": 4.0,
+        "word_type": "adverb_from_adj"
+      },
+      {
+        "word": "acuerda",
+        "base_form": "acuerdo",
+        "zipf": 4.0,
+        "word_type": "noun/adj"
+      },
+      {
+        "word": "agradecido",
+        "base_form": null,
+        "zipf": 4.0,
+        "word_type": "base"
+      },
+      {
+        "word": "agradecimiento",
+        "base_form": null,
+        "zipf": 4.0,
+        "word_type": "base"
+      },
+      {
+        "word": "aguante",
+        "base_form": "aguantar",
+        "zipf": 4.0,
+        "word_type": "verb"
+      },
+      {
+        "word": "aman",
+        "base_form": "amar",
+        "zipf": 4.0,
+        "word_type": "verb"
+      },
+      {
+        "word": "artillería",
+        "base_form": null,
+        "zipf": 4.0,
+        "word_type": "base"
+      },
+      {
+        "word": "asunción",
+        "base_form": null,
+        "zipf": 4.0,
+        "word_type": "base"
+      },
+      {
+        "word": "autorizado",
+        "base_form": null,
+        "zipf": 4.0,
+        "word_type": "base"
+      },
+      {
+        "word": "barras",
+        "base_form": "barrer",
+        "zipf": 4.0,
+        "word_type": "verb"
+      },
+      {
+        "word": "bloques",
+        "base_form": "bloquear",
+        "zipf": 4.0,
+        "word_type": "verb"
+      },
+      {
+        "word": "brasileña",
+        "base_form": "brasileño",
+        "zipf": 4.0,
+        "word_type": "noun/adj"
+      },
+      {
+        "word": "británicos",
+        "base_form": "británico",
+        "zipf": 4.0,
+        "word_type": "noun/adj"
+      },
+      {
+        "word": "bruno",
+        "base_form": null,
+        "zipf": 4.0,
+        "word_type": "base"
+      },
+      {
+        "word": "camina",
+        "base_form": "caminar",
+        "zipf": 4.0,
+        "word_type": "verb"
+      },
+      {
+        "word": "canadiense",
+        "base_form": null,
+        "zipf": 4.0,
+        "word_type": "base"
+      },
+      {
+        "word": "cargado",
+        "base_form": null,
+        "zipf": 4.0,
+        "word_type": "base"
+      },
+      {
+        "word": "catalina",
+        "base_form": null,
+        "zipf": 4.0,
+        "word_type": "base"
+      },
+      {
+        "word": "catalunya",
+        "base_form": null,
+        "zipf": 4.0,
+        "word_type": "base"
+      },
+      {
+        "word": "centenario",
+        "base_form": null,
+        "zipf": 4.0,
+        "word_type": "base"
+      },
+      {
+        "word": "christian",
+        "base_form": null,
+        "zipf": 4.0,
+        "word_type": "base"
+      },
+      {
+        "word": "científicas",
+        "base_form": "científica",
+        "zipf": 4.0,
+        "word_type": "noun/adj"
+      },
+      {
+        "word": "cobarde",
+        "base_form": null,
+        "zipf": 4.0,
+        "word_type": "base"
+      },
+      {
+        "word": "cobro",
+        "base_form": "cobrar",
+        "zipf": 4.0,
+        "word_type": "verb"
+      },
+      {
+        "word": "conformidad",
+        "base_form": null,
+        "zipf": 4.0,
+        "word_type": "base"
+      },
+      {
+        "word": "consideraba",
+        "base_form": null,
+        "zipf": 4.0,
+        "word_type": "base"
+      },
+      {
+        "word": "consiguen",
+        "base_form": null,
+        "zipf": 4.0,
+        "word_type": "base"
+      },
+      {
+        "word": "conversión",
+        "base_form": null,
+        "zipf": 4.0,
+        "word_type": "base"
+      },
+      {
+        "word": "corren",
+        "base_form": "correr",
+        "zipf": 4.0,
+        "word_type": "verb"
+      },
+      {
+        "word": "criatura",
+        "base_form": null,
+        "zipf": 4.0,
+        "word_type": "base"
+      },
+      {
+        "word": "cristianismo",
+        "base_form": null,
+        "zipf": 4.0,
+        "word_type": "base"
+      },
+      {
+        "word": "cuadra",
+        "base_form": "cuadro",
+        "zipf": 4.0,
+        "word_type": "noun/adj"
+      },
+      {
+        "word": "cuanta",
+        "base_form": "cuanto",
+        "zipf": 4.0,
+        "word_type": "noun/adj"
+      },
+      {
+        "word": "cuerdas",
+        "base_form": "cuerda",
+        "zipf": 4.0,
+        "word_type": "noun/adj"
+      },
+      {
+        "word": "cuidados",
+        "base_form": "cuidado",
+        "zipf": 4.0,
+        "word_type": "noun/adj"
+      },
+      {
+        "word": "decidimos",
+        "base_form": null,
+        "zipf": 4.0,
+        "word_type": "base"
+      },
+      {
+        "word": "decís",
+        "base_form": "decir",
+        "zipf": 4.0,
+        "word_type": "verb"
+      },
+      {
+        "word": "dedicados",
+        "base_form": "dedicado",
+        "zipf": 4.0,
+        "word_type": "noun/adj"
+      },
+      {
+        "word": "delegado",
+        "base_form": null,
+        "zipf": 4.0,
+        "word_type": "base"
+      },
+      {
+        "word": "delincuente",
+        "base_form": null,
+        "zipf": 4.0,
+        "word_type": "base"
+      },
+      {
+        "word": "demasiadas",
+        "base_form": "demasiada",
+        "zipf": 4.0,
+        "word_type": "noun/adj"
+      },
+      {
+        "word": "designado",
+        "base_form": null,
+        "zipf": 4.0,
+        "word_type": "base"
+      },
+      {
+        "word": "despido",
+        "base_form": null,
+        "zipf": 4.0,
+        "word_type": "base"
+      },
+      {
+        "word": "destinada",
+        "base_form": "destinado",
+        "zipf": 4.0,
+        "word_type": "noun/adj"
+      },
+      {
+        "word": "dj",
+        "base_form": "dar",
+        "zipf": 4.0,
+        "word_type": "verb"
+      },
+      {
+        "word": "donaciones",
+        "base_form": null,
+        "zipf": 4.0,
+        "word_type": "base"
+      },
+      {
+        "word": "dragón",
+        "base_form": null,
+        "zipf": 4.0,
+        "word_type": "base"
+      },
+      {
+        "word": "editado",
+        "base_form": null,
+        "zipf": 4.0,
+        "word_type": "base"
+      },
+      {
+        "word": "eliminado",
+        "base_form": null,
+        "zipf": 4.0,
+        "word_type": "base"
+      },
+      {
+        "word": "emma",
+        "base_form": "emir",
+        "zipf": 4.0,
+        "word_type": "verb"
+      },
+      {
+        "word": "equivocada",
+        "base_form": "equivocado",
+        "zipf": 4.0,
+        "word_type": "noun/adj"
+      },
+      {
+        "word": "exclusión",
+        "base_form": null,
+        "zipf": 4.0,
+        "word_type": "base"
+      },
+      {
+        "word": "fenómenos",
+        "base_form": "fenómeno",
+        "zipf": 4.0,
+        "word_type": "noun/adj"
+      },
+      {
+        "word": "franja",
+        "base_form": null,
+        "zipf": 4.0,
+        "word_type": "base"
+      },
+      {
+        "word": "frio",
+        "base_form": null,
+        "zipf": 4.0,
+        "word_type": "base"
+      },
+      {
+        "word": "físicamente",
+        "base_form": "física",
+        "zipf": 4.0,
+        "word_type": "adverb_from_adj"
+      },
+      {
+        "word": "hablen",
+        "base_form": "hablar",
+        "zipf": 4.0,
+        "word_type": "verb"
+      },
+      {
+        "word": "higiene",
+        "base_form": null,
+        "zipf": 4.0,
+        "word_type": "base"
+      },
+      {
+        "word": "identifica",
+        "base_form": "identificar",
+        "zipf": 4.0,
+        "word_type": "verb"
+      },
+      {
+        "word": "ilustración",
+        "base_form": null,
+        "zipf": 4.0,
+        "word_type": "base"
+      },
+      {
+        "word": "importación",
+        "base_form": null,
+        "zipf": 4.0,
+        "word_type": "base"
+      },
+      {
+        "word": "interiores",
+        "base_form": "interior",
+        "zipf": 4.0,
+        "word_type": "noun/adj"
+      },
+      {
+        "word": "jason",
+        "base_form": null,
+        "zipf": 4.0,
+        "word_type": "base"
+      },
+      {
+        "word": "jesus",
+        "base_form": null,
+        "zipf": 4.0,
+        "word_type": "base"
+      },
+      {
+        "word": "jugaba",
+        "base_form": null,
+        "zipf": 4.0,
+        "word_type": "base"
+      },
+      {
+        "word": "lejano",
+        "base_form": null,
+        "zipf": 4.0,
+        "word_type": "base"
+      },
+      {
+        "word": "levantamiento",
+        "base_form": null,
+        "zipf": 4.0,
+        "word_type": "base"
+      },
+      {
+        "word": "maestría",
+        "base_form": null,
+        "zipf": 4.0,
+        "word_type": "base"
+      },
+      {
+        "word": "mayormente",
+        "base_form": "mayor",
+        "zipf": 4.0,
+        "word_type": "adverb_from_adj"
+      },
+      {
+        "word": "medicinas",
+        "base_form": "medicina",
+        "zipf": 4.0,
+        "word_type": "noun/adj"
+      },
+      {
+        "word": "máscara",
+        "base_form": null,
+        "zipf": 4.0,
+        "word_type": "base"
+      },
+      {
+        "word": "nacionalistas",
+        "base_form": "nacionalista",
+        "zipf": 4.0,
+        "word_type": "noun/adj"
+      },
+      {
+        "word": "obispos",
+        "base_form": "obispo",
+        "zipf": 4.0,
+        "word_type": "noun/adj"
+      },
+      {
+        "word": "ordena",
+        "base_form": "ordenar",
+        "zipf": 4.0,
+        "word_type": "verb"
+      },
+      {
+        "word": "oreja",
+        "base_form": null,
+        "zipf": 4.0,
+        "word_type": "base"
+      },
+      {
+        "word": "pagó",
+        "base_form": "pagar",
+        "zipf": 4.0,
+        "word_type": "verb"
+      },
+      {
+        "word": "parlamentario",
+        "base_form": null,
+        "zipf": 4.0,
+        "word_type": "base"
+      },
+      {
+        "word": "perseguir",
+        "base_form": null,
+        "zipf": 4.0,
+        "word_type": "verb"
+      },
+      {
+        "word": "perteneciente",
+        "base_form": null,
+        "zipf": 4.0,
+        "word_type": "base"
+      },
+      {
+        "word": "pibes",
+        "base_form": "pibe",
+        "zipf": 4.0,
+        "word_type": "noun/adj"
+      },
+      {
+        "word": "pida",
+        "base_form": "pido",
+        "zipf": 4.0,
+        "word_type": "noun/adj"
+      },
+      {
+        "word": "ponerlo",
+        "base_form": null,
+        "zipf": 4.0,
+        "word_type": "base"
+      },
+      {
+        "word": "postre",
+        "base_form": "poster",
+        "zipf": 4.0,
+        "word_type": "verb"
+      },
+      {
+        "word": "potable",
+        "base_form": null,
+        "zipf": 4.0,
+        "word_type": "base"
+      },
+      {
+        "word": "prestaciones",
+        "base_form": null,
+        "zipf": 4.0,
+        "word_type": "base"
+      },
+      {
+        "word": "profundas",
+        "base_form": "profunda",
+        "zipf": 4.0,
+        "word_type": "noun/adj"
+      },
+      {
+        "word": "promueve",
+        "base_form": null,
+        "zipf": 4.0,
+        "word_type": "base"
+      },
+      {
+        "word": "ps",
+        "base_form": "par",
+        "zipf": 4.0,
+        "word_type": "verb"
+      },
+      {
+        "word": "quedaría",
+        "base_form": null,
+        "zipf": 4.0,
+        "word_type": "base"
+      },
+      {
+        "word": "racional",
+        "base_form": null,
+        "zipf": 4.0,
+        "word_type": "base"
+      },
+      {
+        "word": "realizarse",
+        "base_form": null,
+        "zipf": 4.0,
+        "word_type": "base"
+      },
+      {
+        "word": "rechazar",
+        "base_form": null,
+        "zipf": 4.0,
+        "word_type": "verb"
+      },
+      {
+        "word": "representado",
+        "base_form": null,
+        "zipf": 4.0,
+        "word_type": "base"
+      },
+      {
+        "word": "rescatar",
+        "base_form": null,
+        "zipf": 4.0,
+        "word_type": "verb"
+      },
+      {
+        "word": "revelación",
+        "base_form": null,
+        "zipf": 4.0,
+        "word_type": "base"
+      },
+      {
+        "word": "revisa",
+        "base_form": "revisar",
+        "zipf": 4.0,
+        "word_type": "verb"
+      },
+      {
+        "word": "romana",
+        "base_form": "romano",
+        "zipf": 4.0,
+        "word_type": "noun/adj"
+      },
+      {
+        "word": "rose",
+        "base_form": null,
+        "zipf": 4.0,
+        "word_type": "base"
+      },
+      {
+        "word": "secundarios",
+        "base_form": "secundario",
+        "zipf": 4.0,
+        "word_type": "noun/adj"
+      },
+      {
+        "word": "segmento",
+        "base_form": null,
+        "zipf": 4.0,
+        "word_type": "base"
+      },
+      {
+        "word": "seguiremos",
+        "base_form": null,
+        "zipf": 4.0,
+        "word_type": "base"
+      },
+      {
+        "word": "sencillamente",
+        "base_form": "sencilla",
+        "zipf": 4.0,
+        "word_type": "adverb_from_adj"
+      },
+      {
+        "word": "señalan",
+        "base_form": "señalar",
+        "zipf": 4.0,
+        "word_type": "verb"
+      },
+      {
+        "word": "sillas",
+        "base_form": "silla",
+        "zipf": 4.0,
+        "word_type": "noun/adj"
+      },
+      {
+        "word": "singular",
+        "base_form": null,
+        "zipf": 4.0,
+        "word_type": "verb"
+      },
+      {
+        "word": "suelos",
+        "base_form": "suelo",
+        "zipf": 4.0,
+        "word_type": "noun/adj"
+      },
+      {
+        "word": "tejidos",
+        "base_form": "tejido",
+        "zipf": 4.0,
+        "word_type": "noun/adj"
+      },
+      {
+        "word": "terminé",
+        "base_form": "terminar",
+        "zipf": 4.0,
+        "word_type": "verb"
+      },
+      {
+        "word": "tradicionalmente",
+        "base_form": "tradicional",
+        "zipf": 4.0,
+        "word_type": "adverb_from_adj"
+      },
+      {
+        "word": "traigo",
+        "base_form": null,
+        "zipf": 4.0,
+        "word_type": "base"
+      },
+      {
+        "word": "trasera",
+        "base_form": "trasero",
+        "zipf": 4.0,
+        "word_type": "noun/adj"
+      },
+      {
+        "word": "turco",
+        "base_form": null,
+        "zipf": 4.0,
+        "word_type": "base"
+      },
+      {
+        "word": "unesco",
+        "base_form": null,
+        "zipf": 4.0,
+        "word_type": "base"
+      },
+      {
+        "word": "university",
+        "base_form": null,
+        "zipf": 4.0,
+        "word_type": "base"
+      },
+      {
+        "word": "vaticano",
+        "base_form": null,
+        "zipf": 4.0,
+        "word_type": "base"
+      },
+      {
+        "word": "vendedores",
+        "base_form": "vendedor",
+        "zipf": 4.0,
+        "word_type": "noun/adj"
+      },
+      {
+        "word": "vendió",
+        "base_form": "vender",
+        "zipf": 4.0,
+        "word_type": "verb"
+      },
+      {
+        "word": "veneno",
+        "base_form": null,
+        "zipf": 4.0,
+        "word_type": "base"
+      },
+      {
+        "word": "vivían",
+        "base_form": null,
+        "zipf": 4.0,
+        "word_type": "base"
+      },
+      {
+        "word": "what",
+        "base_form": null,
+        "zipf": 4.0,
+        "word_type": "base"
+      },
+      {
+        "word": "xii",
+        "base_form": null,
+        "zipf": 4.0,
+        "word_type": "base"
+      },
+      {
+        "word": "xiii",
+        "base_form": null,
+        "zipf": 4.0,
+        "word_type": "base"
+      },
+      {
+        "word": "abraham",
+        "base_form": null,
+        "zipf": 4.0,
+        "word_type": "base"
+      },
+      {
+        "word": "aceptable",
+        "base_form": null,
+        "zipf": 4.0,
+        "word_type": "base"
+      },
+      {
+        "word": "admiración",
+        "base_form": null,
+        "zipf": 4.0,
+        "word_type": "base"
+      },
+      {
+        "word": "afectada",
+        "base_form": "afectado",
+        "zipf": 4.0,
+        "word_type": "noun/adj"
+      },
+      {
+        "word": "afueras",
+        "base_form": "afuera",
+        "zipf": 4.0,
+        "word_type": "noun/adj"
+      },
+      {
+        "word": "almacén",
+        "base_form": null,
+        "zipf": 4.0,
+        "word_type": "base"
+      },
+      {
+        "word": "ancha",
+        "base_form": "ancho",
+        "zipf": 4.0,
+        "word_type": "noun/adj"
+      },
+      {
+        "word": "anunciar",
+        "base_form": null,
+        "zipf": 4.0,
+        "word_type": "verb"
+      },
+      {
+        "word": "argentinas",
+        "base_form": "argentina",
+        "zipf": 4.0,
+        "word_type": "noun/adj"
+      },
+      {
+        "word": "arrancar",
+        "base_form": null,
+        "zipf": 4.0,
+        "word_type": "verb"
+      },
+      {
+        "word": "arrestado",
+        "base_form": null,
+        "zipf": 4.0,
+        "word_type": "base"
+      },
+      {
+        "word": "atacó",
+        "base_form": "atacar",
+        "zipf": 4.0,
+        "word_type": "verb"
+      },
+      {
+        "word": "atrae",
+        "base_form": "atraer",
+        "zipf": 4.0,
+        "word_type": "verb"
+      },
+      {
+        "word": "auxiliar",
+        "base_form": null,
+        "zipf": 4.0,
+        "word_type": "verb"
+      },
+      {
+        "word": "cabildo",
+        "base_form": null,
+        "zipf": 4.0,
+        "word_type": "base"
+      },
+      {
+        "word": "cali",
+        "base_form": "caer",
+        "zipf": 4.0,
+        "word_type": "verb"
+      },
+      {
+        "word": "casino",
+        "base_form": null,
+        "zipf": 4.0,
+        "word_type": "base"
+      },
+      {
+        "word": "celebran",
+        "base_form": "celebrar",
+        "zipf": 4.0,
+        "word_type": "verb"
+      },
+      {
+        "word": "checa",
+        "base_form": "checo",
+        "zipf": 4.0,
+        "word_type": "noun/adj"
+      },
+      {
+        "word": "colorado",
+        "base_form": null,
+        "zipf": 4.0,
+        "word_type": "base"
+      },
+      {
+        "word": "comprometido",
+        "base_form": null,
+        "zipf": 4.0,
+        "word_type": "base"
+      },
+      {
+        "word": "condenados",
+        "base_form": "condenado",
+        "zipf": 4.0,
+        "word_type": "noun/adj"
+      },
+      {
+        "word": "conecta",
+        "base_form": "conectar",
+        "zipf": 4.0,
+        "word_type": "verb"
+      },
+      {
+        "word": "confederación",
+        "base_form": null,
+        "zipf": 4.0,
+        "word_type": "base"
+      },
+      {
+        "word": "consuelo",
+        "base_form": null,
+        "zipf": 4.0,
+        "word_type": "base"
+      },
+      {
+        "word": "cordero",
+        "base_form": null,
+        "zipf": 4.0,
+        "word_type": "base"
+      },
+      {
+        "word": "curar",
+        "base_form": null,
+        "zipf": 4.0,
+        "word_type": "verb"
+      },
+      {
+        "word": "dados",
+        "base_form": "dado",
+        "zipf": 4.0,
+        "word_type": "noun/adj"
+      },
+      {
+        "word": "dependiente",
+        "base_form": null,
+        "zipf": 4.0,
+        "word_type": "base"
+      },
+      {
+        "word": "desafortunadamente",
+        "base_form": "desafortunada",
+        "zipf": 4.0,
+        "word_type": "adverb_from_adj"
+      },
+      {
+        "word": "desarrollan",
+        "base_form": "desarrollar",
+        "zipf": 4.0,
+        "word_type": "verb"
+      },
+      {
+        "word": "determina",
+        "base_form": "determinar",
+        "zipf": 4.0,
+        "word_type": "verb"
+      },
+      {
+        "word": "dirigidas",
+        "base_form": "dirigida",
+        "zipf": 4.0,
+        "word_type": "noun/adj"
+      },
+      {
+        "word": "durar",
+        "base_form": null,
+        "zipf": 4.0,
+        "word_type": "verb"
+      },
+      {
+        "word": "emitido",
+        "base_form": null,
+        "zipf": 4.0,
+        "word_type": "base"
+      },
+      {
+        "word": "encarga",
+        "base_form": "encargar",
+        "zipf": 4.0,
+        "word_type": "verb"
+      },
+      {
+        "word": "encargada",
+        "base_form": "encargado",
+        "zipf": 4.0,
+        "word_type": "noun/adj"
+      },
+      {
+        "word": "enterado",
+        "base_form": null,
+        "zipf": 4.0,
+        "word_type": "base"
+      },
+      {
+        "word": "enviados",
+        "base_form": "enviado",
+        "zipf": 4.0,
+        "word_type": "noun/adj"
+      },
+      {
+        "word": "esclavo",
+        "base_form": null,
+        "zipf": 4.0,
+        "word_type": "base"
+      },
+      {
+        "word": "escritas",
+        "base_form": "escrita",
+        "zipf": 4.0,
+        "word_type": "noun/adj"
+      },
+      {
+        "word": "escuchan",
+        "base_form": "escuchar",
+        "zipf": 4.0,
+        "word_type": "verb"
+      },
+      {
+        "word": "excusas",
+        "base_form": "excusa",
+        "zipf": 4.0,
+        "word_type": "noun/adj"
+      },
+      {
+        "word": "exposiciones",
+        "base_form": null,
+        "zipf": 4.0,
+        "word_type": "base"
+      },
+      {
+        "word": "express",
+        "base_form": "expresar",
+        "zipf": 4.0,
+        "word_type": "verb"
+      },
+      {
+        "word": "fachada",
+        "base_form": null,
+        "zipf": 4.0,
+        "word_type": "base"
+      },
+      {
+        "word": "farmacia",
+        "base_form": null,
+        "zipf": 4.0,
+        "word_type": "base"
+      },
+      {
+        "word": "fianza",
+        "base_form": null,
+        "zipf": 4.0,
+        "word_type": "base"
+      },
+      {
+        "word": "fm",
+        "base_form": "far",
+        "zipf": 4.0,
+        "word_type": "verb"
+      },
+      {
+        "word": "frenar",
+        "base_form": null,
+        "zipf": 4.0,
+        "word_type": "verb"
+      },
+      {
+        "word": "gays",
+        "base_form": "gay",
+        "zipf": 4.0,
+        "word_type": "noun/adj"
+      },
+      {
+        "word": "generó",
+        "base_form": "generar",
+        "zipf": 4.0,
+        "word_type": "verb"
+      },
+      {
+        "word": "griega",
+        "base_form": "griego",
+        "zipf": 4.0,
+        "word_type": "noun/adj"
+      },
+      {
+        "word": "grita",
+        "base_form": "gritar",
+        "zipf": 4.0,
+        "word_type": "verb"
+      },
+      {
+        "word": "hd",
+        "base_form": "ar",
+        "zipf": 4.0,
+        "word_type": "verb"
+      },
+      {
+        "word": "importaciones",
+        "base_form": null,
+        "zipf": 4.0,
+        "word_type": "base"
+      },
+      {
+        "word": "influencias",
+        "base_form": "influenciar",
+        "zipf": 4.0,
+        "word_type": "verb"
+      },
+      {
+        "word": "intentaron",
+        "base_form": null,
+        "zipf": 4.0,
+        "word_type": "base"
+      },
+      {
+        "word": "je",
+        "base_form": "jar",
+        "zipf": 4.0,
+        "word_type": "verb"
+      },
+      {
+        "word": "jersey",
+        "base_form": null,
+        "zipf": 4.0,
+        "word_type": "base"
+      },
+      {
+        "word": "jode",
+        "base_form": "joder",
+        "zipf": 4.0,
+        "word_type": "verb"
+      },
+      {
+        "word": "lecturas",
+        "base_form": "lectura",
+        "zipf": 4.0,
+        "word_type": "noun/adj"
+      },
+      {
+        "word": "legítimo",
+        "base_form": null,
+        "zipf": 4.0,
+        "word_type": "base"
+      },
+      {
+        "word": "leopoldo",
+        "base_form": null,
+        "zipf": 4.0,
+        "word_type": "base"
+      },
+      {
+        "word": "levantado",
+        "base_form": null,
+        "zipf": 4.0,
+        "word_type": "base"
+      },
+      {
+        "word": "leve",
+        "base_form": "leer",
+        "zipf": 4.0,
+        "word_type": "verb"
+      },
+      {
+        "word": "magnífico",
+        "base_form": null,
+        "zipf": 4.0,
+        "word_type": "base"
+      },
+      {
+        "word": "maravillas",
+        "base_form": "maravilla",
+        "zipf": 4.0,
+        "word_type": "noun/adj"
+      },
+      {
+        "word": "marchar",
+        "base_form": null,
+        "zipf": 4.0,
+        "word_type": "verb"
+      },
+      {
+        "word": "marino",
+        "base_form": null,
+        "zipf": 4.0,
+        "word_type": "base"
+      },
+      {
+        "word": "michoacán",
+        "base_form": null,
+        "zipf": 4.0,
+        "word_type": "base"
+      },
+      {
+        "word": "miró",
+        "base_form": "mirar",
+        "zipf": 4.0,
+        "word_type": "verb"
+      },
+      {
+        "word": "mo",
+        "base_form": "mar",
+        "zipf": 4.0,
+        "word_type": "verb"
+      },
+      {
+        "word": "molestar",
+        "base_form": null,
+        "zipf": 4.0,
+        "word_type": "verb"
+      },
+      {
+        "word": "monitor",
+        "base_form": null,
+        "zipf": 4.0,
+        "word_type": "base"
+      },
+      {
+        "word": "more",
+        "base_form": "morir",
+        "zipf": 4.0,
+        "word_type": "verb"
+      },
+      {
+        "word": "nací",
+        "base_form": "nacer",
+        "zipf": 4.0,
+        "word_type": "verb"
+      },
+      {
+        "word": "negativas",
+        "base_form": "negativa",
+        "zipf": 4.0,
+        "word_type": "noun/adj"
+      },
+      {
+        "word": "notables",
+        "base_form": "notable",
+        "zipf": 4.0,
+        "word_type": "noun/adj"
+      },
+      {
+        "word": "obtenidos",
+        "base_form": "obtenido",
+        "zipf": 4.0,
+        "word_type": "noun/adj"
+      },
+      {
+        "word": "olvidó",
+        "base_form": "olvidar",
+        "zipf": 4.0,
+        "word_type": "verb"
+      },
+      {
+        "word": "opinion",
+        "base_form": null,
+        "zipf": 4.0,
+        "word_type": "base"
+      },
+      {
+        "word": "oscuras",
+        "base_form": "oscura",
+        "zipf": 4.0,
+        "word_type": "noun/adj"
+      },
+      {
+        "word": "oviedo",
+        "base_form": null,
+        "zipf": 4.0,
+        "word_type": "base"
+      },
+      {
+        "word": "paisajes",
+        "base_form": "paisaje",
+        "zipf": 4.0,
+        "word_type": "noun/adj"
+      },
+      {
+        "word": "pecados",
+        "base_form": "pecado",
+        "zipf": 4.0,
+        "word_type": "noun/adj"
+      },
+      {
+        "word": "pertenecer",
+        "base_form": null,
+        "zipf": 4.0,
+        "word_type": "verb"
+      },
+      {
+        "word": "peruanos",
+        "base_form": "peruano",
+        "zipf": 4.0,
+        "word_type": "noun/adj"
+      },
+      {
+        "word": "pesadilla",
+        "base_form": null,
+        "zipf": 4.0,
+        "word_type": "base"
+      },
+      {
+        "word": "plomo",
+        "base_form": null,
+        "zipf": 4.0,
+        "word_type": "base"
+      },
+      {
+        "word": "podré",
+        "base_form": "poder",
+        "zipf": 4.0,
+        "word_type": "verb"
+      },
+      {
+        "word": "policiales",
+        "base_form": "policial",
+        "zipf": 4.0,
+        "word_type": "noun/adj"
+      },
+      {
+        "word": "prado",
+        "base_form": null,
+        "zipf": 4.0,
+        "word_type": "base"
+      },
+      {
+        "word": "publicadas",
+        "base_form": "publicada",
+        "zipf": 4.0,
+        "word_type": "noun/adj"
+      },
+      {
+        "word": "racing",
+        "base_form": null,
+        "zipf": 4.0,
+        "word_type": "base"
+      },
+      {
+        "word": "recien",
+        "base_form": null,
+        "zipf": 4.0,
+        "word_type": "base"
+      },
+      {
+        "word": "recuerdas",
+        "base_form": "recuerda",
+        "zipf": 4.0,
+        "word_type": "noun/adj"
+      },
+      {
+        "word": "registrar",
+        "base_form": null,
+        "zipf": 4.0,
+        "word_type": "verb"
+      },
+      {
+        "word": "reside",
+        "base_form": "residir",
+        "zipf": 4.0,
+        "word_type": "verb"
+      },
+      {
+        "word": "salvación",
+        "base_form": null,
+        "zipf": 4.0,
+        "word_type": "base"
+      },
+      {
+        "word": "solicitado",
+        "base_form": null,
+        "zipf": 4.0,
+        "word_type": "base"
+      },
+      {
+        "word": "suben",
+        "base_form": "subir",
+        "zipf": 4.0,
+        "word_type": "verb"
+      },
+      {
+        "word": "suceso",
+        "base_form": null,
+        "zipf": 4.0,
+        "word_type": "base"
+      },
+      {
+        "word": "síntesis",
+        "base_form": null,
+        "zipf": 4.0,
+        "word_type": "base"
+      },
+      {
+        "word": "sólido",
+        "base_form": null,
+        "zipf": 4.0,
+        "word_type": "base"
+      },
+      {
+        "word": "tirando",
+        "base_form": null,
+        "zipf": 4.0,
+        "word_type": "base"
+      },
+      {
+        "word": "transformar",
+        "base_form": null,
+        "zipf": 4.0,
+        "word_type": "verb"
+      },
+      {
+        "word": "tribus",
+        "base_form": "tribu",
+        "zipf": 4.0,
+        "word_type": "noun/adj"
+      },
+      {
+        "word": "usarlo",
+        "base_form": null,
+        "zipf": 4.0,
+        "word_type": "base"
+      },
+      {
+        "word": "vano",
+        "base_form": null,
+        "zipf": 4.0,
+        "word_type": "base"
+      },
+      {
+        "word": "variaciones",
+        "base_form": null,
+        "zipf": 4.0,
+        "word_type": "base"
+      },
+      {
+        "word": "aceptan",
+        "base_form": "aceptar",
+        "zipf": 4.0,
+        "word_type": "verb"
+      },
+      {
+        "word": "actúan",
+        "base_form": null,
+        "zipf": 4.0,
+        "word_type": "base"
+      },
+      {
+        "word": "agarrar",
+        "base_form": null,
+        "zipf": 4.0,
+        "word_type": "verb"
+      },
+      {
+        "word": "ahorros",
+        "base_form": "ahorrar",
+        "zipf": 4.0,
+        "word_type": "verb"
+      },
+      {
+        "word": "alimentar",
+        "base_form": null,
+        "zipf": 4.0,
+        "word_type": "verb"
+      },
+      {
+        "word": "ar",
+        "base_form": "er",
+        "zipf": 4.0,
+        "word_type": "verb"
+      },
+      {
+        "word": "arabia",
+        "base_form": null,
+        "zipf": 4.0,
+        "word_type": "base"
+      },
+      {
+        "word": "asiático",
+        "base_form": null,
+        "zipf": 4.0,
+        "word_type": "base"
+      },
+      {
+        "word": "auge",
+        "base_form": null,
+        "zipf": 4.0,
+        "word_type": "base"
+      },
+      {
+        "word": "baje",
+        "base_form": "bajar",
+        "zipf": 4.0,
+        "word_type": "verb"
+      },
+      {
+        "word": "biografía",
+        "base_form": null,
+        "zipf": 4.0,
+        "word_type": "base"
+      },
+      {
+        "word": "bruselas",
+        "base_form": null,
+        "zipf": 4.0,
+        "word_type": "base"
+      },
+      {
+        "word": "catorce",
+        "base_form": null,
+        "zipf": 4.0,
+        "word_type": "base"
+      },
+      {
+        "word": "cebolla",
+        "base_form": null,
+        "zipf": 4.0,
+        "word_type": "base"
+      },
+      {
+        "word": "certificados",
+        "base_form": "certificado",
+        "zipf": 4.0,
+        "word_type": "noun/adj"
+      },
+      {
+        "word": "citar",
+        "base_form": null,
+        "zipf": 4.0,
+        "word_type": "verb"
+      },
+      {
+        "word": "col",
+        "base_form": "colar",
+        "zipf": 4.0,
+        "word_type": "verb"
+      },
+      {
+        "word": "comido",
+        "base_form": null,
+        "zipf": 4.0,
+        "word_type": "base"
+      },
+      {
+        "word": "comunicar",
+        "base_form": null,
+        "zipf": 4.0,
+        "word_type": "verb"
+      },
+      {
+        "word": "constitucionales",
+        "base_form": "constitucional",
+        "zipf": 4.0,
+        "word_type": "noun/adj"
+      },
+      {
+        "word": "construida",
+        "base_form": "construido",
+        "zipf": 4.0,
+        "word_type": "noun/adj"
+      },
+      {
+        "word": "contabilidad",
+        "base_form": null,
+        "zipf": 4.0,
+        "word_type": "base"
+      },
+      {
+        "word": "contador",
+        "base_form": null,
+        "zipf": 4.0,
+        "word_type": "base"
+      },
+      {
+        "word": "contratado",
+        "base_form": null,
+        "zipf": 4.0,
+        "word_type": "base"
+      },
+      {
+        "word": "convirtieron",
+        "base_form": null,
+        "zipf": 4.0,
+        "word_type": "base"
+      },
+      {
+        "word": "cálculos",
+        "base_form": "cálculo",
+        "zipf": 4.0,
+        "word_type": "noun/adj"
+      },
+      {
+        "word": "cátedra",
+        "base_form": null,
+        "zipf": 4.0,
+        "word_type": "base"
+      },
+      {
+        "word": "cómoda",
+        "base_form": "cómodo",
+        "zipf": 4.0,
+        "word_type": "noun/adj"
+      },
+      {
+        "word": "davis",
+        "base_form": null,
+        "zipf": 4.0,
+        "word_type": "base"
+      },
+      {
+        "word": "debut",
+        "base_form": "debutar",
+        "zipf": 4.0,
+        "word_type": "verb"
+      },
+      {
+        "word": "decepción",
+        "base_form": null,
+        "zipf": 4.0,
+        "word_type": "base"
+      },
+      {
+        "word": "denunció",
+        "base_form": "denunciar",
+        "zipf": 4.0,
+        "word_type": "verb"
+      },
+      {
+        "word": "deportivas",
+        "base_form": "deportiva",
+        "zipf": 4.0,
+        "word_type": "noun/adj"
+      },
+      {
+        "word": "desagradable",
+        "base_form": null,
+        "zipf": 4.0,
+        "word_type": "base"
+      },
+      {
+        "word": "desconocidos",
+        "base_form": "desconocido",
+        "zipf": 4.0,
+        "word_type": "noun/adj"
+      },
+      {
+        "word": "deseando",
+        "base_form": null,
+        "zipf": 4.0,
+        "word_type": "base"
+      },
+      {
+        "word": "desorden",
+        "base_form": null,
+        "zipf": 4.0,
+        "word_type": "base"
+      },
+      {
+        "word": "desprecio",
+        "base_form": "despreciar",
+        "zipf": 4.0,
+        "word_type": "verb"
+      },
+      {
+        "word": "dinamarca",
+        "base_form": null,
+        "zipf": 4.0,
+        "word_type": "base"
+      },
+      {
+        "word": "disponibilidad",
+        "base_form": null,
+        "zipf": 4.0,
+        "word_type": "base"
+      },
+      {
+        "word": "dominios",
+        "base_form": "dominio",
+        "zipf": 4.0,
+        "word_type": "noun/adj"
+      },
+      {
+        "word": "elaborar",
+        "base_form": null,
+        "zipf": 4.0,
+        "word_type": "verb"
+      },
+      {
+        "word": "emocionante",
+        "base_form": null,
+        "zipf": 4.0,
+        "word_type": "base"
+      },
+      {
+        "word": "encontrará",
+        "base_form": null,
+        "zipf": 4.0,
+        "word_type": "base"
+      },
+      {
+        "word": "estrictamente",
+        "base_form": "estricta",
+        "zipf": 4.0,
+        "word_type": "adverb_from_adj"
+      },
+      {
+        "word": "evangelio",
+        "base_form": null,
+        "zipf": 4.0,
+        "word_type": "base"
+      },
+      {
+        "word": "explicado",
+        "base_form": null,
+        "zipf": 4.0,
+        "word_type": "base"
+      },
+      {
+        "word": "fases",
+        "base_form": "fase",
+        "zipf": 4.0,
+        "word_type": "noun/adj"
+      },
+      {
+        "word": "fueras",
+        "base_form": "fuera",
+        "zipf": 4.0,
+        "word_type": "noun/adj"
+      },
+      {
+        "word": "furia",
+        "base_form": null,
+        "zipf": 4.0,
+        "word_type": "base"
+      },
+      {
+        "word": "gallo",
+        "base_form": null,
+        "zipf": 4.0,
+        "word_type": "base"
+      },
+      {
+        "word": "ganancia",
+        "base_form": null,
+        "zipf": 4.0,
+        "word_type": "base"
+      },
+      {
+        "word": "gastronomía",
+        "base_form": null,
+        "zipf": 4.0,
+        "word_type": "base"
+      },
+      {
+        "word": "gimnasia",
+        "base_form": "gimnasio",
+        "zipf": 4.0,
+        "word_type": "noun/adj"
+      },
+      {
+        "word": "good",
+        "base_form": null,
+        "zipf": 4.0,
+        "word_type": "base"
+      },
+      {
+        "word": "habian",
+        "base_form": null,
+        "zipf": 4.0,
+        "word_type": "base"
+      },
+      {
+        "word": "históricamente",
+        "base_form": "histórica",
+        "zipf": 4.0,
+        "word_type": "adverb_from_adj"
+      },
+      {
+        "word": "honestidad",
+        "base_form": null,
+        "zipf": 4.0,
+        "word_type": "base"
+      },
+      {
+        "word": "humildad",
+        "base_form": null,
+        "zipf": 4.0,
+        "word_type": "base"
+      },
+      {
+        "word": "hígado",
+        "base_form": null,
+        "zipf": 4.0,
+        "word_type": "base"
+      },
+      {
+        "word": "iluminación",
+        "base_form": null,
+        "zipf": 4.0,
+        "word_type": "base"
+      },
+      {
+        "word": "impone",
+        "base_form": "imponer",
+        "zipf": 4.0,
+        "word_type": "verb"
+      },
+      {
+        "word": "imprescindible",
+        "base_form": null,
+        "zipf": 4.0,
+        "word_type": "base"
+      },
+      {
+        "word": "indonesia",
+        "base_form": null,
+        "zipf": 4.0,
+        "word_type": "base"
+      },
+      {
+        "word": "instalado",
+        "base_form": null,
+        "zipf": 4.0,
+        "word_type": "base"
+      },
+      {
+        "word": "invitar",
+        "base_form": null,
+        "zipf": 4.0,
+        "word_type": "verb"
+      },
+      {
+        "word": "involucrados",
+        "base_form": "involucrado",
+        "zipf": 4.0,
+        "word_type": "noun/adj"
+      },
+      {
+        "word": "jerusalén",
+        "base_form": null,
+        "zipf": 4.0,
+        "word_type": "base"
+      },
+      {
+        "word": "juramento",
+        "base_form": null,
+        "zipf": 4.0,
+        "word_type": "base"
+      },
+      {
+        "word": "kirchner",
+        "base_form": null,
+        "zipf": 4.0,
+        "word_type": "verb"
+      },
+      {
+        "word": "liceo",
+        "base_form": null,
+        "zipf": 4.0,
+        "word_type": "base"
+      },
+      {
+        "word": "lopez",
+        "base_form": null,
+        "zipf": 4.0,
+        "word_type": "base"
+      },
+      {
+        "word": "mandado",
+        "base_form": null,
+        "zipf": 4.0,
+        "word_type": "base"
+      },
+      {
+        "word": "manifestantes",
+        "base_form": null,
+        "zipf": 4.0,
+        "word_type": "base"
+      },
+      {
+        "word": "mantenga",
+        "base_form": "mantener",
+        "zipf": 4.0,
+        "word_type": "verb"
+      },
+      {
+        "word": "marcador",
+        "base_form": null,
+        "zipf": 4.0,
+        "word_type": "base"
+      },
+      {
+        "word": "marx",
+        "base_form": null,
+        "zipf": 4.0,
+        "word_type": "base"
+      },
+      {
+        "word": "matt",
+        "base_form": "matar",
+        "zipf": 4.0,
+        "word_type": "verb"
+      },
+      {
+        "word": "mecánico",
+        "base_form": null,
+        "zipf": 4.0,
+        "word_type": "base"
+      },
+      {
+        "word": "memes",
+        "base_form": "meme",
+        "zipf": 4.0,
+        "word_type": "noun/adj"
+      },
+      {
+        "word": "miradas",
+        "base_form": "mirada",
+        "zipf": 4.0,
+        "word_type": "noun/adj"
+      },
+      {
+        "word": "mortales",
+        "base_form": "mortal",
+        "zipf": 4.0,
+        "word_type": "noun/adj"
+      },
+      {
+        "word": "nasa",
+        "base_form": null,
+        "zipf": 4.0,
+        "word_type": "base"
+      },
+      {
+        "word": "noreste",
+        "base_form": null,
+        "zipf": 4.0,
+        "word_type": "base"
+      },
+      {
+        "word": "noventa",
+        "base_form": null,
+        "zipf": 4.0,
+        "word_type": "base"
+      },
+      {
+        "word": "obligada",
+        "base_form": "obligado",
+        "zipf": 4.0,
+        "word_type": "noun/adj"
+      },
+      {
+        "word": "obligatoria",
+        "base_form": "obligatorio",
+        "zipf": 4.0,
+        "word_type": "noun/adj"
+      },
+      {
+        "word": "observando",
+        "base_form": null,
+        "zipf": 4.0,
+        "word_type": "base"
+      },
+      {
+        "word": "oliver",
+        "base_form": null,
+        "zipf": 4.0,
+        "word_type": "verb"
+      },
+      {
+        "word": "pareciera",
+        "base_form": null,
+        "zipf": 4.0,
+        "word_type": "base"
+      },
+      {
+        "word": "pierdas",
+        "base_form": "pierda",
+        "zipf": 4.0,
+        "word_type": "noun/adj"
+      },
+      {
+        "word": "poblado",
+        "base_form": null,
+        "zipf": 4.0,
+        "word_type": "base"
+      },
+      {
+        "word": "porción",
+        "base_form": null,
+        "zipf": 4.0,
+        "word_type": "base"
+      },
+      {
+        "word": "preferido",
+        "base_form": null,
+        "zipf": 4.0,
+        "word_type": "base"
+      },
+      {
+        "word": "preguntarle",
+        "base_form": null,
+        "zipf": 4.0,
+        "word_type": "base"
+      },
+      {
+        "word": "progresista",
+        "base_form": null,
+        "zipf": 4.0,
+        "word_type": "base"
+      },
+      {
+        "word": "prostitución",
+        "base_form": null,
+        "zipf": 4.0,
+        "word_type": "base"
+      },
+      {
+        "word": "protector",
+        "base_form": null,
+        "zipf": 4.0,
+        "word_type": "base"
+      },
+      {
+        "word": "proveer",
+        "base_form": null,
+        "zipf": 4.0,
+        "word_type": "verb"
+      },
+      {
+        "word": "provinciales",
+        "base_form": "provincial",
+        "zipf": 4.0,
+        "word_type": "noun/adj"
+      },
+      {
+        "word": "reemplazar",
+        "base_form": null,
+        "zipf": 4.0,
+        "word_type": "verb"
+      },
+      {
+        "word": "registrados",
+        "base_form": "registrado",
+        "zipf": 4.0,
+        "word_type": "noun/adj"
+      },
+      {
+        "word": "relieve",
+        "base_form": null,
+        "zipf": 4.0,
+        "word_type": "base"
+      },
+      {
+        "word": "roba",
+        "base_form": "robar",
+        "zipf": 4.0,
+        "word_type": "verb"
+      },
+      {
+        "word": "rodean",
+        "base_form": "rodear",
+        "zipf": 4.0,
+        "word_type": "verb"
+      },
+      {
+        "word": "serias",
+        "base_form": "seria",
+        "zipf": 4.0,
+        "word_type": "noun/adj"
+      },
+      {
+        "word": "sida",
+        "base_form": "sido",
+        "zipf": 4.0,
+        "word_type": "noun/adj"
+      },
+      {
+        "word": "soñar",
+        "base_form": null,
+        "zipf": 4.0,
+        "word_type": "verb"
+      },
+      {
+        "word": "sumo",
+        "base_form": "sumar",
+        "zipf": 4.0,
+        "word_type": "verb"
+      },
+      {
+        "word": "tel",
+        "base_form": "tar",
+        "zipf": 4.0,
+        "word_type": "verb"
+      },
+      {
+        "word": "tendríamos",
+        "base_form": null,
+        "zipf": 4.0,
+        "word_type": "base"
+      },
+      {
+        "word": "trajes",
+        "base_form": "traje",
+        "zipf": 4.0,
+        "word_type": "noun/adj"
+      },
+      {
+        "word": "trimestre",
+        "base_form": null,
+        "zipf": 4.0,
+        "word_type": "base"
+      },
+      {
+        "word": "técnicamente",
+        "base_form": "técnica",
+        "zipf": 4.0,
+        "word_type": "adverb_from_adj"
+      },
+      {
+        "word": "union",
+        "base_form": null,
+        "zipf": 4.0,
+        "word_type": "base"
+      },
+      {
+        "word": "vasos",
+        "base_form": "vaso",
+        "zipf": 4.0,
+        "word_type": "noun/adj"
+      },
+      {
+        "word": "vendría",
+        "base_form": null,
+        "zipf": 4.0,
+        "word_type": "base"
+      },
+      {
+        "word": "venían",
+        "base_form": null,
+        "zipf": 4.0,
+        "word_type": "base"
+      },
+      {
+        "word": "verduras",
+        "base_form": "verdura",
+        "zipf": 4.0,
+        "word_type": "noun/adj"
+      },
+      {
+        "word": "visitante",
+        "base_form": null,
+        "zipf": 4.0,
+        "word_type": "base"
+      },
+      {
+        "word": "vote",
+        "base_form": "votar",
+        "zipf": 4.0,
+        "word_type": "verb"
+      },
+      {
+        "word": "índices",
+        "base_form": "índice",
+        "zipf": 4.0,
+        "word_type": "noun/adj"
+      },
+      {
+        "word": "abundante",
+        "base_form": null,
+        "zipf": 4.0,
+        "word_type": "base"
+      },
+      {
+        "word": "actualizado",
+        "base_form": null,
+        "zipf": 4.0,
+        "word_type": "base"
+      },
+      {
+        "word": "adjunto",
+        "base_form": null,
+        "zipf": 4.0,
+        "word_type": "base"
+      },
+      {
+        "word": "administrativos",
+        "base_form": "administrativo",
+        "zipf": 4.0,
+        "word_type": "noun/adj"
+      },
+      {
+        "word": "aduana",
+        "base_form": null,
+        "zipf": 4.0,
+        "word_type": "base"
+      },
+      {
+        "word": "afecto",
+        "base_form": "afectar",
+        "zipf": 4.0,
+        "word_type": "verb"
+      },
+      {
+        "word": "afirman",
+        "base_form": "afirmar",
+        "zipf": 4.0,
+        "word_type": "verb"
+      },
+      {
+        "word": "afrontar",
+        "base_form": null,
+        "zipf": 4.0,
+        "word_type": "verb"
+      },
+      {
+        "word": "alejado",
+        "base_form": null,
+        "zipf": 4.0,
+        "word_type": "base"
+      },
+      {
+        "word": "amaba",
+        "base_form": null,
+        "zipf": 4.0,
+        "word_type": "base"
+      },
+      {
+        "word": "andaba",
+        "base_form": null,
+        "zipf": 4.0,
+        "word_type": "base"
+      },
+      {
+        "word": "aprecio",
+        "base_form": "apreciar",
+        "zipf": 4.0,
+        "word_type": "verb"
+      },
+      {
+        "word": "armar",
+        "base_form": null,
+        "zipf": 4.0,
+        "word_type": "verb"
+      },
+      {
+        "word": "arranque",
+        "base_form": null,
+        "zipf": 4.0,
+        "word_type": "base"
+      },
+      {
+        "word": "asegurado",
+        "base_form": null,
+        "zipf": 4.0,
+        "word_type": "base"
+      },
+      {
+        "word": "asignación",
+        "base_form": null,
+        "zipf": 4.0,
+        "word_type": "base"
+      },
+      {
+        "word": "atacado",
+        "base_form": null,
+        "zipf": 4.0,
+        "word_type": "base"
+      },
+      {
+        "word": "augusto",
+        "base_form": null,
+        "zipf": 4.0,
+        "word_type": "base"
+      },
+      {
+        "word": "avanzando",
+        "base_form": null,
+        "zipf": 4.0,
+        "word_type": "base"
+      },
+      {
+        "word": "ayuden",
+        "base_form": "ayudar",
+        "zipf": 4.0,
+        "word_type": "verb"
+      },
+      {
+        "word": "bo",
+        "base_form": "bar",
+        "zipf": 4.0,
+        "word_type": "verb"
+      },
+      {
+        "word": "bono",
+        "base_form": null,
+        "zipf": 4.0,
+        "word_type": "base"
+      },
+      {
+        "word": "brecha",
+        "base_form": null,
+        "zipf": 4.0,
+        "word_type": "base"
+      },
+      {
+        "word": "caga",
+        "base_form": "cagar",
+        "zipf": 4.0,
+        "word_type": "verb"
+      },
+      {
+        "word": "celda",
+        "base_form": null,
+        "zipf": 4.0,
+        "word_type": "base"
+      },
+      {
+        "word": "cemento",
+        "base_form": null,
+        "zipf": 4.0,
+        "word_type": "base"
+      },
+      {
+        "word": "cesar",
+        "base_form": null,
+        "zipf": 4.0,
+        "word_type": "verb"
+      },
+      {
+        "word": "chan",
+        "base_form": "cher",
+        "zipf": 4.0,
+        "word_type": "verb"
+      },
+      {
+        "word": "cintura",
+        "base_form": null,
+        "zipf": 4.0,
+        "word_type": "base"
+      },
+      {
+        "word": "clinton",
+        "base_form": null,
+        "zipf": 4.0,
+        "word_type": "base"
+      },
+      {
+        "word": "cojones",
+        "base_form": null,
+        "zipf": 4.0,
+        "word_type": "base"
+      },
+      {
+        "word": "colina",
+        "base_form": null,
+        "zipf": 4.0,
+        "word_type": "base"
+      },
+      {
+        "word": "comenzamos",
+        "base_form": null,
+        "zipf": 4.0,
+        "word_type": "base"
+      },
+      {
+        "word": "comisionado",
+        "base_form": null,
+        "zipf": 4.0,
+        "word_type": "base"
+      },
+      {
+        "word": "compartiendo",
+        "base_form": null,
+        "zipf": 4.0,
+        "word_type": "base"
+      },
+      {
+        "word": "compartimos",
+        "base_form": null,
+        "zipf": 4.0,
+        "word_type": "base"
+      },
+      {
+        "word": "comprando",
+        "base_form": null,
+        "zipf": 4.0,
+        "word_type": "base"
+      },
+      {
+        "word": "concejal",
+        "base_form": null,
+        "zipf": 4.0,
+        "word_type": "base"
+      },
+      {
+        "word": "concluir",
+        "base_form": null,
+        "zipf": 4.0,
+        "word_type": "verb"
+      },
+      {
+        "word": "confesión",
+        "base_form": null,
+        "zipf": 4.0,
+        "word_type": "base"
+      },
+      {
+        "word": "considerablemente",
+        "base_form": "considerable",
+        "zipf": 4.0,
+        "word_type": "adverb_from_adj"
+      },
+      {
+        "word": "considerarse",
+        "base_form": null,
+        "zipf": 4.0,
+        "word_type": "base"
+      },
+      {
+        "word": "consumir",
+        "base_form": null,
+        "zipf": 4.0,
+        "word_type": "verb"
+      },
+      {
+        "word": "convencional",
+        "base_form": null,
+        "zipf": 4.0,
+        "word_type": "base"
+      },
+      {
+        "word": "corporal",
+        "base_form": null,
+        "zipf": 4.0,
+        "word_type": "base"
+      }
+    ],
+    "Expert": [
+      {
+        "word": "000m",
+        "base_form": null,
+        "zipf": 3.5,
+        "word_type": "base"
+      },
+      {
+        "word": "abasto",
+        "base_form": null,
+        "zipf": 3.5,
+        "word_type": "base"
+      },
+      {
+        "word": "abstenerse",
+        "base_form": null,
+        "zipf": 3.5,
+        "word_type": "base"
+      },
+      {
+        "word": "acreditar",
+        "base_form": null,
+        "zipf": 3.5,
+        "word_type": "verb"
+      },
+      {
+        "word": "acumula",
+        "base_form": "acumular",
+        "zipf": 3.5,
+        "word_type": "verb"
+      },
+      {
+        "word": "adelgazar",
+        "base_form": null,
+        "zipf": 3.5,
+        "word_type": "verb"
+      },
+      {
+        "word": "adónde",
+        "base_form": null,
+        "zipf": 3.5,
+        "word_type": "base"
+      },
+      {
+        "word": "agrario",
+        "base_form": null,
+        "zipf": 3.5,
+        "word_type": "base"
+      },
+      {
+        "word": "ahogado",
+        "base_form": null,
+        "zipf": 3.5,
+        "word_type": "base"
+      },
+      {
+        "word": "alcanzaba",
+        "base_form": null,
+        "zipf": 3.5,
+        "word_type": "base"
+      },
+      {
+        "word": "alcázar",
+        "base_form": null,
+        "zipf": 3.5,
+        "word_type": "verb"
+      },
+      {
+        "word": "allanamiento",
+        "base_form": null,
+        "zipf": 3.5,
+        "word_type": "base"
+      },
+      {
+        "word": "altera",
+        "base_form": "alterar",
+        "zipf": 3.5,
+        "word_type": "verb"
+      },
+      {
+        "word": "alumna",
+        "base_form": "alumno",
+        "zipf": 3.5,
+        "word_type": "noun/adj"
+      },
+      {
+        "word": "angie",
+        "base_form": null,
+        "zipf": 3.5,
+        "word_type": "base"
+      },
+      {
+        "word": "animó",
+        "base_form": "animar",
+        "zipf": 3.5,
+        "word_type": "verb"
+      },
+      {
+        "word": "apropiadas",
+        "base_form": "apropiada",
+        "zipf": 3.5,
+        "word_type": "noun/adj"
+      },
+      {
+        "word": "aprovecharse",
+        "base_form": null,
+        "zipf": 3.5,
+        "word_type": "base"
+      },
+      {
+        "word": "arcas",
+        "base_form": "arca",
+        "zipf": 3.5,
+        "word_type": "noun/adj"
+      },
+      {
+        "word": "arquitectónico",
+        "base_form": null,
+        "zipf": 3.5,
+        "word_type": "base"
+      },
+      {
+        "word": "atravesado",
+        "base_form": null,
+        "zipf": 3.5,
+        "word_type": "base"
+      },
+      {
+        "word": "autonómico",
+        "base_form": null,
+        "zipf": 3.5,
+        "word_type": "base"
+      },
+      {
+        "word": "autorizar",
+        "base_form": null,
+        "zipf": 3.5,
+        "word_type": "verb"
+      },
+      {
+        "word": "avanzan",
+        "base_form": "avanzar",
+        "zipf": 3.5,
+        "word_type": "verb"
+      },
+      {
+        "word": "banquero",
+        "base_form": null,
+        "zipf": 3.5,
+        "word_type": "base"
+      },
+      {
+        "word": "barbacoa",
+        "base_form": null,
+        "zipf": 3.5,
+        "word_type": "base"
+      },
+      {
+        "word": "basílica",
+        "base_form": null,
+        "zipf": 3.5,
+        "word_type": "base"
+      },
+      {
+        "word": "berlin",
+        "base_form": null,
+        "zipf": 3.5,
+        "word_type": "base"
+      },
+      {
+        "word": "bloqueos",
+        "base_form": "bloquear",
+        "zipf": 3.5,
+        "word_type": "verb"
+      },
+      {
+        "word": "boludos",
+        "base_form": "boludo",
+        "zipf": 3.5,
+        "word_type": "noun/adj"
+      },
+      {
+        "word": "broadway",
+        "base_form": null,
+        "zipf": 3.5,
+        "word_type": "base"
+      },
+      {
+        "word": "bros",
+        "base_form": "bro",
+        "zipf": 3.5,
+        "word_type": "noun/adj"
+      },
+      {
+        "word": "brujería",
+        "base_form": null,
+        "zipf": 3.5,
+        "word_type": "base"
+      },
+      {
+        "word": "brutos",
+        "base_form": "bruto",
+        "zipf": 3.5,
+        "word_type": "noun/adj"
+      },
+      {
+        "word": "bu",
+        "base_form": "bar",
+        "zipf": 3.5,
+        "word_type": "verb"
+      },
+      {
+        "word": "buenísima",
+        "base_form": "buenísimo",
+        "zipf": 3.5,
+        "word_type": "noun/adj"
+      },
+      {
+        "word": "cana",
+        "base_form": "caer",
+        "zipf": 3.5,
+        "word_type": "verb"
+      },
+      {
+        "word": "cancela",
+        "base_form": "cancelar",
+        "zipf": 3.5,
+        "word_type": "verb"
+      },
+      {
+        "word": "capacitado",
+        "base_form": null,
+        "zipf": 3.5,
+        "word_type": "base"
+      },
+      {
+        "word": "caprichos",
+        "base_form": "capricho",
+        "zipf": 3.5,
+        "word_type": "noun/adj"
+      },
+      {
+        "word": "característicos",
+        "base_form": "característico",
+        "zipf": 3.5,
+        "word_type": "noun/adj"
+      },
+      {
+        "word": "castigados",
+        "base_form": "castigado",
+        "zipf": 3.5,
+        "word_type": "noun/adj"
+      },
+      {
+        "word": "causante",
+        "base_form": null,
+        "zipf": 3.5,
+        "word_type": "base"
+      },
+      {
+        "word": "cilindros",
+        "base_form": "cilindro",
+        "zipf": 3.5,
+        "word_type": "noun/adj"
+      },
+      {
+        "word": "ciro",
+        "base_form": null,
+        "zipf": 3.5,
+        "word_type": "base"
+      },
+      {
+        "word": "cisneros",
+        "base_form": null,
+        "zipf": 3.5,
+        "word_type": "base"
+      },
+      {
+        "word": "colesterol",
+        "base_form": null,
+        "zipf": 3.5,
+        "word_type": "base"
+      },
+      {
+        "word": "comprarle",
+        "base_form": null,
+        "zipf": 3.5,
+        "word_type": "base"
+      },
+      {
+        "word": "comprobación",
+        "base_form": null,
+        "zipf": 3.5,
+        "word_type": "base"
+      },
+      {
+        "word": "compu",
+        "base_form": "comer",
+        "zipf": 3.5,
+        "word_type": "verb"
+      },
+      {
+        "word": "comunican",
+        "base_form": "comunicar",
+        "zipf": 3.5,
+        "word_type": "verb"
+      },
+      {
+        "word": "concentrar",
+        "base_form": null,
+        "zipf": 3.5,
+        "word_type": "verb"
+      },
+      {
+        "word": "conquistador",
+        "base_form": null,
+        "zipf": 3.5,
+        "word_type": "base"
+      },
+      {
+        "word": "consecuentemente",
+        "base_form": "consecuente",
+        "zipf": 3.5,
+        "word_type": "adverb_from_adj"
+      },
+      {
+        "word": "constituyentes",
+        "base_form": "constituyente",
+        "zipf": 3.5,
+        "word_type": "noun/adj"
+      },
+      {
+        "word": "consumido",
+        "base_form": null,
+        "zipf": 3.5,
+        "word_type": "base"
+      },
+      {
+        "word": "contradice",
+        "base_form": null,
+        "zipf": 3.5,
+        "word_type": "base"
+      },
+      {
+        "word": "contraseñas",
+        "base_form": "contraseña",
+        "zipf": 3.5,
+        "word_type": "noun/adj"
+      },
+      {
+        "word": "convocados",
+        "base_form": "convocado",
+        "zipf": 3.5,
+        "word_type": "noun/adj"
+      },
+      {
+        "word": "cook",
+        "base_form": null,
+        "zipf": 3.5,
+        "word_type": "base"
+      },
+      {
+        "word": "corrieron",
+        "base_form": null,
+        "zipf": 3.5,
+        "word_type": "base"
+      },
+      {
+        "word": "cruzadas",
+        "base_form": "cruzada",
+        "zipf": 3.5,
+        "word_type": "noun/adj"
+      },
+      {
+        "word": "cuauhtémoc",
+        "base_form": null,
+        "zipf": 3.5,
+        "word_type": "base"
+      },
+      {
+        "word": "cuidadoso",
+        "base_form": null,
+        "zipf": 3.5,
+        "word_type": "base"
+      },
+      {
+        "word": "curado",
+        "base_form": null,
+        "zipf": 3.5,
+        "word_type": "base"
+      },
+      {
+        "word": "daña",
+        "base_form": "dañar",
+        "zipf": 3.5,
+        "word_type": "verb"
+      },
+      {
+        "word": "decepcionante",
+        "base_form": null,
+        "zipf": 3.5,
+        "word_type": "base"
+      },
+      {
+        "word": "demográfico",
+        "base_form": null,
+        "zipf": 3.5,
+        "word_type": "base"
+      },
+      {
+        "word": "derrumbe",
+        "base_form": null,
+        "zipf": 3.5,
+        "word_type": "base"
+      },
+      {
+        "word": "descarta",
+        "base_form": "descartar",
+        "zipf": 3.5,
+        "word_type": "verb"
+      },
+      {
+        "word": "design",
+        "base_form": "designar",
+        "zipf": 3.5,
+        "word_type": "verb"
+      },
+      {
+        "word": "desilusión",
+        "base_form": null,
+        "zipf": 3.5,
+        "word_type": "base"
+      },
+      {
+        "word": "despejar",
+        "base_form": null,
+        "zipf": 3.5,
+        "word_type": "verb"
+      },
+      {
+        "word": "detecta",
+        "base_form": "detectar",
+        "zipf": 3.5,
+        "word_type": "verb"
+      },
+      {
+        "word": "devuelvan",
+        "base_form": null,
+        "zipf": 3.5,
+        "word_type": "base"
+      },
+      {
+        "word": "dictadores",
+        "base_form": "dictador",
+        "zipf": 3.5,
+        "word_type": "noun/adj"
+      },
+      {
+        "word": "directivas",
+        "base_form": "directiva",
+        "zipf": 3.5,
+        "word_type": "noun/adj"
+      },
+      {
+        "word": "disminuyó",
+        "base_form": "disminuir",
+        "zipf": 3.5,
+        "word_type": "verb"
+      },
+      {
+        "word": "disputado",
+        "base_form": null,
+        "zipf": 3.5,
+        "word_type": "base"
+      },
+      {
+        "word": "distinciones",
+        "base_form": null,
+        "zipf": 3.5,
+        "word_type": "base"
+      },
+      {
+        "word": "dm",
+        "base_form": "dar",
+        "zipf": 3.5,
+        "word_type": "verb"
+      },
+      {
+        "word": "dominicanos",
+        "base_form": "dominicano",
+        "zipf": 3.5,
+        "word_type": "noun/adj"
+      },
+      {
+        "word": "dormitorios",
+        "base_form": "dormitorio",
+        "zipf": 3.5,
+        "word_type": "noun/adj"
+      },
+      {
+        "word": "dotar",
+        "base_form": null,
+        "zipf": 3.5,
+        "word_type": "verb"
+      },
+      {
+        "word": "dudoso",
+        "base_form": null,
+        "zipf": 3.5,
+        "word_type": "base"
+      },
+      {
+        "word": "duncan",
+        "base_form": null,
+        "zipf": 3.5,
+        "word_type": "base"
+      },
+      {
+        "word": "dávila",
+        "base_form": null,
+        "zipf": 3.5,
+        "word_type": "base"
+      },
+      {
+        "word": "ebro",
+        "base_form": null,
+        "zipf": 3.5,
+        "word_type": "base"
+      },
+      {
+        "word": "eliminada",
+        "base_form": "eliminado",
+        "zipf": 3.5,
+        "word_type": "noun/adj"
+      },
+      {
+        "word": "eludir",
+        "base_form": null,
+        "zipf": 3.5,
+        "word_type": "verb"
+      },
+      {
+        "word": "elvis",
+        "base_form": null,
+        "zipf": 3.5,
+        "word_type": "base"
+      },
+      {
+        "word": "enteramos",
+        "base_form": null,
+        "zipf": 3.5,
+        "word_type": "base"
+      },
+      {
+        "word": "envejecimiento",
+        "base_form": null,
+        "zipf": 3.5,
+        "word_type": "base"
+      },
+      {
+        "word": "equivoque",
+        "base_form": null,
+        "zipf": 3.5,
+        "word_type": "base"
+      },
+      {
+        "word": "escocés",
+        "base_form": null,
+        "zipf": 3.5,
+        "word_type": "base"
+      },
+      {
+        "word": "escribimos",
+        "base_form": null,
+        "zipf": 3.5,
+        "word_type": "base"
+      },
+      {
+        "word": "esparta",
+        "base_form": null,
+        "zipf": 3.5,
+        "word_type": "base"
+      },
+      {
+        "word": "especificar",
+        "base_form": null,
+        "zipf": 3.5,
+        "word_type": "verb"
+      },
+      {
+        "word": "estufa",
+        "base_form": null,
+        "zipf": 3.5,
+        "word_type": "base"
+      },
+      {
+        "word": "ever",
+        "base_form": null,
+        "zipf": 3.5,
+        "word_type": "verb"
+      },
+      {
+        "word": "excluir",
+        "base_form": null,
+        "zipf": 3.5,
+        "word_type": "verb"
+      },
+      {
+        "word": "exclusivas",
+        "base_form": "exclusiva",
+        "zipf": 3.5,
+        "word_type": "noun/adj"
+      },
+      {
+        "word": "extraterrestre",
+        "base_form": null,
+        "zipf": 3.5,
+        "word_type": "base"
+      },
+      {
+        "word": "fabuloso",
+        "base_form": null,
+        "zipf": 3.5,
+        "word_type": "base"
+      },
+      {
+        "word": "felicitar",
+        "base_form": null,
+        "zipf": 3.5,
+        "word_type": "verb"
+      },
+      {
+        "word": "fenomenal",
+        "base_form": null,
+        "zipf": 3.5,
+        "word_type": "base"
+      },
+      {
+        "word": "fisher",
+        "base_form": null,
+        "zipf": 3.5,
+        "word_type": "verb"
+      },
+      {
+        "word": "formadas",
+        "base_form": "formada",
+        "zipf": 3.5,
+        "word_type": "noun/adj"
+      },
+      {
+        "word": "forme",
+        "base_form": "formar",
+        "zipf": 3.5,
+        "word_type": "verb"
+      },
+      {
+        "word": "fosas",
+        "base_form": "fosa",
+        "zipf": 3.5,
+        "word_type": "noun/adj"
+      },
+      {
+        "word": "fracasar",
+        "base_form": null,
+        "zipf": 3.5,
+        "word_type": "verb"
+      },
+      {
+        "word": "front",
+        "base_form": null,
+        "zipf": 3.5,
+        "word_type": "base"
+      },
+      {
+        "word": "funcionará",
+        "base_form": null,
+        "zipf": 3.5,
+        "word_type": "base"
+      },
+      {
+        "word": "gallega",
+        "base_form": "gallego",
+        "zipf": 3.5,
+        "word_type": "noun/adj"
+      },
+      {
+        "word": "gallos",
+        "base_form": "gallo",
+        "zipf": 3.5,
+        "word_type": "noun/adj"
+      },
+      {
+        "word": "garrido",
+        "base_form": null,
+        "zipf": 3.5,
+        "word_type": "base"
+      },
+      {
+        "word": "generados",
+        "base_form": "generado",
+        "zipf": 3.5,
+        "word_type": "noun/adj"
+      },
+      {
+        "word": "generalitat",
+        "base_form": null,
+        "zipf": 3.5,
+        "word_type": "base"
+      },
+      {
+        "word": "guardaespaldas",
+        "base_form": null,
+        "zipf": 3.5,
+        "word_type": "base"
+      },
+      {
+        "word": "habremos",
+        "base_form": null,
+        "zipf": 3.5,
+        "word_type": "base"
+      },
+      {
+        "word": "hacian",
+        "base_form": null,
+        "zipf": 3.5,
+        "word_type": "base"
+      },
+      {
+        "word": "hahaha",
+        "base_form": null,
+        "zipf": 3.5,
+        "word_type": "base"
+      },
+      {
+        "word": "hermosillo",
+        "base_form": null,
+        "zipf": 3.5,
+        "word_type": "base"
+      },
+      {
+        "word": "ibm",
+        "base_form": null,
+        "zipf": 3.5,
+        "word_type": "base"
+      },
+      {
+        "word": "identificarse",
+        "base_form": null,
+        "zipf": 3.5,
+        "word_type": "base"
+      },
+      {
+        "word": "imponerse",
+        "base_form": null,
+        "zipf": 3.5,
+        "word_type": "base"
+      },
+      {
+        "word": "incorporarse",
+        "base_form": null,
+        "zipf": 3.5,
+        "word_type": "base"
+      },
+      {
+        "word": "incrementó",
+        "base_form": "incrementar",
+        "zipf": 3.5,
+        "word_type": "verb"
+      },
+      {
+        "word": "inflamación",
+        "base_form": null,
+        "zipf": 3.5,
+        "word_type": "base"
+      },
+      {
+        "word": "inherente",
+        "base_form": null,
+        "zipf": 3.5,
+        "word_type": "base"
+      },
+      {
+        "word": "inmaculada",
+        "base_form": null,
+        "zipf": 3.5,
+        "word_type": "base"
+      },
+      {
+        "word": "insisten",
+        "base_form": "insistir",
+        "zipf": 3.5,
+        "word_type": "verb"
+      },
+      {
+        "word": "inspirados",
+        "base_form": "inspirado",
+        "zipf": 3.5,
+        "word_type": "noun/adj"
+      },
+      {
+        "word": "intacto",
+        "base_form": null,
+        "zipf": 3.5,
+        "word_type": "base"
+      },
+      {
+        "word": "inventor",
+        "base_form": "inventar",
+        "zipf": 3.5,
+        "word_type": "verb"
+      },
+      {
+        "word": "jaque",
+        "base_form": null,
+        "zipf": 3.5,
+        "word_type": "base"
+      },
+      {
+        "word": "jinete",
+        "base_form": null,
+        "zipf": 3.5,
+        "word_type": "base"
+      },
+      {
+        "word": "jobs",
+        "base_form": "job",
+        "zipf": 3.5,
+        "word_type": "noun/adj"
+      },
+      {
+        "word": "jubilaciones",
+        "base_form": null,
+        "zipf": 3.5,
+        "word_type": "base"
+      },
+      {
+        "word": "judías",
+        "base_form": "judía",
+        "zipf": 3.5,
+        "word_type": "noun/adj"
+      },
+      {
+        "word": "lamentar",
+        "base_form": null,
+        "zipf": 3.5,
+        "word_type": "verb"
+      },
+      {
+        "word": "likes",
+        "base_form": "like",
+        "zipf": 3.5,
+        "word_type": "noun/adj"
+      },
+      {
+        "word": "llene",
+        "base_form": "llenar",
+        "zipf": 3.5,
+        "word_type": "verb"
+      },
+      {
+        "word": "locuras",
+        "base_form": "locura",
+        "zipf": 3.5,
+        "word_type": "noun/adj"
+      },
+      {
+        "word": "machete",
+        "base_form": null,
+        "zipf": 3.5,
+        "word_type": "base"
+      },
+      {
+        "word": "mahoma",
+        "base_form": null,
+        "zipf": 3.5,
+        "word_type": "base"
+      },
+      {
+        "word": "malla",
+        "base_form": null,
+        "zipf": 3.5,
+        "word_type": "base"
+      },
+      {
+        "word": "mamadas",
+        "base_form": "mamada",
+        "zipf": 3.5,
+        "word_type": "noun/adj"
+      },
+      {
+        "word": "marley",
+        "base_form": null,
+        "zipf": 3.5,
+        "word_type": "base"
+      },
+      {
+        "word": "mayorías",
+        "base_form": "mayoría",
+        "zipf": 3.5,
+        "word_type": "noun/adj"
+      },
+      {
+        "word": "medievales",
+        "base_form": "medieval",
+        "zipf": 3.5,
+        "word_type": "noun/adj"
+      },
+      {
+        "word": "mentor",
+        "base_form": "mentir",
+        "zipf": 3.5,
+        "word_type": "verb"
+      },
+      {
+        "word": "miercoles",
+        "base_form": null,
+        "zipf": 3.5,
+        "word_type": "base"
+      },
+      {
+        "word": "montoya",
+        "base_form": null,
+        "zipf": 3.5,
+        "word_type": "base"
+      },
+      {
+        "word": "morder",
+        "base_form": null,
+        "zipf": 3.5,
+        "word_type": "verb"
+      },
+      {
+        "word": "movilizar",
+        "base_form": null,
+        "zipf": 3.5,
+        "word_type": "verb"
+      },
+      {
+        "word": "muerde",
+        "base_form": null,
+        "zipf": 3.5,
+        "word_type": "base"
+      },
+      {
+        "word": "natalidad",
+        "base_form": null,
+        "zipf": 3.5,
+        "word_type": "base"
+      },
+      {
+        "word": "neutro",
+        "base_form": null,
+        "zipf": 3.5,
+        "word_type": "base"
+      },
+      {
+        "word": "nocturnas",
+        "base_form": "nocturna",
+        "zipf": 3.5,
+        "word_type": "noun/adj"
+      },
+      {
+        "word": "nominaciones",
+        "base_form": null,
+        "zipf": 3.5,
+        "word_type": "base"
+      },
+      {
+        "word": "normalización",
+        "base_form": null,
+        "zipf": 3.5,
+        "word_type": "base"
+      },
+      {
+        "word": "obregón",
+        "base_form": null,
+        "zipf": 3.5,
+        "word_type": "base"
+      },
+      {
+        "word": "olvidada",
+        "base_form": "olvidado",
+        "zipf": 3.5,
+        "word_type": "noun/adj"
+      },
+      {
+        "word": "olvidaste",
+        "base_form": null,
+        "zipf": 3.5,
+        "word_type": "base"
+      },
+      {
+        "word": "oporto",
+        "base_form": null,
+        "zipf": 3.5,
+        "word_type": "base"
+      },
+      {
+        "word": "orar",
+        "base_form": null,
+        "zipf": 3.5,
+        "word_type": "verb"
+      },
+      {
+        "word": "pachuca",
+        "base_form": null,
+        "zipf": 3.5,
+        "word_type": "base"
+      },
+      {
+        "word": "pamela",
+        "base_form": null,
+        "zipf": 3.5,
+        "word_type": "base"
+      },
+      {
+        "word": "paolo",
+        "base_form": null,
+        "zipf": 3.5,
+        "word_type": "base"
+      },
+      {
+        "word": "parroquias",
+        "base_form": "parroquia",
+        "zipf": 3.5,
+        "word_type": "noun/adj"
+      },
+      {
+        "word": "parásito",
+        "base_form": null,
+        "zipf": 3.5,
+        "word_type": "base"
+      },
+      {
+        "word": "patriarcado",
+        "base_form": null,
+        "zipf": 3.5,
+        "word_type": "base"
+      },
+      {
+        "word": "pavimento",
+        "base_form": null,
+        "zipf": 3.5,
+        "word_type": "base"
+      },
+      {
+        "word": "pelotón",
+        "base_form": null,
+        "zipf": 3.5,
+        "word_type": "base"
+      },
+      {
+        "word": "penoso",
+        "base_form": null,
+        "zipf": 3.5,
+        "word_type": "base"
+      },
+      {
+        "word": "pensaste",
+        "base_form": null,
+        "zipf": 3.5,
+        "word_type": "base"
+      },
+      {
+        "word": "percepciones",
+        "base_form": null,
+        "zipf": 3.5,
+        "word_type": "base"
+      },
+      {
+        "word": "permitirse",
+        "base_form": null,
+        "zipf": 3.5,
+        "word_type": "base"
+      },
+      {
+        "word": "pezones",
+        "base_form": null,
+        "zipf": 3.5,
+        "word_type": "base"
+      },
+      {
+        "word": "pgr",
+        "base_form": "par",
+        "zipf": 3.5,
+        "word_type": "verb"
+      },
+      {
+        "word": "pintados",
+        "base_form": "pintado",
+        "zipf": 3.5,
+        "word_type": "noun/adj"
+      },
+      {
+        "word": "pinzas",
+        "base_form": "pinza",
+        "zipf": 3.5,
+        "word_type": "noun/adj"
+      },
+      {
+        "word": "pizca",
+        "base_form": null,
+        "zipf": 3.5,
+        "word_type": "base"
+      },
+      {
+        "word": "podrida",
+        "base_form": "podrido",
+        "zipf": 3.5,
+        "word_type": "noun/adj"
+      },
+      {
+        "word": "ponencia",
+        "base_form": null,
+        "zipf": 3.5,
+        "word_type": "base"
+      },
+      {
+        "word": "practicas",
+        "base_form": "practicar",
+        "zipf": 3.5,
+        "word_type": "verb"
+      },
+      {
+        "word": "preferente",
+        "base_form": null,
+        "zipf": 3.5,
+        "word_type": "base"
+      },
+      {
+        "word": "preferir",
+        "base_form": null,
+        "zipf": 3.5,
+        "word_type": "verb"
+      },
+      {
+        "word": "preocupar",
+        "base_form": null,
+        "zipf": 3.5,
+        "word_type": "verb"
+      },
+      {
+        "word": "presencial",
+        "base_form": "presenciar",
+        "zipf": 3.5,
+        "word_type": "verb"
+      },
+      {
+        "word": "presentaban",
+        "base_form": null,
+        "zipf": 3.5,
+        "word_type": "base"
+      },
+      {
+        "word": "presidida",
+        "base_form": "presidido",
+        "zipf": 3.5,
+        "word_type": "noun/adj"
+      },
+      {
+        "word": "pretensión",
+        "base_form": null,
+        "zipf": 3.5,
+        "word_type": "base"
+      },
+      {
+        "word": "primeramente",
+        "base_form": "primera",
+        "zipf": 3.5,
+        "word_type": "adverb_from_adj"
+      },
+      {
+        "word": "princesas",
+        "base_form": "princesa",
+        "zipf": 3.5,
+        "word_type": "noun/adj"
+      },
+      {
+        "word": "produzcan",
+        "base_form": null,
+        "zipf": 3.5,
+        "word_type": "base"
+      },
+      {
+        "word": "programadores",
+        "base_form": "programador",
+        "zipf": 3.5,
+        "word_type": "noun/adj"
+      },
+      {
+        "word": "proponemos",
+        "base_form": null,
+        "zipf": 3.5,
+        "word_type": "base"
+      },
+      {
+        "word": "proporcionada",
+        "base_form": "proporcionado",
+        "zipf": 3.5,
+        "word_type": "noun/adj"
+      },
+      {
+        "word": "protestante",
+        "base_form": null,
+        "zipf": 3.5,
+        "word_type": "base"
+      },
+      {
+        "word": "psicoanálisis",
+        "base_form": null,
+        "zipf": 3.5,
+        "word_type": "base"
+      },
+      {
+        "word": "pulsera",
+        "base_form": null,
+        "zipf": 3.5,
+        "word_type": "base"
+      },
+      {
+        "word": "querrá",
+        "base_form": "querer",
+        "zipf": 3.5,
+        "word_type": "verb"
+      },
+      {
+        "word": "quisiéramos",
+        "base_form": null,
+        "zipf": 3.5,
+        "word_type": "base"
+      },
+      {
+        "word": "redención",
+        "base_form": null,
+        "zipf": 3.5,
+        "word_type": "base"
+      },
+      {
+        "word": "regimen",
+        "base_form": null,
+        "zipf": 3.5,
+        "word_type": "base"
+      },
+      {
+        "word": "reja",
+        "base_form": "reir",
+        "zipf": 3.5,
+        "word_type": "verb"
+      },
+      {
+        "word": "relacionarse",
+        "base_form": null,
+        "zipf": 3.5,
+        "word_type": "base"
+      },
+      {
+        "word": "representaban",
+        "base_form": null,
+        "zipf": 3.5,
+        "word_type": "base"
+      },
+      {
+        "word": "respondía",
+        "base_form": "responder",
+        "zipf": 3.5,
+        "word_type": "verb"
+      },
+      {
+        "word": "resuelven",
+        "base_form": null,
+        "zipf": 3.5,
+        "word_type": "base"
+      },
+      {
+        "word": "ri",
+        "base_form": "ar",
+        "zipf": 3.5,
+        "word_type": "verb"
+      },
+      {
+        "word": "rosada",
+        "base_form": "rosado",
+        "zipf": 3.5,
+        "word_type": "noun/adj"
+      },
+      {
+        "word": "récords",
+        "base_form": "récord",
+        "zipf": 3.5,
+        "word_type": "noun/adj"
+      },
+      {
+        "word": "sagradas",
+        "base_form": "sagrada",
+        "zipf": 3.5,
+        "word_type": "noun/adj"
+      },
+      {
+        "word": "sanguíneo",
+        "base_form": null,
+        "zipf": 3.5,
+        "word_type": "base"
+      },
+      {
+        "word": "sentenciado",
+        "base_form": null,
+        "zipf": 3.5,
+        "word_type": "base"
+      },
+      {
+        "word": "sesgo",
+        "base_form": null,
+        "zipf": 3.5,
+        "word_type": "base"
+      },
+      {
+        "word": "severamente",
+        "base_form": "severa",
+        "zipf": 3.5,
+        "word_type": "adverb_from_adj"
+      },
+      {
+        "word": "señorío",
+        "base_form": null,
+        "zipf": 3.5,
+        "word_type": "base"
+      },
+      {
+        "word": "shell",
+        "base_form": null,
+        "zipf": 3.5,
+        "word_type": "base"
+      },
+      {
+        "word": "signifique",
+        "base_form": null,
+        "zipf": 3.5,
+        "word_type": "base"
+      },
+      {
+        "word": "similitud",
+        "base_form": null,
+        "zipf": 3.5,
+        "word_type": "base"
+      },
+      {
+        "word": "sintieron",
+        "base_form": null,
+        "zipf": 3.5,
+        "word_type": "base"
+      },
+      {
+        "word": "smartphones",
+        "base_form": "smartphone",
+        "zipf": 3.5,
+        "word_type": "noun/adj"
+      },
+      {
+        "word": "sobredosis",
+        "base_form": null,
+        "zipf": 3.5,
+        "word_type": "base"
+      },
+      {
+        "word": "sobreviven",
+        "base_form": "sobrevivir",
+        "zipf": 3.5,
+        "word_type": "verb"
+      },
+      {
+        "word": "soler",
+        "base_form": null,
+        "zipf": 3.5,
+        "word_type": "verb"
+      },
+      {
+        "word": "solidarios",
+        "base_form": "solidario",
+        "zipf": 3.5,
+        "word_type": "noun/adj"
+      },
+      {
+        "word": "sostenida",
+        "base_form": "sostenido",
+        "zipf": 3.5,
+        "word_type": "noun/adj"
+      },
+      {
+        "word": "starbucks",
+        "base_form": null,
+        "zipf": 3.5,
+        "word_type": "base"
+      },
+      {
+        "word": "sólidas",
+        "base_form": "sólida",
+        "zipf": 3.5,
+        "word_type": "noun/adj"
+      },
+      {
+        "word": "tanzania",
+        "base_form": null,
+        "zipf": 3.5,
+        "word_type": "base"
+      },
+      {
+        "word": "temuco",
+        "base_form": null,
+        "zipf": 3.5,
+        "word_type": "base"
+      },
+      {
+        "word": "teta",
+        "base_form": null,
+        "zipf": 3.5,
+        "word_type": "base"
+      },
+      {
+        "word": "tornado",
+        "base_form": null,
+        "zipf": 3.5,
+        "word_type": "base"
+      },
+      {
+        "word": "traicionado",
+        "base_form": null,
+        "zipf": 3.5,
+        "word_type": "base"
+      },
+      {
+        "word": "tramitación",
+        "base_form": null,
+        "zipf": 3.5,
+        "word_type": "base"
+      },
+      {
+        "word": "trance",
+        "base_form": null,
+        "zipf": 3.5,
+        "word_type": "base"
+      },
+      {
+        "word": "transformarse",
+        "base_form": null,
+        "zipf": 3.5,
+        "word_type": "base"
+      },
+      {
+        "word": "tranvía",
+        "base_form": null,
+        "zipf": 3.5,
+        "word_type": "base"
+      },
+      {
+        "word": "trasladaron",
+        "base_form": null,
+        "zipf": 3.5,
+        "word_type": "base"
+      },
+      {
+        "word": "trescientos",
+        "base_form": null,
+        "zipf": 3.5,
+        "word_type": "base"
+      },
+      {
+        "word": "trueno",
+        "base_form": null,
+        "zipf": 3.5,
+        "word_type": "base"
+      },
+      {
+        "word": "ultramar",
+        "base_form": null,
+        "zipf": 3.5,
+        "word_type": "verb"
+      },
+      {
+        "word": "usarlos",
+        "base_form": "usarlo",
+        "zipf": 3.5,
+        "word_type": "noun/adj"
+      },
+      {
+        "word": "varsovia",
+        "base_form": null,
+        "zipf": 3.5,
+        "word_type": "base"
+      },
+      {
+        "word": "veinticuatro",
+        "base_form": null,
+        "zipf": 3.5,
+        "word_type": "base"
+      },
+      {
+        "word": "vendidas",
+        "base_form": "vendida",
+        "zipf": 3.5,
+        "word_type": "noun/adj"
+      },
+      {
+        "word": "viajo",
+        "base_form": "viajar",
+        "zipf": 3.5,
+        "word_type": "verb"
+      },
+      {
+        "word": "vicioso",
+        "base_form": null,
+        "zipf": 3.5,
+        "word_type": "base"
+      },
+      {
+        "word": "volantes",
+        "base_form": "volante",
+        "zipf": 3.5,
+        "word_type": "noun/adj"
+      },
+      {
+        "word": "volkswagen",
+        "base_form": null,
+        "zipf": 3.5,
+        "word_type": "base"
+      },
+      {
+        "word": "wagner",
+        "base_form": null,
+        "zipf": 3.5,
+        "word_type": "verb"
+      },
+      {
+        "word": "2da",
+        "base_form": "2do",
+        "zipf": 3.5,
+        "word_type": "noun/adj"
+      },
+      {
+        "word": "aaa",
+        "base_form": "air",
+        "zipf": 3.5,
+        "word_type": "verb"
+      },
+      {
+        "word": "abeja",
+        "base_form": null,
+        "zipf": 3.5,
+        "word_type": "base"
+      },
+      {
+        "word": "abortar",
+        "base_form": null,
+        "zipf": 3.5,
+        "word_type": "verb"
+      },
+      {
+        "word": "abraza",
+        "base_form": "abrazar",
+        "zipf": 3.5,
+        "word_type": "verb"
+      },
+      {
+        "word": "absurdas",
+        "base_form": "absurda",
+        "zipf": 3.5,
+        "word_type": "noun/adj"
+      },
+      {
+        "word": "adapta",
+        "base_form": "adaptar",
+        "zipf": 3.5,
+        "word_type": "verb"
+      },
+      {
+        "word": "adaptada",
+        "base_form": "adaptado",
+        "zipf": 3.5,
+        "word_type": "noun/adj"
+      },
+      {
+        "word": "adjunta",
+        "base_form": "adjunto",
+        "zipf": 3.5,
+        "word_type": "noun/adj"
+      },
+      {
+        "word": "adoptando",
+        "base_form": null,
+        "zipf": 3.5,
+        "word_type": "base"
+      },
+      {
+        "word": "agotamiento",
+        "base_form": null,
+        "zipf": 3.5,
+        "word_type": "base"
+      },
+      {
+        "word": "agregados",
+        "base_form": "agregado",
+        "zipf": 3.5,
+        "word_type": "noun/adj"
+      },
+      {
+        "word": "agricultor",
+        "base_form": null,
+        "zipf": 3.5,
+        "word_type": "base"
+      },
+      {
+        "word": "alarcón",
+        "base_form": null,
+        "zipf": 3.5,
+        "word_type": "base"
+      },
+      {
+        "word": "alarmante",
+        "base_form": null,
+        "zipf": 3.5,
+        "word_type": "base"
+      },
+      {
+        "word": "aldo",
+        "base_form": null,
+        "zipf": 3.5,
+        "word_type": "base"
+      },
+      {
+        "word": "alfabetización",
+        "base_form": null,
+        "zipf": 3.5,
+        "word_type": "base"
+      },
+      {
+        "word": "antoine",
+        "base_form": null,
+        "zipf": 3.5,
+        "word_type": "base"
+      },
+      {
+        "word": "apasionada",
+        "base_form": "apasionado",
+        "zipf": 3.5,
+        "word_type": "noun/adj"
+      },
+      {
+        "word": "apego",
+        "base_form": null,
+        "zipf": 3.5,
+        "word_type": "base"
+      },
+      {
+        "word": "aplaudir",
+        "base_form": null,
+        "zipf": 3.5,
+        "word_type": "verb"
+      },
+      {
+        "word": "aprecian",
+        "base_form": "apreciar",
+        "zipf": 3.5,
+        "word_type": "verb"
+      },
+      {
+        "word": "apretado",
+        "base_form": null,
+        "zipf": 3.5,
+        "word_type": "base"
+      },
+      {
+        "word": "aptitud",
+        "base_form": null,
+        "zipf": 3.5,
+        "word_type": "base"
+      },
+      {
+        "word": "argumentar",
+        "base_form": null,
+        "zipf": 3.5,
+        "word_type": "verb"
+      },
+      {
+        "word": "armstrong",
+        "base_form": null,
+        "zipf": 3.5,
+        "word_type": "base"
+      },
+      {
+        "word": "artesanales",
+        "base_form": "artesanal",
+        "zipf": 3.5,
+        "word_type": "noun/adj"
+      },
+      {
+        "word": "ascendente",
+        "base_form": null,
+        "zipf": 3.5,
+        "word_type": "base"
+      },
+      {
+        "word": "asistencias",
+        "base_form": "asistencia",
+        "zipf": 3.5,
+        "word_type": "noun/adj"
+      },
+      {
+        "word": "autonómicas",
+        "base_form": "autonómica",
+        "zipf": 3.5,
+        "word_type": "noun/adj"
+      },
+      {
+        "word": "autoritarismo",
+        "base_form": null,
+        "zipf": 3.5,
+        "word_type": "base"
+      },
+      {
+        "word": "auxilios",
+        "base_form": "auxiliar",
+        "zipf": 3.5,
+        "word_type": "verb"
+      },
+      {
+        "word": "ayudantes",
+        "base_form": "ayudante",
+        "zipf": 3.5,
+        "word_type": "noun/adj"
+      },
+      {
+        "word": "bautizado",
+        "base_form": null,
+        "zipf": 3.5,
+        "word_type": "base"
+      },
+      {
+        "word": "bikini",
+        "base_form": null,
+        "zipf": 3.5,
+        "word_type": "base"
+      },
+      {
+        "word": "bolivar",
+        "base_form": null,
+        "zipf": 3.5,
+        "word_type": "verb"
+      },
+      {
+        "word": "bonilla",
+        "base_form": null,
+        "zipf": 3.5,
+        "word_type": "base"
+      },
+      {
+        "word": "books",
+        "base_form": "book",
+        "zipf": 3.5,
+        "word_type": "noun/adj"
+      },
+      {
+        "word": "borracha",
+        "base_form": "borracho",
+        "zipf": 3.5,
+        "word_type": "noun/adj"
+      },
+      {
+        "word": "brandon",
+        "base_form": null,
+        "zipf": 3.5,
+        "word_type": "base"
+      },
+      {
+        "word": "brother",
+        "base_form": null,
+        "zipf": 3.5,
+        "word_type": "verb"
+      },
+      {
+        "word": "caerá",
+        "base_form": null,
+        "zipf": 3.5,
+        "word_type": "base"
+      },
+      {
+        "word": "cajones",
+        "base_form": null,
+        "zipf": 3.5,
+        "word_type": "base"
+      },
+      {
+        "word": "callados",
+        "base_form": "callado",
+        "zipf": 3.5,
+        "word_type": "noun/adj"
+      },
+      {
+        "word": "cambies",
+        "base_form": "cambiar",
+        "zipf": 3.5,
+        "word_type": "verb"
+      },
+      {
+        "word": "caminan",
+        "base_form": "caminar",
+        "zipf": 3.5,
+        "word_type": "verb"
+      },
+      {
+        "word": "caroline",
+        "base_form": null,
+        "zipf": 3.5,
+        "word_type": "base"
+      },
+      {
+        "word": "castas",
+        "base_form": "casta",
+        "zipf": 3.5,
+        "word_type": "noun/adj"
+      },
+      {
+        "word": "cerebrales",
+        "base_form": "cerebral",
+        "zipf": 3.5,
+        "word_type": "noun/adj"
+      },
+      {
+        "word": "children",
+        "base_form": null,
+        "zipf": 3.5,
+        "word_type": "base"
+      },
+      {
+        "word": "christine",
+        "base_form": null,
+        "zipf": 3.5,
+        "word_type": "base"
+      },
+      {
+        "word": "cierro",
+        "base_form": null,
+        "zipf": 3.5,
+        "word_type": "base"
+      },
+      {
+        "word": "cinematográfico",
+        "base_form": null,
+        "zipf": 3.5,
+        "word_type": "base"
+      },
+      {
+        "word": "clasificada",
+        "base_form": "clasificado",
+        "zipf": 3.5,
+        "word_type": "noun/adj"
+      },
+      {
+        "word": "climas",
+        "base_form": "clima",
+        "zipf": 3.5,
+        "word_type": "noun/adj"
+      },
+      {
+        "word": "coincidió",
+        "base_form": "coincidir",
+        "zipf": 3.5,
+        "word_type": "verb"
+      },
+      {
+        "word": "colocaron",
+        "base_form": null,
+        "zipf": 3.5,
+        "word_type": "base"
+      },
+      {
+        "word": "combinada",
+        "base_form": "combinado",
+        "zipf": 3.5,
+        "word_type": "noun/adj"
+      },
+      {
+        "word": "compite",
+        "base_form": null,
+        "zipf": 3.5,
+        "word_type": "base"
+      },
+      {
+        "word": "complutense",
+        "base_form": null,
+        "zipf": 3.5,
+        "word_type": "base"
+      },
+      {
+        "word": "comunicados",
+        "base_form": "comunicado",
+        "zipf": 3.5,
+        "word_type": "noun/adj"
+      },
+      {
+        "word": "condón",
+        "base_form": null,
+        "zipf": 3.5,
+        "word_type": "base"
+      },
+      {
+        "word": "conectarse",
+        "base_form": null,
+        "zipf": 3.5,
+        "word_type": "base"
+      },
+      {
+        "word": "conquistas",
+        "base_form": "conquistar",
+        "zipf": 3.5,
+        "word_type": "verb"
+      },
+      {
+        "word": "consagrado",
+        "base_form": null,
+        "zipf": 3.5,
+        "word_type": "base"
+      },
+      {
+        "word": "consecutiva",
+        "base_form": "consecutivo",
+        "zipf": 3.5,
+        "word_type": "noun/adj"
+      },
+      {
+        "word": "considerarlo",
+        "base_form": null,
+        "zipf": 3.5,
+        "word_type": "base"
+      },
+      {
+        "word": "contorno",
+        "base_form": null,
+        "zipf": 3.5,
+        "word_type": "base"
+      },
+      {
+        "word": "contracción",
+        "base_form": null,
+        "zipf": 3.5,
+        "word_type": "base"
+      },
+      {
+        "word": "core",
+        "base_form": null,
+        "zipf": 3.5,
+        "word_type": "base"
+      },
+      {
+        "word": "cosita",
+        "base_form": null,
+        "zipf": 3.5,
+        "word_type": "base"
+      },
+      {
+        "word": "coto",
+        "base_form": null,
+        "zipf": 3.5,
+        "word_type": "base"
+      },
+      {
+        "word": "coña",
+        "base_form": "coño",
+        "zipf": 3.5,
+        "word_type": "noun/adj"
+      },
+      {
+        "word": "criminalidad",
+        "base_form": null,
+        "zipf": 3.5,
+        "word_type": "base"
+      },
+      {
+        "word": "cuantía",
+        "base_form": null,
+        "zipf": 3.5,
+        "word_type": "base"
+      },
+      {
+        "word": "culturalmente",
+        "base_form": "cultural",
+        "zipf": 3.5,
+        "word_type": "adverb_from_adj"
+      },
+      {
+        "word": "curro",
+        "base_form": "curar",
+        "zipf": 3.5,
+        "word_type": "verb"
+      },
+      {
+        "word": "deberás",
+        "base_form": "deberá",
+        "zipf": 3.5,
+        "word_type": "noun/adj"
+      },
+      {
+        "word": "debiendo",
+        "base_form": null,
+        "zipf": 3.5,
+        "word_type": "base"
+      },
+      {
+        "word": "decidirá",
+        "base_form": null,
+        "zipf": 3.5,
+        "word_type": "base"
+      },
+      {
+        "word": "dedicaba",
+        "base_form": null,
+        "zipf": 3.5,
+        "word_type": "base"
+      },
+      {
+        "word": "demarcación",
+        "base_form": null,
+        "zipf": 3.5,
+        "word_type": "base"
+      },
+      {
+        "word": "democráticamente",
+        "base_form": "democrática",
+        "zipf": 3.5,
+        "word_type": "adverb_from_adj"
+      },
+      {
+        "word": "denota",
+        "base_form": null,
+        "zipf": 3.5,
+        "word_type": "base"
+      },
+      {
+        "word": "depto",
+        "base_form": null,
+        "zipf": 3.5,
+        "word_type": "base"
+      },
+      {
+        "word": "descubra",
+        "base_form": "descubrir",
+        "zipf": 3.5,
+        "word_type": "verb"
+      },
+      {
+        "word": "despachos",
+        "base_form": "despacho",
+        "zipf": 3.5,
+        "word_type": "noun/adj"
+      },
+      {
+        "word": "despide",
+        "base_form": null,
+        "zipf": 3.5,
+        "word_type": "base"
+      },
+      {
+        "word": "detengan",
+        "base_form": null,
+        "zipf": 3.5,
+        "word_type": "base"
+      },
+      {
+        "word": "diciéndome",
+        "base_form": null,
+        "zipf": 3.5,
+        "word_type": "base"
+      },
+      {
+        "word": "difieren",
+        "base_form": null,
+        "zipf": 3.5,
+        "word_type": "base"
+      },
+      {
+        "word": "dilma",
+        "base_form": null,
+        "zipf": 3.5,
+        "word_type": "base"
+      },
+      {
+        "word": "dique",
+        "base_form": null,
+        "zipf": 3.5,
+        "word_type": "base"
+      },
+      {
+        "word": "diseñadora",
+        "base_form": null,
+        "zipf": 3.5,
+        "word_type": "base"
+      },
+      {
+        "word": "disputar",
+        "base_form": null,
+        "zipf": 3.5,
+        "word_type": "verb"
+      },
+      {
+        "word": "distribuyen",
+        "base_form": null,
+        "zipf": 3.5,
+        "word_type": "base"
+      },
+      {
+        "word": "divididas",
+        "base_form": "dividida",
+        "zipf": 3.5,
+        "word_type": "noun/adj"
+      },
+      {
+        "word": "divierte",
+        "base_form": null,
+        "zipf": 3.5,
+        "word_type": "base"
+      },
+      {
+        "word": "duke",
+        "base_form": null,
+        "zipf": 3.5,
+        "word_type": "base"
+      },
+      {
+        "word": "edwards",
+        "base_form": "edward",
+        "zipf": 3.5,
+        "word_type": "noun/adj"
+      },
+      {
+        "word": "elche",
+        "base_form": null,
+        "zipf": 3.5,
+        "word_type": "base"
+      },
+      {
+        "word": "emilia",
+        "base_form": "emilio",
+        "zipf": 3.5,
+        "word_type": "noun/adj"
+      },
+      {
+        "word": "encantados",
+        "base_form": "encantado",
+        "zipf": 3.5,
+        "word_type": "noun/adj"
+      },
+      {
+        "word": "enfocada",
+        "base_form": "enfocado",
+        "zipf": 3.5,
+        "word_type": "noun/adj"
+      },
+      {
+        "word": "engaños",
+        "base_form": "engañar",
+        "zipf": 3.5,
+        "word_type": "verb"
+      },
+      {
+        "word": "enseñarles",
+        "base_form": "enseñarle",
+        "zipf": 3.5,
+        "word_type": "noun/adj"
+      },
+      {
+        "word": "enterarme",
+        "base_form": null,
+        "zipf": 3.5,
+        "word_type": "base"
+      },
+      {
+        "word": "entregará",
+        "base_form": null,
+        "zipf": 3.5,
+        "word_type": "base"
+      },
+      {
+        "word": "escultor",
+        "base_form": null,
+        "zipf": 3.5,
+        "word_type": "base"
+      },
+      {
+        "word": "espinoza",
+        "base_form": null,
+        "zipf": 3.5,
+        "word_type": "base"
+      },
+      {
+        "word": "estancamiento",
+        "base_form": null,
+        "zipf": 3.5,
+        "word_type": "base"
+      },
+      {
+        "word": "estara",
+        "base_form": null,
+        "zipf": 3.5,
+        "word_type": "base"
+      },
+      {
+        "word": "etnias",
+        "base_form": "etnia",
+        "zipf": 3.5,
+        "word_type": "noun/adj"
+      },
+      {
+        "word": "evalúa",
+        "base_form": null,
+        "zipf": 3.5,
+        "word_type": "base"
+      },
+      {
+        "word": "examina",
+        "base_form": "examinar",
+        "zipf": 3.5,
+        "word_type": "verb"
+      },
+      {
+        "word": "exijo",
+        "base_form": null,
+        "zipf": 3.5,
+        "word_type": "base"
+      },
+      {
+        "word": "exiliado",
+        "base_form": null,
+        "zipf": 3.5,
+        "word_type": "base"
+      },
+      {
+        "word": "faceta",
+        "base_form": null,
+        "zipf": 3.5,
+        "word_type": "base"
+      },
+      {
+        "word": "fachadas",
+        "base_form": "fachada",
+        "zipf": 3.5,
+        "word_type": "noun/adj"
+      },
+      {
+        "word": "falsificación",
+        "base_form": null,
+        "zipf": 3.5,
+        "word_type": "base"
+      },
+      {
+        "word": "ferroviario",
+        "base_form": null,
+        "zipf": 3.5,
+        "word_type": "base"
+      },
+      {
+        "word": "finalista",
+        "base_form": null,
+        "zipf": 3.5,
+        "word_type": "base"
+      },
+      {
+        "word": "firman",
+        "base_form": "firmar",
+        "zipf": 3.5,
+        "word_type": "verb"
+      },
+      {
+        "word": "fria",
+        "base_form": "frio",
+        "zipf": 3.5,
+        "word_type": "noun/adj"
+      },
+      {
+        "word": "furiosa",
+        "base_form": "furioso",
+        "zipf": 3.5,
+        "word_type": "noun/adj"
+      },
+      {
+        "word": "gastón",
+        "base_form": "gastar",
+        "zipf": 3.5,
+        "word_type": "verb"
+      },
+      {
+        "word": "geología",
+        "base_form": null,
+        "zipf": 3.5,
+        "word_type": "base"
+      },
+      {
+        "word": "girls",
+        "base_form": "girar",
+        "zipf": 3.5,
+        "word_type": "verb"
+      },
+      {
+        "word": "glenn",
+        "base_form": null,
+        "zipf": 3.5,
+        "word_type": "base"
+      },
+      {
+        "word": "gore",
+        "base_form": null,
+        "zipf": 3.5,
+        "word_type": "base"
+      },
+      {
+        "word": "grandiosa",
+        "base_form": "grandioso",
+        "zipf": 3.5,
+        "word_type": "noun/adj"
+      },
+      {
+        "word": "guerrera",
+        "base_form": "guerrero",
+        "zipf": 3.5,
+        "word_type": "noun/adj"
+      },
+      {
+        "word": "guitarras",
+        "base_form": "guitarra",
+        "zipf": 3.5,
+        "word_type": "noun/adj"
+      },
+      {
+        "word": "gustaron",
+        "base_form": null,
+        "zipf": 3.5,
+        "word_type": "base"
+      },
+      {
+        "word": "haberlos",
+        "base_form": "haberlo",
+        "zipf": 3.5,
+        "word_type": "noun/adj"
+      },
+      {
+        "word": "hacías",
+        "base_form": "hacía",
+        "zipf": 3.5,
+        "word_type": "noun/adj"
+      },
+      {
+        "word": "hector",
+        "base_form": null,
+        "zipf": 3.5,
+        "word_type": "base"
+      },
+      {
+        "word": "holandeses",
+        "base_form": null,
+        "zipf": 3.5,
+        "word_type": "base"
+      },
+      {
+        "word": "homofobia",
+        "base_form": null,
+        "zipf": 3.5,
+        "word_type": "base"
+      },
+      {
+        "word": "huracanes",
+        "base_form": null,
+        "zipf": 3.5,
+        "word_type": "base"
+      },
+      {
+        "word": "ibáñez",
+        "base_form": null,
+        "zipf": 3.5,
+        "word_type": "base"
+      },
+      {
+        "word": "ibérico",
+        "base_form": null,
+        "zipf": 3.5,
+        "word_type": "base"
+      },
+      {
+        "word": "indulto",
+        "base_form": null,
+        "zipf": 3.5,
+        "word_type": "base"
+      },
+      {
+        "word": "infernal",
+        "base_form": null,
+        "zipf": 3.5,
+        "word_type": "base"
+      },
+      {
+        "word": "ingenioso",
+        "base_form": null,
+        "zipf": 3.5,
+        "word_type": "base"
+      },
+      {
+        "word": "inmediatas",
+        "base_form": "inmediata",
+        "zipf": 3.5,
+        "word_type": "noun/adj"
+      },
+      {
+        "word": "inquietante",
+        "base_form": null,
+        "zipf": 3.5,
+        "word_type": "base"
+      },
+      {
+        "word": "intentaré",
+        "base_form": null,
+        "zipf": 3.5,
+        "word_type": "base"
+      },
+      {
+        "word": "interesó",
+        "base_form": "interesar",
+        "zipf": 3.5,
+        "word_type": "verb"
+      },
+      {
+        "word": "interpretada",
+        "base_form": "interpretado",
+        "zipf": 3.5,
+        "word_type": "noun/adj"
+      },
+      {
+        "word": "interrupciones",
+        "base_form": null,
+        "zipf": 3.5,
+        "word_type": "base"
+      },
+      {
+        "word": "iraq",
+        "base_form": null,
+        "zipf": 3.5,
+        "word_type": "base"
+      },
+      {
+        "word": "jajajajajaja",
+        "base_form": null,
+        "zipf": 3.5,
+        "word_type": "base"
+      },
+      {
+        "word": "judith",
+        "base_form": null,
+        "zipf": 3.5,
+        "word_type": "base"
+      },
+      {
+        "word": "jurados",
+        "base_form": "jurado",
+        "zipf": 3.5,
+        "word_type": "noun/adj"
+      },
+      {
+        "word": "l.a",
+        "base_form": null,
+        "zipf": 3.5,
+        "word_type": "base"
+      },
+      {
+        "word": "lab",
+        "base_form": null,
+        "zipf": 3.5,
+        "word_type": "base"
+      },
+      {
+        "word": "latinoamericanas",
+        "base_form": "latinoamericana",
+        "zipf": 3.5,
+        "word_type": "noun/adj"
+      },
+      {
+        "word": "legalizar",
+        "base_form": null,
+        "zipf": 3.5,
+        "word_type": "verb"
+      },
+      {
+        "word": "lesionado",
+        "base_form": null,
+        "zipf": 3.5,
+        "word_type": "base"
+      },
+      {
+        "word": "lideres",
+        "base_form": "liderar",
+        "zipf": 3.5,
+        "word_type": "verb"
+      },
+      {
+        "word": "llenaron",
+        "base_form": null,
+        "zipf": 3.5,
+        "word_type": "base"
+      },
+      {
+        "word": "lope",
+        "base_form": null,
+        "zipf": 3.5,
+        "word_type": "base"
+      },
+      {
+        "word": "louise",
+        "base_form": null,
+        "zipf": 3.5,
+        "word_type": "base"
+      },
+      {
+        "word": "ltd",
+        "base_form": null,
+        "zipf": 3.5,
+        "word_type": "base"
+      },
+      {
+        "word": "lucho",
+        "base_form": "luchar",
+        "zipf": 3.5,
+        "word_type": "verb"
+      },
+      {
+        "word": "luther",
+        "base_form": null,
+        "zipf": 3.5,
+        "word_type": "verb"
+      },
+      {
+        "word": "lácteos",
+        "base_form": null,
+        "zipf": 3.5,
+        "word_type": "base"
+      },
+      {
+        "word": "lámina",
+        "base_form": null,
+        "zipf": 3.5,
+        "word_type": "base"
+      },
+      {
+        "word": "mae",
+        "base_form": "mar",
+        "zipf": 3.5,
+        "word_type": "verb"
+      },
+      {
+        "word": "mamíferos",
+        "base_form": null,
+        "zipf": 3.5,
+        "word_type": "base"
+      },
+      {
+        "word": "mantas",
+        "base_form": "manta",
+        "zipf": 3.5,
+        "word_type": "noun/adj"
+      },
+      {
+        "word": "market",
+        "base_form": null,
+        "zipf": 3.5,
+        "word_type": "base"
+      },
+      {
+        "word": "matones",
+        "base_form": null,
+        "zipf": 3.5,
+        "word_type": "base"
+      },
+      {
+        "word": "medioambiente",
+        "base_form": null,
+        "zipf": 3.5,
+        "word_type": "base"
+      },
+      {
+        "word": "mediterránea",
+        "base_form": "mediterráneo",
+        "zipf": 3.5,
+        "word_type": "noun/adj"
+      },
+      {
+        "word": "mejoran",
+        "base_form": "mejorar",
+        "zipf": 3.5,
+        "word_type": "verb"
+      },
+      {
+        "word": "melbourne",
+        "base_form": null,
+        "zipf": 3.5,
+        "word_type": "base"
+      },
+      {
+        "word": "merezca",
+        "base_form": "merezco",
+        "zipf": 3.5,
+        "word_type": "noun/adj"
+      },
+      {
+        "word": "michigan",
+        "base_form": null,
+        "zipf": 3.5,
+        "word_type": "base"
+      },
+      {
+        "word": "mintió",
+        "base_form": null,
+        "zipf": 3.5,
+        "word_type": "base"
+      },
+      {
+        "word": "mostrarse",
+        "base_form": null,
+        "zipf": 3.5,
+        "word_type": "base"
+      },
+      {
+        "word": "nac",
+        "base_form": "nacer",
+        "zipf": 3.5,
+        "word_type": "verb"
+      },
+      {
+        "word": "naruto",
+        "base_form": null,
+        "zipf": 3.5,
+        "word_type": "base"
+      },
+      {
+        "word": "nat",
+        "base_form": null,
+        "zipf": 3.5,
+        "word_type": "base"
+      },
+      {
+        "word": "naturalidad",
+        "base_form": null,
+        "zipf": 3.5,
+        "word_type": "base"
+      },
+      {
+        "word": "navegando",
+        "base_form": null,
+        "zipf": 3.5,
+        "word_type": "base"
+      },
+      {
+        "word": "negociando",
+        "base_form": null,
+        "zipf": 3.5,
+        "word_type": "base"
+      },
+      {
+        "word": "nisman",
+        "base_form": null,
+        "zipf": 3.5,
+        "word_type": "base"
+      },
+      {
+        "word": "notaba",
+        "base_form": null,
+        "zipf": 3.5,
+        "word_type": "base"
+      },
+      {
+        "word": "novato",
+        "base_form": null,
+        "zipf": 3.5,
+        "word_type": "base"
+      },
+      {
+        "word": "nuez",
+        "base_form": null,
+        "zipf": 3.5,
+        "word_type": "base"
+      },
+      {
+        "word": "obstrucción",
+        "base_form": null,
+        "zipf": 3.5,
+        "word_type": "base"
+      },
+      {
+        "word": "ocultan",
+        "base_form": "ocultar",
+        "zipf": 3.5,
+        "word_type": "verb"
+      },
+      {
+        "word": "oponentes",
+        "base_form": "oponente",
+        "zipf": 3.5,
+        "word_type": "noun/adj"
+      },
+      {
+        "word": "parezcan",
+        "base_form": null,
+        "zipf": 3.5,
+        "word_type": "base"
+      },
+      {
+        "word": "paréntesis",
+        "base_form": null,
+        "zipf": 3.5,
+        "word_type": "base"
+      },
+      {
+        "word": "pasion",
+        "base_form": null,
+        "zipf": 3.5,
+        "word_type": "base"
+      },
+      {
+        "word": "pastos",
+        "base_form": "pasto",
+        "zipf": 3.5,
+        "word_type": "noun/adj"
+      },
+      {
+        "word": "patriótica",
+        "base_form": "patriótico",
+        "zipf": 3.5,
+        "word_type": "noun/adj"
+      },
+      {
+        "word": "pelado",
+        "base_form": null,
+        "zipf": 3.5,
+        "word_type": "base"
+      },
+      {
+        "word": "penitencia",
+        "base_form": null,
+        "zipf": 3.5,
+        "word_type": "base"
+      },
+      {
+        "word": "perdio",
+        "base_form": "perder",
+        "zipf": 3.5,
+        "word_type": "verb"
+      },
+      {
+        "word": "peregrinación",
+        "base_form": null,
+        "zipf": 3.5,
+        "word_type": "base"
+      },
+      {
+        "word": "perjudica",
+        "base_form": "perjudicar",
+        "zipf": 3.5,
+        "word_type": "verb"
+      },
+      {
+        "word": "pique",
+        "base_form": null,
+        "zipf": 3.5,
+        "word_type": "base"
+      },
+      {
+        "word": "polaca",
+        "base_form": "polaco",
+        "zipf": 3.5,
+        "word_type": "noun/adj"
+      },
+      {
+        "word": "policias",
+        "base_form": "policia",
+        "zipf": 3.5,
+        "word_type": "noun/adj"
+      },
+      {
+        "word": "pontevedra",
+        "base_form": null,
+        "zipf": 3.5,
+        "word_type": "base"
+      },
+      {
+        "word": "populista",
+        "base_form": null,
+        "zipf": 3.5,
+        "word_type": "base"
+      },
+      {
+        "word": "porras",
+        "base_form": "porra",
+        "zipf": 3.5,
+        "word_type": "noun/adj"
+      },
+      {
+        "word": "prat",
+        "base_form": null,
+        "zipf": 3.5,
+        "word_type": "base"
+      },
+      {
+        "word": "precariedad",
+        "base_form": null,
+        "zipf": 3.5,
+        "word_type": "base"
+      },
+      {
+        "word": "precipitaciones",
+        "base_form": null,
+        "zipf": 3.5,
+        "word_type": "base"
+      },
+      {
+        "word": "pregúntale",
+        "base_form": null,
+        "zipf": 3.5,
+        "word_type": "base"
+      },
+      {
+        "word": "preparaba",
+        "base_form": null,
+        "zipf": 3.5,
+        "word_type": "base"
+      },
+      {
+        "word": "presiona",
+        "base_form": "presionar",
+        "zipf": 3.5,
+        "word_type": "verb"
+      },
+      {
+        "word": "proa",
+        "base_form": null,
+        "zipf": 3.5,
+        "word_type": "base"
+      },
+      {
+        "word": "profetas",
+        "base_form": "profeta",
+        "zipf": 3.5,
+        "word_type": "noun/adj"
+      },
+      {
+        "word": "propina",
+        "base_form": null,
+        "zipf": 3.5,
+        "word_type": "base"
+      },
+      {
+        "word": "protestan",
+        "base_form": "protestar",
+        "zipf": 3.5,
+        "word_type": "verb"
+      },
+      {
+        "word": "pruebe",
+        "base_form": null,
+        "zipf": 3.5,
+        "word_type": "base"
+      },
+      {
+        "word": "próspero",
+        "base_form": null,
+        "zipf": 3.5,
+        "word_type": "base"
+      },
+      {
+        "word": "pulido",
+        "base_form": null,
+        "zipf": 3.5,
+        "word_type": "base"
+      },
+      {
+        "word": "páez",
+        "base_form": null,
+        "zipf": 3.5,
+        "word_type": "base"
+      },
+      {
+        "word": "quejándose",
+        "base_form": null,
+        "zipf": 3.5,
+        "word_type": "base"
+      },
+      {
+        "word": "rechazaron",
+        "base_form": null,
+        "zipf": 3.5,
+        "word_type": "base"
+      },
+      {
+        "word": "reforzado",
+        "base_form": null,
+        "zipf": 3.5,
+        "word_type": "base"
+      },
+      {
+        "word": "regalan",
+        "base_form": "regalar",
+        "zipf": 3.5,
+        "word_type": "verb"
+      },
+      {
+        "word": "reggae",
+        "base_form": null,
+        "zipf": 3.5,
+        "word_type": "base"
+      },
+      {
+        "word": "regresen",
+        "base_form": "regresar",
+        "zipf": 3.5,
+        "word_type": "verb"
+      },
+      {
+        "word": "remodelación",
+        "base_form": null,
+        "zipf": 3.5,
+        "word_type": "base"
+      },
+      {
+        "word": "remotos",
+        "base_form": "remoto",
+        "zipf": 3.5,
+        "word_type": "noun/adj"
+      },
+      {
+        "word": "reparte",
+        "base_form": "reparar",
+        "zipf": 3.5,
+        "word_type": "verb"
+      },
+      {
+        "word": "respaldar",
+        "base_form": null,
+        "zipf": 3.5,
+        "word_type": "verb"
+      },
+      {
+        "word": "restaurant",
+        "base_form": null,
+        "zipf": 3.5,
+        "word_type": "base"
+      },
+      {
+        "word": "restringir",
+        "base_form": null,
+        "zipf": 3.5,
+        "word_type": "verb"
+      },
+      {
+        "word": "resueltos",
+        "base_form": "resuelto",
+        "zipf": 3.5,
+        "word_type": "noun/adj"
+      },
+      {
+        "word": "revelaciones",
+        "base_form": null,
+        "zipf": 3.5,
+        "word_type": "base"
+      },
+      {
+        "word": "riguroso",
+        "base_form": null,
+        "zipf": 3.5,
+        "word_type": "base"
+      },
+      {
+        "word": "rodando",
+        "base_form": null,
+        "zipf": 3.5,
+        "word_type": "base"
+      },
+      {
+        "word": "roland",
+        "base_form": null,
+        "zipf": 3.5,
+        "word_type": "base"
+      },
+      {
+        "word": "room",
+        "base_form": null,
+        "zipf": 3.5,
+        "word_type": "base"
+      },
+      {
+        "word": "sacada",
+        "base_form": "sacado",
+        "zipf": 3.5,
+        "word_type": "noun/adj"
+      },
+      {
+        "word": "saltan",
+        "base_form": "saltar",
+        "zipf": 3.5,
+        "word_type": "verb"
+      }
+    ]
+  }
+}

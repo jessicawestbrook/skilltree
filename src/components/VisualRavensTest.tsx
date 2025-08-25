@@ -178,14 +178,18 @@ const VisualRavensTest: React.FC = () => {
     // Save response to database
     try {
       await supabase
-        .from('user_test_responses')
+        .from('user_question_responses')
         .insert({
-          attempt_id: testAttempt.id,
+          user_id: user?.id,
+          session_id: testAttempt.id,
           question_id: currentQuestion.id,
-          user_answer: selectedOption,
+          user_response: selectedOption,
           is_correct: isCorrect,
           points_earned: isCorrect ? currentQuestion.points_value : 0,
-          time_taken_seconds: timeSpent
+          response_time_ms: timeSpent * 1000,
+          context_type: 'visual_test',
+          question_type: 'visual_pattern',
+          question_sequence: currentQuestionIndex + 1
         })
     } catch (error) {
       console.error('Error saving response:', error)
@@ -198,7 +202,7 @@ const VisualRavensTest: React.FC = () => {
     } else {
       finishTest()
     }
-  }, [testAttempt, questions, currentQuestionIndex, timeRemaining, finishTest])
+  }, [testAttempt, questions, currentQuestionIndex, timeRemaining, finishTest, user?.id])
 
   // Timer effect
   useEffect(() => {

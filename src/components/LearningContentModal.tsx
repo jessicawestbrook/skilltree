@@ -7,7 +7,7 @@ import { adaptiveLearningService } from '../services/adaptiveLearningService'
 import { SkillTreeNode, LearningContent, Question } from '../types/database.types'
 import FlagContentModal from './FlagContentModal'
 import LearningContentViewer from './LearningContentViewer'
-import EnhancedQuestionDisplay from './EnhancedQuestionDisplay'
+import QuestionDisplay from './QuestionDisplay'
 import '../styles/learningContent.css'
 
 interface LearningContentModalProps {
@@ -354,16 +354,33 @@ const LearningContentModal: React.FC<LearningContentModalProps> = ({
             <>
               {/* Pre-Quiz Phase */}
               {phase === 'pre-quiz' && currentQuestion && (
-                <EnhancedQuestionDisplay
-                  question={currentQuestion}
+                <QuestionDisplay
+                  question={{
+                    id: currentQuestion.id,
+                    question_text: currentQuestion.question_text,
+                    options: currentQuestion.options,
+                    correct_answer: currentQuestion.correct_answer,
+                    explanation: currentQuestion.explanation,
+                    difficulty: currentQuestion.difficulty,
+                    image_url: currentQuestion.image_url,
+                    estimated_time_seconds: undefined
+                  }}
+                  selectedAnswer={currentQuestion.options[selectedAnswers[currentQuestionIndex] as number]}
+                  onAnswerSelect={(answer) => {
+                    const optionIndex = currentQuestion.options.indexOf(answer as string)
+                    if (optionIndex !== -1) {
+                      handleAnswerSelect(currentQuestionIndex, optionIndex)
+                      // Auto-submit after selection since autoSubmit is true
+                      setTimeout(() => handleQuestionSubmit(), 300)
+                    }
+                  }}
+                  showExplanation={showExplanation}
                   questionNumber={questionNumber}
                   totalQuestions={3}
-                  onAnswerSelect={(optionIndex) => handleAnswerSelect(currentQuestionIndex, optionIndex)}
-                  onSubmit={handleQuestionSubmit}
+                  questionType="pre-quiz"
+                  isCorrect={selectedAnswers[currentQuestionIndex] === currentQuestion.correct_answer}
                   onNext={handleNextQuestion}
-                  selectedAnswer={selectedAnswers[currentQuestionIndex]}
-                  showExplanation={showExplanation}
-                  isPreQuiz={true}
+                  autoSubmit={true}
                 />
               )}
 
@@ -538,17 +555,33 @@ const LearningContentModal: React.FC<LearningContentModalProps> = ({
 
               {/* Test Phase */}
               {phase === 'test' && currentQuestion && (
-                <EnhancedQuestionDisplay
-                  question={currentQuestion}
+                <QuestionDisplay
+                  question={{
+                    id: currentQuestion.id,
+                    question_text: currentQuestion.question_text,
+                    options: currentQuestion.options,
+                    correct_answer: currentQuestion.correct_answer,
+                    explanation: currentQuestion.explanation,
+                    difficulty: currentQuestion.difficulty,
+                    image_url: currentQuestion.image_url,
+                    estimated_time_seconds: 90 // 90 seconds per question for test
+                  }}
+                  selectedAnswer={currentQuestion.options[selectedAnswers[currentQuestionIndex] as number]}
+                  onAnswerSelect={(answer) => {
+                    const optionIndex = currentQuestion.options.indexOf(answer as string)
+                    if (optionIndex !== -1) {
+                      handleAnswerSelect(currentQuestionIndex, optionIndex)
+                      // Auto-submit after selection since autoSubmit is true
+                      setTimeout(() => handleQuestionSubmit(), 300)
+                    }
+                  }}
+                  showExplanation={showExplanation}
                   questionNumber={questionNumber}
                   totalQuestions={questionsInPhase}
-                  onAnswerSelect={(optionIndex) => handleAnswerSelect(currentQuestionIndex, optionIndex)}
-                  onSubmit={handleQuestionSubmit}
+                  questionType="test"
+                  isCorrect={selectedAnswers[currentQuestionIndex] === currentQuestion.correct_answer}
                   onNext={handleNextQuestion}
-                  selectedAnswer={selectedAnswers[currentQuestionIndex]}
-                  showExplanation={showExplanation}
-                  isPreQuiz={false}
-                  timeLimit={90} // 90 seconds per question for test
+                  autoSubmit={true}
                 />
               )}
 
@@ -624,19 +657,5 @@ const LearningContentModal: React.FC<LearningContentModalProps> = ({
   )
 }
 
-// Helper function to get difficulty color and label
-const getDifficultyDisplay = (difficulty: string) => {
-  const normalized = difficulty.toLowerCase()
-  
-  if (normalized.includes('easy') || normalized === '1') {
-    return { label: 'Easy', color: 'text-green-600 dark:text-green-400 bg-green-100 dark:bg-green-900/30' }
-  } else if (normalized.includes('hard') || normalized === '3') {
-    return { label: 'Hard', color: 'text-orange-600 dark:text-orange-400 bg-orange-100 dark:bg-orange-900/30' }
-  } else if (normalized.includes('expert') || normalized === '4') {
-    return { label: 'Expert', color: 'text-red-600 dark:text-red-400 bg-red-100 dark:bg-red-900/30' }
-  } else {
-    return { label: 'Medium', color: 'text-blue-600 dark:text-blue-400 bg-blue-100 dark:bg-blue-900/30' }
-  }
-}
 
 export default LearningContentModal

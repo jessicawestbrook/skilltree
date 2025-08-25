@@ -6,7 +6,8 @@ import {
   ChartBarIcon, 
   BookOpenIcon,
   StarIcon,
-  BoltIcon
+  BoltIcon,
+  XMarkIcon
 } from '@heroicons/react/24/outline'
 import { StarIcon as StarIconSolid } from '@heroicons/react/24/solid'
 import { useAuth } from '../contexts/AuthContext'
@@ -609,36 +610,47 @@ const CategoryPage: React.FC = () => {
 
       {/* Adaptive Assessment Modal */}
       {showAdaptiveAssessment && resolvedCategoryId && category && (
-        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
-          <div 
-            className="bg-white dark:bg-neutral-900 rounded-xl shadow-xl max-w-6xl w-full max-h-[90vh] overflow-y-auto"
-            onClick={(e) => e.stopPropagation()}
-          >
-            <AdaptiveAssessment
-              categoryId={resolvedCategoryId}
-              categoryName={category.name}
-              sessionType="assessment"
-              onComplete={(session: AssessmentSession) => {
-                // Update user progress when assessment is completed
-                if (user) {
-                  supabase
-                    .from('user_progress')
-                    .upsert({
-                      user_id: user.id,
-                      skill_id: resolvedCategoryId,
-                      status: 'completed',
-                      rating: session.total_points,
-                      last_accessed: new Date().toISOString()
-                    })
-                    .then(() => {
-                      // Refresh category data to update progress
-                      fetchCategoryData()
-                    })
-                }
-                setShowAdaptiveAssessment(false)
-              }}
-              onExit={() => setShowAdaptiveAssessment(false)}
-            />
+        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4 overflow-y-auto">
+          <div className="relative max-w-6xl w-full my-8 min-h-0">
+            {/* Close button positioned outside the content */}
+            <button
+              onClick={() => setShowAdaptiveAssessment(false)}
+              className="absolute -top-2 -right-2 z-10 p-2 bg-white dark:bg-neutral-800 rounded-full shadow-lg hover:bg-neutral-100 dark:hover:bg-neutral-700 transition-colors"
+              title="Close assessment"
+            >
+              <XMarkIcon className="h-6 w-6 text-neutral-600 dark:text-neutral-400" />
+            </button>
+            
+            <div 
+              className="bg-white dark:bg-neutral-900 rounded-xl shadow-xl w-full max-h-[85vh] overflow-y-auto"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <AdaptiveAssessment
+                categoryId={resolvedCategoryId}
+                categoryName={category.name}
+                sessionType="assessment"
+                onComplete={(session: AssessmentSession) => {
+                  // Update user progress when assessment is completed
+                  if (user) {
+                    supabase
+                      .from('user_progress')
+                      .upsert({
+                        user_id: user.id,
+                        skill_id: resolvedCategoryId,
+                        status: 'completed',
+                        rating: session.total_points,
+                        last_accessed: new Date().toISOString()
+                      })
+                      .then(() => {
+                        // Refresh category data to update progress
+                        fetchCategoryData()
+                      })
+                  }
+                  setShowAdaptiveAssessment(false)
+                }}
+                onExit={() => setShowAdaptiveAssessment(false)}
+              />
+            </div>
           </div>
         </div>
       )}

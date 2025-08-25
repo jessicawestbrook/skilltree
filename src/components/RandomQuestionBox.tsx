@@ -39,9 +39,10 @@ const RandomQuestionBox: React.FC<RandomQuestionBoxProps> = ({ onClose }) => {
       let userSeenQuestions: string[] = []
       if (user) {
         const { data: attempts } = await supabase
-          .from('user_question_attempts')
+          .from('user_question_responses')
           .select('question_id')
           .eq('user_id', user.id)
+          .eq('context_type', 'practice')
         
         if (attempts) {
           userSeenQuestions = attempts.map(a => a.question_id)
@@ -107,20 +108,23 @@ const RandomQuestionBox: React.FC<RandomQuestionBoxProps> = ({ onClose }) => {
       try {
         // Check if user has attempted this question before
         const { data: previousAttempts } = await supabase
-          .from('user_question_attempts')
+          .from('user_question_responses')
           .select('id')
           .eq('user_id', user.id)
           .eq('question_id', question.id)
+          .eq('context_type', 'practice')
         
         const attemptNumber = (previousAttempts?.length || 0) + 1
         
         // Save the attempt
-        await supabase.from('user_question_attempts').insert({
+        await supabase.from('user_question_responses').insert({
           user_id: user.id,
           question_id: question.id,
           is_correct: isCorrect,
-          time_taken_seconds: 0,
-          attempt_number: attemptNumber
+          response_time_ms: 0,
+          attempt_number: attemptNumber,
+          context_type: 'practice',
+          user_response: question.options[selectedOptionIndex]
         })
       } catch (error) {
         console.log('Could not save attempt:', error)

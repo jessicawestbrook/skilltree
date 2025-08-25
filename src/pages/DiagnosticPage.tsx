@@ -20,7 +20,7 @@ const DiagnosticPage: React.FC = () => {
       'user_progress',
       'feedback',
       'starred_categories',
-      'user_question_attempts'
+      'user_question_responses'
     ]
     
     for (const table of tables) {

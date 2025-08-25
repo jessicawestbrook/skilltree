@@ -16,6 +16,7 @@ import { Link } from 'react-router-dom'
 import SourceURLManager from '../components/SourceURLManager'
 import AdminUserManager from '../components/AdminUserManager'
 import HiddenNodesManager from '../components/HiddenNodesManager'
+import WordFlagsManager from '../components/WordFlagsManager'
 
 interface FeedbackItem {
   id: string
@@ -42,7 +43,7 @@ interface ContentFlag {
 }
 
 const AdminPage: React.FC = () => {
-  const [activeTab, setActiveTab] = useState<'feedback' | 'flags' | 'sources' | 'users' | 'visibility'>('feedback')
+  const [activeTab, setActiveTab] = useState<'feedback' | 'flags' | 'sources' | 'users' | 'visibility' | 'words'>('feedback')
   const [feedbackItems, setFeedbackItems] = useState<FeedbackItem[]>([])
   const [contentFlags, setContentFlags] = useState<ContentFlag[]>([])
   const [filterStatus, setFilterStatus] = useState<string>('all')
@@ -246,6 +247,17 @@ const AdminPage: React.FC = () => {
           <EyeSlashIcon className="h-5 w-5 inline mr-2" />
           Node Visibility
         </button>
+        <button
+          onClick={() => setActiveTab('words')}
+          className={`pb-2 px-1 font-medium transition-colors ${
+            activeTab === 'words'
+              ? 'text-primary-600 border-b-2 border-primary-600'
+              : 'text-neutral-600 dark:text-neutral-400 hover:text-primary-600'
+          }`}
+        >
+          <DocumentTextIcon className="h-5 w-5 inline mr-2" />
+          Word Flags
+        </button>
       </div>
 
       {/* Filter */}
@@ -272,6 +284,8 @@ const AdminPage: React.FC = () => {
         <AdminUserManager />
       ) : activeTab === 'visibility' ? (
         <HiddenNodesManager />
+      ) : activeTab === 'words' ? (
+        <WordFlagsManager />
       ) : (
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* List */}

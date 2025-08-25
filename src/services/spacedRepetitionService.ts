@@ -222,6 +222,11 @@ class SpacedRepetitionService {
       // Also record in review history for analytics
       await this.recordReviewHistory(userId, flashcardId, flashcardType, response, interval)
       
+      // Create automatic reminder for next review if enabled
+      if (response.quality >= 3) { // Only for correct answers
+        await this.createNextReviewReminder(userId, flashcardId, flashcardType, interval)
+      }
+      
       return data as FlashcardReview
     } catch (error) {
       console.error('Error recording review:', error)
@@ -240,7 +245,7 @@ class SpacedRepetitionService {
     nextInterval: number
   ): Promise<void> {
     try {
-      await supabase
+      const { error } = await supabase
         .from('flashcard_review_history')
         .insert({
           user_id: userId,
@@ -252,8 +257,16 @@ class SpacedRepetitionService {
           next_interval_days: nextInterval,
           reviewed_at: new Date().toISOString()
         })
+      
+      if (error) {
+        // Silently fail if table doesn't exist - it's optional for analytics
+        if (error.code !== 'PGRST205') {
+          console.warn('Error recording review history (non-critical):', error.message)
+        }
+      }
     } catch (error) {
-      console.error('Error recording review history:', error)
+      // Silently fail - history table is optional
+      console.warn('Error recording review history (non-critical):', error)
     }
   }
 
@@ -407,9 +420,23 @@ class SpacedRepetitionService {
         case 'language':
           const { data: langQuestion } = await supabase
             .from('language_questions')
-            .select('*')
+            .select(`
+              *,
+              languages (
+                name
+              )
+            `)
             .eq('id', flashcardId)
             .single()
+          
+          // Transform to include language name
+          if (langQuestion) {
+            return {
+              ...langQuestion,
+              language: langQuestion.languages?.name || 'Language',
+              question: langQuestion.question_text || langQuestion.question
+            }
+          }
           return langQuestion
           
         case 'skill_node':
@@ -483,6 +510,34 @@ class SpacedRepetitionService {
     } catch (error) {
       console.error('Error in addFlashcardsToReview:', error)
       return false
+    }
+  }
+
+  /**
+   * Create a reminder for the next review
+   */
+  private async createNextReviewReminder(
+    userId: string,
+    flashcardId: string,
+    flashcardType: string,
+    intervalDays: number
+  ): Promise<void> {
+    try {
+      // Import dynamically to avoid circular dependency
+      const { studyReminderService } = await import('./studyReminderService')
+      
+      // Check if user has auto-scheduling enabled
+      const schedule = await studyReminderService.getUserActiveSchedule(userId)
+      if (schedule && schedule.auto_schedule_reviews) {
+        await studyReminderService.createSpacedRepetitionReminder(
+          userId,
+          flashcardType,
+          [flashcardId],
+          intervalDays
+        )
+      }
+    } catch (error) {
+      console.error('Error creating review reminder:', error)
     }
   }
 

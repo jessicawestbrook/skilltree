@@ -3,7 +3,7 @@ import { useLocation, useNavigate } from 'react-router-dom'
 import { supabase } from '../services/supabase'
 import { spacedRepetitionService, ReviewResponse } from '../services/spacedRepetitionService'
 import { useAuth } from '../contexts/AuthContext'
-import SpellingBeeCard from '../components/flashcards/SpellingBeeCard'
+import SpellingCard from '../components/flashcards/SpellingCard'
 import VocabularyCard from '../components/flashcards/VocabularyCard'
 import LanguageCard from '../components/flashcards/LanguageCard'
 import {
@@ -11,8 +11,6 @@ import {
   XCircleIcon,
   ArrowRightIcon,
   ArrowLeftIcon,
-  ChartBarIcon,
-  ClockIcon,
   XMarkIcon
 } from '@heroicons/react/24/outline'
 
@@ -62,7 +60,6 @@ const StudyListReviewPage: React.FC = () => {
       }
 
       const reviewItems = location.state.items as StudyItem[]
-      const listName = location.state.listName || 'Study List'
       
       // Load full data for each item based on type
       const fullItems = await Promise.all(
@@ -74,19 +71,60 @@ const StudyListReviewPage: React.FC = () => {
             case 'vocabulary_word':
               const { data: word } = await supabase
                 .from('spelling_words')
-                .select('*')
+                .select(`
+                  *,
+                  vocabulary_difficulty_levels!vocabulary_difficulty_id(id, name, description)
+                `)
                 .eq('id', item.id)
                 .single()
+              
+              // For vocabulary words, generate options
+              if (item.type === 'vocabulary_word' && word) {
+                // Get other words for generating wrong options
+                const { data: otherWords } = await supabase
+                  .from('spelling_words')
+                  .select('*')
+                  .neq('id', item.id)
+                  .limit(20)
+                
+                if (otherWords && otherWords.length >= 3) {
+                  // Create wrong definitions
+                  const wrongDefinitions = otherWords
+                    .sort(() => Math.random() - 0.5)
+                    .slice(0, 3)
+                    .map(w => w.definition)
+                  
+                  // Mix correct and wrong definitions
+                  const allDefinitions = [word.definition, ...wrongDefinitions]
+                  word.options = allDefinitions.sort(() => Math.random() - 0.5)
+                  word.correctAnswer = word.definition
+                }
+              }
+              
               fullData = word
               break
               
             case 'language_question':
               const { data: langQuestion } = await supabase
                 .from('language_questions')
-                .select('*')
+                .select(`
+                  *,
+                  languages (
+                    name
+                  )
+                `)
                 .eq('id', item.id)
                 .single()
-              fullData = langQuestion
+              
+              // Transform to include language name
+              if (langQuestion) {
+                fullData = {
+                  ...langQuestion,
+                  language: langQuestion.languages?.name || 'Language'
+                }
+              } else {
+                fullData = langQuestion
+              }
               break
               
             case 'question':
@@ -135,13 +173,8 @@ const StudyListReviewPage: React.FC = () => {
         break
         
       case 'vocabulary_word':
-        // For vocabulary, check if selected definition matches
-        if (typeof answer === 'number') {
-          const options = currentItem.data.options || []
-          correct = options[answer] === currentItem.data.definition
-        } else {
-          correct = answer.toLowerCase() === currentItem.data.definition?.toLowerCase()
-        }
+        // For vocabulary, check if selected answer matches correct definition
+        correct = answer === currentItem.data.correctAnswer || answer === currentItem.data.definition
         break
         
       case 'language_question':
@@ -177,10 +210,31 @@ const StudyListReviewPage: React.FC = () => {
         time_taken: Math.floor((Date.now() - stats.startTime) / 1000), // in seconds
         hint_used: false
       }
+      
+      // Map the item type to the flashcard type expected by the database
+      let flashcardType: 'vocabulary' | 'spelling' | 'language' | 'question' | 'skill_node' = 'question'
+      switch (currentItem.type) {
+        case 'spelling_word':
+          flashcardType = 'spelling'
+          break
+        case 'vocabulary_word':
+          flashcardType = 'vocabulary'
+          break
+        case 'language_question':
+          flashcardType = 'language'
+          break
+        case 'question':
+          flashcardType = 'question'
+          break
+        case 'skill_node':
+          flashcardType = 'skill_node'
+          break
+      }
+      
       spacedRepetitionService.recordReview(
         user.id,
         currentItem.id,
-        currentItem.type as any,
+        flashcardType,
         reviewResponse
       ).catch(console.error)
     }
@@ -221,15 +275,22 @@ const StudyListReviewPage: React.FC = () => {
     switch (currentItem.type) {
       case 'spelling_word':
         return (
-          <SpellingBeeCard
+          <SpellingCard
             word={currentItem.data?.word || ''}
             definition={currentItem.data?.definition}
+            exampleSentence={currentItem.data?.example_sentence}
             partOfSpeech={currentItem.data?.part_of_speech}
             difficulty={currentItem.data?.spelling_difficulty_id}
+            difficultyName={currentItem.data?.spelling_difficulty_levels?.name}
             userInput={userAnswer}
             showResult={showResult}
             isCorrect={isCorrect}
             onInputChange={setUserAnswer}
+            onSubmit={() => {
+              if (userAnswer.trim()) {
+                handleAnswer(userAnswer)
+              }
+            }}
             onPlayAudio={() => {
               // Play audio implementation
               if ('speechSynthesis' in window && currentItem.data?.word) {
@@ -242,17 +303,22 @@ const StudyListReviewPage: React.FC = () => {
         )
         
       case 'vocabulary_word':
+        // Generate options for vocabulary question
+        const vocabOptions = currentItem.data?.options || []
+        const vocabCorrectAnswer = currentItem.data?.correctAnswer || currentItem.data?.definition
+        
         return (
           <VocabularyCard
-            word={currentItem.data?.word || ''}
-            definition={currentItem.data?.definition}
-            partOfSpeech={currentItem.data?.part_of_speech}
-            difficulty={currentItem.data?.vocabulary_difficulty_id}
-            selectedOption={selectedOption}
+            word={currentItem.data}
+            isWordToDefinition={true}
+            options={vocabOptions}
+            correctAnswer={vocabCorrectAnswer}
+            selectedAnswer={userAnswer}
             showResult={showResult}
-            onSelectOption={(index: number) => {
-              setSelectedOption(index)
-              handleAnswer(index)
+            isCorrect={isCorrect}
+            onAnswerSelect={(answer: string) => {
+              setUserAnswer(answer)
+              handleAnswer(answer)
             }}
           />
         )
@@ -260,7 +326,7 @@ const StudyListReviewPage: React.FC = () => {
       case 'language_question':
         return (
           <LanguageCard
-            language={currentItem.data?.language_id || 'Unknown'}
+            language={currentItem.data?.language || currentItem.data?.languages?.name || 'Language'}
             questionText={currentItem.data?.question_text || ''}
             options={currentItem.data?.options || []}
             correctAnswer={currentItem.data?.options?.[currentItem.data?.correct_answer_index]}
@@ -355,9 +421,16 @@ const StudyListReviewPage: React.FC = () => {
       {/* Header */}
       <div className="mb-6">
         <div className="flex items-center justify-between mb-4">
-          <h1 className="text-2xl font-bold text-neutral-900 dark:text-white">
-            {location.state?.listName || 'Study Session'}
-          </h1>
+          <div>
+            <h1 className="text-2xl font-bold text-neutral-900 dark:text-white">
+              {location.state?.listName || 'Study Session'}
+            </h1>
+            {location.state?.totalItems && location.state?.batchSize && (
+              <p className="text-sm text-neutral-600 dark:text-neutral-400 mt-1">
+                Studying {location.state.batchSize} of {location.state.totalItems} items
+              </p>
+            )}
+          </div>
           <button
             onClick={handleExit}
             className="p-2 text-neutral-500 hover:text-neutral-700 dark:hover:text-neutral-300"

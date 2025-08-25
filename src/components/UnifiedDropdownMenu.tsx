@@ -13,7 +13,6 @@ import {
   AcademicCapIcon,
   ChatBubbleBottomCenterTextIcon,
   Cog6ToothIcon,
-  UserCircleIcon,
   ArrowRightOnRectangleIcon,
   ArrowRightIcon,
   UserPlusIcon,
@@ -89,8 +88,7 @@ const UnifiedDropdownMenu: React.FC = () => {
   ]
 
   const flashcardItems = [
-    { to: '/spelling-bee', label: 'Spelling Bee', icon: LanguageIcon },
-    { to: '/vocabulary-trainer', label: 'Vocabulary Trainer', icon: BookOpenIcon },
+    { to: '/spelling-vocabulary', label: 'Spelling & Vocabulary', icon: BookOpenIcon },
     { to: '/language-trainer', label: 'Language Trainer', icon: LanguageIcon },
     { to: '/study-lists', label: 'Study Lists', icon: QueueListIcon },
   ]
@@ -121,7 +119,7 @@ const UnifiedDropdownMenu: React.FC = () => {
             to="/profile"
             className="flex items-center gap-2 px-4 py-2 font-medium text-primary-700 dark:text-primary-400 hover:bg-primary-200 dark:hover:bg-primary-900/50 transition-all"
           >
-            <UserCircleIcon className="h-5 w-5" />
+            <AcademicCapIcon className="h-5 w-5" />
             <span>My Learning</span>
           </Link>
           <button

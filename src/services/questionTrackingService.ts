@@ -33,37 +33,24 @@ class QuestionTrackingService {
    */
   async trackQuestionView(userId: string, questionId: string): Promise<void> {
     try {
-      // Check if tracking record exists
-      const { data: existing } = await supabase
-        .from('user_question_tracking')
-        .select('*')
-        .eq('user_id', userId)
-        .eq('question_id', questionId)
-        .single()
-
-      if (existing) {
-        // Update existing record
-        await supabase
-          .from('user_question_tracking')
-          .update({
-            view_count: existing.view_count + 1,
-            last_seen: new Date().toISOString()
-          })
-          .eq('user_id', userId)
-          .eq('question_id', questionId)
-      } else {
-        // Create new tracking record
-        await supabase
-          .from('user_question_tracking')
-          .insert({
-            user_id: userId,
-            question_id: questionId,
-            view_count: 1,
-            correct_count: 0,
-            incorrect_count: 0,
-            last_seen: new Date().toISOString()
-          })
-      }
+      // Record a view in user_question_responses with context_type 'view'
+      await supabase
+        .from('user_question_responses')
+        .insert({
+          user_id: userId,
+          question_id: questionId,
+          session_id: crypto.randomUUID(),
+          is_correct: false,
+          time_spent_seconds: 0,
+          question_sequence: 0,
+          context_type: 'view',
+          selected_answer: null,
+          response_metadata: {
+            view_only: true,
+            timestamp: new Date().toISOString()
+          },
+          created_at: new Date().toISOString()
+        })
     } catch (error) {
       console.error('Error tracking question view:', error)
     }
@@ -81,57 +68,33 @@ class QuestionTrackingService {
     try {
       // Get current attempt number
       const { count } = await supabase
-        .from('user_question_attempts')
+        .from('user_question_responses')
         .select('*', { count: 'exact' })
         .eq('user_id', userId)
         .eq('question_id', questionId)
+        .eq('context_type', 'practice')
 
       const attemptNumber = (count || 0) + 1
 
       // Record the attempt
       await supabase
-        .from('user_question_attempts')
+        .from('user_question_responses')
         .insert({
           user_id: userId,
           question_id: questionId,
+          session_id: crypto.randomUUID(), // Generate a session ID for practice questions
           is_correct: isCorrect,
-          time_taken_seconds: timeTaken,
-          attempt_number: attemptNumber,
+          time_spent_seconds: timeTaken,
+          question_sequence: attemptNumber,
+          context_type: 'practice',
+          selected_answer: null,
+          response_metadata: {
+            attempt_number: attemptNumber
+          },
           created_at: new Date().toISOString()
         })
 
-      // Update tracking summary
-      const { data: tracking } = await supabase
-        .from('user_question_tracking')
-        .select('*')
-        .eq('user_id', userId)
-        .eq('question_id', questionId)
-        .single()
-
-      if (tracking) {
-        const updates: any = {
-          last_seen: new Date().toISOString()
-        }
-
-        if (isCorrect) {
-          updates.correct_count = tracking.correct_count + 1
-          updates.last_correct = new Date().toISOString()
-        } else {
-          updates.incorrect_count = tracking.incorrect_count + 1
-          updates.last_incorrect = new Date().toISOString()
-        }
-
-        // Update average time
-        const totalAttempts = tracking.correct_count + tracking.incorrect_count + 1
-        updates.average_time = 
-          (tracking.average_time * (totalAttempts - 1) + timeTaken) / totalAttempts
-
-        await supabase
-          .from('user_question_tracking')
-          .update(updates)
-          .eq('user_id', userId)
-          .eq('question_id', questionId)
-      }
+      // No need to update a separate tracking table - all data is in user_question_responses
     } catch (error) {
       console.error('Error tracking question attempt:', error)
     }
@@ -146,26 +109,44 @@ class QuestionTrackingService {
   ): Promise<Map<string, QuestionHistory>> {
     try {
       const { data, error } = await supabase
-        .from('user_question_tracking')
+        .from('user_question_responses')
         .select('*')
         .eq('user_id', userId)
         .in('question_id', questionIds)
+        .order('created_at', { ascending: false })
 
       if (error) throw error
 
       const historyMap = new Map<string, QuestionHistory>()
       
-      data?.forEach(record => {
-        historyMap.set(record.question_id, {
-          question_id: record.question_id,
-          view_count: record.view_count || 0,
-          correct_count: record.correct_count || 0,
-          incorrect_count: record.incorrect_count || 0,
-          last_seen: record.last_seen,
-          last_correct: record.last_correct,
-          last_incorrect: record.last_incorrect,
-          average_time: record.average_time || 0
-        })
+      // Aggregate data per question
+      questionIds.forEach(questionId => {
+        const questionResponses = data?.filter(r => r.question_id === questionId) || []
+        
+        if (questionResponses.length > 0) {
+          const viewCount = questionResponses.filter(r => r.context_type === 'view').length
+          const practiceResponses = questionResponses.filter(r => r.context_type === 'practice')
+          const correctCount = practiceResponses.filter(r => r.is_correct).length
+          const incorrectCount = practiceResponses.filter(r => !r.is_correct).length
+          
+          const lastSeen = questionResponses[0]?.created_at
+          const lastCorrect = practiceResponses.find(r => r.is_correct)?.created_at || null
+          const lastIncorrect = practiceResponses.find(r => !r.is_correct)?.created_at || null
+          
+          const totalTime = practiceResponses.reduce((sum, r) => sum + (r.time_spent_seconds || 0), 0)
+          const avgTime = practiceResponses.length > 0 ? totalTime / practiceResponses.length : 0
+          
+          historyMap.set(questionId, {
+            question_id: questionId,
+            view_count: viewCount + practiceResponses.length,
+            correct_count: correctCount,
+            incorrect_count: incorrectCount,
+            last_seen: lastSeen,
+            last_correct: lastCorrect,
+            last_incorrect: lastIncorrect,
+            average_time: avgTime
+          })
+        }
       })
 
       return historyMap
@@ -284,9 +265,10 @@ class QuestionTrackingService {
   async getUserLearningAnalytics(userId: string): Promise<any> {
     try {
       const { data: attempts, error: attemptsError } = await supabase
-        .from('user_question_attempts')
+        .from('user_question_responses')
         .select('*')
         .eq('user_id', userId)
+        .eq('context_type', 'practice')
         .order('created_at', { ascending: false })
         .limit(100)
 
@@ -307,13 +289,31 @@ class QuestionTrackingService {
       const improvementTrend = recentAccuracy - earlyAccuracy
 
       // Identify problem areas (questions frequently answered incorrectly)
-      const { data: tracking } = await supabase
-        .from('user_question_tracking')
-        .select('*')
+      const { data: allResponses } = await supabase
+        .from('user_question_responses')
+        .select('question_id, is_correct')
         .eq('user_id', userId)
-        .gt('incorrect_count', 0)
-        .order('incorrect_count', { ascending: false })
-        .limit(10)
+        .eq('context_type', 'practice')
+      
+      // Aggregate by question_id to find problem areas
+      const questionStats = new Map<string, { incorrect: number, total: number }>()
+      allResponses?.forEach(response => {
+        const stats = questionStats.get(response.question_id) || { incorrect: 0, total: 0 }
+        stats.total++
+        if (!response.is_correct) stats.incorrect++
+        questionStats.set(response.question_id, stats)
+      })
+      
+      // Sort by incorrect count and get top 10
+      const tracking = Array.from(questionStats.entries())
+        .filter(([_, stats]) => stats.incorrect > 0)
+        .sort((a, b) => b[1].incorrect - a[1].incorrect)
+        .slice(0, 10)
+        .map(([questionId, stats]) => ({
+          question_id: questionId,
+          incorrect_count: stats.incorrect,
+          correct_count: stats.total - stats.incorrect
+        }))
 
       return {
         totalAttempts,

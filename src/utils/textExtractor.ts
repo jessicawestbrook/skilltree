@@ -41,7 +41,6 @@ export function extractTextForSpeech(html: string, title?: string): string {
     '.question-text, .answer-choice, .hint-box, .tip-box, .key-points'
   )
   
-  let previousTag = ''
   contentElements.forEach(el => {
     const text = el.textContent?.trim()
     if (!text) return
@@ -52,7 +51,6 @@ export function extractTextForSpeech(html: string, title?: string): string {
     if (tag.match(/^h[1-6]$/)) {
       // Headers - add longer pause before and after
       textContent += `. ${text}. `
-      previousTag = tag
     } else if (tag === 'li') {
       // List items
       const listParent = el.closest('ol, ul')
@@ -65,31 +63,24 @@ export function extractTextForSpeech(html: string, title?: string): string {
       } else {
         textContent += `${text}. `
       }
-      previousTag = tag
     } else if (tag === 'blockquote') {
       // Quotes - add "quote" context
       textContent += `Quote: ${text}. End quote. `
-      previousTag = tag
     } else if (el.classList.contains('hint-box') || el.classList.contains('tip-box')) {
       // Special callout boxes
       textContent += `Tip: ${text}. `
-      previousTag = 'tip'
     } else if (el.classList.contains('answer-choice')) {
       // Answer choices in quiz
       textContent += `Option: ${text}. `
-      previousTag = 'choice'
     } else if (tag === 'p') {
       // Paragraphs - standard pause
       textContent += `${text}. `
-      previousTag = tag
     } else if (tag === 'td' || tag === 'th') {
       // Table cells - brief pause
       textContent += `${text}, `
-      previousTag = tag
     } else {
       // Default - standard pause
       textContent += `${text}. `
-      previousTag = tag
     }
   })
   

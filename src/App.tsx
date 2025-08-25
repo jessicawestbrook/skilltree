@@ -4,8 +4,9 @@ import { initializeChromeErrorHandler } from './utils/chromeErrorHandler'
 import { HelmetProvider } from 'react-helmet-async'
 import { AuthProvider } from './contexts/AuthContext'
 import { ThemeProvider } from './contexts/ThemeContext'
-import { SpellingBeeProvider } from './contexts/SpellingBeeContext'
+import { SpellingProvider } from './contexts/SpellingContext'
 import { NotificationProvider } from './contexts/NotificationContext'
+import { AchievementProvider } from './contexts/AchievementContext'
 import Layout from './components/Layout'
 import HomePage from './pages/HomePage'
 import SimpleLearningPage from './pages/SimpleLearningPage'
@@ -22,7 +23,6 @@ import AdminPage from './pages/AdminPage'
 import SettingsPage from './pages/SettingsPage'
 import SearchPage from './pages/SearchPage'
 import ContentManagementPage from './pages/ContentManagementPage'
-import SpellingBeePage from './pages/SpellingBeePage'
 import ReadingComprehensionPage from './pages/ReadingComprehensionPage'
 import IntroAssessmentPage from './pages/IntroAssessmentPage'
 import IQTestPage from './pages/IQTestPage'
@@ -30,13 +30,14 @@ import VisualMatrixDemoPage from './pages/VisualMatrixDemoPage'
 import VisualMatrixTestPage from './pages/VisualMatrixTestPage'
 import StandardizedTestsPage from './pages/StandardizedTestsPage'
 import LearningPathsPage from './pages/LearningPathsPage'
-import AdminSpellingBeePage from './pages/AdminSpellingBeePage'
-import SpellingBeeSetupPage from './pages/SpellingBeeSetupPage'
-import VocabularyTrainerPage from './pages/VocabularyTrainerPage'
+import AdminSpellingPage from './pages/AdminSpellingPage'
+import SpellingSetupPage from './pages/SpellingSetupPage'
+import SpellingVocabularyPage from './pages/SpellingVocabularyPage'
 import LanguageTrainerPage from './pages/LanguageTrainerPage'
 import StudyListsPage from './pages/StudyListsPage'
 import TestPage from './pages/TestPage'
 import NotificationsPage from './pages/NotificationsPage'
+import { NotificationSettingsPage } from './pages/NotificationSettingsPage'
 import AboutPage from './pages/AboutPage'
 import ReviewFlashcardsPage from './pages/ReviewFlashcardsPage'
 import StudyListReviewPage from './pages/StudyListReviewPage'
@@ -54,7 +55,8 @@ function App() {
       <ThemeProvider>
       <AuthProvider>
         <NotificationProvider>
-          <SpellingBeeProvider>
+          <AchievementProvider>
+            <SpellingProvider>
             <Router future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
               <Routes>
                 <Route path="/login" element={<LoginPage />} />
@@ -90,6 +92,7 @@ function App() {
               />
               <Route path="diagnostics" element={<DiagnosticPage />} />
               <Route path="settings" element={<SettingsPage />} />
+              <Route path="notification-settings" element={<NotificationSettingsPage />} />
               <Route path="search" element={<SearchPage />} />
               <Route path="about" element={<AboutPage />} />
               <Route
@@ -100,9 +103,10 @@ function App() {
                   </ProtectedRoute>
                 }
               />
-              <Route path="spelling-bee" element={<SpellingBeePage />} />
-              <Route path="spelling-bee-setup" element={<SpellingBeeSetupPage />} />
-              <Route path="vocabulary-trainer" element={<VocabularyTrainerPage />} />
+              <Route path="spelling-bee" element={<SpellingVocabularyPage />} />
+              <Route path="spelling-bee-setup" element={<SpellingSetupPage />} />
+              <Route path="vocabulary-trainer" element={<SpellingVocabularyPage />} />
+              <Route path="spelling-vocabulary" element={<SpellingVocabularyPage />} />
               <Route path="language-trainer" element={<LanguageTrainerPage />} />
               <Route
                 path="study-lists"
@@ -156,7 +160,7 @@ function App() {
                 path="admin/spelling-bee"
                 element={
                   <AdminRoute>
-                    <AdminSpellingBeePage />
+                    <AdminSpellingPage />
                   </AdminRoute>
                 }
               />
@@ -173,7 +177,8 @@ function App() {
               </Route>
               </Routes>
             </Router>
-          </SpellingBeeProvider>
+            </SpellingProvider>
+          </AchievementProvider>
         </NotificationProvider>
       </AuthProvider>
     </ThemeProvider>

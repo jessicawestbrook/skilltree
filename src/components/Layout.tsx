@@ -402,18 +402,11 @@ const Layout: React.FC = () => {
                   {flashcardsOpen && (
                     <div className="absolute top-full left-0 mt-2 w-52 rounded-lg shadow-xl bg-white dark:bg-neutral-800 ring-1 ring-black ring-opacity-5 py-1 z-50">
                       <Link
-                        to="/spelling-bee"
+                        to="/spelling-vocabulary"
                         onClick={() => setFlashcardsOpen(false)}
                         className="flex items-center px-3 py-1.5 text-sm text-neutral-700 dark:text-neutral-300 hover:bg-neutral-100 dark:hover:bg-neutral-700 transition-colors"
                       >
-                        Spelling Bee
-                      </Link>
-                      <Link
-                        to="/vocabulary-trainer"
-                        onClick={() => setFlashcardsOpen(false)}
-                        className="flex items-center px-3 py-1.5 text-sm text-neutral-700 dark:text-neutral-300 hover:bg-neutral-100 dark:hover:bg-neutral-700 transition-colors"
-                      >
-                        Vocabulary Trainer
+                        Spelling & Vocabulary
                       </Link>
                       <Link
                         to="/language-trainer"

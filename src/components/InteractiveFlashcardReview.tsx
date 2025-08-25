@@ -1,22 +1,23 @@
 import React, { useState, useEffect, useCallback } from 'react'
 import { spacedRepetitionService, ReviewResponse } from '../services/spacedRepetitionService'
+import { achievementService } from '../services/achievementService'
 import { useAuth } from '../contexts/AuthContext'
+import { supabase } from '../services/supabase'
 import {
   CheckCircleIcon,
   XCircleIcon,
-  SpeakerWaveIcon,
   ArrowRightIcon,
   LightBulbIcon,
   ChartBarIcon,
   ClockIcon
 } from '@heroicons/react/24/outline'
-import SpellingBeeCard from './flashcards/SpellingBeeCard'
+import SpellingCard from './flashcards/SpellingCard'
 import VocabularyCard from './flashcards/VocabularyCard'
 import LanguageCard from './flashcards/LanguageCard'
 
 interface FlashcardData {
   id: string
-  type: 'vocabulary' | 'spelling' | 'language' | 'question' | 'skill_node'
+  type: 'vocabulary' | 'spelling' | 'language' | 'question'
   // Question/Assessment format
   question?: string
   options?: string[]
@@ -67,7 +68,13 @@ const InteractiveFlashcardReview: React.FC<InteractiveFlashcardReviewProps> = ({
     reviewed: 0,
     correct: 0,
     incorrect: 0,
-    averageTime: 0
+    averageTime: 0,
+    correctStreak: 0,
+    bestStreak: 0
+  })
+  const [vocabOptionsPool, setVocabOptionsPool] = useState<{words: string[], definitions: string[]}>({
+    words: [],
+    definitions: []
   })
 
   const currentCard = flashcards[currentIndex] || null
@@ -80,6 +87,26 @@ const InteractiveFlashcardReview: React.FC<InteractiveFlashcardReviewProps> = ({
     setShowHint(false)
     setStartTime(Date.now())
   }, [currentIndex])
+
+  // Fetch vocabulary options pool on mount
+  useEffect(() => {
+    const fetchVocabOptions = async () => {
+      const { data: vocabWords } = await supabase
+        .from('spelling_words')
+        .select('word, definition')
+        .not('definition', 'is', null)
+        .limit(50)
+      
+      if (vocabWords) {
+        setVocabOptionsPool({
+          words: vocabWords.map(w => w.word).filter(Boolean),
+          definitions: vocabWords.map(w => w.definition).filter(Boolean)
+        })
+      }
+    }
+    
+    fetchVocabOptions()
+  }, [])
 
   // Text-to-speech for pronunciation
   const speak = useCallback((text: string, lang: string = 'en-US') => {
@@ -116,7 +143,6 @@ const InteractiveFlashcardReview: React.FC<InteractiveFlashcardReviewProps> = ({
         break
       
       case 'question':
-      case 'skill_node':
         if (currentCard.options && selectedOption !== null) {
           correct = currentCard.options[selectedOption] === currentCard.correct_answer
         } else {
@@ -133,8 +159,33 @@ const InteractiveFlashcardReview: React.FC<InteractiveFlashcardReviewProps> = ({
       reviewed: prev.reviewed + 1,
       correct: correct ? prev.correct + 1 : prev.correct,
       incorrect: !correct ? prev.incorrect + 1 : prev.incorrect,
-      averageTime: (prev.averageTime * prev.reviewed + (Date.now() - startTime) / 1000) / (prev.reviewed + 1)
+      averageTime: (prev.averageTime * prev.reviewed + (Date.now() - startTime) / 1000) / (prev.reviewed + 1),
+      correctStreak: correct ? prev.correctStreak + 1 : 0,
+      bestStreak: correct ? Math.max(prev.correctStreak + 1, prev.bestStreak) : prev.bestStreak
     }))
+  }
+
+  const skipCard = async () => {
+    if (!currentCard) return
+
+    // Don't record any review for skipped cards - they won't be added to review queue
+    // Just move to the next card
+    
+    if (currentIndex < flashcards.length - 1) {
+      setCurrentIndex(prev => prev + 1)
+      
+      // Load more cards when getting close to the end
+      if (currentIndex >= flashcards.length - 5 && onLoadMore) {
+        onLoadMore()
+      }
+    } else {
+      // No more cards, try to load more or complete
+      if (onLoadMore) {
+        onLoadMore()
+      } else if (onComplete) {
+        onComplete()
+      }
+    }
   }
 
   const submitReview = async () => {
@@ -171,6 +222,35 @@ const InteractiveFlashcardReview: React.FC<InteractiveFlashcardReviewProps> = ({
       currentCard.type,
       response
     )
+    
+    // Track achievements
+    await achievementService.trackFlashcardReview(user.id, isCorrect)
+    await achievementService.trackDailyActivity(user.id)
+    
+    // Update and check streak achievements
+    const newStreak = isCorrect 
+      ? sessionStats.correctStreak + 1 
+      : 0
+    
+    if (newStreak > 0) {
+      await achievementService.trackFlashcardStreak(user.id, newStreak)
+    }
+    
+    // Update session stats with new streak
+    setSessionStats(prev => ({
+      ...prev,
+      correctStreak: newStreak,
+      bestStreak: Math.max(newStreak, prev.bestStreak)
+    }))
+    
+    // Check for speed demon achievement (10 cards in under 60 seconds)
+    if (sessionStats.reviewed === 9 && isCorrect) { // This will be the 10th card
+      const totalCards = sessionStats.reviewed + 1
+      const sessionTime = Math.floor((Date.now() - startTime) / 1000)
+      if (totalCards >= 10 && sessionTime < 60) {
+        await achievementService.trackSpeedAchievement(user.id, totalCards, sessionTime)
+      }
+    }
 
     // Move to next card
     if (currentIndex < flashcards.length - 1) {
@@ -194,23 +274,26 @@ const InteractiveFlashcardReview: React.FC<InteractiveFlashcardReviewProps> = ({
     if (!currentCard) return null
 
     return (
-      <SpellingBeeCard
+      <SpellingCard
         word={currentCard.word || ''}
         definition={currentCard.definition}
+        exampleSentence={currentCard.example_sentence}
         partOfSpeech={currentCard.part_of_speech}
         difficulty={parseInt(currentCard.difficulty || '1')}
+        difficultyName={currentCard.difficulty}
         userInput={userAnswer}
         showResult={showResult}
         isCorrect={isCorrect}
         onPlayAudio={() => speak(currentCard.word || '')}
         onInputChange={(value) => {
           setUserAnswer(value)
-          if (!showResult && value.trim().toLowerCase() === currentCard.word?.toLowerCase()) {
-            setTimeout(() => {
-              checkAnswer()
-            }, 100)
+        }}
+        onSubmit={() => {
+          if (userAnswer.trim()) {
+            checkAnswer()
           }
         }}
+        onSkip={skipCard}
       />
     )
   }
@@ -219,30 +302,63 @@ const InteractiveFlashcardReview: React.FC<InteractiveFlashcardReviewProps> = ({
     if (!currentCard) return null
 
     const isWordToDefinition = Math.random() > 0.5
-    const questionType = isWordToDefinition ? 'definition' : 'word'
-    const question = isWordToDefinition 
-      ? `What is the definition of "${currentCard.word}"?`
-      : `What word means: ${currentCard.definition}?`
+    
+    // Generate options if they don't exist
+    let options = currentCard.options || []
+    let correctAnswer = currentCard.correct_answer || ''
+    
+    if (options.length === 0 && currentCard.definition) {
+      // Generate options from real vocabulary pool
+      if (isWordToDefinition) {
+        // Get random definitions for word-to-definition mode
+        const availableDefinitions = vocabOptionsPool.definitions
+          .filter(def => def !== currentCard.definition)
+        
+        // Get 3 random wrong definitions
+        const wrongOptions = availableDefinitions.length >= 3
+          ? [...availableDefinitions].sort(() => Math.random() - 0.5).slice(0, 3)
+          : [
+              "A type of object or concept",
+              "An action or process", 
+              "A quality or characteristic"
+            ]
+        
+        options = [currentCard.definition, ...wrongOptions].sort(() => Math.random() - 0.5)
+        correctAnswer = currentCard.definition
+      } else {
+        // Get random words for definition-to-word mode
+        const availableWords = vocabOptionsPool.words
+          .filter(word => word !== currentCard.word)
+        
+        // Get 3 random wrong words
+        const wrongOptions = availableWords.length >= 3
+          ? [...availableWords].sort(() => Math.random() - 0.5).slice(0, 3)
+          : ["option", "choice", "alternative"]
+        
+        const currentWord = currentCard.word || "word"
+        options = [currentWord, ...wrongOptions].sort(() => Math.random() - 0.5)
+        correctAnswer = currentWord
+      }
+    } else if (currentCard.correct_answer_index !== undefined && currentCard.options) {
+      correctAnswer = currentCard.options[currentCard.correct_answer_index]
+    }
 
     return (
       <VocabularyCard
-        word={currentCard.word || ''}
-        definition={currentCard.definition}
-        partOfSpeech={currentCard.part_of_speech}
-        difficulty={parseInt(currentCard.difficulty || '1')}
-        questionType={questionType}
-        question={question}
-        options={currentCard.options || []}
-        selectedOption={selectedOption}
-        correctAnswer={currentCard.correct_answer || (currentCard.correct_answer_index !== undefined && currentCard.options ? currentCard.options[currentCard.correct_answer_index] : '')}
+        word={currentCard}
+        isWordToDefinition={isWordToDefinition}
+        options={options}
+        correctAnswer={correctAnswer}
+        selectedAnswer={selectedOption !== null && options ? options[selectedOption] : ''}
         showResult={showResult}
-        onSelectOption={(index) => {
+        isCorrect={isCorrect}
+        onAnswerSelect={(answer: string) => {
           if (!showResult) {
+            const index = options.indexOf(answer)
             setSelectedOption(index)
             // Immediately check answer when option is selected
             setTimeout(() => {
-              const correct = index === currentCard.correct_answer_index ||
-                             currentCard.options![index] === currentCard.correct_answer
+              const correct = answer === correctAnswer
               setIsCorrect(correct)
               setShowResult(true)
               // Update session stats
@@ -250,12 +366,14 @@ const InteractiveFlashcardReview: React.FC<InteractiveFlashcardReviewProps> = ({
                 reviewed: prev.reviewed + 1,
                 correct: correct ? prev.correct + 1 : prev.correct,
                 incorrect: !correct ? prev.incorrect + 1 : prev.incorrect,
-                averageTime: (prev.averageTime * prev.reviewed + (Date.now() - startTime) / 1000) / (prev.reviewed + 1)
+                averageTime: (prev.averageTime * prev.reviewed + (Date.now() - startTime) / 1000) / (prev.reviewed + 1),
+                correctStreak: correct ? prev.correctStreak + 1 : 0,
+                bestStreak: correct ? Math.max(prev.correctStreak + 1, prev.bestStreak) : prev.bestStreak
               }))
             }, 100)
           }
         }}
-        onPlayAudio={() => speak(currentCard.word || '')}
+        onSkip={skipCard}
       />
     )
   }
@@ -265,7 +383,7 @@ const InteractiveFlashcardReview: React.FC<InteractiveFlashcardReviewProps> = ({
 
     return (
       <LanguageCard
-        language={currentCard.language || 'Language'}
+        language={currentCard.language || currentCard.category || 'Language'}
         questionText={currentCard.question || ''}
         questionType={currentCard.category}
         options={currentCard.options || []}
@@ -288,18 +406,14 @@ const InteractiveFlashcardReview: React.FC<InteractiveFlashcardReviewProps> = ({
                 reviewed: prev.reviewed + 1,
                 correct: correct ? prev.correct + 1 : prev.correct,
                 incorrect: !correct ? prev.incorrect + 1 : prev.incorrect,
-                averageTime: (prev.averageTime * prev.reviewed + (Date.now() - startTime) / 1000) / (prev.reviewed + 1)
+                averageTime: (prev.averageTime * prev.reviewed + (Date.now() - startTime) / 1000) / (prev.reviewed + 1),
+                correctStreak: correct ? prev.correctStreak + 1 : 0,
+                bestStreak: correct ? Math.max(prev.correctStreak + 1, prev.bestStreak) : prev.bestStreak
               }))
             }, 100)
           }
         }}
-        onPlayAudio={() => {
-          // Play audio for foreign language text
-          const foreignText = currentCard.question || ''
-          if (foreignText && !foreignText.match(/^[A-Za-z\s.,!?'"]+$/)) {
-            speak(foreignText, currentCard.language === 'Spanish' ? 'es-ES' : 'en-US')
-          }
-        }}
+        onSkip={skipCard}
       />
     )
   }
@@ -308,7 +422,7 @@ const InteractiveFlashcardReview: React.FC<InteractiveFlashcardReviewProps> = ({
     if (!currentCard) return null
 
     return (
-      <div className="space-y-6">
+      <div className="px-6 py-2 space-y-6">
         <div>
           <h3 className="text-xl font-medium text-neutral-900 dark:text-white leading-relaxed">
             {currentCard.question}
@@ -338,7 +452,9 @@ const InteractiveFlashcardReview: React.FC<InteractiveFlashcardReviewProps> = ({
                         reviewed: prev.reviewed + 1,
                         correct: correct ? prev.correct + 1 : prev.correct,
                         incorrect: !correct ? prev.incorrect + 1 : prev.incorrect,
-                        averageTime: (prev.averageTime * prev.reviewed + (Date.now() - startTime) / 1000) / (prev.reviewed + 1)
+                        averageTime: (prev.averageTime * prev.reviewed + (Date.now() - startTime) / 1000) / (prev.reviewed + 1),
+                        correctStreak: correct ? prev.correctStreak + 1 : 0,
+                        bestStreak: correct ? Math.max(prev.correctStreak + 1, prev.bestStreak) : prev.bestStreak
                       }))
                     }, 100)
                   }
@@ -409,7 +525,6 @@ const InteractiveFlashcardReview: React.FC<InteractiveFlashcardReviewProps> = ({
       case 'language':
         return renderLanguageCard()
       case 'question':
-      case 'skill_node':
         return renderQuestionCard()
       default:
         return null
@@ -435,40 +550,42 @@ const InteractiveFlashcardReview: React.FC<InteractiveFlashcardReviewProps> = ({
   }
 
   return (
-    <div className={`bg-white dark:bg-neutral-800 rounded-xl shadow-lg p-6 ${className}`}>
+    <div className={`bg-white dark:bg-neutral-800 rounded-xl shadow-lg ${className}`}>
       {/* Header */}
-      <div className="flex items-center justify-between mb-6">
-        <div className="flex items-center gap-4">
-          <span className="text-sm text-neutral-600 dark:text-neutral-400">
-            Card {currentIndex + 1} of {flashcards.length}
-          </span>
-          {currentCard.difficulty && (
-            <span className="px-2 py-1 bg-neutral-100 dark:bg-neutral-700 text-neutral-600 dark:text-neutral-300 rounded text-xs">
-              {currentCard.difficulty}
+      <div className="px-6 pt-4 pb-2">
+        <div className="flex items-center justify-between">
+          <div className="flex items-center gap-4">
+            <span className="text-sm text-neutral-600 dark:text-neutral-400">
+              Card {currentIndex + 1} of {flashcards.length}
             </span>
-          )}
-          {currentCard.estimated_time_seconds && (
-            <span className="flex items-center gap-1 text-xs text-neutral-500">
-              <ClockIcon className="h-3 w-3" />
-              ~{currentCard.estimated_time_seconds}s
-            </span>
-          )}
-        </div>
-        
-        <div className="flex items-center gap-2">
-          {currentCard.hint && !showHint && !showResult && (
-            <button
-              onClick={() => setShowHint(true)}
-              className="flex items-center gap-1 text-sm text-blue-600 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-300"
-            >
-              <LightBulbIcon className="h-4 w-4" />
-              Hint
-            </button>
-          )}
+            {currentCard.difficulty && (
+              <span className="px-2 py-1 bg-neutral-100 dark:bg-neutral-700 text-neutral-600 dark:text-neutral-300 rounded text-xs">
+                {currentCard.difficulty}
+              </span>
+            )}
+            {currentCard.estimated_time_seconds && (
+              <span className="flex items-center gap-1 text-xs text-neutral-500">
+                <ClockIcon className="h-3 w-3" />
+                ~{currentCard.estimated_time_seconds}s
+              </span>
+            )}
+          </div>
           
-          <div className="flex items-center gap-1 text-sm text-neutral-600 dark:text-neutral-400">
-            <ChartBarIcon className="h-4 w-4" />
-            {sessionStats.correct}/{sessionStats.reviewed}
+          <div className="flex items-center gap-2">
+            {currentCard.hint && !showHint && !showResult && (
+              <button
+                onClick={() => setShowHint(true)}
+                className="flex items-center gap-1 text-sm text-blue-600 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-300"
+              >
+                <LightBulbIcon className="h-4 w-4" />
+                Hint
+              </button>
+            )}
+            
+            <div className="flex items-center gap-1 text-sm text-neutral-600 dark:text-neutral-400">
+              <ChartBarIcon className="h-4 w-4" />
+              {sessionStats.correct}/{sessionStats.reviewed}
+            </div>
           </div>
         </div>
       </div>
@@ -476,36 +593,39 @@ const InteractiveFlashcardReview: React.FC<InteractiveFlashcardReviewProps> = ({
       {/* Card Content */}
       {renderCard()}
 
-      {/* Action Buttons */}
-      <div className="mt-6 flex justify-end gap-3">
-        {showResult ? (
-          <button
-            onClick={submitReview}
-            className="inline-flex items-center gap-2 px-6 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition-colors"
-          >
-            Next
-            <ArrowRightIcon className="h-4 w-4" />
-          </button>
-        ) : (
-          // Only show Check Answer button for text input types (spelling and free-form questions)
-          (currentCard.type === 'spelling' || (currentCard.type === 'question' && !currentCard.options)) && (
+      {/* Footer with Action Buttons and Progress Bar */}
+      <div className="px-6 pt-2 pb-4">
+        {/* Action Buttons */}
+        <div className="flex justify-end gap-3 mb-4">
+          {showResult ? (
             <button
-              onClick={checkAnswer}
-              disabled={!userAnswer}
-              className="px-6 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 disabled:bg-neutral-300 disabled:cursor-not-allowed transition-colors"
+              onClick={submitReview}
+              className="inline-flex items-center gap-2 px-6 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition-colors"
             >
-              Check Answer
+              Next
+              <ArrowRightIcon className="h-4 w-4" />
             </button>
-          )
-        )}
-      </div>
+          ) : (
+            // Only show Check Answer button for free-form questions (not spelling, which has its own button)
+            (currentCard.type === 'question' && !currentCard.options) && (
+              <button
+                onClick={checkAnswer}
+                disabled={!userAnswer}
+                className="px-6 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 disabled:bg-neutral-300 disabled:cursor-not-allowed transition-colors"
+              >
+                Check Answer
+              </button>
+            )
+          )}
+        </div>
 
-      {/* Progress Bar */}
-      <div className="mt-6 w-full bg-neutral-200 dark:bg-neutral-700 rounded-full h-2">
-        <div
-          className="bg-primary-600 h-2 rounded-full transition-all duration-300"
-          style={{ width: `${((currentIndex + 1) / flashcards.length) * 100}%` }}
-        />
+        {/* Progress Bar */}
+        <div className="w-full bg-neutral-200 dark:bg-neutral-700 rounded-full h-2">
+          <div
+            className="bg-primary-600 h-2 rounded-full transition-all duration-300"
+            style={{ width: `${((currentIndex + 1) / flashcards.length) * 100}%` }}
+          />
+        </div>
       </div>
     </div>
   )

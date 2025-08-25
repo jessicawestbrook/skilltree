@@ -1,13 +1,9 @@
 import React, { useState, useEffect } from 'react'
 import { Question } from '../types/database.types'
 import { 
-  CheckCircleIcon, 
-  XCircleIcon, 
   LightBulbIcon, 
   BookOpenIcon,
   AcademicCapIcon,
-  SparklesIcon,
-  TrophyIcon,
   ClockIcon
 } from '@heroicons/react/24/outline'
 import { CheckCircleIcon as CheckCircleSolidIcon, XCircleIcon as XCircleSolidIcon } from '@heroicons/react/24/solid'
@@ -40,7 +36,7 @@ const EnhancedQuestionDisplay: React.FC<EnhancedQuestionDisplayProps> = ({
   const [timeRemaining, setTimeRemaining] = useState(timeLimit || 0)
   const [animateCorrect, setAnimateCorrect] = useState(false)
   const [animateIncorrect, setAnimateIncorrect] = useState(false)
-  const [isScrolled, setIsScrolled] = useState(false)
+  const [isScrolled] = useState(false)
 
   // Timer effect
   useEffect(() => {

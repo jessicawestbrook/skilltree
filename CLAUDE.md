@@ -95,6 +95,9 @@ Make sure the site can scale to many users using the site at once.
 ## Work style
 Keep a list of your recommended project and site improvements in a file.  Keep code files organized in separate folders and increment the sorting of the code files by starting new file names with an incremented number. If there are more than 10 or 20 code files in one folder then the organization probably needs improvement. Only create documentation files when prompted to do so. Whenever you mention a script or file I should look at, always provide a clickable link so I can click to open it, or even better you should automatically open the file I am to look at. When we make modifications, finish them with a evidence that the task was completed properly--for example if we run a query then there should be a follow-up query that proves that the initial query solved the problem we were working on. I prefer to see error messages when there are site issues rather than being displayed default backup content, cached content, or using other workarounds.  We should work on fixing issues rather than creating workarounds that will lead to more issues down the road. Advise me if there are ways I can improve my working style with you.  Advise if there are ways we can reduce token usage. When you write a script that has an error in it you should change the existing script rather than create a whole new script.
 
+## Data science
+When you build a model be sure to tell me what your inputs were, where you sourced those inputs from, what algorithm you used, what your variable selection was, and your final predictive accuracy. Usually you should use XGBoost for prediction.
+
 ## Documentation
 Store any documentation generated in the documentation folder. Create a theoretical foundations document that outlines your plan for implementing features that require educational expertise, such as for rating user competency. Provide sources for any recommendations you make. Ask for feedback on the document before implementing any of the features.
 
@@ -170,43 +173,56 @@ As you're working, try to identify if features have already been implemented or 
 
 # To Do List
 
-Format assessment page
+Implement adaptive learning in language trainer
 
-Format study list review page
+Add "to" in front of English translation of Spanish verbs
 
-smart review should use the same template as the study list page
+Add grammar flashcards, use Claude API to create verb conjugation fill-in-the-blank questions using verbs from the Basic and Elementary difficulty levels
 
-Update review page formatting. Questions were multiple choice except spelling bee questions. Make sure spelling bee questions have audio.
+Convert Henle Latin (see src/data/latin/) course into full online course with exercises as questions
+
+Format language flashcards
+
+Translate all Spanish words:  python scripts/translate_spanish_placeholders.py
+
+Add the most common words in English as vocabulary words using wordfreq (since spelling words tend to be rare and we want some easier words for younger people).
+
+Fix icon and site title in tab bar 
+
+Fix the fact that there are 2 different aesthetics going on: rainbow colors and green/orange formatting
+
+On user page: Add statistics by difficulty type and level of flashcards, list of courses completed, user statistics like streak, etc. without messing too much with the existing formatting.
 
 remove formatting specific to money counting learning content to see what it's likely to look like for other learning content
 
 Format the learning flow more attractively
 
-Create automated notifications
+Make sure the category description and actual learning content align  
 
-Make sure the category description and actual learning content align
-
- Add language vocabulary flashcard data. Use wordfreq library to create a comprehensive list of study words broken out by topic and frequency. Start with Spanish, and start by investigating the total number of Spanish words in wordfreq and what sorts of words are at different frequency rankings so we can decide a minimum frequency to create flashcards for in order to be able to achieve and "expert" level of proficiency.     
-
-Build out the study lists functionality
-
-show the your starred learning items as a hierarchical menu format?
-
-Add settings for how many flashcards you want to study at a time, and be able to set a reminder date to study the next batch and/or review. On flashcards give a total number of flashcards based on your filters. Add flashcards viewed/completed etc. statistics by difficulty level to flashcards.
+show the your starred learning items as a hierarchical menu format? on profile page add chevron menu
 
 Create math, history, and test prep trainers
 
-Evaluate spelling and vocabulary word difficulties, look at the distributions and what kinds of words are in each category to evaluate if our categorization methodology needs refinement. Use difficulty_analysis_report.md to write any new findings. Look at the source difficulty as the gold standard for spelling difficulty, with one bee being the easiest. 
-
-Fix icon and site title in tab bar
-
 Dots on megamenu should update when user has progress
 
-Add foreign language reading passages
+Upload Anki decks
+
+Foreign language page has separate tabs for flashcard categories:
+Reading comprehension
+Vocabulary/Spelling (can flip card back and forth between which direction to translate, write the word given audio)
+Grammar/Verb conjugation
+Sentence translation/fill in the blank
+Listening (listen to the word or sentence or paragraph and answer questions about it)
+
+Add ability to add custom flashcards
+
+Remove duplicate titles on assessment question card
 
 Generate content for next learning module per CONTENT_GENERATION_SYSTEM.md
 
 For each language trainer flashcard, identify the part of the question that is in the foreign language and play the audio for that rather than the answer specifically
+
+Add flag fields in the spelling words table for spelling and/or vocabulary words and filter words for the appropriate trainer cards based on these fields. For now, assign all words as vocabulary word = true and spelling word = true. Make this updatable in the admin dashboard.
 
 Rename site
 
@@ -224,8 +240,6 @@ Go back and make sure all the combined spelling words were fixed
 
 Try to shorten extra long word definitions in the spelling table when it makes sense to do so
 
-Create flashcard templates based on what kind of flashcard it is (vocab, spelling, etc.)
-
 Review vocabulary difficulty rating plan in THEORETICAL_FOUNDATIONS.md
 
 Fill in missing values in spelling table
@@ -238,14 +252,20 @@ Fill out more learning categories with learning content
 
 Review menu/questions with Ryan
 
+Test out notifications
+
 
 # To do on release
+
+Drop unnecessary fields from spelling words and skill nodes tables
 
 Clean up old db tables and make sure all needed tables are created
 
 Implement web analytics
 
 Pay for db
+
+Set up VAPID for notifications
 
 Evaluate database table security
 
@@ -265,6 +285,14 @@ Generate tests with test suite
 
 
 # Nice to haves / Later releases
+
+Improve source of articles (m/f) on Spanish words
+
+Look into converting it into an app
+
+Create more automatic notifications
+
+Add example sentences for foreign language vocabulary
 
 Add learning paths
 

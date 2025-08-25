@@ -25,6 +25,14 @@ const StudyListsPage: React.FC = () => {
   const [editingList, setEditingList] = useState<StudyList | null>(null)
   const [selectedList, setSelectedList] = useState<StudyList | null>(null)
   const [listItems, setListItems] = useState<StudyListItem[]>([])
+  const [showBatchSettings, setShowBatchSettings] = useState(false)
+  const [batchSize, setBatchSize] = useState(() => {
+    // Load saved batch size from localStorage or default to 20
+    const saved = localStorage.getItem('preferredBatchSize')
+    return saved ? Number(saved) : 20
+  })
+  const [pendingReviewItems, setPendingReviewItems] = useState<(StarredItem | StudyListItem)[]>([])
+  const [pendingListName, setPendingListName] = useState<string>('')
   const [newListData, setNewListData] = useState({
     name: '',
     description: '',
@@ -181,17 +189,58 @@ const StudyListsPage: React.FC = () => {
   const handlePlayAllItems = (items: (StarredItem | StudyListItem)[], listName?: string) => {
     if (items.length === 0) return
     
-    // Navigate to the study list review page with all items
+    // If there are more items than the default batch size, show settings modal
+    if (items.length > 10) {
+      setPendingReviewItems(items)
+      setPendingListName(listName || 'Study Session')
+      setShowBatchSettings(true)
+    } else {
+      // Navigate directly for small lists
+      navigate('/study-list-review', {
+        state: {
+          items: items.map(item => ({
+            id: item.item_id,
+            type: item.item_type,
+            data: item.item_data
+          })),
+          listName: listName || 'Study Session'
+        }
+      })
+    }
+  }
+
+  const updateBatchSize = (size: number) => {
+    setBatchSize(size)
+    // Save preference to localStorage
+    localStorage.setItem('preferredBatchSize', size.toString())
+  }
+
+  const startReviewWithBatchSize = () => {
+    if (pendingReviewItems.length === 0) return
+    
+    // Save the batch size preference
+    localStorage.setItem('preferredBatchSize', batchSize.toString())
+    
+    // Get the selected batch of items
+    const reviewBatch = pendingReviewItems.slice(0, batchSize)
+    
     navigate('/study-list-review', {
       state: {
-        items: items.map(item => ({
+        items: reviewBatch.map(item => ({
           id: item.item_id,
           type: item.item_type,
           data: item.item_data
         })),
-        listName: listName || 'Study Session'
+        listName: pendingListName,
+        totalItems: pendingReviewItems.length,
+        batchSize: batchSize
       }
     })
+    
+    // Reset modal state
+    setShowBatchSettings(false)
+    setPendingReviewItems([])
+    setPendingListName('')
   }
 
   const handleItemClick = (item: StarredItem | StudyListItem, allItems: (StarredItem | StudyListItem)[], itemIndex: number, listName?: string) => {
@@ -611,6 +660,164 @@ CREATE INDEX IF NOT EXISTS idx_study_list_items_study_list_id ON study_list_item
           )}
         </div>
       </div>
+
+      {/* Batch Size Settings Modal */}
+      {showBatchSettings && (
+        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
+          <div className="bg-white dark:bg-neutral-800 rounded-xl shadow-xl p-6 max-w-md w-full">
+            <div className="flex items-center justify-between mb-4">
+              <h3 className="text-xl font-bold text-neutral-900 dark:text-white">
+                Study Session Settings
+              </h3>
+              <button
+                onClick={() => {
+                  setShowBatchSettings(false)
+                  setPendingReviewItems([])
+                  setPendingListName('')
+                }}
+                className="p-1 text-neutral-400 hover:text-neutral-600 dark:hover:text-neutral-200"
+              >
+                <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                </svg>
+              </button>
+            </div>
+
+            <div className="mb-6">
+              <p className="text-neutral-600 dark:text-neutral-400 mb-4">
+                You have {pendingReviewItems.length} items in this list. How many would you like to study in this session?
+              </p>
+
+              <div className="space-y-4">
+                <div>
+                  <label className="block text-sm font-medium text-neutral-700 dark:text-neutral-300 mb-2">
+                    Number of flashcards
+                  </label>
+                  <div className="flex items-center gap-4">
+                    <input
+                      type="range"
+                      min="5"
+                      max={Math.min(pendingReviewItems.length, 100)}
+                      step="5"
+                      value={batchSize}
+                      onChange={(e) => updateBatchSize(Number(e.target.value))}
+                      className="flex-1"
+                    />
+                    <input
+                      type="number"
+                      min="5"
+                      max={Math.min(pendingReviewItems.length, 100)}
+                      value={batchSize}
+                      onChange={(e) => updateBatchSize(Math.min(Math.max(5, Number(e.target.value)), pendingReviewItems.length))}
+                      className="w-20 px-2 py-1 border border-neutral-300 dark:border-neutral-600 rounded-lg bg-white dark:bg-neutral-700 text-neutral-900 dark:text-white text-center"
+                    />
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-3 gap-2">
+                  <button
+                    onClick={() => updateBatchSize(10)}
+                    className={`px-3 py-2 rounded-lg border ${
+                      batchSize === 10
+                        ? 'border-primary-500 bg-primary-50 dark:bg-primary-900/20 text-primary-600 dark:text-primary-400'
+                        : 'border-neutral-300 dark:border-neutral-600 hover:border-primary-400'
+                    }`}
+                  >
+                    10
+                  </button>
+                  <button
+                    onClick={() => updateBatchSize(20)}
+                    className={`px-3 py-2 rounded-lg border ${
+                      batchSize === 20
+                        ? 'border-primary-500 bg-primary-50 dark:bg-primary-900/20 text-primary-600 dark:text-primary-400'
+                        : 'border-neutral-300 dark:border-neutral-600 hover:border-primary-400'
+                    }`}
+                  >
+                    20
+                  </button>
+                  <button
+                    onClick={() => updateBatchSize(30)}
+                    className={`px-3 py-2 rounded-lg border ${
+                      batchSize === 30
+                        ? 'border-primary-500 bg-primary-50 dark:bg-primary-900/20 text-primary-600 dark:text-primary-400'
+                        : 'border-neutral-300 dark:border-neutral-600 hover:border-primary-400'
+                    }`}
+                  >
+                    30
+                  </button>
+                  <button
+                    onClick={() => updateBatchSize(50)}
+                    className={`px-3 py-2 rounded-lg border ${
+                      batchSize === 50
+                        ? 'border-primary-500 bg-primary-50 dark:bg-primary-900/20 text-primary-600 dark:text-primary-400'
+                        : 'border-neutral-300 dark:border-neutral-600 hover:border-primary-400'
+                    }`}
+                  >
+                    50
+                  </button>
+                  <button
+                    onClick={() => updateBatchSize(Math.min(pendingReviewItems.length, 100))}
+                    className={`px-3 py-2 rounded-lg border ${
+                      batchSize === Math.min(pendingReviewItems.length, 100)
+                        ? 'border-primary-500 bg-primary-50 dark:bg-primary-900/20 text-primary-600 dark:text-primary-400'
+                        : 'border-neutral-300 dark:border-neutral-600 hover:border-primary-400'
+                    }`}
+                  >
+                    All
+                  </button>
+                  <button
+                    onClick={() => {
+                      const customSize = prompt(`Enter custom batch size (5-${pendingReviewItems.length}):`)
+                      if (customSize) {
+                        const size = Number(customSize)
+                        if (!isNaN(size)) {
+                          updateBatchSize(Math.min(Math.max(5, size), pendingReviewItems.length))
+                        }
+                      }
+                    }}
+                    className="px-3 py-2 rounded-lg border border-neutral-300 dark:border-neutral-600 hover:border-primary-400"
+                  >
+                    Custom
+                  </button>
+                </div>
+
+                <div className="bg-neutral-50 dark:bg-neutral-900 rounded-lg p-3 text-sm text-neutral-600 dark:text-neutral-400">
+                  <p>
+                    <span className="font-medium">Estimated time:</span> {Math.round(batchSize * 0.5)}-{Math.round(batchSize * 1.5)} minutes
+                  </p>
+                  <p className="text-xs mt-1">
+                    Based on ~30-90 seconds per flashcard
+                  </p>
+                </div>
+
+                <div className="text-xs text-neutral-500 dark:text-neutral-400 text-center">
+                  Your preference will be saved for future sessions
+                </div>
+              </div>
+            </div>
+
+            <div className="flex items-center gap-3">
+              <button
+                onClick={() => {
+                  setShowBatchSettings(false)
+                  setPendingReviewItems([])
+                  setPendingListName('')
+                }}
+                className="flex-1 px-4 py-2 border border-neutral-300 dark:border-neutral-600 rounded-lg hover:bg-neutral-50 dark:hover:bg-neutral-700 transition-colors"
+              >
+                Cancel
+              </button>
+              <button
+                onClick={startReviewWithBatchSize}
+                className="flex-1 px-4 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition-colors flex items-center justify-center gap-2"
+              >
+                <PlayIcon className="h-5 w-5" />
+                Start Session
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   )
 }

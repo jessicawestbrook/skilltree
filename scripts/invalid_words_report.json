@@ -1,0 +1,16 @@
+{
+  "invalidDefinitions": [
+    {
+      "id": "6817d6b8-2730-475c-8921-a17430f8d33a",
+      "word": "aaccdi",
+      "definition": "A random combination of letters that does not form a valid word."
+    },
+    {
+      "id": "f8c38699-3ed5-4119-a559-974cbd1cdd86",
+      "word": "dlailmnr",
+      "definition": "A jumbled arrangement of letters that does not form a valid word."
+    }
+  ],
+  "emptyDefinitions": [],
+  "timestamp": "2025-08-24T20:24:38.667Z"
+}

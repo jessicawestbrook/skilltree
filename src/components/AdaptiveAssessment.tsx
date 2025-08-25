@@ -7,16 +7,12 @@ import {
   QuestionResponse 
 } from '../services/adaptiveAssessmentService'
 import { spacedRepetitionService } from '../services/spacedRepetitionService'
+import QuestionDisplay from './QuestionDisplay'
 import {
-  CheckCircleIcon,
-  XCircleIcon,
-  ClockIcon,
   TrophyIcon,
-  ChartBarIcon,
   ArrowRightIcon,
-  XMarkIcon,
   LightBulbIcon,
-  StarIcon
+  BoltIcon
 } from '@heroicons/react/24/outline'
 import { CheckCircleIcon as CheckCircleSolid } from '@heroicons/react/24/solid'
 
@@ -195,11 +191,11 @@ const AdaptiveAssessment: React.FC<AdaptiveAssessmentProps> = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user, categoryId, sessionType]) // Intentionally omitting state.session to avoid re-initialization
 
-  const submitAnswer = async () => {
-    if (!state.session || !state.currentQuestion || !state.selectedAnswer) return
+  const handleAnswerSubmit = async (answer: string) => {
+    if (!state.session || !state.currentQuestion) return
 
     const responseTime = Date.now() - state.startTime
-    const isCorrect = state.selectedAnswer === state.currentQuestion.correct_answer
+    const isCorrect = answer === state.currentQuestion.correct_answer
 
     try {
       setState(prev => ({ ...prev, isLoading: true }))
@@ -207,7 +203,7 @@ const AdaptiveAssessment: React.FC<AdaptiveAssessmentProps> = ({
       const response = await AdaptiveAssessmentService.recordResponse(
         state.session.id,
         state.currentQuestion.id,
-        state.selectedAnswer,
+        answer,
         isCorrect,
         responseTime
       )
@@ -218,7 +214,7 @@ const AdaptiveAssessment: React.FC<AdaptiveAssessmentProps> = ({
         setState(prev => ({
           ...prev,
           lastResponse: response,
-          totalPoints: prev.totalPoints + response.points_earned,
+          totalPoints: prev.totalPoints + (response.points_earned || 0),
           questionsAnswered: prev.questionsAnswered + 1,
           consecutiveCorrect: newConsecutiveCorrect,
           currentDifficulty: response.difficulty_level,
@@ -232,6 +228,7 @@ const AdaptiveAssessment: React.FC<AdaptiveAssessmentProps> = ({
       setState(prev => ({ ...prev, isLoading: false }))
     }
   }
+
 
   const nextQuestion = async () => {
     if (state.session) {
@@ -298,17 +295,10 @@ const AdaptiveAssessment: React.FC<AdaptiveAssessmentProps> = ({
       return (
         <div className="max-w-4xl mx-auto p-6">
           <div className="bg-white dark:bg-neutral-900 rounded-xl shadow-lg p-8">
-            <div className="flex items-center justify-between mb-6">
+            <div className="mb-6">
               <h2 className="text-2xl font-bold text-neutral-900 dark:text-neutral-100">
                 {categoryName} Assessment
               </h2>
-              <button
-                onClick={exitAssessment}
-                className="p-2 text-neutral-400 hover:text-neutral-600 dark:hover:text-neutral-200 transition-colors"
-                title="Close"
-              >
-                <XMarkIcon className="h-6 w-6" />
-              </button>
             </div>
             <div className="text-center py-8">
               <LightBulbIcon className="h-16 w-16 text-neutral-400 mx-auto mb-4" />
@@ -319,14 +309,6 @@ const AdaptiveAssessment: React.FC<AdaptiveAssessmentProps> = ({
                 Assessment questions for this category are being developed and will be available soon.
               </p>
             </div>
-            <div className="flex justify-center mt-6">
-              <button
-                onClick={exitAssessment}
-                className="px-6 py-2 bg-neutral-200 dark:bg-neutral-700 text-neutral-700 dark:text-neutral-300 rounded-lg hover:bg-neutral-300 dark:hover:bg-neutral-600 transition-colors"
-              >
-                Close
-              </button>
-            </div>
           </div>
         </div>
       )
@@ -336,268 +318,107 @@ const AdaptiveAssessment: React.FC<AdaptiveAssessmentProps> = ({
   const currentDifficultyInfo = difficultyInfo[state.currentDifficulty as keyof typeof difficultyInfo] || difficultyInfo[2]
 
   return (
-    <div className="max-w-4xl mx-auto p-6">
-      {/* Header with progress and scoring */}
-      <div className="bg-white dark:bg-neutral-900 rounded-xl shadow-lg mb-6">
-        <div className="p-6">
-          {/* Top row: Title and Exit button */}
-          <div className="flex items-center justify-between mb-4">
+    <div className="flex flex-col bg-white dark:bg-neutral-800">
+      {/* Header with stats */}
+      <div className="bg-white dark:bg-neutral-900 border-b border-neutral-200 dark:border-neutral-700 p-2 flex-shrink-0">
+        <div className="flex justify-between items-center">
+          <div className="flex items-center gap-2">
+            <BoltIcon className="h-4 w-4 text-gold-500" />
             <div>
-              <h1 className="text-2xl font-bold text-neutral-900 dark:text-neutral-100">
+              <h1 className="text-sm font-bold text-neutral-900 dark:text-neutral-100">
                 {categoryName} Assessment
               </h1>
-              <p className="text-neutral-600 dark:text-neutral-400">
-                Computer Adaptive Testing
-              </p>
             </div>
-            <button
-              onClick={exitAssessment}
-              className="p-2 text-neutral-400 hover:text-neutral-600 dark:hover:text-neutral-200 transition-colors"
-              title="Exit Assessment"
-            >
-              <XMarkIcon className="h-6 w-6" />
-            </button>
           </div>
 
-          {/* Progress indicators */}
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-            <div className="bg-neutral-50 dark:bg-neutral-800 rounded-lg p-3">
-              <div className="flex items-center gap-2">
-                <TrophyIcon className="h-5 w-5 text-gold-500" />
-                <div>
-                  <div className="text-lg font-bold text-neutral-900 dark:text-neutral-100">
-                    {state.totalPoints}
-                  </div>
-                  <div className="text-xs text-neutral-600 dark:text-neutral-400">
-                    Total Points
-                  </div>
-                </div>
-              </div>
+          {/* Compact stats */}
+          <div className="flex items-center gap-2">
+            {/* Points */}
+            <div className="flex items-center gap-1 px-2 py-0.5 bg-gold-50 dark:bg-gold-900/20 rounded-full">
+              <TrophyIcon className="h-3.5 w-3.5 text-gold-600 dark:text-gold-400" />
+              <span className="text-xs font-bold text-gold-700 dark:text-gold-300">
+                {state.totalPoints}
+              </span>
             </div>
-
-            <div className="bg-neutral-50 dark:bg-neutral-800 rounded-lg p-3">
-              <div className="flex items-center gap-2">
-                <ChartBarIcon className="h-5 w-5 text-blue-500" />
-                <div>
-                  <div className="text-lg font-bold text-neutral-900 dark:text-neutral-100">
-                    {state.questionsAnswered}
-                  </div>
-                  <div className="text-xs text-neutral-600 dark:text-neutral-400">
-                    Questions
-                  </div>
-                </div>
+            
+            {/* Streak */}
+            {state.consecutiveCorrect > 0 && (
+              <div className="flex items-center gap-0.5">
+                {[...Array(Math.min(state.consecutiveCorrect, 3))].map((_, i) => (
+                  <CheckCircleSolid
+                    key={i}
+                    className="h-3.5 w-3.5 text-green-500"
+                  />
+                ))}
+                {state.consecutiveCorrect > 3 && (
+                  <span className="text-xs font-bold text-green-600 dark:text-green-400">
+                    +{state.consecutiveCorrect - 3}
+                  </span>
+                )}
               </div>
-            </div>
-
-            <div className="bg-neutral-50 dark:bg-neutral-800 rounded-lg p-3">
-              <div className="flex items-center gap-2">
-                <StarIcon className="h-5 w-5 text-purple-500" />
-                <div>
-                  <div className={`text-sm font-medium px-2 py-1 rounded ${currentDifficultyInfo.color}`}>
-                    {currentDifficultyInfo.name}
-                  </div>
-                  <div className="text-xs text-neutral-600 dark:text-neutral-400 mt-1">
-                    Current Level
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div className="bg-neutral-50 dark:bg-neutral-800 rounded-lg p-3">
-              <div className="flex items-center gap-2">
-                <div className="flex">
-                  {[...Array(5)].map((_, i) => (
-                    <CheckCircleSolid
-                      key={i}
-                      className={`h-4 w-4 ${
-                        i < state.consecutiveCorrect 
-                          ? 'text-green-500' 
-                          : 'text-neutral-300 dark:text-neutral-600'
-                      }`}
-                    />
-                  ))}
-                </div>
-                <div>
-                  <div className="text-xs text-neutral-600 dark:text-neutral-400">
-                    Streak
-                  </div>
-                </div>
-              </div>
-            </div>
+            )}
           </div>
         </div>
       </div>
 
-      {/* Question content */}
-      <div className="bg-white dark:bg-neutral-900 rounded-xl shadow-lg">
-        <div className="p-6">
-          {/* Question header */}
-          <div className="flex items-center justify-between mb-6">
-            <div className="flex items-center gap-3">
-              <span className="text-sm font-medium text-neutral-500 dark:text-neutral-400">
-                Question {state.questionsAnswered + 1}
-              </span>
-              <span className={`text-xs font-medium px-2 py-1 rounded ${currentDifficultyInfo.color}`}>
-                {currentDifficultyInfo.name} • {currentDifficultyInfo.points} pts
-              </span>
-            </div>
-            <div className="flex items-center gap-2 text-sm text-neutral-500 dark:text-neutral-400">
-              <ClockIcon className="h-4 w-4" />
-              <span>~{state.currentQuestion.estimated_time_seconds}s</span>
-            </div>
-          </div>
+      {/* Question content area - removed overflow-y-auto to let parent handle scrolling */}
+      <div className="flex-1 p-3">
+        <QuestionDisplay
+          question={{
+            id: state.currentQuestion.id,
+            question_text: state.currentQuestion.question_text,
+            options: state.currentQuestion.options,
+            correct_answer: state.currentQuestion.correct_answer,
+            explanation: state.currentQuestion.explanation,
+            difficulty: currentDifficultyInfo.name.toLowerCase(),
+            estimated_time_seconds: state.currentQuestion.estimated_time_seconds
+          }}
+          selectedAnswer={state.selectedAnswer}
+          onAnswerSelect={(answer) => {
+            setState(prev => ({ ...prev, selectedAnswer: answer as string }))
+            // Auto-submit after selection
+            setTimeout(() => {
+              handleAnswerSubmit(answer as string)
+            }, 100)
+          }}
+          showExplanation={state.showExplanation}
+          isLoading={state.isLoading}
+          questionNumber={state.questionsAnswered + 1}
+          totalQuestions={undefined} // Don't show total for adaptive assessment
+          questionType="assessment"
+          points={state.lastResponse?.points_earned || currentDifficultyInfo.points}
+          isCorrect={state.lastResponse?.is_correct}
+          autoSubmit={true}
+        />
+        
+        {/* Action buttons */}
+        <div className="mt-3 flex items-center justify-between px-3 pb-3">
+          <button
+            onClick={exitAssessment}
+            className="px-4 py-2 text-sm text-neutral-500 dark:text-neutral-400 hover:text-neutral-700 dark:hover:text-neutral-200 transition-colors"
+          >
+            Exit Assessment
+          </button>
 
-          {/* Question text */}
-          <div className="mb-8">
-            <h3 className="text-xl font-medium text-neutral-900 dark:text-neutral-100 mb-4 leading-relaxed">
-              {state.currentQuestion.question_text}
-            </h3>
-          </div>
-
-          {/* Answer options */}
-          <div className="space-y-3 mb-8">
-            {state.currentQuestion.options.map((option, index) => {
-              const isSelected = state.selectedAnswer === option
-              const isCorrect = state.lastResponse && option === state.currentQuestion?.correct_answer
-              const isIncorrect = state.lastResponse && isSelected && !isCorrect
-              
-              let optionClass = 'w-full text-left p-4 rounded-lg border-2 transition-all '
-              
-              if (state.showExplanation) {
-                if (isCorrect) {
-                  optionClass += 'border-green-500 bg-green-50 dark:bg-green-900/20 text-green-900 dark:text-green-100'
-                } else if (isIncorrect) {
-                  optionClass += 'border-red-500 bg-red-50 dark:bg-red-900/20 text-red-900 dark:text-red-100'
-                } else {
-                  optionClass += 'border-neutral-200 dark:border-neutral-700 bg-neutral-50 dark:bg-neutral-800 text-neutral-600 dark:text-neutral-400'
-                }
-              } else {
-                if (isSelected) {
-                  optionClass += 'border-primary-500 bg-primary-50 dark:bg-primary-900/20 text-primary-900 dark:text-primary-100'
-                } else {
-                  optionClass += 'border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-800 text-neutral-900 dark:text-neutral-100 hover:border-primary-300 hover:bg-primary-25 dark:hover:bg-primary-900/10'
-                }
-              }
-
-              return (
-                <button
-                  key={index}
-                  onClick={() => !state.showExplanation && setState(prev => ({ ...prev, selectedAnswer: option }))}
-                  disabled={state.showExplanation || state.isLoading}
-                  className={optionClass}
-                >
-                  <div className="flex items-center justify-between">
-                    <span className="text-sm font-medium">
-                      {String.fromCharCode(65 + index)}. {option}
-                    </span>
-                    {state.showExplanation && isCorrect && (
-                      <CheckCircleIcon className="h-5 w-5 text-green-600" />
-                    )}
-                    {state.showExplanation && isIncorrect && (
-                      <XCircleIcon className="h-5 w-5 text-red-600" />
-                    )}
-                  </div>
-                </button>
-              )
-            })}
-          </div>
-
-          {/* Explanation section */}
-          {state.showExplanation && state.lastResponse && (
-            <div className="mb-6 p-4 bg-neutral-50 dark:bg-neutral-800 rounded-lg">
-              <div className="flex items-start gap-3 mb-3">
-                <LightBulbIcon className="h-5 w-5 text-gold-500 mt-0.5 flex-shrink-0" />
-                <div className="flex-1">
-                  <h4 className="font-medium text-neutral-900 dark:text-neutral-100 mb-2">
-                    Explanation
-                  </h4>
-                  <p className="text-sm text-neutral-700 dark:text-neutral-300">
-                    {state.currentQuestion.explanation}
-                  </p>
-                </div>
-              </div>
-              
-              {/* Points earned display */}
-              <div className="mt-3 flex items-center justify-between">
-                <div className="flex items-center gap-2">
-                  {state.lastResponse.is_correct ? (
-                    <CheckCircleIcon className="h-5 w-5 text-green-500" />
-                  ) : (
-                    <XCircleIcon className="h-5 w-5 text-red-500" />
-                  )}
-                  <span className="text-sm font-medium text-neutral-900 dark:text-neutral-100">
-                    {state.lastResponse.is_correct ? 'Correct!' : 'Incorrect'}
-                  </span>
-                </div>
-                
-                {state.lastResponse.points_earned > 0 && (
-                  <div className="flex items-center gap-2 text-sm">
-                    <span className="text-neutral-600 dark:text-neutral-400">
-                      Points earned:
-                    </span>
-                    <span className="font-bold text-primary-600 dark:text-primary-400">
-                      +{state.lastResponse.points_earned}
-                    </span>
-                    {Object.keys(state.lastResponse.point_multipliers).length > 0 && (
-                      <span className="text-xs text-gold-600 dark:text-gold-400">
-                        (with bonuses)
-                      </span>
-                    )}
-                  </div>
-                )}
-              </div>
-            </div>
-          )}
-
-          {/* Action buttons */}
-          <div className="flex items-center justify-between">
+          {state.showExplanation && (
             <button
-              onClick={exitAssessment}
-              className="px-4 py-2 text-neutral-600 dark:text-neutral-400 hover:text-neutral-800 dark:hover:text-neutral-200 transition-colors"
+              onClick={nextQuestion}
+              disabled={state.isLoading}
+              className="px-5 py-2.5 bg-gradient-to-r from-primary-600 to-primary-700 text-white rounded-xl hover:from-primary-700 hover:to-primary-800 disabled:from-neutral-300 disabled:to-neutral-400 disabled:text-neutral-500 disabled:cursor-not-allowed transition-all transform hover:scale-105 shadow-lg flex items-center gap-2 font-medium"
             >
-              Stop Assessment
-            </button>
-
-            <div className="flex items-center gap-3">
-              {!state.showExplanation ? (
-                <button
-                  onClick={submitAnswer}
-                  disabled={!state.selectedAnswer || state.isLoading}
-                  className="px-6 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 disabled:bg-neutral-300 disabled:text-neutral-500 disabled:cursor-not-allowed transition-colors flex items-center gap-2"
-                >
-                  {state.isLoading ? (
-                    <>
-                      <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white"></div>
-                      Submitting...
-                    </>
-                  ) : (
-                    <>
-                      Submit Answer
-                      <ArrowRightIcon className="h-4 w-4" />
-                    </>
-                  )}
-                </button>
+              {state.isLoading ? (
+                <>
+                  <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white"></div>
+                  Loading...
+                </>
               ) : (
-                <button
-                  onClick={nextQuestion}
-                  disabled={state.isLoading}
-                  className="px-6 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 disabled:bg-neutral-300 disabled:text-neutral-500 disabled:cursor-not-allowed transition-colors flex items-center gap-2"
-                >
-                  {state.isLoading ? (
-                    <>
-                      <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white"></div>
-                      Loading...
-                    </>
-                  ) : (
-                    <>
-                      Next Question
-                      <ArrowRightIcon className="h-4 w-4" />
-                    </>
-                  )}
-                </button>
+                <>
+                  Next Question
+                  <ArrowRightIcon className="h-4 w-4" />
+                </>
               )}
-            </div>
-          </div>
+            </button>
+          )}
         </div>
       </div>
     </div>

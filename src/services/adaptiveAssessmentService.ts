@@ -281,8 +281,9 @@ export class AdaptiveQuestionSelector {
     // Get question responses from those sessions
     const sessionIds = sessions.map(s => s.id)
     const { data, error } = await supabase
-      .from('assessment_question_responses')
+      .from('user_question_responses')
       .select('question_id')
+      .eq('context_type', 'assessment')
       .in('session_id', sessionIds)
     
     if (error) {
@@ -430,7 +431,7 @@ export class AdaptiveQuestionSelector {
     userId: string, 
     categoryId: string
   ): Promise<void> {
-    // Question usage is now tracked through assessment_question_responses
+    // Question usage is now tracked through user_question_responses
     // which is created when recording the answer, so no separate tracking needed
   }
 }
@@ -627,19 +628,30 @@ export class AdaptiveAssessmentService {
         question.estimated_time_seconds * 1000
       )
       
+      // Find the index of the selected answer in the options array
+      const selectedAnswerIndex = question.options ? 
+        question.options.findIndex((opt: any) => opt === userResponse) : 
+        null
+      
       // Record the response
       const { data: response, error: responseError } = await supabase
-        .from('question_responses')
+        .from('user_question_responses')
         .insert({
+          user_id: session.user_id,
+          context_type: 'assessment',
           session_id: sessionId,
           question_id: questionId,
-          user_response: userResponse,
+          selected_answer: selectedAnswerIndex,
           is_correct: isCorrect,
-          response_time_ms: responseTimeMs,
-          difficulty_level: question.difficulty_level,
-          points_earned: points,
+          time_spent_seconds: Math.round(responseTimeMs / 1000),
           question_sequence: session.questions_answered + 1,
-          point_multipliers: multipliers
+          context_id: session.category_id,
+          response_metadata: {
+            difficulty_level: question.difficulty_level,
+            points_earned: points,
+            point_multipliers: multipliers,
+            answer_text: userResponse
+          }
         })
         .select()
         .single()
@@ -666,7 +678,22 @@ export class AdaptiveAssessmentService {
       // Update user category scores
       await this.updateUserCategoryScore(session.user_id, session.category_id, points, newAbilityEstimate)
       
-      return response as QuestionResponse
+      // Create proper QuestionResponse object with points_earned
+      const questionResponse: QuestionResponse = {
+        id: response.id,
+        session_id: response.session_id,
+        question_id: response.question_id,
+        user_response: userResponse,
+        is_correct: response.is_correct,
+        response_time_ms: responseTimeMs,
+        difficulty_level: question.difficulty_level,
+        points_earned: points,
+        question_sequence: response.question_sequence || (session.questions_answered + 1),
+        point_multipliers: multipliers,
+        answered_at: response.created_at
+      }
+      
+      return questionResponse
       
     } catch (error) {
       console.error('Error recording response:', error)
@@ -757,8 +784,9 @@ export class AdaptiveAssessmentService {
 
   private static async getRecentResponses(sessionId: string, limit: number): Promise<QuestionResponse[]> {
     const { data, error } = await supabase
-      .from('question_responses')
+      .from('user_question_responses')
       .select('*')
+      .eq('context_type', 'assessment')
       .eq('session_id', sessionId)
       .order('question_sequence', { ascending: false })
       .limit(limit)
@@ -791,8 +819,9 @@ export class AdaptiveAssessmentService {
     
     const sessionIds = sessions.map(s => s.id)
     const { data, error } = await supabase
-      .from('assessment_question_responses')
+      .from('user_question_responses')
       .select('id')
+      .eq('context_type', 'assessment')
       .eq('question_id', questionId)
       .in('session_id', sessionIds)
       .limit(1)
