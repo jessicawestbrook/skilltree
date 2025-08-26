@@ -35,6 +35,9 @@ import SpellingSetupPage from './pages/SpellingSetupPage'
 import SpellingVocabularyPage from './pages/SpellingVocabularyPage'
 import LanguageTrainerPage from './pages/LanguageTrainerPage'
 import StudyListsPage from './pages/StudyListsPage'
+import { CourseViewer } from './components/CourseViewer'
+import LearningPathOverview from './components/LearningPathOverview'
+import CourseOverview from './components/CourseOverview'
 import TestPage from './pages/TestPage'
 import NotificationsPage from './pages/NotificationsPage'
 import { NotificationSettingsPage } from './pages/NotificationSettingsPage'
@@ -108,6 +111,9 @@ function App() {
               <Route path="vocabulary-trainer" element={<SpellingVocabularyPage />} />
               <Route path="spelling-vocabulary" element={<SpellingVocabularyPage />} />
               <Route path="language-trainer" element={<LanguageTrainerPage />} />
+              <Route path="learning-paths/:pathSlug" element={<LearningPathOverview />} />
+              <Route path="course/:courseSlug/overview" element={<CourseOverview />} />
+              <Route path="course/:courseSlug" element={<CourseViewer />} />
               <Route
                 path="study-lists"
                 element={

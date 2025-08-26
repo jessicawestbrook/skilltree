@@ -399,13 +399,16 @@ class SpacedRepetitionService {
     flashcardType: 'vocabulary' | 'spelling' | 'language' | 'question' | 'skill_node'
   ): Promise<any> {
     try {
+      // Strip prefixes from flashcard IDs if present (e.g., "vocab-uuid" -> "uuid")
+      const cleanId = flashcardId.replace(/^(vocab|spelling|question|language|skill)-/, '')
+      
       switch (flashcardType) {
         case 'vocabulary':
         case 'spelling':
           const { data: word } = await supabase
             .from('spelling_words')
             .select('*')
-            .eq('id', flashcardId)
+            .eq('id', cleanId)
             .single()
           return word
           
@@ -413,7 +416,7 @@ class SpacedRepetitionService {
           const { data: question } = await supabase
             .from('questions')
             .select('*')
-            .eq('id', flashcardId)
+            .eq('id', cleanId)
             .single()
           return question
           
@@ -426,7 +429,7 @@ class SpacedRepetitionService {
                 name
               )
             `)
-            .eq('id', flashcardId)
+            .eq('id', cleanId)
             .single()
           
           // Transform to include language name
@@ -443,7 +446,7 @@ class SpacedRepetitionService {
           const { data: node } = await supabase
             .from('skill_tree_nodes')
             .select('*')
-            .eq('id', flashcardId)
+            .eq('id', cleanId)
             .single()
           return node
           

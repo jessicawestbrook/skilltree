@@ -17,7 +17,7 @@ const DiagnosticPage: React.FC = () => {
       'skill_tree_nodes',
       'questions', 
       'learning_content',
-      'user_progress',
+      'user_module_progress',
       'feedback',
       'starred_categories',
       'user_question_responses'

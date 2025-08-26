@@ -1,0 +1,882 @@
+[
+  {
+    "id": "ee780326-cd14-47cf-ba3a-6b3410d9b103",
+    "language_id": "es",
+    "category_id": "grammar-conjugation",
+    "question_text": "El verbo enél eses _____",
+    "question_type": "fill_in_blank",
+    "options": [],
+    "correct_answer": "ser",
+    "correct_answer_index": null,
+    "explanation": "The correct conjugation of 'this verb' in this context is 'ser'.",
+    "difficulty_level": "Advanced",
+    "image_url": null,
+    "audio_url": null,
+    "hint": "Consider the context and tense markers",
+    "tags": [
+      "conjugation",
+      "grammar",
+      "spanish",
+      "verb"
+    ],
+    "estimated_time_seconds": 15,
+    "created_at": "2025-08-25T01:43:45.136493",
+    "updated_at": "2025-08-25T01:43:45.137503",
+    "metadata": {
+      "verb": null,
+      "tense": null,
+      "person": null,
+      "source": "anki_deck",
+      "anki_tags": " ends_in_er extreme_irregularity infinitivo irregular_verb regular_form ser ",
+      "anki_deck_id": 1596992405271,
+      "anki_card_id": 1599309963871,
+      "media_files": {
+        "audio": [],
+        "images": []
+      },
+      "original_sentence": "El verbo enél eses {{c1::ser}}",
+      "original_fields": [
+        "c2e83147-c153-44b4-b453-f77f731ce3bc",
+        "El verbo en<br><span class=\"cloze_hilite\">él es</span><br>es <span class=\"sp_verb\">{{c1::ser}}</span>",
+        "",
+        "<span class=\"SECTION_regularity\"><br><span class=\"note_feature\">Regular conjugation</span></span><br><span class=\"dle_conj\"><a href=\"https://dle.rae.es/ser?m=form#conjugacion\">ser</a></span> : extreme irregularity, #10 in the deck out of 59 dissonant verbs, 41 counts (74%)<span class=\"SECTION_family\"><br><span class=\"note_feature\">Unique verb.</span> The DLE has no other verb with this set of conjugation and spelling patterns.</span>"
+      ]
+    }
+  },
+  {
+    "id": "43e71308-a182-4b32-a30a-64fde0ffed87",
+    "language_id": "es",
+    "category_id": "grammar-conjugation",
+    "question_text": "Mientras estoy estudiando…ella está _____ (vigilada)",
+    "question_type": "fill_in_blank",
+    "options": [],
+    "correct_answer": "siendo",
+    "correct_answer_index": null,
+    "explanation": "The correct conjugation of 'ser' in this context is 'siendo'.",
+    "difficulty_level": "Advanced",
+    "image_url": null,
+    "audio_url": null,
+    "hint": "ser",
+    "tags": [
+      "conjugation",
+      "grammar",
+      "spanish",
+      "verb"
+    ],
+    "estimated_time_seconds": 15,
+    "created_at": "2025-08-25T01:43:45.137503",
+    "updated_at": "2025-08-25T01:43:45.137503",
+    "metadata": {
+      "verb": "ser",
+      "tense": null,
+      "person": null,
+      "source": "anki_deck",
+      "anki_tags": " ends_in_er extreme_irregularity gerundio irregular_verb regular_form ser ",
+      "anki_deck_id": 1596992405271,
+      "anki_card_id": 1599309963872,
+      "media_files": {
+        "audio": [],
+        "images": []
+      },
+      "original_sentence": "Mientras estoy estudiando…ella está {{c1::siendo::…ser…}} (vigilada)",
+      "original_fields": [
+        "28974bf1-890e-41fa-bd73-45a7abdfa4cf",
+        "Mientras estoy estudiando…<br><br>ella está <span class=\"sp_verb\">{{c1::siendo::…ser…}}</span><span class=\"sp_hint\"> (vigilada)</span>",
+        "",
+        "<span class=\"SECTION_regularity\"><br>The form <span class=\"notes_sp_form\">siendo</span> is <span class=\"note_feature\">regular</span>.</span><br><span class=\"dle_conj\"><a href=\"https://dle.rae.es/ser?m=form#conjugacion\">ser</a></span> : extreme irregularity, #10 in the deck out of 59 dissonant verbs, 41 counts (74%)<span class=\"SECTION_family\"><br><span class=\"note_feature\">Unique verb.</span> The DLE has no other verb with this set of conjugation and spelling patterns.</span>"
+      ]
+    }
+  },
+  {
+    "id": "89702b83-49f7-4aab-993c-13f4504fcc93",
+    "language_id": "es",
+    "category_id": "grammar-conjugation",
+    "question_text": "Hugo ha _____ (vigilado)",
+    "question_type": "fill_in_blank",
+    "options": [],
+    "correct_answer": "sido",
+    "correct_answer_index": null,
+    "explanation": "The correct conjugation of 'ser' in this context is 'sido'.",
+    "difficulty_level": "Advanced",
+    "image_url": null,
+    "audio_url": null,
+    "hint": "ser",
+    "tags": [
+      "conjugation",
+      "grammar",
+      "spanish",
+      "verb"
+    ],
+    "estimated_time_seconds": 15,
+    "created_at": "2025-08-25T01:43:45.137605",
+    "updated_at": "2025-08-25T01:43:45.137605",
+    "metadata": {
+      "verb": "ser",
+      "tense": null,
+      "person": null,
+      "source": "anki_deck",
+      "anki_tags": " ends_in_er extreme_irregularity irregular_verb participio regular_form ser ",
+      "anki_deck_id": 1596992405271,
+      "anki_card_id": 1599309963873,
+      "media_files": {
+        "audio": [],
+        "images": []
+      },
+      "original_sentence": "Hugo ha {{c1::sido::…ser…}} (vigilado)",
+      "original_fields": [
+        "07240d22-3470-46fc-8277-3523d9742561",
+        "Hugo ha <span class=\"sp_verb\">{{c1::sido::…ser…}}</span><span class=\"sp_hint\"> (vigilado)</span>",
+        "",
+        "<span class=\"SECTION_regularity\"><br>The form <span class=\"notes_sp_form\">sido</span> is <span class=\"note_feature\">regular</span>.</span><br><span class=\"dle_conj\"><a href=\"https://dle.rae.es/ser?m=form#conjugacion\">ser</a></span> : extreme irregularity, #10 in the deck out of 59 dissonant verbs, 41 counts (74%)<span class=\"SECTION_family\"><br><span class=\"note_feature\">Unique verb.</span> The DLE has no other verb with this set of conjugation and spelling patterns.</span>"
+      ]
+    }
+  },
+  {
+    "id": "89fa4bd6-ffc8-46e7-9aac-8218cbfa2c54",
+    "language_id": "es",
+    "category_id": "grammar-conjugation",
+    "question_text": "⊙ Ahora mismo, ⊙yo _____ (consciente de ello)",
+    "question_type": "fill_in_blank",
+    "options": [],
+    "correct_answer": "soy",
+    "correct_answer_index": null,
+    "explanation": "The correct conjugation of 'ser' in this context is 'soy'.",
+    "difficulty_level": "Elementary",
+    "image_url": null,
+    "audio_url": null,
+    "hint": "ser",
+    "tags": [
+      "conjugation",
+      "grammar",
+      "spanish",
+      "verb"
+    ],
+    "estimated_time_seconds": 15,
+    "created_at": "2025-08-25T01:43:45.137605",
+    "updated_at": "2025-08-25T01:43:45.137605",
+    "metadata": {
+      "verb": "ser",
+      "tense": null,
+      "person": null,
+      "source": "anki_deck",
+      "anki_tags": " ends_in_er extreme_irregularity irregular_form irregular_verb presente ser yo ",
+      "anki_deck_id": 1596992405271,
+      "anki_card_id": 1599309963874,
+      "media_files": {
+        "audio": [],
+        "images": []
+      },
+      "original_sentence": "⊙ Ahora mismo, ⊙yo {{c1::soy::…ser…}} (consciente de ello)",
+      "original_fields": [
+        "610fe216-7c31-414b-91fb-19192740ded1",
+        "⊙ Ahora mismo, ⊙<br><br><span class=\"cloze_pronoun\">yo</span> <span class=\"sp_verb\">{{c1::soy::…ser…}}</span> <span class='sp_hint'>(consciente de ello)</span>",
+        "",
+        "<span class=\"SECTION_regularity\"><br><span class=\"note_feature\">Irregular form</span>: the hypothetical regular form <span class=\"wrong_conj\">so</span> is incorrect.</span><br><span class=\"dle_conj\"><a href=\"https://dle.rae.es/ser?m=form#conjugacion\">ser</a></span> : extreme irregularity, #10 in the deck out of 59 dissonant verbs, 41 counts (74%)<span class=\"SECTION_family\"><br><span class=\"note_feature\">Unique verb.</span> The DLE has no other verb with this set of conjugation and spelling patterns.</span>"
+      ]
+    }
+  },
+  {
+    "id": "8e5c5a9c-6cde-4dd3-95a9-09eca1100403",
+    "language_id": "es",
+    "category_id": "grammar-conjugation",
+    "question_text": "⊙ Ahora mismo, ⊙tú _____ (consciente de ello)",
+    "question_type": "fill_in_blank",
+    "options": [],
+    "correct_answer": "eres",
+    "correct_answer_index": null,
+    "explanation": "The correct conjugation of 'ser' in this context is 'eres'.",
+    "difficulty_level": "Elementary",
+    "image_url": null,
+    "audio_url": null,
+    "hint": "ser",
+    "tags": [
+      "conjugation",
+      "grammar",
+      "spanish",
+      "verb"
+    ],
+    "estimated_time_seconds": 15,
+    "created_at": "2025-08-25T01:43:45.137605",
+    "updated_at": "2025-08-25T01:43:45.137605",
+    "metadata": {
+      "verb": "ser",
+      "tense": null,
+      "person": null,
+      "source": "anki_deck",
+      "anki_tags": " dicho ends_in_er extreme_irregularity in_the_wild irregular_form irregular_verb presente ser tú tú_vos ",
+      "anki_deck_id": 1596992405271,
+      "anki_card_id": 1599309963875,
+      "media_files": {
+        "audio": [],
+        "images": []
+      },
+      "original_sentence": "⊙ Ahora mismo, ⊙tú {{c1::eres::…ser…}} (consciente de ello)",
+      "original_fields": [
+        "1c3512c1-80fd-4880-852d-6fa175344917",
+        "⊙ Ahora mismo, ⊙<br><br><span class=\"cloze_pronoun\">tú</span> <span class=\"sp_verb\">{{c1::eres::…ser…}}</span> <span class='sp_hint'>(consciente de ello)</span>",
+        "",
+        "<span class=\"SECTION_regularity\"><br><span class=\"note_feature\">Irregular form</span>: the hypothetical regular form <span class=\"wrong_conj\">ses</span> is incorrect.</span><br><span class=\"dle_conj\"><a href=\"https://dle.rae.es/ser?m=form#conjugacion\">ser</a></span> : extreme irregularity, #10 in the deck out of 59 dissonant verbs, 41 counts (74%)<span class=\"SECTION_family\"><br><span class=\"note_feature\">Unique verb.</span> The DLE has no other verb with this set of conjugation and spelling patterns.</span><span class=\"SECTION_idiom\"><br>—<br>dicho: <span class=\"notes_usage\">eres de los que no hay</span> (~ <span class=\"notes_usage_english\">you're unbelievable</span>)</span>"
+      ]
+    }
+  },
+  {
+    "id": "325599c5-df43-4b71-929e-c47c4c659586",
+    "language_id": "es",
+    "category_id": "grammar-conjugation",
+    "question_text": "⊙ Ahora mismo, ⊙vos _____ (consciente de ello)",
+    "question_type": "fill_in_blank",
+    "options": [],
+    "correct_answer": "sos",
+    "correct_answer_index": null,
+    "explanation": "The correct conjugation of 'ser' in this context is 'sos'.",
+    "difficulty_level": "Elementary",
+    "image_url": null,
+    "audio_url": null,
+    "hint": "ser",
+    "tags": [
+      "conjugation",
+      "grammar",
+      "spanish",
+      "verb"
+    ],
+    "estimated_time_seconds": 15,
+    "created_at": "2025-08-25T01:43:45.137605",
+    "updated_at": "2025-08-25T01:43:45.137605",
+    "metadata": {
+      "verb": "ser",
+      "tense": null,
+      "person": null,
+      "source": "anki_deck",
+      "anki_tags": " ends_in_er extreme_irregularity irregular_form irregular_verb presente ser tú_vos vos ",
+      "anki_deck_id": 1596992405271,
+      "anki_card_id": 1599309963876,
+      "media_files": {
+        "audio": [],
+        "images": []
+      },
+      "original_sentence": "⊙ Ahora mismo, ⊙vos {{c1::sos::…ser…}} (consciente de ello)",
+      "original_fields": [
+        "2dfc5669-5006-4d06-a3e5-106d2150bcda",
+        "⊙ Ahora mismo, ⊙<br><br><span class=\"cloze_pronoun\">vos</span> <span class=\"sp_verb\">{{c1::sos::…ser…}}</span> <span class='sp_hint'>(consciente de ello)</span>",
+        "",
+        "<span class=\"SECTION_regularity\"><br><span class=\"note_feature\">Irregular form</span>: the hypothetical regular form <span class=\"wrong_conj\">sés</span> is incorrect.</span><br><span class=\"dle_conj\"><a href=\"https://dle.rae.es/ser?m=form#conjugacion\">ser</a></span> : extreme irregularity, #10 in the deck out of 59 dissonant verbs, 41 counts (74%)<span class=\"SECTION_family\"><br><span class=\"note_feature\">Unique verb.</span> The DLE has no other verb with this set of conjugation and spelling patterns.</span>"
+      ]
+    }
+  },
+  {
+    "id": "1ecdb603-1bc7-4ce0-a41a-5fec5d15ef0d",
+    "language_id": "es",
+    "category_id": "grammar-conjugation",
+    "question_text": "⊙ Ahora mismo, ⊙él/ella/usted _____ (consciente de ello)",
+    "question_type": "fill_in_blank",
+    "options": [],
+    "correct_answer": "es",
+    "correct_answer_index": null,
+    "explanation": "The correct conjugation of 'ser' in this context is 'es'.",
+    "difficulty_level": "Elementary",
+    "image_url": null,
+    "audio_url": null,
+    "hint": "ser",
+    "tags": [
+      "conjugation",
+      "grammar",
+      "spanish",
+      "verb"
+    ],
+    "estimated_time_seconds": 15,
+    "created_at": "2025-08-25T01:43:45.137605",
+    "updated_at": "2025-08-25T01:43:45.137605",
+    "metadata": {
+      "verb": "ser",
+      "tense": null,
+      "person": null,
+      "source": "anki_deck",
+      "anki_tags": " ends_in_er extreme_irregularity in_the_wild irregular_form irregular_verb modismo presente ser él_ella_usted ",
+      "anki_deck_id": 1596992405271,
+      "anki_card_id": 1599309963877,
+      "media_files": {
+        "audio": [],
+        "images": []
+      },
+      "original_sentence": "⊙ Ahora mismo, ⊙él/ella/usted {{c1::es::…ser…}} (consciente de ello)",
+      "original_fields": [
+        "0384bd45-6879-4e7f-ab34-cbe93e87ebb5",
+        "⊙ Ahora mismo, ⊙<br><br><span class=\"cloze_pronoun\">él/ella/usted</span> <span class=\"sp_verb\">{{c1::es::…ser…}}</span> <span class='sp_hint'>(consciente de ello)</span>",
+        "",
+        "<span class=\"SECTION_regularity\"><br><span class=\"note_feature\">Irregular form</span>: the hypothetical regular form <span class=\"wrong_conj\">se</span> is incorrect.</span><br><span class=\"dle_conj\"><a href=\"https://dle.rae.es/ser?m=form#conjugacion\">ser</a></span> : extreme irregularity, #10 in the deck out of 59 dissonant verbs, 41 counts (74%)<span class=\"SECTION_family\"><br><span class=\"note_feature\">Unique verb.</span> The DLE has no other verb with this set of conjugation and spelling patterns.</span><span class=\"SECTION_idiom\"><br>—<br>modismo: <span class=\"notes_usage\">está un sí es no es rechoncho</span> (~ <span class=\"notes_usage_english\">he's a tad chubby</span>)</span>"
+      ]
+    }
+  },
+  {
+    "id": "88ff3e85-56a9-4014-9cef-1db4310e74f0",
+    "language_id": "es",
+    "category_id": "grammar-conjugation",
+    "question_text": "⊙ Ahora mismo, ⊙nosotros _____ (conscientes de ello)",
+    "question_type": "fill_in_blank",
+    "options": [],
+    "correct_answer": "somos",
+    "correct_answer_index": null,
+    "explanation": "The correct conjugation of 'ser' in this context is 'somos'.",
+    "difficulty_level": "Elementary",
+    "image_url": null,
+    "audio_url": null,
+    "hint": "ser",
+    "tags": [
+      "conjugation",
+      "grammar",
+      "spanish",
+      "verb"
+    ],
+    "estimated_time_seconds": 15,
+    "created_at": "2025-08-25T01:43:45.137605",
+    "updated_at": "2025-08-25T01:43:45.137605",
+    "metadata": {
+      "verb": "ser",
+      "tense": null,
+      "person": null,
+      "source": "anki_deck",
+      "anki_tags": " ends_in_er extreme_irregularity irregular_form irregular_verb nosotros presente ser ",
+      "anki_deck_id": 1596992405271,
+      "anki_card_id": 1599309963878,
+      "media_files": {
+        "audio": [],
+        "images": []
+      },
+      "original_sentence": "⊙ Ahora mismo, ⊙nosotros {{c1::somos::…ser…}} (conscientes de ello)",
+      "original_fields": [
+        "bf9367f3-a0b6-43a5-b427-dca0d1ffae69",
+        "⊙ Ahora mismo, ⊙<br><br><span class=\"cloze_pronoun\">nosotros</span> <span class=\"sp_verb\">{{c1::somos::…ser…}}</span> <span class='sp_hint'>(conscientes de ello)</span>",
+        "",
+        "<span class=\"SECTION_regularity\"><br><span class=\"note_feature\">Irregular form</span>: the hypothetical regular form <span class=\"wrong_conj\">semos</span> is incorrect.</span><br><span class=\"dle_conj\"><a href=\"https://dle.rae.es/ser?m=form#conjugacion\">ser</a></span> : extreme irregularity, #10 in the deck out of 59 dissonant verbs, 41 counts (74%)<span class=\"SECTION_family\"><br><span class=\"note_feature\">Unique verb.</span> The DLE has no other verb with this set of conjugation and spelling patterns.</span>"
+      ]
+    }
+  },
+  {
+    "id": "4d5e26e9-011a-47e2-ba5e-5c98b984a145",
+    "language_id": "es",
+    "category_id": "grammar-conjugation",
+    "question_text": "⊙ Ahora mismo, ⊙vosotros _____ (conscientes de ello)",
+    "question_type": "fill_in_blank",
+    "options": [],
+    "correct_answer": "sois",
+    "correct_answer_index": null,
+    "explanation": "The correct conjugation of 'ser' in this context is 'sois'.",
+    "difficulty_level": "Elementary",
+    "image_url": null,
+    "audio_url": null,
+    "hint": "ser",
+    "tags": [
+      "conjugation",
+      "grammar",
+      "spanish",
+      "verb"
+    ],
+    "estimated_time_seconds": 15,
+    "created_at": "2025-08-25T01:43:45.137605",
+    "updated_at": "2025-08-25T01:43:45.137605",
+    "metadata": {
+      "verb": "ser",
+      "tense": null,
+      "person": null,
+      "source": "anki_deck",
+      "anki_tags": " ends_in_er extreme_irregularity irregular_form irregular_verb presente ser vosotros ",
+      "anki_deck_id": 1596992405271,
+      "anki_card_id": 1599309963879,
+      "media_files": {
+        "audio": [],
+        "images": []
+      },
+      "original_sentence": "⊙ Ahora mismo, ⊙vosotros {{c1::sois::…ser…}} (conscientes de ello)",
+      "original_fields": [
+        "2f1da0d2-2178-445c-8d67-7f968b197a58",
+        "⊙ Ahora mismo, ⊙<br><br><span class=\"cloze_pronoun\">vosotros</span> <span class=\"sp_verb\">{{c1::sois::…ser…}}</span> <span class='sp_hint'>(conscientes de ello)</span>",
+        "",
+        "<span class=\"SECTION_regularity\"><br><span class=\"note_feature\">Irregular form</span>: the hypothetical regular form <span class=\"wrong_conj\">séis</span> is incorrect.</span><br><span class=\"dle_conj\"><a href=\"https://dle.rae.es/ser?m=form#conjugacion\">ser</a></span> : extreme irregularity, #10 in the deck out of 59 dissonant verbs, 41 counts (74%)<span class=\"SECTION_family\"><br><span class=\"note_feature\">Unique verb.</span> The DLE has no other verb with this set of conjugation and spelling patterns.</span>"
+      ]
+    }
+  },
+  {
+    "id": "a35fc4c2-c908-4a58-951d-937e081b2ed9",
+    "language_id": "es",
+    "category_id": "grammar-conjugation",
+    "question_text": "⊙ Ahora mismo, ⊙ellos/ellas/ustedes _____ (conscientes de ello)",
+    "question_type": "fill_in_blank",
+    "options": [],
+    "correct_answer": "son",
+    "correct_answer_index": null,
+    "explanation": "The correct conjugation of 'ser' in this context is 'son'.",
+    "difficulty_level": "Elementary",
+    "image_url": null,
+    "audio_url": null,
+    "hint": "ser",
+    "tags": [
+      "conjugation",
+      "grammar",
+      "spanish",
+      "verb"
+    ],
+    "estimated_time_seconds": 15,
+    "created_at": "2025-08-25T01:43:45.137605",
+    "updated_at": "2025-08-25T01:43:45.137605",
+    "metadata": {
+      "verb": "ser",
+      "tense": null,
+      "person": null,
+      "source": "anki_deck",
+      "anki_tags": " ellos_ellas_ustedes ends_in_er extreme_irregularity irregular_form irregular_verb presente ser ",
+      "anki_deck_id": 1596992405271,
+      "anki_card_id": 1599309963880,
+      "media_files": {
+        "audio": [],
+        "images": []
+      },
+      "original_sentence": "⊙ Ahora mismo, ⊙ellos/ellas/ustedes {{c1::son::…ser…}} (conscientes de ello)",
+      "original_fields": [
+        "c9ec198a-3fd7-43a9-ae7f-42acdf8f2960",
+        "⊙ Ahora mismo, ⊙<br><br><span class=\"cloze_pronoun\">ellos/ellas/ustedes</span> <span class=\"sp_verb\">{{c1::son::…ser…}}</span> <span class='sp_hint'>(conscientes de ello)</span>",
+        "",
+        "<span class=\"SECTION_regularity\"><br><span class=\"note_feature\">Irregular form</span>: the hypothetical regular form <span class=\"wrong_conj\">sen</span> is incorrect.</span><br><span class=\"dle_conj\"><a href=\"https://dle.rae.es/ser?m=form#conjugacion\">ser</a></span> : extreme irregularity, #10 in the deck out of 59 dissonant verbs, 41 counts (74%)<span class=\"SECTION_family\"><br><span class=\"note_feature\">Unique verb.</span> The DLE has no other verb with this set of conjugation and spelling patterns.</span>"
+      ]
+    }
+  },
+  {
+    "id": "cf8197ae-6631-4fad-9c70-fc8cb420ffc2",
+    "language_id": "es",
+    "category_id": "grammar-conjugation",
+    "question_text": "⇠ En esa época, a menudo, ⇠yo _____ (consciente de ello)",
+    "question_type": "fill_in_blank",
+    "options": [],
+    "correct_answer": "era",
+    "correct_answer_index": null,
+    "explanation": "The correct conjugation of 'ser' in this context is 'era'.",
+    "difficulty_level": "Advanced",
+    "image_url": null,
+    "audio_url": null,
+    "hint": "ser",
+    "tags": [
+      "conjugation",
+      "grammar",
+      "spanish",
+      "verb"
+    ],
+    "estimated_time_seconds": 15,
+    "created_at": "2025-08-25T01:43:45.137605",
+    "updated_at": "2025-08-25T01:43:45.137605",
+    "metadata": {
+      "verb": "ser",
+      "tense": null,
+      "person": null,
+      "source": "anki_deck",
+      "anki_tags": " ends_in_er extreme_irregularity imperfecto irregular_form irregular_verb ser yo ",
+      "anki_deck_id": 1596992405271,
+      "anki_card_id": 1599309963881,
+      "media_files": {
+        "audio": [],
+        "images": []
+      },
+      "original_sentence": "⇠ En esa época, a menudo, ⇠yo {{c1::era::…ser…}} (consciente de ello)",
+      "original_fields": [
+        "4540a790-281d-474a-96d1-768d7af745d1",
+        "⇠ En esa época, a menudo, ⇠<br><br><span class=\"cloze_pronoun\">yo</span> <span class=\"sp_verb\">{{c1::era::…ser…}}</span> <span class=\"sp_hint\">(consciente de ello)</span>",
+        "",
+        "<span class=\"SECTION_regularity\"><br><span class=\"note_feature\">Irregular form</span>: the hypothetical regular form <span class=\"wrong_conj\">sía</span> is incorrect.</span><br><span class=\"dle_conj\"><a href=\"https://dle.rae.es/ser?m=form#conjugacion\">ser</a></span> : extreme irregularity, #10 in the deck out of 59 dissonant verbs, 41 counts (74%)<span class=\"SECTION_family\"><br><span class=\"note_feature\">Unique verb.</span> The DLE has no other verb with this set of conjugation and spelling patterns.</span>"
+      ]
+    }
+  },
+  {
+    "id": "8c4c24c5-5d03-40f7-bb65-00cccc4acb39",
+    "language_id": "es",
+    "category_id": "grammar-conjugation",
+    "question_text": "⇠ En esa época, a menudo, ⇠tú/vos _____ (consciente de ello)",
+    "question_type": "fill_in_blank",
+    "options": [],
+    "correct_answer": "eras",
+    "correct_answer_index": null,
+    "explanation": "The correct conjugation of 'ser' in this context is 'eras'.",
+    "difficulty_level": "Advanced",
+    "image_url": null,
+    "audio_url": null,
+    "hint": "ser",
+    "tags": [
+      "conjugation",
+      "grammar",
+      "spanish",
+      "verb"
+    ],
+    "estimated_time_seconds": 15,
+    "created_at": "2025-08-25T01:43:45.137605",
+    "updated_at": "2025-08-25T01:43:45.137605",
+    "metadata": {
+      "verb": "ser",
+      "tense": null,
+      "person": null,
+      "source": "anki_deck",
+      "anki_tags": " ends_in_er extreme_irregularity imperfecto irregular_form irregular_verb ser tú_vos ",
+      "anki_deck_id": 1596992405271,
+      "anki_card_id": 1599309963882,
+      "media_files": {
+        "audio": [],
+        "images": []
+      },
+      "original_sentence": "⇠ En esa época, a menudo, ⇠tú/vos {{c1::eras::…ser…}} (consciente de ello)",
+      "original_fields": [
+        "79bd5934-35d9-411a-824d-a637a8371f7e",
+        "⇠ En esa época, a menudo, ⇠<br><br><span class=\"cloze_pronoun\">tú/vos</span> <span class=\"sp_verb\">{{c1::eras::…ser…}}</span> <span class=\"sp_hint\">(consciente de ello)</span>",
+        "",
+        "<span class=\"SECTION_regularity\"><br><span class=\"note_feature\">Irregular form</span>: the hypothetical regular form <span class=\"wrong_conj\">sías</span> is incorrect.</span><br><span class=\"dle_conj\"><a href=\"https://dle.rae.es/ser?m=form#conjugacion\">ser</a></span> : extreme irregularity, #10 in the deck out of 59 dissonant verbs, 41 counts (74%)<span class=\"SECTION_family\"><br><span class=\"note_feature\">Unique verb.</span> The DLE has no other verb with this set of conjugation and spelling patterns.</span>"
+      ]
+    }
+  },
+  {
+    "id": "921dc8f2-e1f0-4dc1-8e5c-a1717ce83c8a",
+    "language_id": "es",
+    "category_id": "grammar-conjugation",
+    "question_text": "⇠ En esa época, a menudo, ⇠él/ella/usted _____ (consciente de ello)",
+    "question_type": "fill_in_blank",
+    "options": [],
+    "correct_answer": "era",
+    "correct_answer_index": null,
+    "explanation": "The correct conjugation of 'ser' in this context is 'era'.",
+    "difficulty_level": "Advanced",
+    "image_url": null,
+    "audio_url": null,
+    "hint": "ser",
+    "tags": [
+      "conjugation",
+      "grammar",
+      "spanish",
+      "verb"
+    ],
+    "estimated_time_seconds": 15,
+    "created_at": "2025-08-25T01:43:45.137605",
+    "updated_at": "2025-08-25T01:43:45.137605",
+    "metadata": {
+      "verb": "ser",
+      "tense": null,
+      "person": null,
+      "source": "anki_deck",
+      "anki_tags": " ends_in_er extreme_irregularity imperfecto irregular_form irregular_verb ser él_ella_usted ",
+      "anki_deck_id": 1596992405271,
+      "anki_card_id": 1599309963883,
+      "media_files": {
+        "audio": [],
+        "images": []
+      },
+      "original_sentence": "⇠ En esa época, a menudo, ⇠él/ella/usted {{c1::era::…ser…}} (consciente de ello)",
+      "original_fields": [
+        "d2872463-dd9c-4745-a0ac-02f3559cac77",
+        "⇠ En esa época, a menudo, ⇠<br><br><span class=\"cloze_pronoun\">él/ella/usted</span> <span class=\"sp_verb\">{{c1::era::…ser…}}</span> <span class=\"sp_hint\">(consciente de ello)</span>",
+        "",
+        "<span class=\"SECTION_regularity\"><br><span class=\"note_feature\">Irregular form</span>: the hypothetical regular form <span class=\"wrong_conj\">sía</span> is incorrect.</span><br><span class=\"dle_conj\"><a href=\"https://dle.rae.es/ser?m=form#conjugacion\">ser</a></span> : extreme irregularity, #10 in the deck out of 59 dissonant verbs, 41 counts (74%)<span class=\"SECTION_family\"><br><span class=\"note_feature\">Unique verb.</span> The DLE has no other verb with this set of conjugation and spelling patterns.</span>"
+      ]
+    }
+  },
+  {
+    "id": "cc97f248-0c0b-428a-ae33-ede345bd4602",
+    "language_id": "es",
+    "category_id": "grammar-conjugation",
+    "question_text": "⇠ En esa época, a menudo, ⇠nosotros _____ (conscientes de ello)",
+    "question_type": "fill_in_blank",
+    "options": [],
+    "correct_answer": "éramos",
+    "correct_answer_index": null,
+    "explanation": "The correct conjugation of 'ser' in this context is 'éramos'.",
+    "difficulty_level": "Advanced",
+    "image_url": null,
+    "audio_url": null,
+    "hint": "ser",
+    "tags": [
+      "conjugation",
+      "grammar",
+      "spanish",
+      "verb"
+    ],
+    "estimated_time_seconds": 15,
+    "created_at": "2025-08-25T01:43:45.137605",
+    "updated_at": "2025-08-25T01:43:45.137605",
+    "metadata": {
+      "verb": "ser",
+      "tense": null,
+      "person": null,
+      "source": "anki_deck",
+      "anki_tags": " dicho ends_in_er extreme_irregularity imperfecto in_the_wild irregular_form irregular_verb nosotros ser ",
+      "anki_deck_id": 1596992405271,
+      "anki_card_id": 1599309963884,
+      "media_files": {
+        "audio": [],
+        "images": []
+      },
+      "original_sentence": "⇠ En esa época, a menudo, ⇠nosotros {{c1::éramos::…ser…}} (conscientes de ello)",
+      "original_fields": [
+        "4774f61a-0eed-4a8c-9747-d79fcd200896",
+        "⇠ En esa época, a menudo, ⇠<br><br><span class=\"cloze_pronoun\">nosotros</span> <span class=\"sp_verb\">{{c1::éramos::…ser…}}</span> <span class=\"sp_hint\">(conscientes de ello)</span>",
+        "",
+        "<span class=\"SECTION_regularity\"><br><span class=\"note_feature\">Irregular form</span>: the hypothetical regular form <span class=\"wrong_conj\">síamos</span> is incorrect.</span><br><span class=\"dle_conj\"><a href=\"https://dle.rae.es/ser?m=form#conjugacion\">ser</a></span> : extreme irregularity, #10 in the deck out of 59 dissonant verbs, 41 counts (74%)<span class=\"SECTION_family\"><br><span class=\"note_feature\">Unique verb.</span> The DLE has no other verb with this set of conjugation and spelling patterns.</span><span class=\"SECTION_idiom\"><br>—<br>dicho: <span class=\"notes_usage\">éramos pocos y parió la abuela</span> (~ <span class=\"notes_usage_english\">things went from bad to worse</span>)</span>"
+      ]
+    }
+  },
+  {
+    "id": "ff8218ed-8df4-4a30-82a0-4b2a67f73ca1",
+    "language_id": "es",
+    "category_id": "grammar-conjugation",
+    "question_text": "⇠ En esa época, a menudo, ⇠vosotros _____ (conscientes de ello)",
+    "question_type": "fill_in_blank",
+    "options": [],
+    "correct_answer": "erais",
+    "correct_answer_index": null,
+    "explanation": "The correct conjugation of 'ser' in this context is 'erais'.",
+    "difficulty_level": "Advanced",
+    "image_url": null,
+    "audio_url": null,
+    "hint": "ser",
+    "tags": [
+      "conjugation",
+      "grammar",
+      "spanish",
+      "verb"
+    ],
+    "estimated_time_seconds": 15,
+    "created_at": "2025-08-25T01:43:45.137605",
+    "updated_at": "2025-08-25T01:43:45.137605",
+    "metadata": {
+      "verb": "ser",
+      "tense": null,
+      "person": null,
+      "source": "anki_deck",
+      "anki_tags": " ends_in_er extreme_irregularity imperfecto irregular_form irregular_verb ser vosotros ",
+      "anki_deck_id": 1596992405271,
+      "anki_card_id": 1599309963885,
+      "media_files": {
+        "audio": [],
+        "images": []
+      },
+      "original_sentence": "⇠ En esa época, a menudo, ⇠vosotros {{c1::erais::…ser…}} (conscientes de ello)",
+      "original_fields": [
+        "ae713fcd-f1fe-44fe-b337-ed932f8528d6",
+        "⇠ En esa época, a menudo, ⇠<br><br><span class=\"cloze_pronoun\">vosotros</span> <span class=\"sp_verb\">{{c1::erais::…ser…}}</span> <span class=\"sp_hint\">(conscientes de ello)</span>",
+        "",
+        "<span class=\"SECTION_regularity\"><br><span class=\"note_feature\">Irregular form</span>: the hypothetical regular form <span class=\"wrong_conj\">síais</span> is incorrect.</span><br><span class=\"dle_conj\"><a href=\"https://dle.rae.es/ser?m=form#conjugacion\">ser</a></span> : extreme irregularity, #10 in the deck out of 59 dissonant verbs, 41 counts (74%)<span class=\"SECTION_family\"><br><span class=\"note_feature\">Unique verb.</span> The DLE has no other verb with this set of conjugation and spelling patterns.</span>"
+      ]
+    }
+  },
+  {
+    "id": "7fe17108-3f48-4fb8-a6de-cd22aeca6ebb",
+    "language_id": "es",
+    "category_id": "grammar-conjugation",
+    "question_text": "⇠ En esa época, a menudo, ⇠ellos/ellas/ustedes _____ (conscientes de ello)",
+    "question_type": "fill_in_blank",
+    "options": [],
+    "correct_answer": "eran",
+    "correct_answer_index": null,
+    "explanation": "The correct conjugation of 'ser' in this context is 'eran'.",
+    "difficulty_level": "Advanced",
+    "image_url": null,
+    "audio_url": null,
+    "hint": "ser",
+    "tags": [
+      "conjugation",
+      "grammar",
+      "spanish",
+      "verb"
+    ],
+    "estimated_time_seconds": 15,
+    "created_at": "2025-08-25T01:43:45.137605",
+    "updated_at": "2025-08-25T01:43:45.137605",
+    "metadata": {
+      "verb": "ser",
+      "tense": null,
+      "person": null,
+      "source": "anki_deck",
+      "anki_tags": " ellos_ellas_ustedes ends_in_er extreme_irregularity imperfecto irregular_form irregular_verb ser ",
+      "anki_deck_id": 1596992405271,
+      "anki_card_id": 1599309963886,
+      "media_files": {
+        "audio": [],
+        "images": []
+      },
+      "original_sentence": "⇠ En esa época, a menudo, ⇠ellos/ellas/ustedes {{c1::eran::…ser…}} (conscientes de ello)",
+      "original_fields": [
+        "61fc4502-f050-4d16-b0ed-036df175d749",
+        "⇠ En esa época, a menudo, ⇠<br><br><span class=\"cloze_pronoun\">ellos/ellas/ustedes</span> <span class=\"sp_verb\">{{c1::eran::…ser…}}</span> <span class=\"sp_hint\">(conscientes de ello)</span>",
+        "",
+        "<span class=\"SECTION_regularity\"><br><span class=\"note_feature\">Irregular form</span>: the hypothetical regular form <span class=\"wrong_conj\">sían</span> is incorrect.</span><br><span class=\"dle_conj\"><a href=\"https://dle.rae.es/ser?m=form#conjugacion\">ser</a></span> : extreme irregularity, #10 in the deck out of 59 dissonant verbs, 41 counts (74%)<span class=\"SECTION_family\"><br><span class=\"note_feature\">Unique verb.</span> The DLE has no other verb with this set of conjugation and spelling patterns.</span>"
+      ]
+    }
+  },
+  {
+    "id": "661be7df-f170-43d3-a568-d759258c71a6",
+    "language_id": "es",
+    "category_id": "grammar-conjugation",
+    "question_text": "↧ En aquel momento ↧yo _____ (consciente de ello)",
+    "question_type": "fill_in_blank",
+    "options": [],
+    "correct_answer": "fui",
+    "correct_answer_index": null,
+    "explanation": "The correct conjugation of 'ser' in this context is 'fui'.",
+    "difficulty_level": "Advanced",
+    "image_url": null,
+    "audio_url": null,
+    "hint": "ser",
+    "tags": [
+      "conjugation",
+      "grammar",
+      "spanish",
+      "verb"
+    ],
+    "estimated_time_seconds": 15,
+    "created_at": "2025-08-25T01:43:45.137605",
+    "updated_at": "2025-08-25T01:43:45.137605",
+    "metadata": {
+      "verb": "ser",
+      "tense": null,
+      "person": null,
+      "source": "anki_deck",
+      "anki_tags": " ends_in_er extreme_irregularity indefinido irregular_form irregular_verb ser yo ",
+      "anki_deck_id": 1596992405271,
+      "anki_card_id": 1599309963887,
+      "media_files": {
+        "audio": [],
+        "images": []
+      },
+      "original_sentence": "↧ En aquel momento ↧yo {{c1::fui::…ser…}} (consciente de ello)",
+      "original_fields": [
+        "463e2733-a16f-491d-bc97-c052042fabab",
+        "↧ En aquel momento ↧<br><br><span class=\"cloze_pronoun\">yo</span> <span class=\"sp_verb\">{{c1::fui::…ser…}}</span> <span class=\"sp_hint\">(consciente de ello)</span>",
+        "",
+        "<span class=\"SECTION_regularity\"><br><span class=\"note_feature\">Irregular form</span>: the hypothetical regular form <span class=\"wrong_conj\">sí</span> is incorrect.</span><br><span class=\"dle_conj\"><a href=\"https://dle.rae.es/ser?m=form#conjugacion\">ser</a></span> : extreme irregularity, #10 in the deck out of 59 dissonant verbs, 41 counts (74%)<span class=\"SECTION_family\"><br><span class=\"note_feature\">Unique verb.</span> The DLE has no other verb with this set of conjugation and spelling patterns.</span>"
+      ]
+    }
+  },
+  {
+    "id": "986f0eb7-0992-452b-a10c-cb1129163ed5",
+    "language_id": "es",
+    "category_id": "grammar-conjugation",
+    "question_text": "↧ En aquel momento ↧tú/vos _____ (consciente de ello)",
+    "question_type": "fill_in_blank",
+    "options": [],
+    "correct_answer": "fuiste",
+    "correct_answer_index": null,
+    "explanation": "The correct conjugation of 'ser' in this context is 'fuiste'.",
+    "difficulty_level": "Advanced",
+    "image_url": null,
+    "audio_url": null,
+    "hint": "ser",
+    "tags": [
+      "conjugation",
+      "grammar",
+      "spanish",
+      "verb"
+    ],
+    "estimated_time_seconds": 15,
+    "created_at": "2025-08-25T01:43:45.137605",
+    "updated_at": "2025-08-25T01:43:45.137605",
+    "metadata": {
+      "verb": "ser",
+      "tense": null,
+      "person": null,
+      "source": "anki_deck",
+      "anki_tags": " ends_in_er extreme_irregularity indefinido irregular_form irregular_verb ser tú_vos ",
+      "anki_deck_id": 1596992405271,
+      "anki_card_id": 1599309963888,
+      "media_files": {
+        "audio": [],
+        "images": []
+      },
+      "original_sentence": "↧ En aquel momento ↧tú/vos {{c1::fuiste::…ser…}} (consciente de ello)",
+      "original_fields": [
+        "9d03097f-a285-4764-9bcd-7c3936389913",
+        "↧ En aquel momento ↧<br><br><span class=\"cloze_pronoun\">tú/vos</span> <span class=\"sp_verb\">{{c1::fuiste::…ser…}}</span> <span class=\"sp_hint\">(consciente de ello)</span>",
+        "",
+        "<span class=\"SECTION_regularity\"><br><span class=\"note_feature\">Irregular form</span>: the hypothetical regular form <span class=\"wrong_conj\">siste</span> is incorrect.</span><br><span class=\"dle_conj\"><a href=\"https://dle.rae.es/ser?m=form#conjugacion\">ser</a></span> : extreme irregularity, #10 in the deck out of 59 dissonant verbs, 41 counts (74%)<span class=\"SECTION_family\"><br><span class=\"note_feature\">Unique verb.</span> The DLE has no other verb with this set of conjugation and spelling patterns.</span>"
+      ]
+    }
+  },
+  {
+    "id": "073cd4bc-d270-429f-845b-4771e95bf65c",
+    "language_id": "es",
+    "category_id": "grammar-conjugation",
+    "question_text": "↧ En aquel momento ↧él/ella/usted _____ (consciente de ello)",
+    "question_type": "fill_in_blank",
+    "options": [],
+    "correct_answer": "fue",
+    "correct_answer_index": null,
+    "explanation": "The correct conjugation of 'ser' in this context is 'fue'.",
+    "difficulty_level": "Advanced",
+    "image_url": null,
+    "audio_url": null,
+    "hint": "ser",
+    "tags": [
+      "conjugation",
+      "grammar",
+      "spanish",
+      "verb"
+    ],
+    "estimated_time_seconds": 15,
+    "created_at": "2025-08-25T01:43:45.137605",
+    "updated_at": "2025-08-25T01:43:45.137605",
+    "metadata": {
+      "verb": "ser",
+      "tense": null,
+      "person": null,
+      "source": "anki_deck",
+      "anki_tags": " ends_in_er extreme_irregularity indefinido irregular_form irregular_verb ser él_ella_usted ",
+      "anki_deck_id": 1596992405271,
+      "anki_card_id": 1599309963889,
+      "media_files": {
+        "audio": [],
+        "images": []
+      },
+      "original_sentence": "↧ En aquel momento ↧él/ella/usted {{c1::fue::…ser…}} (consciente de ello)",
+      "original_fields": [
+        "dd6c1f11-1f4e-414e-a0a7-6998eee7ba74",
+        "↧ En aquel momento ↧<br><br><span class=\"cloze_pronoun\">él/ella/usted</span> <span class=\"sp_verb\">{{c1::fue::…ser…}}</span> <span class=\"sp_hint\">(consciente de ello)</span>",
+        "",
+        "<span class=\"SECTION_regularity\"><br><span class=\"note_feature\">Irregular form</span>: the hypothetical regular form <span class=\"wrong_conj\">sió</span> is incorrect.</span><br><span class=\"dle_conj\"><a href=\"https://dle.rae.es/ser?m=form#conjugacion\">ser</a></span> : extreme irregularity, #10 in the deck out of 59 dissonant verbs, 41 counts (74%)<span class=\"SECTION_family\"><br><span class=\"note_feature\">Unique verb.</span> The DLE has no other verb with this set of conjugation and spelling patterns.</span>"
+      ]
+    }
+  },
+  {
+    "id": "41137d26-b963-408d-b840-4816fbc2add1",
+    "language_id": "es",
+    "category_id": "grammar-conjugation",
+    "question_text": "↧ En aquel momento ↧nosotros _____ (conscientes de ello)",
+    "question_type": "fill_in_blank",
+    "options": [],
+    "correct_answer": "fuimos",
+    "correct_answer_index": null,
+    "explanation": "The correct conjugation of 'ser' in this context is 'fuimos'.",
+    "difficulty_level": "Advanced",
+    "image_url": null,
+    "audio_url": null,
+    "hint": "ser",
+    "tags": [
+      "conjugation",
+      "grammar",
+      "spanish",
+      "verb"
+    ],
+    "estimated_time_seconds": 15,
+    "created_at": "2025-08-25T01:43:45.137605",
+    "updated_at": "2025-08-25T01:43:45.137605",
+    "metadata": {
+      "verb": "ser",
+      "tense": null,
+      "person": null,
+      "source": "anki_deck",
+      "anki_tags": " ends_in_er extreme_irregularity indefinido irregular_form irregular_verb nosotros ser ",
+      "anki_deck_id": 1596992405271,
+      "anki_card_id": 1599309963890,
+      "media_files": {
+        "audio": [],
+        "images": []
+      },
+      "original_sentence": "↧ En aquel momento ↧nosotros {{c1::fuimos::…ser…}} (conscientes de ello)",
+      "original_fields": [
+        "24c715d6-7d9f-4e86-97a2-96956062c77c",
+        "↧ En aquel momento ↧<br><br><span class=\"cloze_pronoun\">nosotros</span> <span class=\"sp_verb\">{{c1::fuimos::…ser…}}</span> <span class=\"sp_hint\">(conscientes de ello)</span>",
+        "",
+        "<span class=\"SECTION_regularity\"><br><span class=\"note_feature\">Irregular form</span>: the hypothetical regular form <span class=\"wrong_conj\">simos</span> is incorrect.</span><br><span class=\"dle_conj\"><a href=\"https://dle.rae.es/ser?m=form#conjugacion\">ser</a></span> : extreme irregularity, #10 in the deck out of 59 dissonant verbs, 41 counts (74%)<span class=\"SECTION_family\"><br><span class=\"note_feature\">Unique verb.</span> The DLE has no other verb with this set of conjugation and spelling patterns.</span>"
+      ]
+    }
+  }
+]

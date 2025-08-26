@@ -31,6 +31,9 @@ Make it so only admin users can see the admin dashboard. Make field to mark lear
 ### Home page
 Add research-based learning facts to home page like years of schooling increases IQ. Use facts that will encourage users to want to use the site.  Make the sources clickable, link to outside pages which have high credibility and back up the claims.
 
+### News feed
+Add site news feed on homepage, include links to: 1. Added Scripps Spelling Bee study lists to spelling and vocabulary flashcards 2. Added flashcards for 35,000 of the most common Spanish vocabulary words (link to language trainer page with Spanish selected) 2. Added a 4-year Latin learning path based on the Henle textbooks. Content and questions were digitized into an online learning format. Add the ability to update the newsfeed with new content to the admin page.
+
 ### Learning category pages
 Clicking on a learning category takes you to a standard category overview page that includes a category overview, a menu of child categories, and a link to a "Rate Your Knowledge" where you answer questions to earn points. Questions follow computer adaptive difficulty. Create point system that assigns points based on how many questions you've answered correctly of each difficulty level. That way you can compare points of different category types, and if the question bank changes over time, the points are still meaningful. It shows which items have been completed and allows the user to star/bookmark the category or child categories. Clicking on child categories opens the category page for that category. Clicking on child nodes takes you to the learning content modal for that content area. The url for the page should be the breadcrumb trail of the learning category hierarchy, like languages/spanish/spanish_vocabulary.
 
@@ -73,3 +76,106 @@ Notifications help the user stay on track to continue learning with the site eve
 
 ## About page
 Add about page that describes the theory behind the site in broad terms, mention it's meant to be a memory palace where you can store knowledge, that it's a work in progress and be sure to contact us with feedback if you would like material added or changed and so on. Mention some of the broad learning theories cited in theoretical foundations.md, but don't go into detail about specific algorithms.
+
+
+
+I want to have the ability for cards to move from learning to review. there is already a starring system, maybe when users go to the language learning page and click the star it will go into their learning deck, and once they've mastered it, it will go into their review deck    
+
+Here are key Anki features that would significantly improve your flashcard system:
+
+  Core Anki Features to Consider
+
+  1. Spaced Repetition Algorithm (SRS)
+
+  - Anki's SM-2 algorithm - Cards shown at increasing intervals based on performance
+  - Ease factor - Each card has a difficulty multiplier (you partially have this)
+  - Learning steps - New cards go through stages (e.g., 1min, 10min, 1day)
+  - Graduating interval - When a card "graduates" from learning to review
+  - Relearning - Failed cards go back to shorter intervals
+
+  2. Card Scheduling & Review Options
+
+  - Daily review limits - Max new cards/reviews per day
+  - Review ahead - Study cards due in the future
+  - Bury related cards - Hide similar cards until next day
+  - Leech detection - Flag cards that are repeatedly failed
+  - Custom study sessions - Create filtered decks with specific criteria
+
+  3. Card Types & Note Types
+
+  - Cloze deletions - Fill-in-the-blank cards (e.g., "Beijing is the capital of {{c1::China}}")
+  - Reverse cards - Automatically create bidirectional cards
+  - Multiple card generation - One note creates multiple cards
+  - Type-in answer - Require typing the answer (good for spelling)
+  - Image occlusion - Hide parts of images for visual learning
+
+  4. Progress Tracking & Statistics
+
+  - Heat map calendar - Shows study consistency
+  - Forecast graph - Predicts future workload
+  - Card ease distribution - Shows which cards are hardest
+  - Retention rate graphs - Track success over time
+  - Study streak tracking - Motivational consecutive days counter
+
+  5. Study Modes
+
+  - Filtered/Custom decks - Temporary decks with specific criteria
+  - Cram mode - Review without affecting scheduling
+  - Preview mode - Look at cards without studying
+  - Study by tag/flag - Focus on specific topics
+
+  6. Card Management
+
+  - Tags - Multiple tags per card for organization
+  - Flags - Color-coded markers (red, orange, green, blue)
+  - Suspend/Unsuspend - Temporarily remove cards from rotation
+  - Card burial - Automatically or manually bury related cards
+
+  7. Import/Export
+
+  - CSV/TSV import - Bulk import cards
+  - Shared decks - Import/export deck packages
+  - Media support - Images, audio, video in cards
+  - AnkiConnect API - Programmatic card creation
+
+  8. Audio Features
+
+  - Auto-play audio - On card reveal
+  - Record own audio - For pronunciation practice
+  - TTS (Text-to-Speech) - Generate audio from text
+
+  Priority Recommendations for Your App
+
+  Based on your current implementation, here are the most valuable additions in order:
+
+  High Priority (Big Impact)
+
+  1. Proper SRS intervals - You have basic intervals, but need the full algorithm
+  2. Type-in answer mode - Especially useful for Chinese characters and spelling
+  3. Daily review limits - Prevent overwhelming users
+  4. Study streak tracking - Highly motivational
+  5. Cloze deletions - Great for sentences and grammar
+
+  Medium Priority (Good Enhancement)
+
+  1. Card burial - Prevent seeing "的" in multiple contexts same day
+  2. Reverse cards - Auto-generate Chinese→English and English→Chinese
+  3. Heat map calendar - Visual motivation
+  4. Leech detection - Identify problem cards
+  5. Card suspension - Let users pause difficult cards
+
+  Lower Priority (Nice to Have)
+
+  1. CSV import - Let users bring their own content
+  2. Custom study sessions - Advanced filtering
+  3. Image occlusion - For visual learners
+  4. Forecast graphs - See upcoming workload
+
+  Quick Wins You Could Implement
+
+  1. Study streak counter - Simple but highly motivational
+  2. Daily limits - Prevent burnout (e.g., max 20 new cards/day)
+  3. Keyboard shortcuts - Space to reveal, 1-4 for difficulty ratings
+  4. Auto-advance option - Automatically go to next card after rating
+  5. Session statistics - "You studied X cards in Y minutes"
+  6. Sound effects - Subtle feedback for correct/incorrect

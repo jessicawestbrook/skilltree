@@ -6,12 +6,11 @@ import { checkStudyListTables, createStudyListTables } from '../utils/createStud
 import { StudyList, StarredItem, StudyListItem } from '../types/database.types'
 import { nameToSlug } from '../utils/studyListSlug'
 import {
-  PlusIcon,
-  TrashIcon,
-  PencilIcon,
-  PlayIcon
+  PlayIcon,
+  CloudArrowUpIcon
 } from '@heroicons/react/24/outline'
-import { StarIcon as StarIconSolid } from '@heroicons/react/24/solid'
+import CustomQuestionUploader from '../components/CustomQuestionUploader'
+import StudyListsDragDrop from '../components/StudyListsDragDrop'
 
 const StudyListsPage: React.FC = () => {
   const { user } = useAuth()
@@ -21,10 +20,7 @@ const StudyListsPage: React.FC = () => {
   const [starredItems, setStarredItems] = useState<StarredItem[]>([])
   const [loading, setLoading] = useState(true)
   const [tablesExist, setTablesExist] = useState<boolean | null>(null)
-  const [showCreateForm, setShowCreateForm] = useState(false)
-  const [editingList, setEditingList] = useState<StudyList | null>(null)
   const [selectedList, setSelectedList] = useState<StudyList | null>(null)
-  const [listItems, setListItems] = useState<StudyListItem[]>([])
   const [showBatchSettings, setShowBatchSettings] = useState(false)
   const [batchSize, setBatchSize] = useState(() => {
     // Load saved batch size from localStorage or default to 20
@@ -33,27 +29,9 @@ const StudyListsPage: React.FC = () => {
   })
   const [pendingReviewItems, setPendingReviewItems] = useState<(StarredItem | StudyListItem)[]>([])
   const [pendingListName, setPendingListName] = useState<string>('')
-  const [newListData, setNewListData] = useState({
-    name: '',
-    description: '',
-    color: '#3B82F6'
-  })
+  const [showUploader, setShowUploader] = useState(false)
 
-  const colors = [
-    '#3B82F6', // Blue
-    '#10B981', // Green
-    '#F59E0B', // Amber
-    '#EF4444', // Red
-    '#8B5CF6', // Purple
-    '#F97316', // Orange
-    '#06B6D4', // Cyan
-    '#84CC16'  // Lime
-  ]
 
-  const fetchListItems = useCallback(async (listId: string) => {
-    const items = await studyListService.getStudyListItems(listId)
-    setListItems(items)
-  }, [])
 
   const fetchData = useCallback(async () => {
     if (!user) return
@@ -73,7 +51,6 @@ const StudyListsPage: React.FC = () => {
         const targetList = lists.find(list => nameToSlug(list.name) === listSlug)
         if (targetList) {
           setSelectedList(targetList)
-          await fetchListItems(targetList.id)
         }
       }
     } catch (error) {
@@ -81,7 +58,7 @@ const StudyListsPage: React.FC = () => {
     } finally {
       setLoading(false)
     }
-  }, [user, listSlug, fetchListItems])
+  }, [user, listSlug])
 
   const initializeStudyLists = useCallback(async () => {
     // Check if tables exist
@@ -105,42 +82,7 @@ const StudyListsPage: React.FC = () => {
   }, [user, initializeStudyLists])
 
 
-  const handleCreateList = async () => {
-    if (!user || !newListData.name.trim()) return
 
-    const newList = await studyListService.createStudyList(
-      user.id,
-      newListData.name.trim(),
-      newListData.description.trim() || undefined,
-      newListData.color
-    )
-
-    if (newList) {
-      setStudyLists([newList, ...studyLists])
-      setNewListData({ name: '', description: '', color: '#3B82F6' })
-      setShowCreateForm(false)
-    }
-  }
-
-  const handleUpdateList = async () => {
-    if (!editingList || !newListData.name.trim()) return
-
-    const success = await studyListService.updateStudyList(editingList.id, {
-      name: newListData.name.trim(),
-      description: newListData.description.trim() || undefined,
-      color: newListData.color
-    })
-
-    if (success) {
-      setStudyLists(studyLists.map(list => 
-        list.id === editingList.id 
-          ? { ...list, ...newListData, name: newListData.name.trim() }
-          : list
-      ))
-      setEditingList(null)
-      setNewListData({ name: '', description: '', color: '#3B82F6' })
-    }
-  }
 
   const handleDeleteList = async (listId: string) => {
     if (!window.confirm('Are you sure you want to delete this study list?')) return
@@ -150,41 +92,15 @@ const StudyListsPage: React.FC = () => {
       setStudyLists(studyLists.filter(list => list.id !== listId))
       if (selectedList?.id === listId) {
         setSelectedList(null)
-        setListItems([])
       }
     }
   }
 
   const handleEditList = (list: StudyList) => {
-    setEditingList(list)
-    setNewListData({
-      name: list.name,
-      description: list.description || '',
-      color: list.color || '#3B82F6'
-    })
-    setShowCreateForm(true)
+    // Handled in drag-drop component
   }
 
-  const handleViewList = (list: StudyList) => {
-    const slug = nameToSlug(list.name)
-    navigate(`/study-lists/${slug}`)
-    setSelectedList(list)
-    fetchListItems(list.id)
-  }
 
-  const handleRemoveFromList = async (item: StudyListItem) => {
-    if (!selectedList) return
-
-    const success = await studyListService.removeItemFromStudyList(
-      selectedList.id,
-      item.item_type,
-      item.item_id
-    )
-
-    if (success) {
-      setListItems(listItems.filter(i => i.id !== item.id))
-    }
-  }
 
   const handlePlayAllItems = (items: (StarredItem | StudyListItem)[], listName?: string) => {
     if (items.length === 0) return
@@ -243,78 +159,7 @@ const StudyListsPage: React.FC = () => {
     setPendingListName('')
   }
 
-  const handleItemClick = (item: StarredItem | StudyListItem, allItems: (StarredItem | StudyListItem)[], itemIndex: number, listName?: string) => {
-    const data = item.item_data || {}
-    
-    // For skill nodes, navigate to their category page
-    if (item.item_type === 'skill_node' && data.id) {
-      navigate(`/category/${data.id}`)
-      return
-    }
-    
-    // For all other items, navigate to the study list review page starting at the clicked item
-    navigate('/study-list-review', {
-      state: {
-        items: allItems.map(listItem => ({
-          id: listItem.item_id,
-          type: listItem.item_type,
-          data: listItem.item_data
-        })),
-        listName: listName || 'Study Session',
-        startIndex: itemIndex
-      }
-    })
-  }
 
-  const renderItemPreview = (item: StarredItem | StudyListItem) => {
-    const data = item.item_data || {}
-    
-    switch (item.item_type) {
-      case 'spelling_word':
-      case 'vocabulary_word':
-        return (
-          <div className="flex-1">
-            <span className="font-medium">{data.word || 'Unknown word'}</span>
-            <p className="text-xs text-neutral-500 dark:text-neutral-400 mt-1 line-clamp-2">
-              {data.definition || 'No definition available'}
-            </p>
-          </div>
-        )
-      case 'language_question':
-        return (
-          <div className="flex-1">
-            <span className="font-medium">Language Question</span>
-            <p className="text-xs text-neutral-500 dark:text-neutral-400 mt-1 line-clamp-2">
-              {data.question_text || 'No question text available'}
-            </p>
-          </div>
-        )
-      case 'question':
-        return (
-          <div className="flex-1">
-            <span className="font-medium">General Question</span>
-            <p className="text-xs text-neutral-500 dark:text-neutral-400 mt-1 line-clamp-2">
-              {data.question_text || 'No question text available'}
-            </p>
-          </div>
-        )
-      case 'skill_node':
-        return (
-          <div className="flex-1">
-            <span className="font-medium">{data.name || 'Skill Node'}</span>
-            <p className="text-xs text-neutral-500 dark:text-neutral-400 mt-1 line-clamp-2">
-              {data.learning_area || 'No description available'}
-            </p>
-          </div>
-        )
-      default:
-        return (
-          <div className="flex-1">
-            <span className="font-medium">Unknown Item</span>
-          </div>
-        )
-    }
-  }
 
   if (loading) {
     return (
@@ -400,266 +245,35 @@ CREATE INDEX IF NOT EXISTS idx_study_list_items_study_list_id ON study_list_item
   return (
     <div className="max-w-6xl mx-auto p-6">
       <div className="mb-6">
-        <h1 className="text-3xl font-bold text-neutral-900 dark:text-white mb-2">
-          Study Lists & Starred Items
-        </h1>
-        <p className="text-neutral-600 dark:text-neutral-400">
-          Organize your learning materials and track your progress
-        </p>
-      </div>
-
-      <div className="grid lg:grid-cols-3 gap-6">
-        {/* Left Panel - Study Lists */}
-        <div className="lg:col-span-1">
-          {/* Create List Button */}
-          <div className="bg-white dark:bg-neutral-800 rounded-xl shadow-lg p-4 mb-4">
-            {!showCreateForm ? (
-              <button
-                onClick={() => setShowCreateForm(true)}
-                className="w-full flex items-center justify-center gap-2 p-3 border-2 border-dashed border-neutral-300 dark:border-neutral-600 rounded-lg hover:border-primary-400 dark:hover:border-primary-500 transition-colors"
-              >
-                <PlusIcon className="h-5 w-5 text-neutral-400" />
-                <span className="font-medium text-neutral-600 dark:text-neutral-400">
-                  Create Study List
-                </span>
-              </button>
-            ) : (
-              <div className="space-y-3">
-                <h3 className="font-semibold text-neutral-900 dark:text-white">
-                  {editingList ? 'Edit Study List' : 'Create New Study List'}
-                </h3>
-                <input
-                  type="text"
-                  placeholder="List name"
-                  value={newListData.name}
-                  onChange={(e) => setNewListData({ ...newListData, name: e.target.value })}
-                  className="w-full px-3 py-2 border border-neutral-300 dark:border-neutral-600 rounded-lg bg-white dark:bg-neutral-700 text-neutral-900 dark:text-white"
-                />
-                <textarea
-                  placeholder="Description (optional)"
-                  value={newListData.description}
-                  onChange={(e) => setNewListData({ ...newListData, description: e.target.value })}
-                  rows={2}
-                  className="w-full px-3 py-2 border border-neutral-300 dark:border-neutral-600 rounded-lg bg-white dark:bg-neutral-700 text-neutral-900 dark:text-white resize-none"
-                />
-                
-                {/* Color Picker */}
-                <div>
-                  <label className="text-xs font-medium text-neutral-700 dark:text-neutral-300 mb-2 block">
-                    Color
-                  </label>
-                  <div className="flex gap-2 flex-wrap">
-                    {colors.map(color => (
-                      <button
-                        key={color}
-                        onClick={() => setNewListData({ ...newListData, color })}
-                        className={`w-6 h-6 rounded-full border-2 transition-all ${
-                          newListData.color === color
-                            ? 'border-neutral-400 scale-110'
-                            : 'border-neutral-200 dark:border-neutral-600'
-                        }`}
-                        style={{ backgroundColor: color }}
-                      />
-                    ))}
-                  </div>
-                </div>
-
-                <div className="flex gap-2">
-                  <button
-                    onClick={editingList ? handleUpdateList : handleCreateList}
-                    disabled={!newListData.name.trim()}
-                    className="flex-1 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 disabled:bg-neutral-400 disabled:cursor-not-allowed transition-colors text-sm font-medium"
-                  >
-                    {editingList ? 'Update' : 'Create'}
-                  </button>
-                  <button
-                    onClick={() => {
-                      setShowCreateForm(false)
-                      setEditingList(null)
-                      setNewListData({ name: '', description: '', color: '#3B82F6' })
-                    }}
-                    className="px-4 py-2 bg-neutral-200 dark:bg-neutral-600 text-neutral-700 dark:text-neutral-300 rounded-lg hover:bg-neutral-300 dark:hover:bg-neutral-500 transition-colors text-sm"
-                  >
-                    Cancel
-                  </button>
-                </div>
-              </div>
-            )}
+        <div className="flex items-start justify-between">
+          <div>
+            <h1 className="text-3xl font-bold text-neutral-900 dark:text-white mb-2">
+              Study Lists
+            </h1>
+            <p className="text-neutral-600 dark:text-neutral-400">
+              Organize your learning materials and track your progress
+            </p>
           </div>
-
-          {/* Study Lists */}
-          <div className="bg-white dark:bg-neutral-800 rounded-xl shadow-lg p-4">
-            <h2 className="text-lg font-semibold text-neutral-900 dark:text-white mb-4">
-              Your Study Lists ({studyLists.length})
-            </h2>
-            <div className="space-y-2">
-              {studyLists.map(list => (
-                <div
-                  key={list.id}
-                  className={`p-3 rounded-lg border transition-colors cursor-pointer ${
-                    selectedList?.id === list.id
-                      ? 'border-primary-500 bg-primary-50 dark:bg-primary-900/20'
-                      : 'border-neutral-200 dark:border-neutral-700 hover:border-neutral-300'
-                  }`}
-                  onClick={() => handleViewList(list)}
-                >
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-3 flex-1">
-                      <div
-                        className="w-4 h-4 rounded-full"
-                        style={{ backgroundColor: list.color }}
-                      />
-                      <div className="flex-1 min-w-0">
-                        <span className="font-medium text-neutral-900 dark:text-white block truncate">
-                          {list.name}
-                        </span>
-                      </div>
-                    </div>
-                    <div className="flex items-center gap-1">
-                      <button
-                        onClick={(e) => {
-                          e.stopPropagation()
-                          handleEditList(list)
-                        }}
-                        className="p-1 hover:bg-neutral-200 dark:hover:bg-neutral-600 rounded transition-colors"
-                      >
-                        <PencilIcon className="h-4 w-4 text-neutral-500" />
-                      </button>
-                      <button
-                        onClick={(e) => {
-                          e.stopPropagation()
-                          handleDeleteList(list.id)
-                        }}
-                        className="p-1 hover:bg-red-100 dark:hover:bg-red-900/30 rounded transition-colors"
-                      >
-                        <TrashIcon className="h-4 w-4 text-red-500" />
-                      </button>
-                    </div>
-                  </div>
-                </div>
-              ))}
-              {studyLists.length === 0 && (
-                <p className="text-neutral-500 dark:text-neutral-400 text-center py-4 text-sm">
-                  No study lists yet. Create your first one!
-                </p>
-              )}
-            </div>
-          </div>
-        </div>
-
-        {/* Right Panel - Content */}
-        <div className="lg:col-span-2">
-          {selectedList ? (
-            /* Study List Items */
-            <div className="bg-white dark:bg-neutral-800 rounded-xl shadow-lg p-6">
-              <div className="flex items-center justify-between mb-6">
-                <div className="flex items-center gap-3">
-                  <div
-                    className="w-6 h-6 rounded-full"
-                    style={{ backgroundColor: selectedList.color }}
-                  />
-                  <div>
-                    <h2 className="text-xl font-semibold text-neutral-900 dark:text-white">
-                      {selectedList.name}
-                    </h2>
-                    {selectedList.description && (
-                      <p className="text-sm text-neutral-600 dark:text-neutral-400">
-                        {selectedList.description}
-                      </p>
-                    )}
-                  </div>
-                </div>
-                <div className="flex items-center gap-2">
-                  <span className="text-sm text-neutral-500 dark:text-neutral-400">
-                    {listItems.length} items
-                  </span>
-                  <button 
-                    onClick={() => handlePlayAllItems(listItems, selectedList.name)}
-                    className="p-2 bg-primary-100 dark:bg-primary-900/30 text-primary-600 dark:text-primary-400 rounded-lg hover:bg-primary-200 dark:hover:bg-primary-900/50 transition-colors"
-                    title="Study all items in this list"
-                  >
-                    <PlayIcon className="h-5 w-5" />
-                  </button>
-                </div>
-              </div>
-
-              <div className="space-y-3">
-                {listItems.map((item, index) => (
-                  <div
-                    key={item.id}
-                    className="flex items-center gap-3 p-4 border border-neutral-200 dark:border-neutral-700 rounded-lg hover:border-primary-400 dark:hover:border-primary-500 hover:bg-primary-50 dark:hover:bg-primary-900/10 transition-all cursor-pointer group"
-                    onClick={() => handleItemClick(item, listItems, index, selectedList.name)}
-                  >
-                    <div className="w-2 h-2 bg-neutral-400 group-hover:bg-primary-500 rounded-full flex-shrink-0 transition-colors" />
-                    {renderItemPreview(item)}
-                    <div className="flex items-center gap-2">
-                      <span className="text-xs bg-neutral-100 dark:bg-neutral-700 text-neutral-600 dark:text-neutral-400 px-2 py-1 rounded">
-                        {item.item_type.replace('_', ' ')}
-                      </span>
-                      <button
-                        onClick={(e) => {
-                          e.stopPropagation()
-                          handleRemoveFromList(item)
-                        }}
-                        className="p-1 hover:bg-red-100 dark:hover:bg-red-900/30 rounded transition-colors"
-                      >
-                        <TrashIcon className="h-4 w-4 text-red-500" />
-                      </button>
-                    </div>
-                  </div>
-                ))}
-                {listItems.length === 0 && (
-                  <p className="text-neutral-500 dark:text-neutral-400 text-center py-8">
-                    This study list is empty. Add items using the star/bookmark buttons when practicing.
-                  </p>
-                )}
-              </div>
-            </div>
-          ) : (
-            /* Starred Items */
-            <div className="bg-white dark:bg-neutral-800 rounded-xl shadow-lg p-6">
-              <div className="flex items-center justify-between mb-6">
-                <div className="flex items-center gap-3">
-                  <StarIconSolid className="h-6 w-6 text-yellow-500" />
-                  <h2 className="text-xl font-semibold text-neutral-900 dark:text-white">
-                    Starred Items ({starredItems.length})
-                  </h2>
-                </div>
-                {starredItems.length > 0 && (
-                  <button 
-                    onClick={() => handlePlayAllItems(starredItems, 'Starred Items')}
-                    className="p-2 bg-primary-100 dark:bg-primary-900/30 text-primary-600 dark:text-primary-400 rounded-lg hover:bg-primary-200 dark:hover:bg-primary-900/50 transition-colors"
-                    title="Study all starred items"
-                  >
-                    <PlayIcon className="h-5 w-5" />
-                  </button>
-                )}
-              </div>
-
-              <div className="space-y-3">
-                {starredItems.map((item, index) => (
-                  <div
-                    key={item.id}
-                    className="flex items-center gap-3 p-4 border border-neutral-200 dark:border-neutral-700 rounded-lg hover:border-primary-400 dark:hover:border-primary-500 hover:bg-primary-50 dark:hover:bg-primary-900/10 transition-all cursor-pointer group"
-                    onClick={() => handleItemClick(item, starredItems, index, 'Starred Items')}
-                  >
-                    <StarIconSolid className="h-4 w-4 text-yellow-500 flex-shrink-0" />
-                    {renderItemPreview(item)}
-                    <span className="text-xs bg-neutral-100 dark:bg-neutral-700 text-neutral-600 dark:text-neutral-400 px-2 py-1 rounded">
-                      {item.item_type.replace('_', ' ')}
-                    </span>
-                  </div>
-                ))}
-                {starredItems.length === 0 && (
-                  <p className="text-neutral-500 dark:text-neutral-400 text-center py-8">
-                    No starred items yet. Star questions and flashcards to save them here.
-                  </p>
-                )}
-              </div>
-            </div>
-          )}
+          <button
+            onClick={() => setShowUploader(true)}
+            className="flex items-center gap-2 px-4 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition-colors"
+          >
+            <CloudArrowUpIcon className="h-5 w-5" />
+            Upload Questions
+          </button>
         </div>
       </div>
+
+      <StudyListsDragDrop
+        studyLists={studyLists}
+        starredItems={starredItems}
+        onListUpdate={fetchData}
+        onPlayItems={handlePlayAllItems}
+        onEditList={handleEditList}
+        onDeleteList={handleDeleteList}
+        onShowCreateForm={() => {}}
+        userId={user?.id || ''}
+      />
 
       {/* Batch Size Settings Modal */}
       {showBatchSettings && (
@@ -817,6 +431,19 @@ CREATE INDEX IF NOT EXISTS idx_study_list_items_study_list_id ON study_list_item
             </div>
           </div>
         </div>
+      )}
+
+      {/* Custom Question Uploader Modal */}
+      {showUploader && (
+        <CustomQuestionUploader
+          studyListId={selectedList?.id}
+          onClose={() => setShowUploader(false)}
+          onSuccess={() => {
+            setShowUploader(false)
+            // Refresh data to show new questions
+            fetchData()
+          }}
+        />
       )}
     </div>
   )

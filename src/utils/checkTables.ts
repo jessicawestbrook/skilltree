@@ -17,7 +17,7 @@ export const checkDatabaseTables = async () => {
         'questions', 'Questions', 
         'question_options', 'QuestionOptions',
         'starred_categories', 'StarredCategories',
-        'user_progress', 'UserProgress',
+        'user_module_progress', 'UserProgress',
         'user_question_responses', 'UserQuestionResponses',
         'learning_content', 'LearningContent',
         'feedback', 'Feedback'

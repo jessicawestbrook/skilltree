@@ -220,10 +220,10 @@ const LearningContentModal: React.FC<LearningContentModalProps> = ({
       
       // Update user progress with enhanced metrics
       const { error } = await supabase
-        .from('user_progress')
+        .from('user_module_progress')
         .upsert({
           user_id: user.id,
-          skill_id: node.id,
+          module_id: node.id,
           status: passed ? 'completed' : 'in_progress',
           rating: rating,
           last_accessed: new Date().toISOString(),

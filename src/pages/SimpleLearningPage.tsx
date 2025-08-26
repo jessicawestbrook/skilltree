@@ -87,16 +87,16 @@ const SimpleLearningPage: React.FC = () => {
         try {
           // Check if progress record exists
           const { data: existingProgress } = await supabase
-            .from('user_progress')
+            .from('user_module_progress')
             .select('*')
             .eq('user_id', user.id)
-            .eq('skill_id', skillId)
+            .eq('module_id', skillId)
             .single()
           
           if (existingProgress) {
             // Update existing progress
             await supabase
-              .from('user_progress')
+              .from('user_module_progress')
               .update({
                 last_accessed: new Date().toISOString(),
                 status: existingProgress.status === 'not_started' ? 'in_progress' : existingProgress.status
@@ -105,7 +105,7 @@ const SimpleLearningPage: React.FC = () => {
           } else {
             // Create new progress record
             await supabase
-              .from('user_progress')
+              .from('user_module_progress')
               .insert({
                 user_id: user.id,
                 skill_id: skillId,
@@ -183,14 +183,14 @@ const SimpleLearningPage: React.FC = () => {
             const percentage = questions.length > 0 ? Math.round((score / questions.length) * 100) : 100
             
             await supabase
-              .from('user_progress')
+              .from('user_module_progress')
               .update({
                 status: 'completed',
                 rating: percentage,
                 last_accessed: new Date().toISOString()
               })
               .eq('user_id', user.id)
-              .eq('skill_id', currentSkillId)
+              .eq('module_id', currentSkillId)
           } catch (error) {
             console.error('Error updating progress to completed:', error)
           }

@@ -1,0 +1,748 @@
+{
+  "latin_language_id": "d5ff6f2b-65bf-46bc-ac0e-c4101fc739e3",
+  "categories": {
+    "Vocabulary": "6406ebe5-f5a0-4093-861a-e5e16c1e53c7",
+    "Grammar": "1f247d2f-5b22-4c55-98b9-688d7a8d172d",
+    "Translation": "76dbe2ce-3542-4e45-8145-cbd2be28106e",
+    "Reading Comprehension": "00a6e2bd-2de9-4395-9db8-e7e22ea88411",
+    "Declensions": "71183f96-c341-49ae-b3e4-e3e459868d93",
+    "Conjugations": "9dba074c-0c4c-4159-b2a2-dd2a7f848fc2"
+  },
+  "questions": [
+    {
+      "id": "f3b12e83-74ac-4138-aed5-2b68b8d94653",
+      "language_id": "d5ff6f2b-65bf-46bc-ac0e-c4101fc739e3",
+      "category_id": "6406ebe5-f5a0-4093-861a-e5e16c1e53c7",
+      "question_text": "What does 'puella' mean?",
+      "question_type": "multiple_choice",
+      "options": [
+        "battle",
+        "peace",
+        "girl",
+        "book"
+      ],
+      "correct_answer_index": 0,
+      "explanation": "'puella' is a first declension feminine noun meaning 'girl'",
+      "difficulty_level": 1,
+      "source_url": "Henle First Year Latin",
+      "category_name": "Vocabulary"
+    },
+    {
+      "id": "a4bc5d3d-1f00-470c-b6a8-37c7a9df28fe",
+      "language_id": "d5ff6f2b-65bf-46bc-ac0e-c4101fc739e3",
+      "category_id": "6406ebe5-f5a0-4093-861a-e5e16c1e53c7",
+      "question_text": "How do you say 'girl' in Latin?",
+      "question_type": "multiple_choice",
+      "options": [
+        "pax",
+        "miles",
+        "puella",
+        "amicus"
+      ],
+      "correct_answer_index": 0,
+      "explanation": "The Latin word for 'girl' is 'puella'",
+      "difficulty_level": 1,
+      "source_url": "Henle First Year Latin",
+      "category_name": "Vocabulary"
+    },
+    {
+      "id": "52dcd48a-e717-463b-ba0c-318247ee1fbd",
+      "language_id": "d5ff6f2b-65bf-46bc-ac0e-c4101fc739e3",
+      "category_id": "6406ebe5-f5a0-4093-861a-e5e16c1e53c7",
+      "question_text": "What does 'femina' mean?",
+      "question_type": "multiple_choice",
+      "options": [
+        "woman",
+        "tree",
+        "peace",
+        "soldier"
+      ],
+      "correct_answer_index": 0,
+      "explanation": "'femina' is a first declension feminine noun meaning 'woman'",
+      "difficulty_level": 1,
+      "source_url": "Henle First Year Latin",
+      "category_name": "Vocabulary"
+    },
+    {
+      "id": "8b95d409-7b0f-429b-afe7-f65c92ddbd5d",
+      "language_id": "d5ff6f2b-65bf-46bc-ac0e-c4101fc739e3",
+      "category_id": "6406ebe5-f5a0-4093-861a-e5e16c1e53c7",
+      "question_text": "How do you say 'woman' in Latin?",
+      "question_type": "multiple_choice",
+      "options": [
+        "femina",
+        "equus",
+        "mons",
+        "flumen"
+      ],
+      "correct_answer_index": 0,
+      "explanation": "The Latin word for 'woman' is 'femina'",
+      "difficulty_level": 1,
+      "source_url": "Henle First Year Latin",
+      "category_name": "Vocabulary"
+    },
+    {
+      "id": "7238cdfc-568c-4c2e-969d-4d2c6546f751",
+      "language_id": "d5ff6f2b-65bf-46bc-ac0e-c4101fc739e3",
+      "category_id": "6406ebe5-f5a0-4093-861a-e5e16c1e53c7",
+      "question_text": "What does 'aqua' mean?",
+      "question_type": "multiple_choice",
+      "options": [
+        "soldier",
+        "water",
+        "mountain",
+        "enemy"
+      ],
+      "correct_answer_index": 0,
+      "explanation": "'aqua' is a first declension feminine noun meaning 'water'",
+      "difficulty_level": 1,
+      "source_url": "Henle First Year Latin",
+      "category_name": "Vocabulary"
+    },
+    {
+      "id": "9a5751cb-ea3b-4bb9-84be-c5db55b488f3",
+      "language_id": "d5ff6f2b-65bf-46bc-ac0e-c4101fc739e3",
+      "category_id": "6406ebe5-f5a0-4093-861a-e5e16c1e53c7",
+      "question_text": "How do you say 'water' in Latin?",
+      "question_type": "multiple_choice",
+      "options": [
+        "mons",
+        "deus",
+        "templum",
+        "aqua"
+      ],
+      "correct_answer_index": 0,
+      "explanation": "The Latin word for 'water' is 'aqua'",
+      "difficulty_level": 1,
+      "source_url": "Henle First Year Latin",
+      "category_name": "Vocabulary"
+    },
+    {
+      "id": "fe41fde5-e40d-4ff2-ab11-593cada44d3d",
+      "language_id": "d5ff6f2b-65bf-46bc-ac0e-c4101fc739e3",
+      "category_id": "6406ebe5-f5a0-4093-861a-e5e16c1e53c7",
+      "question_text": "What does 'terra' mean?",
+      "question_type": "multiple_choice",
+      "options": [
+        "city",
+        "land, earth",
+        "mountain",
+        "friend"
+      ],
+      "correct_answer_index": 0,
+      "explanation": "'terra' is a first declension feminine noun meaning 'land, earth'",
+      "difficulty_level": 1,
+      "source_url": "Henle First Year Latin",
+      "category_name": "Vocabulary"
+    },
+    {
+      "id": "e2f495c3-7e45-448b-8606-e6295ef3550f",
+      "language_id": "d5ff6f2b-65bf-46bc-ac0e-c4101fc739e3",
+      "category_id": "6406ebe5-f5a0-4093-861a-e5e16c1e53c7",
+      "question_text": "How do you say 'land, earth' in Latin?",
+      "question_type": "multiple_choice",
+      "options": [
+        "templum",
+        "dea",
+        "terra",
+        "scutum"
+      ],
+      "correct_answer_index": 0,
+      "explanation": "The Latin word for 'land, earth' is 'terra'",
+      "difficulty_level": 1,
+      "source_url": "Henle First Year Latin",
+      "category_name": "Vocabulary"
+    },
+    {
+      "id": "3a508559-5e5a-4dc0-b1f0-35b6652d1f9c",
+      "language_id": "d5ff6f2b-65bf-46bc-ac0e-c4101fc739e3",
+      "category_id": "6406ebe5-f5a0-4093-861a-e5e16c1e53c7",
+      "question_text": "What does 'servus' mean?",
+      "question_type": "multiple_choice",
+      "options": [
+        "house",
+        "tree",
+        "temple",
+        "slave, servant"
+      ],
+      "correct_answer_index": 0,
+      "explanation": "'servus' is a second declension masculine noun meaning 'slave, servant'",
+      "difficulty_level": 2,
+      "source_url": "Henle First Year Latin",
+      "category_name": "Vocabulary"
+    },
+    {
+      "id": "a3a59c46-b050-4e94-8c2a-c33d2e84a347",
+      "language_id": "d5ff6f2b-65bf-46bc-ac0e-c4101fc739e3",
+      "category_id": "6406ebe5-f5a0-4093-861a-e5e16c1e53c7",
+      "question_text": "How do you say 'slave, servant' in Latin?",
+      "question_type": "multiple_choice",
+      "options": [
+        "servus",
+        "hostis",
+        "flumen",
+        "equus"
+      ],
+      "correct_answer_index": 0,
+      "explanation": "The Latin word for 'slave, servant' is 'servus'",
+      "difficulty_level": 2,
+      "source_url": "Henle First Year Latin",
+      "category_name": "Vocabulary"
+    },
+    {
+      "id": "7cf8a36a-d6f4-42ef-8695-4d1aefecaee4",
+      "language_id": "d5ff6f2b-65bf-46bc-ac0e-c4101fc739e3",
+      "category_id": "6406ebe5-f5a0-4093-861a-e5e16c1e53c7",
+      "question_text": "What does 'dominus' mean?",
+      "question_type": "multiple_choice",
+      "options": [
+        "god",
+        "horse",
+        "master, lord",
+        "river"
+      ],
+      "correct_answer_index": 0,
+      "explanation": "'dominus' is a second declension masculine noun meaning 'master, lord'",
+      "difficulty_level": 2,
+      "source_url": "Henle First Year Latin",
+      "category_name": "Vocabulary"
+    },
+    {
+      "id": "4e53c7c7-b33e-4401-a866-0868cfc52280",
+      "language_id": "d5ff6f2b-65bf-46bc-ac0e-c4101fc739e3",
+      "category_id": "6406ebe5-f5a0-4093-861a-e5e16c1e53c7",
+      "question_text": "How do you say 'master, lord' in Latin?",
+      "question_type": "multiple_choice",
+      "options": [
+        "urbs",
+        "via",
+        "mare",
+        "dominus"
+      ],
+      "correct_answer_index": 0,
+      "explanation": "The Latin word for 'master, lord' is 'dominus'",
+      "difficulty_level": 2,
+      "source_url": "Henle First Year Latin",
+      "category_name": "Vocabulary"
+    },
+    {
+      "id": "9c8564ed-d27d-447e-a487-51b9c79d2260",
+      "language_id": "d5ff6f2b-65bf-46bc-ac0e-c4101fc739e3",
+      "category_id": "6406ebe5-f5a0-4093-861a-e5e16c1e53c7",
+      "question_text": "What does 'filius' mean?",
+      "question_type": "multiple_choice",
+      "options": [
+        "son",
+        "river",
+        "temple",
+        "tree"
+      ],
+      "correct_answer_index": 0,
+      "explanation": "'filius' is a second declension masculine noun meaning 'son'",
+      "difficulty_level": 2,
+      "source_url": "Henle First Year Latin",
+      "category_name": "Vocabulary"
+    },
+    {
+      "id": "644e39f9-6ae8-4f21-a803-ee95dc6c3d71",
+      "language_id": "d5ff6f2b-65bf-46bc-ac0e-c4101fc739e3",
+      "category_id": "6406ebe5-f5a0-4093-861a-e5e16c1e53c7",
+      "question_text": "How do you say 'son' in Latin?",
+      "question_type": "multiple_choice",
+      "options": [
+        "mare",
+        "miles",
+        "amicus",
+        "filius"
+      ],
+      "correct_answer_index": 0,
+      "explanation": "The Latin word for 'son' is 'filius'",
+      "difficulty_level": 2,
+      "source_url": "Henle First Year Latin",
+      "category_name": "Vocabulary"
+    },
+    {
+      "id": "2ee27c8e-5106-4987-b3af-a59f34c8358c",
+      "language_id": "d5ff6f2b-65bf-46bc-ac0e-c4101fc739e3",
+      "category_id": "6406ebe5-f5a0-4093-861a-e5e16c1e53c7",
+      "question_text": "What does 'bellum' mean?",
+      "question_type": "multiple_choice",
+      "options": [
+        "horse",
+        "war",
+        "friend",
+        "temple"
+      ],
+      "correct_answer_index": 0,
+      "explanation": "'bellum' is a second declension neuter noun meaning 'war'",
+      "difficulty_level": 3,
+      "source_url": "Henle First Year Latin",
+      "category_name": "Vocabulary"
+    },
+    {
+      "id": "06aeca7b-d368-4dee-b1f6-45e2dc082d88",
+      "language_id": "d5ff6f2b-65bf-46bc-ac0e-c4101fc739e3",
+      "category_id": "6406ebe5-f5a0-4093-861a-e5e16c1e53c7",
+      "question_text": "How do you say 'war' in Latin?",
+      "question_type": "multiple_choice",
+      "options": [
+        "amicus",
+        "scutum",
+        "bellum",
+        "hostis"
+      ],
+      "correct_answer_index": 0,
+      "explanation": "The Latin word for 'war' is 'bellum'",
+      "difficulty_level": 3,
+      "source_url": "Henle First Year Latin",
+      "category_name": "Vocabulary"
+    },
+    {
+      "id": "db104898-bbab-4b5b-8b13-22cbf72ff1bf",
+      "language_id": "d5ff6f2b-65bf-46bc-ac0e-c4101fc739e3",
+      "category_id": "6406ebe5-f5a0-4093-861a-e5e16c1e53c7",
+      "question_text": "What does 'oppidum' mean?",
+      "question_type": "multiple_choice",
+      "options": [
+        "tree",
+        "friend",
+        "sea",
+        "town"
+      ],
+      "correct_answer_index": 0,
+      "explanation": "'oppidum' is a second declension neuter noun meaning 'town'",
+      "difficulty_level": 3,
+      "source_url": "Henle First Year Latin",
+      "category_name": "Vocabulary"
+    },
+    {
+      "id": "73476577-8d50-400f-a6d7-375598cfcbd1",
+      "language_id": "d5ff6f2b-65bf-46bc-ac0e-c4101fc739e3",
+      "category_id": "6406ebe5-f5a0-4093-861a-e5e16c1e53c7",
+      "question_text": "How do you say 'town' in Latin?",
+      "question_type": "multiple_choice",
+      "options": [
+        "oppidum",
+        "templum",
+        "arbor",
+        "liber"
+      ],
+      "correct_answer_index": 0,
+      "explanation": "The Latin word for 'town' is 'oppidum'",
+      "difficulty_level": 3,
+      "source_url": "Henle First Year Latin",
+      "category_name": "Vocabulary"
+    },
+    {
+      "id": "4b49ad07-320a-440e-8ac6-b163a0e4f422",
+      "language_id": "d5ff6f2b-65bf-46bc-ac0e-c4101fc739e3",
+      "category_id": "6406ebe5-f5a0-4093-861a-e5e16c1e53c7",
+      "question_text": "What does 'rex' mean?",
+      "question_type": "multiple_choice",
+      "options": [
+        "king",
+        "road",
+        "house",
+        "battle"
+      ],
+      "correct_answer_index": 0,
+      "explanation": "'rex' is a third declension masculine noun meaning 'king'",
+      "difficulty_level": 5,
+      "source_url": "Henle First Year Latin",
+      "category_name": "Vocabulary"
+    },
+    {
+      "id": "75c08628-eeab-415e-8ebb-1e8f9ffe78fb",
+      "language_id": "d5ff6f2b-65bf-46bc-ac0e-c4101fc739e3",
+      "category_id": "6406ebe5-f5a0-4093-861a-e5e16c1e53c7",
+      "question_text": "How do you say 'king' in Latin?",
+      "question_type": "multiple_choice",
+      "options": [
+        "mons",
+        "amicus",
+        "arbor",
+        "rex"
+      ],
+      "correct_answer_index": 0,
+      "explanation": "The Latin word for 'king' is 'rex'",
+      "difficulty_level": 5,
+      "source_url": "Henle First Year Latin",
+      "category_name": "Vocabulary"
+    },
+    {
+      "id": "411bb416-ab35-4cdf-9ee6-2736ea2da7e4",
+      "language_id": "d5ff6f2b-65bf-46bc-ac0e-c4101fc739e3",
+      "category_id": "1f247d2f-5b22-4c55-98b9-688d7a8d172d",
+      "question_text": "What is the genitive singular ending for first declension nouns?",
+      "question_type": "multiple_choice",
+      "options": [
+        "-ae",
+        "-a",
+        "-am",
+        "-as"
+      ],
+      "correct_answer_index": 0,
+      "explanation": "First declension nouns form the genitive singular by adding -ae",
+      "difficulty_level": 1,
+      "source_url": "Henle Latin Grammar",
+      "category_name": "Grammar"
+    },
+    {
+      "id": "bdb682ba-d89f-4b4e-8dea-0534ddf120fc",
+      "language_id": "d5ff6f2b-65bf-46bc-ac0e-c4101fc739e3",
+      "category_id": "1f247d2f-5b22-4c55-98b9-688d7a8d172d",
+      "question_text": "What is the accusative singular ending for first declension nouns?",
+      "question_type": "multiple_choice",
+      "options": [
+        "-am",
+        "-ae",
+        "-a",
+        "-as"
+      ],
+      "correct_answer_index": 0,
+      "explanation": "First declension nouns form the accusative singular by adding -am",
+      "difficulty_level": 1,
+      "source_url": "Henle Latin Grammar",
+      "category_name": "Grammar"
+    },
+    {
+      "id": "6738912d-ff1d-4269-a56d-b619dc5bfdd9",
+      "language_id": "d5ff6f2b-65bf-46bc-ac0e-c4101fc739e3",
+      "category_id": "1f247d2f-5b22-4c55-98b9-688d7a8d172d",
+      "question_text": "What is the nominative plural ending for second declension masculine nouns?",
+      "question_type": "multiple_choice",
+      "options": [
+        "-i",
+        "-os",
+        "-us",
+        "-um"
+      ],
+      "correct_answer_index": 0,
+      "explanation": "Second declension masculine nouns form the nominative plural with -i",
+      "difficulty_level": 2,
+      "source_url": "Henle Latin Grammar",
+      "category_name": "Grammar"
+    },
+    {
+      "id": "77a12694-9bd8-48d6-8878-b8ac34616ca0",
+      "language_id": "d5ff6f2b-65bf-46bc-ac0e-c4101fc739e3",
+      "category_id": "1f247d2f-5b22-4c55-98b9-688d7a8d172d",
+      "question_text": "What case is used for the direct object of a verb?",
+      "question_type": "multiple_choice",
+      "options": [
+        "Accusative",
+        "Nominative",
+        "Genitive",
+        "Dative"
+      ],
+      "correct_answer_index": 0,
+      "explanation": "The accusative case is used for direct objects in Latin",
+      "difficulty_level": 1,
+      "source_url": "Henle Latin Grammar",
+      "category_name": "Grammar"
+    },
+    {
+      "id": "36aa36bf-c515-40dd-97ab-3f514fe93c0d",
+      "language_id": "d5ff6f2b-65bf-46bc-ac0e-c4101fc739e3",
+      "category_id": "1f247d2f-5b22-4c55-98b9-688d7a8d172d",
+      "question_text": "What case is used to show possession?",
+      "question_type": "multiple_choice",
+      "options": [
+        "Genitive",
+        "Accusative",
+        "Nominative",
+        "Ablative"
+      ],
+      "correct_answer_index": 0,
+      "explanation": "The genitive case is used to show possession (of, 's)",
+      "difficulty_level": 1,
+      "source_url": "Henle Latin Grammar",
+      "category_name": "Grammar"
+    },
+    {
+      "id": "5f34a515-49dd-44d7-a743-ff5698fd0021",
+      "language_id": "d5ff6f2b-65bf-46bc-ac0e-c4101fc739e3",
+      "category_id": "71183f96-c341-49ae-b3e4-e3e459868d93",
+      "question_text": "What is the genitive singular of 'puella'?",
+      "question_type": "fill_in_blank",
+      "options": [
+        "puellae"
+      ],
+      "correct_answer_index": 0,
+      "explanation": "The genitive singular of 'puella' is 'puellae'",
+      "difficulty_level": 1,
+      "source_url": "Henle First Year Latin",
+      "category_name": "Declensions"
+    },
+    {
+      "id": "692f07f0-a824-400d-a578-ae468c58f392",
+      "language_id": "d5ff6f2b-65bf-46bc-ac0e-c4101fc739e3",
+      "category_id": "71183f96-c341-49ae-b3e4-e3e459868d93",
+      "question_text": "What is the accusative singular of 'servus'?",
+      "question_type": "fill_in_blank",
+      "options": [
+        "servum"
+      ],
+      "correct_answer_index": 0,
+      "explanation": "The accusative singular of 'servus' is 'servum'",
+      "difficulty_level": 2,
+      "source_url": "Henle First Year Latin",
+      "category_name": "Declensions"
+    },
+    {
+      "id": "503bb63b-3449-4f34-91f8-00f769160d6e",
+      "language_id": "d5ff6f2b-65bf-46bc-ac0e-c4101fc739e3",
+      "category_id": "71183f96-c341-49ae-b3e4-e3e459868d93",
+      "question_text": "What is the nominative plural of 'bellum'?",
+      "question_type": "fill_in_blank",
+      "options": [
+        "bella"
+      ],
+      "correct_answer_index": 0,
+      "explanation": "The nominative plural of 'bellum' is 'bella'",
+      "difficulty_level": 3,
+      "source_url": "Henle First Year Latin",
+      "category_name": "Declensions"
+    },
+    {
+      "id": "b6fa0665-cb87-40be-857d-78e33d4b816e",
+      "language_id": "d5ff6f2b-65bf-46bc-ac0e-c4101fc739e3",
+      "category_id": "71183f96-c341-49ae-b3e4-e3e459868d93",
+      "question_text": "What is the ablative singular of 'terra'?",
+      "question_type": "fill_in_blank",
+      "options": [
+        "terra"
+      ],
+      "correct_answer_index": 0,
+      "explanation": "The ablative singular of 'terra' is 'terra'",
+      "difficulty_level": 1,
+      "source_url": "Henle First Year Latin",
+      "category_name": "Declensions"
+    },
+    {
+      "id": "45932c08-c494-4601-a2f6-9a0c525cda63",
+      "language_id": "d5ff6f2b-65bf-46bc-ac0e-c4101fc739e3",
+      "category_id": "71183f96-c341-49ae-b3e4-e3e459868d93",
+      "question_text": "What is the dative plural of 'dominus'?",
+      "question_type": "fill_in_blank",
+      "options": [
+        "dominis"
+      ],
+      "correct_answer_index": 0,
+      "explanation": "The dative plural of 'dominus' is 'dominis'",
+      "difficulty_level": 3,
+      "source_url": "Henle First Year Latin",
+      "category_name": "Declensions"
+    },
+    {
+      "id": "09e40828-de7f-4c58-af84-897c904426ba",
+      "language_id": "d5ff6f2b-65bf-46bc-ac0e-c4101fc739e3",
+      "category_id": "76dbe2ce-3542-4e45-8145-cbd2be28106e",
+      "question_text": "Translate to English: Puella aquam portat.",
+      "question_type": "translation",
+      "options": [
+        "The girl carries water."
+      ],
+      "correct_answer_index": 0,
+      "explanation": "'Puella aquam portat.' means 'The girl carries water.'",
+      "difficulty_level": 1,
+      "source_url": "Henle First Year Latin",
+      "category_name": "Translation"
+    },
+    {
+      "id": "365a7f75-c153-4775-91b7-360380bf518d",
+      "language_id": "d5ff6f2b-65bf-46bc-ac0e-c4101fc739e3",
+      "category_id": "76dbe2ce-3542-4e45-8145-cbd2be28106e",
+      "question_text": "Translate to Latin: The girl carries water.",
+      "question_type": "translation",
+      "options": [
+        "Puella aquam portat."
+      ],
+      "correct_answer_index": 0,
+      "explanation": "'The girl carries water.' is 'Puella aquam portat.' in Latin",
+      "difficulty_level": 2,
+      "source_url": "Henle First Year Latin",
+      "category_name": "Translation"
+    },
+    {
+      "id": "a0c58028-5f34-489c-88b2-b3a26a19ba61",
+      "language_id": "d5ff6f2b-65bf-46bc-ac0e-c4101fc739e3",
+      "category_id": "76dbe2ce-3542-4e45-8145-cbd2be28106e",
+      "question_text": "Translate to English: Servus dominum videt.",
+      "question_type": "translation",
+      "options": [
+        "The slave sees the master."
+      ],
+      "correct_answer_index": 0,
+      "explanation": "'Servus dominum videt.' means 'The slave sees the master.'",
+      "difficulty_level": 2,
+      "source_url": "Henle First Year Latin",
+      "category_name": "Translation"
+    },
+    {
+      "id": "197187ba-56d4-4235-babb-fea8c5968611",
+      "language_id": "d5ff6f2b-65bf-46bc-ac0e-c4101fc739e3",
+      "category_id": "76dbe2ce-3542-4e45-8145-cbd2be28106e",
+      "question_text": "Translate to Latin: The slave sees the master.",
+      "question_type": "translation",
+      "options": [
+        "Servus dominum videt."
+      ],
+      "correct_answer_index": 0,
+      "explanation": "'The slave sees the master.' is 'Servus dominum videt.' in Latin",
+      "difficulty_level": 3,
+      "source_url": "Henle First Year Latin",
+      "category_name": "Translation"
+    },
+    {
+      "id": "13448364-483a-4165-92da-77d96b8d649a",
+      "language_id": "d5ff6f2b-65bf-46bc-ac0e-c4101fc739e3",
+      "category_id": "76dbe2ce-3542-4e45-8145-cbd2be28106e",
+      "question_text": "Translate to English: Feminae in terra sunt.",
+      "question_type": "translation",
+      "options": [
+        "The women are on the land."
+      ],
+      "correct_answer_index": 0,
+      "explanation": "'Feminae in terra sunt.' means 'The women are on the land.'",
+      "difficulty_level": 2,
+      "source_url": "Henle First Year Latin",
+      "category_name": "Translation"
+    },
+    {
+      "id": "9cbb88e8-7889-451c-a72c-44e8ea517a2f",
+      "language_id": "d5ff6f2b-65bf-46bc-ac0e-c4101fc739e3",
+      "category_id": "76dbe2ce-3542-4e45-8145-cbd2be28106e",
+      "question_text": "Translate to Latin: The women are on the land.",
+      "question_type": "translation",
+      "options": [
+        "Feminae in terra sunt."
+      ],
+      "correct_answer_index": 0,
+      "explanation": "'The women are on the land.' is 'Feminae in terra sunt.' in Latin",
+      "difficulty_level": 3,
+      "source_url": "Henle First Year Latin",
+      "category_name": "Translation"
+    },
+    {
+      "id": "edfb1812-2435-411a-afb6-4bb8899fe235",
+      "language_id": "d5ff6f2b-65bf-46bc-ac0e-c4101fc739e3",
+      "category_id": "76dbe2ce-3542-4e45-8145-cbd2be28106e",
+      "question_text": "Translate to English: Rex bellum parat.",
+      "question_type": "translation",
+      "options": [
+        "The king prepares war."
+      ],
+      "correct_answer_index": 0,
+      "explanation": "'Rex bellum parat.' means 'The king prepares war.'",
+      "difficulty_level": 3,
+      "source_url": "Henle First Year Latin",
+      "category_name": "Translation"
+    },
+    {
+      "id": "7b8368a1-f875-4a89-8f56-9e8a6d87fc80",
+      "language_id": "d5ff6f2b-65bf-46bc-ac0e-c4101fc739e3",
+      "category_id": "76dbe2ce-3542-4e45-8145-cbd2be28106e",
+      "question_text": "Translate to Latin: The king prepares war.",
+      "question_type": "translation",
+      "options": [
+        "Rex bellum parat."
+      ],
+      "correct_answer_index": 0,
+      "explanation": "'The king prepares war.' is 'Rex bellum parat.' in Latin",
+      "difficulty_level": 4,
+      "source_url": "Henle First Year Latin",
+      "category_name": "Translation"
+    },
+    {
+      "id": "5df7193b-8fbc-4237-b6f8-b0d542308e49",
+      "language_id": "d5ff6f2b-65bf-46bc-ac0e-c4101fc739e3",
+      "category_id": "76dbe2ce-3542-4e45-8145-cbd2be28106e",
+      "question_text": "Translate to English: Filii in oppido habitant.",
+      "question_type": "translation",
+      "options": [
+        "The sons live in the town."
+      ],
+      "correct_answer_index": 0,
+      "explanation": "'Filii in oppido habitant.' means 'The sons live in the town.'",
+      "difficulty_level": 3,
+      "source_url": "Henle First Year Latin",
+      "category_name": "Translation"
+    },
+    {
+      "id": "2554e82d-8d0c-42b5-9d4c-5d40ef227380",
+      "language_id": "d5ff6f2b-65bf-46bc-ac0e-c4101fc739e3",
+      "category_id": "76dbe2ce-3542-4e45-8145-cbd2be28106e",
+      "question_text": "Translate to Latin: The sons live in the town.",
+      "question_type": "translation",
+      "options": [
+        "Filii in oppido habitant."
+      ],
+      "correct_answer_index": 0,
+      "explanation": "'The sons live in the town.' is 'Filii in oppido habitant.' in Latin",
+      "difficulty_level": 4,
+      "source_url": "Henle First Year Latin",
+      "category_name": "Translation"
+    },
+    {
+      "id": "00ae7529-2840-4529-aff5-739fe55ffbe7",
+      "language_id": "d5ff6f2b-65bf-46bc-ac0e-c4101fc739e3",
+      "category_id": "9dba074c-0c4c-4159-b2a2-dd2a7f848fc2",
+      "question_text": "What is the first person singular present of 'amo'?",
+      "question_type": "fill_in_blank",
+      "options": [
+        "amo"
+      ],
+      "correct_answer_index": 0,
+      "explanation": "The first person singular present of 'amo' is 'amo'",
+      "difficulty_level": 1,
+      "source_url": "Henle First Year Latin",
+      "category_name": "Conjugations"
+    },
+    {
+      "id": "2290f8f3-aaf2-4bc3-ad16-84392c0349de",
+      "language_id": "d5ff6f2b-65bf-46bc-ac0e-c4101fc739e3",
+      "category_id": "9dba074c-0c4c-4159-b2a2-dd2a7f848fc2",
+      "question_text": "What is the third person singular present of 'amo'?",
+      "question_type": "fill_in_blank",
+      "options": [
+        "amat"
+      ],
+      "correct_answer_index": 0,
+      "explanation": "The third person singular present of 'amo' is 'amat'",
+      "difficulty_level": 1,
+      "source_url": "Henle First Year Latin",
+      "category_name": "Conjugations"
+    },
+    {
+      "id": "173e5360-e940-41ed-bdbd-5dfa09664079",
+      "language_id": "d5ff6f2b-65bf-46bc-ac0e-c4101fc739e3",
+      "category_id": "9dba074c-0c4c-4159-b2a2-dd2a7f848fc2",
+      "question_text": "What is the first person plural present of 'video'?",
+      "question_type": "fill_in_blank",
+      "options": [
+        "videmus"
+      ],
+      "correct_answer_index": 0,
+      "explanation": "The first person plural present of 'video' is 'videmus'",
+      "difficulty_level": 2,
+      "source_url": "Henle First Year Latin",
+      "category_name": "Conjugations"
+    },
+    {
+      "id": "4cd19303-8330-4dd8-a641-df2a348f667e",
+      "language_id": "d5ff6f2b-65bf-46bc-ac0e-c4101fc739e3",
+      "category_id": "9dba074c-0c4c-4159-b2a2-dd2a7f848fc2",
+      "question_text": "What is the third person plural present of 'porto'?",
+      "question_type": "fill_in_blank",
+      "options": [
+        "portant"
+      ],
+      "correct_answer_index": 0,
+      "explanation": "The third person plural present of 'porto' is 'portant'",
+      "difficulty_level": 2,
+      "source_url": "Henle First Year Latin",
+      "category_name": "Conjugations"
+    }
+  ]
+}

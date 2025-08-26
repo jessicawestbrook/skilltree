@@ -1,0 +1,191 @@
+[
+  {
+    "id": "470c8a21-c9e3-4a83-83d3-f31f54780df1",
+    "language_id": "es",
+    "category": "reading/listening",
+    "question_type": "comprehension",
+    "difficulty_level": 1,
+    "question_text": "[Read the passage below or listen to the audio]\n\n\"María va al mercado todos los sábados. Le gusta comprar frutas frescas y verduras. Su fruta favorita es la manzana roja. Siempre compra cinco manzanas para la semana.\"\n\n¿Cuándo va María al mercado?",
+    "options": [
+      "Todos los días",
+      "Los sábados",
+      "Los domingos",
+      "Los lunes"
+    ],
+    "correct_answer_index": 1,
+    "explanation": "The passage states 'María va al mercado todos los sábados' (María goes to the market every Saturday).",
+    "metadata": {
+      "passage": "María va al mercado todos los sábados. Le gusta comprar frutas frescas y verduras. Su fruta favorita es la manzana roja. Siempre compra cinco manzanas para la semana.",
+      "passage_index": 0,
+      "question_index": 0
+    }
+  },
+  {
+    "id": "526da408-0450-446a-bac9-99fc6fb95985",
+    "language_id": "es",
+    "category": "reading/listening",
+    "question_type": "comprehension",
+    "difficulty_level": 1,
+    "question_text": "[Read the passage below or listen to the audio]\n\n\"María va al mercado todos los sábados. Le gusta comprar frutas frescas y verduras. Su fruta favorita es la manzana roja. Siempre compra cinco manzanas para la semana.\"\n\n¿Cuál es la fruta favorita de María?",
+    "options": [
+      "La naranja",
+      "El plátano",
+      "La manzana roja",
+      "La pera"
+    ],
+    "correct_answer_index": 2,
+    "explanation": "The text mentions 'Su fruta favorita es la manzana roja' (Her favorite fruit is the red apple).",
+    "metadata": {
+      "passage": "María va al mercado todos los sábados. Le gusta comprar frutas frescas y verduras. Su fruta favorita es la manzana roja. Siempre compra cinco manzanas para la semana.",
+      "passage_index": 0,
+      "question_index": 1
+    }
+  },
+  {
+    "id": "f3726d1c-99d0-45ea-a1d7-ae2ef256a931",
+    "language_id": "es",
+    "category": "reading/listening",
+    "question_type": "comprehension",
+    "difficulty_level": 1,
+    "question_text": "[Read the passage below or listen to the audio]\n\n\"María va al mercado todos los sábados. Le gusta comprar frutas frescas y verduras. Su fruta favorita es la manzana roja. Siempre compra cinco manzanas para la semana.\"\n\n¿Cuántas manzanas compra María?",
+    "options": [
+      "Tres",
+      "Cuatro",
+      "Cinco",
+      "Seis"
+    ],
+    "correct_answer_index": 2,
+    "explanation": "María 'siempre compra cinco manzanas para la semana' (always buys five apples for the week).",
+    "metadata": {
+      "passage": "María va al mercado todos los sábados. Le gusta comprar frutas frescas y verduras. Su fruta favorita es la manzana roja. Siempre compra cinco manzanas para la semana.",
+      "passage_index": 0,
+      "question_index": 2
+    }
+  },
+  {
+    "id": "5bb5cf9f-413b-4798-bb0a-0d3d7ca49b77",
+    "language_id": "es",
+    "category": "reading/listening",
+    "question_type": "comprehension",
+    "difficulty_level": 2,
+    "question_text": "[Read the passage below or listen to the audio]\n\n\"Pedro es estudiante de medicina. Estudia en la universidad de Madrid. Todas las mañanas toma el autobús a las siete. Sus clases empiezan a las ocho y terminan a las dos de la tarde. Después de las clases, estudia en la biblioteca por tres horas.\"\n\n¿Qué estudia Pedro?",
+    "options": [
+      "Derecho",
+      "Medicina",
+      "Ingeniería",
+      "Arte"
+    ],
+    "correct_answer_index": 1,
+    "explanation": "The passage clearly states 'Pedro es estudiante de medicina' (Pedro is a medical student).",
+    "metadata": {
+      "passage": "Pedro es estudiante de medicina. Estudia en la universidad de Madrid. Todas las mañanas toma el autobús a las siete. Sus clases empiezan a las ocho y terminan a las dos de la tarde. Después de las clases, estudia en la biblioteca por tres horas.",
+      "passage_index": 1,
+      "question_index": 0
+    }
+  },
+  {
+    "id": "af0fc05c-85df-47d0-8999-c79d89bb8080",
+    "language_id": "es",
+    "category": "reading/listening",
+    "question_type": "comprehension",
+    "difficulty_level": 2,
+    "question_text": "[Read the passage below or listen to the audio]\n\n\"Pedro es estudiante de medicina. Estudia en la universidad de Madrid. Todas las mañanas toma el autobús a las siete. Sus clases empiezan a las ocho y terminan a las dos de la tarde. Después de las clases, estudia en la biblioteca por tres horas.\"\n\n¿A qué hora toma el autobús Pedro?",
+    "options": [
+      "A las seis",
+      "A las siete",
+      "A las ocho",
+      "A las nueve"
+    ],
+    "correct_answer_index": 1,
+    "explanation": "The text says 'Todas las mañanas toma el autobús a las siete' (Every morning he takes the bus at seven).",
+    "metadata": {
+      "passage": "Pedro es estudiante de medicina. Estudia en la universidad de Madrid. Todas las mañanas toma el autobús a las siete. Sus clases empiezan a las ocho y terminan a las dos de la tarde. Después de las clases, estudia en la biblioteca por tres horas.",
+      "passage_index": 1,
+      "question_index": 1
+    }
+  },
+  {
+    "id": "f5261ee4-f0b5-4a45-a06b-3122d7f2d396",
+    "language_id": "es",
+    "category": "reading/listening",
+    "question_type": "comprehension",
+    "difficulty_level": 2,
+    "question_text": "[Read the passage below or listen to the audio]\n\n\"Pedro es estudiante de medicina. Estudia en la universidad de Madrid. Todas las mañanas toma el autobús a las siete. Sus clases empiezan a las ocho y terminan a las dos de la tarde. Después de las clases, estudia en la biblioteca por tres horas.\"\n\n¿Dónde estudia Pedro después de las clases?",
+    "options": [
+      "En casa",
+      "En el parque",
+      "En la biblioteca",
+      "En la cafetería"
+    ],
+    "correct_answer_index": 2,
+    "explanation": "After classes, Pedro 'estudia en la biblioteca por tres horas' (studies in the library for three hours).",
+    "metadata": {
+      "passage": "Pedro es estudiante de medicina. Estudia en la universidad de Madrid. Todas las mañanas toma el autobús a las siete. Sus clases empiezan a las ocho y terminan a las dos de la tarde. Después de las clases, estudia en la biblioteca por tres horas.",
+      "passage_index": 1,
+      "question_index": 2
+    }
+  },
+  {
+    "id": "c8666a05-dc5a-4410-a9e6-ff6c93c6c796",
+    "language_id": "es",
+    "category": "reading/listening",
+    "question_type": "comprehension",
+    "difficulty_level": 3,
+    "question_text": "[Read the passage below or listen to the audio]\n\n\"La familia García vive en una casa grande con jardín. Tienen dos perros y un gato. Los perros se llaman Max y Luna. El gato se llama Misi. Los niños juegan con los animales en el jardín todos los días después de la escuela.\"\n\n¿Cuántos perros tiene la familia García?",
+    "options": [
+      "Uno",
+      "Dos",
+      "Tres",
+      "Cuatro"
+    ],
+    "correct_answer_index": 1,
+    "explanation": "The passage mentions 'Tienen dos perros y un gato' (They have two dogs and a cat).",
+    "metadata": {
+      "passage": "La familia García vive en una casa grande con jardín. Tienen dos perros y un gato. Los perros se llaman Max y Luna. El gato se llama Misi. Los niños juegan con los animales en el jardín todos los días después de la escuela.",
+      "passage_index": 2,
+      "question_index": 0
+    }
+  },
+  {
+    "id": "e76f072d-ca94-4a1c-9c49-9c1ce7915b24",
+    "language_id": "es",
+    "category": "reading/listening",
+    "question_type": "comprehension",
+    "difficulty_level": 3,
+    "question_text": "[Read the passage below or listen to the audio]\n\n\"La familia García vive en una casa grande con jardín. Tienen dos perros y un gato. Los perros se llaman Max y Luna. El gato se llama Misi. Los niños juegan con los animales en el jardín todos los días después de la escuela.\"\n\n¿Cómo se llama el gato?",
+    "options": [
+      "Max",
+      "Luna",
+      "Misi",
+      "García"
+    ],
+    "correct_answer_index": 2,
+    "explanation": "The text states 'El gato se llama Misi' (The cat is called Misi).",
+    "metadata": {
+      "passage": "La familia García vive en una casa grande con jardín. Tienen dos perros y un gato. Los perros se llaman Max y Luna. El gato se llama Misi. Los niños juegan con los animales en el jardín todos los días después de la escuela.",
+      "passage_index": 2,
+      "question_index": 1
+    }
+  },
+  {
+    "id": "d34e16f3-8a4e-4a7c-8776-34f3929bfadf",
+    "language_id": "es",
+    "category": "reading/listening",
+    "question_type": "comprehension",
+    "difficulty_level": 3,
+    "question_text": "[Read the passage below or listen to the audio]\n\n\"La familia García vive en una casa grande con jardín. Tienen dos perros y un gato. Los perros se llaman Max y Luna. El gato se llama Misi. Los niños juegan con los animales en el jardín todos los días después de la escuela.\"\n\n¿Dónde juegan los niños con los animales?",
+    "options": [
+      "En la casa",
+      "En el parque",
+      "En el jardín",
+      "En la escuela"
+    ],
+    "correct_answer_index": 2,
+    "explanation": "The children 'juegan con los animales en el jardín' (play with the animals in the garden).",
+    "metadata": {
+      "passage": "La familia García vive en una casa grande con jardín. Tienen dos perros y un gato. Los perros se llaman Max y Luna. El gato se llama Misi. Los niños juegan con los animales en el jardín todos los días después de la escuela.",
+      "passage_index": 2,
+      "question_index": 2
+    }
+  }
+]

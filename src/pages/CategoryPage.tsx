@@ -17,6 +17,7 @@ import AdaptiveAssessment from '../components/AdaptiveAssessment'
 import SEO from '../components/SEO'
 import Breadcrumb from '../components/Breadcrumb'
 import CategoryLink from '../components/CategoryLink'
+import CoursesList from '../components/CoursesList'
 import { AssessmentSession } from '../services/adaptiveAssessmentService'
 import { createCourseStructuredData } from '../utils/structuredData'
 import { resolveCategoryPath, buildCategoryPath } from '../utils/categoryPaths'
@@ -35,6 +36,7 @@ const CategoryPage: React.FC = () => {
   const [category, setCategory] = useState<SkillTreeNode | null>(null)
   const [subcategories, setSubcategories] = useState<SkillTreeNode[]>([])
   const [subcategoryChildren, setSubcategoryChildren] = useState<Record<string, SkillTreeNode[]>>({})
+  const [courses, setCourses] = useState<SkillTreeNode[]>([]) // Courses are nodes with skill as parent
   const [ancestors, setAncestors] = useState<SkillTreeNode[]>([])
   const [loading, setLoading] = useState(true)
   const [isStarred, setIsStarred] = useState(false)
@@ -134,7 +136,58 @@ const CategoryPage: React.FC = () => {
 
       if (subcategoriesResult.error) throw subcategoriesResult.error
       const subcategoriesData = subcategoriesResult.data || []
-      setSubcategories(subcategoriesData)
+      
+      // Check if this is a skill node (e.g., Latin Language) that has courses as children
+      // Skills typically have names ending in Language, Programming, Mathematics, etc.
+      // Or check if ALL children look like courses
+      const isSkillWithCourses = 
+        // Check by skill name patterns
+        (categoryResult.data.name.includes('Language') || 
+         categoryResult.data.name.includes('Programming') || 
+         categoryResult.data.name.includes('Mathematics') ||
+         categoryResult.data.name.includes('Physics') ||
+         categoryResult.data.name.includes('Chemistry') ||
+         categoryResult.data.name.includes('Biology')) ||
+        // Or check if all/most children are courses
+        (subcategoriesData.length > 0 && subcategoriesData.every(node => 
+          node.metadata?.textbook || 
+          node.metadata?.year || 
+          node.metadata?.course_type ||
+          node.metadata?.chapters ||
+          node.name.match(/Year|Course|Level|Module|Part|Chapter|Unit|Lesson|Henle/i)
+        ))
+      
+      if (isSkillWithCourses && subcategoriesData.length > 0) {
+        // This is a skill node with courses - show all children as courses
+        setCourses(subcategoriesData)
+        setSubcategories([])
+        console.log('Skill node with courses detected:', categoryResult.data.name)
+        console.log('Showing courses:', subcategoriesData.map(c => c.name))
+      } else {
+        // This is a regular category - check if any children look like courses
+        const potentialCourses = subcategoriesData.filter(node => 
+          node.metadata?.textbook || 
+          node.metadata?.year || 
+          node.metadata?.course_type ||
+          node.metadata?.chapters ||
+          node.metadata?.primary_text ||
+          node.metadata?.primary_author ||
+          node.name.includes('Year') ||
+          node.name.includes('Course') ||
+          node.name.includes('Level') ||
+          node.name.includes('Henle') ||
+          node.name.includes('Module')
+        )
+        
+        if (potentialCourses.length > 0) {
+          setCourses(potentialCourses)
+          setSubcategories(subcategoriesData.filter(node => !potentialCourses.includes(node)))
+          console.log('Some courses detected:', potentialCourses.map(c => c.name))
+        } else {
+          setSubcategories(subcategoriesData)
+          setCourses([])
+        }
+      }
 
       // Get direct children for basic stats calculation
       const directChildren = allDescendantsResult.data || []
@@ -196,10 +249,10 @@ const CategoryPage: React.FC = () => {
         // Calculate user progress (simplified to direct children only)
         if (directChildren.length > 0) {
           const { data: progressData } = await supabase
-            .from('user_progress')
+            .from('user_module_progress')
             .select('*')
             .eq('user_id', user.id)
-            .in('skill_id', directChildren.map(n => n.id))
+            .in('module_id', directChildren.map(n => n.id))
 
           const completed = progressData?.filter(p => p.status === 'completed' && p.rating >= 70).length || 0
           const progress = withContent > 0 ? Math.round((completed / withContent) * 100) : 0
@@ -325,7 +378,17 @@ const CategoryPage: React.FC = () => {
   }, [fetchStarredSubcategories])
 
   const handleSkillClick = async (skill: SkillTreeNode) => {
-    if (skill.learning_content_ids && skill.learning_content_ids.length > 0) {
+    // Check if this is a course (has course-like metadata)
+    const isCourse = skill.metadata?.textbook || 
+                     skill.metadata?.year || 
+                     skill.metadata?.chapters ||
+                     skill.name.includes('Henle') ||
+                     skill.name.includes('Course');
+    
+    if (isCourse) {
+      // Navigate to CourseViewer for courses
+      navigate(`/course/${skill.id}`)
+    } else if (skill.learning_content_ids && skill.learning_content_ids.length > 0) {
       // This skill has learning content - prioritize showing the learning modal
       setSelectedNode(skill)
       setShowLearningModal(true)
@@ -335,7 +398,7 @@ const CategoryPage: React.FC = () => {
         const categoryPath = await buildCategoryPath(skill.id)
         navigate(categoryPath ? `/${categoryPath}` : `/learning/${skill.id}`)
       } catch (error) {
-        console.warn('Failed to navigate to category:', error)
+        console.error('Failed to navigate to category:', error)
       }
     }
   }
@@ -508,7 +571,21 @@ const CategoryPage: React.FC = () => {
       </div>
 
 
-      {/* Subcategories Grid */}
+      {/* Courses Section - Display if this is a skill with courses */}
+      {courses.length > 0 && (
+        <div className="bg-white dark:bg-neutral-800 rounded-xl shadow-lg p-6 mb-6">
+          <CoursesList 
+            courses={courses}
+            title={`${category.name} Courses`}
+            showSequenceNumbers={true}
+            className=""
+            onCourseClick={handleSkillClick}
+          />
+        </div>
+      )}
+
+      {/* Subcategories Grid - Only show if there are non-course subcategories */}
+      {subcategories.length > 0 && (
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
         {subcategories.map(subcat => {
           const children = subcategoryChildren[subcat.id] || []
@@ -594,6 +671,7 @@ const CategoryPage: React.FC = () => {
           )
         })}
       </div>
+      )}
 
 
       {/* Learning Modal */}
@@ -633,10 +711,10 @@ const CategoryPage: React.FC = () => {
                   // Update user progress when assessment is completed
                   if (user) {
                     supabase
-                      .from('user_progress')
+                      .from('user_module_progress')
                       .upsert({
                         user_id: user.id,
-                        skill_id: resolvedCategoryId,
+                        module_id: resolvedCategoryId,
                         status: 'completed',
                         rating: session.total_points,
                         last_accessed: new Date().toISOString()

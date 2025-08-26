@@ -10,13 +10,19 @@ import {
   LinkIcon,
   DocumentTextIcon,
   UsersIcon,
-  EyeSlashIcon
+  EyeSlashIcon,
+  LanguageIcon,
+  NewspaperIcon,
+  AcademicCapIcon
 } from '@heroicons/react/24/outline'
 import { Link } from 'react-router-dom'
 import SourceURLManager from '../components/SourceURLManager'
 import AdminUserManager from '../components/AdminUserManager'
 import HiddenNodesManager from '../components/HiddenNodesManager'
 import WordFlagsManager from '../components/WordFlagsManager'
+import VocabularyManager from '../components/VocabularyManager'
+import NewsManager from '../components/NewsManager'
+import CourseManager from '../components/CourseManager'
 
 interface FeedbackItem {
   id: string
@@ -43,7 +49,7 @@ interface ContentFlag {
 }
 
 const AdminPage: React.FC = () => {
-  const [activeTab, setActiveTab] = useState<'feedback' | 'flags' | 'sources' | 'users' | 'visibility' | 'words'>('feedback')
+  const [activeTab, setActiveTab] = useState<'feedback' | 'flags' | 'sources' | 'users' | 'visibility' | 'words' | 'vocabulary' | 'news' | 'courses'>('feedback')
   const [feedbackItems, setFeedbackItems] = useState<FeedbackItem[]>([])
   const [contentFlags, setContentFlags] = useState<ContentFlag[]>([])
   const [filterStatus, setFilterStatus] = useState<string>('all')
@@ -258,10 +264,43 @@ const AdminPage: React.FC = () => {
           <DocumentTextIcon className="h-5 w-5 inline mr-2" />
           Word Flags
         </button>
+        <button
+          onClick={() => setActiveTab('vocabulary')}
+          className={`pb-2 px-1 font-medium transition-colors ${
+            activeTab === 'vocabulary'
+              ? 'text-primary-600 border-b-2 border-primary-600'
+              : 'text-neutral-600 dark:text-neutral-400 hover:text-primary-600'
+          }`}
+        >
+          <LanguageIcon className="h-5 w-5 inline mr-2" />
+          Vocabulary
+        </button>
+        <button
+          onClick={() => setActiveTab('news')}
+          className={`pb-2 px-1 font-medium transition-colors ${
+            activeTab === 'news'
+              ? 'text-primary-600 border-b-2 border-primary-600'
+              : 'text-neutral-600 dark:text-neutral-400 hover:text-primary-600'
+          }`}
+        >
+          <NewspaperIcon className="h-5 w-5 inline mr-2" />
+          News Feed
+        </button>
+        <button
+          onClick={() => setActiveTab('courses')}
+          className={`pb-2 px-1 font-medium transition-colors ${
+            activeTab === 'courses'
+              ? 'text-primary-600 border-b-2 border-primary-600'
+              : 'text-neutral-600 dark:text-neutral-400 hover:text-primary-600'
+          }`}
+        >
+          <AcademicCapIcon className="h-5 w-5 inline mr-2" />
+          Courses
+        </button>
       </div>
 
       {/* Filter */}
-      {activeTab !== 'sources' && activeTab !== 'users' && activeTab !== 'visibility' && (
+      {activeTab !== 'sources' && activeTab !== 'users' && activeTab !== 'visibility' && activeTab !== 'vocabulary' && activeTab !== 'news' && activeTab !== 'courses' && (
         <div className="flex items-center gap-4 mb-6">
           <FunnelIcon className="h-5 w-5 text-neutral-500" />
           <select
@@ -286,6 +325,12 @@ const AdminPage: React.FC = () => {
         <HiddenNodesManager />
       ) : activeTab === 'words' ? (
         <WordFlagsManager />
+      ) : activeTab === 'vocabulary' ? (
+        <VocabularyManager />
+      ) : activeTab === 'news' ? (
+        <NewsManager />
+      ) : activeTab === 'courses' ? (
+        <CourseManager />
       ) : (
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* List */}

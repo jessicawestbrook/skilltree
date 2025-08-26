@@ -93,7 +93,7 @@ Implement full security features. Make sure no one can do a DOM attack or pull a
 Make sure the site can scale to many users using the site at once.
 
 ## Work style
-Keep a list of your recommended project and site improvements in a file.  Keep code files organized in separate folders and increment the sorting of the code files by starting new file names with an incremented number. If there are more than 10 or 20 code files in one folder then the organization probably needs improvement. Only create documentation files when prompted to do so. Whenever you mention a script or file I should look at, always provide a clickable link so I can click to open it, or even better you should automatically open the file I am to look at. When we make modifications, finish them with a evidence that the task was completed properly--for example if we run a query then there should be a follow-up query that proves that the initial query solved the problem we were working on. I prefer to see error messages when there are site issues rather than being displayed default backup content, cached content, or using other workarounds.  We should work on fixing issues rather than creating workarounds that will lead to more issues down the road. Advise me if there are ways I can improve my working style with you.  Advise if there are ways we can reduce token usage. When you write a script that has an error in it you should change the existing script rather than create a whole new script.
+Keep a list of your recommended project and site improvements in a file.  Keep code files organized in separate folders and increment the sorting of the code files by starting new file names with an incremented number. If there are more than 10 or 20 code files in one folder then the organization probably needs improvement. Only create documentation files when prompted to do so. Whenever you mention a script or file I should look at, always provide a clickable link so I can click to open it, or even better you should automatically open the file I am to look at. When we make modifications, finish them with a evidence that the task was completed properly--for example if we run a query then there should be a follow-up query that proves that the initial query solved the problem we were working on. I prefer to see error messages when there are site issues rather than being displayed default backup content, cached content, or using other workarounds.  We should work on fixing issues rather than creating workarounds that will lead to more issues down the road. Advise me if there are ways I can improve my working style with you.  Advise if there are ways we can reduce token usage. When you write a script that has an error in it you should change the existing script rather than create a whole new script. Links should use slugs not ids.
 
 ## Data science
 When you build a model be sure to tell me what your inputs were, where you sourced those inputs from, what algorithm you used, what your variable selection was, and your final predictive accuracy. Usually you should use XGBoost for prediction.
@@ -173,29 +173,29 @@ As you're working, try to identify if features have already been implemented or 
 
 # To Do List
 
-Implement adaptive learning in language trainer
+Add Anki card features
 
-Add "to" in front of English translation of Spanish verbs
+move existing money counting skill node work into the new course format
 
-Add grammar flashcards, use Claude API to create verb conjugation fill-in-the-blank questions using verbs from the Basic and Elementary difficulty levels
+work on adding Henle content
 
-Convert Henle Latin (see src/data/latin/) course into full online course with exercises as questions
+Remove duplicate titles on assessment question card
 
-Format language flashcards
+Fix the fact that the flashcards you see are always going to be the first ones in the db, filter out cards that have already been seen (which includes being skipped), Use a prioritization algorithm when getting flashcards from the db which 
 
-Translate all Spanish words:  python scripts/translate_spanish_placeholders.py
+Fix Spanish vocab translations
 
 Add the most common words in English as vocabulary words using wordfreq (since spelling words tend to be rare and we want some easier words for younger people).
 
-Fix icon and site title in tab bar 
+Format language flashcards
+
+Fix icon and site title in tab bar, make title Path to mastery
+
+Figure out the difference between courses and assessments
 
 Fix the fact that there are 2 different aesthetics going on: rainbow colors and green/orange formatting
 
-On user page: Add statistics by difficulty type and level of flashcards, list of courses completed, user statistics like streak, etc. without messing too much with the existing formatting.
-
 remove formatting specific to money counting learning content to see what it's likely to look like for other learning content
-
-Format the learning flow more attractively
 
 Make sure the category description and actual learning content align  
 
@@ -205,24 +205,9 @@ Create math, history, and test prep trainers
 
 Dots on megamenu should update when user has progress
 
-Upload Anki decks
-
-Foreign language page has separate tabs for flashcard categories:
-Reading comprehension
-Vocabulary/Spelling (can flip card back and forth between which direction to translate, write the word given audio)
-Grammar/Verb conjugation
-Sentence translation/fill in the blank
-Listening (listen to the word or sentence or paragraph and answer questions about it)
-
-Add ability to add custom flashcards
-
-Remove duplicate titles on assessment question card
+On user page: Add statistics by difficulty type and level of flashcards, list of courses completed, user statistics like streak, etc. without messing too much with the existing formatting.
 
 Generate content for next learning module per CONTENT_GENERATION_SYSTEM.md
-
-For each language trainer flashcard, identify the part of the question that is in the foreign language and play the audio for that rather than the answer specifically
-
-Add flag fields in the spelling words table for spelling and/or vocabulary words and filter words for the appropriate trainer cards based on these fields. For now, assign all words as vocabulary word = true and spelling word = true. Make this updatable in the admin dashboard.
 
 Rename site
 
@@ -236,13 +221,7 @@ Make special folder for one-off scripts like examining the db structure
 
 Add historical timelines to category pages
 
-Go back and make sure all the combined spelling words were fixed
-
 Try to shorten extra long word definitions in the spelling table when it makes sense to do so
-
-Review vocabulary difficulty rating plan in THEORETICAL_FOUNDATIONS.md
-
-Fill in missing values in spelling table
 
 Review and update claude.md so claude doesn't start making regressions
 
@@ -251,8 +230,6 @@ Evaluate knowledge tree table for too many/few learning categories in each learn
 Fill out more learning categories with learning content
 
 Review menu/questions with Ryan
-
-Test out notifications
 
 
 # To do on release

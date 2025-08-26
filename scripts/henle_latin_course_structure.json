@@ -1,0 +1,290 @@
+{
+  "course": {
+    "id": "cebb7f42-e51b-4ac4-8464-29fee0894024",
+    "language_id": "84acf185-0b8c-4c2a-99f3-c5056be86d23",
+    "name": "Henle Latin First Year",
+    "description": "A comprehensive Latin course based on Henle First Year Latin textbook",
+    "level": "Beginner to Intermediate",
+    "estimated_hours": 120,
+    "chapters": [
+      {
+        "id": "4e48450d-72fb-4500-ae6e-489a05be34a2",
+        "number": 1,
+        "title": "First Declension Nouns",
+        "description": "Introduction to Latin nouns of the first declension",
+        "sections": [
+          {
+            "id": "93485194-cbdd-4e63-b68f-017f652b9d98",
+            "number": 1,
+            "title": "Introduction to Latin Cases",
+            "type": "learning_content",
+            "content": {
+              "text": "\n# Introduction to Latin Cases\n\nLatin is an inflected language, meaning that the endings of words change to show their function in a sentence. Nouns in Latin have six cases:\n\n## The Six Cases\n\n1. **Nominative** - Subject of the sentence\n   - Example: *Puella* cantat. (The girl sings.)\n\n2. **Genitive** - Possession (of, 's)\n   - Example: Liber *puellae* (The girl's book)\n\n3. **Dative** - Indirect object (to, for)\n   - Example: Do librum *puellae*. (I give the book to the girl.)\n\n4. **Accusative** - Direct object\n   - Example: Video *puellam*. (I see the girl.)\n\n5. **Ablative** - Various uses (by, with, from, in)\n   - Example: Ambulo cum *puella*. (I walk with the girl.)\n\n6. **Vocative** - Direct address\n   - Example: *Puella*, veni! (Girl, come!)\n\n## Why Cases Matter\n\nUnlike English, which relies on word order, Latin uses these case endings to show relationships between words. This means Latin has much more flexible word order than English.\n                ",
+              "examples": [
+                "Puella aquam portat. (The girl carries water.)",
+                "Aquam puella portat. (The girl carries water.) - Same meaning, different emphasis"
+              ],
+              "key_points": [
+                "Case endings show the function of nouns in sentences",
+                "Word order in Latin is flexible",
+                "Each case has specific uses and meanings"
+              ]
+            }
+          },
+          {
+            "id": "f1efad96-e6f8-46d0-beb7-6dbdd3e635ca",
+            "number": 2,
+            "title": "First Declension Endings",
+            "type": "learning_content",
+            "content": {
+              "text": "\n# First Declension Endings\n\nThe first declension includes mostly feminine nouns ending in -a. Here are the endings:\n\n## Singular\n- Nominative: -a\n- Genitive: -ae\n- Dative: -ae\n- Accusative: -am\n- Ablative: -ā (long a)\n- Vocative: -a\n\n## Plural\n- Nominative: -ae\n- Genitive: -ārum\n- Dative: -īs\n- Accusative: -ās\n- Ablative: -īs\n- Vocative: -ae\n\n## Example: puella (girl)\n\n### Singular\n- Nom: puella (the girl - subject)\n- Gen: puellae (of the girl)\n- Dat: puellae (to/for the girl)\n- Acc: puellam (the girl - object)\n- Abl: puellā (by/with/from the girl)\n- Voc: puella (O girl!)\n\n### Plural\n- Nom: puellae (the girls - subject)\n- Gen: puellārum (of the girls)\n- Dat: puellīs (to/for the girls)\n- Acc: puellās (the girls - object)\n- Abl: puellīs (by/with/from the girls)\n- Voc: puellae (O girls!)\n                ",
+              "examples": [
+                "terra, terrae (f.) - land, earth",
+                "aqua, aquae (f.) - water",
+                "femina, feminae (f.) - woman",
+                "porta, portae (f.) - gate"
+              ],
+              "key_points": [
+                "Most first declension nouns are feminine",
+                "The genitive singular ending -ae identifies first declension",
+                "Some endings are the same (dative and ablative plural)"
+              ]
+            }
+          },
+          {
+            "id": "b88dc544-6e01-4a70-a251-6c8df3ac6618",
+            "number": 3,
+            "title": "Practice: First Declension Cases",
+            "type": "exercises",
+            "question_ids": [
+              "802f4860-9f95-41f0-a757-e1854ae68be7",
+              "0f535935-474b-4ad1-b923-64bc86d6fd07",
+              "13cc8de8-106d-406a-8157-b54f9f07437d",
+              "2a4262b8-a201-436b-b223-33a7aac0ab5f",
+              "04025399-c535-4551-86c1-ec72e975922c"
+            ]
+          },
+          {
+            "id": "6191f23c-ca25-4e74-8e5c-74ccb7bd7c8f",
+            "number": 4,
+            "title": "Chapter 1 Vocabulary",
+            "type": "learning_content",
+            "content": {
+              "text": "\n# Chapter 1 Vocabulary\n\n## First Declension Nouns\n\n1. **aqua, aquae** (f.) - water\n2. **femina, feminae** (f.) - woman\n3. **patria, patriae** (f.) - fatherland, country\n4. **porta, portae** (f.) - gate\n5. **puella, puellae** (f.) - girl\n6. **terra, terrae** (f.) - land, earth\n7. **vita, vitae** (f.) - life\n\n## Verbs (Preview)\n\n1. **porto, portare** - to carry\n2. **laudo, laudare** - to praise\n3. **amo, amare** - to love\n\n## Prepositions\n\n1. **in** + ablative - in, on\n2. **in** + accusative - into\n3. **cum** + ablative - with\n                ",
+              "vocabulary_list": [
+                {
+                  "latin": "aqua",
+                  "english": "water",
+                  "gender": "f",
+                  "declension": "1st"
+                },
+                {
+                  "latin": "femina",
+                  "english": "woman",
+                  "gender": "f",
+                  "declension": "1st"
+                },
+                {
+                  "latin": "patria",
+                  "english": "fatherland",
+                  "gender": "f",
+                  "declension": "1st"
+                },
+                {
+                  "latin": "porta",
+                  "english": "gate",
+                  "gender": "f",
+                  "declension": "1st"
+                },
+                {
+                  "latin": "puella",
+                  "english": "girl",
+                  "gender": "f",
+                  "declension": "1st"
+                },
+                {
+                  "latin": "terra",
+                  "english": "land",
+                  "gender": "f",
+                  "declension": "1st"
+                },
+                {
+                  "latin": "vita",
+                  "english": "life",
+                  "gender": "f",
+                  "declension": "1st"
+                }
+              ]
+            }
+          },
+          {
+            "id": "b59cb63f-df7b-4f6a-9fae-4407d179b3ae",
+            "number": 5,
+            "title": "Vocabulary Practice",
+            "type": "exercises",
+            "question_ids": [
+              "006f9acc-88ec-4383-9caf-f56acf8422c7",
+              "48e29e85-b61e-42aa-bed3-192dded59edf",
+              "96296fbd-3409-420d-93cb-6b5c352cc18b",
+              "b0760ee2-0c71-4c0f-923c-54784f41e621",
+              "6b9a48dc-c390-4cdc-a11c-91442d18b706"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "19d45150-b054-4111-9dfb-4c1afb15fbf7",
+        "number": 2,
+        "title": "Second Declension Masculine Nouns",
+        "description": "Learn masculine nouns of the second declension",
+        "sections": [
+          {
+            "id": "2986ac6b-8813-4e8a-b710-6db67927f78d",
+            "number": 1,
+            "title": "Second Declension Masculine",
+            "type": "learning_content",
+            "content": {
+              "text": "\n# Second Declension Masculine Nouns\n\nThe second declension includes mostly masculine nouns ending in -us or -er.\n\n## Endings for -us nouns\n\n### Singular\n- Nominative: -us\n- Genitive: -ī\n- Dative: -ō\n- Accusative: -um\n- Ablative: -ō\n- Vocative: -e\n\n### Plural\n- Nominative: -ī\n- Genitive: -ōrum\n- Dative: -īs\n- Accusative: -ōs\n- Ablative: -īs\n- Vocative: -ī\n\n## Example: servus (slave, servant)\n\n### Singular\n- Nom: servus (the slave)\n- Gen: servī (of the slave)\n- Dat: servō (to/for the slave)\n- Acc: servum (the slave - object)\n- Abl: servō (by/with/from the slave)\n- Voc: serve (O slave!)\n\n### Plural\n- Nom: servī (the slaves)\n- Gen: servōrum (of the slaves)\n- Dat: servīs (to/for the slaves)\n- Acc: servōs (the slaves - object)\n- Abl: servīs (by/with/from the slaves)\n- Voc: servī (O slaves!)\n                ",
+              "examples": [
+                "dominus, dominī (m.) - master, lord",
+                "filius, filiī (m.) - son",
+                "amicus, amicī (m.) - friend"
+              ],
+              "key_points": [
+                "Second declension -us nouns are mostly masculine",
+                "The genitive singular ending -ī identifies second declension",
+                "Vocative singular has special ending -e"
+              ]
+            }
+          },
+          {
+            "id": "8451e440-7e33-49b8-8f8d-8f986b785c9c",
+            "number": 2,
+            "title": "Second Declension -er Nouns",
+            "type": "learning_content",
+            "content": {
+              "text": "\n# Second Declension -er Nouns\n\nSome second declension masculine nouns end in -er. They follow the same pattern except in the nominative and vocative singular.\n\n## Two types of -er nouns:\n\n1. **Those that keep the e**: puer, puerī (boy)\n2. **Those that drop the e**: ager, agrī (field)\n\n## Example: puer (boy) - keeps the e\n\n### Singular\n- Nom: puer\n- Gen: puerī\n- Dat: puerō\n- Acc: puerum\n- Abl: puerō\n- Voc: puer\n\n## Example: ager (field) - drops the e\n\n### Singular\n- Nom: ager\n- Gen: agrī (note: no e!)\n- Dat: agrō\n- Acc: agrum\n- Abl: agrō\n- Voc: ager\n\nThe genitive tells you whether to keep or drop the e in other forms.\n                ",
+              "examples": [
+                "liber, librī (m.) - book (drops e)",
+                "magister, magistrī (m.) - teacher (drops e)",
+                "vir, virī (m.) - man (irregular)"
+              ]
+            }
+          },
+          {
+            "id": "b450727c-924e-4b9c-9c5c-96d24db5dc3a",
+            "number": 3,
+            "title": "Practice: Second Declension Masculine",
+            "type": "exercises",
+            "question_ids": [
+              "1eb8e546-be94-424f-a14d-01ff23bf37f7",
+              "7dbcee0c-a07a-4c5d-b46d-468dabab5c20",
+              "670fdc74-1782-4321-94c1-66f502665863",
+              "31081b2e-4a0a-4082-b3b3-ed55ed191981"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "19f53c36-1bbf-4afe-90b0-cb489631ffaa",
+        "number": 3,
+        "title": "Second Declension Neuter Nouns",
+        "description": "Learn neuter nouns of the second declension",
+        "sections": [
+          {
+            "id": "0f28af5f-9391-4122-b1ef-c8f06f2ad1bb",
+            "number": 1,
+            "title": "Second Declension Neuter",
+            "type": "learning_content",
+            "content": {
+              "text": "\n# Second Declension Neuter Nouns\n\nNeuter nouns of the second declension end in -um. They follow a similar pattern to masculine nouns with important differences.\n\n## Key Rule for All Neuter Nouns\n**Nominative and Accusative are always the same!**\n**Nominative and Accusative plural always end in -a!**\n\n## Endings\n\n### Singular\n- Nominative: -um\n- Genitive: -ī\n- Dative: -ō\n- Accusative: -um (same as nominative!)\n- Ablative: -ō\n- Vocative: -um\n\n### Plural\n- Nominative: -a\n- Genitive: -ōrum\n- Dative: -īs\n- Accusative: -a (same as nominative!)\n- Ablative: -īs\n- Vocative: -a\n\n## Example: bellum (war)\n\n### Singular\n- Nom: bellum\n- Gen: bellī\n- Dat: bellō\n- Acc: bellum\n- Abl: bellō\n- Voc: bellum\n\n### Plural\n- Nom: bella\n- Gen: bellōrum\n- Dat: bellīs\n- Acc: bella\n- Abl: bellīs\n- Voc: bella\n                ",
+              "examples": [
+                "oppidum, oppidī (n.) - town",
+                "regnum, regnī (n.) - kingdom",
+                "donum, donī (n.) - gift"
+              ]
+            }
+          },
+          {
+            "id": "9659ceea-db77-4ca7-97de-05408412659c",
+            "number": 2,
+            "title": "Practice: Neuter Nouns",
+            "type": "exercises",
+            "question_ids": [
+              "ce67d01f-6a35-4887-ac45-322c911c1071",
+              "6c4ee2a5-1271-4272-bead-524f40ff5ea6"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "e2ac463f-7be8-4b5d-a711-c4b0a692ea7c",
+        "number": 4,
+        "title": "Adjectives of First and Second Declension",
+        "description": "Learn how adjectives agree with nouns",
+        "sections": [
+          {
+            "id": "1374c5dd-a8e2-4475-88ab-1d1570294ea9",
+            "number": 1,
+            "title": "Adjective Agreement",
+            "type": "learning_content",
+            "content": {
+              "text": "\n# Adjectives of First and Second Declension\n\nAdjectives must agree with the nouns they modify in:\n- **Gender** (masculine, feminine, neuter)\n- **Number** (singular, plural)\n- **Case** (nominative, genitive, etc.)\n\n## Forms of bonus, bona, bonum (good)\n\n### Masculine (2nd declension)\n- Nom: bonus\n- Gen: bonī\n- Dat: bonō\n- Acc: bonum\n- Abl: bonō\n\n### Feminine (1st declension)\n- Nom: bona\n- Gen: bonae\n- Dat: bonae\n- Acc: bonam\n- Abl: bonā\n\n### Neuter (2nd declension)\n- Nom: bonum\n- Gen: bonī\n- Dat: bonō\n- Acc: bonum\n- Abl: bonō\n\n## Examples of Agreement\n\n- **Masculine**: servus bonus (good slave)\n- **Feminine**: puella bona (good girl)\n- **Neuter**: bellum bonum (good war)\n\nThe adjective changes its ending to match the noun!\n                ",
+              "examples": [
+                "magnus, magna, magnum - large, great",
+                "parvus, parva, parvum - small",
+                "malus, mala, malum - bad, evil"
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "id": "630c1acd-29ed-4c4a-8632-9c2bd9cb1b7d",
+        "number": 5,
+        "title": "The Verb Sum (to be)",
+        "description": "Learn the present tense of the important irregular verb sum",
+        "sections": [
+          {
+            "id": "dc8f1214-581f-4051-b541-239c89f24722",
+            "number": 1,
+            "title": "Present Tense of Sum",
+            "type": "learning_content",
+            "content": {
+              "text": "\n# The Verb Sum (to be)\n\nSum is one of the most important and most irregular verbs in Latin.\n\n## Present Tense\n\n### Singular\n- 1st person: **sum** (I am)\n- 2nd person: **es** (you are)\n- 3rd person: **est** (he/she/it is)\n\n### Plural\n- 1st person: **sumus** (we are)\n- 2nd person: **estis** (you are)\n- 3rd person: **sunt** (they are)\n\n## Usage\n\nSum is used:\n1. To show existence: *Est puella.* (There is a girl.)\n2. With predicate nominatives: *Puella est bona.* (The girl is good.)\n3. To show location: *In terra sunt.* (They are on the land.)\n\n## Important: Predicate Nominatives\n\nWhen sum links two nouns or a noun and adjective, both are in the nominative case:\n- *Marcus est servus.* (Marcus is a slave.) - Both Marcus and servus are nominative\n- *Puellae sunt bonae.* (The girls are good.) - Both match in nominative plural\n                ",
+              "examples": [
+                "Sum discipulus. (I am a student.)",
+                "Estis amici. (You are friends.)",
+                "Bella sunt mala. (Wars are bad.)"
+              ]
+            }
+          },
+          {
+            "id": "abf02ee7-e094-427b-b949-e1d02b26718f",
+            "number": 2,
+            "title": "Practice: Sum",
+            "type": "exercises",
+            "question_ids": [
+              "e1fdfb23-b80a-4b15-a0bf-83293ec73383",
+              "4d7e314a-f2ce-42d1-befd-044a6950f944",
+              "9488d624-4827-475c-a6a9-e84c93ad672e",
+              "661373d7-7e77-4219-b97e-c6a9305aa1fe",
+              "302dc9c2-4e5e-4549-b2e5-04c7aeba530c"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "total_questions": 22,
+  "total_chapters": 5,
+  "categories": {
+    "vocabulary": "1b922f3b-71da-490a-a6de-2637b2313c95",
+    "grammar": "22660823-a19f-40d7-8c34-adcd0acd7d7d",
+    "translation": "c5cd32dc-9651-41b9-a02f-c535e51cc754",
+    "reading_comprehension": "2db6fdf1-ab7b-41fd-8320-3d80c0ed2249",
+    "declension": "a60bffbc-ef33-4fbb-835c-ad35985335e5",
+    "conjugation": "fdab6231-4268-4518-be85-a4c746e36b6a"
+  },
+  "language_id": "84acf185-0b8c-4c2a-99f3-c5056be86d23"
+}

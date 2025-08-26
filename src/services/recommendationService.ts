@@ -328,10 +328,10 @@ class RecommendationService {
       // Fetch user profile data
       const [profileResult, progressResult, starredResult, activityResult] = await Promise.allSettled([
         supabase.from('profiles').select('*').eq('id', userId).single(),
-        supabase.from('user_progress').select('*').eq('user_id', userId),
+        supabase.from('user_module_progress').select('*').eq('user_id', userId),
         supabase.from('starred_items').select('item_id').eq('user_id', userId).eq('item_type', 'skill_node'),
-        supabase.from('user_progress')
-          .select('skill_id, last_accessed')
+        supabase.from('user_module_progress')
+          .select('module_id, last_accessed')
           .eq('user_id', userId)
           .order('last_accessed', { ascending: false })
           .limit(50)
@@ -343,12 +343,12 @@ class RecommendationService {
         starred_skills: (starredResult.status === 'fulfilled' && starredResult.value.data?.map((s: any) => s.item_id)) || [],
         completed_skills: (progressResult.status === 'fulfilled' && progressResult.value.data
           ?.filter((p: any) => p.status === 'completed')
-          .map((p: any) => p.skill_id)) || [],
+          .map((p: any) => p.module_id)) || [],
         in_progress_skills: (progressResult.status === 'fulfilled' && progressResult.value.data
           ?.filter((p: any) => p.status === 'in_progress')
-          .map((p: any) => p.skill_id)) || [],
+          .map((p: any) => p.module_id)) || [],
         recent_activity: (activityResult.status === 'fulfilled' && activityResult.value.data?.map((a: any) => ({
-          skill_id: a.skill_id,
+          skill_id: a.module_id,
           timestamp: a.last_accessed
         }))) || []
       }
@@ -510,12 +510,12 @@ class RecommendationService {
     try {
       // Get user's completed nodes
       const { data: progress } = await supabase
-        .from('user_progress')
-        .select('skill_id')
+        .from('user_module_progress')
+        .select('module_id')
         .eq('user_id', userId)
         .eq('status', 'completed')
 
-      const completedSet = new Set(progress?.map(p => p.skill_id) || [])
+      const completedSet = new Set(progress?.map(p => p.module_id) || [])
 
       // Get goal skill and its ancestors
       const { data: goalSkill } = await supabase

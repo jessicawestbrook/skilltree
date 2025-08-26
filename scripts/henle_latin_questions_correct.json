@@ -1,0 +1,602 @@
+[
+  {
+    "id": "ed106008-b5b5-4129-81d2-b88439f8058e",
+    "question_text": "What is the genitive singular ending for first declension nouns?",
+    "options": [
+      "-a",
+      "-ae",
+      "-am",
+      "-\u0101"
+    ],
+    "correct_answer": 1,
+    "explanation": "First declension nouns have -ae as their genitive singular ending. This is the key identifier of first declension.",
+    "difficulty": "easy",
+    "image_url": null,
+    "module": "First Declension Nouns"
+  },
+  {
+    "id": "9b2cce89-29e0-47a0-b501-b11c669d5b9b",
+    "question_text": "Translate 'puella' into English:",
+    "options": [
+      "boy",
+      "girl",
+      "woman",
+      "man"
+    ],
+    "correct_answer": 1,
+    "explanation": "Puella means 'girl' in Latin. It's a common first declension noun.",
+    "difficulty": "easy",
+    "image_url": null,
+    "module": "First Declension Nouns"
+  },
+  {
+    "id": "e590d62d-c7e4-4896-91ec-723a873e45a2",
+    "question_text": "Which case is 'puell\u0101rum'?",
+    "options": [
+      "Nominative singular",
+      "Genitive singular",
+      "Genitive plural",
+      "Accusative plural"
+    ],
+    "correct_answer": 2,
+    "explanation": "The ending -\u0101rum indicates genitive plural in the first declension.",
+    "difficulty": "easy",
+    "image_url": null,
+    "module": "First Declension Nouns"
+  },
+  {
+    "id": "11b1dcfe-ee80-4614-84b2-a5f2e48718ac",
+    "question_text": "What is the nominative plural of 'porta' (gate)?",
+    "options": [
+      "portae",
+      "port\u0101s",
+      "port\u0101rum",
+      "port\u012bs"
+    ],
+    "correct_answer": 0,
+    "explanation": "First declension nominative plural ends in -ae.",
+    "difficulty": "easy",
+    "image_url": null,
+    "module": "First Declension Nouns"
+  },
+  {
+    "id": "98cfdc59-edec-4092-9912-77365794f523",
+    "question_text": "In 'Puella rosam habet', what case is 'rosam'?",
+    "options": [
+      "Nominative",
+      "Genitive",
+      "Dative",
+      "Accusative"
+    ],
+    "correct_answer": 3,
+    "explanation": "Rosam ends in -am, which is the accusative singular ending for first declension. It's the direct object.",
+    "difficulty": "easy",
+    "image_url": null,
+    "module": "First Declension Nouns"
+  },
+  {
+    "id": "4e8687d1-39a0-446a-976f-c2ecca531292",
+    "question_text": "Which of these is a first declension noun?",
+    "options": [
+      "dominus",
+      "bellum",
+      "aqua",
+      "puer"
+    ],
+    "correct_answer": 2,
+    "explanation": "Aqua (water) is a first declension noun, ending in -a in the nominative.",
+    "difficulty": "easy",
+    "image_url": null,
+    "module": "First Declension Nouns"
+  },
+  {
+    "id": "d417990e-eda7-4905-9311-46407672bad9",
+    "question_text": "What is the ablative singular ending for first declension?",
+    "options": [
+      "-a",
+      "-ae",
+      "-\u0101",
+      "-\u012bs"
+    ],
+    "correct_answer": 2,
+    "explanation": "First declension ablative singular has a long -\u0101 ending.",
+    "difficulty": "easy",
+    "image_url": null,
+    "module": "First Declension Nouns"
+  },
+  {
+    "id": "e18d04f3-13d3-4a4b-8fc6-38de22043239",
+    "question_text": "Translate 'f\u0113minae' (genitive singular):",
+    "options": [
+      "of the woman",
+      "to the woman",
+      "the women",
+      "by the woman"
+    ],
+    "correct_answer": 0,
+    "explanation": "Genitive case shows possession: 'of the woman'.",
+    "difficulty": "easy",
+    "image_url": null,
+    "module": "First Declension Nouns"
+  },
+  {
+    "id": "d58ce776-9e1f-4f80-8572-4fe6133d26c5",
+    "question_text": "What is the genitive singular ending for second declension masculine nouns?",
+    "options": [
+      "-us",
+      "-\u012b",
+      "-um",
+      "-\u014d"
+    ],
+    "correct_answer": 1,
+    "explanation": "Second declension masculine nouns have -\u012b as their genitive singular ending.",
+    "difficulty": "easy",
+    "image_url": null,
+    "module": "Second Declension Masculine Nouns"
+  },
+  {
+    "id": "26d6ce3d-47fe-4300-a21f-b1394fc277a5",
+    "question_text": "What is the nominative plural of 'servus' (slave)?",
+    "options": [
+      "serv\u012b",
+      "serv\u014ds",
+      "servum",
+      "serv\u014drum"
+    ],
+    "correct_answer": 0,
+    "explanation": "Second declension masculine nominative plural ends in -\u012b.",
+    "difficulty": "easy",
+    "image_url": null,
+    "module": "Second Declension Masculine Nouns"
+  },
+  {
+    "id": "1d8a4071-9c46-423d-a2c4-fb66d362a6bc",
+    "question_text": "Translate 'am\u012bcus' into English:",
+    "options": [
+      "enemy",
+      "friend",
+      "soldier",
+      "master"
+    ],
+    "correct_answer": 1,
+    "explanation": "Am\u012bcus means 'friend' in Latin.",
+    "difficulty": "easy",
+    "image_url": null,
+    "module": "Second Declension Masculine Nouns"
+  },
+  {
+    "id": "3fe98828-2a6d-46b0-b726-32111f93f987",
+    "question_text": "In 'Dominus servum videt', what case is 'servum'?",
+    "options": [
+      "Nominative",
+      "Genitive",
+      "Accusative",
+      "Ablative"
+    ],
+    "correct_answer": 2,
+    "explanation": "Servum ends in -um, which is the accusative singular for second declension masculine.",
+    "difficulty": "easy",
+    "image_url": null,
+    "module": "Second Declension Masculine Nouns"
+  },
+  {
+    "id": "ac450953-2bc3-4d21-9610-8570286268ab",
+    "question_text": "Which form is the vocative singular of 'f\u012blius' (son)?",
+    "options": [
+      "f\u012blie",
+      "f\u012bl\u012b",
+      "f\u012blius",
+      "f\u012bli\u012b"
+    ],
+    "correct_answer": 1,
+    "explanation": "Second declension nouns ending in -ius have vocative singular in -\u012b (not -ie).",
+    "difficulty": "easy",
+    "image_url": null,
+    "module": "Second Declension Masculine Nouns"
+  },
+  {
+    "id": "9b22ec92-2101-403c-8458-998c1cf5602b",
+    "question_text": "What is the dative plural of 'deus' (god)?",
+    "options": [
+      "de\u012bs",
+      "de\u014ds",
+      "de\u014drum",
+      "de\u012b"
+    ],
+    "correct_answer": 0,
+    "explanation": "Second declension dative/ablative plural ends in -\u012bs.",
+    "difficulty": "easy",
+    "image_url": null,
+    "module": "Second Declension Masculine Nouns"
+  },
+  {
+    "id": "fc675238-24f0-46d0-a4dc-02b9f31b1e83",
+    "question_text": "Which ending indicates second declension masculine accusative plural?",
+    "options": [
+      "-\u014ds",
+      "-\u0101s",
+      "-a",
+      "-\u0113s"
+    ],
+    "correct_answer": 0,
+    "explanation": "Second declension masculine accusative plural ends in -\u014ds.",
+    "difficulty": "easy",
+    "image_url": null,
+    "module": "Second Declension Masculine Nouns"
+  },
+  {
+    "id": "6bcaeedb-e6d0-40c1-9397-85d6cfd56cda",
+    "question_text": "Translate 'equus':",
+    "options": [
+      "foot soldier",
+      "horse",
+      "rider",
+      "chariot"
+    ],
+    "correct_answer": 1,
+    "explanation": "Equus means 'horse' in Latin.",
+    "difficulty": "easy",
+    "image_url": null,
+    "module": "Second Declension Masculine Nouns"
+  },
+  {
+    "id": "857d5121-2c25-4511-b74c-14c8a5501c36",
+    "question_text": "What is the nominative plural ending for second declension neuter nouns?",
+    "options": [
+      "-a",
+      "-\u012b",
+      "-um",
+      "-\u014drum"
+    ],
+    "correct_answer": 0,
+    "explanation": "Second declension neuter nouns have -a as their nominative AND accusative plural ending.",
+    "difficulty": "easy",
+    "image_url": null,
+    "module": "Second Declension Neuter Nouns"
+  },
+  {
+    "id": "5be91b39-79bb-4672-bd76-f10de963ed3d",
+    "question_text": "Translate 'bellum' into English:",
+    "options": [
+      "beautiful",
+      "war",
+      "good",
+      "book"
+    ],
+    "correct_answer": 1,
+    "explanation": "Bellum means 'war' in Latin. It's a common second declension neuter noun.",
+    "difficulty": "easy",
+    "image_url": null,
+    "module": "Second Declension Neuter Nouns"
+  },
+  {
+    "id": "c7d1d895-5bb6-4c2c-a66c-3a2a0de5f26a",
+    "question_text": "What cases are always the same in neuter nouns?",
+    "options": [
+      "Nominative and Genitive",
+      "Nominative and Accusative",
+      "Genitive and Dative",
+      "Dative and Ablative"
+    ],
+    "correct_answer": 1,
+    "explanation": "In all neuter nouns, the nominative and accusative forms are identical.",
+    "difficulty": "easy",
+    "image_url": null,
+    "module": "Second Declension Neuter Nouns"
+  },
+  {
+    "id": "d6841256-2150-451c-917e-a246c0dd6d6a",
+    "question_text": "What is the genitive plural of 'd\u014dnum' (gift)?",
+    "options": [
+      "d\u014dna",
+      "d\u014dn\u012b",
+      "d\u014dn\u014drum",
+      "d\u014dn\u012bs"
+    ],
+    "correct_answer": 2,
+    "explanation": "Second declension genitive plural is -\u014drum for both masculine and neuter.",
+    "difficulty": "easy",
+    "image_url": null,
+    "module": "Second Declension Neuter Nouns"
+  },
+  {
+    "id": "4e00a99e-7728-4799-9966-0549de493eb3",
+    "question_text": "In 'Templa magna sunt', what case is 'templa'?",
+    "options": [
+      "Nominative singular",
+      "Nominative plural",
+      "Accusative singular",
+      "Accusative plural"
+    ],
+    "correct_answer": 1,
+    "explanation": "Templa with -a ending is nominative plural (subject). 'Sunt' (are) confirms plural.",
+    "difficulty": "easy",
+    "image_url": null,
+    "module": "Second Declension Neuter Nouns"
+  },
+  {
+    "id": "3a70c1ef-a5c7-49a9-bcf2-e74653b539e3",
+    "question_text": "What is the ablative singular of 'verbum' (word)?",
+    "options": [
+      "verb\u014d",
+      "verb\u012b",
+      "verb\u012bs",
+      "verba"
+    ],
+    "correct_answer": 0,
+    "explanation": "Second declension neuter ablative singular ends in -\u014d.",
+    "difficulty": "easy",
+    "image_url": null,
+    "module": "Second Declension Neuter Nouns"
+  },
+  {
+    "id": "fc576d86-c7bc-4251-ad22-134c0c5ebabb",
+    "question_text": "Which is a neuter second declension noun?",
+    "options": [
+      "hortus",
+      "oppidum",
+      "servus",
+      "dominus"
+    ],
+    "correct_answer": 1,
+    "explanation": "Oppidum (town) is neuter, ending in -um.",
+    "difficulty": "easy",
+    "image_url": null,
+    "module": "Second Declension Neuter Nouns"
+  },
+  {
+    "id": "c1c3bf31-d605-4b8e-9ce5-31a5008d067f",
+    "question_text": "Translate 'r\u0113gnum':",
+    "options": [
+      "king",
+      "queen",
+      "kingdom",
+      "royal"
+    ],
+    "correct_answer": 2,
+    "explanation": "R\u0113gnum means 'kingdom' in Latin.",
+    "difficulty": "easy",
+    "image_url": null,
+    "module": "Second Declension Neuter Nouns"
+  },
+  {
+    "id": "0cb2b691-09f8-474f-a756-3a4a2ad01bbe",
+    "question_text": "What is the first person singular present of 'sum' (to be)?",
+    "options": [
+      "sum",
+      "es",
+      "est",
+      "sunt"
+    ],
+    "correct_answer": 0,
+    "explanation": "Sum means 'I am' - first person singular present.",
+    "difficulty": "easy",
+    "image_url": null,
+    "module": "Present Tense of Sum"
+  },
+  {
+    "id": "f86042c5-d77f-4487-b8e0-99f3476ddbee",
+    "question_text": "Translate 'sunt' into English:",
+    "options": [
+      "I am",
+      "you are",
+      "he/she/it is",
+      "they are"
+    ],
+    "correct_answer": 3,
+    "explanation": "Sunt is third person plural: 'they are'.",
+    "difficulty": "easy",
+    "image_url": null,
+    "module": "Present Tense of Sum"
+  },
+  {
+    "id": "25f5b450-c831-4c53-89bf-1585df553259",
+    "question_text": "What is the second person singular of 'sum'?",
+    "options": [
+      "sum",
+      "es",
+      "est",
+      "sumus"
+    ],
+    "correct_answer": 1,
+    "explanation": "Es means 'you are' (singular).",
+    "difficulty": "easy",
+    "image_url": null,
+    "module": "Present Tense of Sum"
+  },
+  {
+    "id": "bb9ec6ce-5ccd-4bf9-91b6-d1c3f467fc95",
+    "question_text": "Complete: 'N\u014ds ___ am\u012bc\u012b' (We are friends)",
+    "options": [
+      "sum",
+      "es",
+      "sumus",
+      "sunt"
+    ],
+    "correct_answer": 2,
+    "explanation": "Sumus is first person plural: 'we are'.",
+    "difficulty": "easy",
+    "image_url": null,
+    "module": "Present Tense of Sum"
+  },
+  {
+    "id": "01c25b4f-d600-4611-9c4e-c2529c2a1d53",
+    "question_text": "In 'Puellae in hort\u014d sunt', what does 'sunt' indicate about 'puellae'?",
+    "options": [
+      "It's singular",
+      "It's plural",
+      "It's feminine",
+      "It's accusative"
+    ],
+    "correct_answer": 1,
+    "explanation": "Sunt (they are) confirms that puellae is plural.",
+    "difficulty": "easy",
+    "image_url": null,
+    "module": "Present Tense of Sum"
+  },
+  {
+    "id": "eb27b59a-abd6-436b-8309-8c0f39afeee9",
+    "question_text": "What is the second person plural of 'sum'?",
+    "options": [
+      "estis",
+      "sunt",
+      "sumus",
+      "es"
+    ],
+    "correct_answer": 0,
+    "explanation": "Estis means 'you (all) are' - second person plural.",
+    "difficulty": "easy",
+    "image_url": null,
+    "module": "Present Tense of Sum"
+  },
+  {
+    "id": "21ddb2c1-4175-4318-811b-eb58da0f64aa",
+    "question_text": "Translate 'Est bonus':",
+    "options": [
+      "I am good",
+      "You are good",
+      "He is good",
+      "They are good"
+    ],
+    "correct_answer": 2,
+    "explanation": "Est (he/she/it is) bonus (good) = 'He is good'.",
+    "difficulty": "easy",
+    "image_url": null,
+    "module": "Present Tense of Sum"
+  },
+  {
+    "id": "02872850-3ab1-4ebc-9a9d-b68475f6ff36",
+    "question_text": "Which form means 'we are'?",
+    "options": [
+      "sum",
+      "sumus",
+      "sunt",
+      "estis"
+    ],
+    "correct_answer": 1,
+    "explanation": "Sumus is first person plural: 'we are'.",
+    "difficulty": "easy",
+    "image_url": null,
+    "module": "Present Tense of Sum"
+  },
+  {
+    "id": "d91add38-31c0-423e-ac8b-51f47a0d7dd0",
+    "question_text": "What is the first person singular present of 'am\u014d' (to love)?",
+    "options": [
+      "am\u014d",
+      "am\u0101s",
+      "amat",
+      "amant"
+    ],
+    "correct_answer": 0,
+    "explanation": "Am\u014d means 'I love' - the first person singular keeps the -\u014d ending.",
+    "difficulty": "easy",
+    "image_url": null,
+    "module": "First Conjugation Verbs Present"
+  },
+  {
+    "id": "2485087a-9964-4cc0-8e45-556b5cc0fe42",
+    "question_text": "What is the infinitive ending for first conjugation verbs?",
+    "options": [
+      "-\u014d",
+      "-\u0101re",
+      "-\u0113re",
+      "-ere"
+    ],
+    "correct_answer": 1,
+    "explanation": "First conjugation infinitives end in -\u0101re (long a).",
+    "difficulty": "easy",
+    "image_url": null,
+    "module": "First Conjugation Verbs Present"
+  },
+  {
+    "id": "e3108b7a-4893-4ef4-bc89-8d1fd653a4bb",
+    "question_text": "Translate 'laborant' into English:",
+    "options": [
+      "I work",
+      "you work",
+      "he works",
+      "they work"
+    ],
+    "correct_answer": 3,
+    "explanation": "The -ant ending indicates third person plural: 'they work'.",
+    "difficulty": "easy",
+    "image_url": null,
+    "module": "First Conjugation Verbs Present"
+  },
+  {
+    "id": "d57f4296-19af-41ce-83df-850edec02cb0",
+    "question_text": "What is the third person singular of 'port\u014d' (to carry)?",
+    "options": [
+      "port\u014d",
+      "port\u0101s",
+      "portat",
+      "portant"
+    ],
+    "correct_answer": 2,
+    "explanation": "Third person singular of first conjugation ends in -at.",
+    "difficulty": "easy",
+    "image_url": null,
+    "module": "First Conjugation Verbs Present"
+  },
+  {
+    "id": "8f3daf64-07ee-4f0d-a7dc-30440431bbb0",
+    "question_text": "In 'Puella cantat', what person and number is 'cantat'?",
+    "options": [
+      "1st singular",
+      "2nd singular",
+      "3rd singular",
+      "3rd plural"
+    ],
+    "correct_answer": 2,
+    "explanation": "The -at ending shows third person singular: 'she sings'.",
+    "difficulty": "easy",
+    "image_url": null,
+    "module": "First Conjugation Verbs Present"
+  },
+  {
+    "id": "f64ed20d-4479-4b67-83bf-0222ceab0e7e",
+    "question_text": "What is the second person plural of 'laud\u014d' (to praise)?",
+    "options": [
+      "laud\u0101s",
+      "laudat",
+      "laud\u0101tis",
+      "laudant"
+    ],
+    "correct_answer": 2,
+    "explanation": "Second person plural of first conjugation ends in -\u0101tis.",
+    "difficulty": "easy",
+    "image_url": null,
+    "module": "First Conjugation Verbs Present"
+  },
+  {
+    "id": "a66a1224-83eb-4ca2-a4d6-c054da48e678",
+    "question_text": "Which ending shows first person plural in first conjugation?",
+    "options": [
+      "-\u0101mus",
+      "-\u0101tis",
+      "-ant",
+      "-\u014d"
+    ],
+    "correct_answer": 0,
+    "explanation": "First person plural ends in -\u0101mus: 'we [verb]'.",
+    "difficulty": "easy",
+    "image_url": null,
+    "module": "First Conjugation Verbs Present"
+  },
+  {
+    "id": "4d39b02a-cb33-4b16-acc4-6e5a0ff66bb5",
+    "question_text": "Translate 'voc\u0101s':",
+    "options": [
+      "I call",
+      "you call",
+      "he calls",
+      "they call"
+    ],
+    "correct_answer": 1,
+    "explanation": "The -\u0101s ending is second person singular.",
+    "difficulty": "easy",
+    "image_url": null,
+    "module": "First Conjugation Verbs Present"
+  }
+]

@@ -1,24 +1,25 @@
 import React, { useState, useEffect, useCallback } from 'react'
-import { useLocation } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
 import { supabase } from '../services/supabase'
 import { spacedRepetitionService } from '../services/spacedRepetitionService'
 import { useAuth } from '../contexts/AuthContext'
 import { 
   CheckCircleIcon, 
   XCircleIcon,
-  LanguageIcon,
-  ClockIcon,
   FlagIcon,
-  ChevronDownIcon,
   SpeakerWaveIcon,
   BookOpenIcon,
-  QuestionMarkCircleIcon
+  PencilSquareIcon,
+  DocumentTextIcon,
+  BeakerIcon,
+  Bars3Icon,
+  XMarkIcon
 } from '@heroicons/react/24/outline'
 import FlagContentModal from '../components/FlagContentModal'
 import StudyListActions from '../components/StudyListActions'
 import SkipButton from '../components/flashcards/SkipButton'
-import CategoryLink from '../components/CategoryLink'
 import LanguageVocabularyMode from '../components/LanguageVocabularyMode'
+import LanguageMixedMode from '../components/LanguageMixedMode'
 
 interface Language {
   id: string
@@ -57,27 +58,105 @@ interface UserProgress {
   accuracy_percentage: number
 }
 
-// Helper function to map language and category to skill tree node ID
-function getSkillTreeNodeId(languageName: string, categoryName: string): string | null {
-  // Mapping based on skill tree nodes found in database
-  const mappings: Record<string, Record<string, string>> = {
-    'Spanish': {
-      'Basic Vocabulary': '665ec630-ac63-4d8d-bfc5-144496db3d79', // Spanish Vocabulary node
-      'default': '437743f9-b758-42dc-a94d-17de1acd5900' // Main Spanish node
-    }
-  }
-  
-  const languageMappings = mappings[languageName]
-  if (!languageMappings) return null
-  
-  return languageMappings[categoryName] || languageMappings['default'] || null
+interface Course {
+  id: string
+  language_id: string
+  name: string
+  description: string
+  level: string
+  estimated_hours: number
+  is_active: boolean
 }
+
+// Language configuration with available features
+const LANGUAGE_CONFIG: Record<string, {
+  name: string
+  code: string
+  flag: string
+  hasVocabulary: boolean
+  hasGrammar: boolean
+  hasCharacters?: boolean
+  hasListening?: boolean
+  hasReading?: boolean
+}> = {
+  spanish: {
+    name: 'Spanish',
+    code: 'es',
+    flag: '🇪🇸',
+    hasVocabulary: true,
+    hasGrammar: true,
+    hasListening: true,
+    hasReading: true
+  },
+  chinese: {
+    name: 'Chinese',
+    code: 'zh',
+    flag: '🇨🇳',
+    hasVocabulary: false,  // Chinese uses Characters tab instead
+    hasGrammar: false,
+    hasCharacters: true,
+    hasListening: false,
+    hasReading: false
+  },
+  french: {
+    name: 'French',
+    code: 'fr',
+    flag: '🇫🇷',
+    hasVocabulary: false,
+    hasGrammar: false,
+    hasListening: false,
+    hasReading: false
+  },
+  german: {
+    name: 'German',
+    code: 'de',
+    flag: '🇩🇪',
+    hasVocabulary: false,
+    hasGrammar: false,
+    hasListening: false,
+    hasReading: false
+  },
+  italian: {
+    name: 'Italian',
+    code: 'it',
+    flag: '🇮🇹',
+    hasVocabulary: false,
+    hasGrammar: false,
+    hasListening: false,
+    hasReading: false
+  },
+  portuguese: {
+    name: 'Portuguese',
+    code: 'pt',
+    flag: '🇵🇹',
+    hasVocabulary: false,
+    hasGrammar: false,
+    hasListening: false,
+    hasReading: false
+  },
+  latin: {
+    name: 'Latin',
+    code: 'la',
+    flag: '🏛️',
+    hasVocabulary: false,
+    hasGrammar: false,
+    hasListening: false,
+    hasReading: false
+  }
+}
+
 
 const LanguageTrainerPage: React.FC = () => {
   const { user } = useAuth()
   const location = useLocation()
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const navigate = useNavigate()
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [languages, setLanguages] = useState<Language[]>([])
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [categories, setCategories] = useState<Category[]>([])
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const [courses, setCourses] = useState<Course[]>([])
   const [questionBank, setQuestionBank] = useState<Question[]>([])
   const [currentQuestion, setCurrentQuestion] = useState<Question | null>(null)
   const [selectedAnswer, setSelectedAnswer] = useState<number | null>(null)
@@ -86,21 +165,46 @@ const LanguageTrainerPage: React.FC = () => {
   const [loading, setLoading] = useState(true)
   const [currentIndex, setCurrentIndex] = useState(0)
   const [sessionStats, setSessionStats] = useState({ correct: 0, total: 0 })
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [overallStats, setOverallStats] = useState({ correct: 0, total: 0 })
   const [showFlagModal, setShowFlagModal] = useState(false)
+  const [isPlaying, setIsPlaying] = useState(false)
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   
-  const [selectedLanguage, setSelectedLanguage] = useState<Language | null>(null)
+  const [selectedLanguage, setSelectedLanguage] = useState<string>('spanish')
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [selectedCategory, setSelectedCategory] = useState<Category | null>(null)
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [userProgress, setUserProgress] = useState<UserProgress[]>([])
   const [hasLanguageVoice, setHasLanguageVoice] = useState<boolean>(false)
   
   const [error, setError] = useState<string | null>(null)
-  const [mode, setMode] = useState<'grammar' | 'vocabulary'>('grammar')
+  const [mode, setMode] = useState<'characters' | 'vocabulary' | 'grammar' | 'listening' | 'reading' | 'mixed'>('vocabulary')
 
   // Session storage keys
   const LANG_SESSION_KEY = 'languageTrainerSession'
 
+  // Get current language config
+  const currentLangConfig = LANGUAGE_CONFIG[selectedLanguage]
+
+  // Update mode when language changes
+  useEffect(() => {
+    if (currentLangConfig) {
+      // Set to the first available mode for this language
+      if (currentLangConfig.hasCharacters) {
+        setMode('characters')
+      } else if (currentLangConfig.hasVocabulary) {
+        setMode('vocabulary')
+      } else if (currentLangConfig.hasGrammar) {
+        setMode('grammar')
+      } else {
+        setMode('vocabulary')
+      }
+    }
+  }, [selectedLanguage, currentLangConfig])
+
   // Save session state
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const saveSessionState = useCallback((question: Question, index: number, selectedAnswer: number | null, showResult: boolean, isCorrect: boolean, languageId: string, categoryId: string) => {
     const sessionState = {
       currentQuestion: question,
@@ -121,10 +225,8 @@ const LanguageTrainerPage: React.FC = () => {
       const saved = sessionStorage.getItem(LANG_SESSION_KEY)
       if (saved) {
         const sessionState = JSON.parse(saved)
-        // Only restore if saved within last 30 minutes and same language/category
-        if (Date.now() - sessionState.timestamp < 30 * 60 * 1000 &&
-            sessionState.languageId === selectedLanguage?.id &&
-            sessionState.categoryId === selectedCategory?.id) {
+        // Only restore if saved within last 30 minutes
+        if (Date.now() - sessionState.timestamp < 30 * 60 * 1000) {
           return sessionState
         }
       }
@@ -132,16 +234,54 @@ const LanguageTrainerPage: React.FC = () => {
       console.error('Error loading session state:', error)
     }
     return null
-  }, [LANG_SESSION_KEY, selectedLanguage?.id, selectedCategory?.id])
+  }, [LANG_SESSION_KEY])
 
   // Clear session state
   const clearSessionState = useCallback(() => {
     sessionStorage.removeItem(LANG_SESSION_KEY)
   }, [LANG_SESSION_KEY])
 
+  // Dynamic tab configuration based on language
+  const getTabs = () => {
+    const tabs = []
+    
+    if (currentLangConfig?.hasCharacters) {
+      tabs.push({ id: 'characters', label: 'Characters', icon: PencilSquareIcon })
+    }
+    if (currentLangConfig?.hasVocabulary) {
+      tabs.push({ id: 'vocabulary', label: 'Vocabulary', icon: BookOpenIcon })
+    }
+    if (currentLangConfig?.hasGrammar) {
+      tabs.push({ id: 'grammar', label: 'Grammar', icon: PencilSquareIcon })
+    }
+    if (currentLangConfig?.hasListening) {
+      tabs.push({ id: 'listening', label: 'Listening', icon: SpeakerWaveIcon })
+    }
+    if (currentLangConfig?.hasReading) {
+      tabs.push({ id: 'reading', label: 'Reading', icon: DocumentTextIcon })
+    }
+    
+    // Add mixed mode only if there are multiple content types
+    const hasMultipleTypes = [
+      currentLangConfig?.hasCharacters,
+      currentLangConfig?.hasVocabulary,
+      currentLangConfig?.hasGrammar,
+      currentLangConfig?.hasListening,
+      currentLangConfig?.hasReading
+    ].filter(Boolean).length > 1
+    
+    if (hasMultipleTypes) {
+      tabs.push({ id: 'mixed', label: 'Mixed', icon: BeakerIcon })
+    }
+    
+    return tabs
+  }
+
+  const tabs = getTabs()
+
   // Check if a language-specific voice is available
   const checkLanguageVoiceAvailability = useCallback(() => {
-    if (!selectedLanguage || !('speechSynthesis' in window)) {
+    if (!currentLangConfig || !('speechSynthesis' in window)) {
       setHasLanguageVoice(false)
       return
     }
@@ -149,7 +289,7 @@ const LanguageTrainerPage: React.FC = () => {
     const checkVoices = () => {
       const voices = window.speechSynthesis.getVoices()
       const languageVoice = voices.find(voice => 
-        voice.lang.toLowerCase().startsWith(selectedLanguage.code.toLowerCase())
+        voice.lang.toLowerCase().startsWith(currentLangConfig.code.toLowerCase())
       )
       setHasLanguageVoice(!!languageVoice)
     }
@@ -163,7 +303,7 @@ const LanguageTrainerPage: React.FC = () => {
     } else {
       checkVoices()
     }
-  }, [selectedLanguage])
+  }, [currentLangConfig])
 
   // Check voice availability when language changes
   useEffect(() => {
@@ -188,18 +328,14 @@ const LanguageTrainerPage: React.FC = () => {
       })
       
       setLanguages(sortedLanguages)
-      
-      // Auto-select first language if none selected (Spanish will be first)
-      if (sortedLanguages.length > 0 && !selectedLanguage) {
-        setSelectedLanguage(sortedLanguages[0])
-      }
     } catch (err) {
       console.error('Error loading languages:', err)
       setError('Failed to load languages')
     }
-  }, [selectedLanguage])
+  }, [])
 
   // Load categories when language is selected
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const loadCategories = useCallback(async (languageId: string) => {
     try {
       const { data, error } = await supabase
@@ -210,6 +346,20 @@ const LanguageTrainerPage: React.FC = () => {
 
       if (error) throw error
       setCategories(data || [])
+      
+      // Load courses for this language
+      const { data: coursesData, error: coursesError } = await supabase
+        .from('language_courses')
+        .select('*')
+        .eq('language_id', languageId)
+        .eq('is_active', true)
+        .order('display_order')
+      
+      if (coursesError) {
+        console.error('Error loading courses:', coursesError)
+      } else {
+        setCourses(coursesData || [])
+      }
       
       // Auto-select first category if none selected
       if (data && data.length > 0 && !selectedCategory) {
@@ -222,6 +372,7 @@ const LanguageTrainerPage: React.FC = () => {
   }, [selectedCategory])
 
   // Load questions when category is selected
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const loadQuestions = useCallback(async (categoryId: string) => {
     try {
       const { data, error } = await supabase
@@ -242,7 +393,7 @@ const LanguageTrainerPage: React.FC = () => {
         
         // Check for saved session state first
         const savedSession = loadSessionState()
-        if (savedSession && savedSession.currentQuestion && selectedLanguage && selectedCategory) {
+        if (savedSession && savedSession.currentQuestion) {
           // Restore saved session
           setCurrentQuestion(savedSession.currentQuestion)
           setCurrentIndex(savedSession.currentIndex)
@@ -250,12 +401,12 @@ const LanguageTrainerPage: React.FC = () => {
           setShowResult(savedSession.showResult)
           setIsCorrect(savedSession.isCorrect)
           
-          // Auto-play audio if restoring a result state (and language voice available and autoplay enabled)
+          // Auto-play audio if restoring a result state
           const autoplayEnabled = localStorage.getItem('audioAutoplay') !== 'false'
           if (savedSession.showResult && hasLanguageVoice && autoplayEnabled) {
             setTimeout(() => {
               speakWord(savedSession.currentQuestion.options[savedSession.currentQuestion.correct_answer_index])
-            }, 1000) // Longer delay for page restoration
+            }, 1000)
           }
         } else {
           // Start fresh
@@ -270,9 +421,10 @@ const LanguageTrainerPage: React.FC = () => {
       setError('Failed to load questions')
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [hasLanguageVoice, loadSessionState, selectedCategory, selectedLanguage])
+  }, [hasLanguageVoice, loadSessionState])
 
   // Load user progress
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const loadUserProgress = useCallback(async (languageId: string) => {
     if (!user) return
 
@@ -324,15 +476,61 @@ const LanguageTrainerPage: React.FC = () => {
     initializeTrainer()
   }, [initializeTrainer])
 
-  // Load categories when language changes
+  // Load questions based on mode (grammar, reading, listening)
   useEffect(() => {
-    if (selectedLanguage) {
-      loadCategories(selectedLanguage.id)
-      if (user) {
-        loadUserProgress(selectedLanguage.id)
+    if ((mode === 'grammar' || mode === 'reading' || mode === 'listening') && selectedLanguage === 'spanish') {
+      const loadModeQuestions = async () => {
+        setLoading(true)
+        try {
+          // Map mode to category (reading and listening use same content)
+          const category = (mode === 'listening' || mode === 'reading') ? 'reading/listening' : 'grammar';
+          
+          // Get Spanish language ID
+          const { data: spanishLang } = await supabase
+            .from('languages')
+            .select('id')
+            .eq('code', 'es')
+            .single()
+          
+          if (!spanishLang) {
+            throw new Error('Spanish language not found')
+          }
+          
+          // Load Spanish questions for the selected category
+          const { data: questions, error } = await supabase
+            .from('language_questions')
+            .select('*')
+            .eq('language_id', spanishLang.id) // Use actual Spanish UUID
+            .eq('category', category) // Filter by category
+            .order('difficulty_level')
+            .limit(50)
+          
+          if (error) {
+            console.error(`Error loading ${mode} questions:`, error)
+            setError(`Failed to load ${mode} questions`)
+          } else if (questions && questions.length > 0) {
+            // Shuffle questions for variety
+            const shuffled = [...questions].sort(() => Math.random() - 0.5)
+            setQuestionBank(shuffled)
+            setCurrentQuestion(shuffled[0])
+            setCurrentIndex(0)
+            setSelectedAnswer(null)
+            setShowResult(false)
+          } else {
+            setQuestionBank([])
+            setCurrentQuestion(null)
+          }
+        } catch (err) {
+          console.error(`Error loading ${mode} questions:`, err)
+          setError(`Failed to load ${mode} questions`)
+        } finally {
+          setLoading(false)
+        }
       }
+      
+      loadModeQuestions()
     }
-  }, [selectedLanguage, loadCategories, loadUserProgress, user])
+  }, [mode, selectedLanguage])
 
   // Handle navigation from study list page
   useEffect(() => {
@@ -376,24 +574,9 @@ const LanguageTrainerPage: React.FC = () => {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [location.state])
 
-  // Load questions when category changes
-  useEffect(() => {
-    // Don't load if we came from study list navigation
-    if (location.state?.studyListQuestions) {
-      return
-    }
-    if (selectedCategory) {
-      loadQuestions(selectedCategory.id)
-    }
-  }, [selectedCategory, loadQuestions, location.state])
-
   const handleAnswerSelect = (answerIndex: number) => {
     if (showResult) return
     setSelectedAnswer(answerIndex)
-    // Save session state when answer is selected
-    if (currentQuestion && selectedLanguage && selectedCategory) {
-      saveSessionState(currentQuestion, currentIndex, answerIndex, showResult, isCorrect, selectedLanguage.id, selectedCategory.id)
-    }
     // Auto-submit the answer after a brief delay
     setTimeout(() => {
       handleSubmit(answerIndex)
@@ -409,17 +592,12 @@ const LanguageTrainerPage: React.FC = () => {
     setIsCorrect(correct)
     setShowResult(true)
 
-    // Save session state when result is shown
-    if (selectedLanguage && selectedCategory) {
-      saveSessionState(currentQuestion, currentIndex, answer, true, correct, selectedLanguage.id, selectedCategory.id)
-    }
-
-    // Auto-play audio for the correct answer when result is shown (if language voice available and autoplay enabled)
+    // Auto-play audio for the correct answer
     const autoplayEnabled = localStorage.getItem('audioAutoplay') !== 'false'
     if (hasLanguageVoice && autoplayEnabled) {
       setTimeout(() => {
         speakWord(currentQuestion.options[currentQuestion.correct_answer_index])
-      }, 500) // Small delay to let UI update first
+      }, 500)
     }
 
     // Update session stats
@@ -460,11 +638,6 @@ const LanguageTrainerPage: React.FC = () => {
 
       if (error) throw error
 
-      // Update user progress
-      if (selectedLanguage && selectedCategory) {
-        await updateUserProgress(selectedLanguage.id, selectedCategory.id, isCorrect)
-      }
-
       // Update overall stats
       setOverallStats(prev => ({
         correct: prev.correct + (isCorrect ? 1 : 0),
@@ -475,57 +648,8 @@ const LanguageTrainerPage: React.FC = () => {
     }
   }
 
-  const updateUserProgress = async (languageId: string, categoryId: string, isCorrect: boolean) => {
-    if (!user) return
-
-    try {
-      const { data: existingProgress } = await supabase
-        .from('user_language_progress')
-        .select('*')
-        .eq('user_id', user.id)
-        .eq('language_id', languageId)
-        .eq('category_id', categoryId)
-        .single()
-
-      if (existingProgress) {
-        const newQuestionsAttempted = existingProgress.questions_attempted + 1
-        const newQuestionsCorrect = existingProgress.questions_correct + (isCorrect ? 1 : 0)
-        const newAccuracy = (newQuestionsCorrect / newQuestionsAttempted) * 100
-
-        await supabase
-          .from('user_language_progress')
-          .update({
-            questions_attempted: newQuestionsAttempted,
-            questions_correct: newQuestionsCorrect,
-            accuracy_percentage: newAccuracy,
-            last_practiced: new Date().toISOString(),
-            updated_at: new Date().toISOString()
-          })
-          .eq('id', existingProgress.id)
-      } else {
-        await supabase
-          .from('user_language_progress')
-          .insert({
-            user_id: user.id,
-            language_id: languageId,
-            category_id: categoryId,
-            questions_attempted: 1,
-            questions_correct: isCorrect ? 1 : 0,
-            accuracy_percentage: isCorrect ? 100 : 0
-          })
-      }
-
-      // Refresh progress data
-      if (selectedLanguage) {
-        loadUserProgress(selectedLanguage.id)
-      }
-    } catch (err) {
-      console.error('Error updating progress:', err)
-    }
-  }
-
   const speakWord = (text: string) => {
-    if ('speechSynthesis' in window && selectedLanguage) {
+    if ('speechSynthesis' in window && currentLangConfig) {
       // Cancel any previous speech
       window.speechSynthesis.cancel()
       
@@ -535,13 +659,13 @@ const LanguageTrainerPage: React.FC = () => {
       utterance.pitch = 1.0
       
       // Set language based on the selected language code
-      utterance.lang = selectedLanguage.code
+      utterance.lang = currentLangConfig.code
       
       const speakWithLanguage = () => {
         // Try to find a voice that matches the language
         const voices = window.speechSynthesis.getVoices()
         const languageVoice = voices.find(voice => 
-          voice.lang.toLowerCase().startsWith(selectedLanguage.code.toLowerCase())
+          voice.lang.toLowerCase().startsWith(currentLangConfig.code.toLowerCase())
         )
         
         if (languageVoice) {
@@ -572,6 +696,7 @@ const LanguageTrainerPage: React.FC = () => {
     setCurrentQuestion(questionBank[nextIndex])
     setSelectedAnswer(null)
     setShowResult(false)
+    setIsPlaying(false) // Reset audio playing state
   }
 
   const skipQuestion = () => {
@@ -584,10 +709,7 @@ const LanguageTrainerPage: React.FC = () => {
     setCurrentQuestion(questionBank[nextIndex])
     setSelectedAnswer(null)
     setShowResult(false)
-  }
-
-  const getCategoryProgress = (categoryId: string): UserProgress | null => {
-    return userProgress.find(p => p.category_id === categoryId) || null
+    setIsPlaying(false) // Reset audio playing state
   }
 
   if (loading) {
@@ -608,204 +730,347 @@ const LanguageTrainerPage: React.FC = () => {
     )
   }
 
-  // Show vocabulary mode if selected
-  if (mode === 'vocabulary' && selectedLanguage) {
-    return (
-      <div className="max-w-4xl mx-auto p-1 sm:p-2 pt-2 sm:pt-2">
-        {/* Tab Navigation */}
-        <div className="mb-4">
-          <div className="border-b border-neutral-200 dark:border-neutral-700">
-            <nav className="-mb-px flex space-x-8" aria-label="Tabs">
-              <button
-                onClick={() => setMode('grammar')}
-                className="group inline-flex items-center py-2 px-1 border-b-2 font-medium text-sm transition-colors border-transparent text-neutral-500 hover:text-neutral-700 hover:border-neutral-300 dark:text-neutral-400 dark:hover:text-neutral-300 dark:hover:border-neutral-600"
-              >
-                <QuestionMarkCircleIcon
-                  className="-ml-0.5 mr-2 h-5 w-5 text-neutral-400 group-hover:text-neutral-500 dark:text-neutral-500 dark:group-hover:text-neutral-400"
-                />
-                Grammar
-              </button>
+  // Render language menu
+  const renderLanguageMenu = () => (
+    <div className="space-y-2">
+      <h3 className="text-sm font-semibold text-neutral-600 dark:text-neutral-400 uppercase tracking-wider mb-3">
+        Languages
+      </h3>
+      {Object.entries(LANGUAGE_CONFIG).map(([key, config]) => {
+        const isActive = selectedLanguage === key
+        const hasContent = config.hasVocabulary || config.hasGrammar || config.hasCharacters
+        
+        return (
+          <button
+            key={key}
+            onClick={() => {
+              setSelectedLanguage(key)
+              setMobileMenuOpen(false)
+            }}
+            disabled={!hasContent}
+            className={`
+              w-full text-left px-3 py-2 rounded-lg transition-all flex items-center justify-between
+              ${isActive 
+                ? 'bg-primary-100 dark:bg-primary-900/30 text-primary-700 dark:text-primary-300 font-medium' 
+                : hasContent
+                  ? 'hover:bg-neutral-100 dark:hover:bg-neutral-800 text-neutral-700 dark:text-neutral-300'
+                  : 'text-neutral-400 dark:text-neutral-600 cursor-not-allowed opacity-60'
+              }
+            `}
+          >
+            <span className="flex items-center gap-2">
+              <span className="text-lg">{config.flag}</span>
+              <span>{config.name}</span>
+            </span>
+            {!hasContent && (
+              <span className="text-xs text-neutral-400">Coming soon</span>
+            )}
+          </button>
+        )
+      })}
+    </div>
+  )
 
+  // Render tab navigation
+  const renderTabNavigation = () => (
+    <div className="mb-4">
+      <div className="border-b border-neutral-200 dark:border-neutral-700">
+        <nav className="-mb-px flex flex-wrap gap-2 sm:gap-4" aria-label="Tabs">
+          {tabs.map(tab => {
+            const Icon = tab.icon
+            const isActive = mode === tab.id
+            return (
               <button
-                onClick={() => setMode('vocabulary')}
-                className="group inline-flex items-center py-2 px-1 border-b-2 font-medium text-sm transition-colors border-primary-500 text-primary-600 dark:text-primary-400"
+                key={tab.id}
+                onClick={() => setMode(tab.id as typeof mode)}
+                className={`
+                  group inline-flex items-center py-2 px-1 border-b-2 font-medium text-xs sm:text-sm transition-colors whitespace-nowrap
+                  ${isActive
+                    ? 'border-primary-500 text-primary-600 dark:text-primary-400'
+                    : 'border-transparent text-neutral-500 hover:text-neutral-700 hover:border-neutral-300 dark:text-neutral-400 dark:hover:text-neutral-300 dark:hover:border-neutral-600'
+                  }
+                `}
               >
-                <BookOpenIcon
-                  className="-ml-0.5 mr-2 h-5 w-5 text-primary-500 dark:text-primary-400"
+                <Icon
+                  className={`
+                    -ml-0.5 mr-1 sm:mr-2 h-4 w-4 sm:h-5 sm:w-5
+                    ${isActive
+                      ? 'text-primary-500 dark:text-primary-400'
+                      : 'text-neutral-400 group-hover:text-neutral-500 dark:text-neutral-500 dark:group-hover:text-neutral-400'
+                    }
+                  `}
                 />
-                Vocabulary
+                <span>{tab.label}</span>
               </button>
-            </nav>
+            )
+          })}
+        </nav>
+      </div>
+    </div>
+  )
+
+  // Show vocabulary mode if selected
+  if (mode === 'vocabulary' && currentLangConfig?.hasVocabulary) {
+    return (
+      <div className="flex flex-col lg:flex-row gap-6">
+        {/* Desktop Language Menu */}
+        <aside className="hidden lg:block w-64 flex-shrink-0">
+          <div className="bg-white dark:bg-neutral-900 rounded-lg shadow p-4">
+            {renderLanguageMenu()}
+          </div>
+        </aside>
+
+        {/* Mobile Language Selector */}
+        <div className="lg:hidden mb-4">
+          <div className="relative">
+            <button
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              className="w-full flex items-center justify-between px-4 py-2 bg-white dark:bg-neutral-900 rounded-lg shadow border border-neutral-200 dark:border-neutral-700"
+            >
+              <span className="flex items-center gap-2">
+                <span className="text-lg">{currentLangConfig.flag}</span>
+                <span className="font-medium">{currentLangConfig.name}</span>
+              </span>
+              {mobileMenuOpen ? (
+                <XMarkIcon className="h-5 w-5 text-neutral-400" />
+              ) : (
+                <Bars3Icon className="h-5 w-5 text-neutral-400" />
+              )}
+            </button>
+            
+            {mobileMenuOpen && (
+              <div className="absolute z-10 w-full mt-2 bg-white dark:bg-neutral-900 rounded-lg shadow-lg border border-neutral-200 dark:border-neutral-700 p-2">
+                {renderLanguageMenu()}
+              </div>
+            )}
           </div>
         </div>
 
-        {/* Tab Content */}
-        <LanguageVocabularyMode 
-          selectedLanguage={selectedLanguage.code} 
-          onBack={() => setMode('grammar')}
-        />
+        {/* Main Content */}
+        <div className="flex-1">
+          {renderTabNavigation()}
+          <LanguageVocabularyMode 
+            selectedLanguage={currentLangConfig.code} 
+            onBack={() => setMode('grammar')}
+          />
+        </div>
       </div>
     )
   }
 
-  if (!currentQuestion) {
+  // Show mixed mode if selected
+  if (mode === 'mixed' && tabs.length > 1) {
+    const languageObj: Language = {
+      id: selectedLanguage,
+      name: currentLangConfig.name,
+      code: currentLangConfig.code,
+      flag_emoji: currentLangConfig.flag
+    }
+    
     return (
-      <div className="max-w-4xl mx-auto p-1 sm:p-2 pt-2 sm:pt-2">
-        {/* Tab Navigation */}
-        <div className="mb-4">
-          <div className="border-b border-neutral-200 dark:border-neutral-700">
-            <nav className="-mb-px flex space-x-8" aria-label="Tabs">
-              <button
-                onClick={() => setMode('grammar')}
-                className={`
-                  group inline-flex items-center py-2 px-1 border-b-2 font-medium text-sm transition-colors
-                  ${
-                    mode === 'grammar'
-                      ? 'border-primary-500 text-primary-600 dark:text-primary-400'
-                      : 'border-transparent text-neutral-500 hover:text-neutral-700 hover:border-neutral-300 dark:text-neutral-400 dark:hover:text-neutral-300 dark:hover:border-neutral-600'
-                  }
-                `}
-              >
-                <QuestionMarkCircleIcon
-                  className={`
-                    -ml-0.5 mr-2 h-5 w-5
-                    ${
-                      mode === 'grammar'
-                        ? 'text-primary-500 dark:text-primary-400'
-                        : 'text-neutral-400 group-hover:text-neutral-500 dark:text-neutral-500 dark:group-hover:text-neutral-400'
-                    }
-                  `}
-                />
-                Grammar
-              </button>
+      <div className="flex flex-col lg:flex-row gap-6">
+        {/* Desktop Language Menu */}
+        <aside className="hidden lg:block w-64 flex-shrink-0">
+          <div className="bg-white dark:bg-neutral-900 rounded-lg shadow p-4">
+            {renderLanguageMenu()}
+          </div>
+        </aside>
 
-              <button
-                onClick={() => setMode('vocabulary')}
-                className={`
-                  group inline-flex items-center py-2 px-1 border-b-2 font-medium text-sm transition-colors
-                  ${
-                    mode === 'vocabulary'
-                      ? 'border-primary-500 text-primary-600 dark:text-primary-400'
-                      : 'border-transparent text-neutral-500 hover:text-neutral-700 hover:border-neutral-300 dark:text-neutral-400 dark:hover:text-neutral-300 dark:hover:border-neutral-600'
-                  }
-                `}
-              >
-                <BookOpenIcon
-                  className={`
-                    -ml-0.5 mr-2 h-5 w-5
-                    ${
-                      mode === 'vocabulary'
-                        ? 'text-primary-500 dark:text-primary-400'
-                        : 'text-neutral-400 group-hover:text-neutral-500 dark:text-neutral-500 dark:group-hover:text-neutral-400'
-                    }
-                  `}
-                />
-                Vocabulary
-              </button>
-            </nav>
+        {/* Mobile Language Selector */}
+        <div className="lg:hidden mb-4">
+          <div className="relative">
+            <button
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              className="w-full flex items-center justify-between px-4 py-2 bg-white dark:bg-neutral-900 rounded-lg shadow border border-neutral-200 dark:border-neutral-700"
+            >
+              <span className="flex items-center gap-2">
+                <span className="text-lg">{currentLangConfig.flag}</span>
+                <span className="font-medium">{currentLangConfig.name}</span>
+              </span>
+              {mobileMenuOpen ? (
+                <XMarkIcon className="h-5 w-5 text-neutral-400" />
+              ) : (
+                <Bars3Icon className="h-5 w-5 text-neutral-400" />
+              )}
+            </button>
+            
+            {mobileMenuOpen && (
+              <div className="absolute z-10 w-full mt-2 bg-white dark:bg-neutral-900 rounded-lg shadow-lg border border-neutral-200 dark:border-neutral-700 p-2">
+                {renderLanguageMenu()}
+              </div>
+            )}
           </div>
         </div>
-        
-        {/* Setup Card */}
-        <div className="bg-white dark:bg-neutral-900 rounded-lg sm:rounded-xl shadow-lg p-4 sm:p-6">
-          <div className="space-y-4">
-            {/* Language Selection */}
-            <div>
-              <label className="block text-sm font-medium text-neutral-700 dark:text-neutral-300 mb-2">
-                Select a Language:
-              </label>
-              <div className="relative">
-                <select
-                  value={selectedLanguage?.id || ''}
-                  onChange={(e) => {
-                    const language = languages.find(l => l.id === e.target.value) || null
-                    setSelectedLanguage(language)
-                    setSelectedCategory(null) // Reset category when language changes
-                  }}
-                  className="w-full px-3 py-2 bg-white dark:bg-neutral-800 border border-neutral-300 dark:border-neutral-600 rounded-lg text-sm focus:ring-2 focus:ring-primary-500 focus:border-primary-500 appearance-none"
-                >
-                  <option value="">Choose a language...</option>
-                  {languages.map(language => (
-                    <option key={language.id} value={language.id}>
-                      {language.flag_emoji} {language.name}
-                    </option>
-                  ))}
-                </select>
-                <ChevronDownIcon className="absolute right-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-neutral-400 pointer-events-none" />
-              </div>
-            </div>
 
-            {/* Category Selection */}
-            {selectedLanguage && categories.length > 0 && (
-              <div>
-                <label className="block text-sm font-medium text-neutral-700 dark:text-neutral-300 mb-2">
-                  Select a Category:
-                </label>
-                <div className="space-y-2">
-                  {categories.map(category => {
-                    const progress = getCategoryProgress(category.id)
-                    return (
-                      <div
-                        key={category.id}
-                        onClick={() => setSelectedCategory(category)}
-                        className={`p-3 border rounded-lg cursor-pointer transition-all hover:shadow-sm ${
-                          selectedCategory?.id === category.id
-                            ? 'border-primary-500 bg-primary-50 dark:bg-primary-900/20'
-                            : 'border-neutral-300 dark:border-neutral-600 hover:border-primary-300 bg-white dark:bg-neutral-800'
-                        }`}
-                      >
-                        <div className="flex items-center justify-between">
-                          <div>
-                            <h3 className="font-medium text-sm text-neutral-900 dark:text-white">
-                              {category.name}
-                            </h3>
-                            <p className="text-xs text-neutral-600 dark:text-neutral-400 mt-1">
-                              {category.description}
-                            </p>
-                            {getSkillTreeNodeId(selectedLanguage.name, category.name) && (
-                              <CategoryLink
-                                categoryId={getSkillTreeNodeId(selectedLanguage.name, category.name)!}
-                                className="inline-flex items-center gap-1 text-xs text-primary-600 dark:text-primary-400 hover:text-primary-700 dark:hover:text-primary-300 mt-2"
-                                onClick={(e) => e.stopPropagation()} // Prevent category selection when clicking link
-                              >
-                                <BookOpenIcon className="h-3 w-3" />
-                                Study Content
-                              </CategoryLink>
-                            )}
-                          </div>
-                          {progress && (
-                            <div className="text-right">
-                              <div className="text-xs font-medium text-primary-600 dark:text-primary-400">
-                                {progress.accuracy_percentage.toFixed(0)}% accuracy
-                              </div>
-                              <div className="text-xs text-neutral-500 dark:text-neutral-400">
-                                {progress.questions_correct}/{progress.questions_attempted} correct
-                              </div>
-                            </div>
-                          )}
-                        </div>
-                      </div>
-                    )
-                  })}
-                </div>
+        {/* Main Content */}
+        <div className="flex-1">
+          {renderTabNavigation()}
+          <LanguageMixedMode 
+            selectedLanguage={languageObj}
+            onBack={() => setMode('vocabulary')}
+          />
+        </div>
+      </div>
+    )
+  }
+
+  // Placeholder for other modes
+  const renderPlaceholder = (title: string, icon: React.ComponentType<{ className?: string }>) => {
+    const Icon = icon
+    return (
+      <div className="flex flex-col lg:flex-row gap-6">
+        {/* Desktop Language Menu */}
+        <aside className="hidden lg:block w-64 flex-shrink-0">
+          <div className="bg-white dark:bg-neutral-900 rounded-lg shadow p-4">
+            {renderLanguageMenu()}
+          </div>
+        </aside>
+
+        {/* Mobile Language Selector */}
+        <div className="lg:hidden mb-4">
+          <div className="relative">
+            <button
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              className="w-full flex items-center justify-between px-4 py-2 bg-white dark:bg-neutral-900 rounded-lg shadow border border-neutral-200 dark:border-neutral-700"
+            >
+              <span className="flex items-center gap-2">
+                <span className="text-lg">{currentLangConfig.flag}</span>
+                <span className="font-medium">{currentLangConfig.name}</span>
+              </span>
+              {mobileMenuOpen ? (
+                <XMarkIcon className="h-5 w-5 text-neutral-400" />
+              ) : (
+                <Bars3Icon className="h-5 w-5 text-neutral-400" />
+              )}
+            </button>
+            
+            {mobileMenuOpen && (
+              <div className="absolute z-10 w-full mt-2 bg-white dark:bg-neutral-900 rounded-lg shadow-lg border border-neutral-200 dark:border-neutral-700 p-2">
+                {renderLanguageMenu()}
               </div>
             )}
+          </div>
+        </div>
 
-            {selectedLanguage && categories.length === 0 && (
-              <div className="bg-yellow-50 dark:bg-yellow-900/20 rounded-lg p-4 text-center">
-                <p className="text-sm text-yellow-700 dark:text-yellow-400">
-                  No categories available for {selectedLanguage.name} yet. Please check back later!
-                </p>
+        {/* Main Content */}
+        <div className="flex-1">
+          {renderTabNavigation()}
+          <div className="bg-white dark:bg-neutral-800 rounded-lg shadow p-6 text-center">
+            <Icon className="h-12 w-12 mx-auto text-gray-400 mb-4" />
+            <h3 className="text-lg font-semibold mb-2">{title}</h3>
+            <p className="text-gray-600 dark:text-gray-400">
+              {title} for {currentLangConfig.name} will be available soon.
+            </p>
+          </div>
+        </div>
+      </div>
+    )
+  }
+
+  if (mode === 'characters' && currentLangConfig?.hasCharacters) {
+    // Show characters using the same vocabulary component, but for character type
+    return (
+      <div className="flex flex-col lg:flex-row gap-6">
+        {/* Desktop Language Menu */}
+        <aside className="hidden lg:block w-64 flex-shrink-0">
+          <div className="bg-white dark:bg-neutral-900 rounded-lg shadow p-4">
+            {renderLanguageMenu()}
+          </div>
+        </aside>
+
+        {/* Mobile Language Selector */}
+        <div className="lg:hidden mb-4">
+          <div className="relative">
+            <button
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              className="w-full flex items-center justify-between px-4 py-2 bg-white dark:bg-neutral-900 rounded-lg shadow border border-neutral-200 dark:border-neutral-700"
+            >
+              <span className="flex items-center gap-2">
+                <span className="text-lg">{currentLangConfig.flag}</span>
+                <span className="font-medium">{currentLangConfig.name}</span>
+              </span>
+              {mobileMenuOpen ? (
+                <XMarkIcon className="h-5 w-5 text-neutral-400" />
+              ) : (
+                <Bars3Icon className="h-5 w-5 text-neutral-400" />
+              )}
+            </button>
+            
+            {mobileMenuOpen && (
+              <div className="absolute z-10 w-full mt-2 bg-white dark:bg-neutral-900 rounded-lg shadow-lg border border-neutral-200 dark:border-neutral-700 p-2">
+                {renderLanguageMenu()}
               </div>
             )}
+          </div>
+        </div>
 
-            {selectedCategory && questionBank.length === 0 && (
-              <div className="bg-yellow-50 dark:bg-yellow-900/20 rounded-lg p-4 text-center">
-                <p className="text-sm text-yellow-700 dark:text-yellow-400">
-                  No questions available for {selectedCategory.name} yet. Please try a different category!
-                </p>
+        {/* Main Content */}
+        <div className="flex-1">
+          {renderTabNavigation()}
+          <LanguageVocabularyMode 
+            selectedLanguage={currentLangConfig.code} 
+            onBack={() => setMode('vocabulary')}
+          />
+        </div>
+      </div>
+    )
+  }
+
+  // Note: Listening and reading modes will now show questions like grammar mode
+  // They fall through to the main question display below
+
+  if (mode === 'grammar') {
+    // Show coming soon for languages without grammar content
+    if (!currentLangConfig?.hasGrammar) {
+      return renderPlaceholder('Grammar Practice', PencilSquareIcon)
+    }
+    // Otherwise continue to show the grammar questions below
+  }
+
+  // Show questions for grammar, reading, and listening modes
+  if (!currentQuestion || (mode !== 'grammar' && mode !== 'reading' && mode !== 'listening')) {
+    return (
+      <div className="flex flex-col lg:flex-row gap-6">
+        {/* Desktop Language Menu */}
+        <aside className="hidden lg:block w-64 flex-shrink-0">
+          <div className="bg-white dark:bg-neutral-900 rounded-lg shadow p-4">
+            {renderLanguageMenu()}
+          </div>
+        </aside>
+
+        {/* Mobile Language Selector */}
+        <div className="lg:hidden mb-4">
+          <div className="relative">
+            <button
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              className="w-full flex items-center justify-between px-4 py-2 bg-white dark:bg-neutral-900 rounded-lg shadow border border-neutral-200 dark:border-neutral-700"
+            >
+              <span className="flex items-center gap-2">
+                <span className="text-lg">{currentLangConfig.flag}</span>
+                <span className="font-medium">{currentLangConfig.name}</span>
+              </span>
+              {mobileMenuOpen ? (
+                <XMarkIcon className="h-5 w-5 text-neutral-400" />
+              ) : (
+                <Bars3Icon className="h-5 w-5 text-neutral-400" />
+              )}
+            </button>
+            
+            {mobileMenuOpen && (
+              <div className="absolute z-10 w-full mt-2 bg-white dark:bg-neutral-900 rounded-lg shadow-lg border border-neutral-200 dark:border-neutral-700 p-2">
+                {renderLanguageMenu()}
               </div>
             )}
+          </div>
+        </div>
+
+        {/* Main Content */}
+        <div className="flex-1">
+          {renderTabNavigation()}
+          <div className="bg-white dark:bg-neutral-800 rounded-lg shadow p-6 text-center">
+            <p className="text-gray-600 dark:text-gray-400">
+              Loading grammar questions...
+            </p>
           </div>
         </div>
       </div>
@@ -813,369 +1078,229 @@ const LanguageTrainerPage: React.FC = () => {
   }
 
   return (
-    <div className="max-w-4xl mx-auto p-1 sm:p-2 pt-2 sm:pt-2">
-      {/* Tab Navigation */}
-      <div className="mb-4">
-        <div className="border-b border-neutral-200 dark:border-neutral-700">
-          <nav className="-mb-px flex space-x-8" aria-label="Tabs">
-            <button
-              onClick={() => setMode('grammar')}
-              className={`
-                group inline-flex items-center py-2 px-1 border-b-2 font-medium text-sm transition-colors
-                ${
-                  mode === 'grammar'
-                    ? 'border-primary-500 text-primary-600 dark:text-primary-400'
-                    : 'border-transparent text-neutral-500 hover:text-neutral-700 hover:border-neutral-300 dark:text-neutral-400 dark:hover:text-neutral-300 dark:hover:border-neutral-600'
-                }
-              `}
-            >
-              <QuestionMarkCircleIcon
-                className={`
-                  -ml-0.5 mr-2 h-5 w-5
-                  ${
-                    mode === 'grammar'
-                      ? 'text-primary-500 dark:text-primary-400'
-                      : 'text-neutral-400 group-hover:text-neutral-500 dark:text-neutral-500 dark:group-hover:text-neutral-400'
-                  }
-                `}
-              />
-              Grammar
-            </button>
+    <div className="flex flex-col lg:flex-row gap-6">
+      {/* Desktop Language Menu */}
+      <aside className="hidden lg:block w-64 flex-shrink-0">
+        <div className="bg-white dark:bg-neutral-900 rounded-lg shadow p-4">
+          {renderLanguageMenu()}
+        </div>
+      </aside>
 
-            <button
-              onClick={() => {
-                setMode('vocabulary')
-                if (!selectedLanguage) {
-                  const spanish = languages.find(l => l.code === 'es')
-                  if (spanish) setSelectedLanguage(spanish)
-                }
-              }}
-              className={`
-                group inline-flex items-center py-2 px-1 border-b-2 font-medium text-sm transition-colors
-                ${
-                  mode === 'vocabulary'
-                    ? 'border-primary-500 text-primary-600 dark:text-primary-400'
-                    : 'border-transparent text-neutral-500 hover:text-neutral-700 hover:border-neutral-300 dark:text-neutral-400 dark:hover:text-neutral-300 dark:hover:border-neutral-600'
-                }
-              `}
-            >
-              <BookOpenIcon
-                className={`
-                  -ml-0.5 mr-2 h-5 w-5
-                  ${
-                    mode === 'vocabulary'
-                      ? 'text-primary-500 dark:text-primary-400'
-                      : 'text-neutral-400 group-hover:text-neutral-500 dark:text-neutral-500 dark:group-hover:text-neutral-400'
-                  }
-                `}
-              />
-              Vocabulary
-            </button>
-          </nav>
+      {/* Mobile Language Selector */}
+      <div className="lg:hidden mb-4">
+        <div className="relative">
+          <button
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            className="w-full flex items-center justify-between px-4 py-2 bg-white dark:bg-neutral-900 rounded-lg shadow border border-neutral-200 dark:border-neutral-700"
+          >
+            <span className="flex items-center gap-2">
+              <span className="text-lg">{currentLangConfig.flag}</span>
+              <span className="font-medium">{currentLangConfig.name}</span>
+            </span>
+            {mobileMenuOpen ? (
+              <XMarkIcon className="h-5 w-5 text-neutral-400" />
+            ) : (
+              <Bars3Icon className="h-5 w-5 text-neutral-400" />
+            )}
+          </button>
+          
+          {mobileMenuOpen && (
+            <div className="absolute z-10 w-full mt-2 bg-white dark:bg-neutral-900 rounded-lg shadow-lg border border-neutral-200 dark:border-neutral-700 p-2">
+              {renderLanguageMenu()}
+            </div>
+          )}
         </div>
       </div>
 
-      {/* Combined Language Practice Card */}
-      <div className="bg-white dark:bg-neutral-900 rounded-lg sm:rounded-xl shadow-lg p-2 sm:p-3 relative">
-        {/* Header with Action Buttons and Title */}
-        <div className="flex items-center mb-1 sm:mb-2">
-          <div className="w-10">
-            {currentQuestion && (
-              <button
-                onClick={() => setShowFlagModal(true)}
-                className="p-1.5 text-neutral-400 hover:text-red-500 hover:bg-red-50 dark:hover:bg-red-900/20 rounded-lg transition-colors bg-white dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700"
-                title="Report an issue with this question"
-              >
-                <FlagIcon className="h-4 w-4" />
-              </button>
-            )}
-          </div>
-          
-          <h1 className="flex-1 text-center text-lg sm:text-xl font-bold text-neutral-800 dark:text-neutral-200">
-            Language Trainer - Questions
-          </h1>
-          
-          <div className="w-10 flex justify-end">
-            {currentQuestion && (
-              <StudyListActions
-                itemType="language_question"
-                itemId={currentQuestion.id}
-                itemData={currentQuestion}
-                itemTitle={`${selectedLanguage?.name || 'Language'}: ${currentQuestion.question_text.substring(0, 50)}...`}
-                className="bg-white dark:bg-neutral-800 rounded-lg shadow-sm border border-neutral-200 dark:border-neutral-700 px-2 py-1"
-              />
-            )}
-          </div>
-        </div>
-        
-        {/* Settings and Stats Row */}
-        <div className="flex justify-between items-start mb-1 sm:mb-2">
-          {/* Practice Settings */}
-          <div className="flex flex-col lg:flex-row gap-1 sm:gap-2 items-start lg:items-center flex-1 mr-2 sm:mr-0">
-            {/* Language and Category Selection */}
-            <div className="flex flex-wrap items-center gap-1 text-xs">
-              {/* Language Selection Dropdown */}
-              <div className="relative">
-                <select
-                  value={selectedLanguage?.id || ''}
-                  onChange={(e) => {
-                    const language = languages.find(l => l.id === e.target.value) || null
-                    setSelectedLanguage(language)
-                    setSelectedCategory(null) // Reset category when language changes
-                    setCurrentQuestion(null) // Reset question to show setup
-                    setQuestionBank([])
-                    setCurrentIndex(0)
-                    setSelectedAnswer(null)
-                    setShowResult(false)
-                    clearSessionState()
-                  }}
-                  className="bg-primary-100 dark:bg-primary-900/30 text-primary-700 dark:text-primary-400 px-2 py-1 rounded font-medium text-xs border-0 focus:ring-1 focus:ring-primary-500 appearance-none pr-6"
-                >
-                  <option value="">Choose language...</option>
-                  {languages.map(language => (
-                    <option key={language.id} value={language.id}>
-                      {language.flag_emoji} {language.name}
-                    </option>
-                  ))}
-                </select>
-                <ChevronDownIcon className="absolute right-1 top-1/2 transform -translate-y-1/2 h-3 w-3 text-primary-600 dark:text-primary-400 pointer-events-none" />
-              </div>
-              
-              {/* Category Selection Dropdown */}
-              {selectedLanguage && categories.length > 0 && (
-                <div className="relative">
-                  <select
-                    value={selectedCategory?.id || ''}
-                    onChange={(e) => {
-                      const category = categories.find(c => c.id === e.target.value) || null
-                      setSelectedCategory(category)
-                      setCurrentQuestion(null) // Reset question to reload with new category
-                      setQuestionBank([])
-                      setCurrentIndex(0)
-                      setSelectedAnswer(null)
-                      setShowResult(false)
-                      clearSessionState()
-                    }}
-                    className="bg-neutral-100 dark:bg-neutral-800 text-neutral-700 dark:text-neutral-300 px-2 py-1 rounded text-xs border-0 focus:ring-1 focus:ring-neutral-500 appearance-none pr-6"
-                  >
-                    <option value="">Choose category...</option>
-                    {categories.map(category => (
-                      <option key={category.id} value={category.id}>
-                        {category.name}
-                      </option>
-                    ))}
-                  </select>
-                  <ChevronDownIcon className="absolute right-1 top-1/2 transform -translate-y-1/2 h-3 w-3 text-neutral-500 dark:text-neutral-400 pointer-events-none" />
-                </div>
-              )}
-              
-              {/* Study Content Link */}
-              {selectedLanguage && selectedCategory && getSkillTreeNodeId(selectedLanguage.name, selectedCategory.name) && (
-                <CategoryLink
-                  categoryId={getSkillTreeNodeId(selectedLanguage.name, selectedCategory.name)!}
-                  className="inline-flex items-center gap-1 text-xs text-primary-600 dark:text-primary-400 hover:text-primary-700 dark:hover:text-primary-300 hover:underline"
-                >
-                  <BookOpenIcon className="h-3 w-3" />
-                  Study Content
-                </CategoryLink>
-              )}
-            </div>
+      {/* Main Content */}
+      <div className="flex-1">
+        {renderTabNavigation()}
 
-            {/* Question Progress */}
-            <div className="text-xs text-neutral-600 dark:text-neutral-400">
-              Question {currentIndex + 1} of {questionBank.length}
-            </div>
-          </div>
-
-          {/* Unified Stats Section */}
-          <div className="flex-shrink-0">
-            <h4 className="text-xs font-medium mb-1 flex items-center gap-0.5">
-              <ClockIcon className="h-3 w-3 text-neutral-600" />
-              Statistics
-            </h4>
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-1 text-xs">
-              {/* Session Questions */}
-              <div className="bg-neutral-50 dark:bg-neutral-800 rounded px-1.5 py-0.5 text-center">
-                <span className="font-bold text-primary-600">{sessionStats.total}</span>
-                <span className="text-neutral-500 ml-0.5">today</span>
-              </div>
-              
-              {/* Session Accuracy */}
-              <div className="bg-neutral-50 dark:bg-neutral-800 rounded px-1.5 py-0.5 text-center">
-                <span className="font-bold text-green-600">
-                  {sessionStats.total > 0 ? Math.round((sessionStats.correct / sessionStats.total) * 100) : 0}%
-                </span>
-                <span className="text-neutral-500 ml-0.5">session</span>
-              </div>
-              
-              {/* Overall Correct */}
-              {user && overallStats.total > 0 && (
+        {/* Grammar Question Card */}
+        <div className="bg-white dark:bg-neutral-900 rounded-lg shadow-lg p-4">
+          {/* Header */}
+          <div className="flex items-center justify-between mb-4">
+            <h2 className="text-lg font-bold text-neutral-800 dark:text-neutral-200">
+              {mode === 'listening' ? 'Listening Practice' : mode === 'reading' ? 'Reading Comprehension' : 'Grammar Practice'}
+            </h2>
+            <div className="flex gap-2">
+              {currentQuestion && (
                 <>
-                  <div className="bg-neutral-50 dark:bg-neutral-800 rounded px-1.5 py-0.5 text-center">
-                    <span className="font-bold text-green-500">{overallStats.correct}</span>
-                    <span className="text-neutral-500 ml-0.5">✓</span>
-                  </div>
-                  
-                  {/* Overall Percentage */}
-                  <div className="bg-neutral-50 dark:bg-neutral-800 rounded px-1.5 py-0.5 text-center">
-                    <span className="font-bold text-primary-600">
-                      {Math.round((overallStats.correct / overallStats.total) * 100)}%
-                    </span>
-                    <span className="text-neutral-500 ml-0.5">total</span>
-                  </div>
+                  <button
+                    onClick={() => setShowFlagModal(true)}
+                    className="p-1.5 text-neutral-400 hover:text-red-500 hover:bg-red-50 dark:hover:bg-red-900/20 rounded-lg transition-colors"
+                    title="Report an issue"
+                  >
+                    <FlagIcon className="h-4 w-4" />
+                  </button>
+                  <StudyListActions
+                    itemType="language_question"
+                    itemId={currentQuestion.id}
+                    itemData={currentQuestion}
+                    itemTitle={`${currentLangConfig.name}: ${currentQuestion.question_text.substring(0, 50)}...`}
+                    className="px-2 py-1"
+                  />
                 </>
               )}
             </div>
           </div>
-        </div>
 
-        {!showResult ? (
-          <>
-            {/* Skip link and counter */}
-            <div className="flex justify-between items-center mb-2">
-              <SkipButton onSkip={skipQuestion} />
-              {questionBank.length > 0 && (
-                <span className="text-xs text-neutral-600 dark:text-neutral-400">
-                  {currentIndex + 1} / {questionBank.length}
+          {/* Stats */}
+          <div className="flex justify-between items-center mb-4">
+            <div className="text-xs text-neutral-600 dark:text-neutral-400">
+              Question {currentIndex + 1} of {questionBank.length}
+            </div>
+            <div className="flex gap-2 text-xs">
+              <div className="bg-neutral-50 dark:bg-neutral-800 rounded px-2 py-1">
+                <span className="font-bold text-primary-600">{sessionStats.total}</span>
+                <span className="text-neutral-500 ml-1">today</span>
+              </div>
+              <div className="bg-neutral-50 dark:bg-neutral-800 rounded px-2 py-1">
+                <span className="font-bold text-green-600">
+                  {sessionStats.total > 0 ? Math.round((sessionStats.correct / sessionStats.total) * 100) : 0}%
                 </span>
-              )}
-            </div>
-            
-            {/* Question Content */}
-            <div className="space-y-3 mb-4">
-              <div className="bg-gradient-to-br from-primary-50 to-primary-100 dark:from-primary-900/30 dark:to-primary-800/20 rounded-xl p-4 sm:p-6 border-2 border-primary-200 dark:border-primary-700 shadow-lg">
-                <p className="text-lg sm:text-xl font-medium text-neutral-800 dark:text-neutral-200 leading-relaxed text-center">
-                  {currentQuestion.question_text}
-                </p>
-              </div>
-
-              <div className="text-center mb-4 space-y-1">
-                <div className="flex justify-center items-center gap-2 sm:gap-3 text-xs">
-                  <span className={`px-1 sm:px-2 py-0.5 sm:py-1 rounded text-xs font-medium ${
-                    currentQuestion.difficulty_level === 1 ? 'bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400' :
-                    currentQuestion.difficulty_level === 2 ? 'bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-400' :
-                    currentQuestion.difficulty_level === 3 ? 'bg-yellow-100 text-yellow-700 dark:bg-yellow-900/30 dark:text-yellow-400' :
-                    currentQuestion.difficulty_level === 4 ? 'bg-orange-100 text-orange-700 dark:bg-orange-900/30 dark:text-orange-400' :
-                    'bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400'
-                  }`}>
-                    Level {currentQuestion.difficulty_level}
-                  </span>
-                </div>
+                <span className="text-neutral-500 ml-1">correct</span>
               </div>
             </div>
+          </div>
 
-            {/* Multiple Choice Options */}
-            <div className="space-y-2 mb-3">
+          {!showResult ? (
+            <>
+              {/* Skip button */}
+              <div className="flex justify-end mb-2">
+                <SkipButton onSkip={skipQuestion} />
+              </div>
+
+              {/* Question */}
+              <div className="bg-gradient-to-br from-primary-50 to-primary-100 dark:from-primary-900/30 dark:to-primary-800/20 rounded-xl p-6 mb-4">
+                {mode === 'listening' ? (
+                  // For listening mode, show only play button for the passage
+                  <div className="text-center">
+                    <button
+                      onClick={() => {
+                        if (isPlaying) return // Prevent multiple plays
+                        
+                        // Extract the passage from the question text (it's in quotes)
+                        const match = currentQuestion.question_text.match(/"([^"]+)"/)
+                        const passage = match ? match[1] : ''
+                        const questionPart = currentQuestion.question_text.split('\n\n').pop() || ''
+                        
+                        // Speak the passage first, then the question
+                        if (hasLanguageVoice && passage) {
+                          setIsPlaying(true)
+                          speakWord(passage)
+                          // After a delay, speak the question
+                          const passageTime = passage.length * 50 // Rough estimate of speaking time
+                          setTimeout(() => {
+                            speakWord(questionPart)
+                            // Reset playing state after both are done
+                            setTimeout(() => {
+                              setIsPlaying(false)
+                            }, questionPart.length * 50)
+                          }, passageTime)
+                        }
+                      }}
+                      disabled={isPlaying}
+                      className={`mx-auto p-6 rounded-full transition-all group ${
+                        isPlaying 
+                          ? 'bg-primary-400 cursor-not-allowed animate-pulse' 
+                          : 'bg-primary-600 hover:bg-primary-700 hover:scale-105'
+                      }`}
+                      aria-label={isPlaying ? "Audio playing..." : "Play audio"}
+                    >
+                      <SpeakerWaveIcon className={`h-10 w-10 text-white transition-transform ${
+                        isPlaying ? 'animate-pulse' : 'group-hover:scale-110'
+                      }`} />
+                    </button>
+                    <p className="mt-4 text-lg font-medium text-neutral-800 dark:text-neutral-200">
+                      {/* Show only the question part, not the passage */}
+                      {currentQuestion.question_text.split('\n\n').pop()}
+                    </p>
+                    {isPlaying && (
+                      <p className="mt-2 text-sm text-primary-600 dark:text-primary-400 animate-pulse">
+                        Playing audio...
+                      </p>
+                    )}
+                  </div>
+                ) : (
+                  // For reading and grammar modes, show the full text
+                  <p className="text-lg font-medium text-neutral-800 dark:text-neutral-200 text-center">
+                    {currentQuestion.question_text}
+                  </p>
+                )}
+              </div>
+
+              {/* Options */}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
                 {currentQuestion.options.map((option, index) => (
                   <button
                     key={index}
                     onClick={() => handleAnswerSelect(index)}
-                    className={`p-1.5 text-left border-2 rounded-lg transition-colors ${
+                    className={`p-3 text-left border-2 rounded-lg transition-colors ${
                       selectedAnswer === index
                         ? 'border-primary-600 bg-primary-50 dark:bg-primary-900/20'
-                        : 'border-neutral-300 dark:border-neutral-600 hover:border-primary-400 hover:bg-primary-50 dark:hover:bg-primary-900/10 bg-white dark:bg-neutral-800'
+                        : 'border-neutral-300 dark:border-neutral-600 hover:border-primary-400 hover:bg-primary-50 dark:hover:bg-primary-900/10'
                     }`}
                   >
-                    <span className="text-sm">{option}</span>
+                    {option}
                   </button>
                 ))}
               </div>
-            </div>
-          </>
-        ) : (
-          <>
-            {/* Result Display */}
-            <div className={`mb-3 p-2 rounded-lg ${
-              isCorrect 
-                ? 'bg-green-50 dark:bg-green-900/20' 
-                : 'bg-red-50 dark:bg-red-900/20'
-            }`}>
-              {isCorrect ? (
-                <div className="flex flex-col items-center gap-3">
-                  <div className="flex items-center gap-2">
+            </>
+          ) : (
+            <>
+              {/* Result */}
+              <div className={`mb-4 p-4 rounded-lg ${
+                isCorrect 
+                  ? 'bg-green-50 dark:bg-green-900/20' 
+                  : 'bg-red-50 dark:bg-red-900/20'
+              }`}>
+                <div className="flex items-center justify-center gap-2 mb-2">
+                  {isCorrect ? (
                     <CheckCircleIcon className="h-5 w-5 text-green-500" />
-                    <span className="text-sm font-bold text-green-700 dark:text-green-400">
-                      Correct!
-                    </span>
-                  </div>
-                  <div className="text-center">
-                    <p className="text-sm text-neutral-600 dark:text-neutral-400 mb-2">
-                      {currentQuestion.question_text}
-                    </p>
-                  </div>
-                  <div className="flex items-center justify-center gap-3">
-                    <span className="text-5xl font-bold text-green-700 dark:text-green-400">
-                      {currentQuestion.options[currentQuestion.correct_answer_index]}
-                    </span>
-                    {hasLanguageVoice && (
-                      <button
-                        onClick={() => speakWord(currentQuestion.options[currentQuestion.correct_answer_index])}
-                        className="p-1 hover:bg-green-100 dark:hover:bg-green-800/20 rounded-md transition-colors"
-                        title="Hear pronunciation"
-                      >
-                        <SpeakerWaveIcon className="h-4 w-4 text-green-600 dark:text-green-400" />
-                      </button>
-                    )}
-                  </div>
-                </div>
-              ) : (
-                <div className="text-center">
-                  <div className="flex items-center justify-center gap-2 mb-2">
+                  ) : (
                     <XCircleIcon className="h-5 w-5 text-red-500" />
-                    <span className="text-sm font-bold text-red-700 dark:text-red-400">Incorrect</span>
-                  </div>
-                  <div className="text-center mb-2">
-                    <p className="text-sm text-neutral-600 dark:text-neutral-400">
-                      {currentQuestion.question_text}
-                    </p>
-                  </div>
-                  <div className="flex items-center justify-center gap-3">
-                    <div className="text-xl text-red-600 dark:text-red-400">
-                      {currentQuestion.options[selectedAnswer!]}
-                    </div>
-                    <div className="text-lg text-neutral-500">→</div>
-                    <div className="text-5xl font-bold text-green-600 dark:text-green-400">
-                      {currentQuestion.options[currentQuestion.correct_answer_index]}
-                    </div>
-                    {hasLanguageVoice && (
-                      <button
-                        onClick={() => speakWord(currentQuestion.options[currentQuestion.correct_answer_index])}
-                        className="p-1 hover:bg-green-100 dark:hover:bg-green-800/20 rounded-md transition-colors"
-                        title="Hear pronunciation"
-                      >
-                        <SpeakerWaveIcon className="h-4 w-4 text-green-600 dark:text-green-400" />
-                      </button>
-                    )}
-                  </div>
+                  )}
+                  <span className="font-bold">
+                    {isCorrect ? 'Correct!' : 'Incorrect'}
+                  </span>
+                </div>
+                <div className="text-center">
+                  <p className="text-2xl font-bold text-green-600 dark:text-green-400">
+                    {currentQuestion.options[currentQuestion.correct_answer_index]}
+                  </p>
+                  {hasLanguageVoice && (
+                    <button
+                      onClick={() => speakWord(currentQuestion.options[currentQuestion.correct_answer_index])}
+                      className="mt-2 p-2 hover:bg-green-100 dark:hover:bg-green-800/20 rounded-md transition-colors"
+                    >
+                      <SpeakerWaveIcon className="h-5 w-5 text-green-600 dark:text-green-400" />
+                    </button>
+                  )}
+                </div>
+              </div>
+
+              {/* Explanation */}
+              {currentQuestion.explanation && (
+                <div className="bg-blue-50 dark:bg-blue-900/20 rounded-lg p-3 mb-4">
+                  <p className="text-sm text-neutral-700 dark:text-neutral-300">
+                    {currentQuestion.explanation}
+                  </p>
                 </div>
               )}
-            </div>
 
-            {/* Explanation */}
-            {currentQuestion.explanation && (
-              <div className="bg-blue-50 dark:bg-blue-900/20 rounded-lg p-3 mb-4">
-                <h3 className="font-semibold text-xs mb-1 flex items-center gap-1">
-                  <LanguageIcon className="h-4 w-4 text-blue-600 dark:text-blue-400" />
-                  Explanation
-                </h3>
-                <p className="text-xs text-neutral-700 dark:text-neutral-300">
-                  {currentQuestion.explanation}
-                </p>
-              </div>
-            )}
-
-            <button
-              onClick={nextQuestion}
-              className="w-full py-2 bg-primary-700 text-white rounded-lg hover:bg-primary-800 active:bg-primary-900 transition-colors text-sm font-semibold shadow-md"
-            >
-              Next Question →
-            </button>
-          </>
-        )}
+              <button
+                onClick={nextQuestion}
+                className="w-full py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition-colors font-semibold"
+              >
+                Next Question →
+              </button>
+            </>
+          )}
+        </div>
       </div>
 
-      {/* Flag Content Modal */}
+      {/* Flag Modal */}
       {showFlagModal && currentQuestion && (
         <FlagContentModal
           isOpen={showFlagModal}

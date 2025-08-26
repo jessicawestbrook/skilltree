@@ -307,7 +307,7 @@ class AchievementService {
     try {
       // Get unique categories the user has studied
       const { data: studiedCategories, error } = await supabase
-        .from('user_progress')
+        .from('user_module_progress')
         .select('node_id')
         .eq('user_id', data.userId)
         .eq('status', 'completed')

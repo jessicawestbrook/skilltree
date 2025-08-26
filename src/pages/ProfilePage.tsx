@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import { useAuth } from '../contexts/AuthContext'
 import { supabase } from '../services/supabase'
 import { studyListService } from '../services/studyListService'
-import { UserProgress, StudyList } from '../types/database.types'
+import { StudyList } from '../types/database.types'
 import { recommendationService, RecommendationScore } from '../services/recommendationService'
 import { spacedRepetitionService } from '../services/spacedRepetitionService'
 import { buildCategoryPath } from '../utils/categoryPaths'
@@ -16,10 +16,31 @@ import {
   CheckCircleIcon,
   XCircleIcon,
   ClockIcon,
+  ChartBarIcon,
+  AcademicCapIcon,
+  FireIcon,
+  TrophyIcon,
 } from '@heroicons/react/24/outline'
 import { StarIcon as StarSolidIcon } from '@heroicons/react/24/solid'
 
-// DashboardStats interface removed - not being used
+interface FlashcardStats {
+  vocabulary: { [key: string]: { correct: number; total: number } }
+  spelling: { [key: string]: { correct: number; total: number } }
+  language: { [key: string]: { correct: number; total: number } }
+  questions: { [key: string]: { correct: number; total: number } }
+}
+
+interface UserStats {
+  streak: number
+  totalReviews: number
+  totalCorrect: number
+  lastReviewDate: string | null
+  completedCourses: Array<{
+    id: string
+    name: string
+    completedAt: string
+  }>
+}
 
 interface ReviewQuestion {
   id: string
@@ -61,7 +82,7 @@ interface Flashcard {
 
 const ProfilePage: React.FC = () => {
   const { user } = useAuth()
-  const [recentProgress, setRecentProgress] = useState<UserProgress[]>([])
+  const [recentProgress, setRecentProgress] = useState<any[]>([])
   const [recommendedNodes, setRecommendedNodes] = useState<RecommendationScore[]>([])
   const [nodePaths, setNodePaths] = useState<Record<string, string>>({})
   const [studyLists, setStudyLists] = useState<StudyList[]>([])
@@ -78,7 +99,19 @@ const ProfilePage: React.FC = () => {
     const saved = localStorage.getItem('preferredBatchSize')
     return saved ? Number(saved) : 20
   })
-  // Stats state removed - not being used
+  const [flashcardStats, setFlashcardStats] = useState<FlashcardStats>({
+    vocabulary: {},
+    spelling: {},
+    language: {},
+    questions: {}
+  })
+  const [userStats, setUserStats] = useState<UserStats>({
+    streak: 0,
+    totalReviews: 0,
+    totalCorrect: 0,
+    lastReviewDate: null,
+    completedCourses: []
+  })
   const [loading, setLoading] = useState(true)
 
   const fetchFlashcards = async (append: boolean = false) => {
@@ -285,8 +318,8 @@ const ProfilePage: React.FC = () => {
 
       // Get user's progress to find topics they've studied
       const { data: userProgress, error: progressError } = await supabase
-        .from('user_progress')
-        .select('skill_id')
+        .from('user_module_progress')
+        .select('module_id')
         .eq('user_id', user.id)
         .in('status', ['completed', 'in_progress'])
         .limit(10)
@@ -352,29 +385,27 @@ const ProfilePage: React.FC = () => {
     if (!user) return
 
     try {
-      // Fetch user progress
+      // Fetch user progress with skill tree node information
       const { data: progressData, error: progressError } = await supabase
-        .from('user_progress')
-        .select('*')
+        .from('user_module_progress')
+        .select(`
+          *,
+          skill_tree_nodes!user_module_progress_module_id_fkey (
+            id,
+            name,
+            description
+          )
+        `)
         .eq('user_id', user.id)
-        .order('last_accessed', { ascending: false })
+        .order('updated_at', { ascending: false })
 
       if (progressError) throw progressError
 
       if (progressData && progressData.length > 0) {
-        // Fetch corresponding skill tree nodes
-        const skillIds = progressData.map(p => p.skill_id).filter(Boolean)
-        const { data: nodesData, error: nodesError } = await supabase
-          .from('skill_tree_nodes')
-          .select('id, name, description, learning_area')
-          .in('id', skillIds)
-        
-        if (nodesError) throw nodesError
-        
-        // Combine progress data with node data
+        // Progress data already includes skill_tree_nodes from the join
         const progressWithNodes = progressData.map(progress => ({
           ...progress,
-          skill_tree_nodes: nodesData?.find(node => node.id === progress.skill_id)
+          skill_id: progress.module_id, // Map module_id to skill_id for compatibility
         }))
         
         setRecentProgress(progressWithNodes.slice(0, 5)) // Show 5 most recent
@@ -416,7 +447,11 @@ const ProfilePage: React.FC = () => {
       const lists = await studyListService.getUserStudyLists(user.id)
       setStudyLists(lists)
 
-      // Stats update removed - not being used
+      // Fetch flashcard statistics
+      await fetchFlashcardStatistics()
+      
+      // Fetch user statistics and completed courses
+      await fetchUserStatistics()
       
       // Build paths for starred skill nodes and recent progress
       const allSkillIds = new Set<string>()
@@ -431,8 +466,8 @@ const ProfilePage: React.FC = () => {
       // Collect skill IDs from recent progress
       if (progressData) {
         progressData.forEach(p => {
-          if (p.skill_id) {
-            allSkillIds.add(p.skill_id)
+          if (p.module_id) {
+            allSkillIds.add(p.module_id)
           }
         })
       }
@@ -551,6 +586,146 @@ const ProfilePage: React.FC = () => {
     fetchFlashcards(true) // Append more cards
   }
 
+  const fetchFlashcardStatistics = async () => {
+    if (!user) return
+    
+    try {
+      // Fetch spelling/vocabulary statistics
+      const { data: spellingData } = await supabase
+        .from('user_spelling_attempts')
+        .select('correct, difficulty')
+        .eq('user_id', user.id)
+      
+      // Fetch language statistics
+      const { data: languageData } = await supabase
+        .from('user_language_responses')
+        .select('correct, difficulty')
+        .eq('user_id', user.id)
+      
+      // Fetch question statistics
+      const { data: questionData } = await supabase
+        .from('user_responses')
+        .select('is_correct, questions(difficulty)')
+        .eq('user_id', user.id)
+      
+      const stats: FlashcardStats = {
+        vocabulary: {},
+        spelling: {},
+        language: {},
+        questions: {}
+      }
+      
+      // Process spelling/vocabulary data
+      if (spellingData) {
+        spellingData.forEach(attempt => {
+          const difficulty = attempt.difficulty || 'Unknown'
+          // Assuming we can distinguish between spelling and vocabulary based on some criteria
+          // For now, we'll count all as vocabulary
+          if (!stats.vocabulary[difficulty]) {
+            stats.vocabulary[difficulty] = { correct: 0, total: 0 }
+          }
+          stats.vocabulary[difficulty].total++
+          if (attempt.correct) {
+            stats.vocabulary[difficulty].correct++
+          }
+        })
+      }
+      
+      // Process language data
+      if (languageData) {
+        languageData.forEach(response => {
+          const difficulty = response.difficulty || 'Unknown'
+          if (!stats.language[difficulty]) {
+            stats.language[difficulty] = { correct: 0, total: 0 }
+          }
+          stats.language[difficulty].total++
+          if (response.correct) {
+            stats.language[difficulty].correct++
+          }
+        })
+      }
+      
+      // Process question data
+      if (questionData) {
+        questionData.forEach((response: any) => {
+          const difficulty = response.questions?.difficulty || 'Unknown'
+          if (!stats.questions[difficulty]) {
+            stats.questions[difficulty] = { correct: 0, total: 0 }
+          }
+          stats.questions[difficulty].total++
+          if (response.is_correct) {
+            stats.questions[difficulty].correct++
+          }
+        })
+      }
+      
+      setFlashcardStats(stats)
+    } catch (error) {
+      console.error('Error fetching flashcard statistics:', error)
+    }
+  }
+  
+  const fetchUserStatistics = async () => {
+    if (!user) return
+    
+    try {
+      // Calculate streak
+      const { data: reviewData } = await supabase
+        .from('spaced_repetition_reviews')
+        .select('reviewed_at, correct')
+        .eq('user_id', user.id)
+        .order('reviewed_at', { ascending: false })
+        .limit(100)
+      
+      let streak = 0
+      let totalReviews = 0
+      let totalCorrect = 0
+      let lastReviewDate: string | null = null
+      
+      if (reviewData && reviewData.length > 0) {
+        lastReviewDate = reviewData[0].reviewed_at
+        totalReviews = reviewData.length
+        totalCorrect = reviewData.filter(r => r.correct).length
+        
+        // Calculate streak (consecutive days with reviews)
+        const today = new Date()
+        const reviewDates = new Set(
+          reviewData.map(r => new Date(r.reviewed_at).toDateString())
+        )
+        
+        let currentDate = new Date(today)
+        while (reviewDates.has(currentDate.toDateString())) {
+          streak++
+          currentDate.setDate(currentDate.getDate() - 1)
+        }
+      }
+      
+      // Fetch completed courses (modules with 100% completion)
+      const { data: completedData } = await supabase
+        .from('user_module_progress')
+        .select('module_id, updated_at, skill_tree_nodes!user_module_progress_module_id_fkey(name)')
+        .eq('user_id', user.id)
+        .eq('status', 'completed')
+        .order('updated_at', { ascending: false })
+      
+      const completedCourses = completedData?.map((item: any) => ({
+        id: item.module_id,
+        name: item.skill_tree_nodes?.name || 'Unknown Course',
+        completedAt: item.updated_at
+      })) || []
+      
+      setUserStats({
+        streak,
+        totalReviews,
+        totalCorrect,
+        lastReviewDate,
+        completedCourses
+      })
+    } catch (error) {
+      console.error('Error fetching user statistics:', error)
+    }
+  }
+
   if (loading) {
     return (
       <div className="flex items-center justify-center min-h-[400px]">
@@ -611,7 +786,7 @@ const ProfilePage: React.FC = () => {
               <div className="space-y-2 mb-6 max-h-64 overflow-y-auto">
                 {recentProgress.slice(0, 10).map((item: any) => {
                   const nodeName = item.skill_tree_nodes?.name || 'Learning Module'
-                  const nodePath = nodePaths[item.skill_id] || `/learning/${item.skill_id}`
+                  const nodePath = nodePaths[item.module_id] || `/learning/${item.module_id}`
                   return (
                     <Link
                       key={item.id}
@@ -972,9 +1147,101 @@ const ProfilePage: React.FC = () => {
         </div>
 
         {/* Right Sidebar - Desktop only */}
-        <div className="hidden lg:block">
-        <div className="bg-gradient-to-r from-purple-50 to-primary-50 dark:from-purple-900/20 dark:to-primary-900/20 rounded-xl shadow-lg p-6 border border-purple-200 dark:border-purple-800 h-full">
-          {/* Recent Activity Section */}
+        <div className="hidden lg:block space-y-4">
+          {/* User Statistics Card */}
+          <div className="bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-blue-900/20 dark:to-indigo-900/20 rounded-xl shadow-lg p-6 border border-blue-200 dark:border-blue-800">
+            <div className="flex items-center gap-2 mb-4">
+              <ChartBarIcon className="h-5 w-5 text-blue-600" />
+              <h3 className="text-lg font-semibold text-neutral-900 dark:text-white">Your Statistics</h3>
+            </div>
+            
+            <div className="grid grid-cols-2 gap-4 mb-4">
+              <div className="bg-white/50 dark:bg-neutral-800/50 rounded-lg p-3">
+                <div className="flex items-center gap-2 mb-1">
+                  <FireIcon className="h-4 w-4 text-orange-500" />
+                  <span className="text-xs text-neutral-600 dark:text-neutral-400">Streak</span>
+                </div>
+                <p className="text-2xl font-bold text-neutral-900 dark:text-white">{userStats.streak}</p>
+                <p className="text-xs text-neutral-500">days</p>
+              </div>
+              
+              <div className="bg-white/50 dark:bg-neutral-800/50 rounded-lg p-3">
+                <div className="flex items-center gap-2 mb-1">
+                  <TrophyIcon className="h-4 w-4 text-gold-500" />
+                  <span className="text-xs text-neutral-600 dark:text-neutral-400">Accuracy</span>
+                </div>
+                <p className="text-2xl font-bold text-neutral-900 dark:text-white">
+                  {userStats.totalReviews > 0 
+                    ? `${Math.round((userStats.totalCorrect / userStats.totalReviews) * 100)}%`
+                    : '0%'}
+                </p>
+                <p className="text-xs text-neutral-500">{userStats.totalReviews} reviews</p>
+              </div>
+            </div>
+            
+            {/* Flashcard Statistics by Difficulty */}
+            <div className="space-y-3">
+              {Object.entries(flashcardStats).map(([type, difficulties]) => {
+                const hasData = Object.keys(difficulties).length > 0
+                if (!hasData) return null
+                
+                return (
+                  <div key={type} className="bg-white/30 dark:bg-neutral-800/30 rounded-lg p-3">
+                    <h4 className="text-sm font-medium text-neutral-700 dark:text-neutral-300 mb-2 capitalize">
+                      {type}
+                    </h4>
+                    <div className="space-y-1">
+                      {Object.entries(difficulties).map(([difficulty, stats]) => {
+                        const statData = stats as { correct: number; total: number }
+                        return (
+                          <div key={difficulty} className="flex items-center justify-between text-xs">
+                            <span className="text-neutral-600 dark:text-neutral-400">{difficulty}</span>
+                            <div className="flex items-center gap-2">
+                              <span className="text-neutral-700 dark:text-neutral-300">
+                                {statData.correct}/{statData.total}
+                              </span>
+                              <span className="text-neutral-500">
+                                ({Math.round((statData.correct / statData.total) * 100)}%)
+                              </span>
+                            </div>
+                          </div>
+                        )
+                      })}
+                    </div>
+                  </div>
+                )
+              })}
+            </div>
+          </div>
+          
+          {/* Completed Courses Card */}
+          {userStats.completedCourses.length > 0 && (
+            <div className="bg-gradient-to-r from-green-50 to-emerald-50 dark:from-green-900/20 dark:to-emerald-900/20 rounded-xl shadow-lg p-6 border border-green-200 dark:border-green-800">
+              <div className="flex items-center gap-2 mb-4">
+                <AcademicCapIcon className="h-5 w-5 text-green-600" />
+                <h3 className="text-lg font-semibold text-neutral-900 dark:text-white">
+                  Completed Courses ({userStats.completedCourses.length})
+                </h3>
+              </div>
+              
+              <div className="space-y-2 max-h-48 overflow-y-auto">
+                {userStats.completedCourses.slice(0, 10).map(course => (
+                  <div key={course.id} className="flex items-center justify-between p-2 bg-white/30 dark:bg-neutral-800/30 rounded-lg">
+                    <span className="text-sm text-neutral-700 dark:text-neutral-300 truncate flex-1">
+                      {course.name}
+                    </span>
+                    <span className="text-xs text-neutral-500 ml-2">
+                      {new Date(course.completedAt).toLocaleDateString()}
+                    </span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+          
+          {/* Original Sidebar Content */}
+          <div className="bg-gradient-to-r from-purple-50 to-primary-50 dark:from-purple-900/20 dark:to-primary-900/20 rounded-xl shadow-lg p-6 border border-purple-200 dark:border-purple-800">
+            {/* Recent Activity Section */}
           <div className="flex items-center justify-between mb-4">
             <div className="flex items-center gap-2">
               <ClockIcon className="h-5 w-5 text-primary-600" />
@@ -990,7 +1257,7 @@ const ProfilePage: React.FC = () => {
             <div className="space-y-2 mb-6 max-h-64 overflow-y-auto">
               {recentProgress.slice(0, 10).map((item: any) => {
                 const nodeName = item.skill_tree_nodes?.name || 'Learning Module'
-                const nodePath = nodePaths[item.skill_id] || `/learning/${item.skill_id}`
+                const nodePath = nodePaths[item.module_id] || `/learning/${item.module_id}`
                 return (
                   <Link
                     key={item.id}
@@ -1098,7 +1365,7 @@ const ProfilePage: React.FC = () => {
               ))}
             </div>
           )}
-        </div>
+          </div>
         </div>
       </div>
     </div>

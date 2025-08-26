@@ -46,7 +46,7 @@ def main():
     
     # Get words with zipf >= 4.0 (most common ~7,000 words)
     response = supabase.table('language_vocabulary') \
-        .select('id, word, zipf_frequency') \
+        .select('id, word, zipf_frequency, part_of_speech') \
         .eq('language', 'es') \
         .eq('translation_source', 'PENDING') \
         .gte('zipf_frequency', 4.0) \
@@ -61,7 +61,7 @@ def main():
         
         # Check lower priority
         response = supabase.table('language_vocabulary') \
-            .select('id, word, zipf_frequency') \
+            .select('id, word, zipf_frequency, part_of_speech') \
             .eq('language', 'es') \
             .eq('translation_source', 'PENDING') \
             .gte('zipf_frequency', 3.5) \
@@ -102,6 +102,11 @@ def main():
             
             # Translate
             translation = translator.translate(cleaned)
+            
+            # Add "to" for verbs if not already present
+            if translation and record.get('part_of_speech') == 'verb':
+                if not translation.lower().startswith('to ') and not any(translation.lower().startswith(p) for p in ['i ', 'you ', 'he ', 'she ', 'it ', 'we ', 'they ']):
+                    translation = f"to {translation}"
             
             # Always update if we got a translation (even if it's the same)
             # This marks it as processed rather than PENDING

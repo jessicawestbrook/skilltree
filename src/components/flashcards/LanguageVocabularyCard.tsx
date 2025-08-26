@@ -1,13 +1,19 @@
 import React, { useState, useEffect } from 'react'
 import { supabase } from '../../services/supabase'
 import { useAuth } from '../../contexts/AuthContext'
+import { DeckProgressionService } from '../../services/deckProgressionService'
+import { StudyListService } from '../../services/studyListService'
 import {
   SpeakerWaveIcon,
   EyeIcon,
   CheckCircleIcon,
   XCircleIcon,
-  ArrowPathIcon
+  ArrowPathIcon,
+  StarIcon,
+  AcademicCapIcon,
+  SparklesIcon
 } from '@heroicons/react/24/outline'
+import { StarIcon as StarIconSolid } from '@heroicons/react/24/solid'
 
 interface VocabularyWord {
   id: string
@@ -30,18 +36,35 @@ interface LanguageVocabularyCardProps {
   onNext: () => void
   onDifficulty: (difficulty: 'easy' | 'medium' | 'hard') => void
   isReviewMode?: boolean
+  deckStatus?: 'learning' | 'review' | 'mastered'
+  onStatusChange?: (newStatus: string, message: string) => void
 }
 
 const LanguageVocabularyCard: React.FC<LanguageVocabularyCardProps> = ({
   word,
   onNext,
   onDifficulty,
-  isReviewMode = false
+  isReviewMode = false,
+  deckStatus,
+  onStatusChange
 }) => {
   const { user } = useAuth()
   const [showAnswer, setShowAnswer] = useState(false)
   const [flipped, setFlipped] = useState(false)
   const [hasVoice, setHasVoice] = useState(false)
+  const [isInDeck, setIsInDeck] = useState(false)
+  const [isStarring, setIsStarring] = useState(false)
+
+  // Check if word is in deck
+  useEffect(() => {
+    const checkDeckStatus = async () => {
+      if (user) {
+        const inDeck = await DeckProgressionService.isVocabularyInDeck(user.id, word.id)
+        setIsInDeck(inDeck)
+      }
+    }
+    checkDeckStatus()
+  }, [user, word.id])
 
   // Check for language voice availability
   useEffect(() => {
@@ -94,9 +117,66 @@ const LanguageVocabularyCard: React.FC<LanguageVocabularyCardProps> = ({
     }
   }
 
+  const handleStar = async () => {
+    if (!user || isStarring) return
+    
+    setIsStarring(true)
+    try {
+      const studyListService = new StudyListService()
+      
+      if (!isInDeck) {
+        // Star the item (which will auto-add to learning deck via trigger)
+        const success = await studyListService.starItem(
+          user.id,
+          'vocabulary_word',
+          word.id,
+          {
+            word: word.word,
+            translation: word.english_translation,
+            language: word.language
+          }
+        )
+        
+        if (success) {
+          setIsInDeck(true)
+          if (onStatusChange) {
+            onStatusChange('learning', '⭐ Added to learning deck!')
+          }
+        }
+      } else {
+        // Remove from deck
+        const result = await DeckProgressionService.removeFromDeck(user.id, 'vocabulary', word.id)
+        if (result.success) {
+          setIsInDeck(false)
+          // Also unstar it
+          await studyListService.unstarItem(user.id, 'vocabulary_word', word.id)
+          if (onStatusChange) {
+            onStatusChange('', 'Removed from deck')
+          }
+        }
+      }
+    } catch (error) {
+      console.error('Error toggling star:', error)
+    } finally {
+      setIsStarring(false)
+    }
+  }
+
   const handleDifficulty = async (difficulty: 'easy' | 'medium' | 'hard') => {
     if (user) {
-      // Record the review in the progress table
+      
+      // Update deck progression using the new service method
+      const result = await DeckProgressionService.recordVocabularyReview(
+        user.id,
+        word.id,
+        difficulty
+      )
+      
+      if (result.message && onStatusChange) {
+        onStatusChange(result.newStatus || deckStatus || 'learning', result.message)
+      }
+      
+      // Also record the review in the progress table for spaced repetition
       try {
         const { data: existing } = await supabase
           .from('language_vocabulary_progress')
@@ -160,29 +240,55 @@ const LanguageVocabularyCard: React.FC<LanguageVocabularyCardProps> = ({
     <div className="w-full max-w-2xl mx-auto">
       {/* Flashcard */}
       <div 
-        className={`relative h-64 sm:h-80 cursor-pointer perspective-1000 ${
-          flipped ? 'flipped' : ''
-        }`}
+        className="relative h-64 sm:h-80 cursor-pointer perspective-1000"
         onClick={handleFlip}
       >
-        <div className="absolute inset-0 w-full h-full transition-transform duration-500 transform-style-preserve-3d">
+        <div className={`absolute inset-0 w-full h-full transition-transform duration-500 transform-style-preserve-3d ${
+          flipped ? 'rotate-y-180' : ''
+        }`}>
           {/* Front of card - Foreign word */}
-          <div className={`absolute inset-0 w-full h-full backface-hidden ${
-            !showAnswer ? 'z-10' : 'rotate-y-180'
-          }`}>
+          <div className="absolute inset-0 w-full h-full backface-hidden">
             <div className="h-full bg-gradient-to-br from-primary-50 to-primary-100 dark:from-primary-900/30 dark:to-primary-800/20 rounded-xl p-6 border-2 border-primary-200 dark:border-primary-700 shadow-lg flex flex-col justify-center items-center">
-              {/* Difficulty badge */}
-              <div className="absolute top-4 right-4">
+              {/* Difficulty and deck status badges */}
+              <div className="absolute top-4 right-4 flex flex-col gap-2">
                 <span className={`px-2 py-1 rounded text-xs font-medium ${getDifficultyColor()}`}>
                   {word.difficulty_name || `Level ${word.difficulty_id}`}
                 </span>
+                {deckStatus && (
+                  <span className={`px-2 py-1 rounded text-xs font-medium flex items-center gap-1 ${
+                    deckStatus === 'learning' ? 'bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-400' :
+                    deckStatus === 'review' ? 'bg-purple-100 text-purple-700 dark:bg-purple-900/30 dark:text-purple-400' :
+                    'bg-gold-100 text-gold-700 dark:bg-gold-900/30 dark:text-gold-400'
+                  }`}>
+                    {deckStatus === 'learning' && <AcademicCapIcon className="h-3 w-3" />}
+                    {deckStatus === 'review' && <StarIcon className="h-3 w-3" />}
+                    {deckStatus === 'mastered' && <SparklesIcon className="h-3 w-3" />}
+                    {deckStatus === 'learning' ? 'Learning' : 
+                     deckStatus === 'review' ? 'Review' : 'Mastered'}
+                  </span>
+                )}
               </div>
               
-              {/* Language indicator */}
-              <div className="absolute top-4 left-4">
+              {/* Language indicator and star button */}
+              <div className="absolute top-4 left-4 flex items-center gap-2">
                 <span className="px-2 py-1 rounded text-xs font-medium bg-neutral-100 text-neutral-700 dark:bg-neutral-800 dark:text-neutral-300">
                   {word.language === 'es' ? '🇪🇸 Spanish' : word.language.toUpperCase()}
                 </span>
+                <button
+                  onClick={(e) => {
+                    e.stopPropagation()
+                    handleStar()
+                  }}
+                  disabled={isStarring}
+                  className="p-1.5 rounded-lg bg-white dark:bg-neutral-800 shadow-md hover:shadow-lg transition-all disabled:opacity-50"
+                  title={isInDeck ? 'Remove from deck' : 'Add to learning deck'}
+                >
+                  {isInDeck ? (
+                    <StarIconSolid className="h-5 w-5 text-gold-500" />
+                  ) : (
+                    <StarIcon className="h-5 w-5 text-neutral-400 hover:text-gold-500" />
+                  )}
+                </button>
               </div>
               
               {/* Main word */}
@@ -229,9 +335,7 @@ const LanguageVocabularyCard: React.FC<LanguageVocabularyCardProps> = ({
           </div>
           
           {/* Back of card - Translation and details */}
-          <div className={`absolute inset-0 w-full h-full backface-hidden rotate-y-180 ${
-            showAnswer ? 'z-10' : ''
-          }`}>
+          <div className="absolute inset-0 w-full h-full backface-hidden rotate-y-180">
             <div className="h-full bg-gradient-to-br from-green-50 to-green-100 dark:from-green-900/30 dark:to-green-800/20 rounded-xl p-6 border-2 border-green-200 dark:border-green-700 shadow-lg overflow-y-auto">
               {/* Translation */}
               <div className="text-center mb-4">

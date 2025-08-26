@@ -70,6 +70,11 @@ def translate_batch(words_batch, translator):
             # Translate
             translation = translator.translate(cleaned_word)
             
+            # Add "to" for verbs if not already present
+            if translation and record.get('part_of_speech') == 'verb':
+                if not translation.lower().startswith('to ') and not any(translation.lower().startswith(p) for p in ['i ', 'you ', 'he ', 'she ', 'it ', 'we ', 'they ']):
+                    translation = f"to {translation}"
+            
             # Accept any translation (even if same as original)
             # This marks it as processed rather than PENDING
             if translation:
@@ -113,7 +118,7 @@ def main():
     
     # Build query
     query = supabase.table('language_vocabulary') \
-        .select('id, word') \
+        .select('id, word, part_of_speech') \
         .eq('language', 'es') \
         .eq('translation_source', 'PENDING') \
         .order('zipf_frequency', desc=True) \

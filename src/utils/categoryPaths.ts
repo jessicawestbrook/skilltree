@@ -30,12 +30,25 @@ export function nameToSlug(name: string): string {
 export function slugToSearchTerms(slug: string): string[] {
   // Create variations to search for
   const baseSlug = slug.replace(/_/g, ' ')
-  return [
+  const titleCase = baseSlug.split(' ').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ')
+  
+  // Generate variations including with colon for course names
+  const variations = [
     baseSlug,
     baseSlug.replace(/\s+/g, ''), // No spaces
-    baseSlug.split(' ').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' '), // Title case
-    baseSlug.split(' ').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(''), // Title case no spaces
+    titleCase,
+    titleCase.replace(/\s+/g, ''), // Title case no spaces
   ]
+  
+  // For Henle Latin courses, add variations with colon
+  if (slug.includes('henle_latin')) {
+    variations.push(
+      titleCase.replace('Henle Latin ', 'Henle Latin: '),
+      titleCase.replace('Henle Latin ', 'Henle Latin: ').replace(' - ', ' - ')
+    )
+  }
+  
+  return variations
 }
 
 /**
@@ -118,7 +131,17 @@ export async function resolveCategoryPath(path: string): Promise<string | null> 
       // Handle null parent_id comparison correctly
       const parentMatches = (node.parent_id === currentParentId) || 
                            (node.parent_id == null && currentParentId == null)
-      return parentMatches && searchTerms.some(term => node.name === term)
+      
+      if (!parentMatches) return false
+      
+      // Check exact matches first
+      if (searchTerms.some(term => node.name === term)) return true
+      
+      // Also check if the slug version of the node name matches the segment
+      const nodeSlug = nameToSlug(node.name)
+      if (nodeSlug === segment) return true
+      
+      return false
     })
     
     if (!matchingNode) {

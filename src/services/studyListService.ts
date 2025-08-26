@@ -4,12 +4,13 @@ import { StudyList, StarredItem, StudyListItem, CustomFlashcard } from '../types
 export class StudyListService {
   // Helper to get the auto-generated study list name for a given item type
   private getAutoListName(itemType: StarredItem['item_type']): string {
-    const listNames: Record<StarredItem['item_type'], string> = {
+    const listNames: Record<string, string> = {
       'spelling_word': 'Starred Spelling Words',
       'vocabulary_word': 'Starred Vocabulary Words',
       'language_question': 'Starred Language Questions',
       'question': 'Starred Questions',
-      'skill_node': 'Starred Skills'
+      'skill_node': 'Starred Skills',
+      'custom_question': 'Custom Questions'
     }
     return listNames[itemType] || 'Starred Items'
   }
@@ -35,12 +36,13 @@ export class StudyListService {
       }
       
       // Create the list if it doesn't exist
-      const listColors: Record<StarredItem['item_type'], string> = {
+      const listColors: Record<string, string> = {
         'spelling_word': '#8B5CF6', // Purple
         'vocabulary_word': '#10B981', // Green
         'language_question': '#F59E0B', // Amber
         'question': '#3B82F6', // Blue
-        'skill_node': '#EF4444' // Red
+        'skill_node': '#EF4444', // Red
+        'custom_question': '#06B6D4' // Cyan
       }
       
       const { data: newList, error: createError } = await supabase

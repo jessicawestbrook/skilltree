@@ -13,7 +13,10 @@ Organize the IQ test flow as just a series of timed tests without a prequiz or l
 Standardized Testing subcategories can include different popular standardized tests such as the ACT, SAT, and LSAT. Fill out the questions similarly to what has been done for the IQ test category, trying to use actual tests found online and timing the test and evaluating the results based on the specific answers provided by the source with that test. Try to go with old tests that were actually administered to students, not similar example tests written by other people or organizations. When someone begins a test, provide a source and link to where you got the learning material from. Keep track of how users performed on a specific test and the resultant score that was assigned, rather than tracking typical test metrics like percent correct. Also keep track of how many times a user took a particular test and their score history for it. 
 
 ### Learning paths
-There are recommended learning paths. Some topics, especially in math, have prerequisits for advancement. Users can pass out of prerequisits by taking short mastery tests. Mastery tests can be at the course or learning content area level.
+There are recommended learning paths. Some topics, especially in math, have prerequisits for advancement. Users can pass out of prerequisits by taking short mastery tests. Mastery tests can be at the course or learning content area level. Clicking on the learning path should take me to an overview of the learning path with a description and courses with their descriptions. Courses ARE skill_tree_nodes with parent_id pointing to a skill node. Learning paths link to course nodes via learning_path_courses table. Structure: Category → Skill → Course.
+
+### Courses
+Clicking on a course should take me to an overview of the course with a description and table of contents. Display relevant courses in skill nodes category page.
 
 ### Reading comprehension
 For Reading Comprehension, don't show the questions in the Quick Practice box, and make it so multiple questions can be associated with one reading. Try to get reading comprehension questions from online question banks, and save the url where the material and questions were sourced.
@@ -58,14 +61,18 @@ Elementary 4.5-5,
 Intermediate 4-4.5,
 Advanced 3.5-4,
 Expert 3-3.5.
-First sample the data and then clean up any word variations so that we're only pulling definitions for one version of the word. We'll start with Spanish. We'll create a new language vocabulary table which lists the language (Spanish), word, zipf rounded to the tenth, English translation, pronunciation guide (phonetic respelling), part of speech, definition in English, example sentence, memory tips, difficulty source (wordfreq), word source (wordfreq), example sentence source (perhaps Claude API) and definition source (need to find a free batch translation library such as deep-translator). Then we'll use the vocabulary trainer page template as a tab on the language trainer page and pull from this table instead of the spelling table. We'll create study lists for each of the frequency categories mentioned above. The difficulties will be stored in a foreign key table and based on the zipf frequency grouping for this language.
+First sample the data and then clean up any word variations so that we're only pulling definitions for one version of the word. We'll start with Spanish. We'll create a new language vocabulary table which lists the language (Spanish), word, zipf rounded to the tenth, English translation, pronunciation guide (phonetic respelling), part of speech, definition in English, example sentence, memory tips, difficulty source (wordfreq), word source (wordfreq), example sentence source (perhaps Claude API) and definition source (need to find a free batch translation library such as deep-translator). Then we'll use the vocabulary trainer page template as a tab on the language trainer page and pull from this table instead of the spelling table. We'll create study lists for each of the frequency categories mentioned above. The difficulties will be stored in a foreign key table and based on the zipf frequency grouping for this language. The category in the language questions table should be not null and can be grammar or reading/listening comprehension (you can generate both reading and listening comprehension questions off of the same question).
 
-Foreign language page has separate tabs for flashcard categories:
+Foreign language page should have separate tabs for flashcard categories:
+Vocabulary
+Grammar
+Listening
 Reading comprehension
-Vocabulary/Spelling (can flip card back and forth between which direction to translate, write the word given audio)
-Grammar/Verb conjugation
-Sentence translation/fill in the blank
-Listening (listen to the word or sentence or paragraph and answer questions about it)
+Mixed (with Computer Adaptive Learning)
+
+Implement foreign language computer adaptive learning that shows you questions from all the flashcard categories and learns separately how well you're doing by language and flashcard category. Store the outcome of each computer adaptive session to observe learning progress and start again where you left off.
+
+on the language trainer page move the language dropdown out of the card and instead make a left menu that lists any languages that there are flashcards for. then all the flashcard tabs will update to whatever language is chosen in the left menu. the menu converts to a dropdown at the top of the page for mobile. for Chinese add another tab for "Characters" which comes before Vocabulary.  
 
 ### User page
 User can view their recommended content, saved content, and flashcards. Can create new study lists from this page. They can also update their settings such as interest level in various categories. Can also set info like career path and age group.

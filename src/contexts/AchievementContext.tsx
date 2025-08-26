@@ -28,12 +28,11 @@ interface AchievementProviderProps {
 
 export const AchievementProvider: React.FC<AchievementProviderProps> = ({ children }) => {
   const { user } = useAuth()
-  const { notifications } = useNotifications()
+  const { notifications, markAsRead } = useNotifications()
   const [userAchievements, setUserAchievements] = useState<UserAchievement[]>([])
   const [totalPoints, setTotalPoints] = useState(0)
   const [loading, setLoading] = useState(false)
   const [displayAchievement, setDisplayAchievement] = useState<Achievement | null>(null)
-  const [lastNotificationId, setLastNotificationId] = useState<string | null>(null)
 
   useEffect(() => {
     if (user) {
@@ -42,14 +41,18 @@ export const AchievementProvider: React.FC<AchievementProviderProps> = ({ childr
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user])
 
+
   // Listen for new achievement notifications
   useEffect(() => {
     if (notifications && notifications.length > 0) {
       const latestNotification = notifications[0]
       
+      // Check if we've already displayed this notification (persisted across page loads)
+      const displayedIds = JSON.parse(localStorage.getItem('displayedAchievementNotifications') || '[]') as string[]
+      
       if (
         latestNotification.type === 'achievement' &&
-        latestNotification.id !== lastNotificationId &&
+        !displayedIds.includes(latestNotification.id) &&
         !latestNotification.is_read
       ) {
         // Extract achievement data from notification
@@ -70,11 +73,17 @@ export const AchievementProvider: React.FC<AchievementProviderProps> = ({ childr
             is_active: true,
             is_secret: false
           })
-          setLastNotificationId(latestNotification.id)
+          
+          // Store this ID in localStorage to prevent re-display
+          const updatedIds = [...displayedIds, latestNotification.id].slice(-50) // Keep only last 50
+          localStorage.setItem('displayedAchievementNotifications', JSON.stringify(updatedIds))
+          
+          // Mark the notification as read after displaying it
+          markAsRead(latestNotification.id)
         }
       }
     }
-  }, [notifications, lastNotificationId])
+  }, [notifications, markAsRead])
 
   const refreshAchievements = async () => {
     if (!user) return

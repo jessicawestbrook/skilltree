@@ -89,6 +89,16 @@ export interface UserProgress {
   updated_at: string
 }
 
+export interface UserModuleProgress {
+  id: string
+  user_id: string
+  module_id: string
+  status: 'not_started' | 'in_progress' | 'completed'
+  progress_percentage: number
+  created_at: string
+  updated_at: string
+}
+
 export interface UserQuestionAttempt {
   id: string
   user_id: string
@@ -192,7 +202,7 @@ export interface StudyList {
 export interface StarredItem {
   id: string
   user_id: string
-  item_type: 'spelling_word' | 'vocabulary_word' | 'language_question' | 'question' | 'skill_node'
+  item_type: 'spelling_word' | 'vocabulary_word' | 'language_question' | 'question' | 'skill_node' | 'custom_question'
   item_id: string
   item_data?: any
   created_at: string
@@ -201,7 +211,7 @@ export interface StarredItem {
 export interface StudyListItem {
   id: string
   study_list_id: string
-  item_type: 'spelling_word' | 'vocabulary_word' | 'language_question' | 'question' | 'skill_node' | 'custom_flashcard'
+  item_type: 'spelling_word' | 'vocabulary_word' | 'language_question' | 'question' | 'skill_node' | 'custom_flashcard' | 'custom_question'
   item_id: string
   item_data?: any
   notes?: string
@@ -238,4 +248,45 @@ export interface UserInterestLevel {
   interest_level: number
   updated_at: string
   created_at: string
+}
+
+export interface Course {
+  id: string
+  skill_node_id: string
+  name: string
+  description?: string
+  slug?: string
+  difficulty?: 'beginner' | 'intermediate' | 'advanced' | 'expert'
+  estimated_hours?: number
+  prerequisites?: any[]
+  learning_objectives?: any[]
+  content_modules?: any[]
+  metadata?: any
+  is_active: boolean
+  display_order: number
+  created_at: string
+  updated_at: string
+}
+
+export interface LearningPathCourse {
+  id: string
+  learning_path_id: string
+  course_id: string
+  sequence_order: number
+  is_required: boolean
+  created_at: string
+}
+
+export interface UserCourseProgress {
+  id: string
+  user_id: string
+  course_id: string
+  status: 'not_started' | 'in_progress' | 'completed'
+  progress_percentage: number
+  started_at?: string
+  completed_at?: string
+  last_accessed?: string
+  metadata?: any
+  created_at: string
+  updated_at: string
 }
